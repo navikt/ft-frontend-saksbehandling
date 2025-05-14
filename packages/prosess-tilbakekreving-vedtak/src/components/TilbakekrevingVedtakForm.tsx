@@ -94,7 +94,7 @@ export type ForhandsvisData = {
 } & VedtakData;
 
 const fetchPreview =
-  (fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<any>, uuid: string, formVerdier: FormValues) =>
+  (fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<void>, uuid: string, formVerdier: FormValues) =>
   (e: React.KeyboardEvent | React.MouseEvent): void => {
     fetchPreviewVedtaksbrev({
       uuid,
@@ -107,7 +107,7 @@ export interface Props {
   submitCallback: (aksjonspunktData: ForeslaVedtakTilbakekrevingAp) => Promise<void>;
   avsnittsliste: VedtaksbrevAvsnitt[];
   readOnly: boolean;
-  fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<any>;
+  fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<void>;
   behandlingUuid: string;
   erRevurderingTilbakekrevingKlage?: boolean;
   erRevurderingTilbakekrevingFeilBeløpBortfalt?: boolean;

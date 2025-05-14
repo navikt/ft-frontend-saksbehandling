@@ -21,12 +21,12 @@ export type PerioderData = {
 };
 
 type FormValues = {
-  forstePeriodeTomDato?: string;
+  forstePeriodeTomDato: string;
 };
 
 const validerMotPeriode =
   (periodeData: Periode, intl: IntlShape) =>
-  (tomDato: string): any => {
+  (tomDato: string): string | null => {
     if (
       tomDato &&
       (dateAfterOrEqual(tomDato)(dayjs(periodeData.tom.toString()).subtract(1, 'day')) ||
@@ -37,7 +37,7 @@ const validerMotPeriode =
     return null;
   };
 
-const transformValues = (values: FormValues, periodeData: Periode): any => {
+const transformValues = (values: FormValues, periodeData: Periode): PerioderData => {
   const addDay = dayjs(values.forstePeriodeTomDato).add(1, 'days');
   const forstePeriode = {
     fom: periodeData.fom,

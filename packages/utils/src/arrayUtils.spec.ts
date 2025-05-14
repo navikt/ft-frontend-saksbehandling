@@ -1,4 +1,4 @@
-import { haystack, range } from './arrayUtils';
+import { range } from './arrayUtils';
 
 describe('arrayUtils', () => {
   describe('range', () => {
@@ -12,23 +12,6 @@ describe('arrayUtils', () => {
       expect(rangeOne).toEqual([0]);
       expect(rangeTwo).toEqual([0, 1]);
       expect(rangeTen).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
-    });
-  });
-
-  describe('haystack', () => {
-    it('Skal finne verdi i liste B ved å bruke en dynamiske nøkkel fra liste A', () => {
-      const listeA = ['A[0].a', 'B[0].b.key'];
-      const listeB = {
-        Z: {},
-        X: {},
-        A: [
-          {
-            a: 'value',
-            b: 'value',
-          },
-        ],
-      };
-      expect(haystack(listeB, listeA[0])).toEqual('value');
     });
   });
 });

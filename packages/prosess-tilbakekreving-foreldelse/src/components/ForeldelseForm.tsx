@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useMemo, useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Box, Heading, HStack, VStack } from '@navikt/ds-react';
@@ -17,7 +17,12 @@ import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTf'
 import { TidslinjePeriode } from '../types/TidslinjePeriode';
 import { VurderForeldelseAp } from '../types/VurderForeldelseAp';
 import { ForeldelsePeriodeForm, FormValues as PeriodeFormValues } from './ForeldelsePeriodeForm';
-import { PeriodeController, PeriodeMedBelop, PeriodeMedFeilutbetaling } from './splittePerioder/PeriodeController';
+import {
+  BeregnBeløpParams,
+  BeregnBeløpResultat,
+  PeriodeController,
+  PeriodeMedFeilutbetaling,
+} from './splittePerioder/PeriodeController';
 import { PeriodeInformasjon } from './splittePerioder/PeriodeInformasjon';
 import { TilbakekrevingTimeline } from './timeline/TilbakekrevingTimeline';
 
@@ -95,7 +100,7 @@ export interface Props {
   relasjonsRolleType: string;
   relasjonsRolleTypeKodeverk: KodeverkMedNavn[];
   readOnly: boolean;
-  beregnBelop: (data: { behandlingUuid: string; perioder: PeriodeMedBelop[] }) => Promise<any>;
+  beregnBelop: (data: BeregnBeløpParams) => Promise<BeregnBeløpResultat>;
   formData?: ForeldelsesresultatActivity[];
   setFormData: (data: ForeldelsesresultatActivity[]) => void;
 }
@@ -114,10 +119,7 @@ export const ForeldelseForm = ({
   formData,
   setFormData,
 }: Props) => {
-  const alleForeldelseresultatAktiviteter = useMemo(
-    () => lagForeldelsesresultatAktiviteter(perioderForeldelse.perioder),
-    [perioderForeldelse.perioder],
-  );
+  const alleForeldelseresultatAktiviteter = lagForeldelsesresultatAktiviteter(perioderForeldelse.perioder);
 
   const [foreldelseresultatAktiviteter, setForeldelseresultatAktiviteter] = useState(
     formData || alleForeldelseresultatAktiviteter,
@@ -136,81 +138,71 @@ export const ForeldelseForm = ({
     setValgtPeriode(valgt);
   };
 
-  const setNestePeriode = useCallback((): void => {
+  const setNestePeriode = (): void => {
     const index = foreldelseresultatAktiviteter.findIndex(
       p => p.fom === valgtPeriode?.fom && p.tom === valgtPeriode?.tom,
     );
     const nesteIndex = index === foreldelseresultatAktiviteter.length - 1 ? index : index + 1;
     setPeriode(foreldelseresultatAktiviteter[nesteIndex]);
-  }, [foreldelseresultatAktiviteter, valgtPeriode]);
+  };
 
-  const setForrigePeriode = useCallback((): void => {
+  const setForrigePeriode = (): void => {
     const index = foreldelseresultatAktiviteter.findIndex(
       p => p.fom === valgtPeriode?.fom && p.tom === valgtPeriode?.tom,
     );
     const forrigeIndex = index === 0 ? index : index - 1;
     setPeriode(foreldelseresultatAktiviteter[forrigeIndex]);
-  }, [foreldelseresultatAktiviteter, valgtPeriode]);
+  };
 
-  const lukkPeriode = useCallback((): void => {
+  const lukkPeriode = (): void => {
     setPeriode(undefined);
-  }, [valgtPeriode, foreldelseresultatAktiviteter]);
+  };
 
-  const oppdaterPeriode = useCallback(
-    (values: PeriodeFormValues): void => {
-      const verdier = omitOne(values, 'erSplittet');
+  const oppdaterPeriode = (values: PeriodeFormValues): void => {
+    const verdier = omitOne(values, 'erSplittet');
 
-      const otherThanUpdated = foreldelseresultatAktiviteter.filter(
-        o => o.fom !== verdier.fom && o.tom !== verdier.tom,
-      );
-      const sortedActivities = otherThanUpdated.concat(verdier).sort(sortPeriods);
-      setForeldelseresultatAktiviteter(sortedActivities);
-      setFormData(sortedActivities);
-      setDirty(true);
-      lukkPeriode();
+    const otherThanUpdated = foreldelseresultatAktiviteter.filter(o => o.fom !== verdier.fom && o.tom !== verdier.tom);
+    const sortedActivities = otherThanUpdated.concat(verdier).sort(sortPeriods);
+    setForeldelseresultatAktiviteter(sortedActivities);
+    setFormData(sortedActivities);
+    setDirty(true);
+    lukkPeriode();
 
-      const periodeMedApenAksjonspunkt = sortedActivities.find(harApentAksjonspunkt);
-      if (periodeMedApenAksjonspunkt) {
-        setPeriode(periodeMedApenAksjonspunkt);
-      }
-    },
-    [foreldelseresultatAktiviteter, lukkPeriode, harApentAksjonspunkt],
-  );
+    const periodeMedApenAksjonspunkt = sortedActivities.find(harApentAksjonspunkt);
+    if (periodeMedApenAksjonspunkt) {
+      setPeriode(periodeMedApenAksjonspunkt);
+    }
+  };
 
-  const oppdaterSplittedePerioder = useCallback(
-    (perioder: PeriodeMedFeilutbetaling[]): void => {
-      const periode = foreldelseresultatAktiviteter.find(
-        p => p.fom === valgtPeriode?.fom && p.tom === valgtPeriode?.tom,
-      );
+  const oppdaterSplittedePerioder = (perioder: PeriodeMedFeilutbetaling[]): void => {
+    const periode = foreldelseresultatAktiviteter.find(p => p.fom === valgtPeriode?.fom && p.tom === valgtPeriode?.tom);
 
-      if (periode === undefined) {
-        throw new TypeError(`Periode skal alltid finnes. Fom: ${valgtPeriode?.fom} Tom: ${valgtPeriode?.tom}`);
-      }
+    if (periode === undefined) {
+      throw new TypeError(`Periode skal alltid finnes. Fom: ${valgtPeriode?.fom} Tom: ${valgtPeriode?.tom}`);
+    }
 
-      const nyePerioder = perioder.map<ForeldelsesresultatActivity>(p => ({
-        ...periode,
-        ...p,
-        erSplittet: true,
-      }));
+    const nyePerioder = perioder.map<ForeldelsesresultatActivity>(p => ({
+      ...periode,
+      ...p,
+      erSplittet: true,
+    }));
 
-      const otherThanUpdated = foreldelseresultatAktiviteter.filter(
-        o => o.fom !== valgtPeriode?.fom && o.tom !== valgtPeriode?.tom,
-      );
-      const sortedActivities = otherThanUpdated.concat(nyePerioder).sort(sortPeriods);
+    const otherThanUpdated = foreldelseresultatAktiviteter.filter(
+      o => o.fom !== valgtPeriode?.fom && o.tom !== valgtPeriode?.tom,
+    );
+    const sortedActivities = otherThanUpdated.concat(nyePerioder).sort(sortPeriods);
 
-      setForeldelseresultatAktiviteter(sortedActivities);
-      setFormData(sortedActivities);
-      setDirty(true);
-      lukkPeriode();
-      setPeriode(nyePerioder[0]);
-    },
-    [foreldelseresultatAktiviteter, valgtPeriode, lukkPeriode, harApentAksjonspunkt],
-  );
+    setForeldelseresultatAktiviteter(sortedActivities);
+    setFormData(sortedActivities);
+    setDirty(true);
+    lukkPeriode();
+    setPeriode(nyePerioder[0]);
+  };
 
-  const lagrePerioder = useCallback(() => {
+  const lagrePerioder = () => {
     setSubmitting(true);
     submitCallback(transformValues(foreldelseresultatAktiviteter));
-  }, [foreldelseresultatAktiviteter]);
+  };
 
   const merknaderFraBeslutter = alleMerknaderFraBeslutter[ForeldelseAksjonspunktCodes.VURDER_FORELDELSE];
 

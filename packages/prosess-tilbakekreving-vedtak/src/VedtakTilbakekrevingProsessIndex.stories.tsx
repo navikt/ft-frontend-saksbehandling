@@ -7,6 +7,7 @@ import { Behandling } from '@navikt/ft-types';
 
 import { Aktsomhet } from './kodeverk/aktsomhet';
 import { BeregningsresultatTilbakekreving } from './types/BeregningsresultatTilbakekreving';
+import { ForeslaVedtakTilbakekrevingAp } from './types/ForeslaVedtakTilbakekrevingAp';
 import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTv';
 import { VedtakTilbakekrevingProsessIndex } from './VedtakTilbakekrevingProsessIndex';
 
@@ -187,7 +188,7 @@ const kodeverkSamlingFpTilbake = alleTilbakekrevingKodeverk as KodeverkFpTilbake
 const meta = {
   component: VedtakTilbakekrevingProsessIndex,
   args: {
-    submitCallback: action('button-click') as (data: any) => Promise<void>,
+    submitCallback: action('button-click') as (data: ForeslaVedtakTilbakekrevingAp) => Promise<void>,
     behandling: {
       uuid: '1',
       versjon: 1,

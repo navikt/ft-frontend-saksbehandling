@@ -38,7 +38,7 @@ export interface InitialValuesAktsomhetForm {
 
 export interface Props {
   readOnly: boolean;
-  resetFields: (...args: any[]) => any;
+  resetFields: () => void;
   harGrunnerTilReduksjon?: boolean;
   erSerligGrunnAnnetValgt?: boolean;
   erValgtResultatTypeForstoBurdeForstaatt?: boolean;

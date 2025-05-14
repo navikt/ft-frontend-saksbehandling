@@ -13,12 +13,17 @@ import styles from './periodeController.module.css';
 
 const isEdited = false;
 
-export type PeriodeMedBelop = {
-  belop: number;
-  fom: string;
-  tom: string;
-  begrunnelse: string;
+export type BeregnBeløpParams = {
+  behandlingUuid: string;
+  perioder: {
+    belop: number;
+    fom: string;
+    tom: string;
+    begrunnelse: string;
+  }[];
 };
+
+export type BeregnBeløpResultat = { perioder: { belop: number }[] };
 
 export type PeriodeMedFeilutbetaling = {
   fom: string;
@@ -28,7 +33,7 @@ export type PeriodeMedFeilutbetaling = {
 
 interface Props {
   behandlingUuid: string;
-  beregnBelop: (data: { behandlingUuid: string; perioder: PeriodeMedBelop[] }) => Promise<any>;
+  beregnBelop: (data: BeregnBeløpParams) => Promise<BeregnBeløpResultat>;
   oppdaterSplittedePerioder: (data: PeriodeMedFeilutbetaling[]) => void;
   setNestePeriode: (event: React.KeyboardEvent | React.MouseEvent) => void;
   setForrigePeriode: (event: React.KeyboardEvent | React.MouseEvent) => void;

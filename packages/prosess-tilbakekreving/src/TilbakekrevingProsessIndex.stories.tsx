@@ -9,6 +9,7 @@ import { TilbakekrevingProsessIndex } from './TilbakekrevingProsessIndex';
 import { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
 import { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
 import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTb';
+import { VilkårsvurderingAp } from './types/VilkårsvurderingAp';
 
 import messages from '../i18n/nb_NO.json';
 
@@ -66,7 +67,7 @@ const meta = {
   component: TilbakekrevingProsessIndex,
   decorators: [withIntl],
   args: {
-    submitCallback: action('button-click') as (data: any) => Promise<void>,
+    submitCallback: action('button-click') as (data: VilkårsvurderingAp) => Promise<void>,
     behandling: {
       uuid: '1',
       versjon: 1,
@@ -77,7 +78,7 @@ const meta = {
     setFormData: () => undefined,
     perioderForeldelse,
     vilkarvurdering,
-    beregnBelop: (params?: any) => Promise.resolve(params),
+    beregnBelop: () => Promise.resolve({ perioder: [{ belop: 10000 }, { belop: 12000 }] }),
     alleMerknaderFraBeslutter: {},
     relasjonsRolleType: RelasjonsRolleType.MOR,
     relasjonsRolleTypeKodeverk: [
