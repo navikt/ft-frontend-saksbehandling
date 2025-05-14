@@ -10,7 +10,7 @@ import messages from '../../../i18n/nb_NO.json';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAvklaringsbehovCode;
 
-describe('<InntektstabellPanel>', () => {
+describe('InntektstabellPanel', () => {
   it('skal vise checkbox for overstyring', () => {
     render(
       <IntlProvider locale="nb-NO" messages={messages}>

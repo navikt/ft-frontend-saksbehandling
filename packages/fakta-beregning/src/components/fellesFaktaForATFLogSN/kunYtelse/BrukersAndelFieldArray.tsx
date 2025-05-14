@@ -3,7 +3,7 @@ import { FieldArrayWithId, useFieldArray, UseFieldArrayRemove, useFormContext, u
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
-import { BodyShort, Button, Detail, ErrorMessage, HStack, Label, Table, VStack } from '@navikt/ds-react';
+import { Button, ErrorMessage, Table, VStack } from '@navikt/ds-react';
 
 import { InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
@@ -15,11 +15,11 @@ import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
 import { AndelFieldValue } from '../../../typer/FieldValues';
 import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
-import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
+import { formNameVurderFaktaBeregning } from '../../../utils/BeregningFormUtils';
 import { SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
-import styles from './brukersAndelFieldArray.module.css';
+import tableStyles from '../../felles/tableStyle.module.css';
 
 const defaultBGFordeling = (aktivitetStatuser: string[], kodeverkSamling: KodeverkForPanel) => ({
   andel: kodeverkSamling[KodeverkType.AKTIVITET_STATUS].find(
@@ -64,16 +64,13 @@ const createAndelerTableRows = (
   remove: UseFieldArrayRemove,
 ): ReactElement[] =>
   fields.map((field, index) => (
-    <Table.Row className={styles.row} key={field.id}>
-      <Table.DataCell>
-        <BodyShort size="small">
-          <FormattedMessage id="BeregningInfoPanel.FordelingBG.Ytelse" />
-        </BodyShort>
+    <Table.Row key={field.id}>
+      <Table.DataCell textSize="small">
+        <FormattedMessage id="BeregningInfoPanel.FordelingBG.Ytelse" />
       </Table.DataCell>
-      <Table.DataCell align="right" className={styles.rightAlign}>
+      <Table.DataCell align="right">
         <InputField
           name={`${fieldArrayName}.${index}.fastsattBelop`}
-          className={styles.mediumBredde}
           parse={parseCurrencyInput}
           readOnly={readOnly}
           isEdited={isAksjonspunktClosed}
@@ -88,7 +85,7 @@ const createAndelerTableRows = (
           size="small"
         />
       </Table.DataCell>
-      <Table.DataCell align="right" className={styles.rightAlign}>
+      <Table.DataCell align="right">
         <SelectField
           label={intl.formatMessage(
             {
@@ -97,7 +94,6 @@ const createAndelerTableRows = (
             { andel: `ytelse ${index + 1}` },
           )}
           name={`${fieldArrayName}.${index}.inntektskategori`}
-          className={styles.storBredde}
           selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
           readOnly={readOnly}
           validate={readOnly ? [] : [required]}
@@ -105,48 +101,42 @@ const createAndelerTableRows = (
           size="small"
         />
       </Table.DataCell>
-      <Table.DataCell align="right" className={styles.rightAlign}>
+      <Table.DataCell align="right">
         {skalViseSletteknapp(index, fields, readOnly) && (
           <Button
-            icon={<XMarkIcon aria-hidden className={styles.slettIkon} />}
+            size="small"
+            icon={<XMarkIcon aria-hidden />}
             onClick={() => remove(index)}
             type="button"
-            variant="tertiary"
+            variant="tertiary-neutral"
           />
         )}
       </Table.DataCell>
     </Table.Row>
   ));
+
 const createBruttoBGSummaryRow = (sumFordeling: string | undefined): ReactElement => (
-  <Table.Row key="bruttoBGSummaryRow">
-    <Table.DataCell>
-      <Label as="p" size="small">
-        <FormattedMessage id="BeregningInfoPanel.FordelingBG.Sum" />
-      </Label>
-    </Table.DataCell>
-    <Table.DataCell align="right">
-      <Detail>{sumFordeling}</Detail>
+  <Table.Row>
+    <Table.HeaderCell textSize="small">
+      <FormattedMessage id="BeregningInfoPanel.FordelingBG.Sum" />
+    </Table.HeaderCell>
+    <Table.DataCell textSize="small" align="right">
+      {sumFordeling}
     </Table.DataCell>
     <Table.DataCell />
     <Table.DataCell />
   </Table.Row>
 );
 
-const getHeaderTextCodes = () => [
-  'BeregningInfoPanel.FordelingBG.Andel',
-  'BeregningInfoPanel.FordelingBG.Fordeling',
-  'BeregningInfoPanel.FordelingBG.Inntektskategori',
-];
-
 const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: KodeverkForPanel) =>
   kodeverkSamling[KodeverkType.INNTEKTSKATEGORI].slice().sort((a, b) => a.navn.localeCompare(b.navn));
 
-type Props = {
+interface Props {
   name: string;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   kodeverkSamling: KodeverkForPanel;
-};
+}
 
 const mapBrukesAndelToSortedObject = (value: BrukersAndelValues | AndelFieldValue): SortedAndelInfo => {
   const { andel, inntektskategori } = value;
@@ -194,39 +184,36 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
     fieldArrayName,
     remove,
   );
-  tableRows.push(createBruttoBGSummaryRow(sumFordeling));
   const feilmelding = validate(fieldArrayValues, intl);
   const skjemaNavn = `${fieldArrayName}.skjemagruppe`;
   const errorMessage = useCustomValidation(skjemaNavn, feilmelding);
 
   return (
     <VStack gap="2">
-      <Table size="small">
+      <Table size="small" className={tableStyles.tableMedInput}>
         <Table.Header>
           <Table.Row>
-            {getHeaderTextCodes().map(header => {
-              const alginRightHeaders = [
-                'BeregningInfoPanel.FordelingBG.Fordeling',
-                'BeregningInfoPanel.FordelingBG.Inntektskategori',
-              ];
-              const alignRight = alginRightHeaders.includes(header);
-              return (
-                <Table.HeaderCell key={header} scope="col" align={alignRight ? 'right' : 'left'}>
-                  <Label size="small" as="span">
-                    <FormattedMessage id={header} />
-                  </Label>
-                </Table.HeaderCell>
-              );
-            })}
+            <Table.HeaderCell scope="col" textSize="small">
+              <FormattedMessage id="BeregningInfoPanel.FordelingBG.Andel" />
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col" align="right" textSize="small">
+              <FormattedMessage id="BeregningInfoPanel.FordelingBG.Fordeling" />
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col" align="right" textSize="small">
+              <FormattedMessage id="BeregningInfoPanel.FordelingBG.Inntektskategori" />
+            </Table.HeaderCell>
             <Table.HeaderCell />
           </Table.Row>
         </Table.Header>
-        <Table.Body>{tableRows}</Table.Body>
+        <Table.Body>
+          {tableRows}
+          {createBruttoBGSummaryRow(sumFordeling)}
+        </Table.Body>
       </Table>
       {!readOnly && (
-        <HStack>
+        <div>
           <Button
-            icon={<PlusCircleIcon aria-hidden className={styles.addCircleIcon} />}
+            icon={<PlusCircleIcon aria-hidden />}
             // @ts-expect-error Fiks
             onClick={() => append(defaultBGFordeling(aktivitetStatuser, kodeverkSamling))}
             type="button"
@@ -235,7 +222,7 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
           >
             <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
           </Button>
-        </HStack>
+        </div>
       )}
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </VStack>

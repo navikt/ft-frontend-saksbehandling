@@ -1,4 +1,5 @@
 {
+  "BeregningFaktaIndex.IngenBeregningsgrunnlag": "Har ikke beregningsgrunnlag.",
   "BeregningInfoPanel.AksjonspunktHelpText.SaksopplysningerBeregning": "Saksopplysninger beregning",
   "BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning": "Vurder fakta for beregningen",
   "BeregningInfoPanel.AksjonspunktHelpText.ForSentRefusjonskrav": "{arbeidsgiverVisningsnavn} har minst ett refusjonskrav som har kommet for sent.",

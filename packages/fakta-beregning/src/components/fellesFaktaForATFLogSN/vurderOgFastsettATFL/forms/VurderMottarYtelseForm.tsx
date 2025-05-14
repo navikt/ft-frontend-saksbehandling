@@ -23,12 +23,12 @@ import {
   FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues,
 } from '../../../../typer/interface/BeregningFaktaAP';
 import { KodeverkForPanel } from '../../../../typer/KodeverkForPanelForFb';
-import { createVisningsnavnFakta } from '../../../ArbeidsforholdHelper';
+import { createVisningsnavnFakta } from '../../../../utils/ArbeidsforholdHelper';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import {
   andelsnrMottarYtelseMap,
-  finnFrilansFieldName,
+  frilansFieldName,
   frilansMottarYtelse,
   skalFastsetteInntektATUtenInntektsmelding,
   utledArbeidsforholdFieldName,
@@ -38,8 +38,6 @@ const andreFrilansTilfeller: string[] = [
   FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL,
   FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON,
 ];
-
-const mottarYtelseForArbeidMsg = 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForArbeid';
 
 const utledArbeidsforholdUtenIMRadioTekst = (
   arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
@@ -59,7 +57,9 @@ const utledArbeidsforholdUtenIMRadioTekst = (
   } else {
     radioNavn = createVisningsnavnFakta(agOpplysning, arbeidsforhold.eksternArbeidsforholdId);
   }
-  return <FormattedMessage id={mottarYtelseForArbeidMsg} values={{ arbeid: radioNavn }} />;
+  return (
+    <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForArbeid" values={{ arbeid: radioNavn }} />
+  );
 };
 
 const mottarYtelseArbeidsforholdRadioAndInputs = (
@@ -69,11 +69,13 @@ const mottarYtelseArbeidsforholdRadioAndInputs = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   aktivtBeregningsgrunnlagIndeks: number,
   intl: IntlShape,
-): React.ReactNode => (
-  <div>
+): React.ReactNode => {
+  const key = utledArbeidsforholdFieldName(andel);
+  return (
     <RadioGroupPanel
+      key={key}
       label={
-        <>
+        <VStack gap="2">
           {andel.arbeidsforhold &&
             utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
           <ReadMore
@@ -89,11 +91,9 @@ const mottarYtelseArbeidsforholdRadioAndInputs = (
               </List.Item>
             </List>
           </ReadMore>
-        </>
+        </VStack>
       }
-      name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${utledArbeidsforholdFieldName(
-        andel,
-      )}`}
+      name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${key}`}
       isReadOnly={readOnly}
       radios={[
         { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
@@ -102,8 +102,8 @@ const mottarYtelseArbeidsforholdRadioAndInputs = (
       parse={parseStringToBoolean}
       validate={readOnly ? [] : [required]}
     />
-  </div>
-);
+  );
+};
 
 const frilansMedAndreFrilanstilfeller = 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilansUtenFrilans';
 const frilansUtenAndreFrilanstilfeller = 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilans';
@@ -118,13 +118,13 @@ const finnFrilansTekstKode = (tilfeller: string[]) => {
 const erATFLSammeOrg = (tilfeller: string[]) =>
   tilfeller?.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
 
-type Props = {
+interface Props {
   readOnly: boolean;
   tilfeller: string[];
   beregningsgrunnlag: Beregningsgrunnlag;
   kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-};
+}
 
 /**
  * VurderMottarYtelseForm
@@ -155,7 +155,7 @@ export const VurderMottarYtelseForm = ({
       {erFrilans && !erATFLSammeOrg(tilfeller) && (
         <RadioGroupPanel
           label={
-            <>
+            <VStack gap="2">
               <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
               <ReadMore
                 size="small"
@@ -170,9 +170,9 @@ export const VurderMottarYtelseForm = ({
                   </List.Item>
                 </List>
               </ReadMore>
-            </>
+            </VStack>
           }
-          name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`}
+          name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${frilansFieldName}`}
           isReadOnly={readOnly}
           radios={[
             {
@@ -188,20 +188,20 @@ export const VurderMottarYtelseForm = ({
           validate={readOnly ? [] : [required]}
         />
       )}
-      <VStack gap="6">
-        {arbeidsforholdUtenIM.map(andel => (
-          <React.Fragment key={utledArbeidsforholdFieldName(andel)}>
-            {mottarYtelseArbeidsforholdRadioAndInputs(
+      {arbeidsforholdUtenIM.length > 0 && (
+        <VStack gap="6">
+          {arbeidsforholdUtenIM.map(andel =>
+            mottarYtelseArbeidsforholdRadioAndInputs(
               andel,
               readOnly,
               kodeverkSamling,
               arbeidsgiverOpplysningerPerId,
               beregningsgrunnlagIndeks,
               intl,
-            )}
-          </React.Fragment>
-        ))}
-      </VStack>
+            ),
+          )}
+        </VStack>
+      )}
     </>
   );
 };
@@ -255,7 +255,7 @@ const transformValuesFrilans = (
     return {};
   }
   const skalFastsetteInntektFrilans =
-    values.vurderMottarYtelseValues && values.vurderMottarYtelseValues[finnFrilansFieldName()];
+    values.vurderMottarYtelseValues && values.vurderMottarYtelseValues[frilansFieldName];
   if (skalFastsetteInntektFrilans) {
     const frilansAndel = beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel?.find(
       andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER,
@@ -290,8 +290,7 @@ const transformValuesMottarYtelse = (
   faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE);
   return {
     mottarYtelse: {
-      frilansMottarYtelse:
-        !!values.vurderMottarYtelseValues && !!values.vurderMottarYtelseValues[finnFrilansFieldName()],
+      frilansMottarYtelse: !!values.vurderMottarYtelseValues && !!values.vurderMottarYtelseValues[frilansFieldName],
       arbeidstakerUtenIMMottarYtelse: ATAndelerUtenIM.map(andel => ({
         andelsnr: krevVerdi(andel.andelsnr),
         mottarYtelse:
@@ -308,7 +307,7 @@ VurderMottarYtelseForm.buildInitialValues = (
   const initialValues: VurderMottarYtelseValues = {};
 
   if (vurderMottarYtelse?.erFrilans || erATFLSammeOrg(tilfeller)) {
-    initialValues[finnFrilansFieldName()] = erATFLSammeOrg(tilfeller) ? true : vurderMottarYtelse?.frilansMottarYtelse;
+    initialValues[frilansFieldName] = erATFLSammeOrg(tilfeller) ? true : vurderMottarYtelse?.frilansMottarYtelse;
   }
 
   const ATAndelerUtenIM = vurderMottarYtelse?.arbeidstakerAndelerUtenIM ?? [];

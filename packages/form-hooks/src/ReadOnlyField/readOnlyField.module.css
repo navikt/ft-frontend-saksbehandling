@@ -1,4 +1,9 @@
 .textarea {
   border-left: 4px solid var(--a-border-on-inverted);
   padding-left: 7px;
+  white-space: pre-line;
+}
+
+.readOnlyField {
+  white-space: pre-line;
 }

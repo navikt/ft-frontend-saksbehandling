@@ -79,20 +79,5 @@ export const leggTilDagpengerOmBesteberegning = (
   );
 };
 
-export const getHeaderTextCodes = (skalVisePeriode: boolean, skalViseRefusjon: boolean) => {
-  const headerCodes = [];
-  headerCodes.push('BeregningInfoPanel.FordelingBG.Andel');
-  if (skalVisePeriode) {
-    headerCodes.push('BeregningInfoPanel.FordelingBG.Arbeidsperiode');
-  }
-  headerCodes.push('BeregningInfoPanel.FordelingBG.Fordeling');
-  if (skalViseRefusjon) {
-    headerCodes.push('BeregningInfoPanel.FordelingBG.Refusjonskrav');
-  }
-  headerCodes.push('BeregningInfoPanel.FordelingBG.Inntektskategori');
-
-  return headerCodes;
-};
-
 export const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: KodeverkForPanel) =>
   kodeverkSamling[KodeverkType.INNTEKTSKATEGORI].slice().sort((a, b) => a.navn.localeCompare(b.navn));

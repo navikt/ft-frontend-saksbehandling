@@ -4,7 +4,7 @@ import { FaktaOmBeregning } from '@navikt/ft-types';
 import { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
-import { VurderBesteberegningPanel } from './VurderBesteberegningForm';
+import { VurderBesteberegningForm } from './VurderBesteberegningForm';
 
 export const vurderBesteberegningTransform =
   (faktaOmBeregning: FaktaOmBeregning) =>
@@ -21,7 +21,7 @@ export const vurderBesteberegningTransform =
     ) {
       return {};
     }
-    const besteberegningValues = VurderBesteberegningPanel.transformValues(values, faktaOmBeregning, inntektPrAndel);
+    const besteberegningValues = VurderBesteberegningForm.transformValues(values, faktaOmBeregning, inntektPrAndel);
     const faktaOmBeregningTilfeller = [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING];
     if (
       besteberegningValues.besteberegningAndeler?.besteberegningAndelListe &&

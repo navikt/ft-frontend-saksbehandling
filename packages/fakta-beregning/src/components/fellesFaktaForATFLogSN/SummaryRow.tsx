@@ -2,10 +2,11 @@ import React from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { Label, Table } from '@navikt/ds-react';
+import { Table } from '@navikt/ds-react';
 
 import { Beregningsgrunnlag } from '@navikt/ft-types';
-import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
+import { removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
 import { AndelFieldValue } from '../../typer/FieldValues';
@@ -15,14 +16,12 @@ import {
   erDagpenger,
   erFrilanser,
   erMilitaerEllerSivil,
-  erOverstyring,
+  erOverstyringAvBeregningsgrunnlag,
   erSelvstendigNæringsdrivende,
   getArbeidsgiverIndex,
   getKanRedigereInntekt,
 } from './BgFaktaUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
-
-import styles from './inntektFieldArray.module.css';
 
 const summerBeregnet = (
   fields: AndelFieldValue[],
@@ -42,7 +41,7 @@ const summerBeregnet = (
       const erSelvstendigNæringsdrivendeInntekt = erSelvstendigNæringsdrivende(field);
       const erMilitærEllerSivilInntekt = erMilitaerEllerSivil(field);
 
-      if (field.fastsattBelop && erOverstyring(formValues)) {
+      if (field.fastsattBelop && erOverstyringAvBeregningsgrunnlag(formValues)) {
         belop = field.fastsattBelop;
       } else if (erFrilansInntekt && formValues?.frilansInntektValues?.fastsattBelop) {
         belop = formValues.frilansInntektValues.fastsattBelop;
@@ -66,7 +65,7 @@ const summerBeregnet = (
         belop = formValues.selvstendigNæringsdrivendeInntektValues.fastsattBelop;
       } else if (erMilitærEllerSivilInntekt && formValues?.militærEllerSivilInntektValues?.fastsattBelop) {
         belop = formValues.militærEllerSivilInntektValues.fastsattBelop;
-      } else if (field.fastsattBelop && !erOverstyring(formValues)) {
+      } else if (field.fastsattBelop && !erOverstyringAvBeregningsgrunnlag(formValues)) {
         belop = 0;
       } else {
         belop = field.fastsattBelop;
@@ -80,14 +79,14 @@ const summerBeregnet = (
   return sum > 0 ? sum : 0;
 };
 
-type Props = {
+interface Props {
   readOnly: boolean;
   skalVisePeriode: boolean;
   skalViseRefusjon: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
-};
+}
 
-export const SummaryRow = ({ skalVisePeriode, skalViseRefusjon, readOnly, beregningsgrunnlag }: Props) => {
+export const SummaryRow = ({ skalVisePeriode, skalViseRefusjon, beregningsgrunnlag }: Props) => {
   const { control, getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
@@ -100,19 +99,13 @@ export const SummaryRow = ({ skalVisePeriode, skalViseRefusjon, readOnly, beregn
 
   return (
     <Table.Row>
-      <Table.DataCell>
-        <Label as="p" size="small">
-          <FormattedMessage id="BeregningInfoPanel.FordelingBG.Sum" />
-        </Label>
-      </Table.DataCell>
+      <Table.HeaderCell textSize="small">
+        <FormattedMessage id="BeregningInfoPanel.FordelingBG.Sum" />
+      </Table.HeaderCell>
       {skalVisePeriode && <Table.DataCell />}
-      <Table.DataCell align="right">
-        <div className={styles.readOnlyContainer}>
-          <Label as="p" data-testid="sum" className={readOnly ? styles.readOnlyContent : ''} size="small">
-            {formatCurrencyNoKr(sumBeregnet)}
-          </Label>
-        </div>
-      </Table.DataCell>
+      <Table.HeaderCell align="right" textSize="small" data-testid="sum">
+        <BeløpLabel beløp={sumBeregnet} />
+      </Table.HeaderCell>
       {skalViseRefusjon && <Table.DataCell />}
       <Table.DataCell />
     </Table.Row>

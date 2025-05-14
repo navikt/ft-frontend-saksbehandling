@@ -9,6 +9,7 @@ import { OverstyringKnapp } from '@navikt/ft-ui-komponenter';
 
 import { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 
 import styles from './InntektstabellPanel.module.css';
@@ -17,13 +18,10 @@ export const MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD = 'manuellOverstyringR
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
-const hasAksjonspunkt = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
-  avklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
-
 const getSkalKunneOverstyre = (erOverstyrer: boolean, avklaringsbehov: BeregningAvklaringsbehov[]) =>
   erOverstyrer && !avklaringsbehov.some(ap => ap.definisjon === AVKLAR_AKTIVITETER && isAksjonspunktOpen(ap.status));
 
-type Props = {
+interface Props {
   tabell: React.ReactNode;
   hjelpeTekstId?: string;
   skalViseTabell?: boolean;
@@ -32,7 +30,7 @@ type Props = {
   erOverstyrer: boolean;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
   erOverstyrt: boolean;
-};
+}
 
 export const InntektstabellPanel = ({
   tabell,

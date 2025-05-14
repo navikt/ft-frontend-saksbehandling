@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 import { PersonPencilFillIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { Button, ErrorMessage, Table } from '@navikt/ds-react';
 
-import { InputField, ReadOnlyField, SelectField } from '@navikt/ft-form-hooks';
+import { InputField, SelectField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
 import { PeriodLabel } from '@navikt/ft-ui-komponenter';
@@ -20,12 +20,12 @@ import {
   erDagpenger,
   erFrilanser,
   erMilitaerEllerSivil,
-  erOverstyring,
+  erOverstyringAvBeregningsgrunnlag,
   erSelvstendigNæringsdrivende,
   getArbeidsgiverIndex,
   getFastsattBelopFromArbeidstakerInntekt,
   getKanRedigereInntekt,
-  getSkalRedigereInntektskategori,
+  skalRedigereInntektskategoriForAndel,
 } from './BgFaktaUtils';
 import { getInntektskategorierAlfabetiskSortert } from './inntektFieldArrayUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
@@ -39,9 +39,7 @@ const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]) =>
     </option>
   ));
 
-const getMåFastsettesText = () => <ErrorMessage size="small">Må fastsettes</ErrorMessage>;
-
-type Props = {
+interface Props {
   readOnly: boolean;
   field: FieldArrayWithId<VurderOgFastsettATFLValues, 'inntektFieldArray', 'id'>;
   skalVisePeriode: boolean;
@@ -52,7 +50,7 @@ type Props = {
   beregningsgrunnlag: Beregningsgrunnlag;
   rowName: string;
   skalFastsetteInntektForAndel: (andel: AndelFieldIdentifikator) => boolean;
-};
+}
 
 /**
  *  InntektFieldArrayAndelRow
@@ -121,9 +119,9 @@ export const InntektFieldArrayAndelRow = ({
     harEndretInntektForSelvstendigNæringsdrivende ||
     harEndretInntektForMilitærEllerSivil;
 
-  const skalViseOverstyrtInntektInput = erOverstyring(formValues);
+  const skalViseOverstyrtInntektInput = erOverstyringAvBeregningsgrunnlag(formValues);
 
-  const skalRedigereInntektskategori = getSkalRedigereInntektskategori(beregningsgrunnlag)(field);
+  const skalRedigereInntektskategori = skalRedigereInntektskategoriForAndel(beregningsgrunnlag, field);
   const inntektskategoriKoder = getInntektskategorierAlfabetiskSortert(kodeverkSamling);
   const harPeriode = field.arbeidsperiodeFom || field.arbeidsperiodeTom;
 
@@ -152,14 +150,11 @@ export const InntektFieldArrayAndelRow = ({
   return (
     <Table.Row>
       <Table.DataCell>
-        <InputField size="small" name={`${rowName}.andel`} className={styles.storBredde} readOnly />
+        <InputField size="small" name={`${rowName}.andel`} readOnly />
       </Table.DataCell>
-      <Table.DataCell>
+      <Table.DataCell textSize="small">
         {skalVisePeriode && harPeriode && field.arbeidsperiodeFom && (
-          <ReadOnlyField
-            size="small"
-            value={<PeriodLabel dateStringFom={field.arbeidsperiodeFom} dateStringTom={field.arbeidsperiodeTom} />}
-          />
+          <PeriodLabel dateStringFom={field.arbeidsperiodeFom} dateStringTom={field.arbeidsperiodeTom} />
         )}
       </Table.DataCell>
       {!skalViseOverstyrtInntektInput && (
@@ -167,7 +162,7 @@ export const InntektFieldArrayAndelRow = ({
           <div className={styles.inntekt}>
             <div className={harEndretInntekt ? styles.inntektOldStrikethrough : styles.inntektOld}>
               {visMåFastsettesText ? (
-                getMåFastsettesText()
+                <ErrorMessage size="small">Må fastsettes</ErrorMessage>
               ) : (
                 <InputField
                   size="small"
@@ -216,20 +211,13 @@ export const InntektFieldArrayAndelRow = ({
 
       {skalViseRefusjon && (
         <Table.DataCell align="right">
-          <InputField
-            size="small"
-            name={`${rowName}.refusjonskrav`}
-            className={styles.litenBredde}
-            readOnly
-            parse={parseCurrencyInput}
-          />
+          <InputField size="small" name={`${rowName}.refusjonskrav`} readOnly parse={parseCurrencyInput} />
         </Table.DataCell>
       )}
       <Table.DataCell align="right">
         <SelectField
           label={intl.formatMessage({ id: 'BeregningInfoPanel.FordelingBG.Inntektskategori' })}
           name={`${rowName}.inntektskategori`}
-          className={styles.storBredde}
           selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
           validate={readOnly ? [] : [required]}
           readOnly={readOnly || !skalRedigereInntektskategori}
@@ -239,12 +227,7 @@ export const InntektFieldArrayAndelRow = ({
       </Table.DataCell>
       {skalViseSletteknapp && (
         <Table.DataCell>
-          <Button
-            icon={<XMarkIcon aria-hidden className={styles.slettIkon} />}
-            onClick={() => removeAndel()}
-            type="button"
-            variant="tertiary"
-          />
+          <Button icon={<XMarkIcon aria-hidden />} onClick={() => removeAndel()} type="button" variant="tertiary" />
         </Table.DataCell>
       )}
     </Table.Row>

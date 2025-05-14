@@ -10,8 +10,8 @@ import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBe
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { Vilkår, Vilkårperiode } from '../../typer/Vilkår';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
-import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
-import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
+import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
+import { formNameVurderFaktaBeregning } from '../../utils/BeregningFormUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { getBuildInitialValuesFaktaForATFLOgSN } from './faktaForATFLOgSNPanelUtils';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
@@ -39,7 +39,7 @@ const findAvklaringsbehovMedBegrunnelse = (
 const hasOpenAksjonspunkt = (kode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
   avklaringsbehov.some(ap => ap.definisjon === kode && isAksjonspunktOpen(ap.status));
 
-type Props = {
+interface Props {
   readOnly: boolean;
   submittable: boolean;
   beregningsgrunnlag: Beregningsgrunnlag[];
@@ -53,7 +53,7 @@ type Props = {
   vilkar: Vilkår;
   avklarAktiviteterErEndret: boolean;
   skalKunneAvbryteOverstyring: boolean;
-};
+}
 
 const buildInitialValuesVurderFaktaBeregning = (
   alleBeregningsgrunnlag: Beregningsgrunnlag[],
@@ -177,7 +177,7 @@ export const VurderFaktaBeregningPanel = ({
             const readOnlyAvAndreÅrsaker =
               readOnly ||
               erForlengelse(beregningsgrunnlag[index], vilkar.perioder) ||
-              (hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov) && !erOverstyrer);
+              (hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov) && !erOverstyrer);
 
             const isReadOnly = readOnlyAvAndreÅrsaker || (løsbareAksjonspunkter.length === 0 && !erOverstyrer);
 

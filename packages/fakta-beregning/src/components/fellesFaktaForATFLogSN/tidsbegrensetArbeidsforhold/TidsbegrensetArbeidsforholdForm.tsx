@@ -2,7 +2,6 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ReadMore, VStack } from '@navikt/ds-react';
-import dayjs from 'dayjs';
 
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -12,18 +11,16 @@ import {
   FaktaOmBeregning,
   KortvarigAndel,
 } from '@navikt/ft-types';
-import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { dateFormat } from '@navikt/ft-utils';
 
 import { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '../../../typer/FaktaBeregningTypes';
 import {
   FaktaBeregningTransformedValues,
   VurderteArbeidsforholdTransformedValues,
 } from '../../../typer/interface/BeregningFaktaAP';
-import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
+import { createVisningsnavnFakta } from '../../../utils/ArbeidsforholdHelper';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
-
-const kortvarigStringId = 'BeregningInfoPanel.TidsbegrensetArbFor.Arbeidsforhold';
 
 const createArbeidsforholdRadioKey = (andel: KortvarigAndel): string =>
   andel && andel.arbeidsforhold
@@ -48,11 +45,11 @@ const krevArbeidsforhold = (arbfor: BeregningsgrunnlagArbeidsforhold | undefined
   return arbfor;
 };
 
-type Props = {
+interface Props {
   readOnly: boolean;
   faktaOmBeregning: FaktaOmBeregning;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-};
+}
 
 /**
  * TidsbegrensetArbeidsforholdForm
@@ -72,21 +69,24 @@ export const TidsbegrensetArbeidsforholdForm = ({
   if (!andelsliste || andelsliste.length === 0) {
     return null;
   }
+
   return (
     <VStack gap="6">
-      {andelsliste.map(andel => (
-        <div
-          key={`fastsettTidsbegrensedeForhold_${lagVisningsnavn(krevArbeidsforhold(andel.arbeidsforhold), arbeidsgiverOpplysningerPerId)}`}
-        >
+      {andelsliste.map(andel => {
+        const arbeidsforhold = krevArbeidsforhold(andel.arbeidsforhold);
+        const visningsNavn = lagVisningsnavn(arbeidsforhold, arbeidsgiverOpplysningerPerId);
+
+        return (
           <RadioGroupPanel
+            key={`fastsettTidsbegrensedeForhold_${visningsNavn}`}
             label={
-              <>
+              <VStack gap="2">
                 <FormattedMessage
-                  id={kortvarigStringId}
+                  id="BeregningInfoPanel.TidsbegrensetArbFor.Arbeidsforhold"
                   values={{
-                    navn: lagVisningsnavn(krevArbeidsforhold(andel.arbeidsforhold), arbeidsgiverOpplysningerPerId),
-                    fom: dayjs(krevArbeidsforhold(andel.arbeidsforhold).startdato).format(DDMMYYYY_DATE_FORMAT),
-                    tom: dayjs(krevArbeidsforhold(andel.arbeidsforhold).opphoersdato).format(DDMMYYYY_DATE_FORMAT),
+                    navn: visningsNavn,
+                    fom: arbeidsforhold.startdato ? dateFormat(arbeidsforhold?.startdato) : '',
+                    tom: arbeidsforhold.opphoersdato ? dateFormat(arbeidsforhold.opphoersdato) : '',
                   }}
                 />
                 <ReadMore
@@ -95,7 +95,7 @@ export const TidsbegrensetArbeidsforholdForm = ({
                 >
                   <FormattedMessage id="BeregningInfoPanel.TidsbegrensetArbeidsforholdForm.ReadMore" />
                 </ReadMore>
-              </>
+              </VStack>
             }
             name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.tidsbegrensetValues.${createArbeidsforholdRadioKey(
               andel,
@@ -108,8 +108,8 @@ export const TidsbegrensetArbeidsforholdForm = ({
             validate={[required]}
             parse={parseStringToBoolean}
           />
-        </div>
-      ))}
+        );
+      })}
     </VStack>
   );
 };

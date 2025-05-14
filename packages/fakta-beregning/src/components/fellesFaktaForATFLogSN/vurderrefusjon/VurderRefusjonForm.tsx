@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { ReadMore } from '@navikt/ds-react';
+import { ReadMore, VStack } from '@navikt/ds-react';
 
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -9,7 +9,7 @@ import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, RefusjonskravSomKommerForSentListe } from '@navikt/ft-types';
 
 import { FaktaOmBeregningAksjonspunktValues, VurderRefusjonValues } from '../../../typer/FaktaBeregningTypes';
-import { createVisningsnavnFakta } from '../../ArbeidsforholdHelper';
+import { createVisningsnavnFakta } from '../../../utils/ArbeidsforholdHelper';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
@@ -32,44 +32,43 @@ const lagRefusjonskravRadios = (
     const intl = useIntl();
 
     return (
-      <React.Fragment key={arbeidsgiverIdent}>
-        <RadioGroupPanel
-          label={
-            <>
-              <FormattedMessage
-                id="VurderRefusjonForm.ErRefusjonskravGyldig"
-                values={{
-                  arbeidsgiverVisningsnavn,
-                }}
-              />
-              <ReadMore
-                size="small"
-                header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
-              >
-                <FormattedMessage id="VurderRefusjonForm.ReadMore" />
-              </ReadMore>
-            </>
-          }
-          name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderRefusjonValues.${lagFieldName(
-            arbeidsgiverIdent,
-          )}`}
-          validate={[required]}
-          isReadOnly={readOnly}
-          radios={[
-            { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-            { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
-          ]}
-          parse={parseStringToBoolean}
-        />
-      </React.Fragment>
+      <RadioGroupPanel
+        key={arbeidsgiverIdent}
+        label={
+          <VStack gap="2">
+            <FormattedMessage
+              id="VurderRefusjonForm.ErRefusjonskravGyldig"
+              values={{
+                arbeidsgiverVisningsnavn,
+              }}
+            />
+            <ReadMore
+              size="small"
+              header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+            >
+              <FormattedMessage id="VurderRefusjonForm.ReadMore" />
+            </ReadMore>
+          </VStack>
+        }
+        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderRefusjonValues.${lagFieldName(
+          arbeidsgiverIdent,
+        )}`}
+        validate={[required]}
+        isReadOnly={readOnly}
+        radios={[
+          { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
+          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+        ]}
+        parse={parseStringToBoolean}
+      />
     );
   });
 
-type Props = {
+interface Props {
   readOnly: boolean;
   faktaOmBeregning: FaktaOmBeregning;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-};
+}
 
 /**
  * VurderRefusjonForm
@@ -82,10 +81,11 @@ export const VurderRefusjonForm = ({ readOnly, faktaOmBeregning, arbeidsgiverOpp
   if (!senRefusjonkravListe) {
     return null;
   }
-  return (
-    <>
-      {lagRefusjonskravRadios(senRefusjonkravListe, readOnly, arbeidsgiverOpplysningerPerId, beregningsgrunnlagIndeks)}
-    </>
+  return lagRefusjonskravRadios(
+    senRefusjonkravListe,
+    readOnly,
+    arbeidsgiverOpplysningerPerId,
+    beregningsgrunnlagIndeks,
   );
 };
 

@@ -1,23 +1,13 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { getFaktaOmBeregning, getFaktaOmBeregningTilfellerKoder } from './BgFaktaUtils';
-import { setFaktaPanelForKunYtelse } from './kunYtelse/FastsettBgKunYtelse';
+import { FastsettBgKunYtelse } from './kunYtelse/FastsettBgKunYtelse';
 import { VurderOgFastsettATFL } from './vurderOgFastsettATFL/VurderOgFastsettATFL';
 
-const getFaktaPanels = ({
-  readOnly,
-  isAksjonspunktClosed,
-  beregningsgrunnlag,
-  kodeverkSamling,
-  erOverstyrer,
-  arbeidsgiverOpplysningerPerId,
-  updateOverstyring,
-  renderTextFieldAndSubmitButton,
-  vilkarsperiodeSkalVurderesIBehandlingen,
-}: {
+interface Props {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
@@ -27,53 +17,7 @@ const getFaktaPanels = ({
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
   renderTextFieldAndSubmitButton: () => React.ReactNode;
   vilkarsperiodeSkalVurderesIBehandlingen: boolean;
-}) => {
-  const { avklaringsbehov } = beregningsgrunnlag;
-  const tilfeller = getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag);
-  const faktaOmBeregning = getFaktaOmBeregning(beregningsgrunnlag);
-  const faktaPanels: ReactElement[] = [];
-
-  setFaktaPanelForKunYtelse(
-    faktaPanels,
-    tilfeller,
-    readOnly,
-    isAksjonspunktClosed,
-    faktaOmBeregning,
-    kodeverkSamling,
-    renderTextFieldAndSubmitButton,
-  );
-  faktaPanels.push(
-    <React.Fragment key="VurderOgFastsettATFL">
-      {/* @ts-expect-error Fiks */}
-      <VurderOgFastsettATFL
-        readOnly={readOnly}
-        isAksjonspunktClosed={isAksjonspunktClosed}
-        tilfeller={tilfeller}
-        beregningsgrunnlag={beregningsgrunnlag}
-        kodeverkSamling={kodeverkSamling}
-        erOverstyrer={erOverstyrer}
-        avklaringsbehov={avklaringsbehov}
-        updateOverstyring={updateOverstyring}
-        renderTextFieldAndSubmitButton={renderTextFieldAndSubmitButton}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        vilkarsperiodeSkalVurderesIBehandlingen={vilkarsperiodeSkalVurderesIBehandlingen}
-      />
-    </React.Fragment>,
-  );
-  return faktaPanels;
-};
-
-type Props = {
-  readOnly: boolean;
-  isAksjonspunktClosed: boolean;
-  beregningsgrunnlag: Beregningsgrunnlag;
-  kodeverkSamling: KodeverkForPanel;
-  erOverstyrer: boolean;
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  updateOverstyring: (index: number, skalOverstyre: boolean) => void;
-  renderTextFieldAndSubmitButton: () => React.ReactNode;
-  vilkarsperiodeSkalVurderesIBehandlingen: boolean;
-};
+}
 
 /**
  * FaktaForArbeidstakerFLOgSNPanel
@@ -90,18 +34,34 @@ export const FaktaForATFLOgSNPanel = ({
   updateOverstyring,
   renderTextFieldAndSubmitButton,
   vilkarsperiodeSkalVurderesIBehandlingen,
-}: Props) => (
-  <div>
-    {getFaktaPanels({
-      readOnly,
-      isAksjonspunktClosed,
-      beregningsgrunnlag,
-      kodeverkSamling,
-      erOverstyrer,
-      arbeidsgiverOpplysningerPerId,
-      updateOverstyring,
-      renderTextFieldAndSubmitButton,
-      vilkarsperiodeSkalVurderesIBehandlingen,
-    }).map(panelOrSpacer => panelOrSpacer)}
-  </div>
-);
+}: Props) => {
+  const { avklaringsbehov } = beregningsgrunnlag;
+  const tilfeller = getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag);
+  const faktaOmBeregning = getFaktaOmBeregning(beregningsgrunnlag);
+
+  return (
+    <div>
+      <FastsettBgKunYtelse
+        tilfeller={tilfeller}
+        readOnly={readOnly}
+        isAksjonspunktClosed={isAksjonspunktClosed}
+        faktaOmBeregning={faktaOmBeregning}
+        kodeverkSamling={kodeverkSamling}
+        renderTextFieldAndSubmitButton={renderTextFieldAndSubmitButton}
+      />
+      <VurderOgFastsettATFL
+        readOnly={readOnly}
+        isAksjonspunktClosed={isAksjonspunktClosed}
+        tilfeller={tilfeller}
+        beregningsgrunnlag={beregningsgrunnlag}
+        kodeverkSamling={kodeverkSamling}
+        erOverstyrer={erOverstyrer}
+        avklaringsbehov={avklaringsbehov}
+        updateOverstyring={updateOverstyring}
+        renderTextFieldAndSubmitButton={renderTextFieldAndSubmitButton}
+        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        vilkarsperiodeSkalVurderesIBehandlingen={vilkarsperiodeSkalVurderesIBehandlingen}
+      />
+    </div>
+  );
+};

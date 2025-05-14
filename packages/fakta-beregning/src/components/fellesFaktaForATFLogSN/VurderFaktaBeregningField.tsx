@@ -11,9 +11,10 @@ import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBe
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { Vilkårperiode } from '../../typer/Vilkår';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
-import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
+import { hasAksjonspunkt, isAksjonspunktClosed } from '../../utils/aksjonspunktUtils';
+import { formNameVurderFaktaBeregning } from '../../utils/BeregningFormUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
-import { erOverstyringAvBeregningsgrunnlag, hasAksjonspunkt, isAksjonspunktClosed } from './BgFaktaUtils';
+import { erOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
 import { FaktaForATFLOgSNPanel } from './FaktaForATFLOgSNPanel';
 import {
   BEGRUNNELSE_FAKTA_TILFELLER_NAME,
@@ -24,7 +25,7 @@ import { BeregningsgrunnlagIndexContext, VurderFaktaContext } from './VurderFakt
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
-export interface Props {
+interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
   erOverstyrer: boolean;
   readOnly: boolean;
@@ -69,9 +70,7 @@ export const VurderFaktaBeregningField = ({
 
   const { avklaringsbehov: avklaringsbehovListe } = beregningsgrunnlag;
   const avklaringsbehov = avklaringsbehovListe.find(
-    ab =>
-      ab.definisjon === FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN ||
-      ab.definisjon === FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
+    ab => ab.definisjon === VURDER_FAKTA_FOR_ATFL_SN || ab.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
   );
 
   const skalVurderes = vilkarsperiode.vurderesIBehandlingen;

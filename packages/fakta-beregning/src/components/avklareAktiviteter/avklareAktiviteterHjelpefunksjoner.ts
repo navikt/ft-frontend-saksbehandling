@@ -10,7 +10,7 @@ import { BeregningAktiviteterTransformedValues } from '../../typer/interface/Ber
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { Vilkårperiode } from '../../typer/Vilkår';
-import { hasAvklaringsbehov, isAvklaringsbehovOpen } from '../felles/avklaringsbehovUtil';
+import { hasAksjonspunkt, hasOpenAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { VurderAktiviteterPanel } from './VurderAktiviteterPanel';
 
@@ -27,12 +27,9 @@ export const skalKunneLoseAvklaringsbehov = (
   erTilVurdering: boolean,
 ) => (skalOverstyre || harAvklaringsbehovSomKanLøses(AVKLAR_AKTIVITETER, avklaringsbehov)) && erTilVurdering;
 
-export const hasOpenAvklaringsbehov = (kode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
-  avklaringsbehov.some(ap => ap.definisjon === kode && isAvklaringsbehovOpen(ap.status));
-
 export const hasOpenAvklarAvklaringsbehov = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
-  hasOpenAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) ||
-  hasOpenAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov);
+  hasOpenAksjonspunkt(AVKLAR_AKTIVITETER, avklaringsbehov) ||
+  hasOpenAksjonspunkt(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov);
 
 export const findAvklaringsbehovForAktiviteter = (
   avklaringsbehov: BeregningAvklaringsbehov[],
@@ -41,18 +38,10 @@ export const findAvklaringsbehovForAktiviteter = (
     ab => ab.definisjon === OVERSTYRING_AV_BEREGNINGSAKTIVITETER || ab.definisjon === AVKLAR_AKTIVITETER,
   );
 
-export const skalViseSubmitknappInneforBorderBox = (
-  harAndreAvklaringsbehovIPanel: boolean,
-  erOverstyrt: boolean,
-  erBgOverstyrt: boolean,
-  avklaringsbehov: BeregningAvklaringsbehov[],
-): boolean =>
-  (harAndreAvklaringsbehovIPanel || erOverstyrt || erBgOverstyrt) && !hasOpenAvklarAvklaringsbehov(avklaringsbehov);
-
 export const skalViseSubmitKnappEllerBegrunnelse = (
   avklaringsbehov: BeregningAvklaringsbehov[],
   erOverstyrt: boolean,
-): boolean => hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) || erOverstyrt;
+): boolean => hasAksjonspunkt(AVKLAR_AKTIVITETER, avklaringsbehov) || erOverstyrt;
 
 export const erSubmittable = (submittable: boolean, submitEnabled: boolean, hasErrors: boolean): boolean =>
   submittable && submitEnabled && !hasErrors;
@@ -67,8 +56,8 @@ export const buildInitialValues = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   vilkårsperiode: Vilkårperiode,
 ): AvklarAktiviteterValues => {
-  const harAvklarAktiviteterAvklaringsbehov = hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehovListe);
-  const erOverstyrt = hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehovListe);
+  const harAvklarAktiviteterAvklaringsbehov = hasAksjonspunkt(AVKLAR_AKTIVITETER, avklaringsbehovListe);
+  const erOverstyrt = hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehovListe);
   const avklaringsbehov = findAvklaringsbehovForAktiviteter(avklaringsbehovListe);
   let aktiviteterValues;
 

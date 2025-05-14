@@ -1,0 +1,30 @@
+.tableMedInput {
+  :global(.navds-table__data-cell--align-right) {
+    div {
+      justify-content: end;
+      margin-left: auto;
+    }
+
+    input,
+    select,
+    p {
+      margin-left: auto;
+      text-align: right;
+    }
+
+    div:has(input) {
+      max-width: 100px;
+      min-width: 85px;
+
+      > input {
+        text-align: right;
+      }
+    }
+
+  }
+
+  tr > td:first-child {
+    max-width: 500px;
+    min-width: 400px;
+  }
+}

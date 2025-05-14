@@ -3,7 +3,7 @@ import { VurderBesteberegning } from '@navikt/ft-types';
 
 import { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningAvklaringsbehovCode } from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { besteberegningField, VurderBesteberegningPanel } from './VurderBesteberegningForm';
+import { besteberegningField, VurderBesteberegningForm } from './VurderBesteberegningForm';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAvklaringsbehovCode;
 
@@ -18,7 +18,7 @@ describe('<VurderBesteberegning>', () => {
       skalHaBesteberegning: false,
       andeler: [{ andelsnr: 1, aktivitetStatus: 'AT' }],
     };
-    const initialValues = VurderBesteberegningPanel.buildInitialValues(
+    const initialValues = VurderBesteberegningForm.buildInitialValues(
       [],
       vurderBesteberegning,
       [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING],
@@ -36,7 +36,7 @@ describe('<VurderBesteberegning>', () => {
       status: 'OPPR',
       kanLoses: true,
     };
-    const initialValues = VurderBesteberegningPanel.buildInitialValues(
+    const initialValues = VurderBesteberegningForm.buildInitialValues(
       [ap],
       vurderBesteberegning,
       [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING],
@@ -49,7 +49,7 @@ describe('<VurderBesteberegning>', () => {
     const vurderBesteberegning = {
       skalHaBesteberegning: undefined,
     };
-    const initialValues = VurderBesteberegningPanel.buildInitialValues(
+    const initialValues = VurderBesteberegningForm.buildInitialValues(
       [],
       vurderBesteberegning,
       [FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING],
@@ -61,7 +61,7 @@ describe('<VurderBesteberegning>', () => {
   it('skal transform values', () => {
     const values = { ...emptyValues };
     values[besteberegningField] = false;
-    const transformed = VurderBesteberegningPanel.transformValues(
+    const transformed = VurderBesteberegningForm.transformValues(
       values,
       { vurderBesteberegning: {}, andelerForFaktaOmBeregning: [] },
       [],
@@ -83,7 +83,7 @@ describe('<VurderBesteberegning>', () => {
         aktivitetStatus: 'DP',
       },
     ];
-    const transformed = VurderBesteberegningPanel.transformValues(
+    const transformed = VurderBesteberegningForm.transformValues(
       values,
       { vurderBesteberegning: {}, andelerForFaktaOmBeregning: [] },
       inntektPrMnd,

@@ -94,7 +94,7 @@ const avklarAktiviteterAvklaringsbehov = [
   },
 ];
 
-describe('<AvklareAktiviteterField>', () => {
+describe('AvklareAktiviteterField', () => {
   it('skal teste at initial values blir bygget', () => {
     const avklarAktiviteter = {
       aktiviteterTomDatoMapping: [

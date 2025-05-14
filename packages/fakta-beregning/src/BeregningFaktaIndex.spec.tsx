@@ -1,8 +1,9 @@
 import React from 'react';
 
 import { composeStories } from '@storybook/react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { expect } from 'vitest';
 
 import * as stories from './BeregningFaktaIndex.stories';
 
@@ -50,7 +51,7 @@ describe('BeregningFaktaIndex', () => {
 
   it('skal beholde feilmelding dersom man bytter tab', async () => {
     render(<ArbeidOgDagpengerAp5058 />);
-    // TODO: Trykk på overstyrknapp før vi endrer sidan vi ikkje har aksjonspunkt her
+    // Trykk på overstyrknapp før vi endrer sidan vi ikkje har aksjonspunkt her
     await userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
     await userEvent.click(screen.getByLabelText('Ikke benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020'));
     await userEvent.click(screen.getByLabelText('Ikke benytt Dagpenger 03.02.2019 til 11.11.2019'));
@@ -192,7 +193,7 @@ describe('BeregningFaktaIndex', () => {
     });
     await userEvent.type(screen.getByLabelText('Fastsett månedsinntekt for BEDRIFT AS (910909088)'), '10');
     await userEvent.type(screen.getByLabelText('Fastsett månedsinntekt dagpenger'), '20');
-    expect(screen.getAllByTestId('sum')[0].innerHTML).toBe('30');
+    expect(within(screen.getByTestId('sum')).getByText(30)).toBeInTheDocument();
     await userEvent.click(screen.getByLabelText('Nei'));
     await waitFor(() => {
       expect(screen.queryByLabelText('Fastsett månedsinntekt dagpenger')).not.toBeInTheDocument();
@@ -212,10 +213,13 @@ describe('BeregningFaktaIndex', () => {
     expect(screen.getByText('Søker er arbeidstaker og frilans i samme virksomhet.')).toBeInTheDocument();
     expect(
       screen.getByText(
-        // eslint-disable-next-line max-len
-        'Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som er arbeidsinntekt og hva som er samlet frilansinntekt.',
+        /Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre./,
       ),
     ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Fastsett hva som er arbeidsinntekt og hva som er samlet frilansinntekt./),
+    ).toBeInTheDocument();
+
     expect(screen.getByLabelText('Fastsett månedsinntekt for Bedriften (12345678)')).toBeInTheDocument();
     expect(screen.getByLabelText('Fastsett månedsinntekt for frilans')).toBeInTheDocument();
     expect(screen.queryByLabelText('Fastsett månedsinntekt for Bedriften (12345679)')).not.toBeInTheDocument();

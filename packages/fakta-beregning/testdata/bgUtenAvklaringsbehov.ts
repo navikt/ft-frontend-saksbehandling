@@ -1,4 +1,5 @@
 import { konverterKodeverkTilKode } from '@navikt/ft-frontend-utils-test';
+import { TIDENES_ENDE } from '@navikt/ft-utils';
 
 const beregningsgrunnlag = {
   beregningsgrunnlagListe: [
@@ -7562,7 +7563,7 @@ const beregningsgrunnlag = {
           },
           {
             beregningsgrunnlagPeriodeFom: '2023-07-01',
-            beregningsgrunnlagPeriodeTom: '9999-12-31',
+            beregningsgrunnlagPeriodeTom: TIDENES_ENDE,
             beregnetPrAar: 542000.04,
             bruttoPrAar: 542000.04,
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
@@ -7641,7 +7642,7 @@ const beregningsgrunnlag = {
                   {
                     arbeidsgiverIdent: '999999999',
                     fom: '2018-10-01',
-                    tom: '9999-12-31',
+                    tom: TIDENES_ENDE,
                     arbeidsforholdType: {
                       kode: 'ARBEID',
                       kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
@@ -14333,7 +14334,7 @@ const beregningsgrunnlag = {
               },
               {
                 fom: '2023-07-01',
-                tom: '9999-12-31',
+                tom: TIDENES_ENDE,
                 fordelBeregningsgrunnlagAndeler: [
                   {
                     andelsnr: 1,

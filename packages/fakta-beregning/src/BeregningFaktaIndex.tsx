@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { Heading, Tabs, VStack } from '@navikt/ds-react';
-import dayjs from 'dayjs';
+import { BodyShort, Heading, Tabs, VStack } from '@navikt/ds-react';
 
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -11,17 +10,17 @@ import {
   Beregningsgrunnlag,
   StandardFaktaPanelProps,
 } from '@navikt/ft-types';
-import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { createIntl, dateFormat, periodFormat } from '@navikt/ft-utils';
 
+import { AksjonspunktTekster } from './AksjonspunktTekster';
 import { BeregningInfoPanel } from './components/BeregningInfoPanel';
-import { hasAksjonspunkt, isAksjonspunktClosed } from './components/fellesFaktaForATFLogSN/BgFaktaUtils';
-import { lagHelpTextsForFakta } from './lagHelpTextsForFakta';
 import { AvklarAktiviteterFormValues } from './typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { SubmitBeregningType } from './typer/interface/SubmitBeregningTsType';
 import { KodeverkForPanel } from './typer/KodeverkForPanelForFb';
 import { Vilkår, Vilkårperiode } from './typer/Vilkår';
 import { VurderFaktaBeregningFormValues } from './typer/VurderFaktaBeregningFormValues';
+import { hasAksjonspunkt, isAksjonspunktClosed } from './utils/aksjonspunktUtils';
 
 import styles from './beregningFaktaIndex.module.css';
 
@@ -29,7 +28,7 @@ import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-type OwnProps = {
+interface Props {
   beregningsgrunnlag?: Beregningsgrunnlag[];
   erOverstyrer: boolean;
   skalKunneOverstyreAktiviteter?: boolean;
@@ -38,7 +37,7 @@ type OwnProps = {
   kodeverkSamling: KodeverkForPanel;
   submittable: boolean;
   skalKunneAvbryteOverstyring?: boolean;
-};
+}
 
 const { VURDER_FAKTA_FOR_ATFL_SN, AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSGRUNNLAG } =
   FaktaBeregningAvklaringsbehovCode;
@@ -53,12 +52,9 @@ const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]) =>
   const vilkårPeriode = vilkårsperioder.find(({ periode }) => periode.fom === stpOpptjening);
   if (vilkårPeriode) {
     const { fom, tom } = vilkårPeriode.periode;
-    if (tom !== null) {
-      return `${dayjs(fom).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(tom).format(DDMMYYYY_DATE_FORMAT)}`;
-    }
-    return `${dayjs(fom).format(DDMMYYYY_DATE_FORMAT)} - `;
+    return periodFormat(fom, tom);
   }
-  return `${dayjs(stpOpptjening).format(DDMMYYYY_DATE_FORMAT)}`;
+  return dateFormat(stpOpptjening);
 };
 
 const harAvklaringsbehovIPanel = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean => {
@@ -92,8 +88,6 @@ const initAktivtBeregningsgrunnlagIndeks = (beregningsgrunnlag: Beregningsgrunnl
   return 0;
 };
 
-type AksjonspunktDataDef = SubmitBeregningType[];
-
 export const BeregningFaktaIndex = ({
   beregningsgrunnlag = [],
   kodeverkSamling,
@@ -107,14 +101,20 @@ export const BeregningFaktaIndex = ({
   setFormData,
   vilkar,
   skalKunneAvbryteOverstyring = false,
-}: OwnProps &
-  StandardFaktaPanelProps<AksjonspunktDataDef, AvklarAktiviteterFormValues | VurderFaktaBeregningFormValues>) => {
+}: Props &
+  StandardFaktaPanelProps<SubmitBeregningType[], AvklarAktiviteterFormValues | VurderFaktaBeregningFormValues>) => {
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(
     initAktivtBeregningsgrunnlagIndeks(beregningsgrunnlag, vilkar),
   );
 
   if (beregningsgrunnlag.length === 0 || !vilkar) {
-    return <>Har ikke beregningsgrunnlag.</>;
+    return (
+      <RawIntlProvider value={intl}>
+        <BodyShort>
+          <FormattedMessage id="BeregningFaktaIndex.IngenBeregningsgrunnlag" />
+        </BodyShort>
+      </RawIntlProvider>
+    );
   }
 
   const vilkårsperioder = vilkar.perioder;
@@ -127,14 +127,17 @@ export const BeregningFaktaIndex = ({
   return (
     <RawIntlProvider value={intl}>
       <div className={styles.main}>
-        <VStack gap="4">
+        <VStack gap="6">
           <Heading size="small" level="2">
             <FormattedMessage id="BeregningInfoPanel.AksjonspunktHelpText.SaksopplysningerBeregning" />
           </Heading>
           {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aktiveAvklaringsBehov) ||
             hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, aktiveAvklaringsBehov)) &&
             !isAksjonspunktClosed(aktiveAvklaringsBehov) && (
-              <>{lagHelpTextsForFakta(aktivtBeregningsgrunnlag, arbeidsgiverOpplysningerPerId)}</>
+              <AksjonspunktTekster
+                beregningsgrunnlag={aktivtBeregningsgrunnlag}
+                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+              />
             )}
           {skalBrukeTabs && (
             <div className={styles.tabsContainer}>

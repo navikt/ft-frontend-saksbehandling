@@ -14,14 +14,14 @@ const minLength3 = minLength(3);
 const MAX_LENGTH = 4000;
 const maxLength4000 = maxLength(MAX_LENGTH);
 
-type Props = {
+interface Props {
   isReadOnly: boolean;
   isSubmittable: boolean;
   hasBegrunnelse: boolean;
   label?: string;
   hasVurderingText?: boolean;
   name: string;
-};
+}
 
 export type FormValues = {
   [key: string]: string | undefined;

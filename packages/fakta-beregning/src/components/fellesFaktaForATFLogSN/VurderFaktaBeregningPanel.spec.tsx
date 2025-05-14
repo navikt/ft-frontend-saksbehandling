@@ -23,7 +23,7 @@ const aksjonspunkter: BeregningAvklaringsbehov[] = [
   },
 ];
 
-describe('<VurderFaktaBeregningPanel>', () => {
+describe('VurderFaktaBeregningPanel', () => {
   it('skal ikkje transformValues uten aksjonspunkt', () => {
     const faktaOmBeregning: FaktaOmBeregning = {
       andelerForFaktaOmBeregning: [],

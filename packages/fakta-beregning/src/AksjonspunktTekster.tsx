@@ -11,102 +11,81 @@ import {
   RefusjonskravSomKommerForSentListe,
 } from '@navikt/ft-types';
 
-import { createVisningsnavnFakta } from './components/ArbeidsforholdHelper';
 import { getFaktaOmBeregningTilfellerKoder } from './components/fellesFaktaForATFLogSN/BgFaktaUtils';
+import { createVisningsnavnFakta } from './utils/ArbeidsforholdHelper';
 
-export const lagHelpTextsForFakta = (
-  beregningsgrunnlag: Beregningsgrunnlag,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-): ReactElement => {
-  const H3 = (chunks: ReactNode[]) => (
-    <Heading size="xsmall" level="3" key="h3">
-      {chunks}
-    </Heading>
-  );
+interface Props {
+  beregningsgrunnlag: Beregningsgrunnlag;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+}
 
+export const AksjonspunktTekster = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPerId }: Props): ReactElement => {
   const tilfeller: string[] = getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag);
   const erFrilans: boolean = !!beregningsgrunnlag?.faktaOmBeregning?.vurderMottarYtelse?.erFrilans;
   const alerts: ReactElement[] = [];
-  const keys: string[] = [];
+
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)) {
     const harInntektsmelding =
       beregningsgrunnlag?.faktaOmBeregning?.arbeidstakerOgFrilanserISammeOrganisasjonListe?.some(
         aftlSammeOrg => !!aftlSammeOrg.inntektPrMnd,
       );
-    keys.push(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
     alerts.push(
-      <Alert size="small" variant="warning">
+      <Alert size="small" variant="warning" key={FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON}>
         <FormattedMessage
           id={
             harInntektsmelding
               ? 'BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrg'
               : 'BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrgUtenIM'
           }
-          values={{
-            h3: H3,
-          }}
+          values={{ h3: H3 }}
         />
       </Alert>,
     );
   }
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING);
     alerts.push(
-      <Alert size="small" variant="warning">
+      <Alert size="small" variant="warning" key={FaktaOmBeregningTilfelle.VURDER_LONNSENDRING}>
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderLonnsendringHelpText"
-          values={{
-            h3: H3,
-          }}
+          values={{ h3: H3 }}
         />
       </Alert>,
     );
   }
   if (erFrilans && tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
-    keys.push(`${FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE}_frilans`);
     alerts.push(
-      <Alert size="small" variant="warning">
+      <Alert size="small" variant="warning" key={`${FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE}_frilans`}>
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderMottarYtelseHelpTextFrilans"
-          values={{
-            h3: H3,
-          }}
+          values={{ h3: H3 }}
         />
       </Alert>,
     );
   }
 
   if (!erFrilans && tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
-    keys.push(`${FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE}_arbeidstaker`);
     alerts.push(
-      <Alert size="small" variant="warning">
+      <Alert size="small" variant="warning" key={`${FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE}_arbeidstaker`}>
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderMottarYtelseHelpTextArbeidstaker"
-          values={{
-            h3: H3,
-          }}
+          values={{ h3: H3 }}
         />
       </Alert>,
     );
   }
 
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE);
     alerts.push(
-      <Alert size="small" variant="warning">
+      <Alert size="small" variant="warning" key={FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE}>
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderEtterlonnSluttpakkeHelpText"
-          values={{
-            h3: H3,
-          }}
+          values={{ h3: H3 }}
         />
       </Alert>,
     );
   }
 
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD);
-
     const kortvarigeArbeidsforhold = beregningsgrunnlag?.faktaOmBeregning?.kortvarigeArbeidsforhold ?? [];
 
     let arbeidsgivereNavn = '';
@@ -125,7 +104,7 @@ export const lagHelpTextsForFakta = (
     });
 
     alerts.push(
-      <Alert size="small" variant="warning">
+      <Alert size="small" variant="warning" key={FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD}>
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.TidsbegrensetArbeidsforholdHelpText"
           values={{
@@ -138,23 +117,19 @@ export const lagHelpTextsForFakta = (
   }
 
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE);
     alerts.push(
-      <Alert size="small" variant="warning">
+      <Alert size="small" variant="warning" key={FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE}>
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderMilitaerSiviltjenesteHelpText"
-          values={{
-            h3: H3,
-          }}
+          values={{ h3: H3 }}
         />
       </Alert>,
     );
   }
 
   if (tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE)) {
-    keys.push(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE);
     alerts.push(
-      <Alert size="small" variant="warning">
+      <Alert size="small" variant="warning" key={FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE}>
         <VStack gap="1">
           <FormattedMessage
             id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelseHelpText"
@@ -214,28 +189,22 @@ export const lagHelpTextsForFakta = (
   }
 
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL);
     alerts.push(
-      <Alert size="small" variant="warning">
+      <Alert size="small" variant="warning" key={FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL}>
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderNyoppstartetFLHelpText"
-          values={{
-            h3: H3,
-          }}
+          values={{ h3: H3 }}
         />
       </Alert>,
     );
   }
 
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET);
     alerts.push(
-      <Alert size="small" variant="warning">
+      <Alert size="small" variant="warning" key={FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET}>
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderSNNyIArbeidslivetHelpText"
-          values={{
-            h3: H3,
-          }}
+          values={{ h3: H3 }}
         />
       </Alert>,
     );
@@ -255,9 +224,8 @@ export const lagHelpTextsForFakta = (
       }
     });
 
-    keys.push(FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT);
     alerts.push(
-      <Alert size="small" variant="warning">
+      <Alert size="small" variant="warning" key={FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT}>
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderRefusjonskravKommetForSentHelpText"
           values={{
@@ -270,13 +238,7 @@ export const lagHelpTextsForFakta = (
   }
 
   if (alerts.length > 0) {
-    return (
-      <VStack gap="4">
-        {alerts.map((alert, index) => (
-          <React.Fragment key={keys[index]}>{alert}</React.Fragment>
-        ))}
-      </VStack>
-    );
+    return <VStack gap="4">{alerts}</VStack>;
   }
 
   return (
@@ -285,3 +247,9 @@ export const lagHelpTextsForFakta = (
     </Alert>
   );
 };
+
+const H3 = (chunks: ReactNode[]) => (
+  <Heading size="xsmall" spacing level="3" key="h3">
+    {chunks}
+  </Heading>
+);

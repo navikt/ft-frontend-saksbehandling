@@ -61,11 +61,9 @@ export type BrukersAndelValues = GenerellAndelInfo & {
   fastsattBelop: string;
 };
 
-export type KunYtelseValues =
-  | VurderBesteberegningMedKunYtelseValues
-  | {
-      brukersAndelBG?: BrukersAndelValues[];
-    };
+export type KunYtelseValues = VurderBesteberegningMedKunYtelseValues & {
+  brukersAndelBG?: BrukersAndelValues[];
+};
 
 export type VurderMottarYtelseValues = {
   [key: string]: boolean | undefined;
@@ -128,8 +126,4 @@ export type FaktaOmBeregningAksjonspunktValues = FaktaOmBeregningValues & {
   erTilVurdering: boolean;
   periode: { fom: string; tom: string };
   begrunnelseFaktaTilfeller?: string;
-};
-
-export type FaktaBeregningError = {
-  id: string;
 };

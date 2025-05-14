@@ -24,10 +24,7 @@ import {
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { lonnsendringField } from './vurderOgFastsettATFL/forms/lonnsendringFormUtils';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
-import {
-  finnFrilansFieldName,
-  utledArbeidsforholdFieldName,
-} from './vurderOgFastsettATFL/forms/VurderMottarYtelseUtils';
+import { frilansFieldName, utledArbeidsforholdFieldName } from './vurderOgFastsettATFL/forms/VurderMottarYtelseUtils';
 
 const arbeidsgiver = {
   arbeidsgiverIdent: '3284788923',
@@ -75,7 +72,7 @@ const kodeverkSamling = {
   ],
 } as KodeverkForPanel;
 
-describe('<BgFaktaUtils>', () => {
+describe('bgFaktaUtils', () => {
   const dagpengerAndel = {
     aktivitetStatus: aktivitetStatuser.DAGPENGER,
     andelsnr: 1,
@@ -332,7 +329,7 @@ describe('<BgFaktaUtils>', () => {
 
   const vurderYtelse: VurderMottarYtelseValues = {};
   vurderYtelse[utledArbeidsforholdFieldName(arbeidstakerAndel3)] = true;
-  vurderYtelse[finnFrilansFieldName()] = true;
+  vurderYtelse[frilansFieldName] = true;
   const values: FaktaOmBeregningAksjonspunktValues = {
     vurderMottarYtelseValues: vurderYtelse,
     erTilVurdering: true,
@@ -375,7 +372,7 @@ describe('<BgFaktaUtils>', () => {
       arbeidsgiverId: kunstigArbeidsgiver.arbeidsgiverIdent,
       ...setGenerellAndelsinfo(kunstigArbeidstakerAndel, agOpplysning, kodeverkSamling),
     };
-    const skalRedigereInntektskategori = skalRedigereInntektskategoriForAndel(beregningsgrunnlag)(andelFieldValue);
+    const skalRedigereInntektskategori = skalRedigereInntektskategoriForAndel(beregningsgrunnlag, andelFieldValue);
     expect(skalRedigereInntektskategori).toBe(true);
   });
 
@@ -525,7 +522,7 @@ describe('<BgFaktaUtils>', () => {
 
   it('skal redigere inntekt for frilansandel som ikke mottar ytelse, men er nyoppstartet', () => {
     const vurderYtelseKopi: VurderMottarYtelseValues = {
-      [finnFrilansFieldName()]: false,
+      [frilansFieldName]: false,
     };
     const valuesLocalCopy: FaktaOmBeregningAksjonspunktValues = {
       ...values,
@@ -546,7 +543,7 @@ describe('<BgFaktaUtils>', () => {
 
   it('skal ikke redigere inntekt for frilansandel som ikke mottar ytelse og ikke er nyoppstartet', () => {
     const vurderYtelseKopi: VurderMottarYtelseValues = {
-      [finnFrilansFieldName()]: false,
+      [frilansFieldName]: false,
     };
     const valuesLocalCopy = {
       ...values,

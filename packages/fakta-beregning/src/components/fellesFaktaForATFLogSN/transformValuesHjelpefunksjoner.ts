@@ -4,7 +4,7 @@ import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTy
 import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
-import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
+import { formNameVurderFaktaBeregning } from '../../utils/BeregningFormUtils';
 import { transformValuesFaktaForATFLOgSN } from './faktaForATFLOgSNPanelUtils';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 

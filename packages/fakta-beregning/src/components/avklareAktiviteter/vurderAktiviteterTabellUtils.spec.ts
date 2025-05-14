@@ -1,19 +1,16 @@
 import { KodeverkType, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import { BeregningAktivitet } from '@navikt/ft-types';
+import { TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { AktivitetValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
-import {
-  buildInitialValues,
-  lagAktivitetFieldId,
-  skalVurdereAktivitet,
-  transformValues,
-} from './VurderAktiviteterTabell';
+import { VurderAktiviteterTabell } from './VurderAktiviteterTabell';
+import { lagAktivitetFieldId, skalVurdereAktivitet } from './vurderAktiviteterTabellUtils';
 
 const aktivitet1 = {
   arbeidsgiverIdent: '384723894723',
   fom: '2019-01-01',
-  tom: '9999-12-31',
+  tom: TIDENES_ENDE,
   skalBrukes: undefined,
   arbeidsforholdType: 'ARBEID',
 };
@@ -98,7 +95,7 @@ const kodeverkSamling = {
   ],
 } as KodeverkForPanel;
 
-describe('<VurderAktiviteterTabell>', () => {
+describe('vurderAktiviteterTabellUtils', () => {
   const id1: string = '3847238947232019-01-01';
   it('skal lage id for arbeid', () => {
     const idArbeid = lagAktivitetFieldId(aktivitet1);
@@ -124,10 +121,17 @@ describe('<VurderAktiviteterTabell>', () => {
   });
 
   it('skal bygge initial values', () => {
-    const initialValues = buildInitialValues(aktiviteter, kodeverkSamling, false, true, true, agOpplysninger);
+    const initialValues = VurderAktiviteterTabell.buildInitialValues(
+      aktiviteter,
+      kodeverkSamling,
+      false,
+      true,
+      true,
+      agOpplysninger,
+    );
     expect(initialValues[id1].beregningAktivitetNavn).toBe('Arbeidsgiveren (384723894723)');
     expect(initialValues[id1].fom).toBe('2019-01-01');
-    expect(initialValues[id1].tom).toBe('9999-12-31');
+    expect(initialValues[id1].tom).toBe(TIDENES_ENDE);
     expect(initialValues[id1].skalBrukes).toBe(undefined);
 
     expect(initialValues[id2].beregningAktivitetNavn).toBe('Arbeidsgiveren2 (998877665)...3456');
@@ -147,10 +151,17 @@ describe('<VurderAktiviteterTabell>', () => {
   });
 
   it('skal bygge initial values for overstyrer', () => {
-    const initialValues = buildInitialValues(aktiviteter, kodeverkSamling, false, false, true, agOpplysninger);
+    const initialValues = VurderAktiviteterTabell.buildInitialValues(
+      aktiviteter,
+      kodeverkSamling,
+      false,
+      false,
+      true,
+      agOpplysninger,
+    );
     expect(initialValues[id1].beregningAktivitetNavn).toBe('Arbeidsgiveren (384723894723)');
     expect(initialValues[id1].fom).toBe('2019-01-01');
-    expect(initialValues[id1].tom).toBe('9999-12-31');
+    expect(initialValues[id1].tom).toBe(TIDENES_ENDE);
     expect(initialValues[id1].skalBrukes).toBe('true');
 
     expect(initialValues[id2].beregningAktivitetNavn).toBe('Arbeidsgiveren2 (998877665)...3456');
@@ -178,7 +189,7 @@ describe('<VurderAktiviteterTabell>', () => {
         [idAAP]: { skalBrukes: 'true' } as AktivitetValues,
       },
     } as AvklarAktiviteterValues;
-    const transformed = transformValues(values, aktiviteter, '2019-02-02', '2019-02-02');
+    const transformed = VurderAktiviteterTabell.transformValues(values, aktiviteter, '2019-02-02', '2019-02-02');
     expect(transformed.length).toBe(2);
     expect(transformed[0].oppdragsgiverOrg).toBe('998877665');
     expect(transformed[0].arbeidsforholdRef).toBe(aktivitet2.arbeidsforholdId);

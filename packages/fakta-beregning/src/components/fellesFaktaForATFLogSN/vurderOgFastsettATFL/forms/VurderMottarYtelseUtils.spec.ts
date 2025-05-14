@@ -4,7 +4,7 @@ import { Beregningsgrunnlag, BeregningsgrunnlagArbeidsforhold, VurderMottarYtels
 import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
 import {
   andelsnrMottarYtelseMap,
-  finnFrilansFieldName,
+  frilansFieldName,
   harVurdertMottarYtelse,
   skalFastsetteInntektATUtenInntektsmelding,
   utledArbeidsforholdFieldName,
@@ -81,7 +81,7 @@ describe('<VurderMottarYtelseUtils>', () => {
       arbeidstakerAndelerUtenIM: [],
     };
     const vurderMottarYtelseValues = {
-      [finnFrilansFieldName()]: undefined,
+      [frilansFieldName]: undefined,
     };
     const values = {
       vurderMottarYtelseValues: vurderMottarYtelseValues,
@@ -98,7 +98,7 @@ describe('<VurderMottarYtelseUtils>', () => {
       arbeidstakerAndelerUtenIM: [],
     };
     const vurderMottarYtelseValues = {
-      [finnFrilansFieldName()]: true,
+      [frilansFieldName]: true,
     };
     const values = {
       vurderMottarYtelseValues: vurderMottarYtelseValues,
@@ -184,7 +184,7 @@ describe('<VurderMottarYtelseUtils>', () => {
       [utledArbeidsforholdFieldName(andel)]: true,
       [utledArbeidsforholdFieldName(andel2)]: false,
       [utledArbeidsforholdFieldName(andel3)]: null,
-      [finnFrilansFieldName()]: true,
+      [frilansFieldName]: true,
     };
     const values = {
       vurderMottarYtelseValues: vurderMottarYtelseValues,
@@ -206,7 +206,7 @@ describe('<VurderMottarYtelseUtils>', () => {
       [utledArbeidsforholdFieldName(andel)]: true,
       [utledArbeidsforholdFieldName(andel2)]: false,
       [utledArbeidsforholdFieldName(andel3)]: null,
-      [finnFrilansFieldName()]: true,
+      [frilansFieldName]: true,
     };
 
     const values = {
@@ -223,7 +223,7 @@ describe('<VurderMottarYtelseUtils>', () => {
       arbeidstakerAndelerUtenIM,
     } as VurderMottarYtelse;
     const vurderMottarYtelseValues = {
-      [finnFrilansFieldName()]: true,
+      [frilansFieldName]: true,
     };
     const values = {
       vurderMottarYtelseValues: vurderMottarYtelseValues,
@@ -242,7 +242,7 @@ describe('<VurderMottarYtelseUtils>', () => {
       [utledArbeidsforholdFieldName(andel)]: null,
       [utledArbeidsforholdFieldName(andel2)]: null,
       [utledArbeidsforholdFieldName(andel3)]: null,
-      [finnFrilansFieldName()]: true,
+      [frilansFieldName]: true,
     };
     const values = {
       vurderMottarYtelseValues: vurderMottarYtelseValues,
@@ -261,7 +261,7 @@ describe('<VurderMottarYtelseUtils>', () => {
       [utledArbeidsforholdFieldName(andel)]: false,
       [utledArbeidsforholdFieldName(andel2)]: false,
       [utledArbeidsforholdFieldName(andel3)]: false,
-      [finnFrilansFieldName()]: true,
+      [frilansFieldName]: true,
     };
     const values = {
       vurderMottarYtelseValues: vurderMottarYtelseValues,

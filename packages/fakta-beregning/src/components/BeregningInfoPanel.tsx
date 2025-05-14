@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import { VStack } from '@navikt/ds-react';
-
 import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import { AvklarAktiviteterFormValues } from '../typer/AvklarAktiviteterFormValues';
@@ -10,17 +8,16 @@ import { SubmitBeregningType } from '../typer/interface/SubmitBeregningTsType';
 import { KodeverkForPanel } from '../typer/KodeverkForPanelForFb';
 import { Vilkår } from '../typer/Vilkår';
 import { VurderFaktaBeregningFormValues } from '../typer/VurderFaktaBeregningFormValues';
+import { formNameAvklarAktiviteter, formNameVurderFaktaBeregning } from '../utils/BeregningFormUtils';
+import { hasAksjonspunkt } from './../utils/aksjonspunktUtils';
 import { AvklareAktiviteterPanel } from './avklareAktiviteter/AvklareAktiviteterPanelFunksjon';
-import { formNameAvklarAktiviteter, formNameVurderFaktaBeregning } from './BeregningFormUtils';
-import { hasAvklaringsbehov } from './felles/avklaringsbehovUtil';
 import { VurderFaktaBeregningPanel } from './fellesFaktaForATFLogSN/VurderFaktaBeregningPanel';
 
-const { VURDER_FAKTA_FOR_ATFL_SN, OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER } =
-  FaktaBeregningAvklaringsbehovCode;
+const { OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
 const relevanteKoder = [OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER];
 
-type Props = {
+interface Props {
   submitCallback: (aksjonspunktData: SubmitBeregningType[]) => Promise<void>;
   readOnly: boolean;
   avklaringsbehov: BeregningAvklaringsbehov[];
@@ -35,7 +32,7 @@ type Props = {
   setFormData: (data: AvklarAktiviteterFormValues | VurderFaktaBeregningFormValues) => void;
   formData?: AvklarAktiviteterFormValues | VurderFaktaBeregningFormValues;
   skalKunneAvbryteOverstyring: boolean;
-};
+}
 
 /**
  * BeregningInfoPanel
@@ -64,28 +61,26 @@ export const BeregningInfoPanel = ({
   const avklarAktiviteterReadOnly =
     readOnly ||
     ((relevanteLøsbareAvklaringsbehov.length === 0 ||
-      hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov)) &&
+      hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov)) &&
       !erOverstyrer);
   const [avklarAktiviteterErEndret, setAvklarAktiviteterErEndret] = useState<boolean>(false);
 
   return (
-    <VStack gap={hasAvklaringsbehov(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov) ? '0' : '2'}>
-      <div>
-        <AvklareAktiviteterPanel
-          readOnly={avklarAktiviteterReadOnly}
-          submitCallback={submitCallback}
-          submittable={submittable}
-          erOverstyrer={erOverstyrer && skalKunneOverstyreAktiviteter}
-          kodeverkSamling={kodeverkSamling}
-          aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-          beregningsgrunnlag={beregningsgrunnlag}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          setFormData={setFormData}
-          formData={formData && formNameAvklarAktiviteter in formData ? formData : undefined}
-          vilkår={vilkar}
-          setAvklarAktiviteterErEndret={setAvklarAktiviteterErEndret}
-        />
-      </div>
+    <>
+      <AvklareAktiviteterPanel
+        readOnly={avklarAktiviteterReadOnly}
+        submitCallback={submitCallback}
+        submittable={submittable}
+        erOverstyrer={erOverstyrer && skalKunneOverstyreAktiviteter}
+        kodeverkSamling={kodeverkSamling}
+        aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+        beregningsgrunnlag={beregningsgrunnlag}
+        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        setFormData={setFormData}
+        formData={formData && formNameAvklarAktiviteter in formData ? formData : undefined}
+        vilkår={vilkar}
+        setAvklarAktiviteterErEndret={setAvklarAktiviteterErEndret}
+      />
       <VurderFaktaBeregningPanel
         submitCallback={submitCallback}
         submittable={submittable}
@@ -101,6 +96,6 @@ export const BeregningInfoPanel = ({
         avklarAktiviteterErEndret={avklarAktiviteterErEndret}
         skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
       />
-    </VStack>
+    </>
   );
 };

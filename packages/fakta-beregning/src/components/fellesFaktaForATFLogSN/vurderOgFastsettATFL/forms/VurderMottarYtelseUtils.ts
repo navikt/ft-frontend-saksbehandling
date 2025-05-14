@@ -8,7 +8,7 @@ export const mottarYtelseFieldPrefix = 'mottarYtelseField';
 export const frilansSuffix = '_frilans';
 export const utledArbeidsforholdFieldName = (andel: ArbeidstakerUtenIMAndel): string =>
   mottarYtelseFieldPrefix + andel.andelsnr;
-export const finnFrilansFieldName = (): string => mottarYtelseFieldPrefix + frilansSuffix;
+export const frilansFieldName = mottarYtelseFieldPrefix + frilansSuffix;
 
 export const skalFastsetteInntektATUtenInntektsmelding = (
   values: FaktaOmBeregningAksjonspunktValues,
@@ -29,7 +29,7 @@ export const skalFastsetteInntektATUtenInntektsmelding = (
 };
 
 export const frilansMottarYtelse = (values: FaktaOmBeregningAksjonspunktValues): boolean | undefined =>
-  values.vurderMottarYtelseValues ? values.vurderMottarYtelseValues[finnFrilansFieldName()] : undefined;
+  values.vurderMottarYtelseValues ? values.vurderMottarYtelseValues[frilansFieldName] : undefined;
 
 export const andelsnrMottarYtelseMap = (
   values: FaktaOmBeregningAksjonspunktValues,

@@ -17,10 +17,10 @@ import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import { lonnsendringField } from './lonnsendringFormUtils';
 import { erNyoppstartetFLField } from './NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './VurderEtterlonnSluttpakkeForm';
-import { finnFrilansFieldName, utledArbeidsforholdFieldName } from './VurderMottarYtelseUtils';
+import { frilansFieldName, utledArbeidsforholdFieldName } from './VurderMottarYtelseUtils';
 
 const erATFLSammeOrg = (tilfeller: string[]) =>
-  tilfeller?.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
+  tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
 
 interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
@@ -50,7 +50,7 @@ export const InntektInputFields = ({
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
   const skalRedigereFrilansinntektRadioValues = getValues([
-    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`,
+    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${frilansFieldName}`,
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`,
   ]);
   const skalRedigereFrilansinntekt = () => {
@@ -180,7 +180,7 @@ export const InntektInputFields = ({
       skalRedigereArbeidsinntektRadioValues.filter(value => value === true).length === 1
     ) {
       return (
-        <>
+        <VStack gap="2">
           <FormattedMessage
             id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift"
             values={{
@@ -203,7 +203,7 @@ export const InntektInputFields = ({
               </List.Item>
             </List>
           </ReadMore>
-        </>
+        </VStack>
       );
     }
     return (
@@ -233,12 +233,10 @@ export const InntektInputFields = ({
       return <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" />;
     }
     if (
-      getValues(
-        `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`,
-      )
+      getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${frilansFieldName}`)
     ) {
       return (
-        <>
+        <VStack gap="2">
           <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" />
           <ReadMore
             size="small"
@@ -256,12 +254,12 @@ export const InntektInputFields = ({
               </List.Item>
             </List>
           </ReadMore>
-        </>
+        </VStack>
       );
     }
     if (erNyoppstartetFrilanser) {
       return (
-        <>
+        <VStack gap="2">
           <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" />
           <ReadMore
             size="small"
@@ -281,17 +279,17 @@ export const InntektInputFields = ({
               </List.Item>
             </List>
           </ReadMore>
-        </>
+        </VStack>
       );
     }
     return null;
   };
 
   return (
-    <VStack gap="8">
+    <>
       {erATFLSammeOrg(tilfeller) && (
         <>
-          <VStack gap="1">
+          <VStack gap="2" color="red">
             <Label>
               <FormattedMessage
                 id={
@@ -396,6 +394,6 @@ export const InntektInputFields = ({
           label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.MilitærEllerSivil" />}
         />
       )}
-    </VStack>
+    </>
   );
 };
