@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-types",
-  "version": "3.2.7",
+  "version": "3.2.8",
   "license": "MIT",
   "type": "module",
   "private": true,
