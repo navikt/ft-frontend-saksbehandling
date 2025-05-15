@@ -127,9 +127,9 @@ export const BeregningFaktaIndex = ({
   return (
     <RawIntlProvider value={intl}>
       <div className={styles.main}>
-        <VStack gap="6" className={styles.cointainer}>
+        <VStack gap="6" className={styles.container}>
           <Heading size="small" level="2">
-            <FormattedMessage id="BeregningInfoPanel.AksjonspunktHelpText.SaksopplysningerBeregning" />
+            <FormattedMessage id="BeregningFaktaIndex.SaksopplysningerBeregning" />
           </Heading>
           {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aktiveAvklaringsBehov) ||
             hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, aktiveAvklaringsBehov)) &&

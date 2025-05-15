@@ -1,6 +1,7 @@
 {
   "BeregningFaktaIndex.IngenBeregningsgrunnlag": "Har ikke beregningsgrunnlag.",
-  "BeregningInfoPanel.AksjonspunktHelpText.SaksopplysningerBeregning": "Saksopplysninger beregning",
+  "BeregningFaktaIndex.SaksopplysningerBeregning": "Saksopplysninger beregning",
+
   "BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning": "Vurder fakta for beregningen",
   "BeregningInfoPanel.AksjonspunktHelpText.ForSentRefusjonskrav": "{arbeidsgiverVisningsnavn} har minst ett refusjonskrav som har kommet for sent.",
   "BeregningInfoPanel.TidsbegrensetArbFor.Arbeidsforhold": "Er arbeidsforholdet i {navn} med varighet {fom} - {tom} tidsbegrenset?",
@@ -139,5 +140,7 @@
 
   "FaktaBegrunnelseTextField.BegrunnEndringene": "Begrunn endringene",
   "FaktaBegrunnelseTextField.Begrunnelse": "Begrunnelse",
-  "SubmitButton.ConfirmInformation": "Bekreft og fortsett"
+  "SubmitButton.ConfirmInformation": "Bekreft og fortsett",
+
+  "InntektFieldArrayRow.MåFastsettes": "Må fastsettes"
 }

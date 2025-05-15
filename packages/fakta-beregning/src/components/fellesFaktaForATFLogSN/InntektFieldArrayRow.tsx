@@ -1,6 +1,6 @@
 import React from 'react';
 import { FieldArrayWithId, useFormContext } from 'react-hook-form';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { PersonPencilFillIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { Button, ErrorMessage, Table } from '@navikt/ds-react';
@@ -162,7 +162,9 @@ export const InntektFieldArrayAndelRow = ({
           <div className={styles.inntekt}>
             <div className={harEndretInntekt ? styles.inntektOldStrikethrough : styles.inntektOld}>
               {visMåFastsettesText ? (
-                <ErrorMessage size="small">Må fastsettes</ErrorMessage>
+                <ErrorMessage size="small">
+                  <FormattedMessage id="InntektFieldArrayRow.MåFastsettes" />
+                </ErrorMessage>
               ) : (
                 <InputField
                   size="small"

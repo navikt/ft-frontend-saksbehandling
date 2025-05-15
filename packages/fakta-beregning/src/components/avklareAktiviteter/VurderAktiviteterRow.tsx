@@ -71,7 +71,11 @@ export const VurderAktiviteterTabellRad = ({
 
   const lagLabel = (skalBrukes: boolean) => {
     const dato = periodFormat(aktivitet.fom, aktivitet.tom, { separator: 'til' });
-    return `${skalBrukes ? 'Benytt' : 'Ikke benytt'} ${visningsnavn} ${dato}`;
+    return `${
+      skalBrukes
+        ? intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.Benytt' })
+        : intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.IkkeBenytt' })
+    } ${visningsnavn} ${dato}`;
   };
 
   return (
