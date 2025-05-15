@@ -14,8 +14,8 @@ import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBe
 import { SubmitBeregningType } from '../../typer/interface/SubmitBeregningTsType';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { Vilk책r, Vilk책rperiode } from '../../typer/Vilk책r';
-import { formNameAvklarAktiviteter } from '../BeregningFormUtils';
-import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
+import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
+import { formNameAvklarAktiviteter } from '../../utils/BeregningFormUtils';
 import { AvklareAktiviteterField } from './AvklareAktiviteterField';
 import { buildInitialValues, transformFieldValue } from './avklareAktiviteterHjelpefunksjoner';
 
@@ -32,11 +32,11 @@ const finnVilk책rperiode = (vilk책r: Vilk책r, vilk책rsperiodeFom: string): Vilk�
 };
 
 const skalSkjuleKomponent = (avklaringsbehov: BeregningAvklaringsbehov[], erOverstyrer: boolean): boolean =>
-  !hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) &&
-  !hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov) &&
+  !hasAksjonspunkt(AVKLAR_AKTIVITETER, avklaringsbehov) &&
+  !hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov) &&
   !erOverstyrer;
 
-type Props = {
+interface Props {
   readOnly: boolean;
   submittable: boolean;
   kodeverkSamling: KodeverkForPanel;
@@ -49,7 +49,7 @@ type Props = {
   setFormData: (data: AvklarAktiviteterFormValues) => void;
   formData?: AvklarAktiviteterFormValues;
   setAvklarAktiviteterErEndret: (value: boolean) => void;
-};
+}
 
 const transformValues = (values: AvklarAktiviteterFormValues): SubmitBeregningType[] => {
   const fieldArrayList = values[formNameAvklarAktiviteter];
@@ -212,8 +212,6 @@ export const AvklareAktiviteterPanel = ({
         (field, index) =>
           aktivtBeregningsgrunnlagIndeks === index && (
             <AvklareAktiviteterField
-              // @ts-expect-error Fiks
-              aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
               key={field.id}
               fieldId={index}
               avklarAktiviteter={getAvklarAktiviteter(beregningsgrunnlag, index)}

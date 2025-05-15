@@ -39,7 +39,7 @@ const kodeverkSamling = {
   ],
 } as KodeverkForPanel;
 
-describe('<InntektFieldArray>', () => {
+describe('InntektFieldArray', () => {
   it('skal ikkje fjerne dagpengeandel om dagpenger og ikkje lagt til manuelt', () => {
     const newfields = [{ aktivitetStatus: aktivitetStatuser.DAGPENGER, lagtTilAvSaksbehandler: false }];
     const rm = (index: number) => newfields.splice(index, 1);

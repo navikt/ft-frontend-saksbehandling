@@ -5,18 +5,14 @@ import dayjs from 'dayjs';
 
 import { hasValidDate } from '@navikt/ft-form-validators';
 import { ArbeidsgiverOpplysningerPerId, AvklarBeregningAktiviteter } from '@navikt/ft-types';
-import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { dateFormat } from '@navikt/ft-utils';
 
 import { AktiviteterValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { leggTilAktivitet } from './vurderAktiviteterPanelUtils';
-import {
-  buildInitialValues as buildInitialValuesForTabell,
-  lagAktivitetFieldId,
-  transformValues as transformValuesForTabell,
-} from './VurderAktiviteterTabell';
-import { VurderAktiviteterTabellReactHookForm } from './VurderAktiviteterTabellReactHookForm';
+import { VurderAktiviteterTabell } from './VurderAktiviteterTabell';
+import { lagAktivitetFieldId } from './vurderAktiviteterTabellUtils';
 
 const harListeAktivitetSomSkalBrukes = (
   mapping: AvklarBeregningAktiviteter,
@@ -132,10 +128,10 @@ const utledGjeldendeSkjæringstidspunkt = (
 
 const getFormatertSkjæringstidspunkt = (skjaeringstidspunkt: string | undefined) => {
   const datoFeil = !skjaeringstidspunkt || hasValidDate(skjaeringstidspunkt);
-  return datoFeil ? '' : dayjs(skjaeringstidspunkt).format(DDMMYYYY_DATE_FORMAT);
+  return datoFeil ? '' : dateFormat(skjaeringstidspunkt);
 };
 
-type Props = {
+interface Props {
   erOverstyrt: boolean;
   readOnly: boolean;
   isAvklaringsbehovClosed: boolean;
@@ -145,7 +141,7 @@ type Props = {
   values: AvklarAktiviteterValues;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldId: number;
-};
+}
 
 /**
  * VurderAktiviteterPanel
@@ -175,7 +171,7 @@ export const VurderAktiviteterPanel = ({
         />
       </BodyShort>
       {listeSomSkalVurderes.map(aktivitetMap => (
-        <VurderAktiviteterTabellReactHookForm
+        <VurderAktiviteterTabell
           readOnly={readOnly}
           isAvklaringsbehovClosed={isAvklaringsbehovClosed}
           aktiviteter={aktivitetMap.aktiviteter ?? []}
@@ -230,7 +226,7 @@ VurderAktiviteterPanel.transformValues = (
     throw new Error('Finner ikke forventet skjæringstidspunkt, ugyldig tilstand');
   }
   return listerSomVurderes.flatMap(liste =>
-    transformValuesForTabell(values, liste.aktiviteter ?? [], gjeldendeSkjæringstidspunkt, liste.tom),
+    VurderAktiviteterTabell.transformValues(values, liste.aktiviteter ?? [], gjeldendeSkjæringstidspunkt, liste.tom),
   );
 };
 
@@ -285,7 +281,7 @@ VurderAktiviteterPanel.buildInitialValues = (
   aktiviteterTomDatoMapping.forEach(liste => {
     initialValues = {
       ...initialValues,
-      ...buildInitialValuesForTabell(
+      ...VurderAktiviteterTabell.buildInitialValues(
         liste.aktiviteter ?? [],
         kodeverkSamling,
         erOverstyrt,

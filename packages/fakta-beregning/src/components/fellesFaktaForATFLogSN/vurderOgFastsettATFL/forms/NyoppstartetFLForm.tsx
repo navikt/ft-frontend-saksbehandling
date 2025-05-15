@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { List, ReadMore } from '@navikt/ds-react';
+import { List, ReadMore, VStack } from '@navikt/ds-react';
 
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -25,9 +25,9 @@ import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 
 export const erNyoppstartetFLField = 'NyoppstartetFLField';
 
-type Props = {
+interface Props {
   readOnly: boolean;
-};
+}
 
 export const NyoppstartetFLForm = ({ readOnly }: Props) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
@@ -36,7 +36,7 @@ export const NyoppstartetFLForm = ({ readOnly }: Props) => {
   return (
     <RadioGroupPanel
       label={
-        <>
+        <VStack gap="2">
           <FormattedMessage id="BeregningInfoPanel.NyoppstartetFLForm.ErSokerNyoppstartetFL" />
           <ReadMore
             size="small"
@@ -51,7 +51,7 @@ export const NyoppstartetFLForm = ({ readOnly }: Props) => {
               </List.Item>
             </List>
           </ReadMore>
-        </>
+        </VStack>
       }
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`}
       validate={[required]}

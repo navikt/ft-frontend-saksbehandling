@@ -5,12 +5,12 @@ import { Label, VStack } from '@navikt/ds-react';
 import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { BrukersAndelFieldArray } from './BrukersAndelFieldArray';
 
-type Props = {
+interface Props {
   readOnly: boolean;
   brukersAndelFieldArrayName: string;
   isAksjonspunktClosed: boolean;
   kodeverkSamling: KodeverkForPanel;
-};
+}
 
 /**
  * KunYtelseUtenBesteberegningPanel

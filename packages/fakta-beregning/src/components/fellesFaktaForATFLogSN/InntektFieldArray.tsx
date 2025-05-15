@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
-import { ErrorMessage, Label, Table, VStack } from '@navikt/ds-react';
+import { ErrorMessage, Table, VStack } from '@navikt/ds-react';
 
 import { useCustomValidation } from '@navikt/ft-form-hooks';
 import { AktivitetStatus, Inntektskategori, KodeverkType } from '@navikt/ft-kodeverk';
@@ -26,7 +26,7 @@ import { AndelFieldValue, InntektTransformed } from '../../typer/FieldValues';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import {
-  erOverstyring,
+  erOverstyringAvBeregningsgrunnlag,
   getFastsattBelopFromArbeidstakerInntekt,
   getKanRedigereInntekt,
   mapAndelToField,
@@ -36,12 +36,13 @@ import { InntektFieldArrayAndelRow } from './InntektFieldArrayRow';
 import {
   finnStatus,
   fjernEllerLeggTilAktivitetStatus,
-  getHeaderTextCodes,
   leggTilDagpengerOmBesteberegning,
 } from './inntektFieldArrayUtils';
 import { SummaryRow } from './SummaryRow';
 import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
+
+import tableStyles from '../felles/tableStyle.module.css';
 
 const lagNyMS = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
   andel: finnStatus(aktivitetStatuser, AktivitetStatus.MILITAER_ELLER_SIVIL),
@@ -80,19 +81,6 @@ const removeAndel = (index: number, remove: UseFieldArrayRemove) => () => {
   remove(index);
 };
 
-const createBruttoBGSummaryRow = (
-  fields: AndelFieldValue[],
-  readOnly: boolean,
-  beregningsgrunnlag: Beregningsgrunnlag,
-) => (
-  <SummaryRow
-    key="summaryRow"
-    readOnly={readOnly}
-    skalVisePeriode={skalVisePeriode(fields)}
-    skalViseRefusjon={skalViseRefusjon(fields)}
-    beregningsgrunnlag={beregningsgrunnlag}
-  />
-);
 const erFrilanser = (aktivitetStatus: string): boolean => aktivitetStatus === AktivitetStatus.FRILANSER;
 const erArbeidstaker = (aktivitetStatus: string): boolean => aktivitetStatus === AktivitetStatus.ARBEIDSTAKER;
 const erDagpenger = (aktivitetStatus: string): boolean => aktivitetStatus === AktivitetStatus.DAGPENGER;
@@ -105,7 +93,6 @@ const fjernEllerLeggTilMilitær = (
   fields: AndelFieldValue[],
   skalHaMilitær: boolean,
   aktivitetStatuser: KodeverkMedNavn[],
-  getKanRedigereInntektCallback: () => void,
   remove: UseFieldArrayRemove,
   append: UseFieldArrayAppend<AndelFieldValue>,
 ) => {
@@ -143,20 +130,20 @@ const validate = (formValues: FaktaOmBeregningAksjonspunktValues, errors: any, i
     return ulikeAndelerError;
   }
 
-  if (erOverstyring(formValues)) {
+  if (erOverstyringAvBeregningsgrunnlag(formValues)) {
     return validateEnFastsattVedOverstyring(fields, intl);
   }
 
   return null;
 };
 
-type Props = {
+interface Props {
   readOnly: boolean;
   skalKunneLeggeTilDagpengerManuelt: boolean;
   skalHaMilitær?: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
   kodeverkSamling: KodeverkForPanel;
-};
+}
 
 /**
  *  InntektFieldArray
@@ -193,11 +180,6 @@ export const InntektFieldArray = ({
   });
   const intl = useIntl();
 
-  const getKanRedigereInntektCallback = useCallback(
-    () => getKanRedigereInntekt(formValues, beregningsgrunnlag),
-    [formValues, beregningsgrunnlag],
-  );
-
   useEffect(() => {
     const currentFields = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.inntektFieldArray`);
     const aktivitetStatuser = kodeverkSamling[KodeverkType.AKTIVITET_STATUS];
@@ -206,7 +188,6 @@ export const InntektFieldArray = ({
         currentFields,
         !!skalHaMilitær,
         aktivitetStatuser,
-        getKanRedigereInntektCallback,
         remove,
         // @ts-expect-error Fiks
         append,
@@ -248,54 +229,70 @@ export const InntektFieldArray = ({
   const skjemaNavn = `${fieldArrayName}.skjemagruppe`;
   const errorMessage = useCustomValidation(skjemaNavn, feilmelding ?? undefined);
   const faktaOmBeregning = beregningsgrunnlag.faktaOmBeregning;
+
+  const skalVisePeriodeKolonne = skalVisePeriode(fields);
+  const skalViseRefusjonsKolonne = skalViseRefusjon(fields);
+
   if (!faktaOmBeregning) {
     return null;
   }
-  const tablerows = fields.map((field, index) => {
-    return (
-      <InntektFieldArrayAndelRow
-        key={field.id}
-        field={field}
-        skalVisePeriode={skalVisePeriode(fields)}
-        skalViseRefusjon={skalViseRefusjon(fields)}
-        skalViseSletteknapp={skalViseSletteknapp(index, fields, readOnly)}
-        readOnly={readOnly}
-        removeAndel={removeAndel(index, remove)}
-        beregningsgrunnlag={beregningsgrunnlag}
-        kodeverkSamling={kodeverkSamling}
-        rowName={`${fieldArrayName}.${index}`}
-        skalFastsetteInntektForAndel={skalFastsetteInntektForAndel(formValues, faktaOmBeregning, beregningsgrunnlag)}
-      />
-    );
-  });
 
-  if (tablerows.length === 0) {
+  if (fields.length === 0) {
     return null;
   }
-  tablerows.push(createBruttoBGSummaryRow(fields, readOnly, beregningsgrunnlag));
+
   return (
     <VStack gap="2">
-      <Table size="small">
+      <Table size="small" className={tableStyles.tableMedInput}>
         <Table.Header>
           <Table.Row>
-            {getHeaderTextCodes(skalVisePeriode(fields), skalViseRefusjon(fields)).map(header => {
-              const alginRightHeaders = [
-                'BeregningInfoPanel.FordelingBG.Fordeling',
-                'BeregningInfoPanel.FordelingBG.Refusjonskrav',
-                'BeregningInfoPanel.FordelingBG.Inntektskategori',
-              ];
-              const alignRight = alginRightHeaders.includes(header);
-              return (
-                <Table.HeaderCell key={header} scope="col" align={alignRight ? 'right' : 'left'}>
-                  <Label size="small" as="span">
-                    <FormattedMessage id={header} />
-                  </Label>
-                </Table.HeaderCell>
-              );
-            })}
+            <Table.HeaderCell scope="col" textSize="small">
+              <FormattedMessage id="BeregningInfoPanel.FordelingBG.Andel" />
+            </Table.HeaderCell>
+            {skalVisePeriodeKolonne && (
+              <Table.HeaderCell scope="col" textSize="small">
+                <FormattedMessage id="BeregningInfoPanel.FordelingBG.Arbeidsperiode" />
+              </Table.HeaderCell>
+            )}
+            <Table.HeaderCell scope="col" textSize="small" align="right">
+              <FormattedMessage id="BeregningInfoPanel.FordelingBG.Fordeling" />
+            </Table.HeaderCell>
+            {skalViseRefusjonsKolonne && (
+              <Table.HeaderCell scope="col" textSize="small" align="right">
+                <FormattedMessage id="BeregningInfoPanel.FordelingBG.Refusjonskrav" />
+              </Table.HeaderCell>
+            )}
+            <Table.HeaderCell scope="col" textSize="small" align="right">
+              <FormattedMessage id="BeregningInfoPanel.FordelingBG.Inntektskategori" />
+            </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-        <Table.Body>{tablerows}</Table.Body>
+        <Table.Body>
+          {fields.map((field, index) => (
+            <InntektFieldArrayAndelRow
+              key={field.id}
+              field={field}
+              skalVisePeriode={skalVisePeriodeKolonne}
+              skalViseRefusjon={skalViseRefusjonsKolonne}
+              skalViseSletteknapp={skalViseSletteknapp(index, fields, readOnly)}
+              readOnly={readOnly}
+              removeAndel={removeAndel(index, remove)}
+              beregningsgrunnlag={beregningsgrunnlag}
+              kodeverkSamling={kodeverkSamling}
+              rowName={`${fieldArrayName}.${index}`}
+              skalFastsetteInntektForAndel={skalFastsetteInntektForAndel(
+                formValues,
+                faktaOmBeregning,
+                beregningsgrunnlag,
+              )}
+            />
+          ))}
+          <SummaryRow
+            skalVisePeriode={skalVisePeriodeKolonne}
+            skalViseRefusjon={skalViseRefusjonsKolonne}
+            beregningsgrunnlag={beregningsgrunnlag}
+          />
+        </Table.Body>
       </Table>
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </VStack>

@@ -8,7 +8,7 @@ import messages from '../../../i18n/nb_NO.json';
 
 const intlMock = getIntlMock(messages);
 
-describe('<ValidateAndelerUtils>', () => {
+describe('ValidateAndelerUtils', () => {
   it('skal returnere 0 for lik andelsinfo og lik inntektskategori', () => {
     const andeler = [
       {

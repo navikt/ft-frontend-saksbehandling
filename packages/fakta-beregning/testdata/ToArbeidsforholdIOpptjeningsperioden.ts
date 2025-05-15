@@ -1,4 +1,5 @@
 import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { Vilkår } from '../src/typer/Vilkår';
 
@@ -11,7 +12,7 @@ export const beregningsgrunnlag = [
     beregningsgrunnlagPeriode: [
       {
         beregningsgrunnlagPeriodeFom: '2020-01-13',
-        beregningsgrunnlagPeriodeTom: '9999-12-31',
+        beregningsgrunnlagPeriodeTom: TIDENES_ENDE,
         beregnetPrAar: 0,
         bruttoPrAar: 0,
         bruttoInkludertBortfaltNaturalytelsePrAar: 0,

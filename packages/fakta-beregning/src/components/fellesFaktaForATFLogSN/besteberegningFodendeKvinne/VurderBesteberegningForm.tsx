@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { HStack } from '@navikt/ds-react';
+import { BodyShort, Label, Link, VStack } from '@navikt/ds-react';
 
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -19,16 +19,14 @@ import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '../eksterneLenker';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
-import styles from '../kunYtelse/kunYtelseBesteberegningPanel.module.css';
-
 export const besteberegningField = 'vurderbesteberegningField';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG } = FaktaBeregningAvklaringsbehovCode;
 
-type Props = {
+interface Props {
   readOnly: boolean;
   erOverstyrt: boolean;
-};
+}
 
 /**
  * VurderBesteberegningPanel
@@ -37,39 +35,38 @@ type Props = {
  *  med vurdering av besteberegning.
  */
 
-export const VurderBesteberegningPanel = ({ readOnly, erOverstyrt }: Props) => {
+export const VurderBesteberegningForm = ({ readOnly, erOverstyrt }: Props) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
   const isReadOnly = readOnly || erOverstyrt;
 
   return (
-    <HStack gap="2" wrap={false}>
-      <RadioGroupPanel
-        label={<FormattedMessage id="BeregningInfoPanel.VurderBestebergning.HarBesteberegning" />}
-        name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`}
-        isReadOnly={isReadOnly}
-        validate={isReadOnly ? [] : [required]}
-        radios={[
-          { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
-        ]}
-        parse={parseStringToBoolean}
-      />
-      <div>
-        <a
-          className={styles.navetLink}
-          href={LINK_TIL_BESTE_BEREGNING_REGNEARK}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
-        </a>
-      </div>
-    </HStack>
+    <RadioGroupPanel
+      label={
+        <VStack gap="2" justify="space-between">
+          <Label size="small">
+            <FormattedMessage id="BeregningInfoPanel.VurderBestebergning.HarBesteberegning" />
+          </Label>
+          <BodyShort>
+            <Link href={LINK_TIL_BESTE_BEREGNING_REGNEARK} target="_blank" rel="noopener noreferrer">
+              <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
+            </Link>
+          </BodyShort>
+        </VStack>
+      }
+      name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`}
+      isReadOnly={isReadOnly}
+      validate={isReadOnly ? [] : [required]}
+      radios={[
+        { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
+        { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
+      ]}
+      parse={parseStringToBoolean}
+    />
   );
 };
 
-VurderBesteberegningPanel.buildInitialValues = (
+VurderBesteberegningForm.buildInitialValues = (
   avklaringsbehov: BeregningAvklaringsbehov[],
   vurderBesteberegning: VurderBesteberegning | undefined,
   faktaOmBeregningTilfeller: string[],
@@ -105,7 +102,7 @@ const krevVerdiEllerKastFeil = (verdi: string | undefined): string => {
   return verdi;
 };
 
-VurderBesteberegningPanel.transformValues = (
+VurderBesteberegningForm.transformValues = (
   values: FaktaOmBeregningAksjonspunktValues,
   faktaOmBeregning: FaktaOmBeregning,
   inntektPrAndel: InntektTransformed[],

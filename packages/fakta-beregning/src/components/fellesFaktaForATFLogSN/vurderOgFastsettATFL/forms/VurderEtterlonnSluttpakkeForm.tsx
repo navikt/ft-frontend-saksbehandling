@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { ReadMore } from '@navikt/ds-react';
+import { ReadMore, VStack } from '@navikt/ds-react';
 
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -27,11 +27,11 @@ import 'core-js/features/array/flat-map';
  */
 export const harEtterlonnSluttpakkeField = 'vurderEtterlønnSluttpakke';
 
-type Props = {
+interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
-};
+}
 
 export const VurderEtterlonnSluttpakkeForm = ({ readOnly }: Props) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
@@ -40,7 +40,7 @@ export const VurderEtterlonnSluttpakkeForm = ({ readOnly }: Props) => {
     <div>
       <RadioGroupPanel
         label={
-          <>
+          <VStack gap="2">
             <FormattedMessage id="BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt" />
             <ReadMore
               size="small"
@@ -48,7 +48,7 @@ export const VurderEtterlonnSluttpakkeForm = ({ readOnly }: Props) => {
             >
               <FormattedMessage id="BeregningInfoPanel.EtterlønnSluttpakke.HvordanGarJegFrem1" />
             </ReadMore>
-          </>
+          </VStack>
         }
         name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`}
         validate={[required]}

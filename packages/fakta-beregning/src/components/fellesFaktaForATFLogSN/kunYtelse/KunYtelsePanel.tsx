@@ -10,14 +10,13 @@ import { KunYtelseUtenBesteberegningPanel } from './KunYtelseUtenBesteberegningP
 
 export const brukersAndelFieldArrayName = 'brukersAndelBG';
 
-type Props = {
+interface Props {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
-  skalSjekkeBesteberegning: boolean;
   skalViseInntektstabell?: boolean;
   kodeverkSamling: KodeverkForPanel;
   faktaOmBeregning: FaktaOmBeregning;
-};
+}
 
 /**
  * KunYtelsePanel
@@ -67,7 +66,7 @@ KunYtelsePanel.buildInitialValues = (
   if (!kunYtelse || !kunYtelse.andeler || kunYtelse.andeler.length === 0) {
     return {};
   }
-  const kunYtelseValues = kunYtelse.andeler.map(andel => {
+  const kunYtelseValues = kunYtelse.andeler.map<BrukersAndelValues>(andel => {
     const andelMedInfo = faktaOmBeregningAndeler.find(faktaAndel => faktaAndel.andelsnr === andel.andelsnr);
     if (!andelMedInfo) {
       throw new Error(`Finner ikke faktaAndel med andelsnr ${andel.andelsnr}`);

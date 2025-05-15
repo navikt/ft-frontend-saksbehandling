@@ -16,13 +16,13 @@ import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBe
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
 import { ArbeidsinntektInput } from '../felles/ArbeidsinntektInput';
 import { InntektInput } from '../felles/InntektInput';
-import { VurderBesteberegningPanel } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
+import { VurderBesteberegningForm } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import {
   erInitialOverstyringAvBeregningsgrunnlag,
   getFaktaOmBeregning,
   getFaktaOmBeregningTilfellerKoder,
 } from './BgFaktaUtils';
-import { buildInitialValuesKunYtelse, transformValuesForKunYtelse } from './kunYtelse/FastsettBgKunYtelse';
+import { FastsettBgKunYtelse } from './kunYtelse/FastsettBgKunYtelse';
 import { NyIArbeidslivetSNForm } from './nyIArbeidslivet/NyIArbeidslivetSNForm';
 import { TidsbegrensetArbeidsforholdForm } from './tidsbegrensetArbeidsforhold/TidsbegrensetArbeidsforholdForm';
 import { VurderMilitaer } from './vurderMilitaer/VurderMilitaer';
@@ -52,7 +52,7 @@ export const getArbeidsgiverInfoForRefusjonskravSomKommerForSent = (beregningsgr
 const kunYtelseTransform =
   (faktaOmBeregning: FaktaOmBeregning, aktivePaneler: string[]) =>
   (values: FaktaOmBeregningAksjonspunktValues): FaktaBeregningTransformedValues =>
-    transformValuesForKunYtelse(values, faktaOmBeregning.kunYtelse, aktivePaneler);
+    FastsettBgKunYtelse.transformValues(values, faktaOmBeregning.kunYtelse, aktivePaneler);
 
 const nyIArbeidslivetTransform = (
   vurderFaktaValues: FaktaBeregningTransformedValues,
@@ -246,7 +246,7 @@ export const getBuildInitialValuesFaktaForATFLOgSN = (
       beregningsgrunnlag,
       getVurderFaktaAksjonspunkt(beregningsgrunnlag.avklaringsbehov),
     ),
-    ...VurderBesteberegningPanel.buildInitialValues(
+    ...VurderBesteberegningForm.buildInitialValues(
       beregningsgrunnlag.avklaringsbehov,
       getVurderBesteberegning(beregningsgrunnlag),
       tilfeller,
@@ -258,7 +258,7 @@ export const getBuildInitialValuesFaktaForATFLOgSN = (
       arbeidsgiverOpplysningerPerId,
       kodeverkSamling,
     ),
-    ...buildInitialValuesKunYtelse(
+    ...FastsettBgKunYtelse.buildInitialValues(
       getKunYtelse(beregningsgrunnlag),
       tilfeller,
       faktaOmBeregning.andelerForFaktaOmBeregning,

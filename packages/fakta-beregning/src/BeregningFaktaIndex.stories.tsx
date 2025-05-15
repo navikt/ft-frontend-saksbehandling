@@ -17,6 +17,7 @@ import {
   FaktaOmBeregning,
   FaktaOmBeregningAndel,
 } from '@navikt/ft-types';
+import { TIDENES_ENDE } from '@navikt/ft-utils';
 
 import {
   beregningsgrunnlag as bgArbeidOgAAP,
@@ -82,7 +83,7 @@ const lagBeregningsgrunnlag = (
     beregningsgrunnlagPeriode: [
       {
         beregningsgrunnlagPeriodeFom: stp,
-        beregningsgrunnlagPeriodeTom: '9999-12-31',
+        beregningsgrunnlagPeriodeTom: TIDENES_ENDE,
         beregningsgrunnlagPrStatusOgAndel: andeler.map(andel => ({
           andelsnr: andel.andelsnr,
           aktivitetStatus: andel.aktivitetStatus,

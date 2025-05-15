@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 
 import { VStack } from '@navikt/ds-react';
 
@@ -12,32 +12,37 @@ import { KunYtelsePanel } from './KunYtelsePanel';
 
 const { FASTSETT_BG_KUN_YTELSE, VURDER_BESTEBEREGNING } = FaktaOmBeregningTilfelle;
 
-export const setFaktaPanelForKunYtelse = (
-  faktaPanels: ReactElement[],
-  tilfeller: string[],
-  readOnly: boolean,
-  isAksjonspunktClosed: boolean,
-  faktaOmBeregning: FaktaOmBeregning,
-  kodeverkSamling: KodeverkForPanel,
-  renderTextFieldAndSubmitButton: () => React.ReactNode,
-) => {
-  if (tilfeller.includes(FASTSETT_BG_KUN_YTELSE)) {
-    faktaPanels.push(
-      <VStack gap="4" key="FASTSETT_BG_KUN_YTELSE">
-        {/* @ts-expect-error TODO Denne bør fiksast */}
-        <KunYtelsePanel
-          readOnly={readOnly}
-          isAksjonspunktClosed={isAksjonspunktClosed}
-          faktaOmBeregning={faktaOmBeregning}
-          kodeverkSamling={kodeverkSamling}
-        />
-        {renderTextFieldAndSubmitButton()}
-      </VStack>,
-    );
-  }
+interface Props {
+  tilfeller: string[];
+  readOnly: boolean;
+  isAksjonspunktClosed: boolean;
+  faktaOmBeregning: FaktaOmBeregning;
+  kodeverkSamling: KodeverkForPanel;
+  renderTextFieldAndSubmitButton: () => React.ReactNode;
+}
+
+export const FastsettBgKunYtelse = ({
+  tilfeller,
+  readOnly,
+  isAksjonspunktClosed,
+  faktaOmBeregning,
+  kodeverkSamling,
+  renderTextFieldAndSubmitButton,
+}: Props) => {
+  return tilfeller.includes(FASTSETT_BG_KUN_YTELSE) ? (
+    <VStack gap="4" key="FASTSETT_BG_KUN_YTELSE">
+      <KunYtelsePanel
+        readOnly={readOnly}
+        isAksjonspunktClosed={isAksjonspunktClosed}
+        faktaOmBeregning={faktaOmBeregning}
+        kodeverkSamling={kodeverkSamling}
+      />
+      {renderTextFieldAndSubmitButton()}
+    </VStack>
+  ) : null;
 };
 
-export const transformValuesForKunYtelse = (
+FastsettBgKunYtelse.transformValues = (
   values: FaktaOmBeregningAksjonspunktValues,
   kunYtelse: KunYtelse | undefined,
   tilfeller: string[],
@@ -56,7 +61,7 @@ export const transformValuesForKunYtelse = (
   return {};
 };
 
-export const buildInitialValuesKunYtelse = (
+FastsettBgKunYtelse.buildInitialValues = (
   kunYtelse: KunYtelse | undefined,
   tilfeller: string[],
   faktaOmBeregningAndeler: AndelForFaktaOmBeregning[],

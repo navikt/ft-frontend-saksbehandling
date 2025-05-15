@@ -1,11 +1,7 @@
-.tabsContainer {
-  margin-bottom: 1rem;
-  overflow-x: auto;
-  width: 50vw;
-}
-.tabsContainer :global(.navds-tabs__tab) {
-  margin-right: 0.5rem;
-}
 .main {
-  max-width: 50.875rem;
+  display: flex;
+}
+
+.container {
+  width: fit-content;
 }

@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 // TODO (SAFIR) PFP-6021 Ta i bruk InntektFieldArray i staden for BrukersAndelFieldArray
-import { HStack, Label, VStack } from '@navikt/ds-react';
+import { BodyShort, Label, Link, VStack } from '@navikt/ds-react';
 
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -13,23 +13,21 @@ import { ArrowBox } from '@navikt/ft-ui-komponenter';
 import { VurderBesteberegningMedKunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
-import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
+import { formNameVurderFaktaBeregning } from '../../../utils/BeregningFormUtils';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '../eksterneLenker';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import { BrukersAndelFieldArray } from './BrukersAndelFieldArray';
 
-import styles from './kunYtelseBesteberegningPanel.module.css';
+const besteberegningField = 'besteberegningField';
 
-export const besteberegningField = 'besteberegningField';
-
-type Props = {
+interface Props {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   brukersAndelFieldArrayName: string;
   skalViseInntektstabell?: boolean;
   kodeverkSamling: KodeverkForPanel;
-};
+}
 
 /**
  * KunYtelseBesteberegningPanel
@@ -69,21 +67,18 @@ export const KunYtelseBesteberegning = ({
         <div style={{ marginTop: '10px' }}>
           <ArrowBox alignOffset={erBesteberegning ? 0 : 60}>
             <VStack gap="4">
-              <HStack justify="space-between">
+              <VStack gap="2" justify="space-between">
                 <Label size="small">
                   <FormattedMessage id="KunYtelsePanel.OverskriftBesteberegning" />
                 </Label>
                 {erBesteberegning && (
-                  <a
-                    className={styles.navetLink}
-                    href={LINK_TIL_BESTE_BEREGNING_REGNEARK}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
-                  </a>
+                  <BodyShort>
+                    <Link href={LINK_TIL_BESTE_BEREGNING_REGNEARK} target="_blank" rel="noopener noreferrer">
+                      <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
+                    </Link>
+                  </BodyShort>
                 )}
-              </HStack>
+              </VStack>
               {skalViseInntektstabell && (
                 <BrukersAndelFieldArray
                   name={brukersAndelFieldArrayName}
