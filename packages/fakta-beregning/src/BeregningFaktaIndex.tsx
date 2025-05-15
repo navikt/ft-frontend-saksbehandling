@@ -127,7 +127,7 @@ export const BeregningFaktaIndex = ({
   return (
     <RawIntlProvider value={intl}>
       <div className={styles.main}>
-        <VStack gap="6">
+        <VStack gap="6" className={styles.cointainer}>
           <Heading size="small" level="2">
             <FormattedMessage id="BeregningInfoPanel.AksjonspunktHelpText.SaksopplysningerBeregning" />
           </Heading>
@@ -140,28 +140,25 @@ export const BeregningFaktaIndex = ({
               />
             )}
           {skalBrukeTabs && (
-            <div className={styles.tabsContainer}>
-              <Tabs
-                value={aktivtBeregningsgrunnlagIndeks.toString()}
-                onChange={(clickedIndex: string) => setAktivtBeregningsgrunnlagIndeks(Number(clickedIndex))}
-              >
-                <Tabs.List>
-                  {beregningsgrunnlag.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => (
-                    <Tabs.Tab
-                      key={currentBeregningsgrunnlag.skjaeringstidspunktBeregning}
-                      value={currentBeregningsgrunnlagIndex.toString()}
-                      label={lagLabel(currentBeregningsgrunnlag, vilkårsperioder)}
-                      className={skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) ? 'harAksjonspunkt' : ''}
-                      icon={
-                        skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) && (
-                          <ExclamationmarkTriangleFillIcon width={20} height={20} color="Orange" />
-                        )
-                      }
-                    />
-                  ))}
-                </Tabs.List>
-              </Tabs>
-            </div>
+            <Tabs
+              value={aktivtBeregningsgrunnlagIndeks.toString()}
+              onChange={(clickedIndex: string) => setAktivtBeregningsgrunnlagIndeks(Number(clickedIndex))}
+            >
+              <Tabs.List>
+                {beregningsgrunnlag.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => (
+                  <Tabs.Tab
+                    key={currentBeregningsgrunnlag.skjaeringstidspunktBeregning}
+                    value={currentBeregningsgrunnlagIndex.toString()}
+                    label={lagLabel(currentBeregningsgrunnlag, vilkårsperioder)}
+                    icon={
+                      skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) && (
+                        <ExclamationmarkTriangleFillIcon aria-hidden color="Orange" />
+                      )
+                    }
+                  />
+                ))}
+              </Tabs.List>
+            </Tabs>
           )}
           <BeregningInfoPanel
             aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
