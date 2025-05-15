@@ -24,6 +24,6 @@
 
   tr > td:first-child {
     max-width: 500px;
-    min-width: 400px;
+    min-width: 350px;
   }
 }

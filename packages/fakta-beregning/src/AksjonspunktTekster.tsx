@@ -249,7 +249,7 @@ export const AksjonspunktTekster = ({ beregningsgrunnlag, arbeidsgiverOpplysning
 };
 
 const H3 = (chunks: ReactNode[]) => (
-  <Heading size="xsmall" spacing level="3" key="h3">
+  <Heading size="xsmall" level="3" key="h3">
     {chunks}
   </Heading>
 );
