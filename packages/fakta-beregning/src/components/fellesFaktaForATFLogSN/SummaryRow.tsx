@@ -80,7 +80,6 @@ const summerBeregnet = (
 };
 
 interface Props {
-  readOnly: boolean;
   skalVisePeriode: boolean;
   skalViseRefusjon: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;

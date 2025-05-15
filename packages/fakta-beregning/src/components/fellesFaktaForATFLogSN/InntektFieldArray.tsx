@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
@@ -93,7 +93,6 @@ const fjernEllerLeggTilMilitær = (
   fields: AndelFieldValue[],
   skalHaMilitær: boolean,
   aktivitetStatuser: KodeverkMedNavn[],
-  getKanRedigereInntektCallback: () => void,
   remove: UseFieldArrayRemove,
   append: UseFieldArrayAppend<AndelFieldValue>,
 ) => {
@@ -181,11 +180,6 @@ export const InntektFieldArray = ({
   });
   const intl = useIntl();
 
-  const getKanRedigereInntektCallback = useCallback(
-    () => getKanRedigereInntekt(formValues, beregningsgrunnlag),
-    [formValues, beregningsgrunnlag],
-  );
-
   useEffect(() => {
     const currentFields = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.inntektFieldArray`);
     const aktivitetStatuser = kodeverkSamling[KodeverkType.AKTIVITET_STATUS];
@@ -194,7 +188,6 @@ export const InntektFieldArray = ({
         currentFields,
         !!skalHaMilitær,
         aktivitetStatuser,
-        getKanRedigereInntektCallback,
         remove,
         // @ts-expect-error Fiks
         append,
@@ -295,7 +288,6 @@ export const InntektFieldArray = ({
             />
           ))}
           <SummaryRow
-            readOnly={readOnly}
             skalVisePeriode={skalVisePeriodeKolonne}
             skalViseRefusjon={skalViseRefusjonsKolonne}
             beregningsgrunnlag={beregningsgrunnlag}
