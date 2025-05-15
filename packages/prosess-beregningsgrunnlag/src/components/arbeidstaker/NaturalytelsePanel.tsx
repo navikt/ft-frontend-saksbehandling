@@ -10,10 +10,9 @@ import {
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
 import { BeløpLabel, NoWrap, PeriodLabel } from '@navikt/ft-ui-komponenter';
-import { ISO_DATE_FORMAT, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
+import { formaterArbeidsgiver, ISO_DATE_FORMAT, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { NaturalytelseEndring, NaturalytelseTabellData, NaturalytelseTabellRad } from '../../types/NaturalytelseTable';
-import { createVisningsnavnForAktivitet } from '../../util/createVisningsnavnForAktivitet';
 
 import tableStyle from '../tableStyle.module.css';
 
@@ -39,7 +38,7 @@ const lagVisningForAndel = (
     return 'Ukjent arbeidsforhold';
   }
   const arbeidsforholdInfo = arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent];
-  return createVisningsnavnForAktivitet(arbeidsforholdInfo, andel.arbeidsforhold.eksternArbeidsforholdId);
+  return formaterArbeidsgiver(arbeidsforholdInfo, andel.arbeidsforhold.eksternArbeidsforholdId);
 };
 
 const andelslisteEllerTom = (bgperiode: BeregningsgrunnlagPeriodeProp): BeregningsgrunnlagAndel[] =>

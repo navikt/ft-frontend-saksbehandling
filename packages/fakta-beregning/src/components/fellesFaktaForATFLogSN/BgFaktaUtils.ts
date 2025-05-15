@@ -15,7 +15,7 @@ import {
   FaktaOmBeregning,
   FaktaOmBeregningAndel,
 } from '@navikt/ft-types';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { formatCurrencyNoKr, formaterArbeidsgiver } from '@navikt/ft-utils';
 
 import {
   ArbeidstakerInntektValues,
@@ -25,7 +25,6 @@ import {
 import { AndelFieldIdentifikator, AndelFieldValue } from '../../typer/FieldValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
-import { createVisningsnavnFakta } from '../../utils/ArbeidsforholdHelper';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse } from './vurderOgFastsettATFL/forms/AvsluttetArbeidsforhold';
@@ -54,7 +53,7 @@ const lagVisningsnavn = (
         )?.navn
       : kodeverkSamling[KodeverkType.AKTIVITET_STATUS].find(at => at.kode === andel.aktivitetStatus)?.navn;
   }
-  return createVisningsnavnFakta(agOpplysning, andel.arbeidsforhold?.eksternArbeidsforholdId);
+  return formaterArbeidsgiver(agOpplysning, andel.arbeidsforhold?.eksternArbeidsforholdId);
 };
 
 export const setGenerellAndelsinfo = (

@@ -3,14 +3,13 @@ import { IntlShape } from 'react-intl';
 
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
-import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { formatCurrencyNoKr, formaterArbeidsgiver, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import {
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagFormValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { KodeverkForPanel } from '../../types/kodeverkForPanel';
-import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 import { GRADERING_RANGE_DENOMINATOR, mapToBelop } from './BgFordelingUtils';
 
 const convertToNumber = (n?: string): number => (!n ? 0 : Number(removeSpacesFromNumber(n)));
@@ -197,7 +196,7 @@ export const validateTotalRefusjonPrArbeidsforhold = (
     if (!agOpplysninger) {
       arbeidsgiverString = arbeidsforholdMedForHogRefusjon[0].arbeidsgiverId || '';
     } else {
-      arbeidsgiverString = createVisningsnavnForAktivitetFordeling(
+      arbeidsgiverString = formaterArbeidsgiver(
         agOpplysninger,
         arbeidsforholdMedForHogRefusjon[0].eksternArbeidsforholdId,
       );

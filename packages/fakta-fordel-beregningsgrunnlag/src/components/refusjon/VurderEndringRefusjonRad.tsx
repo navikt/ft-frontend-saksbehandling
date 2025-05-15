@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
@@ -7,7 +6,7 @@ import { BodyShort, HStack, VStack } from '@navikt/ds-react';
 import { Datepicker, InputField } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, hasValidDate, maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
-import { dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { BTag, dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { VurderRefusjonFormValues, VurderRefusjonValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { VurderRefusjonAndelTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
@@ -69,7 +68,6 @@ export const VurderEndringRefusjonRad = ({
     !refusjonAndel.fastsattDelvisRefusjonPrMnd &&
     refusjonAndel.fastsattDelvisRefusjonPrMnd !== 0;
   const harValgtRefusjonFraStart = erValgtDatoLikSTP(skjæringstidspunkt, valgtStartdato);
-  const boldTransformator = useCallback((chunks: any) => <b>{chunks}</b>, []);
   const skalKunneFastsetteDelvisRef =
     refusjonAndel.skalKunneFastsetteDelvisRefusjon && refusjonAndel.maksTillattDelvisRefusjonPrMnd;
   return (
@@ -80,7 +78,7 @@ export const VurderEndringRefusjonRad = ({
           values={{
             ag: navn,
             dato: dateFormat(refusjonAndel.nyttRefusjonskravFom),
-            b: boldTransformator,
+            b: BTag,
           }}
         />
       </BodyShort>

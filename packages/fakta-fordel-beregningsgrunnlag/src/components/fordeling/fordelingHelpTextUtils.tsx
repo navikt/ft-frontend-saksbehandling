@@ -11,10 +11,9 @@ import {
   Beregningsgrunnlag,
   PerioderMedGraderingEllerRefusjon,
 } from '@navikt/ft-types';
-import { BTag, DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
+import { BTag, DDMMYYYY_DATE_FORMAT, formaterArbeidsgiver, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 
 const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAvklaringsbehovCode;
 
@@ -132,7 +131,7 @@ const finnVisningsnavn = (
       ? getKodeverknavn(arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
       : '';
   }
-  return createVisningsnavnForAktivitetFordeling(agOpplysninger, arbeidsforhold.eksternArbeidsforholdId);
+  return formaterArbeidsgiver(agOpplysninger, arbeidsforhold.eksternArbeidsforholdId);
 };
 
 export const createFordelArbeidsforholdString = (

@@ -7,9 +7,7 @@ import norskFormat from 'dayjs/locale/nb';
 
 import { LønnsendringScenario } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, LønnsendringSaksopplysning } from '@navikt/ft-types';
-import { dateFormat, YYYY_MM_FORMAT } from '@navikt/ft-utils';
-
-import { createVisningsnavnForAktivitet } from '../../util/createVisningsnavnForAktivitet';
+import { dateFormat, formaterArbeidsgiver, YYYY_MM_FORMAT } from '@navikt/ft-utils';
 
 interface Props {
   skjeringstidspunktDato: string;
@@ -27,10 +25,7 @@ function finnLønnsendringsdatoer(
   const datoListe = opplysninger
     .filter(it => it.lønnsendringscenario === scenario)
     .map(
-      it => `i ${createVisningsnavnForAktivitet(
-        arbeidsgiverOpplysningerPerId[it.arbeidsforhold.arbeidsgiverIdent],
-        undefined,
-      )}
+      it => `i ${formaterArbeidsgiver(arbeidsgiverOpplysningerPerId[it.arbeidsforhold.arbeidsgiverIdent])}
       ${dateFormat(it.sisteLønnsendringsdato)}`,
     );
   return datoListe.reduce((concatString, current, index) => {

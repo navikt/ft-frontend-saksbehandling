@@ -2,10 +2,10 @@ import dayjs from 'dayjs';
 
 import { KodeverkType, OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
+import { formaterArbeidsgiver } from '@navikt/ft-utils';
 
 import { AktivitetValues } from '../../typer/AvklarAktivitetTypes';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
-import { createVisningsnavnFakta } from '../../utils/ArbeidsforholdHelper';
 
 /**
  * Lager en unik aktivitet-ID prefiks basert på idType for en aktivitet. Man prøver å legge på
@@ -101,7 +101,7 @@ const lagVisningsnavn = (
           ?.navn || ''
       : '';
   }
-  return createVisningsnavnFakta(agOpplysning, aktivitet.eksternArbeidsforholdId);
+  return formaterArbeidsgiver(agOpplysning, aktivitet.eksternArbeidsforholdId);
 };
 
 export const isSameOrBefore = (dato1: string, dato2: string): boolean =>

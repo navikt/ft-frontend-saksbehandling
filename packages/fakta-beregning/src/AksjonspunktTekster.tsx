@@ -10,9 +10,9 @@ import {
   KortvarigAndel,
   RefusjonskravSomKommerForSentListe,
 } from '@navikt/ft-types';
+import { formaterArbeidsgiver } from '@navikt/ft-utils';
 
 import { getFaktaOmBeregningTilfellerKoder } from './components/fellesFaktaForATFLogSN/BgFaktaUtils';
-import { createVisningsnavnFakta } from './utils/ArbeidsforholdHelper';
 
 interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
@@ -95,7 +95,7 @@ export const AksjonspunktTekster = ({ beregningsgrunnlag, arbeidsgiverOpplysning
         throw new Error('Må ha arbeidsgiverIdent på kortvarige andeler');
       }
       const opplysninger = arbeidsgiverOpplysningerPerId[agi];
-      const arbeidsgiverVisningsnavn = opplysninger ? createVisningsnavnFakta(opplysninger) : agi;
+      const arbeidsgiverVisningsnavn = opplysninger ? formaterArbeidsgiver(opplysninger) : agi;
       if (index === 0) {
         arbeidsgivereNavn = arbeidsgiverVisningsnavn;
       } else {
@@ -216,7 +216,7 @@ export const AksjonspunktTekster = ({ beregningsgrunnlag, arbeidsgiverOpplysning
     senRefusjonkravListe.forEach((kravPerArbeidsgiver: RefusjonskravSomKommerForSentListe, index: number) => {
       const { arbeidsgiverIdent } = kravPerArbeidsgiver;
       const opplysninger = arbeidsgiverOpplysningerPerId[arbeidsgiverIdent];
-      const arbeidsgiverVisningsnavn = opplysninger ? createVisningsnavnFakta(opplysninger) : arbeidsgiverIdent;
+      const arbeidsgiverVisningsnavn = opplysninger ? formaterArbeidsgiver(opplysninger) : arbeidsgiverIdent;
       if (index === 0) {
         arbeidsgivereNavn = arbeidsgiverVisningsnavn;
       } else {

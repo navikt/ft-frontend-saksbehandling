@@ -14,7 +14,7 @@ import {
   FaktaOmBeregning,
   VurderMottarYtelse,
 } from '@navikt/ft-types';
-import { removeSpacesFromNumber } from '@navikt/ft-utils';
+import { formaterArbeidsgiver, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
@@ -23,7 +23,6 @@ import {
   FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues,
 } from '../../../../typer/interface/BeregningFaktaAP';
 import { KodeverkForPanel } from '../../../../typer/KodeverkForPanelForFb';
-import { createVisningsnavnFakta } from '../../../../utils/ArbeidsforholdHelper';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import {
@@ -55,7 +54,7 @@ const utledArbeidsforholdUtenIMRadioTekst = (
         )?.navn
       : '';
   } else {
-    radioNavn = createVisningsnavnFakta(agOpplysning, arbeidsforhold.eksternArbeidsforholdId);
+    radioNavn = formaterArbeidsgiver(agOpplysning, arbeidsforhold.eksternArbeidsforholdId);
   }
   return (
     <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForArbeid" values={{ arbeid: radioNavn }} />
