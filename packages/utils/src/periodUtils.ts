@@ -1,21 +1,16 @@
+import dayjs from 'dayjs';
+
 import { createIntl } from './createIntl';
 import { dateFormat, DateFormatOptions } from './dateFormat';
 import { TIDENES_ENDE } from './dateUtils';
-import { Period } from './Period';
 
 import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-export const sortPeriodsByFomDate = (period1: Period, period2: Period): number => {
-  if (period1.startsBefore(period2)) {
-    return -1;
-  }
-  if (period2.startsBefore(period1)) {
-    return 1;
-  }
-  return 0;
-};
+type Period = { fom: string; tom?: string };
+
+export const sortPeriodsByFom = (a: Period, b: Period) => dayjs(a.fom).diff(dayjs(b.fom));
 
 type PeriodFormatUtils = {
   separator?: string;

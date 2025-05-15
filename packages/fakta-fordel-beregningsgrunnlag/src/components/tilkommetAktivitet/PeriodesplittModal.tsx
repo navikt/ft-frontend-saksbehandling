@@ -2,9 +2,8 @@ import { useCallback, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Button, Modal, Select, VStack } from '@navikt/ds-react';
-import dayjs from 'dayjs';
 
-import { calcDays, DDMMYYYY_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
+import { calcDays, periodFormat, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { TilkommetAktivitetValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { Periode, PeriodesplittDatoValg } from './PeriodesplittDatoValg';
@@ -29,16 +28,6 @@ const periodeInneholderFlereVirkedager = (periode: Periode): boolean => {
 
 const lagPerioderFraFields = (fields: TilkommetAktivitetValues[]): Periode[] =>
   fields.map(field => ({ fom: field.fom, tom: field.tom }));
-
-const lagPeriodeString = (fom: string, tom: string): string => {
-  const fomString = dayjs(fom).format(DDMMYYYY_DATE_FORMAT);
-  if (tom && tom !== TIDENES_ENDE) {
-    const tomString = dayjs(tom).format(DDMMYYYY_DATE_FORMAT);
-    const tekst = fomString.concat(' - ', tomString);
-    return tekst;
-  }
-  return fomString.concat(' - ');
-};
 
 export const PeriodesplittModal = ({
   fields,
@@ -90,7 +79,7 @@ export const PeriodesplittModal = ({
             <option value={undefined}>Velg periode</option>
             {perioder.map(periode => (
               <option key={periode.fom} value={periode.fom}>
-                {lagPeriodeString(periode.fom, periode.tom)}
+                {periodFormat(periode.fom, periode.tom)}
               </option>
             ))}
           </Select>

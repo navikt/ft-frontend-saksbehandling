@@ -9,8 +9,8 @@ import {
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
-import { BeløpLabel, NoWrap } from '@navikt/ft-ui-komponenter';
-import { dateFormat, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
+import { BeløpLabel, NoWrap, PeriodLabel } from '@navikt/ft-ui-komponenter';
+import { ISO_DATE_FORMAT, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { NaturalytelseEndring, NaturalytelseTabellData, NaturalytelseTabellRad } from '../../types/NaturalytelseTable';
 import { createVisningsnavnForAktivitet } from '../../util/createVisningsnavnForAktivitet';
@@ -113,7 +113,7 @@ const slåSammenEndringerSomHengerSammen = (endringer: NaturalytelseEndring[]): 
   if (!endringer || endringer.length < 2) {
     return endringer;
   }
-  endringer.sort((a, b) => dayjs(a.fom).diff(dayjs(b.fom)));
+  endringer.sort(sortPeriodsByFom);
   const sammenslåtteEndringer = [] as NaturalytelseEndring[];
   let kontrollertTom = dayjs(endringer[0].fom);
   endringer.forEach(end => {
@@ -157,13 +157,6 @@ const lagNaturalytelseTabelldata = (
     sammenslåtteEndringer.forEach(endring => natAndel.naturalytelseEndringer.push(endring));
   });
   return !alleNatAndeler || alleNatAndeler.length < 1 ? undefined : { rader: alleNatAndeler };
-};
-
-const lagPeriodeTekst = (endring: NaturalytelseEndring): string => {
-  if (endring.tom) {
-    return `${dateFormat(endring.fom)} - ${dateFormat(endring.tom)}`;
-  }
-  return `${dateFormat(endring.fom)} -`;
 };
 
 /**
@@ -211,7 +204,9 @@ export const NaturalytelsePanel = ({ allePerioder, arbeidsgiverOpplysningerPerId
             </Table.Row>
             {rad.naturalytelseEndringer.map(endring => (
               <Table.Row key={rad.nøkkel + endring.fom}>
-                <Table.DataCell textSize="small">{lagPeriodeTekst(endring)}</Table.DataCell>
+                <Table.DataCell textSize="small">
+                  <PeriodLabel dateStringFom={endring.fom} dateStringTom={endring.tom} />
+                </Table.DataCell>
                 <Table.DataCell textSize="small" align="right">
                   <BeløpLabel beløp={endring.beløpPrMåned} />
                 </Table.DataCell>

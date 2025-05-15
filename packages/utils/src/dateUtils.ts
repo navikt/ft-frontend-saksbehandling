@@ -4,7 +4,8 @@ import isoWeek from 'dayjs/plugin/isoWeek';
 import utc from 'dayjs/plugin/utc';
 
 import { createIntl } from './createIntl';
-import { DDMMYYYY_DATE_FORMAT, HHMM_TIME_FORMAT, ISO_DATE_FORMAT, YYYY_MM_FORMAT } from './formats';
+import { dateFormat, timeFormat } from './dateFormat';
+import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, YYYY_MM_FORMAT } from './formats';
 
 import messages from '../i18n/nb_NO.json';
 
@@ -33,7 +34,7 @@ export const initializeDate = (
   dateStringFormat?: string | string[],
   strict?: boolean,
 ) => {
-  const supportedFormats = dateStringFormat || ['YYYY-MM-DD', 'DD.MM.YYYY'];
+  const supportedFormats = dateStringFormat || [ISO_DATE_FORMAT, DDMMYYYY_DATE_FORMAT];
   return dayjs(dateString, supportedFormats, strict).utc(true).startOf('day');
 };
 
@@ -185,18 +186,16 @@ export const getRangeOfMonths = (fom: string, tom: string): { month: string; yea
 };
 
 export const prettifyDateString = (dateString: string) => {
-  const prettyDateFormat = 'DD.MM.YYYY';
-
   const dateObject = initializeDate(dateString);
-  return dateObject.format(prettyDateFormat);
+  return dateObject.format(DDMMYYYY_DATE_FORMAT);
 };
 
-export function isSameOrBefore(date: string | Dayjs | Date, otherDate: string | Dayjs | Date) {
-  const dateFormats = ['YYYY-MM-DD', 'DD.MM.YYYY'];
+export const isSameOrBefore = (date: string | Dayjs | Date, otherDate: string | Dayjs | Date) => {
+  const dateFormats = [ISO_DATE_FORMAT, DDMMYYYY_DATE_FORMAT];
   const dateInQuestion = initializeDate(date, dateFormats);
   const formattedOtherDate = initializeDate(otherDate, dateFormats);
   return dateInQuestion.isBefore(formattedOtherDate) || dateInQuestion.isSame(formattedOtherDate);
-}
+};
 
 export const isValidDate = (date: any) => !Number.isNaN(new Date(date).valueOf());
 
@@ -204,8 +203,7 @@ export const getDateAndTime = (tidspunkt?: string): { date: string; time: string
   if (!tidspunkt) {
     return undefined;
   }
-  const dateTime = dayjs(tidspunkt);
-  const date = dateTime.format(DDMMYYYY_DATE_FORMAT);
-  const time = dateTime.format(HHMM_TIME_FORMAT);
+  const date = dateFormat(tidspunkt);
+  const time = timeFormat(tidspunkt);
   return { date, time };
 };

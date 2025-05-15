@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
 import { Tabs, VStack } from '@navikt/ds-react';
-import dayjs from 'dayjs';
 
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardFaktaPanelProps } from '@navikt/ft-types';
-import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { DateLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
+import { createIntl } from '@navikt/ft-utils';
 
 import { finnVilkårsperiode, vurderesIBehandlingen } from './components/felles/vilkårsperiodeUtils';
 import { FordelBeregningsgrunnlagPanel } from './components/FordelBeregningsgrunnlagPanel';
@@ -28,16 +28,13 @@ const intl = createIntl(messages);
 const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN, VURDER_NYTT_INNTKTSFRHLD } =
   FaktaFordelBeregningAvklaringsbehovCode;
 
-const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]): string => {
+const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]) => {
   const vilkårPeriode = finnVilkårsperiode(vilkårsperioder, bg.vilkårsperiodeFom);
   if (vilkårPeriode) {
     const { fom, tom } = vilkårPeriode.periode;
-    if (tom !== null) {
-      return `${dayjs(fom).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(tom).format(DDMMYYYY_DATE_FORMAT)}`;
-    }
-    return `${dayjs(fom).format(DDMMYYYY_DATE_FORMAT)} - `;
+    return <PeriodLabel dateStringFom={fom} dateStringTom={tom} />;
   }
-  return `${dayjs(bg.vilkårsperiodeFom).format(DDMMYYYY_DATE_FORMAT)}`;
+  return <DateLabel dateString={bg.vilkårsperiodeFom} />;
 };
 
 const kreverManuellBehandlingFn = (bg: Beregningsgrunnlag, skalHåndtereNyInntekt: boolean) =>

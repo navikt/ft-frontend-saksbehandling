@@ -7,7 +7,7 @@ import norskFormat from 'dayjs/locale/nb';
 
 import { LønnsendringScenario } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, LønnsendringSaksopplysning } from '@navikt/ft-types';
-import { dateFormat, unique, YYYY_MM_FORMAT } from '@navikt/ft-utils';
+import { dateFormat, YYYY_MM_FORMAT } from '@navikt/ft-utils';
 
 import { createVisningsnavnForAktivitet } from '../../util/createVisningsnavnForAktivitet';
 
@@ -118,7 +118,9 @@ function lagLesMer(
   skjeringstidspunktDato: string,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ) {
-  const unikeScenario = unique(opplysninger.map(o => o.lønnsendringscenario));
+  const unikeScenario = opplysninger
+    .map(o => o.lønnsendringscenario)
+    .filter((it, index, self) => index === self.findIndex(t => t === it));
   return unikeScenario.map(scenario => (
     <p key={scenario}>
       {finnScenarioTekst(scenario, skjeringstidspunktDato, opplysninger, arbeidsgiverOpplysningerPerId)}

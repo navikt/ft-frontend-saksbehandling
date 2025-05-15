@@ -1,5 +1,4 @@
 import { ReactElement } from 'react';
-import { FormattedMessage } from 'react-intl';
 
 import { Accordion, Label } from '@navikt/ds-react';
 import classnames from 'classnames/bind';
@@ -13,7 +12,8 @@ import {
   FordelBeregningsgrunnlagAndel,
   FordelBeregningsgrunnlagPeriode,
 } from '@navikt/ft-types';
-import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
+import { PeriodLabel } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { KodeverkForPanel } from '../../types/kodeverkForPanel';
@@ -31,25 +31,10 @@ import styles from './fordelBeregningsgrunnlagPeriodePanel.module.css';
 
 const classNames = classnames.bind(styles);
 
-const formatDate = (date: string): string => (date ? dayjs(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '-');
-
 const renderDateHeading = (fom: string, tom: string | undefined): ReactElement => {
-  if (!tom) {
-    return (
-      <Label size="small">
-        <FormattedMessage id="BeregningInfoPanel.FordelBG.PeriodeFom" values={{ fom: formatDate(fom) }} />
-      </Label>
-    );
-  }
   return (
     <Label size="small">
-      <FormattedMessage
-        id="BeregningInfoPanel.FordelBG.PeriodeFomOgTom"
-        values={{
-          fom: formatDate(fom),
-          tom: formatDate(tom),
-        }}
-      />
+      <PeriodLabel dateStringFom={fom} dateStringTom={tom} />
     </Label>
   );
 };
