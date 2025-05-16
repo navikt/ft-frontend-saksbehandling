@@ -1,18 +1,19 @@
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import { NoWrap } from './NoWrap';
+import styles from './beløpLabel.module.css';
 
 interface Props {
-  beløp: string | number | undefined;
-  withKr?: boolean;
+  beløp: string | number | undefined | null;
+  kr?: boolean;
+  rød?: boolean;
 }
 
-export const BeløpLabel = ({ beløp, withKr = false }: Props) => {
+export const BeløpLabel = ({ beløp, kr = false, rød = false }: Props) => {
   const formattedBeløp = beløp?.toString().replace(/\s/g, '');
   return (
-    <NoWrap>
+    <span className={rød ? styles.rød : styles.default}>
       {formattedBeløp ? formatCurrencyNoKr(formattedBeløp) : '-'}
-      {formattedBeløp && withKr && ' kr'}
-    </NoWrap>
+      {formattedBeløp && kr && ' kr'}
+    </span>
   );
 };
