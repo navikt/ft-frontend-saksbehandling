@@ -1,4 +1,3 @@
-export { range, unique } from './src/arrayUtils';
 export { forhandsvisDokument } from './src/browserUtils';
 export {
   formatCurrencyWithKr,
@@ -39,7 +38,7 @@ export { parseQueryString, buildPath, formatQueryString } from './src/urlUtils';
 export { createIntl } from './src/createIntl';
 export { BTag } from './src/createTags';
 
-export { bemUtils } from './src/bemUtils';
-export { Period } from './src/Period';
+export { Period, sortPeriodsByFomDate } from './src/Period';
 export { prettifyDateString } from './src/dateUtils';
-export { sortPeriodsByFomDate, periodFormat } from './src/periodUtils';
+export { sortPeriodsByFom, periodFormat } from './src/periodUtils';
+export { formaterArbeidsgiver } from './src/arbeidsgiverUtils';

@@ -15,7 +15,7 @@ import {
   KodeverkType,
 } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
-import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { formatCurrencyNoKr, formaterArbeidsgiver, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import {
   BGFordelArbeidsforhold,
@@ -23,7 +23,6 @@ import {
   FordelBeregningsgrunnlagFormValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { KodeverkForPanel } from '../../types/kodeverkForPanel';
-import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 import { finnUnikeArbeidsforhold } from './FinnUnikeArbeidsforhold';
 import {
   validateSumFastsattBelop,
@@ -60,7 +59,7 @@ const lagVisningsnavn = (
         )?.navn ?? '')
       : '';
   }
-  return createVisningsnavnForAktivitetFordeling(
+  return formaterArbeidsgiver(
     arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent],
     arbeidsforhold.eksternArbeidsforholdId,
   );

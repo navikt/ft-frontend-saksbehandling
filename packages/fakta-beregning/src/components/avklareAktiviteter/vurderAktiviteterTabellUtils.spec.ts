@@ -1,5 +1,5 @@
 import { KodeverkType, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
-import { BeregningAktivitet } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { AktivitetValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
@@ -46,7 +46,7 @@ const aktivitetAAP = {
 
 const aktiviteter: BeregningAktivitet[] = [aktivitet1, aktivitet2, aktivitet3, aktivitetAAP];
 
-const agOpplysninger = {
+const agOpplysninger: ArbeidsgiverOpplysningerPerId = {
   324234234234: {
     identifikator: '324234234234',
     navn: 'Arbeidsgiveren3',

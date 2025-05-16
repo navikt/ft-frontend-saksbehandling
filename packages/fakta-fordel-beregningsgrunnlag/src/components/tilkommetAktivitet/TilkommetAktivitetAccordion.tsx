@@ -1,6 +1,5 @@
 import { ReactElement, useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FormattedMessage } from 'react-intl';
 
 import { Accordion, Label, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
@@ -9,7 +8,7 @@ import { TextAreaField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
-import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
+import { PeriodLabel } from '@navikt/ft-ui-komponenter';
 
 import {
   TilkommetAktivitetFormValues,
@@ -23,29 +22,6 @@ import { TilkommetAktivitetField } from './TilkommetAktivitetField';
 import { erVurdertTidligere, slaaSammenPerioder } from './TilkommetAktivitetUtils';
 
 import styles from './tilkommetAktivitetAccordion.module.css';
-
-const formatDate = (date: string): string => (date ? dayjs(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '-');
-
-const renderDateHeading = (fom: string, tom: string | undefined): ReactElement => {
-  if (!tom || tom === TIDENES_ENDE) {
-    return (
-      <Label size="medium">
-        <FormattedMessage id="BeregningInfoPanel.FordelBG.PeriodeFom" values={{ fom: formatDate(fom) }} />
-      </Label>
-    );
-  }
-  return (
-    <Label size="medium">
-      <FormattedMessage
-        id="BeregningInfoPanel.FordelBG.PeriodeFomOgTom"
-        values={{
-          fom: formatDate(fom),
-          tom: formatDate(tom),
-        }}
-      />
-    </Label>
-  );
-};
 
 type Props = {
   beregningsgrunnlag: Beregningsgrunnlag;
@@ -185,5 +161,13 @@ export const TilkommetAktivitetAccordion = ({
         </VStack>
       )}
     </VStack>
+  );
+};
+
+const renderDateHeading = (fom: string, tom: string | undefined): ReactElement => {
+  return (
+    <Label size="medium">
+      <PeriodLabel dateStringFom={fom} dateStringTom={tom} />
+    </Label>
   );
 };

@@ -9,11 +9,10 @@ import {
   Inntektsforhold,
   VurderInntektsforholdPeriode,
 } from '@navikt/ft-types';
-import { calcDays } from '@navikt/ft-utils';
+import { calcDays, formaterArbeidsgiver } from '@navikt/ft-utils';
 
 import { TilkommetInntektsforholdFieldValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { erPeriodeTilVurdering } from '../util/ForlengelseUtils';
-import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 
 dayjs.extend(isBetween);
 const DATO_PRAKSISENDRING_TILKOMMET_INNTEKT = '2023-05-01';
@@ -156,7 +155,7 @@ export const getAktivitetNavnFraInnteksforhold = (
     if (!agOpplysning) {
       return 'Arbeidsforhold';
     }
-    return createVisningsnavnForAktivitetFordeling(agOpplysning, inntektsforhold.arbeidsforholdId);
+    return formaterArbeidsgiver(agOpplysning, inntektsforhold.arbeidsforholdId);
   }
 
   if (inntektsforhold.aktivitetStatus === AktivitetStatus.FRILANSER) {
@@ -187,7 +186,7 @@ export const getAktivitetNavnFraField = (
     if (!agOpplysning) {
       return 'Arbeidsforhold';
     }
-    return createVisningsnavnForAktivitetFordeling(agOpplysning, field.arbeidsforholdId);
+    return formaterArbeidsgiver(agOpplysning, field.arbeidsforholdId);
   }
 
   if (field.aktivitetStatus === AktivitetStatus.FRILANSER) {

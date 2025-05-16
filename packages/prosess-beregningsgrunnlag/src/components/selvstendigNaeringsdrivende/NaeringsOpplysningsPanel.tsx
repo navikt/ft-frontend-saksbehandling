@@ -6,9 +6,7 @@ import { BodyShort, Heading, Label, Table, VStack } from '@navikt/ds-react';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@navikt/ft-types';
 import { BeløpLabel, NoWrap, PeriodLabel } from '@navikt/ft-ui-komponenter';
-import { BTag, dateFormat } from '@navikt/ft-utils';
-
-import { createVisningsnavnForAktivitet } from '../../util/createVisningsnavnForAktivitet';
+import { BTag, dateFormat, formaterArbeidsgiver } from '@navikt/ft-utils';
 
 import tableStyles from '../tableStyle.module.css';
 import styles from './naeringsOpplysningsPanel.module.css';
@@ -43,7 +41,7 @@ const regnskapsførerDetaljer = ({ regnskapsførerNavn, regnskapsførerTlf }: N�
 
 const lagVisningsnavn = ({ orgnr }: Næring, arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): string => {
   const agOpplysning = arbeidsgiverOpplysningerPerId[orgnr];
-  return agOpplysning ? createVisningsnavnForAktivitet(agOpplysning, undefined) : 'Ukjent bedriftsnavn';
+  return agOpplysning ? formaterArbeidsgiver(agOpplysning, undefined) : 'Ukjent bedriftsnavn';
 };
 
 const lagIntroTilEndringspanel = ({ oppstartsdato, erVarigEndret, endringsdato }: Næring): React.ReactNode => {

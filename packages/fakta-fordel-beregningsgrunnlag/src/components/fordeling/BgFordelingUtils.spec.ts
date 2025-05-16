@@ -1,5 +1,5 @@
 import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
-import { BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { KodeverkForPanel } from '../../types/kodeverkForPanel';
@@ -16,7 +16,7 @@ const arbeidsgiver = {
   opphoersdato: '2018-01-01',
 };
 
-const agOpplysninger = {
+const agOpplysninger: ArbeidsgiverOpplysningerPerId = {
   3284788923: {
     identifikator: '3284788923',
     erPrivatPerson: false,

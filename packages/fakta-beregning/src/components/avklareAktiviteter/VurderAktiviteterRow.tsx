@@ -8,10 +8,9 @@ import { dateAfterOrEqual, hasValidDate, required } from '@navikt/ft-form-valida
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { DateLabel, EditedIcon, PeriodLabel } from '@navikt/ft-ui-komponenter';
-import { periodFormat } from '@navikt/ft-utils';
+import { formaterArbeidsgiver, periodFormat } from '@navikt/ft-utils';
 
 import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
-import { createVisningsnavnFakta } from '../../utils/ArbeidsforholdHelper';
 import { lagAktivitetFieldId, skalVurdereAktivitet } from './vurderAktiviteterTabellUtils';
 
 interface Props {
@@ -45,7 +44,7 @@ const lagVisningsnavn = (
           ?.navn || ''
       : '';
   }
-  return createVisningsnavnFakta(agOpplysning, aktivitet.eksternArbeidsforholdId);
+  return formaterArbeidsgiver(agOpplysning, aktivitet.eksternArbeidsforholdId);
 };
 
 export const VurderAktiviteterTabellRad = ({

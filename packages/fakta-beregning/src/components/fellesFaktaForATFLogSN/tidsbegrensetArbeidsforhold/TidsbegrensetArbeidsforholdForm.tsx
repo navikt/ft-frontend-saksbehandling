@@ -11,14 +11,13 @@ import {
   FaktaOmBeregning,
   KortvarigAndel,
 } from '@navikt/ft-types';
-import { dateFormat } from '@navikt/ft-utils';
+import { dateFormat, formaterArbeidsgiver } from '@navikt/ft-utils';
 
 import { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '../../../typer/FaktaBeregningTypes';
 import {
   FaktaBeregningTransformedValues,
   VurderteArbeidsforholdTransformedValues,
 } from '../../../typer/interface/BeregningFaktaAP';
-import { createVisningsnavnFakta } from '../../../utils/ArbeidsforholdHelper';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
@@ -35,7 +34,7 @@ const lagVisningsnavn = (
     throw new Error('Ikke arbeidsgiverident på kortvarig andel, ugyldig tilstand');
   }
   const agOpplysning = arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent];
-  return createVisningsnavnFakta(agOpplysning, arbeidsforhold.eksternArbeidsforholdId);
+  return formaterArbeidsgiver(agOpplysning, arbeidsforhold.eksternArbeidsforholdId);
 };
 
 const krevArbeidsforhold = (arbfor: BeregningsgrunnlagArbeidsforhold | undefined): BeregningsgrunnlagArbeidsforhold => {

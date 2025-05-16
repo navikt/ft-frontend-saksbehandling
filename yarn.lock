@@ -2270,7 +2270,6 @@ __metadata:
     "@testing-library/user-event": 14.6.1
     cross-env: 7.0.3
     eslint: 9.26.0
-    moment: 2.30.1
     react: 19.1.0
     react-hook-form: 7.56.3
     react-intl: 7.1.11
@@ -2287,7 +2286,6 @@ __metadata:
     "@navikt/ft-types": 3.x
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
-    moment: 2.30.1
     react: 19.1.0
     react-hook-form: 7.x
     react-intl: 6.x
