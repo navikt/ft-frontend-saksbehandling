@@ -1,3 +1,5 @@
+import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
+
 import { createFordelArbeidsforholdString, textCase } from './fordelingHelpTextUtils';
 
 const fn = (kode: string): string => {
@@ -33,7 +35,7 @@ const arbeidsforhold = {
 
 const arbeidsforholdListe = [arbeidsforhold];
 
-const agOpplysninger = {
+const agOpplysninger: ArbeidsgiverOpplysningerPerId = {
   123456789: {
     identifikator: '123456789',
     navn: 'Sopra Steria',
@@ -41,7 +43,7 @@ const agOpplysninger = {
   },
 };
 
-describe('<FordelingHelpText>', () => {
+describe('FordelingHelpText', () => {
   it('skal lage endret arbeidsforhold for permisjon', () => {
     const string = createFordelArbeidsforholdString(arbeidsforholdListe, textCase.PERMISJON, agOpplysninger, fn);
     expect(string).toEqual('Sopra Steria (123456789)...6789 f.o.m 01.10.2018');

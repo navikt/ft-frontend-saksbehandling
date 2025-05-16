@@ -6,6 +6,7 @@ import {
 } from '@navikt/ft-kodeverk';
 import {
   AndelForFaktaOmBeregning,
+  ArbeidsgiverOpplysningerPerId,
   ATFLSammeOrgAndel,
   Beregningsgrunnlag,
   BeregningsgrunnlagArbeidsforhold,
@@ -30,6 +31,14 @@ const arbeidsgiver = {
   arbeidsgiverIdent: '3284788923',
   startdato: '2017-01-01',
   opphoersdato: '2018-01-01',
+};
+
+const agOpplysning: ArbeidsgiverOpplysningerPerId = {
+  3284788923: {
+    identifikator: '3284788923',
+    navn: 'Virksomheten',
+    erPrivatPerson: false,
+  },
 };
 
 const arbeidstakerIkkeFastsatt = {
@@ -203,14 +212,6 @@ describe('bgFaktaUtils', () => {
       inntektskategori: 'ARBEIDSTAKER',
     };
 
-    const agOpplysning = {
-      3284788923: {
-        identifikator: '3284788923',
-        navn: 'Virksomheten',
-        erPrivatPerson: false,
-      },
-    };
-
     const andelsInfo = setGenerellAndelsinfo(andelValueFromState, agOpplysning, {} as KodeverkForPanel);
     expect(andelsInfo.andel).toBe('Virksomheten (3284788923)...a7e2');
     expect(andelsInfo.aktivitetStatus).toBe('AT');
@@ -360,13 +361,6 @@ describe('bgFaktaUtils', () => {
   };
 
   it('skal redigere inntektskategori for kunstig arbeid', () => {
-    const agOpplysning = {
-      3284788923: {
-        identifikator: '3284788923',
-        navn: 'Virksomheten',
-        erPrivatPerson: false,
-      },
-    };
     const andelFieldValue = {
       ...andelValuesUtenInntektsmelding,
       arbeidsgiverId: kunstigArbeidsgiver.arbeidsgiverIdent,
@@ -377,13 +371,6 @@ describe('bgFaktaUtils', () => {
   });
 
   it('skal redigere inntekt ved overstyring', () => {
-    const agOpplysning = {
-      3284788923: {
-        identifikator: '3284788923',
-        navn: 'Virksomheten',
-        erPrivatPerson: false,
-      },
-    };
     const andelFieldValue = {
       ...andelValuesMedInntektsmelding,
       ...setGenerellAndelsinfo(arbeidstakerAndel4, agOpplysning, {} as KodeverkForPanel),
@@ -399,13 +386,6 @@ describe('bgFaktaUtils', () => {
   });
 
   it('skal redigere inntekt for arbeidstakerandel som mottar ytelse', () => {
-    const agOpplysning = {
-      3284788923: {
-        identifikator: '3284788923',
-        navn: 'Virksomheten',
-        erPrivatPerson: false,
-      },
-    };
     const andelFieldValue = {
       ...andelValuesUtenInntektsmelding,
       ...setGenerellAndelsinfo(arbeidstakerAndel3, agOpplysning, {} as KodeverkForPanel),
@@ -419,13 +399,6 @@ describe('bgFaktaUtils', () => {
   });
 
   it('skal redigere inntekt for arbeidstakerandel som ikke mottar ytelse, men har lonnsendring', () => {
-    const agOpplysning = {
-      3284788923: {
-        identifikator: '3284788923',
-        navn: 'Virksomheten',
-        erPrivatPerson: false,
-      },
-    };
     const andelFieldValue = {
       ...andelValuesUtenInntektsmelding,
       ...setGenerellAndelsinfo(arbeidstakerAndel1, agOpplysning, {} as KodeverkForPanel),
@@ -452,13 +425,6 @@ describe('bgFaktaUtils', () => {
   });
 
   it('skal ikkje redigere inntekt for arbeidstakerandel med inntektsmelding i samme org som frilans', () => {
-    const agOpplysning = {
-      3284788923: {
-        identifikator: '3284788923',
-        navn: 'Virksomheten',
-        erPrivatPerson: false,
-      },
-    };
     const andelFieldValue = {
       ...andelValuesUtenInntektsmelding,
       ...setGenerellAndelsinfo(arbeidstakerAndel4, agOpplysning, {} as KodeverkForPanel),
@@ -480,13 +446,6 @@ describe('bgFaktaUtils', () => {
   });
 
   it('skal redigere inntekt for arbeidstakerandel uten inntektsmelding i samme org som frilans', () => {
-    const agOpplysning = {
-      3284788923: {
-        identifikator: '3284788923',
-        navn: 'Virksomheten',
-        erPrivatPerson: false,
-      },
-    };
     const andelFieldValue = {
       ...andelValuesMedInntektsmelding,
       ...setGenerellAndelsinfo(arbeidstakerAndel4, agOpplysning, {} as KodeverkForPanel),

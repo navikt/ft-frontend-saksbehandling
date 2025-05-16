@@ -15,7 +15,7 @@ import {
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
 import { BeløpLabel, DateLabel } from '@navikt/ft-ui-komponenter';
-import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { formatCurrencyNoKr, formaterArbeidsgiver, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import {
   TidsbegrenseArbeidsforholdTabellCelle,
@@ -28,7 +28,6 @@ import {
   TidsbegrensetArbeidsforholdPeriodeResultat,
 } from '../../types/interface/BeregningsgrunnlagAP';
 import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
-import { createVisningsnavnForAktivitet } from '../../util/createVisningsnavnForAktivitet';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 import tableStyles from '../tableStyle.module.css';
@@ -91,7 +90,7 @@ const lagVisningsnavnForAktivitet = (
           ?.navn
       : '';
   }
-  return createVisningsnavnForAktivitet(arbeidsforholdInfo, arbeidsforhold.eksternArbeidsforholdId);
+  return formaterArbeidsgiver(arbeidsforholdInfo, arbeidsforhold.eksternArbeidsforholdId);
 };
 
 // Dette er objektet hver key i mappen vil ha en liste med

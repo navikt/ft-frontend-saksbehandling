@@ -1,5 +1,6 @@
 import { initializeDate, isSameOrBefore, isValidDate, prettifyDateString } from './dateUtils';
 
+// @deprecated Bruk Periode fra fpsak-frontend(k9) eller andre utils i denne pakken
 export class Period {
   fom: string;
 
@@ -86,3 +87,13 @@ export class Period {
     };
   }
 }
+
+export const sortPeriodsByFomDate = (period1: Period, period2: Period): number => {
+  if (period1.startsBefore(period2)) {
+    return -1;
+  }
+  if (period2.startsBefore(period1)) {
+    return 1;
+  }
+  return 0;
+};

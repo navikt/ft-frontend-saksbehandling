@@ -2,7 +2,7 @@ import { UseFormGetValues } from 'react-hook-form';
 
 import { AktivitetStatus, Inntektskategori, KodeverkType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, FordelBeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { formatCurrencyNoKr, formaterArbeidsgiver, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import {
   FordelBeregningsgrunnlagAndelValues,
@@ -11,7 +11,6 @@ import {
   FordelBeregningsgrunnlagGenerellAndelValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { KodeverkForPanel } from '../../types/kodeverkForPanel';
-import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 
 export const GRADERING_RANGE_DENOMINATOR = ' - ';
 
@@ -53,7 +52,7 @@ const createAndelnavn = (
           )?.kode || ''
         : '';
     }
-    return createVisningsnavnForAktivitetFordeling(agOpplysninger, andel.arbeidsforhold.eksternArbeidsforholdId);
+    return formaterArbeidsgiver(agOpplysninger, andel.arbeidsforhold.eksternArbeidsforholdId);
   }
   if (harKunYtelse && andel.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL) {
     return 'Ytelse';

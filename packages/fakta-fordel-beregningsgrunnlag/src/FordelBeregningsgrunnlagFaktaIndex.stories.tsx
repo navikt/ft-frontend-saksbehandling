@@ -5,6 +5,7 @@ import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import { AktivitetStatus, Inntektskategori, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import {
   ArbeidsforholdTilFordeling,
+  ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
@@ -41,7 +42,7 @@ import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-ui-komponenter/dist/style.css';
 
-const agOpplysninger = {
+const agOpplysninger: ArbeidsgiverOpplysningerPerId = {
   874652202: {
     navn: 'Nav Innlandet',
     identifikator: '874652202',

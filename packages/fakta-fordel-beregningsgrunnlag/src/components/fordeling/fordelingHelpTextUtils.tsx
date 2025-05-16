@@ -1,8 +1,6 @@
 import { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import dayjs from 'dayjs';
-
 import { KodeverkType } from '@navikt/ft-kodeverk';
 import {
   ArbeidsforholdTilFordeling,
@@ -11,10 +9,9 @@ import {
   Beregningsgrunnlag,
   PerioderMedGraderingEllerRefusjon,
 } from '@navikt/ft-types';
-import { BTag, DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
+import { BTag, dateFormat, formaterArbeidsgiver } from '@navikt/ft-utils';
 
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
 
 const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAvklaringsbehovCode;
 
@@ -87,9 +84,9 @@ export const getHelpTextsFordelBG = (beregningsgrunnlag: Beregningsgrunnlag): Re
     : [];
 };
 
-const formatDate = (date: string | undefined): string =>
-  date ? dayjs(date, ISO_DATE_FORMAT).format(DDMMYYYY_DATE_FORMAT) : '-';
+const formatDate = (date: string | undefined): string => (date ? dateFormat(date) : '-');
 
+// TODO(Siri): dra ut i @navikt/ft-utils
 const byggListeSomStreng = (listeMedStrenger: string[]): string => {
   if (listeMedStrenger.length === 0) {
     return '';
@@ -132,7 +129,7 @@ const finnVisningsnavn = (
       ? getKodeverknavn(arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
       : '';
   }
-  return createVisningsnavnForAktivitetFordeling(agOpplysninger, arbeidsforhold.eksternArbeidsforholdId);
+  return formaterArbeidsgiver(agOpplysninger, arbeidsforhold.eksternArbeidsforholdId);
 };
 
 export const createFordelArbeidsforholdString = (

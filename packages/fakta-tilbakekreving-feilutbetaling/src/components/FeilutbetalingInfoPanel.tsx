@@ -1,14 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { BodyShort, Button, Detail, HStack, Label, VStack } from '@navikt/ds-react';
-import moment from 'moment';
+import { BodyShort, Button, Detail, ErrorMessage, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { CheckboxField, Form, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { KodeverkType } from '@navikt/ft-kodeverk';
-import { AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
-import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity } from '@navikt/ft-utils';
+import { AksjonspunktHelpTextHTML, BeløpLabel, DateLabel, FaktaGruppe, PeriodLabel } from '@navikt/ft-ui-komponenter';
+import { decodeHtmlEntity, sortPeriodsByFom } from '@navikt/ft-utils';
 
 import { FeilutbetalingAksjonspunktCode } from '../FeilutbetalingAksjonspunktCode';
 import { AvklartFaktaFeilutbetalingAp } from '../types/AvklartFaktaFeilutbetalingAp';
@@ -31,7 +30,7 @@ export type FormValues = {
 
 const sorterPerioder = (feilutbetalingFakta: FeilutbetalingFakta) =>
   feilutbetalingFakta.behandlingFakta.perioder
-    ? [...feilutbetalingFakta.behandlingFakta.perioder].sort((a, b) => moment(a.fom).diff(moment(b.fom)))
+    ? [...feilutbetalingFakta.behandlingFakta.perioder].sort(sortPeriodsByFom)
     : [];
 
 const buildInitialValues = (feilutbetalingFakta: FeilutbetalingFakta): FormValues => {
@@ -173,18 +172,19 @@ export const FeilutbetalingInfoPanel = ({
                     <FormattedMessage id="FeilutbetalingInfoPanel.PeriodeMedFeilutbetaling" />
                   </Detail>
                   <BodyShort size="small">
-                    {`${moment(feilutbetaling.totalPeriodeFom).format(DDMMYYYY_DATE_FORMAT)} - ${moment(
-                      feilutbetaling.totalPeriodeTom,
-                    ).format(DDMMYYYY_DATE_FORMAT)}`}
+                    <PeriodLabel
+                      dateStringFom={feilutbetaling.totalPeriodeFom}
+                      dateStringTom={feilutbetaling.totalPeriodeTom}
+                    />
                   </BodyShort>
                 </VStack>
                 <VStack gap="1">
                   <Detail>
                     <FormattedMessage id="FeilutbetalingInfoPanel.FeilutbetaltBeløp" />
                   </Detail>
-                  <BodyShort size="small" className={styles.redText}>
-                    {feilutbetaling.aktuellFeilUtbetaltBeløp}
-                  </BodyShort>
+                  <ErrorMessage size="small">
+                    <BeløpLabel beløp={feilutbetaling.aktuellFeilUtbetaltBeløp} />
+                  </ErrorMessage>
                 </VStack>
                 <VStack gap="1">
                   <Detail>
@@ -192,7 +192,7 @@ export const FeilutbetalingInfoPanel = ({
                   </Detail>
                   <BodyShort size="small">
                     {feilutbetaling.tidligereVarseltBeløp ? (
-                      feilutbetaling.tidligereVarseltBeløp
+                      <BeløpLabel beløp={feilutbetaling.tidligereVarseltBeløp} />
                     ) : (
                       <FormattedMessage id="FeilutbetalingInfoPanel.IkkeVarslet" />
                     )}
@@ -247,7 +247,7 @@ export const FeilutbetalingInfoPanel = ({
                       <FormattedMessage id="FeilutbetalingInfoPanel.DatoForRevurdering" />
                     </Detail>
                     <BodyShort size="small">
-                      {moment(feilutbetaling.datoForRevurderingsvedtak).format(DDMMYYYY_DATE_FORMAT)}
+                      <DateLabel dateString={feilutbetaling.datoForRevurderingsvedtak} />
                     </BodyShort>
                   </VStack>
                 )}

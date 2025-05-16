@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
-import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
+import { ISO_DATE_FORMAT, sortPeriodsByFom } from '@navikt/ft-utils';
 
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { Periode } from './PeriodesplittDatoValg';
@@ -52,7 +52,7 @@ export const TilkommetAktivitetPanel = ({
     control,
     name: `VURDER_TILKOMMET_AKTIVITET_FORM.${formFieldIndex}.perioder`,
   });
-  fields.sort((a, b) => dayjs(a.fom).diff(dayjs(b.fom)));
+  fields.sort(sortPeriodsByFom);
 
   const vurderInntektsforholdPerioder =
     beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder;

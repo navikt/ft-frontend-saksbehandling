@@ -4,7 +4,8 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { DatePicker, Label, useDatepicker } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
+import { PeriodLabel } from '@navikt/ft-ui-komponenter';
+import { ISO_DATE_FORMAT, sortPeriodsByFom } from '@navikt/ft-utils';
 
 export type Periode = {
   fom: string;
@@ -17,13 +18,6 @@ type Props = {
   setValgtDato: (dato: string) => void;
 };
 
-const formaterTomForVisning = (tom: string): string => {
-  if (tom === TIDENES_ENDE) {
-    return '';
-  }
-  return dayjs(tom).format(DDMMYYYY_DATE_FORMAT);
-};
-
 export const PeriodesplittDatoValg = ({ periode, forhåndsvisPeriodesplitt, setValgtDato }: Props) => {
   const intl = useIntl();
   const [nyePerioder, setNyePerioder] = useState<Periode[]>();
@@ -34,7 +28,7 @@ export const PeriodesplittDatoValg = ({ periode, forhåndsvisPeriodesplitt, setV
       setValgtDato(splitt);
       if (splitt) {
         const splittedePerioder = forhåndsvisPeriodesplitt(splitt);
-        splittedePerioder.sort((a, b) => dayjs(a.fom).diff(dayjs(b.fom)));
+        splittedePerioder.sort(sortPeriodsByFom);
         setNyePerioder(splittedePerioder);
       }
     },
@@ -67,22 +61,10 @@ export const PeriodesplittDatoValg = ({ periode, forhåndsvisPeriodesplitt, setV
           </Label>
           <ul>
             <li>
-              <FormattedMessage
-                id="TilkommetAktivitet.Modal.Periode"
-                values={{
-                  fom: dayjs(nyePerioder[0].fom).format(DDMMYYYY_DATE_FORMAT),
-                  tom: formaterTomForVisning(nyePerioder[0].tom),
-                }}
-              />
+              <PeriodLabel dateStringFom={nyePerioder[0].fom} dateStringTom={nyePerioder[0].tom} />
             </li>
             <li>
-              <FormattedMessage
-                id="TilkommetAktivitet.Modal.Periode"
-                values={{
-                  fom: dayjs(nyePerioder[1].fom).format(DDMMYYYY_DATE_FORMAT),
-                  tom: formaterTomForVisning(nyePerioder[1].tom),
-                }}
-              />
+              <PeriodLabel dateStringFom={nyePerioder[1].fom} dateStringTom={nyePerioder[1].tom} />
             </li>
           </ul>
         </div>

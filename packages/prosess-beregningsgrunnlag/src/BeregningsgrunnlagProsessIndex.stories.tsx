@@ -14,6 +14,7 @@ import {
   VilkarUtfallType,
 } from '@navikt/ft-kodeverk';
 import {
+  ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
@@ -180,7 +181,7 @@ const vilkarMedUtfall = (kode: string, fom?: string, tom?: string): Vilkår =>
     ],
   }) as Vilkår;
 
-const arbeidsgiverOpplysninger = {
+const arbeidsgiverOpplysninger: ArbeidsgiverOpplysningerPerId = {
   999999996: {
     identifikator: '999999996',
     navn: 'BEDRIFT AS',
