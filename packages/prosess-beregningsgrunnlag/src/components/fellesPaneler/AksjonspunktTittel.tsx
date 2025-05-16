@@ -1,8 +1,6 @@
 import { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyLong } from '@navikt/ds-react';
-
 import { AktivitetStatus, isAksjonspunktOpen, SammenligningType } from '@navikt/ft-kodeverk';
 import {
   BeregningAvklaringsbehov,
@@ -102,16 +100,15 @@ const lagAksjonspunktHelpText = (
   return (
     <AksjonspunktHelpTextHTML>
       {åpneAvklaringsbehov.map(ap => (
-        <BodyLong key={ap.definisjon}>
-          <FormattedMessage
-            id={findAksjonspunktHelpTekst(ap, erVarigEndring || ap.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON)}
-            values={{
-              verdi: getAvviksprosent(ap, sammenligningsgrunnlag),
-              b: BTag,
-              br: <br />,
-            }}
-          />
-        </BodyLong>
+        <FormattedMessage
+          key={ap.definisjon}
+          id={findAksjonspunktHelpTekst(ap, erVarigEndring || ap.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON)}
+          values={{
+            verdi: getAvviksprosent(ap, sammenligningsgrunnlag),
+            b: BTag,
+            br: <br />,
+          }}
+        />
       ))}
     </AksjonspunktHelpTextHTML>
   );
