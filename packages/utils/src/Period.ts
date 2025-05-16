@@ -1,6 +1,6 @@
 import { initializeDate, isSameOrBefore, isValidDate, prettifyDateString } from './dateUtils';
 
-// @deprecated bruk
+// @deprecated Bruk Periode fra fpsak-frontend(k9) eller andre utils i denne pakken
 export class Period {
   fom: string;
 

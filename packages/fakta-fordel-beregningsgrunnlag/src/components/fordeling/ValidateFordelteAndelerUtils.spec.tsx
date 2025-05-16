@@ -1,4 +1,5 @@
 import { getIntlMock } from '@navikt/ft-frontend-utils-test';
+import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 
 import { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import {
@@ -15,7 +16,7 @@ const fieldname = 'feltnavn';
 const likeAndelerFeilmelding = 'Andeler for samme aktivitet må ha ulik inntektskategori';
 const gradertAndelMåVæreFordeltMerEnn0Feilmelding = 'Fastsatt beløp for gradert andel må være høyere enn 0.';
 
-const arbeidsgiverOppysninger = {
+const arbeidsgiverOppysninger: ArbeidsgiverOpplysningerPerId = {
   36363463463: {
     identifikator: '36363463463',
     navn: 'Andersen flyttebyrå',
