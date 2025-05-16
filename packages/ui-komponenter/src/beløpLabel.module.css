@@ -1,0 +1,8 @@
+.default {
+  white-space: nowrap;
+}
+
+.rød {
+  color: var(--a-text-danger);
+  white-space: nowrap;
+}

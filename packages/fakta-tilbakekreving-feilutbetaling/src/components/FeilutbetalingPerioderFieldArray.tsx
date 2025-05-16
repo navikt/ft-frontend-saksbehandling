@@ -1,7 +1,7 @@
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { ErrorMessage, Table } from '@navikt/ds-react';
+import { Table } from '@navikt/ds-react';
 
 import { SelectField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -125,7 +125,7 @@ export const FeilutbetalingPerioderFieldArray = ({
                 )}
               </Table.DataCell>
               <Table.DataCell align="right">
-                <ErrorMessage>{perioder ? <BeløpLabel beløp={perioder[index].belop} /> : null}</ErrorMessage>
+                {perioder ? <BeløpLabel rød beløp={perioder[index].belop} /> : null}
               </Table.DataCell>
             </Table.Row>
           );

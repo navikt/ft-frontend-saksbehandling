@@ -19,13 +19,20 @@ export const Default: Story = {
 
 export const MedKroner: Story = {
   args: {
-    withKr: true,
+    kr: true,
   },
 };
 
 export const NoBeløp: Story = {
   args: {
     beløp: undefined,
-    withKr: true,
+    kr: true,
+  },
+};
+export const RødFargeBeløp: Story = {
+  args: {
+    beløp: 0,
+    kr: false,
+    rød: true,
   },
 };

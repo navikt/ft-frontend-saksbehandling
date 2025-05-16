@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { BodyShort, Button, Detail, ErrorMessage, HStack, Label, VStack } from '@navikt/ds-react';
+import { BodyShort, Button, Detail, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { CheckboxField, Form, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
@@ -182,9 +182,9 @@ export const FeilutbetalingInfoPanel = ({
                   <Detail>
                     <FormattedMessage id="FeilutbetalingInfoPanel.FeilutbetaltBeløp" />
                   </Detail>
-                  <ErrorMessage size="small">
-                    <BeløpLabel beløp={feilutbetaling.aktuellFeilUtbetaltBeløp} />
-                  </ErrorMessage>
+                  <BodyShort size="small">
+                    <BeløpLabel rød beløp={feilutbetaling.aktuellFeilUtbetaltBeløp} />
+                  </BodyShort>
                 </VStack>
                 <VStack gap="1">
                   <Detail>
