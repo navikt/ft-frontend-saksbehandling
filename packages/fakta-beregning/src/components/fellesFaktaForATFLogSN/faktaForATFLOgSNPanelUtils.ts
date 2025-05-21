@@ -1,4 +1,4 @@
-import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, FaktaOmBeregningTilfelle, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
@@ -221,6 +221,11 @@ export const getBuildInitialValuesFaktaForATFLOgSN = (
     frilansInntektValues: InntektInput.buildInitialValues(
       faktaOmBeregning.andelerForFaktaOmBeregning,
       AktivitetStatus.FRILANSER,
+    ),
+    arbeidUnderAAPInntektValues: InntektInput.buildInitialValues(
+      faktaOmBeregning.andelerForFaktaOmBeregning,
+      AktivitetStatus.ARBEIDSTAKER,
+      OpptjeningAktivitetType.ARBEID_UNDER_AAP,
     ),
     dagpengerInntektValues: InntektInput.buildInitialValues(
       faktaOmBeregning.andelerForFaktaOmBeregning,
