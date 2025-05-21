@@ -181,10 +181,6 @@ const andelErEtterlønnSluttpakkeOgSkalFastsettes = (
   return false;
 };
 
-// Arbeid under AAP
-const andelErArbeidUnderAap = (andel: AndelFieldIdentifikator): boolean =>
-  andel.arbeidsforholdType === OAType.ARBEID_UNDER_AAP;
-
 // Manuelt registrert med handlingstype LAGT_TIL_AV_BRUKER
 export const erAndelKunstigArbeidsforhold = (
   andel: AndelFieldIdentifikator,
@@ -244,7 +240,7 @@ const skalFastsettInntektForAndel =
     if (andelErEtterlønnSluttpakkeOgSkalFastsettes(andel, values)) {
       return true;
     }
-    if (andelErArbeidUnderAap(andel)) {
+    if (erArbeidUnderAap(andel)) {
       return true;
     }
     return false;
