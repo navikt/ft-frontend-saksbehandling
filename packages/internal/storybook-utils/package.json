@@ -17,8 +17,8 @@
     "react-intl": "7.1.11"
   },
   "devDependencies": {
-    "@storybook/types": "8.6.12",
-    "eslint": "9.26.0",
+    "@storybook/types": "8.6.14",
+    "eslint": "9.27.0",
     "typescript": "5.8.3"
   }
 }
