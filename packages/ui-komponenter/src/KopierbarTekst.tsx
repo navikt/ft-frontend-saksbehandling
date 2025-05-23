@@ -11,24 +11,21 @@ const intl = createIntl(messages);
 type Props = { tekst: string | undefined; children?: ReactElement | string };
 
 export const KopierbarTekst = ({ tekst, children }: Props) => {
-  const kopierTekst = intl.formatMessage({ id: 'KopierbarTekst.Kopier' });
-  const kopiertTekst = intl.formatMessage({ id: 'KopierbarTekst.Kopiert' });
-
-  const [tooltipText, setTooltipText] = useState(kopierTekst);
+  const [skalViseKopiert, setSkalViseKopiert] = useState(false);
 
   if (!tekst) {
     return children;
   }
   const copy = async (): Promise<void> => {
     await navigator.clipboard.writeText(tekst);
-    setTooltipText(kopiertTekst);
+    setSkalViseKopiert(true);
 
     setTimeout(() => {
-      setTooltipText(kopierTekst);
+      setSkalViseKopiert(false);
     }, 1000);
   };
   return (
-    <Tooltip content={tooltipText}>
+    <Tooltip content={intl.formatMessage({ id: skalViseKopiert ? 'KopierbarTekst.Kopiert' : 'KopierbarTekst.Kopier' })}>
       <span aria-hidden="true" onClick={copy}>
         {children ?? tekst}
       </span>
