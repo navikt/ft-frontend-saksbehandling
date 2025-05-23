@@ -1,5 +1,7 @@
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
+import { KopierbarTekst } from './KopierbarTekst';
+
 import styles from './beløpLabel.module.css';
 
 interface Props {
@@ -10,10 +12,13 @@ interface Props {
 
 export const BeløpLabel = ({ beløp, kr = false, rød = false }: Props) => {
   const formattedBeløp = beløp?.toString().replace(/\s/g, '');
+
   return (
-    <span className={rød ? styles.rød : styles.default}>
-      {formattedBeløp ? formatCurrencyNoKr(formattedBeløp) : '-'}
-      {formattedBeløp && kr && ' kr'}
-    </span>
+    <KopierbarTekst tekst={formattedBeløp}>
+      <span className={rød ? styles.rød : styles.default}>
+        {formattedBeløp ? formatCurrencyNoKr(formattedBeløp) : '-'}
+        {formattedBeløp && kr && ' kr'}
+      </span>
+    </KopierbarTekst>
   );
 };
