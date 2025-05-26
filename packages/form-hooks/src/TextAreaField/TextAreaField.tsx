@@ -26,6 +26,7 @@ export interface Props extends TextareaProps {
   className?: string;
   description?: string;
   isEdited?: boolean;
+  size?: 'small' | 'medium';
 }
 
 export const TextAreaField = ({
@@ -39,6 +40,7 @@ export const TextAreaField = ({
   className,
   description,
   isEdited,
+  size = 'small',
   ...props
 }: Props) => {
   const {
@@ -54,6 +56,7 @@ export const TextAreaField = ({
   if (readOnly) {
     return (
       <ReadOnlyField
+        size={size}
         label={label}
         value={field.value}
         type="textarea"
@@ -75,7 +78,7 @@ export const TextAreaField = ({
         </div>
       )}
       <Textarea
-        size="small"
+        size={size}
         label={label}
         description={description}
         className={className}
