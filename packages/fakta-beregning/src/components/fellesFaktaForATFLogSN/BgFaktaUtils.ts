@@ -99,7 +99,7 @@ export const erFrilanser = (field: AndelFieldIdentifikator): boolean =>
   !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.FRILANSER;
 
 export const erArbeidUnderAap = (field: AndelFieldIdentifikator): boolean =>
-  !!field.arbeidsforholdType && field.arbeidsforholdType === OAType.ARBEID_UNDER_AAP;
+  field.arbeidsforholdType === OAType.ARBEID_UNDER_AAP;
 
 export const erDagpenger = (field: AndelFieldIdentifikator): boolean =>
   !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.DAGPENGER;

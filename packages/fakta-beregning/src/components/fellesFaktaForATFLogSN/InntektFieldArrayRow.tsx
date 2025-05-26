@@ -87,7 +87,10 @@ export const InntektFieldArrayAndelRow = ({
     erFrilansInntekt && kanRedigereInntekt && formValues?.frilansInntektValues?.fastsattBelop;
 
   const harEndretArbeidUnderAapInntekt =
-    erArbeidUnderAapInntekt && kanRedigereInntekt && formValues?.arbeidUnderAAPInntektValues?.fastsattBelop;
+    erArbeidUnderAapInntekt &&
+    kanRedigereInntekt &&
+    (formValues?.arbeidUnderAAPInntektValues?.fastsattBelop ||
+      formValues?.arbeidUnderAAPInntektValues?.fastsattBelop === 0);
 
   const harEndretInntektForArbeidsgiver =
     erArbeidstakerInntekt &&

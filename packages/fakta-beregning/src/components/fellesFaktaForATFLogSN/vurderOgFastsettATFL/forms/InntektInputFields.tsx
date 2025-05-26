@@ -225,23 +225,14 @@ export const InntektInputFields = ({
   const lagArbeidUnderAAPLabel = () => {
     return (
       <VStack gap="2">
-        <FormattedMessage id="Snittlønn arbeid under AAP" />
+        <FormattedMessage id="BeregningInfoPanel.InntektInputFields.MånedsinntektAap" />
         <ReadMore
           size="small"
           header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
         >
           <List size="small">
             <List.Item>
-              <FormattedMessage id="Hus" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="Hytte" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="Tårn" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="Yahtzee!" />
+              <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ArbeidUnderAap1" />
             </List.Item>
           </List>
         </ReadMore>
