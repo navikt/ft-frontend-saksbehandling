@@ -2370,7 +2370,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-frontend-utils-test@workspace:packages/internal/utils-test"
   dependencies:
-    "@navikt/ft-kodeverk": ^3.1.9
+    "@navikt/ft-kodeverk": ^3.1.10
     cross-env: 7.0.3
     eslint: 9.26.0
     react: 19.1.0
@@ -2392,7 +2392,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-kodeverk@^3.1.9, @navikt/ft-kodeverk@workspace:^, @navikt/ft-kodeverk@workspace:packages/internal/kodeverk":
+"@navikt/ft-kodeverk@^3.1.10, @navikt/ft-kodeverk@workspace:^, @navikt/ft-kodeverk@workspace:packages/internal/kodeverk":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-kodeverk@workspace:packages/internal/kodeverk"
   dependencies:
