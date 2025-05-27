@@ -232,7 +232,7 @@ export const InntektInputFields = ({
         >
           <List size="small">
             <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ArbeidUnderAap1" />
+              <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ArbeidUnderAap" />
             </List.Item>
           </List>
         </ReadMore>

@@ -145,7 +145,6 @@ const etterlønnSluttpakkeFaktaArbeidstakerAndel = {
 };
 const arbeidUnderAAPFaktaArbeidstakerAndel = {
   ...lagAndel(11, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
-  belopReadOnly: undefined,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
     arbeidsforholdType: OpptjeningAktivitetType.ARBEID_UNDER_AAP,

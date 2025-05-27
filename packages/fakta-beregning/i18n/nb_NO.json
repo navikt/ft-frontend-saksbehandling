@@ -133,7 +133,7 @@
   "BeregningInfoPanel.VurderMilitaer.HarSøkerMilitærinntekt": "Har søker vært i militær- eller sivilforsvarstjeneste i opptjeningsperioden?",
   "BeregningInfoPanel.VurderMilitaer.HvordanGarJegFrem1": "Kontakt søker og be om dokumentasjon på avtjent tjeneste i opptjeningsperioden. Vurder om tjenesten har vart eller var ment å vare mer enn 28 dager i henhold til §8-46. Denne informasjonen er ikke tilgjengelig i noen registre, og vi må derfor ha dokumentasjon fra søker.",
   "BeregningInfoPanel.VurderMilitaer.HvordanGarJegFrem2": "Svarer du ”ja” vil utbetalingen bli minst 2G (pleiepenger) / 3G (foreldrepenger). Svarer du ”nei” beregnes det etter vanlige regler.",
-  "BeregningInfoPanel.InntektInputFields.ArbeidUnderAap1": "Fastsett arbeidsinntekt fra beregningsperioden som er bortfalt på skjæringstidspunktet.",
+  "BeregningInfoPanel.InntektInputFields.ArbeidUnderAap": "Fastsett arbeidsinntekt fra beregningsperioden som er bortfalt på skjæringstidspunktet.",
   "BeregningInfoPanel.InntektInputFields.MånedsinntektAap": "Fastsett gjennomsnitt månedlig arbeidsinntekt under arbeidsavklaringspenger",
   "VurderRefusjonForm.ErRefusjonskravGyldig": "Skal refusjonskrav som ikke har kommet innen fristen tas med i beregning?",
   "VurderRefusjonForm.ReadMore": "Undersøk om det har vært fristavbrytende kontakt med arbeidsgiver innen frist for refusjonskrav (3 måneder).",
