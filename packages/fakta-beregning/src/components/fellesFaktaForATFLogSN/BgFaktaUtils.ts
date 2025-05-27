@@ -98,6 +98,9 @@ export const erArbeidstaker = (field: AndelFieldIdentifikator): boolean =>
 export const erFrilanser = (field: AndelFieldIdentifikator): boolean =>
   !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.FRILANSER;
 
+export const erArbeidUnderAap = (field: AndelFieldIdentifikator): boolean =>
+  field.arbeidsforholdType === OAType.ARBEID_UNDER_AAP;
+
 export const erDagpenger = (field: AndelFieldIdentifikator): boolean =>
   !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.DAGPENGER;
 
@@ -200,7 +203,7 @@ const harKunYtelse = (faktaOmBeregning: FaktaOmBeregning): boolean =>
   faktaOmBeregning.faktaOmBeregningTilfeller.find(kode => kode === FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE) !==
     undefined;
 
-const skalKunneOverstigeRapportertInntektOgTotaltBeregningsgrunnlag =
+const skalFastsettInntektForAndel =
   (
     values: FaktaOmBeregningAksjonspunktValues,
     faktaOmBeregning: FaktaOmBeregning,
@@ -237,19 +240,20 @@ const skalKunneOverstigeRapportertInntektOgTotaltBeregningsgrunnlag =
     if (andelErEtterlønnSluttpakkeOgSkalFastsettes(andel, values)) {
       return true;
     }
+    if (erArbeidUnderAap(andel)) {
+      return true;
+    }
     return false;
   };
 
-const skalKunneEndreTotaltBeregningsgrunnlag =
+const skalKunneEndreBeregningsgrunnlag =
   (
     values: FaktaOmBeregningAksjonspunktValues,
     faktaOmBeregning: FaktaOmBeregning,
     beregningsgrunnlag: Beregningsgrunnlag,
   ) =>
   (andel: AndelFieldIdentifikator): boolean => {
-    if (
-      skalKunneOverstigeRapportertInntektOgTotaltBeregningsgrunnlag(values, faktaOmBeregning, beregningsgrunnlag)(andel)
-    ) {
+    if (skalFastsettInntektForAndel(values, faktaOmBeregning, beregningsgrunnlag)(andel)) {
       return true;
     }
     return erNyoppstartetFrilanser(andel, values);
@@ -274,7 +278,7 @@ export const skalFastsetteInntektForAndel =
   ) =>
   (andel: AndelFieldIdentifikator): boolean =>
     harKunYtelse(faktaOmBeregning) ||
-    skalKunneEndreTotaltBeregningsgrunnlag(values, faktaOmBeregning, beregningsgrunnlag)(andel);
+    skalKunneEndreBeregningsgrunnlag(values, faktaOmBeregning, beregningsgrunnlag)(andel);
 
 export const kanRedigereInntektForAndel =
   (
