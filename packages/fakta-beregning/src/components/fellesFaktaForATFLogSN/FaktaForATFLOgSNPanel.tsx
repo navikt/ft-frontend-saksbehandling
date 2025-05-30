@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkFpSakForPanel } from '../../typer/KodeverkForPanelForFb';
 import { getFaktaOmBeregning, getFaktaOmBeregningTilfellerKoder } from './BgFaktaUtils';
 import { FastsettBgKunYtelse } from './kunYtelse/FastsettBgKunYtelse';
 import { VurderOgFastsettATFL } from './vurderOgFastsettATFL/VurderOgFastsettATFL';
@@ -11,7 +11,7 @@ interface Props {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   erOverstyrer: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;

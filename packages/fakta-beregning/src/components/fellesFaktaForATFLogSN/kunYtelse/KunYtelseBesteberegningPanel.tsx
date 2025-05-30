@@ -11,7 +11,7 @@ import { KunYtelse } from '@navikt/ft-types';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
 import { VurderBesteberegningMedKunYtelseValues } from '../../../typer/FaktaBeregningTypes';
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
+import { KodeverkFpSakForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../../utils/BeregningFormUtils';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '../eksterneLenker';
@@ -26,7 +26,7 @@ interface Props {
   isAksjonspunktClosed: boolean;
   brukersAndelFieldArrayName: string;
   skalViseInntektstabell?: boolean;
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
 }
 
 /**

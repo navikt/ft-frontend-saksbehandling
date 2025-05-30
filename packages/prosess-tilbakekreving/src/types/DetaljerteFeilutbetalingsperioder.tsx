@@ -1,9 +1,11 @@
+import { HendelseType, HendelseUnderType } from '@navikt/ft-kodeverk';
+
 export type DetaljertFeilutbetalingPeriode = {
   fom: string;
   tom: string;
   årsak: {
-    hendelseType: string;
-    hendelseUndertype?: string;
+    hendelseType: HendelseType;
+    hendelseUndertype?: HendelseUnderType;
   };
   feilutbetaling: number;
   ytelser: {

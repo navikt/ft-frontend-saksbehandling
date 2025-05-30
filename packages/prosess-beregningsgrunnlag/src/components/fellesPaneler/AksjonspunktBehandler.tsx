@@ -24,7 +24,7 @@ import { BeregningFormValues } from '../../types/BeregningFormValues';
 import { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunkt';
 import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkFpSakForPanel } from '../../types/KodeverkForPanelForBg';
 import { VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
 import { Vilkår, Vilkårperiode } from '../../types/Vilkår';
 import { AksjonspunktBehandlerAT } from '../arbeidstaker/AksjonspunktBehandlerAT';
@@ -244,7 +244,7 @@ const ArbeidstakerEllerFrilansContainer = ({
   avklaringsbehov,
   skalValideres,
 }: {
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   allePerioder: BeregningsgrunnlagPeriodeProp[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   readOnly: boolean;
@@ -438,7 +438,7 @@ const transformFields = (values: BeregningFormValues, lovparagraf: LovParagraf) 
 
 type Props = {
   readOnly: boolean;
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   readOnlySubmitButton: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   beregningsgrunnlagListe: Beregningsgrunnlag[];

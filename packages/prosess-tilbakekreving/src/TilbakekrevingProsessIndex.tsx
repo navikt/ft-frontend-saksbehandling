@@ -1,6 +1,7 @@
 import { RawIntlProvider } from 'react-intl';
 
-import { Behandling, KodeverkMedNavn, StandardProsessPanelProps } from '@navikt/ft-types';
+import { RelasjonsRolleType } from '@navikt/ft-kodeverk';
+import { Behandling, StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
 import { BeregnBeløpParams } from './components/splittePerioder/PeriodeController';
@@ -9,6 +10,7 @@ import { CustomVilkarsVurdertePeriode } from './components/TilbakekrevingPeriode
 import { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
 import { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
 import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTb';
+import { KodeverkMedNavn } from './types/kodeverkMedNavn';
 import { VilkårsvurderingAp } from './types/VilkårsvurderingAp';
 import { VilkårsvurdertePerioderWrapper } from './types/VilkårsvurdertePerioder';
 
@@ -24,8 +26,8 @@ export interface Props {
   beregnBelop: (params: BeregnBeløpParams) => Promise<{ perioder: { belop: number }[] }>;
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
   alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
-  relasjonsRolleType: string;
-  relasjonsRolleTypeKodeverk: KodeverkMedNavn[];
+  relasjonsRolleType: RelasjonsRolleType;
+  relasjonsRolleTypeKodeverk: KodeverkMedNavn<RelasjonsRolleType>[];
 }
 
 export const TilbakekrevingProsessIndex = (

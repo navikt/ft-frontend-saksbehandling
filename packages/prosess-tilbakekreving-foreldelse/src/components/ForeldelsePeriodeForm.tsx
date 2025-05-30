@@ -14,7 +14,7 @@ import {
   minLength,
   required,
 } from '@navikt/ft-form-validators';
-import { ForeldelseVurderingType, TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
+import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 
 import { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
 import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTf';
@@ -58,7 +58,7 @@ export const ForeldelsePeriodeForm = ({
 
   const erForeldet = foreldet && foreldet === ForeldelseVurderingType.FORELDET;
   const erMedTilleggsfrist = foreldet && foreldet === ForeldelseVurderingType.TILLEGGSFRIST;
-  const foreldelseVurderingTyper = kodeverkSamlingFpTilbake[TilbakekrevingKodeverkType.FORELDELSE_VURDERING].filter(
+  const foreldelseVurderingTyper = kodeverkSamlingFpTilbake['ForeldelseVurderingType'].filter(
     fv => fv.kode !== ForeldelseVurderingType.IKKE_VURDERT,
   );
 

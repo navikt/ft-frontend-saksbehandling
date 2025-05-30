@@ -8,7 +8,7 @@ import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrun
 
 import { FordelBeregningsgrunnlagFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../types/kodeverkForPanel';
+import { KodeverkFpSakForPanel } from '../../types/kodeverkForPanel';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { SubmitButton } from '../felles/SubmitButton';
 import { FastsettFordeltBeregningsgrunnlag } from './FastsettFordeltBeregningsgrunnlag';
@@ -30,7 +30,7 @@ interface Props {
   readOnly: boolean;
   submittable: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldIndex: number;
 }

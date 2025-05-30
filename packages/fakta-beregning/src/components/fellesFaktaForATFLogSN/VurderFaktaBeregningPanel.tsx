@@ -7,7 +7,7 @@ import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrun
 
 import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkFpSakForPanel } from '../../typer/KodeverkForPanelForFb';
 import { Vilkår, Vilkårperiode } from '../../typer/Vilkår';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
@@ -43,7 +43,7 @@ interface Props {
   readOnly: boolean;
   submittable: boolean;
   beregningsgrunnlag: Beregningsgrunnlag[];
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   erOverstyrer: boolean;
   submitCallback: (aksjonspunktData: BeregningFaktaOgOverstyringAP[]) => Promise<void>;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
@@ -57,7 +57,7 @@ interface Props {
 
 const buildInitialValuesVurderFaktaBeregning = (
   alleBeregningsgrunnlag: Beregningsgrunnlag[],
-  kodeverkSamling: KodeverkForPanel,
+  kodeverkSamling: KodeverkFpSakForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   vilkar: Vilkår,
 ): VurderFaktaBeregningFormValues => ({

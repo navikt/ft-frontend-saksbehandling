@@ -45,7 +45,6 @@ export type {
   Inntektsforhold,
   VurderInntektsforholdPeriode,
 } from './src/BeregningsgrunnlagFordeling';
-export type { KodeverkMedNavn } from './src/KodeverkMedNavn';
 export type { FamilieHendelse, FamilieHendelseSamling, AvklartBarn } from './src/FamilieHendelse';
 export type { Fagsak } from './src/Fagsak';
 export type {

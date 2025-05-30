@@ -7,7 +7,7 @@ import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, FaktaOmBeregni
 
 import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
+import { KodeverkFpSakForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { KunYtelsePanel } from './KunYtelsePanel';
 
 const { FASTSETT_BG_KUN_YTELSE, VURDER_BESTEBEREGNING } = FaktaOmBeregningTilfelle;
@@ -17,7 +17,7 @@ interface Props {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   faktaOmBeregning: FaktaOmBeregning;
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   renderTextFieldAndSubmitButton: () => React.ReactNode;
 }
 
@@ -66,7 +66,7 @@ FastsettBgKunYtelse.buildInitialValues = (
   tilfeller: string[],
   faktaOmBeregningAndeler: AndelForFaktaOmBeregning[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  kodeverkSamling: KodeverkForPanel,
+  kodeverkSamling: KodeverkFpSakForPanel,
 ): KunYtelseValues => {
   if (tilfeller && tilfeller.includes(FASTSETT_BG_KUN_YTELSE)) {
     return KunYtelsePanel.buildInitialValues(

@@ -1,6 +1,6 @@
 import { UseFormGetValues } from 'react-hook-form';
 
-import { AktivitetStatus, Inntektskategori, KodeverkType } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, Inntektskategori } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, FordelBeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr, formaterArbeidsgiver, removeSpacesFromNumber } from '@navikt/ft-utils';
 
@@ -10,7 +10,7 @@ import {
   FordelBeregningsgrunnlagFormValues,
   FordelBeregningsgrunnlagGenerellAndelValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { KodeverkForPanel } from '../../types/kodeverkForPanel';
+import { KodeverkFpSakForPanel } from '../../types/kodeverkForPanel';
 
 export const GRADERING_RANGE_DENOMINATOR = ' - ';
 
@@ -35,7 +35,7 @@ const finnnInntektskategorikode = (andel: FordelBeregningsgrunnlagAndel): string
 const createAndelnavn = (
   andel: FordelBeregningsgrunnlagAndel,
   harKunYtelse: boolean,
-  kodeverkSamling: KodeverkForPanel,
+  kodeverkSamling: KodeverkFpSakForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): string => {
   if (!andel.aktivitetStatus || andel.aktivitetStatus === AktivitetStatus.UDEFINERT) {
@@ -47,9 +47,8 @@ const createAndelnavn = (
       : undefined;
     if (!agOpplysninger) {
       return andel.arbeidsforhold.arbeidsforholdType
-        ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(
-            oat => oat.kode === andel.arbeidsforhold?.arbeidsforholdType,
-          )?.kode || ''
+        ? kodeverkSamling['OpptjeningAktivitetType'].find(oat => oat.kode === andel.arbeidsforhold?.arbeidsforholdType)
+            ?.kode || ''
         : '';
     }
     return formaterArbeidsgiver(agOpplysninger, andel.arbeidsforhold.eksternArbeidsforholdId);
@@ -57,7 +56,7 @@ const createAndelnavn = (
   if (harKunYtelse && andel.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL) {
     return 'Ytelse';
   }
-  return kodeverkSamling[KodeverkType.AKTIVITET_STATUS].find(as => as.kode === andel.aktivitetStatus)?.navn || '';
+  return kodeverkSamling['AktivitetStatus'].find(as => as.kode === andel.aktivitetStatus)?.navn || '';
 };
 
 export const finnFastsattPrAar = (fordeltPrAar?: number): number | undefined =>
@@ -98,7 +97,7 @@ export const setArbeidsforholdInitialValues = (
 export const setGenerellAndelsinfo = (
   andel: FordelBeregningsgrunnlagAndel,
   harKunYtelse: boolean,
-  kodeverkSamling: KodeverkForPanel,
+  kodeverkSamling: KodeverkFpSakForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): FordelBeregningsgrunnlagGenerellAndelValues => ({
   andel: createAndelnavn(andel, harKunYtelse, kodeverkSamling, arbeidsgiverOpplysningerPerId),

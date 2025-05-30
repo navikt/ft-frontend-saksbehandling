@@ -1,6 +1,4 @@
-export { TilbakekrevingKodeverkType } from './src/tilbakekrevingKodeverkType';
 export { VilkarType } from './src/vilkarType';
-export { KodeverkType } from './src/kodeverkType';
 export { ArbeidType } from './src/arbeidType';
 export {
   AktivitetStatus,
@@ -43,3 +41,6 @@ export { RelasjonsRolleType } from './src/relasjonsRolleType';
 export { Kommunikasjonsretning } from './src/kommunikasjonsretning';
 export { Inntektskategori, isSelvstendigNæringsdrivende } from './src/inntektskategori';
 export { LønnsendringScenario } from './src/lønnsendringScenario';
+export { HendelseType } from './src/hendelseType';
+export { HendelseUnderType } from './src/hendelseUnderType';
+export { OverføringÅrsak } from './src/overføringÅrsak';

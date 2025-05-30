@@ -36,6 +36,7 @@ import {
 } from '../testdata/ToArbeidsforholdIOpptjeningsperioden';
 import { BeregningFaktaIndex } from './BeregningFaktaIndex';
 import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { KodeverkFpSakForPanel } from './typer/KodeverkForPanelForFb';
 import { Vilkår, Vilkårperiode } from './typer/Vilkår';
 
 import '@navikt/ds-css';
@@ -215,7 +216,7 @@ const meta = {
   component: BeregningFaktaIndex,
   args: {
     erOverstyrer: true,
-    kodeverkSamling: alleKodeverkMock as any,
+    kodeverkSamling: alleKodeverkMock as KodeverkFpSakForPanel,
     submitCallback: action('button-click') as (data: any) => Promise<any>,
     readOnly: false,
     submittable: true,

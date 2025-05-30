@@ -17,8 +17,8 @@ import { Button, HStack, Timeline, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { RelasjonsRolleType } from '@navikt/ft-kodeverk';
-import { KodeverkMedNavn } from '@navikt/ft-types';
 
+import { KodeverkMedNavn } from '../../types/kodeverkMedNavn';
 import { TidslinjePeriode } from '../../types/TidslinjePeriode';
 
 import styles from './tilbakekrevingTimeline.module.css';
@@ -71,8 +71,8 @@ export interface Props {
   perioder: TidslinjePeriode[];
   valgtPeriode?: TidslinjePeriode;
   setPeriode: (periode?: TidslinjePeriode) => void;
-  relasjonsRolleType: string;
-  relasjonsRolleTypeKodeverk: KodeverkMedNavn[];
+  relasjonsRolleType: RelasjonsRolleType;
+  relasjonsRolleTypeKodeverk: KodeverkMedNavn<RelasjonsRolleType>[];
 }
 
 /**

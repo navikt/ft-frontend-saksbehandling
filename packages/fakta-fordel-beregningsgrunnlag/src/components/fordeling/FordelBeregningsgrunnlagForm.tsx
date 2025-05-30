@@ -17,7 +17,7 @@ import {
   FordelBeregningsgrunnlagPerioderTransformedValues,
   FordelBeregningsgrunnlagPeriodeTransformedValues,
 } from '../../types/interface/FordelBeregningsgrunnlagAP';
-import { KodeverkForPanel } from '../../types/kodeverkForPanel';
+import { KodeverkFpSakForPanel } from '../../types/kodeverkForPanel';
 import { erPeriodeTilVurdering } from '../util/ForlengelseUtils';
 import { FordelBeregningsgrunnlagPeriodePanel } from './FordelBeregningsgrunnlagPeriodePanel';
 import { fordelBGFieldArrayNamePrefix, lagPerioderForSubmit, slaaSammenPerioder } from './FordelPerioderUtils';
@@ -62,7 +62,7 @@ type Props = {
   isAksjonspunktClosed: boolean;
   bgPerioder: BeregningsgrunnlagPeriodeProp[];
   beregningsgrunnlag: Beregningsgrunnlag;
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldIndex: number;
 };
@@ -160,7 +160,7 @@ FordelBeregningsgrunnlagForm.transformValues = (
 FordelBeregningsgrunnlagForm.buildInitialValues = (
   fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
   bg: Beregningsgrunnlag,
-  kodeverkSamling: KodeverkForPanel,
+  kodeverkSamling: KodeverkFpSakForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): FordelBeregningsgrunnlagValues => {
   const initialValues = {} as FordelBeregningsgrunnlagValues;

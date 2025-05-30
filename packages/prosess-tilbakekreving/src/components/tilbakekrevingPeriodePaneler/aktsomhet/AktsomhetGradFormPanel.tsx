@@ -1,6 +1,5 @@
-import { KodeverkMedNavn } from '@navikt/ft-types';
-
 import { Aktsomhet } from '../../../kodeverk/aktsomhet';
+import { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkFpTilbakeForPanelTb';
 import { AktsomhetGradForsettFormPanel } from './AktsomhetGradForsettFormPanel';
 import { AktsomhetGradUaktsomhetFormPanel } from './AktsomhetGradUaktsomhetFormPanel';
 
@@ -13,7 +12,7 @@ export interface Props {
   harMerEnnEnYtelse: boolean;
   feilutbetalingBelop: number;
   erTotalBelopUnder4Rettsgebyr: boolean;
-  sarligGrunnTyper: KodeverkMedNavn[];
+  sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[];
   andelSomTilbakekreves?: string;
   name: string;
 }

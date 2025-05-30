@@ -14,7 +14,7 @@ import {
 import { BeregningFormValues } from '../../types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkFpSakForPanel } from '../../types/KodeverkForPanelForBg';
 import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 import { Vilkår } from '../../types/Vilkår';
 import { AksjonspunktBehandler, defaultFormName } from './AksjonspunktBehandler';
@@ -140,7 +140,7 @@ const finnBeregnetInntekt = (
 
 type Props = {
   readOnly: boolean;
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   readOnlySubmitButton: boolean;
   sammenligningsgrunnlag: SammenligningsgrunlagProp[];
   relevanteStatuser: RelevanteStatuserProp;

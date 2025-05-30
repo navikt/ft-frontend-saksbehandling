@@ -1,20 +1,18 @@
-import { KodeverkType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formaterArbeidsgiver } from '@navikt/ft-utils';
 
-import { KodeverkForPanel } from '../types/KodeverkForPanelForBg';
+import { KodeverkFpSakForPanel } from '../types/KodeverkForPanelForBg';
 
-const lagVisningFraArbeidType = (andel: BeregningsgrunnlagAndel, kodeverkSamling: KodeverkForPanel): string =>
+const lagVisningFraArbeidType = (andel: BeregningsgrunnlagAndel, kodeverkSamling: KodeverkFpSakForPanel): string =>
   andel.arbeidsforhold && andel.arbeidsforhold.arbeidsforholdType
-    ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(
-        a => a.kode === andel.arbeidsforhold?.arbeidsforholdType,
-      )?.navn || ''
+    ? kodeverkSamling['OpptjeningAktivitetType'].find(a => a.kode === andel.arbeidsforhold?.arbeidsforholdType)?.navn ||
+      ''
     : '';
 
 export const createVisningsnavnForAndel = (
   andel: BeregningsgrunnlagAndel,
   arbeidsgiverOpplysninger: ArbeidsgiverOpplysningerPerId,
-  kodeverkSamling: KodeverkForPanel,
+  kodeverkSamling: KodeverkFpSakForPanel,
 ): string => {
   if (andel.arbeidsforhold && andel.arbeidsforhold.arbeidsgiverIdent) {
     const arbeidsforholdInfo = arbeidsgiverOpplysninger[andel.arbeidsforhold.arbeidsgiverIdent];

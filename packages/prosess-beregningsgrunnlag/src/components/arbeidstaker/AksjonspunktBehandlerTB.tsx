@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { useFormContext, UseFormReturn } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 
 import { InputField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { AktivitetStatus, KodeverkType, PeriodeAarsak } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
@@ -27,7 +27,7 @@ import {
   TidsbegrensetArbeidsforholdInntektResultat,
   TidsbegrensetArbeidsforholdPeriodeResultat,
 } from '../../types/interface/BeregningsgrunnlagAP';
-import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkFpSakForPanel } from '../../types/KodeverkForPanelForBg';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 import tableStyles from '../tableStyle.module.css';
@@ -78,7 +78,7 @@ const createArbeidsforholdMapKey = (arbeidsforhold?: BeregningsgrunnlagArbeidsfo
 
 const lagVisningsnavnForAktivitet = (
   arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
-  kodeverkSamling: KodeverkForPanel,
+  kodeverkSamling: KodeverkFpSakForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ) => {
   const arbeidsforholdInfo = arbeidsforhold.arbeidsgiverIdent
@@ -86,8 +86,7 @@ const lagVisningsnavnForAktivitet = (
     : null;
   if (!arbeidsforholdInfo) {
     return arbeidsforhold.arbeidsforholdType
-      ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(a => a.kode === arbeidsforhold.arbeidsforholdType)
-          ?.navn
+      ? kodeverkSamling['OpptjeningAktivitetType'].find(a => a.kode === arbeidsforhold.arbeidsforholdType)?.navn
       : '';
   }
   return formaterArbeidsgiver(arbeidsforholdInfo, arbeidsforhold.eksternArbeidsforholdId);
@@ -106,7 +105,7 @@ const createMapValueObject = (): TidsbegrenseArbeidsforholdTabellCelle => ({
 // Vi antar at alle andeler ligger i alle perioder, henter derfor kun ut andeler fra den første perioden.
 const initializeMap = (
   periode: BeregningsgrunnlagPeriodeProp,
-  kodeverkSamling: KodeverkForPanel,
+  kodeverkSamling: KodeverkFpSakForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): TidsbegrenseArbeidsforholdTabellData => {
   const alleAndeler = findArbeidstakerAndeler(periode);
@@ -160,7 +159,7 @@ const erAndelTidsbegrenset = (
 
 const createTableData = (
   allePerioder: BeregningsgrunnlagPeriodeProp[],
-  kodeverkSamling: KodeverkForPanel,
+  kodeverkSamling: KodeverkFpSakForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): TidsbegrenseArbeidsforholdTabellData => {
   // Vi er ikke interessert i perioder som oppstår grunnet naturalytelse
@@ -292,7 +291,7 @@ type Props = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formName: string;
   allePerioder: BeregningsgrunnlagPeriodeProp[];
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   fieldIndex: number;
   skalValideres: boolean;
 };

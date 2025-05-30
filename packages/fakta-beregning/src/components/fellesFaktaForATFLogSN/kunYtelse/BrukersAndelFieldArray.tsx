@@ -7,13 +7,12 @@ import { Button, ErrorMessage, Table, VStack } from '@navikt/ds-react';
 
 import { InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
-import { KodeverkMedNavn } from '@navikt/ft-types';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
 import { AndelFieldValue } from '../../../typer/FieldValues';
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
+import { KodeverkFpSakForPanel, KodeverkMedNavn } from '../../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../../utils/BeregningFormUtils';
 import { SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
@@ -21,8 +20,8 @@ import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 import tableStyles from '../../felles/tableStyle.module.css';
 
-const defaultBGFordeling = (aktivitetStatuser: string[], kodeverkSamling: KodeverkForPanel) => ({
-  andel: kodeverkSamling[KodeverkType.AKTIVITET_STATUS].find(
+const defaultBGFordeling = (aktivitetStatuser: string[], kodeverkSamling: KodeverkFpSakForPanel) => ({
+  andel: kodeverkSamling['AktivitetStatus'].find(
     as => as.kode === aktivitetStatuser.filter(kode => kode === AktivitetStatus.BRUKERS_ANDEL)[0],
   )?.navn,
   fastsattBelop: '',
@@ -31,7 +30,7 @@ const defaultBGFordeling = (aktivitetStatuser: string[], kodeverkSamling: Kodeve
   lagtTilAvSaksbehandler: true,
 });
 
-const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]) =>
+const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn<'Inntektskategori'>[]) =>
   kategorier.map(ik => (
     <option value={ik.kode} key={ik.kode}>
       {ik.navn}
@@ -58,7 +57,7 @@ const createAndelerTableRows = (
   fields: FieldArrayWithId<VurderFaktaBeregningFormValues, 'vurderFaktaBeregningForm.0.brukersAndelBG', 'id'>[],
   isAksjonspunktClosed: boolean,
   readOnly: boolean,
-  inntektskategoriKoder: KodeverkMedNavn[],
+  inntektskategoriKoder: KodeverkMedNavn<'Inntektskategori'>[],
   intl: IntlShape,
   fieldArrayName: string,
   remove: UseFieldArrayRemove,
@@ -128,14 +127,14 @@ const createBruttoBGSummaryRow = (sumFordeling: string | undefined): ReactElemen
   </Table.Row>
 );
 
-const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: KodeverkForPanel) =>
-  kodeverkSamling[KodeverkType.INNTEKTSKATEGORI].slice().sort((a, b) => a.navn.localeCompare(b.navn));
+const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: KodeverkFpSakForPanel) =>
+  kodeverkSamling['Inntektskategori'].slice().sort((a, b) => a.navn.localeCompare(b.navn));
 
 interface Props {
   name: string;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
 }
 
 const mapBrukesAndelToSortedObject = (value: BrukersAndelValues | AndelFieldValue): SortedAndelInfo => {
@@ -168,7 +167,7 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
     control,
     name: fieldArrayName as 'vurderFaktaBeregningForm.0.brukersAndelBG',
   });
-  const aktivitetStatuser = kodeverkSamling[KodeverkType.AKTIVITET_STATUS]?.map(kodeverk => kodeverk.kode);
+  const aktivitetStatuser = kodeverkSamling['AktivitetStatus']?.map(kodeverk => kodeverk.kode);
   const inntektskategoriKoder = getInntektskategorierAlfabetiskSortert(kodeverkSamling);
   const fieldArrayValues = useWatch({
     name: fieldArrayName as 'vurderFaktaBeregningForm.0.brukersAndelBG',

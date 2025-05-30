@@ -8,7 +8,7 @@ import { dateFormat } from '@navikt/ft-utils';
 
 import { AktiviteterValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkFpSakForPanel } from '../../typer/KodeverkForPanelForFb';
 import { VurderAktiviteterTabellRad } from './VurderAktiviteterRow';
 import { isSameOrBefore, lagAktivitetFieldId, mapToInitialValues } from './vurderAktiviteterTabellUtils';
 
@@ -37,7 +37,7 @@ interface Props {
   readOnly: boolean;
   isAvklaringsbehovClosed: boolean;
   aktiviteter: BeregningAktivitet[];
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   erOverstyrt: boolean;
   harAvklaringsbehov: boolean;
   tomDatoForAktivitetGruppe: string;
@@ -142,7 +142,7 @@ VurderAktiviteterTabell.transformValues = (
 
 VurderAktiviteterTabell.buildInitialValues = (
   aktiviteter: BeregningAktivitet[],
-  kodeverkSamling: KodeverkForPanel,
+  kodeverkSamling: KodeverkFpSakForPanel,
   erOverstyrt: boolean,
   harAksjonspunkt: boolean,
   erTomLikEllerFørSkjæringstidpunkt: boolean,

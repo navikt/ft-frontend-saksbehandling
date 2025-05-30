@@ -5,7 +5,7 @@ import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrun
 import { AvklarAktiviteterFormValues } from '../typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { SubmitBeregningType } from '../typer/interface/SubmitBeregningTsType';
-import { KodeverkForPanel } from '../typer/KodeverkForPanelForFb';
+import { KodeverkFpSakForPanel } from '../typer/KodeverkForPanelForFb';
 import { Vilkår } from '../typer/Vilkår';
 import { VurderFaktaBeregningFormValues } from '../typer/VurderFaktaBeregningFormValues';
 import { formNameAvklarAktiviteter, formNameVurderFaktaBeregning } from '../utils/BeregningFormUtils';
@@ -25,7 +25,7 @@ interface Props {
   submittable: boolean;
   erOverstyrer: boolean;
   skalKunneOverstyreAktiviteter: boolean;
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   beregningsgrunnlag: Beregningsgrunnlag[];
   aktivtBeregningsgrunnlagIndeks: number;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;

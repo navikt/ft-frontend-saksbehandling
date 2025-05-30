@@ -1,3 +1,5 @@
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
+
 import { BeregningAvklaringsbehov } from './BeregningAvklaringsbehov';
 import { BeregningsgrunnlagArbeidsforhold } from './BeregningsgrunnlagArbeidsforhold';
 import { FaktaOmBeregning } from './BeregningsgrunnlagFakta';
@@ -53,7 +55,7 @@ export type PgiVerdier = Readonly<{
 }>;
 
 export type BeregningsgrunnlagAndel = Readonly<{
-  aktivitetStatus: string;
+  aktivitetStatus: AktivitetStatus;
   arbeidsforholdType?: string;
   arbeidsforhold?: BeregningsgrunnlagArbeidsforhold;
   avkortetPrAar?: number;

@@ -2,10 +2,10 @@ import { FormattedMessage } from 'react-intl';
 
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { KodeverkMedNavn } from '@navikt/ft-types';
 import { decodeHtmlEntity, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { Aktsomhet } from '../../../kodeverk/aktsomhet';
+import { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkFpTilbakeForPanelTb';
 import { AktsomhetInfo } from '../../../types/VilkårsvurdertePerioder';
 import { AktsomhetGradFormPanel } from './AktsomhetGradFormPanel';
 import { ANDELER, EGENDEFINERT } from './aktsomhetUtils';
@@ -46,8 +46,8 @@ export interface Props {
   antallYtelser: number;
   feilutbetalingBelop: number;
   erTotalBelopUnder4Rettsgebyr: boolean;
-  aktsomhetTyper: KodeverkMedNavn[];
-  sarligGrunnTyper: KodeverkMedNavn[];
+  aktsomhetTyper: KodeverkMedNavnTilbakekreving<'Aktsomhet'>[];
+  sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[];
   andelSomTilbakekreves?: string;
   name: string;
 }
@@ -112,7 +112,7 @@ const parseFloatAndelSomTilbakekreves = (andelSomTilbakekreves: string, harGrunn
   return !harGrunnerTilReduksjon || Number.isNaN(parsedValue) ? {} : { andelTilbakekreves: parsedValue };
 };
 
-const formatAktsomhetData = (aktsomhet: any, sarligGrunnTyper: KodeverkMedNavn[]) => {
+const formatAktsomhetData = (aktsomhet: any, sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[]) => {
   if (aktsomhet.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr === false) {
     return {
       tilbakekrevSelvOmBeloepErUnder4Rettsgebyr: aktsomhet.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr,
@@ -120,7 +120,7 @@ const formatAktsomhetData = (aktsomhet: any, sarligGrunnTyper: KodeverkMedNavn[]
   }
 
   const sarligeGrunner = sarligGrunnTyper.reduce(
-    (acc: string[], type: KodeverkMedNavn) => (aktsomhet[type.kode] ? acc.concat(type.kode) : acc),
+    (acc: string[], type) => (aktsomhet[type.kode] ? acc.concat(type.kode) : acc),
     [],
   );
 
@@ -146,7 +146,7 @@ const formatAktsomhetData = (aktsomhet: any, sarligGrunnTyper: KodeverkMedNavn[]
 
 AktsomhetFormPanel.transformValues = (
   info: { handletUaktsomhetGrad: string },
-  sarligGrunnTyper: KodeverkMedNavn[],
+  sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[],
   vurderingBegrunnelse: string,
 ) => {
   // @ts-expect-error Fiks

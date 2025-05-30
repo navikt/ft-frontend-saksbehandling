@@ -1,6 +1,7 @@
-import { PeriodeAarsak } from '@navikt/ft-kodeverk';
+import { OpptjeningAktivitetType, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import {
   BeregningsgrunnlagArbeidsforhold,
+  BeregningsgrunnlagPeriodeProp,
   FordelBeregningsgrunnlagAndel,
   FordelBeregningsgrunnlagPeriode,
 } from '@navikt/ft-types';
@@ -29,13 +30,13 @@ const fordelAndel = {
 
 const arbeidsforhold2 = {
   arbeidsforholdId: 'd0101e6c-c54a-4db2-ac91-f5b0d86a6d3e',
-  arbeidsforholdType: 'ARBEID',
+  arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
   arbeidsgiverIdent: '996607852',
   belopFraInntektsmeldingPrMnd: 41667,
   organisasjonstype: 'VIRKSOMHET',
   refusjonPrAar: 500004,
   startdato: '2019-06-02',
-};
+} satisfies BeregningsgrunnlagArbeidsforhold;
 
 const fordelAndel2 = {
   aktivitetStatus: 'AT',
@@ -44,7 +45,7 @@ const fordelAndel2 = {
   arbeidsforhold: arbeidsforhold2,
   inntektskategori: '-',
   nyttArbeidsforhold: true,
-};
+} satisfies FordelBeregningsgrunnlagAndel;
 
 describe('<FordelBeregningsgrunnlagForm>', () => {
   it('skal returnere liste med en periode om kun en periode i grunnlag', () => {
@@ -693,15 +694,13 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         fom: '2019-01-01',
         tom: '2019-02-01',
         fordelBeregningsgrunnlagAndeler: [fordelAndel, fordelAndel2],
-        harPeriodeAarsakGraderingEllerRefusjon: true,
       },
       {
         fom: '2019-02-02',
         tom: '9999-12-31',
         fordelBeregningsgrunnlagAndeler: [fordelAndel],
-        harPeriodeAarsakGraderingEllerRefusjon: true,
       },
-    ];
+    ] satisfies FordelBeregningsgrunnlagPeriode[];
     const bgPerioder = [
       {
         beregningsgrunnlagPeriodeFom: '2019-01-01',
@@ -715,7 +714,7 @@ describe('<FordelBeregningsgrunnlagForm>', () => {
         periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
         bruttoPrAar: 500_000,
       },
-    ];
+    ] satisfies BeregningsgrunnlagPeriodeProp[];
     const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
     expect(nyePerioder.length).toBe(2);
     expect(nyePerioder[0].fom).toBe('2019-01-01');

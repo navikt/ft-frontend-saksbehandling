@@ -5,19 +5,18 @@ import dayjs from 'dayjs';
 
 import { Datepicker, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
-import { KodeverkType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { DateLabel, EditedIcon, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { formaterArbeidsgiver, periodFormat } from '@navikt/ft-utils';
 
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkFpSakForPanel } from '../../typer/KodeverkForPanelForFb';
 import { lagAktivitetFieldId, skalVurdereAktivitet } from './vurderAktiviteterTabellUtils';
 
 interface Props {
   readOnly: boolean;
   isAvklaringsbehovClosed: boolean;
   aktivitet: BeregningAktivitet;
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   erOverstyrt: boolean;
   harAvklaringsbehov: boolean;
   tomDatoForAktivitetGruppe: string;
@@ -33,15 +32,14 @@ const isSameOrBefore = (dato1: string | undefined, dato2: string): boolean =>
 const lagVisningsnavn = (
   aktivitet: BeregningAktivitet,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  kodeverkSamling: KodeverkForPanel,
+  kodeverkSamling: KodeverkFpSakForPanel,
 ): string => {
   const agOpplysning = aktivitet.arbeidsgiverIdent
     ? arbeidsgiverOpplysningerPerId[aktivitet.arbeidsgiverIdent]
     : undefined;
   if (!agOpplysning) {
     return aktivitet.arbeidsforholdType
-      ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(oat => oat.kode === aktivitet.arbeidsforholdType)
-          ?.navn || ''
+      ? kodeverkSamling['OpptjeningAktivitetType'].find(oat => oat.kode === aktivitet.arbeidsforholdType)?.navn || ''
       : '';
   }
   return formaterArbeidsgiver(agOpplysning, aktivitet.eksternArbeidsforholdId);
