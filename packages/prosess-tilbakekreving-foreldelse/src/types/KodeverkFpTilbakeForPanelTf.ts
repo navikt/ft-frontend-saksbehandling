@@ -1,7 +1,20 @@
-import { KodeverkMedNavn } from '@navikt/ft-types';
+import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 
-export enum KodeverkType {
-  FORELDELSE_VURDERING = 'ForeldelseVurderingType',
-}
+//Mapping mellom KodeverkType og enums/union-types med verdier
+type KodeverkEnumMap = {
+  ForeldelseVurderingType: ForeldelseVurderingType;
+};
 
-export type KodeverkFpTilbakeForPanel = Record<KodeverkType, KodeverkMedNavn[]>;
+export type KodeverkType = keyof KodeverkEnumMap;
+
+export type KodeverkFpTilbakeForPanel = {
+  [K in KodeverkType]: KodeverkMedNavnTilbakekreving<K>[];
+};
+
+type EnumOrUnknown<T extends KodeverkType> = T extends keyof KodeverkEnumMap ? KodeverkEnumMap[T] : unknown;
+
+export type KodeverkMedNavnTilbakekreving<T extends KodeverkType> = Readonly<{
+  kode: EnumOrUnknown<T>;
+  navn: string;
+  kodeverk: string;
+}>;

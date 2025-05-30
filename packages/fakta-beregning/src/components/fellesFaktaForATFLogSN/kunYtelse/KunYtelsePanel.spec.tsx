@@ -1,7 +1,7 @@
 import { Inntektskategori } from '@navikt/ft-kodeverk';
 import { AndelForFaktaOmBeregning, KunYtelse } from '@navikt/ft-types';
 
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
+import { KodeverkFpSakForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { brukersAndelFieldArrayName, KunYtelsePanel } from './KunYtelsePanel';
 
 const kodeverkSamling = {
@@ -19,7 +19,7 @@ const kodeverkSamling = {
       kodeverk: 'AKTIVITET_STATUS',
     },
   ],
-} as KodeverkForPanel;
+} as KodeverkFpSakForPanel;
 
 const faktaOmBeregningAndeler: AndelForFaktaOmBeregning[] = [
   {

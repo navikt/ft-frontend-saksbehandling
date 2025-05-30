@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Detail, Heading, VStack } from '@navikt/ds-react';
 
-import { KodeverkType } from '@navikt/ft-kodeverk';
+import { VedtakResultatType } from '@navikt/ft-kodeverk';
 
 import { BeregningResultatPeriode } from '../types/BeregningsresultatTilbakekreving';
 import { ForeslaVedtakTilbakekrevingAp } from '../types/ForeslaVedtakTilbakekrevingAp';
@@ -15,7 +15,7 @@ import { TilbakekrevingVedtakPeriodeTabell } from './TilbakekrevingVedtakPeriode
 export interface Props {
   submitCallback: (aksjonspunktData: ForeslaVedtakTilbakekrevingAp) => Promise<void>;
   readOnly: boolean;
-  resultat: string;
+  resultat: VedtakResultatType;
   perioder: BeregningResultatPeriode[];
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
   behandlingUuid: string;
@@ -50,7 +50,7 @@ export const TilbakekrevingVedtak = ({
         <FormattedMessage id="TilbakekrevingVedtak.Resultat" />
       </Detail>
       <BodyShort size="small">
-        {kodeverkSamlingFpTilbake[KodeverkType.VEDTAK_RESULTAT_TYPE].find(vrt => vrt.kode === resultat)?.navn}
+        {kodeverkSamlingFpTilbake['VedtakResultatType'].find(vrt => vrt.kode === resultat)?.navn}
       </BodyShort>
     </div>
     <TilbakekrevingVedtakPeriodeTabell perioder={perioder} kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake} />

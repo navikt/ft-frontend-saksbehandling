@@ -1,11 +1,11 @@
-import { AktivitetStatus as aktivitetStatuser, KodeverkType } from '@navikt/ft-kodeverk';
+import { AktivitetStatus as aktivitetStatuser } from '@navikt/ft-kodeverk';
 
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkFpSakForPanel } from '../../typer/KodeverkForPanelForFb';
 import { InntektFieldArray } from './InntektFieldArray';
 import { leggTilDagpengerOmBesteberegning } from './inntektFieldArrayUtils';
 
 const kodeverkSamling = {
-  [KodeverkType.AKTIVITET_STATUS]: [
+  AktivitetStatus: [
     {
       kode: aktivitetStatuser.MILITAER_ELLER_SIVIL,
       navn: 'Militær og siviltjeneste',
@@ -37,7 +37,7 @@ const kodeverkSamling = {
       kodeverk: 'test',
     },
   ],
-} as KodeverkForPanel;
+} as KodeverkFpSakForPanel;
 
 describe('InntektFieldArray', () => {
   it('skal ikkje fjerne dagpengeandel om dagpenger og ikkje lagt til manuelt', () => {
@@ -46,7 +46,7 @@ describe('InntektFieldArray', () => {
     leggTilDagpengerOmBesteberegning(
       newfields as any,
       false,
-      kodeverkSamling[KodeverkType.AKTIVITET_STATUS],
+      kodeverkSamling['AktivitetStatus'],
       false,
       rm as any,
       (values: any) => newfields.push(values),
@@ -55,7 +55,7 @@ describe('InntektFieldArray', () => {
   });
 
   it('skal ikkje bygge initial values om ingen andeler', () => {
-    const iv = InntektFieldArray.buildInitialValues([], {}, {} as KodeverkForPanel);
+    const iv = InntektFieldArray.buildInitialValues([], {}, {} as KodeverkFpSakForPanel);
     expect(Object.keys(iv)).toHaveLength(0);
   });
 });

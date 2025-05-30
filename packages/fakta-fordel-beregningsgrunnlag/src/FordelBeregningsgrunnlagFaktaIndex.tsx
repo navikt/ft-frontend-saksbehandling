@@ -18,7 +18,7 @@ import { FaktaFordelBeregningAvklaringsbehovCode } from './types/interface/Fakta
 import { FordelBeregningsgrunnlagAP } from './types/interface/FordelBeregningsgrunnlagAP';
 import { VurderNyttInntektsforholdAP } from './types/interface/VurderNyttInntektsforholdAP';
 import { VurderRefusjonBeregningsgrunnlagAP } from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
-import { KodeverkForPanel } from './types/kodeverkForPanel';
+import { KodeverkFpSakForPanel } from './types/kodeverkForPanel';
 import { Vilkår, Vilkårperiode } from './types/Vilkår';
 
 import messages from '../i18n/nb_NO.json';
@@ -52,7 +52,7 @@ type OwnProps = {
   beregningsgrunnlagVilkår: Vilkår | null;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   submittable: boolean;
   skalHåndtereNyInntekt?: boolean;
 };

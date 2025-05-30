@@ -7,6 +7,7 @@ import {
   AktivitetStatus,
   InntektAktivitetType,
   LønnsendringScenario,
+  OpptjeningAktivitetType,
   PeriodeAarsak,
   PgiType,
   SammenligningType,
@@ -29,7 +30,7 @@ import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { BeregningsgrunnlagProsessIndex } from './BeregningsgrunnlagProsessIndex';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from './types/KodeverkForPanelForBg';
+import { KodeverkFpSakForPanel } from './types/KodeverkForPanelForBg';
 import { Vilkår } from './types/Vilkår';
 
 import '@navikt/ds-css';
@@ -214,7 +215,7 @@ const lagArbeidsforhold = (
   arbeidsgiverIdent,
   arbeidsforholdId,
   eksternArbeidsforholdId,
-  arbeidsforholdType: 'ARBEID',
+  arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
   refusjonPrAar: 360000,
   belopFraInntektsmeldingPrMnd: 30000,
   organisasjonstype: 'VIRKSOMHET',
@@ -293,7 +294,7 @@ const lagFrilansandel = (
   arbeidsforhold: malArbeidsorhold(),
 });
 
-const lagGenerellAndel = (andelnr: number, status: string, beregnet: number): BeregningsgrunnlagAndel => ({
+const lagGenerellAndel = (andelnr: number, status: AktivitetStatus, beregnet: number): BeregningsgrunnlagAndel => ({
   aktivitetStatus: status,
   beregningsperiodeFom: '2019-06-01',
   beregningsperiodeTom: '2019-08-31',
@@ -554,7 +555,7 @@ const meta = {
   args: {
     submitCallback: action('button-click') as (data: any) => Promise<void>,
     readOnlySubmitButton: false,
-    kodeverkSamling: alleKodeverk as KodeverkForPanel,
+    kodeverkSamling: alleKodeverk as KodeverkFpSakForPanel,
     arbeidsgiverOpplysningerPerId: arbeidsgiverOpplysninger,
     setFormData: () => undefined,
   },

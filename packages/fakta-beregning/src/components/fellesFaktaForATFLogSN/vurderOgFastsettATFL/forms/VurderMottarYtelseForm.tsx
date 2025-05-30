@@ -5,7 +5,7 @@ import { List, ReadMore, VStack } from '@navikt/ds-react';
 
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { AktivitetStatus, FaktaOmBeregningTilfelle, KodeverkType } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
   ArbeidstakerUtenIMAndel,
@@ -22,7 +22,7 @@ import {
   FaktaBeregningTransformedValues,
   FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues,
 } from '../../../../typer/interface/BeregningFaktaAP';
-import { KodeverkForPanel } from '../../../../typer/KodeverkForPanelForFb';
+import { KodeverkFpSakForPanel } from '../../../../typer/KodeverkForPanelForFb';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import {
@@ -40,7 +40,7 @@ const andreFrilansTilfeller: string[] = [
 
 const utledArbeidsforholdUtenIMRadioTekst = (
   arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
-  kodeverkSamling: KodeverkForPanel,
+  kodeverkSamling: KodeverkFpSakForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): React.ReactNode => {
   const agOpplysning = arbeidsforhold.arbeidsgiverIdent
@@ -49,9 +49,7 @@ const utledArbeidsforholdUtenIMRadioTekst = (
   let radioNavn;
   if (!agOpplysning) {
     radioNavn = arbeidsforhold.arbeidsforholdType
-      ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(
-          oat => oat.kode === arbeidsforhold.arbeidsforholdType,
-        )?.navn
+      ? kodeverkSamling['OpptjeningAktivitetType'].find(oat => oat.kode === arbeidsforhold.arbeidsforholdType)?.navn
       : '';
   } else {
     radioNavn = formaterArbeidsgiver(agOpplysning, arbeidsforhold.eksternArbeidsforholdId);
@@ -64,7 +62,7 @@ const utledArbeidsforholdUtenIMRadioTekst = (
 const mottarYtelseArbeidsforholdRadioAndInputs = (
   andel: ArbeidstakerUtenIMAndel,
   readOnly: boolean,
-  kodeverkSamling: KodeverkForPanel,
+  kodeverkSamling: KodeverkFpSakForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   aktivtBeregningsgrunnlagIndeks: number,
   intl: IntlShape,
@@ -121,7 +119,7 @@ interface Props {
   readOnly: boolean;
   tilfeller: string[];
   beregningsgrunnlag: Beregningsgrunnlag;
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 }
 

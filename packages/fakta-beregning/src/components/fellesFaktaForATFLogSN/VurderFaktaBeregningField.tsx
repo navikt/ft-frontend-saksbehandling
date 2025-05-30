@@ -8,7 +8,7 @@ import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkFpSakForPanel } from '../../typer/KodeverkForPanelForFb';
 import { Vilkårperiode } from '../../typer/Vilkår';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import { hasAksjonspunkt, isAksjonspunktClosed } from '../../utils/aksjonspunktUtils';
@@ -30,7 +30,7 @@ interface Props {
   erOverstyrer: boolean;
   readOnly: boolean;
   submittable: boolean;
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
   vilkarsperiode: Vilkårperiode;

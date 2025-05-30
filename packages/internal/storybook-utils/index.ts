@@ -1,4 +1,4 @@
 export { WithReactHookForm } from './decorators/withReactHookForm';
 export { getIntlDecorator } from './decorators/withIntl';
-export { default as alleKodeverk } from './mocks/alleKodeverk.json';
-export { default as alleTilbakekrevingKodeverk } from './mocks/alleTilbakekrevingKodeverk.json';
+export { alleKodeverk } from './mocks/alleKodeverk';
+export { alleTilbakekrevingKodeverk } from './mocks/alleTilbakekrevingKodeverk';

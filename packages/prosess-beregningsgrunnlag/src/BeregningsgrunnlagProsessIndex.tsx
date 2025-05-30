@@ -13,7 +13,7 @@ import { BeregningFP } from './components/BeregningFP';
 import { BeregningFormValues } from './types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from './types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from './types/KodeverkForPanelForBg';
+import { KodeverkFpSakForPanel } from './types/KodeverkForPanelForBg';
 import { Vilkår } from './types/Vilkår';
 
 import styles from './beregningsgrunnlagProsessIndex.module.css';
@@ -63,7 +63,7 @@ type Props = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   beregningsgrunnlagsvilkar: Vilkår | null;
   readOnlySubmitButton: boolean;
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
 };
 
 type MenyProp = {

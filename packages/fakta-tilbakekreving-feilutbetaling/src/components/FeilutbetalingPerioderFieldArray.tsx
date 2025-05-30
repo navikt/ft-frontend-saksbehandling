@@ -5,7 +5,6 @@ import { Table } from '@navikt/ds-react';
 
 import { SelectField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { KodeverkType } from '@navikt/ft-kodeverk';
 import { BeløpLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
 import { FeilutbetalingÅrsak } from '../types/FeilutbetalingÅrsak';
@@ -98,10 +97,7 @@ export const FeilutbetalingPerioderFieldArray = ({
                   name={`${FIELD_ARRAY_NAME}.${index}.årsak`}
                   selectValues={årsaker.map(a => (
                     <option key={a.hendelseType} value={a.hendelseType}>
-                      {
-                        kodeverkSamlingFpTilbake[KodeverkType.HENDELSE_TYPE].find(ht => ht.kode === a.hendelseType)
-                          ?.navn
-                      }
+                      {kodeverkSamlingFpTilbake['HendelseType'].find(ht => ht.kode === a.hendelseType)?.navn}
                     </option>
                   ))}
                   validate={[required]}
@@ -114,7 +110,7 @@ export const FeilutbetalingPerioderFieldArray = ({
                     name={`${FIELD_ARRAY_NAME}.${index}.${årsak}.underÅrsak`}
                     selectValues={hendelseUndertyper.map(a => (
                       <option key={a} value={a}>
-                        {kodeverkSamlingFpTilbake[KodeverkType.HENDELSE_UNDERTYPE].find(hu => hu.kode === a)?.navn}
+                        {kodeverkSamlingFpTilbake['HendelseUnderType'].find(hu => hu.kode === a)?.navn}
                       </option>
                     ))}
                     validate={[required]}

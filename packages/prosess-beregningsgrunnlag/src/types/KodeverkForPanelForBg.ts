@@ -1,9 +1,22 @@
-import { KodeverkMedNavn } from '@navikt/ft-types';
+import { AktivitetStatus, OpptjeningAktivitetType, OverføringÅrsak } from '@navikt/ft-kodeverk';
 
-export enum KodeverkType {
-  AKTIVITET_STATUS = 'AktivitetStatus',
-  OPPTJENING_AKTIVITET_TYPE = 'OpptjeningAktivitetType',
-  OVERFOERING_AARSAK_TYPE = 'OverføringÅrsak',
-}
+//Mapping mellom KodeverkType og enums/union-types med verdier
+type KodeverkEnumMap = {
+  AktivitetStatus: AktivitetStatus;
+  OpptjeningAktivitetType: OpptjeningAktivitetType;
+  OverføringÅrsak: OverføringÅrsak;
+};
 
-export type KodeverkForPanel = Record<KodeverkType, KodeverkMedNavn[]>;
+type KodeverkType = keyof KodeverkEnumMap;
+
+export type KodeverkFpSakForPanel = {
+  [K in KodeverkType]: KodeverkMedNavn<K>[];
+};
+
+type EnumOrUnknown<T extends KodeverkType> = T extends keyof KodeverkEnumMap ? KodeverkEnumMap[T] : unknown;
+
+export type KodeverkMedNavn<T extends KodeverkType> = Readonly<{
+  kode: EnumOrUnknown<T>;
+  navn: string;
+  kodeverk: string;
+}>;

@@ -19,7 +19,7 @@ import {
   FaktaBeregningTransformedValues,
   FastsettBeregningsgrunnlagAndelTransformedValues,
 } from '../../../typer/interface/BeregningFaktaAP';
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
+import { KodeverkFpSakForPanel } from '../../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { besteberegningField, VurderBesteberegningForm } from '../besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { vurderBesteberegningTransform } from '../besteberegningFodendeKvinne/vurderBesteberegningFormUtils';
@@ -46,7 +46,7 @@ interface Props {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   tilfeller: string[];
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   erOverstyrer: boolean;
   avklaringsbehov: BeregningAvklaringsbehov[];
   beregningsgrunnlag: Beregningsgrunnlag;
@@ -239,7 +239,7 @@ VurderOgFastsettATFL.buildInitialValues = (
   faktaOmBeregning: FaktaOmBeregning,
   erOverstyrt: boolean,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  kodeverkSamling: KodeverkForPanel,
+  kodeverkSamling: KodeverkFpSakForPanel,
 ): VurderOgFastsettATFLValues => {
   if (!faktaOmBeregning) {
     return {};

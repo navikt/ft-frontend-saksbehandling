@@ -7,8 +7,6 @@ import dayjs from 'dayjs';
 
 import { Form, RadioGroupPanel, SelectField, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
-import { KodeverkMedNavn } from '@navikt/ft-types';
 import { usePrevious } from '@navikt/ft-ui-komponenter';
 import { BTag, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
 
@@ -117,11 +115,9 @@ export const TilbakekrevingPeriodeForm = ({
   const forrigeHandletUaktsomhetsgrad = usePrevious(handletUaktsomhetsgrad);
 
   const reduserteBelop = data.redusertBeloper;
-  const sarligGrunnTyper = kodeverkSamlingFpTilbake[TilbakekrevingKodeverkType.SARLIG_GRUNN];
-  const vilkarResultatTyper = kodeverkSamlingFpTilbake[TilbakekrevingKodeverkType.VILKAR_RESULTAT];
-  const aktsomhetTyper = AKTSOMHET_REKKEFØLGE.map(a =>
-    kodeverkSamlingFpTilbake[TilbakekrevingKodeverkType.AKTSOMHET].find((el: KodeverkMedNavn) => el.kode === a),
-  );
+  const sarligGrunnTyper = kodeverkSamlingFpTilbake['SærligGrunn'];
+  const vilkarResultatTyper = kodeverkSamlingFpTilbake['VilkårResultat'];
+  const aktsomhetTyper = AKTSOMHET_REKKEFØLGE.map(a => kodeverkSamlingFpTilbake['Aktsomhet'].find(el => el.kode === a));
 
   const onEndrePeriodeForKopi = (event: any, vurdertePerioder: CustomVilkarsVurdertePeriode[]) => {
     const fomTom = event.target.value.split('_');
@@ -246,7 +242,7 @@ export const TilbakekrevingPeriodeForm = ({
                   validate={[required]}
                   radios={vilkarResultatTyper.map(vrt => ({
                     label: vrt.navn,
-                    value: vrt.kode,
+                    value: vrt.kode as unknown as string,
                   }))}
                   isReadOnly={readOnly}
                   onChange={resetVilkarresultatType}

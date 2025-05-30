@@ -13,7 +13,7 @@ import { FaktaFordelBeregningAvklaringsbehovCode } from '../types/interface/Fakt
 import { FordelBeregningsgrunnlagAP } from '../types/interface/FordelBeregningsgrunnlagAP';
 import { VurderNyttInntektsforholdAP } from '../types/interface/VurderNyttInntektsforholdAP';
 import { VurderRefusjonBeregningsgrunnlagAP } from '../types/interface/VurderRefusjonBeregningsgrunnlagAP';
-import { KodeverkForPanel } from '../types/kodeverkForPanel';
+import { KodeverkFpSakForPanel } from '../types/kodeverkForPanel';
 import { Vilkårperiode } from '../types/Vilkår';
 import { FordelingForm } from './fordeling/FordelingForm';
 import { VurderEndringRefusjonForm } from './refusjon/VurderEndringRefusjonForm';
@@ -45,7 +45,7 @@ export interface Props {
   submittable: boolean;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkarperioder: Vilkårperiode[];
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formData?: FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues | TilkommetAktivitetFormValues;
   setFormData: (

@@ -1,9 +1,13 @@
+import { VedtakResultatType } from '@navikt/ft-kodeverk';
+
+import { Aktsomhet } from '../kodeverk/aktsomhet';
+
 export type BeregningResultatPeriode = {
   periode: {
     fom: string;
     tom: string;
   };
-  vurdering: string;
+  vurdering: Aktsomhet;
   feilutbetaltBeløp: number;
   andelAvBeløp: number;
   renterProsent: number;
@@ -19,5 +23,5 @@ export type BeregningResultatPeriode = {
 
 export type BeregningsresultatTilbakekreving = {
   beregningResultatPerioder: BeregningResultatPeriode[];
-  vedtakResultatType: string;
+  vedtakResultatType: VedtakResultatType;
 };

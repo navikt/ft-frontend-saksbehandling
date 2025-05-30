@@ -5,8 +5,8 @@ import { BodyShort, Box, Heading, HStack, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
-import { AksjonspunktStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
-import { Aksjonspunkt, KodeverkMedNavn } from '@navikt/ft-types';
+import { AksjonspunktStatus, ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
+import { Aksjonspunkt } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 
@@ -14,6 +14,7 @@ import { ForeldelseAksjonspunktCodes } from '../ForeldelseAksjonspunktCodes';
 import { FeilutbetalingPeriode, FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
 import { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
 import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTf';
+import { KodeverkMedNavn } from '../types/kodeverkMedNavn';
 import { TidslinjePeriode } from '../types/TidslinjePeriode';
 import { VurderForeldelseAp } from '../types/VurderForeldelseAp';
 import { ForeldelsePeriodeForm, FormValues as PeriodeFormValues } from './ForeldelsePeriodeForm';
@@ -97,8 +98,8 @@ export interface Props {
   alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
   submitCallback: (aksjonspunktData: VurderForeldelseAp) => Promise<void>;
   kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
-  relasjonsRolleType: string;
-  relasjonsRolleTypeKodeverk: KodeverkMedNavn[];
+  relasjonsRolleType: RelasjonsRolleType;
+  relasjonsRolleTypeKodeverk: KodeverkMedNavn<RelasjonsRolleType>[];
   readOnly: boolean;
   beregnBelop: (data: BeregnBeløpParams) => Promise<BeregnBeløpResultat>;
   formData?: ForeldelsesresultatActivity[];

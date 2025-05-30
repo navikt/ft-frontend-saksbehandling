@@ -17,7 +17,7 @@ import { BeregningInfoPanel } from './components/BeregningInfoPanel';
 import { AvklarAktiviteterFormValues } from './typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { SubmitBeregningType } from './typer/interface/SubmitBeregningTsType';
-import { KodeverkForPanel } from './typer/KodeverkForPanelForFb';
+import { KodeverkFpSakForPanel } from './typer/KodeverkForPanelForFb';
 import { Vilkår, Vilkårperiode } from './typer/Vilkår';
 import { VurderFaktaBeregningFormValues } from './typer/VurderFaktaBeregningFormValues';
 import { hasAksjonspunkt, isAksjonspunktClosed } from './utils/aksjonspunktUtils';
@@ -34,7 +34,7 @@ interface Props {
   skalKunneOverstyreAktiviteter?: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   vilkar: Vilkår | null;
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   submittable: boolean;
   skalKunneAvbryteOverstyring?: boolean;
 }

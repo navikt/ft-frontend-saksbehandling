@@ -1,8 +1,22 @@
-import { KodeverkMedNavn } from '@navikt/ft-types';
+import { BehandlingArsakType, BehandlingResultatType, KonsekvensForYtelsen } from '@navikt/ft-kodeverk';
 
-export enum KodeverkType {
-  BEHANDLING_AARSAK = 'BehandlingÅrsakType',
-  KONSEKVENS_FOR_YTELSEN = 'KonsekvensForYtelsen',
-}
+//Mapping mellom KodeverkType og enums/union-types med verdier
+type KodeverkEnumMap = {
+  BehandlingÅrsakType: BehandlingArsakType;
+  KonsekvensForYtelsen: KonsekvensForYtelsen;
+  BehandlingResultatType: BehandlingResultatType;
+};
 
-export type KodeverkFpSakForPanel = Record<KodeverkType, KodeverkMedNavn[]>;
+type KodeverkType = keyof KodeverkEnumMap;
+
+export type KodeverkFpSakForPanel = {
+  [K in KodeverkType]: KodeverkMedNavn<K>[];
+};
+
+type EnumOrUnknown<T extends KodeverkType> = T extends keyof KodeverkEnumMap ? KodeverkEnumMap[T] : unknown;
+
+export type KodeverkMedNavn<T extends KodeverkType> = Readonly<{
+  kode: EnumOrUnknown<T>;
+  navn: string;
+  kodeverk: string;
+}>;

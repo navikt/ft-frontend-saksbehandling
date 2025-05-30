@@ -12,9 +12,8 @@ import {
   BeregningsgrunnlagAndelType,
   Inntektskategori,
   isSelvstendigNæringsdrivende,
-  KodeverkType,
 } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { formatCurrencyNoKr, formaterArbeidsgiver, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import {
@@ -22,7 +21,7 @@ import {
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagFormValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { KodeverkForPanel } from '../../types/kodeverkForPanel';
+import { KodeverkFpSakForPanel, KodeverkMedNavn } from '../../types/kodeverkForPanel';
 import { finnUnikeArbeidsforhold } from './FinnUnikeArbeidsforhold';
 import {
   validateSumFastsattBelop,
@@ -49,14 +48,13 @@ const defaultBGFordeling = (periodeUtenAarsak: boolean): any => ({
 
 const lagVisningsnavn = (
   arbeidsforhold: BGFordelArbeidsforhold,
-  kodeverkSamling: KodeverkForPanel,
+  kodeverkSamling: KodeverkFpSakForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): string => {
   if (!arbeidsforhold.arbeidsgiverIdent || !arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent]) {
     return arbeidsforhold.arbeidsforholdType
-      ? (kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(
-          oat => oat.kode === arbeidsforhold.arbeidsforholdType,
-        )?.navn ?? '')
+      ? (kodeverkSamling['OpptjeningAktivitetType'].find(oat => oat.kode === arbeidsforhold.arbeidsforholdType)?.navn ??
+          '')
       : '';
   }
   return formaterArbeidsgiver(
@@ -67,7 +65,7 @@ const lagVisningsnavn = (
 
 const arbeidsgiverSelectValues = (
   arbeidsforholdList: BGFordelArbeidsforhold[],
-  kodeverkSamling: KodeverkForPanel,
+  kodeverkSamling: KodeverkFpSakForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): ReactElement[] =>
   arbeidsforholdList.map(arbeidsforhold => (
@@ -79,7 +77,7 @@ const arbeidsgiverSelectValues = (
 const arbeidsgiverSelectValuesForKunYtelse = (
   arbeidsforholdList: BGFordelArbeidsforhold[],
   intl: IntlShape,
-  kodeverkSamling: KodeverkForPanel,
+  kodeverkSamling: KodeverkFpSakForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): ReactElement[] => {
   const nedtrekksvalgListe = arbeidsforholdList.map(arbeidsforhold => (
@@ -95,7 +93,7 @@ const arbeidsgiverSelectValuesForKunYtelse = (
   return nedtrekksvalgListe;
 };
 
-const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]): ReactElement[] =>
+const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn<'Inntektskategori'>[]): ReactElement[] =>
   kategorier.map(ik => (
     <option value={ik.kode} key={ik.kode}>
       {ik.navn}
@@ -340,7 +338,7 @@ const grunnlagKolonne = (fieldNavn: string): ReactElement => (
 const inntektskategoriKolonne = (
   skalIkkeEndres: boolean,
   fieldNavn: string,
-  inntektskategoriKoder: KodeverkMedNavn[],
+  inntektskategoriKoder: KodeverkMedNavn<'Inntektskategori'>[],
 ): ReactElement => (
   <Table.DataCell className={skalIkkeEndres ? styles.shortLeftAligned : undefined}>
     <FloatRight>
@@ -400,7 +398,7 @@ type Props = {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   skalIkkeRedigereInntekt: boolean;
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldName: string;
@@ -476,7 +474,7 @@ export const FordelPeriodeFieldArray = ({
   const sumFordeling = summerFordeling(vilkårperiodeFieldIndex, fieldName, fields, watch);
   const sumBeregningsgrunnlagPrAar = summerBeregningsgrunnlagPrAar(fields);
   const gjelderGradering = getGjelderGradering(beregningsgrunnlag);
-  const inntektskategoriKoder = kodeverkSamling[KodeverkType.INNTEKTSKATEGORI];
+  const inntektskategoriKoder = kodeverkSamling['Inntektskategori'];
   const intl = useIntl();
   const selectVals = harKunYtelse
     ? arbeidsgiverSelectValuesForKunYtelse(arbeidsforholdList, intl, kodeverkSamling, arbeidsgiverOpplysningerPerId)

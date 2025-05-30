@@ -58,7 +58,7 @@ const feilutbetalingFakta = {
     },
     datoForRevurderingsvedtak: '2019-01-01',
   },
-};
+} satisfies FeilutbetalingFakta;
 
 const feilutbetalingAarsak = [
   {
@@ -89,7 +89,7 @@ const meta = {
     submitCallback: action('button-click') as (data: AvklartFaktaFeilutbetalingAp) => Promise<any>,
     isReadOnly: false,
     setFormData: () => undefined,
-    feilutbetalingFakta: feilutbetalingFakta as FeilutbetalingFakta,
+    feilutbetalingFakta,
     feilutbetalingAarsak,
     kodeverkSamlingFpsak: fpSakAlleKodeverk,
     kodeverkSamlingFpTilbake: fpTilbakekrevingAlleKodeverk,

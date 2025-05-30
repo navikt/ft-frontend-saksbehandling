@@ -7,13 +7,13 @@ import { Button, ErrorMessage, Table } from '@navikt/ds-react';
 
 import { InputField, SelectField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
+import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
 
 import { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
 import { AndelFieldIdentifikator } from '../../typer/FieldValues';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkFpSakForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanelForFb';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import {
   erArbeidstaker,
@@ -34,7 +34,7 @@ import { arbeidUnderAapField } from './vurderOgFastsettATFL/forms/arbeidUnderAap
 
 import styles from './inntektFieldArray.module.css';
 
-const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]) =>
+const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn<'Inntektskategori'>[]) =>
   kategorier.map(ik => (
     <option value={ik.kode} key={ik.kode}>
       {ik.navn}
@@ -48,7 +48,7 @@ interface Props {
   skalViseRefusjon: boolean;
   skalViseSletteknapp: boolean;
   removeAndel: () => void;
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   beregningsgrunnlag: Beregningsgrunnlag;
   rowName: string;
   skalFastsetteInntektForAndel: (andel: AndelFieldIdentifikator) => boolean;

@@ -1,9 +1,22 @@
-import { KodeverkMedNavn } from '@navikt/ft-types';
+import { HendelseType, HendelseUnderType, TilbakekrevingVidereBehandling } from '@navikt/ft-kodeverk';
 
-export enum KodeverkType {
-  HENDELSE_TYPE = 'HendelseType',
-  HENDELSE_UNDERTYPE = 'HendelseUnderType',
-  TILBAKEKR_VIDERE_BEH = 'VidereBehandling',
-}
+//Mapping mellom KodeverkType og enums/union-types med verdier
+type KodeverkEnumMap = {
+  HendelseType: HendelseType;
+  HendelseUnderType: HendelseUnderType;
+  VidereBehandling: TilbakekrevingVidereBehandling;
+};
 
-export type KodeverkFpTilbakeForPanel = Record<KodeverkType, KodeverkMedNavn[]>;
+type KodeverkType = keyof KodeverkEnumMap;
+
+export type KodeverkFpTilbakeForPanel = {
+  [K in KodeverkType]: KodeverkMedNavnTilbakekreving<K>[];
+};
+
+type EnumOrUnknown<T extends KodeverkType> = T extends keyof KodeverkEnumMap ? KodeverkEnumMap[T] : unknown;
+
+export type KodeverkMedNavnTilbakekreving<T extends KodeverkType> = Readonly<{
+  kode: EnumOrUnknown<T>;
+  navn: string;
+  kodeverk: string;
+}>;

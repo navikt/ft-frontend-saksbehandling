@@ -2,7 +2,6 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Label, Table } from '@navikt/ds-react';
 
-import { KodeverkType } from '@navikt/ft-kodeverk';
 import { PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
@@ -30,7 +29,7 @@ export const TilbakekrevingVedtakPeriodeTabell = ({ perioder, kodeverkSamlingFpT
         </Table.DataCell>
         <Table.DataCell>
           <BodyShort size="small">
-            {kodeverkSamlingFpTilbake[KodeverkType.AKTSOMHET].find(a => a.kode === periode.vurdering)?.navn}
+            {kodeverkSamlingFpTilbake['Aktsomhet'].find(a => a.kode === periode.vurdering)?.navn}
           </BodyShort>
         </Table.DataCell>
         <Table.DataCell>

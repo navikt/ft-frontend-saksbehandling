@@ -15,7 +15,7 @@ import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrun
 import { BeregningFormValues } from '../types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from '../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from '../types/KodeverkForPanelForBg';
+import { KodeverkFpSakForPanel } from '../types/KodeverkForPanelForBg';
 import { RelevanteStatuserProp } from '../types/RelevanteStatuser';
 import { Vilkår, Vilkårperiode } from '../types/Vilkår';
 import { BeregningForm } from './beregningForm/BeregningForm';
@@ -62,7 +62,7 @@ type Props = {
   submitCallback: (aksjonspunktData: BeregningAksjonspunktSubmitType[]) => Promise<void>;
   readOnly: boolean;
   readOnlySubmitButton: boolean;
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   aktivtBeregningsgrunnlagIndeks: number;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkar: Vilkår;

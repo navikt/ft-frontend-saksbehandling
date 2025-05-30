@@ -9,7 +9,7 @@ import { dateFormat } from '@navikt/ft-utils';
 
 import { AktiviteterValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkFpSakForPanel } from '../../typer/KodeverkForPanelForFb';
 import { leggTilAktivitet } from './vurderAktiviteterPanelUtils';
 import { VurderAktiviteterTabell } from './VurderAktiviteterTabell';
 import { lagAktivitetFieldId } from './vurderAktiviteterTabellUtils';
@@ -137,7 +137,7 @@ interface Props {
   isAvklaringsbehovClosed: boolean;
   harAvklaringsbehov: boolean;
   aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[];
-  kodeverkSamling: KodeverkForPanel;
+  kodeverkSamling: KodeverkFpSakForPanel;
   values: AvklarAktiviteterValues;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldId: number;
@@ -267,7 +267,7 @@ const utledGjeldendeSkjæringstidspunktVedPreutfylling = (
 
 VurderAktiviteterPanel.buildInitialValues = (
   aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[],
-  kodeverkSamling: KodeverkForPanel,
+  kodeverkSamling: KodeverkFpSakForPanel,
   erOverstyrt: boolean,
   harAvklaringsbehov: boolean,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,

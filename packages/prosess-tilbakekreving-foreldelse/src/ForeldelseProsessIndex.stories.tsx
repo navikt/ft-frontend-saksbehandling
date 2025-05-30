@@ -1,13 +1,7 @@
 import { action } from '@storybook/addon-actions';
 import { Meta, StoryObj } from '@storybook/react';
 
-import {
-  AksjonspunktStatus,
-  BehandlingStatus,
-  ForeldelseVurderingType,
-  RelasjonsRolleType,
-  TilbakekrevingKodeverkType,
-} from '@navikt/ft-kodeverk';
+import { AksjonspunktStatus, BehandlingStatus, ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
 import { Behandling } from '@navikt/ft-types';
 
 import { ForeldelseAksjonspunktCodes } from './ForeldelseAksjonspunktCodes';
@@ -55,7 +49,7 @@ const perioderForeldelse = {
 } as FeilutbetalingPerioderWrapper;
 
 const kodeverkSamling = {
-  [TilbakekrevingKodeverkType.FORELDELSE_VURDERING]: [
+  ForeldelseVurderingType: [
     {
       kode: ForeldelseVurderingType.FORELDET,
       navn: 'Foreldet',
@@ -92,7 +86,7 @@ const meta = {
     alleMerknaderFraBeslutter: {},
     relasjonsRolleTypeKodeverk: [
       {
-        kode: 'MORA',
+        kode: RelasjonsRolleType.MOR,
         kodeverk: 'RELASJONSROLLE_TYPE',
         navn: 'Mor',
       },

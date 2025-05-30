@@ -1,7 +1,6 @@
 import {
   AktivitetStatus as aktivitetStatuser,
   FaktaOmBeregningTilfelle,
-  KodeverkType,
   Organisasjonstype as organisasjonstyper,
 } from '@navikt/ft-kodeverk';
 import {
@@ -14,7 +13,7 @@ import {
 } from '@navikt/ft-types';
 
 import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../typer/FaktaBeregningTypes';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkFpSakForPanel } from '../../typer/KodeverkForPanelForFb';
 import {
   kanRedigereInntektForAndel,
   mapAndelToField,
@@ -57,7 +56,7 @@ const arbeidstakerAndel1 = {
 };
 
 const kodeverkSamling = {
-  [KodeverkType.AKTIVITET_STATUS]: [
+  AktivitetStatus: [
     {
       kode: aktivitetStatuser.ARBEIDSAVKLARINGSPENGER,
       kodeverk: 'AKTIVITET_STATUS',
@@ -79,7 +78,7 @@ const kodeverkSamling = {
       navn: 'Selvstendig næringsdrivende',
     },
   ],
-} as KodeverkForPanel;
+} as KodeverkFpSakForPanel;
 
 describe('bgFaktaUtils', () => {
   const dagpengerAndel = {
@@ -212,7 +211,7 @@ describe('bgFaktaUtils', () => {
       inntektskategori: 'ARBEIDSTAKER',
     };
 
-    const andelsInfo = setGenerellAndelsinfo(andelValueFromState, agOpplysning, {} as KodeverkForPanel);
+    const andelsInfo = setGenerellAndelsinfo(andelValueFromState, agOpplysning, {} as KodeverkFpSakForPanel);
     expect(andelsInfo.andel).toBe('Virksomheten (3284788923)...a7e2');
     expect(andelsInfo.aktivitetStatus).toBe('AT');
     expect(andelsInfo.andelsnr).toBe(3);
@@ -256,6 +255,7 @@ describe('bgFaktaUtils', () => {
     arbeidsgiverIdent: '42672364432',
     startdato: '2017-01-01',
     opphoersdato: '2018-01-01',
+    // @ts-expect-error Denne skal vel ikkje kunna vera ''? (Testar feilar om eg set den til noko anna)
     arbeidsforholdType: '',
     organisasjonstype: organisasjonstyper.KUNSTIG,
   };
@@ -373,7 +373,7 @@ describe('bgFaktaUtils', () => {
   it('skal redigere inntekt ved overstyring', () => {
     const andelFieldValue = {
       ...andelValuesMedInntektsmelding,
-      ...setGenerellAndelsinfo(arbeidstakerAndel4, agOpplysning, {} as KodeverkForPanel),
+      ...setGenerellAndelsinfo(arbeidstakerAndel4, agOpplysning, {} as KodeverkFpSakForPanel),
     };
     const copyValues = { ...values };
     copyValues[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD] = true;
@@ -388,7 +388,7 @@ describe('bgFaktaUtils', () => {
   it('skal redigere inntekt for arbeidstakerandel som mottar ytelse', () => {
     const andelFieldValue = {
       ...andelValuesUtenInntektsmelding,
-      ...setGenerellAndelsinfo(arbeidstakerAndel3, agOpplysning, {} as KodeverkForPanel),
+      ...setGenerellAndelsinfo(arbeidstakerAndel3, agOpplysning, {} as KodeverkFpSakForPanel),
     };
     const skalRedigereInntekt = skalFastsetteInntektForAndel(
       values,
@@ -401,7 +401,7 @@ describe('bgFaktaUtils', () => {
   it('skal redigere inntekt for arbeidstakerandel som ikke mottar ytelse, men har lonnsendring', () => {
     const andelFieldValue = {
       ...andelValuesUtenInntektsmelding,
-      ...setGenerellAndelsinfo(arbeidstakerAndel1, agOpplysning, {} as KodeverkForPanel),
+      ...setGenerellAndelsinfo(arbeidstakerAndel1, agOpplysning, {} as KodeverkFpSakForPanel),
     };
     const nyFakta: FaktaOmBeregning = {
       ...faktaOmBeregning,
@@ -427,7 +427,7 @@ describe('bgFaktaUtils', () => {
   it('skal ikkje redigere inntekt for arbeidstakerandel med inntektsmelding i samme org som frilans', () => {
     const andelFieldValue = {
       ...andelValuesUtenInntektsmelding,
-      ...setGenerellAndelsinfo(arbeidstakerAndel4, agOpplysning, {} as KodeverkForPanel),
+      ...setGenerellAndelsinfo(arbeidstakerAndel4, agOpplysning, {} as KodeverkFpSakForPanel),
     };
     const at4Copy: ATFLSammeOrgAndel = {
       ...arbeidstakerAndel4,
@@ -448,7 +448,7 @@ describe('bgFaktaUtils', () => {
   it('skal redigere inntekt for arbeidstakerandel uten inntektsmelding i samme org som frilans', () => {
     const andelFieldValue = {
       ...andelValuesMedInntektsmelding,
-      ...setGenerellAndelsinfo(arbeidstakerAndel4, agOpplysning, {} as KodeverkForPanel),
+      ...setGenerellAndelsinfo(arbeidstakerAndel4, agOpplysning, {} as KodeverkFpSakForPanel),
     };
     const at4Copy: ATFLSammeOrgAndel = {
       ...arbeidstakerAndel4,

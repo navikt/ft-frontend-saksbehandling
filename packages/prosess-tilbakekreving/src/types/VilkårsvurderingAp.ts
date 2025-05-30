@@ -1,9 +1,11 @@
 import { AksjonspunktTilBekreftelse } from '@navikt/ft-types';
 
+import { Aktsomhet } from '../kodeverk/aktsomhet';
+import { SærligGrunn } from '../kodeverk/særligGrunn';
 import { TilbakekrevingAksjonspunktCodes } from '../TilbakekrevingAksjonspunktCodes';
 
 type VilkårResultatAktsomhet = {
-  sarligGrunner: string[];
+  sarligGrunner: SærligGrunn[];
   harGrunnerTilReduksjon?: number;
   andelTilbakekreves?: number;
   ileggRenter?: boolean;
@@ -14,7 +16,7 @@ type VilkårResultatAktsomhet = {
 };
 
 type VilkårResultatAnnet = {
-  aktsomhet: string;
+  aktsomhet: Aktsomhet;
   aktsomhetInfo: VilkårResultatAktsomhet;
 };
 
