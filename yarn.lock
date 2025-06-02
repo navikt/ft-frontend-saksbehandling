@@ -2013,6 +2013,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mdx-js/react@npm:^3.0.0":
+  version: 3.1.0
+  resolution: "@mdx-js/react@npm:3.1.0"
+  dependencies:
+    "@types/mdx": ^2.0.0
+  peerDependencies:
+    "@types/react": ">=16"
+    react: ">=16"
+  checksum: c5a9c495f43f498ece24a768762a1743abe2be33d050d7eab731beb754e631700547f039198c6262c998d9a443906bd78811c3fa38bc2fb37659848161dac331
+  languageName: node
+  linkType: hard
+
 "@microsoft/api-extractor-model@npm:7.30.5":
   version: 7.30.5
   resolution: "@microsoft/api-extractor-model@npm:7.30.5"
@@ -3471,6 +3483,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/addon-docs@npm:9.0.4":
+  version: 9.0.4
+  resolution: "@storybook/addon-docs@npm:9.0.4"
+  dependencies:
+    "@mdx-js/react": ^3.0.0
+    "@storybook/csf-plugin": 9.0.4
+    "@storybook/icons": ^1.2.12
+    "@storybook/react-dom-shim": 9.0.4
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    ts-dedent: ^2.0.0
+  peerDependencies:
+    storybook: ^9.0.4
+  checksum: 121295867a6c785951254a2cae414376c90b25f791868347b3c45115810c45a281ac2ce34ac2db3f8905d4abcfd9ca69cdb56948d1965c5774eabfd07ba97650
+  languageName: node
+  linkType: hard
+
 "@storybook/addon-links@npm:9.0.4":
   version: 9.0.4
   resolution: "@storybook/addon-links@npm:9.0.4"
@@ -3561,6 +3590,16 @@ __metadata:
   version: 5.0.0
   resolution: "@storybook/global@npm:5.0.0"
   checksum: ede0ad35ec411fe31c61150dbd118fef344d1d0e72bf5d3502368e35cf68126f6b7ae4a0ab5e2ffe2f0baa3b4286f03ad069ba3e098e1725449ef08b7e154ba8
+  languageName: node
+  linkType: hard
+
+"@storybook/icons@npm:^1.2.12":
+  version: 1.4.0
+  resolution: "@storybook/icons@npm:1.4.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
+  checksum: a1e41fa9539629cb22a985dac695ac396afc5eb6ded7ce81497499a737ebf7556521acc569dbc0454e0b231ae50e8a5afbeee246dfbf8dc06a16a9cc1caa5bc8
   languageName: node
   linkType: hard
 
@@ -3816,6 +3855,13 @@ __metadata:
   version: 0.0.29
   resolution: "@types/json5@npm:0.0.29"
   checksum: e60b153664572116dfea673c5bda7778dbff150498f44f998e34b5886d8afc47f16799280e4b6e241c0472aef1bc36add771c569c68fc5125fc2ae519a3eb9ac
+  languageName: node
+  linkType: hard
+
+"@types/mdx@npm:^2.0.0":
+  version: 2.0.13
+  resolution: "@types/mdx@npm:2.0.13"
+  checksum: 195137b548e75a85f0558bb1ca5088aff1c01ae0fc64454da06085b7513a043356d0bb51ed559d3cbc7ad724ccd8cef2a7d07d014b89a47a74dff8875ceb3b15
   languageName: node
   linkType: hard
 
@@ -7309,6 +7355,7 @@ __metadata:
     "@navikt/aksel-stylelint": 7.22.0
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@storybook/addon-a11y": 9.0.4
+    "@storybook/addon-docs": 9.0.4
     "@storybook/addon-links": 9.0.4
     "@storybook/builder-vite": 9.0.4
     "@storybook/cli": 9.0.4
