@@ -1,4 +1,0 @@
-import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{S as i}from"./PersonPencilFill-DqunLdn1.js";import"./index-DNHX5htx.js";import"./_commonjsHelpers-Cpj98o6Y.js";import"./useId-SP_zdaIa.js";const d=()=>t.jsx("span",{"data-testid":"editedIcon",children:t.jsx(i,{title:"Saksbehandler har endret feltets verdi",height:20,width:20,color:"var(--a-icon-warning)"})});d.__docgenInfo={description:"",methods:[],displayName:"EditedIcon"};const l={},e=()=>t.jsxs("div",{children:["Dette er en tekst",t.jsx(d,{})]});e.__docgenInfo={description:"",methods:[],displayName:"Default"};var o,r,s;e.parameters={...e.parameters,docs:{...(o=e.parameters)==null?void 0:o.docs,source:{originalSource:`() => <div>
-    Dette er en tekst
-    <EditedIcon />
-  </div>`,...(s=(r=e.parameters)==null?void 0:r.docs)==null?void 0:s.source}}};const f=["Default"];export{e as Default,f as __namedExportsOrder,l as default};

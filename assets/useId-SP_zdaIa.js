@@ -1,1 +1,0 @@
-import{e as r,r as n}from"./index-DNHX5htx.js";let u=0;function c(t){const[e,a]=n.useState(t),o=t||e;return n.useEffect(()=>{e==null&&(u+=1,a(`aksel-icon-${u}`))},[e]),o}const s=r.useId;function d(t){var e;return s!==void 0?s().replace(/(:)/g,""):(e=c(t))!==null&&e!==void 0?e:""}export{d as u};
