@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect, useMemo, useRef } from 'react';
+import { ReactElement, useEffect, useRef } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
@@ -478,23 +478,19 @@ export const AksjonspunktBehandler = ({
     return periode.vurderesIBehandlingen && !periode.erForlengelse;
   };
 
-  const bgSomSkalVurderes = useMemo(
-    () => beregningsgrunnlagListe.filter(bg => harAvklaringsbehovForLovparagraf(bg.avklaringsbehov, lovparagraf)),
-    [beregningsgrunnlagListe, lovparagraf],
+  const bgSomSkalVurderes = beregningsgrunnlagListe.filter(bg =>
+    harAvklaringsbehovForLovparagraf(bg.avklaringsbehov, lovparagraf),
   );
   const formName = finnFormName(lovparagraf);
   const formMethods = useForm<BeregningFormValues>({
     defaultValues: formData || buildFormInitialValues(bgSomSkalVurderes, vilkår, formName, lovparagraf),
   });
 
-  const resetForm = useCallback(() => {
+  const resetForm = () => {
     formMethods.reset(buildFormInitialValues(bgSomSkalVurderes, vilkår, formName, lovparagraf));
-  }, [formMethods, bgSomSkalVurderes, vilkår, formName, lovparagraf]);
+  };
 
-  const totaltAntallAvklaringsbehov = useMemo(
-    () => beregningsgrunnlagListe.reduce((sum, bg) => sum + bg.avklaringsbehov.length, 0),
-    [beregningsgrunnlagListe],
-  );
+  const totaltAntallAvklaringsbehov = beregningsgrunnlagListe.reduce((sum, bg) => sum + bg.avklaringsbehov.length, 0);
 
   const forrigeAntallAvklaringsbehov = usePrevious(totaltAntallAvklaringsbehov);
 

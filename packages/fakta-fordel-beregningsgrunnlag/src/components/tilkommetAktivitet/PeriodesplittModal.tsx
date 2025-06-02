@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Button, Modal, Select, VStack } from '@navikt/ds-react';
@@ -40,16 +40,16 @@ export const PeriodesplittModal = ({
   const [valgtSplittdato, setValgtSplittdato] = useState<string | undefined>(undefined);
   const [valgtPeriode, setValgtPeriode] = useState<Periode | undefined>(undefined);
 
-  const perioder = useMemo(() => lagPerioderFraFields(fields), [fields]);
+  const perioder = lagPerioderFraFields(fields);
 
-  const splittPeriode = useCallback(() => {
+  const splittPeriode = () => {
     if (valgtSplittdato && valgtPeriode) {
       utførPeriodesplitt(valgtSplittdato);
       lukkModal();
     }
-  }, [fields, valgtSplittdato]);
+  };
 
-  const endreValgtPeriode = useCallback((event: any) => {
+  const endreValgtPeriode = (event: any) => {
     const val = event.target.value;
     const valg = perioder.find(p => p.fom === val);
     if (valg) {
@@ -57,7 +57,7 @@ export const PeriodesplittModal = ({
     } else {
       setValgtPeriode(undefined);
     }
-  }, []);
+  };
 
   const periodeKanSplittes = valgtPeriode && periodeInneholderFlereVirkedager(valgtPeriode);
   if (!skalViseModal) {

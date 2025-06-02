@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useMemo, useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { useIntl } from 'react-intl';
 
 import {
@@ -81,17 +81,14 @@ export const TilbakekrevingTimeline = ({
 }: Props) => {
   const intl = useIntl();
 
-  const formatertePerioder = useMemo(() => formaterPerioder(perioder), [perioder]);
+  const formatertePerioder = formaterPerioder(perioder);
 
-  const velgPeriode = useCallback(
-    (id: number): void => {
-      const periode = perioder.find(p => p.id === id);
-      if (periode) {
-        setPeriode(periode);
-      }
-    },
-    [perioder, setPeriode],
-  );
+  const velgPeriode = (id: number): void => {
+    const periode = perioder.find(p => p.id === id);
+    if (periode) {
+      setPeriode(periode);
+    }
+  };
 
   const originalFomDato = dayjs(formatertePerioder[0].fom);
   const originalTomDato = dayjs(formatertePerioder[formatertePerioder.length - 1].tom);
@@ -99,33 +96,33 @@ export const TilbakekrevingTimeline = ({
   const [fomDato, setFomDato] = useState(originalFomDato);
   const [tomDato, setTomDato] = useState(originalTomDato);
 
-  const goBackward = useCallback(() => {
+  const goBackward = () => {
     if (!fomDato.subtract(1, 'month').isBefore(originalFomDato)) {
       setFomDato(fomDato.subtract(1, 'month'));
       setTomDato(tomDato.subtract(1, 'month'));
     }
-  }, [fomDato, tomDato, originalFomDato]);
+  };
 
-  const goForward = useCallback(() => {
+  const goForward = () => {
     if (!tomDato.add(1, 'month').isAfter(originalTomDato)) {
       setFomDato(fomDato.add(1, 'month'));
       setTomDato(tomDato.add(1, 'month'));
     }
-  }, [fomDato, tomDato, originalTomDato]);
+  };
 
-  const zoomIn = useCallback(() => {
+  const zoomIn = () => {
     if (!fomDato.add(3, 'month').isAfter(tomDato)) {
       setFomDato(fomDato.add(1, 'month'));
       setTomDato(tomDato.subtract(1, 'month'));
     }
-  }, [fomDato, tomDato]);
+  };
 
-  const zoomOut = useCallback(() => {
+  const zoomOut = () => {
     if (tomDato.add(1, 'month').diff(fomDato.subtract(1, 'month'), 'months') < 36) {
       setFomDato(fomDato.subtract(1, 'month'));
       setTomDato(tomDato.add(1, 'month'));
     }
-  }, [fomDato, tomDato]);
+  };
 
   return (
     <VStack gap="4">
