@@ -255,7 +255,7 @@ describe('bgFaktaUtils', () => {
     arbeidsgiverIdent: '42672364432',
     startdato: '2017-01-01',
     opphoersdato: '2018-01-01',
-    // TODO Denne skal vel ikkje kunna vera ''? (Testar feilar om eg set den til noko anna)
+    // @ts-expect-error Denne skal vel ikkje kunna vera ''? (Testar feilar om eg set den til noko anna)
     arbeidsforholdType: '',
     organisasjonstype: organisasjonstyper.KUNSTIG,
   };
