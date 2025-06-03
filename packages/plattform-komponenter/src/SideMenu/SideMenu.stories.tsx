@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { HStack } from '@navikt/ds-react';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 
 import { SideMenu } from './SideMenu';
 

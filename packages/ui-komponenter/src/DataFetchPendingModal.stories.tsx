@@ -1,4 +1,4 @@
-import { Meta, ReactRenderer, StoryObj } from '@storybook/react';
+import { Meta, ReactRenderer, StoryObj } from '@storybook/react-vite';
 import { DecoratorFunction } from 'storybook/internal/types';
 
 import { getIntlDecorator } from '@navikt/ft-frontend-storybook-utils';

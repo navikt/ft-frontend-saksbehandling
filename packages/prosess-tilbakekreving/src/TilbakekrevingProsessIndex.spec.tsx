@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { composeStories } from '@storybook/react';
+import { composeStories } from '@storybook/react-vite';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 

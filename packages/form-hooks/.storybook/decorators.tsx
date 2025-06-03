@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm, UseFormProps } from 'react-hook-form';
 
 import { Button, VStack } from '@navikt/ds-react';
-import type { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
 import { Form } from './../src/Form';
