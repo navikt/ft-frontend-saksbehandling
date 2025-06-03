@@ -20,7 +20,7 @@ import {
   FordelBeregningsgrunnlagAP,
   FordelBeregningsgrunnlagPerioderTransformedValues,
 } from '../../types/interface/FordelBeregningsgrunnlagAP';
-import { KodeverkFpSakForPanel } from '../../types/kodeverkForPanel';
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import { Vilkårperiode } from '../../types/Vilkår';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
@@ -69,7 +69,7 @@ const buildFieldInitialValuesFordelBeregning = (
   beregningsgrunnlag: Beregningsgrunnlag,
   vilkårsperiode: Vilkårperiode,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
 ): FordelBeregningsgrunnlagMedAksjonspunktValues => {
   const fordelBGPerioder = finnFordelPerioder(beregningsgrunnlag);
   return {
@@ -128,7 +128,7 @@ const buildInitialValues = (
   beregningsgrunnlagListe: Beregningsgrunnlag[],
   vilkårsperioder: Vilkårperiode[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
 ): FordelBeregningsgrunnlagFormValues => ({
   [FORM_NAME]: beregningsgrunnlagListe
     .filter(fordelPredicate)
@@ -149,7 +149,7 @@ interface Props {
   submittable: boolean;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkårsperioder: Vilkårperiode[];
-  kodeverkSamling: KodeverkFpSakForPanel;
+  kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formData?: FordelBeregningsgrunnlagFormValues;
   setFormData: (data: FordelBeregningsgrunnlagFormValues) => void;

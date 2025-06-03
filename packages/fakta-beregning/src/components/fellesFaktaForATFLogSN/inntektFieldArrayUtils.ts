@@ -3,7 +3,7 @@ import { UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
 import { AktivitetStatus, Inntektskategori } from '@navikt/ft-kodeverk';
 
 import { AndelFieldValue } from '../../typer/FieldValues';
-import { KodeverkFpSakForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanel';
 
 const findAktivitetStatusIndex = (fields: AndelFieldValue[], aktivitetStatusKode: string) => {
   let index = -1;
@@ -78,5 +78,5 @@ export const leggTilDagpengerOmBesteberegning = (
   );
 };
 
-export const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: KodeverkFpSakForPanel) =>
+export const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: KodeverkForPanel) =>
   kodeverkSamling['Inntektskategori'].slice().sort((a, b) => a.navn.localeCompare(b.navn));

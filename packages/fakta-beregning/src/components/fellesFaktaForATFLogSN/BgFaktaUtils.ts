@@ -23,7 +23,7 @@ import {
 } from '../../typer/FaktaBeregningTypes';
 import { AndelFieldIdentifikator, AndelFieldValue } from '../../typer/FieldValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkFpSakForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse } from './vurderOgFastsettATFL/forms/AvsluttetArbeidsforhold';
@@ -40,7 +40,7 @@ const preutfyllInntektskategori = (andel: AndelForFaktaOmBeregning) =>
 const lagVisningsnavn = (
   andel: AndelForFaktaOmBeregning,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
 ): string | undefined => {
   const agOpplysning = andel.arbeidsforhold?.arbeidsgiverIdent
     ? arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent]
@@ -57,7 +57,7 @@ const lagVisningsnavn = (
 export const setGenerellAndelsinfo = (
   andel: AndelForFaktaOmBeregning,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
 ): GenerellAndelInfo => ({
   andel: lagVisningsnavn(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling) || '',
   aktivitetStatus: andel.aktivitetStatus,
@@ -306,7 +306,7 @@ export const skalRedigereInntektskategoriForAndel = (
 export const mapAndelToField = (
   andel: AndelForFaktaOmBeregning,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
 ): AndelFieldValue => ({
   ...setGenerellAndelsinfo(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling),
   arbeidsforholdId: andel.arbeidsforhold ? andel.arbeidsforhold.arbeidsforholdId : undefined,

@@ -35,7 +35,7 @@ import { FordelBeregningsgrunnlagFaktaIndex } from './FordelBeregningsgrunnlagFa
 import { FordelBeregningsgrunnlagAP } from './types/interface/FordelBeregningsgrunnlagAP';
 import { VurderNyttInntektsforholdAP } from './types/interface/VurderNyttInntektsforholdAP';
 import { VurderRefusjonBeregningsgrunnlagAP } from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
-import { KodeverkFpSakForPanel } from './types/kodeverkForPanel';
+import { KodeverkForPanel } from './types/kodeverkForPanel';
 import { Vilkår } from './types/Vilkår';
 
 import '@navikt/ds-css';
@@ -116,7 +116,7 @@ const meta = {
     submitCallback: action('button-click', { depth: 20 }) as (
       data: FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP | VurderNyttInntektsforholdAP,
     ) => Promise<void>,
-    kodeverkSamling: alleKodeverk as KodeverkFpSakForPanel,
+    kodeverkSamling: alleKodeverk as KodeverkForPanel,
     arbeidsgiverOpplysningerPerId: agOpplysninger,
     setFormData: () => undefined,
     submittable: true,

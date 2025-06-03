@@ -1,6 +1,6 @@
 import { AktivitetStatus as aktivitetStatuser } from '@navikt/ft-kodeverk';
 
-import { KodeverkFpSakForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { InntektFieldArray } from './InntektFieldArray';
 import { leggTilDagpengerOmBesteberegning } from './inntektFieldArrayUtils';
 
@@ -37,7 +37,7 @@ const kodeverkSamling = {
       kodeverk: 'test',
     },
   ],
-} as KodeverkFpSakForPanel;
+} as KodeverkForPanel;
 
 describe('InntektFieldArray', () => {
   it('skal ikkje fjerne dagpengeandel om dagpenger og ikkje lagt til manuelt', () => {
@@ -55,7 +55,7 @@ describe('InntektFieldArray', () => {
   });
 
   it('skal ikkje bygge initial values om ingen andeler', () => {
-    const iv = InntektFieldArray.buildInitialValues([], {}, {} as KodeverkFpSakForPanel);
+    const iv = InntektFieldArray.buildInitialValues([], {}, {} as KodeverkForPanel);
     expect(Object.keys(iv)).toHaveLength(0);
   });
 });

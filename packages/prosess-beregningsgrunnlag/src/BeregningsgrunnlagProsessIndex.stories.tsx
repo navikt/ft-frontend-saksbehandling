@@ -30,7 +30,7 @@ import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { BeregningsgrunnlagProsessIndex } from './BeregningsgrunnlagProsessIndex';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkFpSakForPanel } from './types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from './types/KodeverkForPanel';
 import { Vilkår } from './types/Vilkår';
 
 import '@navikt/ds-css';
@@ -555,7 +555,7 @@ const meta = {
   args: {
     submitCallback: action('button-click') as (data: any) => Promise<void>,
     readOnlySubmitButton: false,
-    kodeverkSamling: alleKodeverk as KodeverkFpSakForPanel,
+    kodeverkSamling: alleKodeverk as KodeverkForPanel,
     arbeidsgiverOpplysningerPerId: arbeidsgiverOpplysninger,
     setFormData: () => undefined,
   },

@@ -2,14 +2,14 @@ import { FormattedMessage } from 'react-intl';
 
 import { Label, VStack } from '@navikt/ds-react';
 
-import { KodeverkFpSakForPanel } from '../../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
 import { BrukersAndelFieldArray } from './BrukersAndelFieldArray';
 
 interface Props {
   readOnly: boolean;
   brukersAndelFieldArrayName: string;
   isAksjonspunktClosed: boolean;
-  kodeverkSamling: KodeverkFpSakForPanel;
+  kodeverkSamling: KodeverkForPanel;
 }
 
 /**

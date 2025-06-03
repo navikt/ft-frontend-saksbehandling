@@ -14,7 +14,7 @@ import {
 
 import { BeregningFormValues } from '../../types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
-import { KodeverkFpSakForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 import { Vilkår, Vilkårperiode } from '../../types/Vilkår';
 import { Beregningsgrunnlag } from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
@@ -50,7 +50,7 @@ type Props = {
   relevanteStatuser: RelevanteStatuserProp;
   readOnlySubmitButton: boolean;
   valgtBeregningsgrunnlag: BeregningsgrunnlagProp;
-  kodeverkSamling: KodeverkFpSakForPanel;
+  kodeverkSamling: KodeverkForPanel;
   vilkarPeriode?: Vilkårperiode;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[];

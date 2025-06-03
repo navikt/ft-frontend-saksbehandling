@@ -9,7 +9,7 @@ import { BeløpLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
 import { FeilutbetalingÅrsak } from '../types/FeilutbetalingÅrsak';
 import { FeilutbetalingFakta } from '../types/FeilutbetalingFakta';
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelFtf';
+import { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 
 const FIELD_ARRAY_NAME = 'perioder';
 
@@ -34,7 +34,7 @@ type Props = {
   årsaker: FeilutbetalingÅrsak['hendelseTyper'];
   readOnly: boolean;
   behandlePerioderSamlet: boolean;
-  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
 };
 
 export const FeilutbetalingPerioderFieldArray = ({

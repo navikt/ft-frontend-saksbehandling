@@ -15,7 +15,7 @@ import { SærligGrunn } from '../kodeverk/særligGrunn';
 import { VilkårResultat } from '../kodeverk/vilkarResultat';
 import { DataForPeriode } from '../types/DataForPeriode';
 import { DetaljertFeilutbetalingPeriode } from '../types/DetaljerteFeilutbetalingsperioder';
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTb';
+import { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 import {
   AktsomhetFormPanel,
   InitialValuesAktsomhetForm,
@@ -74,7 +74,7 @@ export interface Props {
   readOnly: boolean;
   oppdaterPeriode: (values: CustomVilkarsVurdertePeriode) => void;
   vilkarsVurdertePerioder: CustomVilkarsVurdertePeriode[];
-  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   antallPerioderMedAksjonspunkt: number;
 }
 

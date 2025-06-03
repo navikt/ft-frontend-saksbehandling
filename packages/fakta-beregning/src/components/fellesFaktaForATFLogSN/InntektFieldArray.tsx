@@ -18,7 +18,7 @@ import {
   SelvstendigNæringsdrivendeInntektValues,
 } from '../../typer/FaktaBeregningTypes';
 import { AndelFieldValue, InntektTransformed } from '../../typer/FieldValues';
-import { KodeverkFpSakForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanel';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import {
   erOverstyringAvBeregningsgrunnlag,
@@ -137,7 +137,7 @@ interface Props {
   skalKunneLeggeTilDagpengerManuelt: boolean;
   skalHaMilitær?: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
-  kodeverkSamling: KodeverkFpSakForPanel;
+  kodeverkSamling: KodeverkForPanel;
 }
 
 /**
@@ -349,7 +349,7 @@ InntektFieldArray.transformValues = (
 InntektFieldArray.buildInitialValues = (
   andeler: AndelForFaktaOmBeregning[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
 ): AndelFieldValue[] => {
   if (!andeler || andeler.length === 0) {
     return [];

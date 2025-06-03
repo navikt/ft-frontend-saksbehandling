@@ -27,7 +27,7 @@ import {
   TidsbegrensetArbeidsforholdInntektResultat,
   TidsbegrensetArbeidsforholdPeriodeResultat,
 } from '../../types/interface/BeregningsgrunnlagAP';
-import { KodeverkFpSakForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 import tableStyles from '../tableStyle.module.css';
@@ -78,7 +78,7 @@ const createArbeidsforholdMapKey = (arbeidsforhold?: BeregningsgrunnlagArbeidsfo
 
 const lagVisningsnavnForAktivitet = (
   arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ) => {
   const arbeidsforholdInfo = arbeidsforhold.arbeidsgiverIdent
@@ -105,7 +105,7 @@ const createMapValueObject = (): TidsbegrenseArbeidsforholdTabellCelle => ({
 // Vi antar at alle andeler ligger i alle perioder, henter derfor kun ut andeler fra den første perioden.
 const initializeMap = (
   periode: BeregningsgrunnlagPeriodeProp,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): TidsbegrenseArbeidsforholdTabellData => {
   const alleAndeler = findArbeidstakerAndeler(periode);
@@ -159,7 +159,7 @@ const erAndelTidsbegrenset = (
 
 const createTableData = (
   allePerioder: BeregningsgrunnlagPeriodeProp[],
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): TidsbegrenseArbeidsforholdTabellData => {
   // Vi er ikke interessert i perioder som oppstår grunnet naturalytelse
@@ -291,7 +291,7 @@ type Props = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formName: string;
   allePerioder: BeregningsgrunnlagPeriodeProp[];
-  kodeverkSamling: KodeverkFpSakForPanel;
+  kodeverkSamling: KodeverkForPanel;
   fieldIndex: number;
   skalValideres: boolean;
 };

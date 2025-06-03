@@ -16,7 +16,7 @@ import { PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { KodeverkFpSakForPanel } from '../../types/kodeverkForPanel';
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import { VurdertIForrigeBehandlingIcon } from '../felles/VurdertIForrigeBehandlingIcon';
 import {
   finnFastsattPrAar,
@@ -70,7 +70,7 @@ type Props = {
   isAksjonspunktClosed: boolean;
   showPanel: (...args: any[]) => any;
   beregningsgrunnlag: Beregningsgrunnlag;
-  kodeverkSamling: KodeverkFpSakForPanel;
+  kodeverkSamling: KodeverkForPanel;
   fordelingsperiode: FordelBeregningsgrunnlagPeriode;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldIndex: number;
@@ -190,7 +190,7 @@ FordelBeregningsgrunnlagPeriodePanel.buildInitialValues = (
   bgPeriode: BeregningsgrunnlagPeriodeProp,
   skjaeringstidspunktBeregning: string,
   harKunYtelse: boolean,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): FordelBeregningsgrunnlagAndelValues[] => {
   if (!periode || !periode.fordelBeregningsgrunnlagAndeler) {

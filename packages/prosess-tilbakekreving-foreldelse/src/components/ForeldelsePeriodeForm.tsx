@@ -17,7 +17,7 @@ import {
 import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 
 import { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTf';
+import { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
@@ -26,7 +26,7 @@ export type FormValues = ForeldelsesresultatActivity;
 
 export interface Props {
   periode: ForeldelsesresultatActivity;
-  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   oppdaterPeriode: (values: FormValues) => void;
   skjulPeriode: (event: React.MouseEvent) => void;
   readOnly: boolean;

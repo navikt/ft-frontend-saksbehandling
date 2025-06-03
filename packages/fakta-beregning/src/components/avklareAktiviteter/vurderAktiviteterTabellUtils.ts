@@ -5,7 +5,7 @@ import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-ty
 import { formaterArbeidsgiver } from '@navikt/ft-utils';
 
 import { AktivitetValues } from '../../typer/AvklarAktivitetTypes';
-import { KodeverkFpSakForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 
 /**
  * Lager en unik aktivitet-ID prefiks basert på idType for en aktivitet. Man prøver å legge på
@@ -90,7 +90,7 @@ export const skalVurdereAktivitet = (
 const lagVisningsnavn = (
   aktivitet: BeregningAktivitet,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
 ): string => {
   const agOpplysning = aktivitet.arbeidsgiverIdent
     ? arbeidsgiverOpplysningerPerId[aktivitet.arbeidsgiverIdent]
@@ -125,7 +125,7 @@ const skalBrukesPretufylling = (
 
 export const mapToInitialValues = (
   aktivitet: BeregningAktivitet,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
   erOverstyrt: boolean,
   harAksjonspunkt: boolean,
   erTomLikEllerFørSkjæringstidpunkt: boolean,

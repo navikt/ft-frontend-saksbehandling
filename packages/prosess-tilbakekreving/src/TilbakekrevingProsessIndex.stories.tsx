@@ -8,7 +8,7 @@ import { Behandling } from '@navikt/ft-types';
 import { TilbakekrevingProsessIndex } from './TilbakekrevingProsessIndex';
 import { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
 import { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
-import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTb';
+import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 import { VilkårsvurderingAp } from './types/VilkårsvurderingAp';
 
 import messages from '../i18n/nb_NO.json';
@@ -71,7 +71,7 @@ const meta = {
       versjon: 1,
       status: BehandlingStatus.BEHANDLING_UTREDES,
     } as Behandling,
-    kodeverkSamlingFpTilbake: alleTilbakekrevingKodeverk as unknown as KodeverkFpTilbakeForPanel,
+    kodeverkSamlingFpTilbake: alleTilbakekrevingKodeverk as unknown as KodeverkTilbakeForPanel,
     isReadOnly: false,
     setFormData: () => undefined,
     perioderForeldelse,

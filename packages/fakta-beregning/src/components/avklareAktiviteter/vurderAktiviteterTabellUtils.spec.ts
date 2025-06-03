@@ -3,7 +3,7 @@ import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-ty
 import { TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { AktivitetValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
-import { KodeverkFpSakForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { VurderAktiviteterTabell } from './VurderAktiviteterTabell';
 import { lagAktivitetFieldId, skalVurdereAktivitet } from './vurderAktiviteterTabellUtils';
 
@@ -93,7 +93,7 @@ const kodeverkSamling = {
       kodeverk: 'test',
     },
   ],
-} as KodeverkFpSakForPanel;
+} as KodeverkForPanel;
 
 describe('vurderAktiviteterTabellUtils', () => {
   const id1: string = '3847238947232019-01-01';

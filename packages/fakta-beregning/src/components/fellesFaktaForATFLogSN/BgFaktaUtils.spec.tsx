@@ -13,7 +13,7 @@ import {
 } from '@navikt/ft-types';
 
 import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../typer/FaktaBeregningTypes';
-import { KodeverkFpSakForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import {
   kanRedigereInntektForAndel,
   mapAndelToField,
@@ -78,7 +78,7 @@ const kodeverkSamling = {
       navn: 'Selvstendig næringsdrivende',
     },
   ],
-} as KodeverkFpSakForPanel;
+} as KodeverkForPanel;
 
 describe('bgFaktaUtils', () => {
   const dagpengerAndel = {
@@ -211,7 +211,7 @@ describe('bgFaktaUtils', () => {
       inntektskategori: 'ARBEIDSTAKER',
     };
 
-    const andelsInfo = setGenerellAndelsinfo(andelValueFromState, agOpplysning, {} as KodeverkFpSakForPanel);
+    const andelsInfo = setGenerellAndelsinfo(andelValueFromState, agOpplysning, {} as KodeverkForPanel);
     expect(andelsInfo.andel).toBe('Virksomheten (3284788923)...a7e2');
     expect(andelsInfo.aktivitetStatus).toBe('AT');
     expect(andelsInfo.andelsnr).toBe(3);
@@ -255,7 +255,7 @@ describe('bgFaktaUtils', () => {
     arbeidsgiverIdent: '42672364432',
     startdato: '2017-01-01',
     opphoersdato: '2018-01-01',
-    // @ts-expect-error Denne skal vel ikkje kunna vera ''? (Testar feilar om eg set den til noko anna)
+    // TODO Denne skal vel ikkje kunna vera ''? (Testar feilar om eg set den til noko anna)
     arbeidsforholdType: '',
     organisasjonstype: organisasjonstyper.KUNSTIG,
   };
@@ -373,7 +373,7 @@ describe('bgFaktaUtils', () => {
   it('skal redigere inntekt ved overstyring', () => {
     const andelFieldValue = {
       ...andelValuesMedInntektsmelding,
-      ...setGenerellAndelsinfo(arbeidstakerAndel4, agOpplysning, {} as KodeverkFpSakForPanel),
+      ...setGenerellAndelsinfo(arbeidstakerAndel4, agOpplysning, {} as KodeverkForPanel),
     };
     const copyValues = { ...values };
     copyValues[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD] = true;
@@ -388,7 +388,7 @@ describe('bgFaktaUtils', () => {
   it('skal redigere inntekt for arbeidstakerandel som mottar ytelse', () => {
     const andelFieldValue = {
       ...andelValuesUtenInntektsmelding,
-      ...setGenerellAndelsinfo(arbeidstakerAndel3, agOpplysning, {} as KodeverkFpSakForPanel),
+      ...setGenerellAndelsinfo(arbeidstakerAndel3, agOpplysning, {} as KodeverkForPanel),
     };
     const skalRedigereInntekt = skalFastsetteInntektForAndel(
       values,
@@ -401,7 +401,7 @@ describe('bgFaktaUtils', () => {
   it('skal redigere inntekt for arbeidstakerandel som ikke mottar ytelse, men har lonnsendring', () => {
     const andelFieldValue = {
       ...andelValuesUtenInntektsmelding,
-      ...setGenerellAndelsinfo(arbeidstakerAndel1, agOpplysning, {} as KodeverkFpSakForPanel),
+      ...setGenerellAndelsinfo(arbeidstakerAndel1, agOpplysning, {} as KodeverkForPanel),
     };
     const nyFakta: FaktaOmBeregning = {
       ...faktaOmBeregning,
@@ -427,7 +427,7 @@ describe('bgFaktaUtils', () => {
   it('skal ikkje redigere inntekt for arbeidstakerandel med inntektsmelding i samme org som frilans', () => {
     const andelFieldValue = {
       ...andelValuesUtenInntektsmelding,
-      ...setGenerellAndelsinfo(arbeidstakerAndel4, agOpplysning, {} as KodeverkFpSakForPanel),
+      ...setGenerellAndelsinfo(arbeidstakerAndel4, agOpplysning, {} as KodeverkForPanel),
     };
     const at4Copy: ATFLSammeOrgAndel = {
       ...arbeidstakerAndel4,
@@ -448,7 +448,7 @@ describe('bgFaktaUtils', () => {
   it('skal redigere inntekt for arbeidstakerandel uten inntektsmelding i samme org som frilans', () => {
     const andelFieldValue = {
       ...andelValuesMedInntektsmelding,
-      ...setGenerellAndelsinfo(arbeidstakerAndel4, agOpplysning, {} as KodeverkFpSakForPanel),
+      ...setGenerellAndelsinfo(arbeidstakerAndel4, agOpplysning, {} as KodeverkForPanel),
     };
     const at4Copy: ATFLSammeOrgAndel = {
       ...arbeidstakerAndel4,

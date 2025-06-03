@@ -8,7 +8,7 @@ import {
 
 import { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
-import { KodeverkFpSakForPanel } from '../../types/kodeverkForPanel';
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import { FordelBeregningsgrunnlagForm } from './FordelBeregningsgrunnlagForm';
 
 const getFordelPerioder = (beregningsgrunnlag: Beregningsgrunnlag): FordelBeregningsgrunnlagPeriode[] =>
@@ -18,7 +18,7 @@ type Props = {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
-  kodeverkSamling: KodeverkFpSakForPanel;
+  kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldIndex: number;
 };
@@ -50,7 +50,7 @@ export const FastsettFordeltBeregningsgrunnlag = ({
 FastsettFordeltBeregningsgrunnlag.buildInitialValues = (
   fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
   bg: Beregningsgrunnlag,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): FordelBeregningsgrunnlagValues =>
   FordelBeregningsgrunnlagForm.buildInitialValues(fordelBGPerioder, bg, kodeverkSamling, arbeidsgiverOpplysningerPerId);

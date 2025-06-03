@@ -9,8 +9,8 @@ import { TilbakekrevingForm } from './components/TilbakekrevingForm';
 import { CustomVilkarsVurdertePeriode } from './components/TilbakekrevingPeriodeForm';
 import { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
 import { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
-import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTb';
 import { KodeverkMedNavn } from './types/kodeverkMedNavn';
+import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 import { VilkårsvurderingAp } from './types/VilkårsvurderingAp';
 import { VilkårsvurdertePerioderWrapper } from './types/VilkårsvurdertePerioder';
 
@@ -24,7 +24,7 @@ export interface Props {
   vilkarvurderingsperioder: DetaljerteFeilutbetalingsperioder;
   vilkarvurdering: VilkårsvurdertePerioderWrapper;
   beregnBelop: (params: BeregnBeløpParams) => Promise<{ perioder: { belop: number }[] }>;
-  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
   relasjonsRolleType: RelasjonsRolleType;
   relasjonsRolleTypeKodeverk: KodeverkMedNavn<RelasjonsRolleType>[];

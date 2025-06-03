@@ -1,5 +1,5 @@
 import { Aktsomhet } from '../../../kodeverk/aktsomhet';
-import { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkFpTilbakeForPanelTb';
+import { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
 import { AktsomhetGradForsettFormPanel } from './AktsomhetGradForsettFormPanel';
 import { AktsomhetGradUaktsomhetFormPanel } from './AktsomhetGradUaktsomhetFormPanel';
 

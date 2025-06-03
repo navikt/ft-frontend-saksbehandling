@@ -6,7 +6,7 @@ import { VedtakResultatType } from '@navikt/ft-kodeverk';
 
 import { BeregningResultatPeriode } from '../types/BeregningsresultatTilbakekreving';
 import { ForeslaVedtakTilbakekrevingAp } from '../types/ForeslaVedtakTilbakekrevingAp';
-import type { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTv';
+import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 import { VedtaksbrevAvsnitt } from '../types/VedtaksbrevAvsnitt';
 import { FormValues } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
 import { ForhandsvisData, TilbakekrevingVedtakForm } from './TilbakekrevingVedtakForm';
@@ -17,7 +17,7 @@ export interface Props {
   readOnly: boolean;
   resultat: VedtakResultatType;
   perioder: BeregningResultatPeriode[];
-  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   behandlingUuid: string;
   avsnittsliste: VedtaksbrevAvsnitt[];
   fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<void>;

@@ -13,7 +13,7 @@ import { BeløpLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
-import { KodeverkFpSakForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 
 import tableStyle from '../tableStyle.module.css';
@@ -46,7 +46,7 @@ const finnBeregnetEller0 = (andel: BeregningsgrunnlagAndel): number => andel.ber
 
 const createArbeidinntektRows = (
   relevanteAndeler: BeregningsgrunnlagAndel[],
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): ReactElement[] => {
   return relevanteAndeler.map(andel => {
@@ -110,7 +110,7 @@ const createSummaryRow = (relevanteAndeler: BeregningsgrunnlagAndel[]): ReactEle
 type Props = {
   alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  kodeverkSamling: KodeverkFpSakForPanel;
+  kodeverkSamling: KodeverkForPanel;
 };
 
 /**

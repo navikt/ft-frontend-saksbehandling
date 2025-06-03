@@ -22,7 +22,7 @@ import {
   FaktaBeregningTransformedValues,
   FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues,
 } from '../../../../typer/interface/BeregningFaktaAP';
-import { KodeverkFpSakForPanel } from '../../../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../../../typer/KodeverkForPanel';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import {
@@ -40,7 +40,7 @@ const andreFrilansTilfeller: string[] = [
 
 const utledArbeidsforholdUtenIMRadioTekst = (
   arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): React.ReactNode => {
   const agOpplysning = arbeidsforhold.arbeidsgiverIdent
@@ -62,7 +62,7 @@ const utledArbeidsforholdUtenIMRadioTekst = (
 const mottarYtelseArbeidsforholdRadioAndInputs = (
   andel: ArbeidstakerUtenIMAndel,
   readOnly: boolean,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   aktivtBeregningsgrunnlagIndeks: number,
   intl: IntlShape,
@@ -119,7 +119,7 @@ interface Props {
   readOnly: boolean;
   tilfeller: string[];
   beregningsgrunnlag: Beregningsgrunnlag;
-  kodeverkSamling: KodeverkFpSakForPanel;
+  kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 }
 

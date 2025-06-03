@@ -13,8 +13,8 @@ import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-util
 import { ForeldelseAksjonspunktCodes } from '../ForeldelseAksjonspunktCodes';
 import { FeilutbetalingPeriode, FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
 import { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTf';
 import { KodeverkMedNavn } from '../types/kodeverkMedNavn';
+import { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 import { TidslinjePeriode } from '../types/TidslinjePeriode';
 import { VurderForeldelseAp } from '../types/VurderForeldelseAp';
 import { ForeldelsePeriodeForm, FormValues as PeriodeFormValues } from './ForeldelsePeriodeForm';
@@ -97,7 +97,7 @@ export interface Props {
   perioderForeldelse: FeilutbetalingPerioderWrapper;
   alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
   submitCallback: (aksjonspunktData: VurderForeldelseAp) => Promise<void>;
-  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   relasjonsRolleType: RelasjonsRolleType;
   relasjonsRolleTypeKodeverk: KodeverkMedNavn<RelasjonsRolleType>[];
   readOnly: boolean;

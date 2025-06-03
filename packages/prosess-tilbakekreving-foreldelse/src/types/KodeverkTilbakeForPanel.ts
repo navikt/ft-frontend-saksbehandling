@@ -1,15 +1,13 @@
-import { HendelseType, HendelseUnderType, TilbakekrevingVidereBehandling } from '@navikt/ft-kodeverk';
+import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 
 //Mapping mellom KodeverkType og enums/union-types med verdier
 type KodeverkEnumMap = {
-  HendelseType: HendelseType;
-  HendelseUnderType: HendelseUnderType;
-  VidereBehandling: TilbakekrevingVidereBehandling;
+  ForeldelseVurderingType: ForeldelseVurderingType;
 };
 
-type KodeverkType = keyof KodeverkEnumMap;
+export type KodeverkType = keyof KodeverkEnumMap;
 
-export type KodeverkFpTilbakeForPanel = {
+export type KodeverkTilbakeForPanel = {
   [K in KodeverkType]: KodeverkMedNavnTilbakekreving<K>[];
 };
 

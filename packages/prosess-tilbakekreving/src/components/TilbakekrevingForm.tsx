@@ -18,8 +18,8 @@ import {
   DetaljertFeilutbetalingPeriode,
 } from '../types/DetaljerteFeilutbetalingsperioder';
 import { FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
-import { KodeverkFpTilbakeForPanel, KodeverkMedNavnTilbakekreving } from '../types/KodeverkFpTilbakeForPanelTb';
 import { KodeverkMedNavn } from '../types/kodeverkMedNavn';
+import { KodeverkMedNavnTilbakekreving,KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 import { TidslinjePeriode } from '../types/TidslinjePeriode';
 import { VilkårsvurderingAp } from '../types/VilkårsvurderingAp';
 import { VilkårsvurdertePerioderWrapper, VilkårsvurdertPeriode } from '../types/VilkårsvurdertePerioder';
@@ -303,7 +303,7 @@ const validerOm6LeddBrukesPåAllePerioder = (vilkarsVurdertePerioder: CustomVilk
 
 export interface Props {
   perioderForeldelse: FeilutbetalingPerioderWrapper;
-  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   vilkarvurderingsperioder: DetaljerteFeilutbetalingsperioder;
   submitCallback: (aksjonspunktData: VilkårsvurderingAp) => Promise<void>;
   isReadOnly: boolean;

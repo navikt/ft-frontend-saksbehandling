@@ -3,7 +3,7 @@ import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { BrukersAndelValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
-import { KodeverkFpSakForPanel } from '../../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
 import { setGenerellAndelsinfo } from '../BgFaktaUtils';
 import { KunYtelseBesteberegning } from './KunYtelseBesteberegningPanel';
 import { KunYtelseUtenBesteberegningPanel } from './KunYtelseUtenBesteberegningPanel';
@@ -14,7 +14,7 @@ interface Props {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   skalViseInntektstabell?: boolean;
-  kodeverkSamling: KodeverkFpSakForPanel;
+  kodeverkSamling: KodeverkForPanel;
   faktaOmBeregning: FaktaOmBeregning;
 }
 
@@ -61,7 +61,7 @@ KunYtelsePanel.buildInitialValues = (
   kunYtelse: KunYtelse | undefined,
   faktaOmBeregningAndeler: AndelForFaktaOmBeregning[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
 ): KunYtelseValues => {
   if (!kunYtelse || !kunYtelse.andeler || kunYtelse.andeler.length === 0) {
     return {};

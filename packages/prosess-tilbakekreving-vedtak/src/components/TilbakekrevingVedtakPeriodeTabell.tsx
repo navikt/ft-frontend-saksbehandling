@@ -6,13 +6,13 @@ import { PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { BeregningResultatPeriode } from '../types/BeregningsresultatTilbakekreving';
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTv';
+import { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 
 import styles from './tilbakekrevingVedtakPeriodeTabell.module.css';
 
 interface Props {
   perioder: BeregningResultatPeriode[];
-  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
 }
 
 export const TilbakekrevingVedtakPeriodeTabell = ({ perioder, kodeverkSamlingFpTilbake }: Props) => {

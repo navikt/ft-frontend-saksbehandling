@@ -12,7 +12,7 @@ import {
 import { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { SubmitBeregningType } from '../../typer/interface/SubmitBeregningTsType';
-import { KodeverkFpSakForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { Vilkår, Vilkårperiode } from '../../typer/Vilkår';
 import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { formNameAvklarAktiviteter } from '../../utils/BeregningFormUtils';
@@ -39,7 +39,7 @@ const skalSkjuleKomponent = (avklaringsbehov: BeregningAvklaringsbehov[], erOver
 interface Props {
   readOnly: boolean;
   submittable: boolean;
-  kodeverkSamling: KodeverkFpSakForPanel;
+  kodeverkSamling: KodeverkForPanel;
   beregningsgrunnlag: Beregningsgrunnlag[];
   aktivtBeregningsgrunnlagIndeks: number;
   erOverstyrer: boolean;
@@ -101,7 +101,7 @@ const transformValues = (values: AvklarAktiviteterFormValues): SubmitBeregningTy
 
 const buildFormInitialValues = (
   beregningsgrunnlag: Beregningsgrunnlag[],
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   vilkår: Vilkår,
 ): AvklarAktiviteterFormValues => ({

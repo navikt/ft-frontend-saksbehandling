@@ -8,7 +8,7 @@ import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
 import { ArbeidsinntektResultat } from '../../types/interface/BeregningsgrunnlagAP';
-import { KodeverkFpSakForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 import { HorizontalBox } from '../../util/HorizontalBox';
 
@@ -35,7 +35,7 @@ const finnAndelerSomSkalVisesAT = (andeler: BeregningsgrunnlagAndel[]): Beregnin
 type Props = {
   readOnly: boolean;
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[];
-  kodeverkSamling: KodeverkFpSakForPanel;
+  kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldIndex: number;
   formName: string;

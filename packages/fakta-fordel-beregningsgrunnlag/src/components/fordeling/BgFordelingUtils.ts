@@ -10,7 +10,7 @@ import {
   FordelBeregningsgrunnlagFormValues,
   FordelBeregningsgrunnlagGenerellAndelValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { KodeverkFpSakForPanel } from '../../types/kodeverkForPanel';
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 
 export const GRADERING_RANGE_DENOMINATOR = ' - ';
 
@@ -35,7 +35,7 @@ const finnnInntektskategorikode = (andel: FordelBeregningsgrunnlagAndel): string
 const createAndelnavn = (
   andel: FordelBeregningsgrunnlagAndel,
   harKunYtelse: boolean,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): string => {
   if (!andel.aktivitetStatus || andel.aktivitetStatus === AktivitetStatus.UDEFINERT) {
@@ -97,7 +97,7 @@ export const setArbeidsforholdInitialValues = (
 export const setGenerellAndelsinfo = (
   andel: FordelBeregningsgrunnlagAndel,
   harKunYtelse: boolean,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): FordelBeregningsgrunnlagGenerellAndelValues => ({
   andel: createAndelnavn(andel, harKunYtelse, kodeverkSamling, arbeidsgiverOpplysningerPerId),

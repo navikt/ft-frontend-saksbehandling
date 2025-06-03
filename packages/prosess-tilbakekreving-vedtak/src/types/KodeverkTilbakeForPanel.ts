@@ -1,13 +1,16 @@
-import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
+import { VedtakResultatType } from '@navikt/ft-kodeverk';
+
+import { Aktsomhet } from '../kodeverk/aktsomhet';
 
 //Mapping mellom KodeverkType og enums/union-types med verdier
 type KodeverkEnumMap = {
-  ForeldelseVurderingType: ForeldelseVurderingType;
+  Aktsomhet: Aktsomhet;
+  VedtakResultatType: VedtakResultatType;
 };
 
 export type KodeverkType = keyof KodeverkEnumMap;
 
-export type KodeverkFpTilbakeForPanel = {
+export type KodeverkTilbakeForPanel = {
   [K in KodeverkType]: KodeverkMedNavnTilbakekreving<K>[];
 };
 

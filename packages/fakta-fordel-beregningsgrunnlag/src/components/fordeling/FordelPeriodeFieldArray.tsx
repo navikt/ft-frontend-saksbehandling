@@ -21,7 +21,7 @@ import {
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagFormValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { KodeverkFpSakForPanel, KodeverkMedNavn } from '../../types/kodeverkForPanel';
+import { KodeverkForPanel, KodeverkMedNavn } from '../../types/kodeverkForPanel';
 import { finnUnikeArbeidsforhold } from './FinnUnikeArbeidsforhold';
 import {
   validateSumFastsattBelop,
@@ -48,7 +48,7 @@ const defaultBGFordeling = (periodeUtenAarsak: boolean): any => ({
 
 const lagVisningsnavn = (
   arbeidsforhold: BGFordelArbeidsforhold,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): string => {
   if (!arbeidsforhold.arbeidsgiverIdent || !arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent]) {
@@ -65,7 +65,7 @@ const lagVisningsnavn = (
 
 const arbeidsgiverSelectValues = (
   arbeidsforholdList: BGFordelArbeidsforhold[],
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): ReactElement[] =>
   arbeidsforholdList.map(arbeidsforhold => (
@@ -77,7 +77,7 @@ const arbeidsgiverSelectValues = (
 const arbeidsgiverSelectValuesForKunYtelse = (
   arbeidsforholdList: BGFordelArbeidsforhold[],
   intl: IntlShape,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): ReactElement[] => {
   const nedtrekksvalgListe = arbeidsforholdList.map(arbeidsforhold => (
@@ -398,7 +398,7 @@ type Props = {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   skalIkkeRedigereInntekt: boolean;
-  kodeverkSamling: KodeverkFpSakForPanel;
+  kodeverkSamling: KodeverkForPanel;
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldName: string;

@@ -7,7 +7,7 @@ import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Saksopplysninger } from '@navikt/ft-types';
 import { DateLabel } from '@navikt/ft-ui-komponenter';
 
-import { KodeverkFpSakForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { Lønnsendring } from './Lønnsendring';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
@@ -40,7 +40,7 @@ type statusObjekt = {
 
 const createStatusEtiketter = (
   listeMedStatuser: AktivitetStatus[],
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
 ): ReactElement => {
   const statusList = [] as statusObjekt[];
   const unikeStatuser = listeMedStatuser.filter((status, index, self) => index === self.findIndex(t => t === status));
@@ -69,7 +69,7 @@ const createStatusEtiketter = (
 type Props = {
   skjeringstidspunktDato: string;
   aktivitetStatusList: AktivitetStatus[];
-  kodeverkSamling: KodeverkFpSakForPanel;
+  kodeverkSamling: KodeverkForPanel;
   saksopplysninger?: Saksopplysninger;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 };

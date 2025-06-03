@@ -14,8 +14,8 @@ import { FeilutbetalingFaktaIndex } from './FeilutbetalingFaktaIndex';
 import { AvklartFaktaFeilutbetalingAp } from './types/AvklartFaktaFeilutbetalingAp';
 import { FeilutbetalingÅrsak } from './types/FeilutbetalingÅrsak';
 import { FeilutbetalingFakta } from './types/FeilutbetalingFakta';
-import { KodeverkFpSakForPanel } from './types/KodeverkFpSakForPanelFtf';
-import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelFtf';
+import { KodeverkForPanel } from './types/KodeverkForPanel';
+import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 
 import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';
@@ -80,8 +80,8 @@ const feilutbetalingAarsak = [
   },
 ] as FeilutbetalingÅrsak[];
 
-const fpTilbakekrevingAlleKodeverk = alleTilbakekrevingKodeverk as KodeverkFpTilbakeForPanel;
-const fpSakAlleKodeverk = alleKodeverk as KodeverkFpSakForPanel;
+const fpTilbakekrevingAlleKodeverk = alleTilbakekrevingKodeverk as KodeverkTilbakeForPanel;
+const fpSakAlleKodeverk = alleKodeverk as KodeverkForPanel;
 
 const meta = {
   component: FeilutbetalingFaktaIndex,

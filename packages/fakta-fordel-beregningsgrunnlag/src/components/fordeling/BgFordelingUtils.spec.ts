@@ -2,7 +2,7 @@ import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import { KodeverkFpSakForPanel } from '../../types/kodeverkForPanel';
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import {
   setArbeidsforholdInitialValues,
   setGenerellAndelsinfo,
@@ -43,7 +43,7 @@ const kodeverkSamling = {
       navn: 'Selvstendig næringsdrivende',
     },
   ],
-} as KodeverkFpSakForPanel;
+} as KodeverkForPanel;
 
 describe('<BgFordelingUtils>', () => {
   it('skal sette riktig fastsatt beløp for andel i periode fastsatt bruttoPrAar og fordeltPrAar', () => {

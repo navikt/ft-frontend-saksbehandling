@@ -4,7 +4,7 @@ import { AvklarBeregningAktiviteterMap } from '@navikt/ft-types';
 import { agOpplysninger as arbeidsgiverOpplysninger } from '../../../testdata/arbeidsgiverOpplysninger';
 import { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkFpSakForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { Vilkårperiode } from '../../typer/Vilkår';
 import { buildInitialValues, transformFieldValue } from './avklareAktiviteterHjelpefunksjoner';
 
@@ -33,7 +33,7 @@ const kodeverkSamling = {
       navn: 'Næring',
     },
   ],
-} as KodeverkFpSakForPanel;
+} as KodeverkForPanel;
 
 const aktivitet1 = {
   arbeidsgiverIdent: '384723894723',

@@ -1,20 +1,15 @@
-import { HendelseType } from '@navikt/ft-kodeverk';
-
-import { Aktsomhet } from '../kodeverk/aktsomhet';
-import { SærligGrunn } from '../kodeverk/særligGrunn';
-import { VilkarResultatInfo } from './VilkårsvurdertePerioder';
+import { HendelseType, HendelseUnderType, TilbakekrevingVidereBehandling } from '@navikt/ft-kodeverk';
 
 //Mapping mellom KodeverkType og enums/union-types med verdier
 type KodeverkEnumMap = {
-  Aktsomhet: Aktsomhet;
   HendelseType: HendelseType;
-  SærligGrunn: SærligGrunn;
-  VilkårResultat: VilkarResultatInfo;
+  HendelseUnderType: HendelseUnderType;
+  VidereBehandling: TilbakekrevingVidereBehandling;
 };
 
 type KodeverkType = keyof KodeverkEnumMap;
 
-export type KodeverkFpTilbakeForPanel = {
+export type KodeverkTilbakeForPanel = {
   [K in KodeverkType]: KodeverkMedNavnTilbakekreving<K>[];
 };
 

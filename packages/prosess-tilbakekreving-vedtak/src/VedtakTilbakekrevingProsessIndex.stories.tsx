@@ -8,7 +8,7 @@ import { Behandling } from '@navikt/ft-types';
 import { Aktsomhet } from './kodeverk/aktsomhet';
 import { BeregningsresultatTilbakekreving } from './types/BeregningsresultatTilbakekreving';
 import { ForeslaVedtakTilbakekrevingAp } from './types/ForeslaVedtakTilbakekrevingAp';
-import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTv';
+import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 import { VedtakTilbakekrevingProsessIndex } from './VedtakTilbakekrevingProsessIndex';
 
 import '@navikt/ds-css';
@@ -183,7 +183,7 @@ const beregningsresultat = {
   vedtakResultatType: VedtakResultatType.DELVIS_TILBAKEBETALING,
 } as BeregningsresultatTilbakekreving;
 
-const kodeverkSamlingFpTilbake = alleTilbakekrevingKodeverk as KodeverkFpTilbakeForPanel;
+const kodeverkSamlingFpTilbake = alleTilbakekrevingKodeverk as KodeverkTilbakeForPanel;
 
 const meta = {
   component: VedtakTilbakekrevingProsessIndex,

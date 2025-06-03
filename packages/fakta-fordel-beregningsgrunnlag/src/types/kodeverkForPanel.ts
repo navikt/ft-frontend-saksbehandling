@@ -9,7 +9,7 @@ type KodeverkEnumMap = {
 
 type KodeverkType = keyof KodeverkEnumMap;
 
-export type KodeverkFpSakForPanel = {
+export type KodeverkForPanel = {
   [K in KodeverkType]: KodeverkMedNavn<K>[];
 };
 

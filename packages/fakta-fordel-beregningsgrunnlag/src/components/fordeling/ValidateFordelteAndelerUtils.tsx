@@ -9,7 +9,7 @@ import {
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagFormValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { KodeverkFpSakForPanel } from '../../types/kodeverkForPanel';
+import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import { GRADERING_RANGE_DENOMINATOR, mapToBelop } from './BgFordelingUtils';
 
 const convertToNumber = (n?: string): number => (!n ? 0 : Number(removeSpacesFromNumber(n)));
@@ -332,7 +332,7 @@ export const validateSumRefusjon = (
   return harGraderingUtenRefusjon ? totalRefusjonSkalVereLavereEnn(sumRefusjon, seksG, intl) : undefined;
 };
 
-const lagBeskrivendeStringAvStatuser = (statuser: string[], kodeverkSamling: KodeverkFpSakForPanel): string => {
+const lagBeskrivendeStringAvStatuser = (statuser: string[], kodeverkSamling: KodeverkForPanel): string => {
   const liste = statuser.map(status => kodeverkSamling['AktivitetStatus'].find(as => as.kode === status)?.navn || '');
   liste.sort((a, b) => a.localeCompare(b));
   const unikListe = [...new Set(liste)];
@@ -361,7 +361,7 @@ const validateSumFastsattArbeidstaker = (
   fieldname: string,
   fields: FordelBeregningsgrunnlagAndelValues[],
   seksG: number,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
   intl: IntlShape,
 ): string | undefined => {
   const statuserSomValideres = [AktivitetStatus.ARBEIDSTAKER];
@@ -388,7 +388,7 @@ const validateSumFastsattArbeidstakerOgFrilanser = (
   fieldname: string,
   fields: FordelBeregningsgrunnlagAndelValues[],
   seksG: number,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
   intl: IntlShape,
 ): string | undefined => {
   const statuserSomPrioriteresOverSN = [
@@ -425,7 +425,7 @@ export const validateSumFastsattForUgraderteAktiviteter = (
   fields: FordelBeregningsgrunnlagAndelValues[],
   intl: IntlShape,
   grunnbeløp: number,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
 ): string | undefined => {
   const skalGradereFL = !!fields.find(
     v => v.andelIArbeid !== '0.00' && v.aktivitetStatus === AktivitetStatus.FRILANSER,

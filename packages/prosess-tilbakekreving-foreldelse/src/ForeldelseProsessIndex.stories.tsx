@@ -7,7 +7,7 @@ import { Behandling } from '@navikt/ft-types';
 import { ForeldelseAksjonspunktCodes } from './ForeldelseAksjonspunktCodes';
 import { ForeldelseProsessIndex } from './ForeldelseProsessIndex';
 import { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
-import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTf';
+import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 import { VurderForeldelseAp } from './types/VurderForeldelseAp';
 
 import '@navikt/ds-css';
@@ -66,7 +66,7 @@ const kodeverkSamling = {
       kodeverk: 'FORELDELSE_VURDERING',
     },
   ],
-} as KodeverkFpTilbakeForPanel;
+} as KodeverkTilbakeForPanel;
 
 const meta = {
   component: ForeldelseProsessIndex,

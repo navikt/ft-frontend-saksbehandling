@@ -13,7 +13,7 @@ import {
   FaktaBeregningTransformedValues,
 } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkFpSakForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { ArbeidsinntektInput } from '../felles/ArbeidsinntektInput';
 import { InntektInput } from '../felles/InntektInput';
 import { VurderBesteberegningForm } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
@@ -198,7 +198,7 @@ const getVurderFaktaAksjonspunkt = (avklaringsbehov: BeregningAvklaringsbehov[])
 
 export const getBuildInitialValuesFaktaForATFLOgSN = (
   beregningsgrunnlag: Beregningsgrunnlag,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): FaktaOmBeregningValues => {
   const tilfeller = getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag);

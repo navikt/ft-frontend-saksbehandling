@@ -9,14 +9,14 @@ import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-ty
 import { DateLabel, EditedIcon, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { formaterArbeidsgiver, periodFormat } from '@navikt/ft-utils';
 
-import { KodeverkFpSakForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { lagAktivitetFieldId, skalVurdereAktivitet } from './vurderAktiviteterTabellUtils';
 
 interface Props {
   readOnly: boolean;
   isAvklaringsbehovClosed: boolean;
   aktivitet: BeregningAktivitet;
-  kodeverkSamling: KodeverkFpSakForPanel;
+  kodeverkSamling: KodeverkForPanel;
   erOverstyrt: boolean;
   harAvklaringsbehov: boolean;
   tomDatoForAktivitetGruppe: string;
@@ -32,7 +32,7 @@ const isSameOrBefore = (dato1: string | undefined, dato2: string): boolean =>
 const lagVisningsnavn = (
   aktivitet: BeregningAktivitet,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
 ): string => {
   const agOpplysning = aktivitet.arbeidsgiverIdent
     ? arbeidsgiverOpplysningerPerId[aktivitet.arbeidsgiverIdent]

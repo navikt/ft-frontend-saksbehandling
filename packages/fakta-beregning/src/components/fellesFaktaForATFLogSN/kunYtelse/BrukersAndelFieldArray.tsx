@@ -12,7 +12,7 @@ import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '
 
 import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
 import { AndelFieldValue } from '../../../typer/FieldValues';
-import { KodeverkFpSakForPanel, KodeverkMedNavn } from '../../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel, KodeverkMedNavn } from '../../../typer/KodeverkForPanel';
 import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../../utils/BeregningFormUtils';
 import { SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
@@ -20,7 +20,7 @@ import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 import tableStyles from '../../felles/tableStyle.module.css';
 
-const defaultBGFordeling = (aktivitetStatuser: string[], kodeverkSamling: KodeverkFpSakForPanel) => ({
+const defaultBGFordeling = (aktivitetStatuser: string[], kodeverkSamling: KodeverkForPanel) => ({
   andel: kodeverkSamling['AktivitetStatus'].find(
     as => as.kode === aktivitetStatuser.filter(kode => kode === AktivitetStatus.BRUKERS_ANDEL)[0],
   )?.navn,
@@ -127,14 +127,14 @@ const createBruttoBGSummaryRow = (sumFordeling: string | undefined): ReactElemen
   </Table.Row>
 );
 
-const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: KodeverkFpSakForPanel) =>
+const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: KodeverkForPanel) =>
   kodeverkSamling['Inntektskategori'].slice().sort((a, b) => a.navn.localeCompare(b.navn));
 
 interface Props {
   name: string;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
-  kodeverkSamling: KodeverkFpSakForPanel;
+  kodeverkSamling: KodeverkForPanel;
 }
 
 const mapBrukesAndelToSortedObject = (value: BrukersAndelValues | AndelFieldValue): SortedAndelInfo => {

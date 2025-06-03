@@ -12,8 +12,8 @@ import { FeilutbetalingAksjonspunktCode } from '../FeilutbetalingAksjonspunktCod
 import { AvklartFaktaFeilutbetalingAp } from '../types/AvklartFaktaFeilutbetalingAp';
 import { FeilutbetalingÅrsak } from '../types/FeilutbetalingÅrsak';
 import { FeilutbetalingFakta } from '../types/FeilutbetalingFakta';
-import { KodeverkFpSakForPanel } from '../types/KodeverkFpSakForPanelFtf';
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelFtf';
+import { KodeverkForPanel } from '../types/KodeverkForPanel';
+import { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 import { FeilutbetalingPerioderFieldArray, FormValues as PeriodeFormValues } from './FeilutbetalingPerioderFieldArray';
 
 import styles from './feilutbetalingInfoPanel.module.css';
@@ -91,7 +91,7 @@ const transformValues = (
 
 const getSortedFeilutbetalingArsaker = (
   feilutbetalingArsaker: FeilutbetalingÅrsak,
-  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel,
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel,
 ): FeilutbetalingÅrsak['hendelseTyper'] => {
   const { hendelseTyper } = feilutbetalingArsaker;
   return hendelseTyper.sort((ht1, ht2) => {
@@ -112,8 +112,8 @@ export interface Props {
   submitCallback: (aksjonspunktData: AvklartFaktaFeilutbetalingAp) => Promise<void>;
   hasOpenAksjonspunkter: boolean;
   readOnly: boolean;
-  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
-  kodeverkSamlingFpsak: KodeverkFpSakForPanel;
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
+  kodeverkSamlingFpsak: KodeverkForPanel;
   alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
   formData?: FormValues;
   setFormData: (data: FormValues) => void;

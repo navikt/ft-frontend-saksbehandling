@@ -1,15 +1,15 @@
-import { BehandlingArsakType, BehandlingResultatType, KonsekvensForYtelsen } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, Inntektskategori, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 
 //Mapping mellom KodeverkType og enums/union-types med verdier
 type KodeverkEnumMap = {
-  BehandlingÅrsakType: BehandlingArsakType;
-  KonsekvensForYtelsen: KonsekvensForYtelsen;
-  BehandlingResultatType: BehandlingResultatType;
+  AktivitetStatus: AktivitetStatus;
+  Inntektskategori: Inntektskategori;
+  OpptjeningAktivitetType: OpptjeningAktivitetType;
 };
 
 type KodeverkType = keyof KodeverkEnumMap;
 
-export type KodeverkFpSakForPanel = {
+export type KodeverkForPanel = {
   [K in KodeverkType]: KodeverkMedNavn<K>[];
 };
 

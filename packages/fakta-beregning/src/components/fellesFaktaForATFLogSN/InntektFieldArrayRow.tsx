@@ -13,7 +13,7 @@ import { parseCurrencyInput } from '@navikt/ft-utils';
 
 import { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
 import { AndelFieldIdentifikator } from '../../typer/FieldValues';
-import { KodeverkFpSakForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanel';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import {
   erArbeidstaker,
@@ -48,7 +48,7 @@ interface Props {
   skalViseRefusjon: boolean;
   skalViseSletteknapp: boolean;
   removeAndel: () => void;
-  kodeverkSamling: KodeverkFpSakForPanel;
+  kodeverkSamling: KodeverkForPanel;
   beregningsgrunnlag: Beregningsgrunnlag;
   rowName: string;
   skalFastsetteInntektForAndel: (andel: AndelFieldIdentifikator) => boolean;

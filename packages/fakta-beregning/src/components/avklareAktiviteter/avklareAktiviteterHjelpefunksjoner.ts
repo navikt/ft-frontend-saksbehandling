@@ -8,7 +8,7 @@ import {
 import { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktiviteterTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkFpSakForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { Vilkårperiode } from '../../typer/Vilkår';
 import { hasAksjonspunkt, hasOpenAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
@@ -52,7 +52,7 @@ const MANUELL_OVERSTYRING_FIELD = 'manuellOverstyringBeregningAktiviteter';
 export const buildInitialValues = (
   avklaringsbehovListe: BeregningAvklaringsbehov[],
   avklarAktiviteter: AvklarBeregningAktiviteterMap | undefined,
-  kodeverkSamling: KodeverkFpSakForPanel,
+  kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   vilkårsperiode: Vilkårperiode,
 ): AvklarAktiviteterValues => {
