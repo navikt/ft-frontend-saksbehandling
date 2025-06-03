@@ -1,6 +1,6 @@
-import { action } from '@storybook/addon-actions';
 import { Meta, StoryObj } from '@storybook/react';
 import dayjs from 'dayjs';
+import { action } from 'storybook/actions';
 
 import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import {

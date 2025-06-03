@@ -1,5 +1,5 @@
-import { action } from '@storybook/addon-actions';
 import { Meta, StoryObj } from '@storybook/react';
+import { action } from 'storybook/actions';
 
 import { alleTilbakekrevingKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import { BehandlingStatus, VedtakResultatType } from '@navikt/ft-kodeverk';

@@ -1,5 +1,5 @@
-import { action } from '@storybook/addon-actions';
 import { Meta, StoryObj } from '@storybook/react';
+import { action } from 'storybook/actions';
 
 import { AksjonspunktStatus, BehandlingStatus, ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
 import { Behandling } from '@navikt/ft-types';
