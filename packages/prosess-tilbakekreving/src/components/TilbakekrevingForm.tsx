@@ -5,8 +5,8 @@ import { Alert, Box, Heading, VStack } from '@navikt/ds-react';
 import moment from 'moment';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
-import { ForeldelseVurderingType, KodeverkType, TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
-import { Behandling, KodeverkMedNavn } from '@navikt/ft-types';
+import { ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
+import { Behandling } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 
@@ -18,7 +18,8 @@ import {
   DetaljertFeilutbetalingPeriode,
 } from '../types/DetaljerteFeilutbetalingsperioder';
 import { FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTb';
+import { KodeverkMedNavn } from '../types/kodeverkMedNavn';
+import { KodeverkMedNavnTilbakekreving,KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 import { TidslinjePeriode } from '../types/TidslinjePeriode';
 import { VilkårsvurderingAp } from '../types/VilkårsvurderingAp';
 import { VilkårsvurdertePerioderWrapper, VilkårsvurdertPeriode } from '../types/VilkårsvurdertePerioder';
@@ -220,7 +221,10 @@ const periodeFormBuildInitialValues = (
   };
 };
 
-const periodeFormTransformValues = (values: CustomVilkarsVurdertePeriode, sarligGrunnTyper: KodeverkMedNavn[]) => {
+const periodeFormTransformValues = (
+  values: CustomVilkarsVurdertePeriode,
+  sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[],
+) => {
   const { valgtVilkarResultatType, begrunnelse, vurderingBegrunnelse } = values;
   // @ts-expect-error Fiks
   const info = values[valgtVilkarResultatType];
@@ -260,7 +264,7 @@ const buildInitialValues = (
 
 const transformValues = (
   vilkarsVurdertePerioder: CustomVilkarsVurdertePeriode[],
-  sarligGrunnTyper: KodeverkMedNavn[],
+  sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[],
 ): VilkårsvurderingAp => ({
   kode: TilbakekrevingAksjonspunktCodes.VURDER_TILBAKEKREVING,
   vilkarsVurdertePerioder: vilkarsVurdertePerioder
@@ -299,14 +303,14 @@ const validerOm6LeddBrukesPåAllePerioder = (vilkarsVurdertePerioder: CustomVilk
 
 export interface Props {
   perioderForeldelse: FeilutbetalingPerioderWrapper;
-  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   vilkarvurderingsperioder: DetaljerteFeilutbetalingsperioder;
   submitCallback: (aksjonspunktData: VilkårsvurderingAp) => Promise<void>;
   isReadOnly: boolean;
   alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
   vilkarvurdering: VilkårsvurdertePerioderWrapper;
-  relasjonsRolleType: string;
-  relasjonsRolleTypeKodeverk: KodeverkMedNavn[];
+  relasjonsRolleType: RelasjonsRolleType;
+  relasjonsRolleTypeKodeverk: KodeverkMedNavn<RelasjonsRolleType>[];
   beregnBelop: (params: BeregnBeløpParams) => Promise<{ perioder: { belop: number }[] }>;
   behandling: Behandling;
   formData?: CustomVilkarsVurdertePeriode[];
@@ -361,9 +365,7 @@ export const TilbakekrevingForm = ({
 
   const lagrePerioder = () => {
     setSubmitting(true);
-    submitCallback(
-      transformValues(vilkårsvurdertePerioder, kodeverkSamlingFpTilbake[TilbakekrevingKodeverkType.SARLIG_GRUNN]),
-    );
+    submitCallback(transformValues(vilkårsvurdertePerioder, kodeverkSamlingFpTilbake['SærligGrunn']));
   };
 
   const perioderFormatertForTidslinje = formaterPerioderForTidslinje(vilkårsvurdertePerioder, dataForDetailForm);
@@ -476,9 +478,8 @@ export const TilbakekrevingForm = ({
                       fom={valgtData.fom}
                       tom={valgtData.tom}
                       arsakHendelseNavn={
-                        kodeverkSamlingFpTilbake[KodeverkType.HENDELSE_TYPE].find(
-                          ht => ht.kode === valgtData.årsak?.hendelseType,
-                        )?.navn
+                        kodeverkSamlingFpTilbake['HendelseType'].find(ht => ht.kode === valgtData.årsak?.hendelseType)
+                          ?.navn
                       }
                     />
                     <TilbakekrevingPeriodeForm

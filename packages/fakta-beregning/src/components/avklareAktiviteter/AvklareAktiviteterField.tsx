@@ -28,7 +28,7 @@ import { OverstyringKnapp } from '@navikt/ft-ui-komponenter';
 
 import { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import {

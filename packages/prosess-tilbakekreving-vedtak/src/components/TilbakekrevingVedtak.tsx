@@ -2,11 +2,11 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Detail, Heading, VStack } from '@navikt/ds-react';
 
-import { KodeverkType } from '@navikt/ft-kodeverk';
+import { VedtakResultatType } from '@navikt/ft-kodeverk';
 
 import { BeregningResultatPeriode } from '../types/BeregningsresultatTilbakekreving';
 import { ForeslaVedtakTilbakekrevingAp } from '../types/ForeslaVedtakTilbakekrevingAp';
-import type { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTv';
+import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 import { VedtaksbrevAvsnitt } from '../types/VedtaksbrevAvsnitt';
 import { FormValues } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
 import { ForhandsvisData, TilbakekrevingVedtakForm } from './TilbakekrevingVedtakForm';
@@ -15,9 +15,9 @@ import { TilbakekrevingVedtakPeriodeTabell } from './TilbakekrevingVedtakPeriode
 export interface Props {
   submitCallback: (aksjonspunktData: ForeslaVedtakTilbakekrevingAp) => Promise<void>;
   readOnly: boolean;
-  resultat: string;
+  resultat: VedtakResultatType;
   perioder: BeregningResultatPeriode[];
-  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   behandlingUuid: string;
   avsnittsliste: VedtaksbrevAvsnitt[];
   fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<void>;
@@ -50,7 +50,7 @@ export const TilbakekrevingVedtak = ({
         <FormattedMessage id="TilbakekrevingVedtak.Resultat" />
       </Detail>
       <BodyShort size="small">
-        {kodeverkSamlingFpTilbake[KodeverkType.VEDTAK_RESULTAT_TYPE].find(vrt => vrt.kode === resultat)?.navn}
+        {kodeverkSamlingFpTilbake['VedtakResultatType'].find(vrt => vrt.kode === resultat)?.navn}
       </BodyShort>
     </div>
     <TilbakekrevingVedtakPeriodeTabell perioder={perioder} kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake} />

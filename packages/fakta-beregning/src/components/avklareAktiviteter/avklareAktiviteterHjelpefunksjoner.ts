@@ -8,7 +8,7 @@ import {
 import { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktiviteterTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { Vilkårperiode } from '../../typer/Vilkår';
 import { hasAksjonspunkt, hasOpenAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';

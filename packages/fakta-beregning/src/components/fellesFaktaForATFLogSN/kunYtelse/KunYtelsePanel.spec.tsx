@@ -1,7 +1,7 @@
 import { Inntektskategori } from '@navikt/ft-kodeverk';
 import { AndelForFaktaOmBeregning, KunYtelse } from '@navikt/ft-types';
 
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
 import { brukersAndelFieldArrayName, KunYtelsePanel } from './KunYtelsePanel';
 
 const kodeverkSamling = {

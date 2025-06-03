@@ -8,7 +8,7 @@ import { Behandling } from '@navikt/ft-types';
 import { TilbakekrevingProsessIndex } from './TilbakekrevingProsessIndex';
 import { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
 import { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
-import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTb';
+import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 import { VilkårsvurderingAp } from './types/VilkårsvurderingAp';
 
 import messages from '../i18n/nb_NO.json';
@@ -61,8 +61,6 @@ const vilkarvurdering = {
   vilkarsVurdertePerioder: [],
 };
 
-const kodeverkSamling = alleTilbakekrevingKodeverk as KodeverkFpTilbakeForPanel;
-
 const meta = {
   component: TilbakekrevingProsessIndex,
   decorators: [withIntl],
@@ -73,7 +71,7 @@ const meta = {
       versjon: 1,
       status: BehandlingStatus.BEHANDLING_UTREDES,
     } as Behandling,
-    kodeverkSamlingFpTilbake: kodeverkSamling,
+    kodeverkSamlingFpTilbake: alleTilbakekrevingKodeverk as unknown as KodeverkTilbakeForPanel,
     isReadOnly: false,
     setFormData: () => undefined,
     perioderForeldelse,
@@ -83,7 +81,7 @@ const meta = {
     relasjonsRolleType: RelasjonsRolleType.MOR,
     relasjonsRolleTypeKodeverk: [
       {
-        kode: 'MORA',
+        kode: RelasjonsRolleType.MOR,
         kodeverk: 'RELASJONSROLLE_TYPE',
         navn: 'Mor',
       },

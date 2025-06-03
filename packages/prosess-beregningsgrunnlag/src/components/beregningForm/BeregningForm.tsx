@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Heading, HGrid, VStack } from '@navikt/ds-react';
 
-import { FagsakYtelseType, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, FagsakYtelseType, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
@@ -14,7 +14,7 @@ import {
 
 import { BeregningFormValues } from '../../types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
-import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 import { Vilkår, Vilkårperiode } from '../../types/Vilkår';
 import { Beregningsgrunnlag } from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
@@ -38,7 +38,7 @@ const erAutomatiskBesteberegnet = (ytelsesspesifiktGrunnlag: YtelseGrunnlag | un
 const erFrisinn = (ytelsesspesifiktGrunnlag: YtelseGrunnlag | undefined): boolean =>
   !!ytelsesspesifiktGrunnlag && ytelsesspesifiktGrunnlag.ytelsetype === FagsakYtelseType.FRISINN;
 
-const getStatusList = (beregningsgrunnlagPerioder: BeregningsgrunnlagPeriodeProp[]): string[] =>
+const getStatusList = (beregningsgrunnlagPerioder: BeregningsgrunnlagPeriodeProp[]): AktivitetStatus[] =>
   beregningsgrunnlagPerioder[0].beregningsgrunnlagPrStatusOgAndel
     ? beregningsgrunnlagPerioder[0].beregningsgrunnlagPrStatusOgAndel
         .filter(statusAndel => statusAndel.erTilkommetAndel !== true)

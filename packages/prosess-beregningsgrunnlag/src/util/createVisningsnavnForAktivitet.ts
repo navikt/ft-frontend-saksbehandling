@@ -1,14 +1,12 @@
-import { KodeverkType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formaterArbeidsgiver } from '@navikt/ft-utils';
 
-import { KodeverkForPanel } from '../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../types/KodeverkForPanel';
 
 const lagVisningFraArbeidType = (andel: BeregningsgrunnlagAndel, kodeverkSamling: KodeverkForPanel): string =>
   andel.arbeidsforhold && andel.arbeidsforhold.arbeidsforholdType
-    ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(
-        a => a.kode === andel.arbeidsforhold?.arbeidsforholdType,
-      )?.navn || ''
+    ? kodeverkSamling['OpptjeningAktivitetType'].find(a => a.kode === andel.arbeidsforhold?.arbeidsforholdType)?.navn ||
+      ''
     : '';
 
 export const createVisningsnavnForAndel = (

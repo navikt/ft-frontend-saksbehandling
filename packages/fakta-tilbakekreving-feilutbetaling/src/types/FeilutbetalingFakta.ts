@@ -1,3 +1,5 @@
+import { BehandlingArsakType, BehandlingResultatType, TilbakekrevingVidereBehandling } from '@navikt/ft-kodeverk';
+
 export type FeilutbetalingFakta = {
   behandlingFakta: {
     perioder?: {
@@ -14,14 +16,14 @@ export type FeilutbetalingFakta = {
     aktuellFeilUtbetaltBeløp: number;
     tidligereVarseltBeløp?: number;
     behandlingÅrsaker?: {
-      behandlingArsakType: string;
+      behandlingArsakType: BehandlingArsakType;
     }[];
     behandlingsresultat?: {
-      type: string;
+      type: BehandlingResultatType;
       konsekvenserForYtelsen: string[];
     };
     tilbakekrevingValg?: {
-      videreBehandling: string;
+      videreBehandling: TilbakekrevingVidereBehandling;
     };
     datoForRevurderingsvedtak: string;
     begrunnelse?: string;

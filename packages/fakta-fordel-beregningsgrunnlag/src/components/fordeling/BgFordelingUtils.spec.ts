@@ -1,4 +1,4 @@
-import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
@@ -31,7 +31,7 @@ const arbeidstakerIkkeFastsatt = {
 };
 
 const kodeverkSamling = {
-  [KodeverkType.AKTIVITET_STATUS]: [
+  AktivitetStatus: [
     {
       kode: AktivitetStatus.ARBEIDSTAKER,
       kodeverk: 'AKTIVITET_STATUS',

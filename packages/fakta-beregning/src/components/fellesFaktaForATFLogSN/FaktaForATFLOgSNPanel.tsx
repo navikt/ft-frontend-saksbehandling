@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { getFaktaOmBeregning, getFaktaOmBeregningTilfellerKoder } from './BgFaktaUtils';
 import { FastsettBgKunYtelse } from './kunYtelse/FastsettBgKunYtelse';
 import { VurderOgFastsettATFL } from './vurderOgFastsettATFL/VurderOgFastsettATFL';

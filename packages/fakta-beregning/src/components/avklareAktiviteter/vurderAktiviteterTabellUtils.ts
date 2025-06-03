@@ -1,11 +1,11 @@
 import dayjs from 'dayjs';
 
-import { KodeverkType, OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
+import { OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { formaterArbeidsgiver } from '@navikt/ft-utils';
 
 import { AktivitetValues } from '../../typer/AvklarAktivitetTypes';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 
 /**
  * Lager en unik aktivitet-ID prefiks basert på idType for en aktivitet. Man prøver å legge på
@@ -97,8 +97,7 @@ const lagVisningsnavn = (
     : undefined;
   if (!agOpplysning) {
     return aktivitet.arbeidsforholdType
-      ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(oat => oat.kode === aktivitet.arbeidsforholdType)
-          ?.navn || ''
+      ? kodeverkSamling['OpptjeningAktivitetType'].find(oat => oat.kode === aktivitet.arbeidsforholdType)?.navn || ''
       : '';
   }
   return formaterArbeidsgiver(agOpplysning, aktivitet.eksternArbeidsforholdId);

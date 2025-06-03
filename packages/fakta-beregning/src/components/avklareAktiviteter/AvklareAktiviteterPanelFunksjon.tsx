@@ -12,7 +12,7 @@ import {
 import { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { SubmitBeregningType } from '../../typer/interface/SubmitBeregningTsType';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { Vilkår, Vilkårperiode } from '../../typer/Vilkår';
 import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { formNameAvklarAktiviteter } from '../../utils/BeregningFormUtils';

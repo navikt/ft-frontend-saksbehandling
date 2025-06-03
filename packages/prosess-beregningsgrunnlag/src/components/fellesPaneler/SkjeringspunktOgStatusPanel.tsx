@@ -3,11 +3,11 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, HStack, Tag, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus, KodeverkType } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Saksopplysninger } from '@navikt/ft-types';
 import { DateLabel } from '@navikt/ft-ui-komponenter';
 
-import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { Lønnsendring } from './Lønnsendring';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
@@ -38,11 +38,14 @@ type statusObjekt = {
   tagType: TagType;
 };
 
-const createStatusEtiketter = (listeMedStatuser: string[], kodeverkSamling: KodeverkForPanel): ReactElement => {
+const createStatusEtiketter = (
+  listeMedStatuser: AktivitetStatus[],
+  kodeverkSamling: KodeverkForPanel,
+): ReactElement => {
   const statusList = [] as statusObjekt[];
   const unikeStatuser = listeMedStatuser.filter((status, index, self) => index === self.findIndex(t => t === status));
   unikeStatuser.forEach(status => {
-    const statusName = kodeverkSamling[KodeverkType.AKTIVITET_STATUS].find(s => s.kode === status)?.navn || '';
+    const statusName = kodeverkSamling['AktivitetStatus'].find(s => s.kode === status)?.navn || '';
     statusList.push({ visningsNavn: statusName, kode: status, tagType: finnTagType(status) });
   });
 
@@ -65,7 +68,7 @@ const createStatusEtiketter = (listeMedStatuser: string[], kodeverkSamling: Kode
 
 type Props = {
   skjeringstidspunktDato: string;
-  aktivitetStatusList: string[];
+  aktivitetStatusList: AktivitetStatus[];
   kodeverkSamling: KodeverkForPanel;
   saksopplysninger?: Saksopplysninger;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;

@@ -15,7 +15,7 @@ import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrun
 import { BeregningFormValues } from '../types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from '../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from '../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../types/KodeverkForPanel';
 import { RelevanteStatuserProp } from '../types/RelevanteStatuser';
 import { Vilkår, Vilkårperiode } from '../types/Vilkår';
 import { BeregningForm } from './beregningForm/BeregningForm';

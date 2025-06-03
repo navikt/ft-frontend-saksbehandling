@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Heading, Table, VStack } from '@navikt/ds-react';
@@ -13,7 +13,7 @@ import { BeløpLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
-import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 
 import tableStyle from '../tableStyle.module.css';

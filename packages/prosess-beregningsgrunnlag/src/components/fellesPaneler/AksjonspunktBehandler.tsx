@@ -24,7 +24,7 @@ import { BeregningFormValues } from '../../types/BeregningFormValues';
 import { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunkt';
 import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
 import { Vilkår, Vilkårperiode } from '../../types/Vilkår';
 import { AksjonspunktBehandlerAT } from '../arbeidstaker/AksjonspunktBehandlerAT';

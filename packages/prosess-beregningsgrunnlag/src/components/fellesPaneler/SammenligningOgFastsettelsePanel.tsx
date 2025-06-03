@@ -14,7 +14,7 @@ import {
 import { BeregningFormValues } from '../../types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 import { Vilkår } from '../../types/Vilkår';
 import { AksjonspunktBehandler, defaultFormName } from './AksjonspunktBehandler';
