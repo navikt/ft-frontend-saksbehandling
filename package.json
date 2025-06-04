@@ -10,6 +10,8 @@
     "url": "git+https://github.com/navikt/ft-frontend-saksbehandling.git"
   },
   "scripts": {
+    "test-browser": "yarn vitest --project=browser",
+    "test-jsdom": "yarn vitest --project=jsdom",
     "test": "lerna run test --stream",
     "test:changed": "lerna run test --stream --since origin/main",
     "test:coverage": "lerna run test:coverage --stream",
@@ -50,6 +52,7 @@
     "@types/react-dom": "19.1.5",
     "@types/react-responsive": "9.0.0",
     "@vitejs/plugin-react": "4.5.0",
+    "@vitest/browser": "3.1.4",
     "@vitest/coverage-c8": "0.33.0",
     "cross-env": "7.0.3",
     "eslint": "9.28.0",
@@ -67,6 +70,7 @@
     "jsdom": "26.1.0",
     "lerna": "8.2.2",
     "lint-staged": "15.5.2",
+    "playwright": "^1.52.0",
     "postcss-less": "6.0.0",
     "prettier": "3.5.3",
     "react-test-renderer": "19.1.0",
