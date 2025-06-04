@@ -1,18 +1,10 @@
 import type { StorybookConfig } from '@storybook/react-vite';
-import { createRequire } from 'node:module';
-import { dirname, join } from 'node:path';
 
 import { lagStoriesEntriesForPakker } from './lagStoriesEntriesForPakker';
 
-const require = createRequire(import.meta.url);
-
 const config: StorybookConfig = {
-  addons: [
-    getAbsolutePath('@storybook/addon-links'),
-    getAbsolutePath('@storybook/addon-a11y'),
-    getAbsolutePath('@storybook/addon-docs'),
-  ],
-  framework: getAbsolutePath('@storybook/react-vite'),
+  addons: ['@storybook/addon-links', '@storybook/addon-a11y', '@storybook/addon-docs'],
+  framework: '@storybook/react-vite',
   viteFinal: async c => ({
     ...c,
     rules: {
@@ -25,7 +17,3 @@ const config: StorybookConfig = {
 };
 
 export default config;
-
-function getAbsolutePath(value: string): any {
-  return dirname(require.resolve(join(value, 'package.json')));
-}
