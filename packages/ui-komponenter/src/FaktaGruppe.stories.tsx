@@ -6,17 +6,17 @@ export default {
   component: FaktaGruppe,
 };
 
-export const visDefaultFaktagruppe = () => <FaktaGruppe>Dette er en tekst</FaktaGruppe>;
+export const VisDefaultFaktagruppe = () => <FaktaGruppe>Dette er en tekst</FaktaGruppe>;
 
-export const visFaktagruppeMedTittel = () => <FaktaGruppe title="Dette er en tittel">Dette er en tekst</FaktaGruppe>;
+export const VisFaktagruppeMedTittel = () => <FaktaGruppe title="Dette er en tittel">Dette er en tekst</FaktaGruppe>;
 
-export const visFaktagruppeUtenKantlinje = () => (
+export const VisFaktagruppeUtenKantlinje = () => (
   <FaktaGruppe title="Dette er en tittel" withoutBorder>
     Dette er en tekst
   </FaktaGruppe>
 );
 
-export const visFaktagruppeMedMerknadFraBeslutter = () => (
+export const VisFaktagruppeMedMerknadFraBeslutter = () => (
   <FaktaGruppe title="Dette er en tittel" merknaderFraBeslutter={{ notAccepted: true }}>
     Dette er en tekst
   </FaktaGruppe>

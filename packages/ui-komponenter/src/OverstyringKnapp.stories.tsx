@@ -6,6 +6,6 @@ export default {
   component: OverstyringKnapp,
 };
 
-export const visDefaultOverstyringsknapp = () => <OverstyringKnapp />;
+export const VisDefaultOverstyringsknapp = () => <OverstyringKnapp />;
 
-export const visOverstyringsknappNårOverstyrt = () => <OverstyringKnapp erOverstyrt />;
+export const VisOverstyringsknappNårOverstyrt = () => <OverstyringKnapp erOverstyrt />;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Preview } from '@storybook/react';
+import { Preview } from '@storybook/react-vite';
 
 import { withThemeDecorator } from '@navikt/ft-frontend-storybook-utils';
 
