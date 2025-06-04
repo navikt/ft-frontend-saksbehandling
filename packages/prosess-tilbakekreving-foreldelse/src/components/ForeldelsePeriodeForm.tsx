@@ -14,10 +14,10 @@ import {
   minLength,
   required,
 } from '@navikt/ft-form-validators';
-import { ForeldelseVurderingType, TilbakekrevingKodeverkType } from '@navikt/ft-kodeverk';
+import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 
 import { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTf';
+import { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
@@ -26,7 +26,7 @@ export type FormValues = ForeldelsesresultatActivity;
 
 export interface Props {
   periode: ForeldelsesresultatActivity;
-  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   oppdaterPeriode: (values: FormValues) => void;
   skjulPeriode: (event: React.MouseEvent) => void;
   readOnly: boolean;
@@ -58,7 +58,7 @@ export const ForeldelsePeriodeForm = ({
 
   const erForeldet = foreldet && foreldet === ForeldelseVurderingType.FORELDET;
   const erMedTilleggsfrist = foreldet && foreldet === ForeldelseVurderingType.TILLEGGSFRIST;
-  const foreldelseVurderingTyper = kodeverkSamlingFpTilbake[TilbakekrevingKodeverkType.FORELDELSE_VURDERING].filter(
+  const foreldelseVurderingTyper = kodeverkSamlingFpTilbake['ForeldelseVurderingType'].filter(
     fv => fv.kode !== ForeldelseVurderingType.IKKE_VURDERT,
   );
 

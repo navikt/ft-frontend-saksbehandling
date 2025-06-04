@@ -1,4 +1,9 @@
-import { AktivitetStatus as aktivitetStatuser, FaktaOmBeregningTilfelle, Inntektskategori } from '@navikt/ft-kodeverk';
+import {
+  AktivitetStatus,
+  AktivitetStatus as aktivitetStatuser,
+  FaktaOmBeregningTilfelle,
+  Inntektskategori,
+} from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagAndel, FaktaOmBeregning, FaktaOmBeregningAndel } from '@navikt/ft-types';
 import { ATFLSammeOrgAndel } from '@navikt/ft-types/src/BeregningsgrunnlagFakta';
 
@@ -49,7 +54,7 @@ const lagFaktaOmBeregning = (
     vurderMottarYtelse,
   }) as FaktaOmBeregning;
 
-const lagAndel = (andelsnr: number, aktivitetStatus: string, inntektskategori: string) => ({
+const lagAndel = (andelsnr: number, aktivitetStatus: AktivitetStatus, inntektskategori: string) => ({
   andelsnr,
   aktivitetStatus,
   inntektskategori,

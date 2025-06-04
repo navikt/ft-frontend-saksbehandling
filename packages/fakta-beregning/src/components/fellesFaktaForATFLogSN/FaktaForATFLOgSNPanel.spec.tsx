@@ -29,8 +29,11 @@ const lagBeregningsgrunnlag = (andeler: FaktaOmBeregningAndel[]): Beregningsgrun
 describe('<FaktaForATFLOgSNPanel>', () => {
   it('skal kunne transform values for kun besteberegning', () => {
     const aktivePaneler = [FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE];
-    const andel1 = { andelsnr: 1, aktivitetStatus: 'ATFL' } as BeregningsgrunnlagAndel;
-    const andel2 = { andelsnr: 2, aktivitetStatus: 'SN' } as BeregningsgrunnlagAndel;
+    const andel1 = { andelsnr: 1, aktivitetStatus: AktivitetStatus.ARBEIDSAVKLARINGSPENGER };
+    const andel2 = {
+      andelsnr: 2,
+      aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    } as BeregningsgrunnlagAndel;
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: aktivePaneler,

@@ -2,18 +2,17 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Label, Table } from '@navikt/ds-react';
 
-import { KodeverkType } from '@navikt/ft-kodeverk';
 import { PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { BeregningResultatPeriode } from '../types/BeregningsresultatTilbakekreving';
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelTv';
+import { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 
 import styles from './tilbakekrevingVedtakPeriodeTabell.module.css';
 
 interface Props {
   perioder: BeregningResultatPeriode[];
-  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
 }
 
 export const TilbakekrevingVedtakPeriodeTabell = ({ perioder, kodeverkSamlingFpTilbake }: Props) => {
@@ -30,7 +29,7 @@ export const TilbakekrevingVedtakPeriodeTabell = ({ perioder, kodeverkSamlingFpT
         </Table.DataCell>
         <Table.DataCell>
           <BodyShort size="small">
-            {kodeverkSamlingFpTilbake[KodeverkType.AKTSOMHET].find(a => a.kode === periode.vurdering)?.navn}
+            {kodeverkSamlingFpTilbake['Aktsomhet'].find(a => a.kode === periode.vurdering)?.navn}
           </BodyShort>
         </Table.DataCell>
         <Table.DataCell>

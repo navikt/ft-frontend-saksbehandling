@@ -1,11 +1,11 @@
-import { AktivitetStatus as aktivitetStatuser, KodeverkType } from '@navikt/ft-kodeverk';
+import { AktivitetStatus as aktivitetStatuser } from '@navikt/ft-kodeverk';
 
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { InntektFieldArray } from './InntektFieldArray';
 import { leggTilDagpengerOmBesteberegning } from './inntektFieldArrayUtils';
 
 const kodeverkSamling = {
-  [KodeverkType.AKTIVITET_STATUS]: [
+  AktivitetStatus: [
     {
       kode: aktivitetStatuser.MILITAER_ELLER_SIVIL,
       navn: 'Militær og siviltjeneste',
@@ -46,7 +46,7 @@ describe('InntektFieldArray', () => {
     leggTilDagpengerOmBesteberegning(
       newfields as any,
       false,
-      kodeverkSamling[KodeverkType.AKTIVITET_STATUS],
+      kodeverkSamling['AktivitetStatus'],
       false,
       rm as any,
       (values: any) => newfields.push(values),

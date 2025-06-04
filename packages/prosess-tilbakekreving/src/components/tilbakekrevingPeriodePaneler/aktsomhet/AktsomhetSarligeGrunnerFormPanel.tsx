@@ -5,8 +5,8 @@ import { ErrorMessage, Label, VStack } from '@navikt/ds-react';
 
 import { CheckboxField, TextAreaField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { KodeverkMedNavn } from '@navikt/ft-types';
 
+import { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
 import { AktsomhetReduksjonAvBelopFormPanel } from './AktsomhetReduksjonAvBelopFormPanel';
 
 const minLength3 = minLength(3);
@@ -20,7 +20,7 @@ export interface Props {
   harMerEnnEnYtelse: boolean;
   feilutbetalingBelop: number;
   andelSomTilbakekreves?: string;
-  sarligGrunnTyper: KodeverkMedNavn[];
+  sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[];
   name: string;
 }
 
@@ -50,7 +50,7 @@ export const AktsomhetSarligeGrunnerFormPanel = ({
         <FormattedMessage id="AktsomhetSarligeGrunnerFormPanel.GrunnerTilReduksjon" />
       </Label>
       <div>
-        {sarligGrunnTyper.map((sgt: KodeverkMedNavn) => (
+        {sarligGrunnTyper.map(sgt => (
           <CheckboxField key={sgt.kode} name={`${name}.${sgt.kode}`} label={sgt.navn} readOnly={readOnly} />
         ))}
       </div>

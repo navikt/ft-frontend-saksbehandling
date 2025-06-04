@@ -1,10 +1,9 @@
 import { UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
 
-import { AktivitetStatus, Inntektskategori, KodeverkType } from '@navikt/ft-kodeverk';
-import { KodeverkMedNavn } from '@navikt/ft-types';
+import { AktivitetStatus, Inntektskategori } from '@navikt/ft-kodeverk';
 
 import { AndelFieldValue } from '../../typer/FieldValues';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanel';
 
 const findAktivitetStatusIndex = (fields: AndelFieldValue[], aktivitetStatusKode: string) => {
   let index = -1;
@@ -42,7 +41,7 @@ export const fjernEllerLeggTilAktivitetStatus = (
   }
 };
 
-export const finnStatus = (aktivitetStatuser: KodeverkMedNavn[], status: string): string => {
+export const finnStatus = (aktivitetStatuser: KodeverkMedNavn<'AktivitetStatus'>[], status: string): string => {
   const navn = aktivitetStatuser.find(({ kode }) => kode === status)?.navn;
   if (!navn) {
     throw new Error('Fant ikke aktivitetstatus med navn' + status);
@@ -50,7 +49,7 @@ export const finnStatus = (aktivitetStatuser: KodeverkMedNavn[], status: string)
   return navn;
 };
 
-const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
+const dagpenger = (aktivitetStatuser: KodeverkMedNavn<'AktivitetStatus'>[]): AndelFieldValue => ({
   andel: finnStatus(aktivitetStatuser, AktivitetStatus.DAGPENGER),
   aktivitetStatus: AktivitetStatus.DAGPENGER,
   fastsattBelop: '',
@@ -63,7 +62,7 @@ const dagpenger = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
 export const leggTilDagpengerOmBesteberegning = (
   fields: AndelFieldValue[],
   skalHaBesteberegning: boolean,
-  aktivitetStatuser: KodeverkMedNavn[],
+  aktivitetStatuser: KodeverkMedNavn<'AktivitetStatus'>[],
   skalKunneLeggeTilDagpenger: boolean,
   remove: UseFieldArrayRemove,
   append: UseFieldArrayAppend<AndelFieldValue>,
@@ -80,4 +79,4 @@ export const leggTilDagpengerOmBesteberegning = (
 };
 
 export const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: KodeverkForPanel) =>
-  kodeverkSamling[KodeverkType.INNTEKTSKATEGORI].slice().sort((a, b) => a.navn.localeCompare(b.navn));
+  kodeverkSamling['Inntektskategori'].slice().sort((a, b) => a.navn.localeCompare(b.navn));

@@ -5,12 +5,11 @@ import dayjs from 'dayjs';
 
 import { Datepicker, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
-import { KodeverkType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { DateLabel, EditedIcon, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { formaterArbeidsgiver, periodFormat } from '@navikt/ft-utils';
 
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { lagAktivitetFieldId, skalVurdereAktivitet } from './vurderAktiviteterTabellUtils';
 
 interface Props {
@@ -40,8 +39,7 @@ const lagVisningsnavn = (
     : undefined;
   if (!agOpplysning) {
     return aktivitet.arbeidsforholdType
-      ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(oat => oat.kode === aktivitet.arbeidsforholdType)
-          ?.navn || ''
+      ? kodeverkSamling['OpptjeningAktivitetType'].find(oat => oat.kode === aktivitet.arbeidsforholdType)?.navn || ''
       : '';
   }
   return formaterArbeidsgiver(agOpplysning, aktivitet.eksternArbeidsforholdId);

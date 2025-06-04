@@ -17,8 +17,8 @@ import { Button, HStack, Timeline, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { RelasjonsRolleType } from '@navikt/ft-kodeverk';
-import { KodeverkMedNavn } from '@navikt/ft-types';
 
+import { KodeverkMedNavn } from '../../types/kodeverkMedNavn';
 import { TidslinjePeriode } from '../../types/TidslinjePeriode';
 
 import styles from './tilbakekrevingTimeline.module.css';
@@ -62,9 +62,9 @@ const PERIODE_STATUS_IKON_MAP = {
 interface Props {
   perioder: TidslinjePeriode[];
   valgtPeriode?: TidslinjePeriode;
-  relasjonsRolleType: string;
+  relasjonsRolleType: RelasjonsRolleType;
   setPeriode: (periode?: TidslinjePeriode) => void;
-  relasjonsRolleTypeKodeverk: KodeverkMedNavn[];
+  relasjonsRolleTypeKodeverk: KodeverkMedNavn<RelasjonsRolleType>[];
 }
 
 /**

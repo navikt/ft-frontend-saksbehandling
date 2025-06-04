@@ -3,7 +3,7 @@ import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { BrukersAndelValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
 import { setGenerellAndelsinfo } from '../BgFaktaUtils';
 import { KunYtelseBesteberegning } from './KunYtelseBesteberegningPanel';
 import { KunYtelseUtenBesteberegningPanel } from './KunYtelseUtenBesteberegningPanel';

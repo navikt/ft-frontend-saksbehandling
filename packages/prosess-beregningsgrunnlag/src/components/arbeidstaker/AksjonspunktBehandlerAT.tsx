@@ -8,7 +8,7 @@ import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
 import { ArbeidsinntektResultat } from '../../types/interface/BeregningsgrunnlagAP';
-import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 import { HorizontalBox } from '../../util/HorizontalBox';
 

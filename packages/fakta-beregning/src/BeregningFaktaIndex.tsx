@@ -17,7 +17,7 @@ import { BeregningInfoPanel } from './components/BeregningInfoPanel';
 import { AvklarAktiviteterFormValues } from './typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { SubmitBeregningType } from './typer/interface/SubmitBeregningTsType';
-import { KodeverkForPanel } from './typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from './typer/KodeverkForPanel';
 import { Vilkår, Vilkårperiode } from './typer/Vilkår';
 import { VurderFaktaBeregningFormValues } from './typer/VurderFaktaBeregningFormValues';
 import { hasAksjonspunkt, isAksjonspunktClosed } from './utils/aksjonspunktUtils';

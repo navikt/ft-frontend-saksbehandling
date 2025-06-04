@@ -5,7 +5,6 @@ import { BodyShort, Button, Detail, HStack, Label, VStack } from '@navikt/ds-rea
 
 import { CheckboxField, Form, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { KodeverkType } from '@navikt/ft-kodeverk';
 import { AksjonspunktHelpTextHTML, BeløpLabel, DateLabel, FaktaGruppe, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity, sortPeriodsByFom } from '@navikt/ft-utils';
 
@@ -13,8 +12,8 @@ import { FeilutbetalingAksjonspunktCode } from '../FeilutbetalingAksjonspunktCod
 import { AvklartFaktaFeilutbetalingAp } from '../types/AvklartFaktaFeilutbetalingAp';
 import { FeilutbetalingÅrsak } from '../types/FeilutbetalingÅrsak';
 import { FeilutbetalingFakta } from '../types/FeilutbetalingFakta';
-import { KodeverkFpSakForPanel } from '../types/KodeverkFpSakForPanelFtf';
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelFtf';
+import { KodeverkForPanel } from '../types/KodeverkForPanel';
+import { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 import { FeilutbetalingPerioderFieldArray, FormValues as PeriodeFormValues } from './FeilutbetalingPerioderFieldArray';
 
 import styles from './feilutbetalingInfoPanel.module.css';
@@ -92,14 +91,12 @@ const transformValues = (
 
 const getSortedFeilutbetalingArsaker = (
   feilutbetalingArsaker: FeilutbetalingÅrsak,
-  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel,
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel,
 ): FeilutbetalingÅrsak['hendelseTyper'] => {
   const { hendelseTyper } = feilutbetalingArsaker;
   return hendelseTyper.sort((ht1, ht2) => {
-    const hendelseType1 =
-      kodeverkSamlingFpTilbake[KodeverkType.HENDELSE_TYPE].find(h => h.kode === ht1.hendelseType)?.navn || '';
-    const hendelseType2 =
-      kodeverkSamlingFpTilbake[KodeverkType.HENDELSE_TYPE].find(h => h.kode === ht2.hendelseType)?.navn || '';
+    const hendelseType1 = kodeverkSamlingFpTilbake['HendelseType'].find(h => h.kode === ht1.hendelseType)?.navn || '';
+    const hendelseType2 = kodeverkSamlingFpTilbake['HendelseType'].find(h => h.kode === ht2.hendelseType)?.navn || '';
     const hendelseType1ErParagraf = hendelseType1.startsWith('§');
     const hendelseType2ErParagraf = hendelseType2.startsWith('§');
     const ht1v = hendelseType1ErParagraf ? hendelseType1.replace(/\D/g, '') : hendelseType1;
@@ -115,8 +112,8 @@ export interface Props {
   submitCallback: (aksjonspunktData: AvklartFaktaFeilutbetalingAp) => Promise<void>;
   hasOpenAksjonspunkter: boolean;
   readOnly: boolean;
-  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
-  kodeverkSamlingFpsak: KodeverkFpSakForPanel;
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
+  kodeverkSamlingFpsak: KodeverkForPanel;
   alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
   formData?: FormValues;
   setFormData: (data: FormValues) => void;
@@ -233,9 +230,8 @@ export const FeilutbetalingInfoPanel = ({
                       {feilutbetaling.behandlingÅrsaker
                         .map(
                           ba =>
-                            kodeverkSamlingFpsak[KodeverkType.BEHANDLING_AARSAK].find(
-                              a => a.kode === ba.behandlingArsakType,
-                            )?.navn,
+                            kodeverkSamlingFpsak['BehandlingÅrsakType'].find(a => a.kode === ba.behandlingArsakType)
+                              ?.navn,
                         )
                         .join(', ')}
                     </BodyShort>
@@ -259,7 +255,7 @@ export const FeilutbetalingInfoPanel = ({
                 {feilutbetaling.behandlingsresultat && (
                   <BodyShort size="small">
                     {
-                      kodeverkSamlingFpsak[KodeverkType.BEHANDLING_AARSAK].find(
+                      kodeverkSamlingFpsak['BehandlingResultatType'].find(
                         a => a.kode === feilutbetaling.behandlingsresultat?.type,
                       )?.navn
                     }
@@ -273,9 +269,7 @@ export const FeilutbetalingInfoPanel = ({
                 {feilutbetaling.behandlingsresultat && (
                   <BodyShort size="small">
                     {feilutbetaling.behandlingsresultat.konsekvenserForYtelsen
-                      .map(
-                        ba => kodeverkSamlingFpsak[KodeverkType.KONSEKVENS_FOR_YTELSEN].find(k => k.kode === ba)?.navn,
-                      )
+                      .map(ba => kodeverkSamlingFpsak['KonsekvensForYtelsen'].find(k => k.kode === ba)?.navn)
                       .join(', ')}
                   </BodyShort>
                 )}
@@ -287,7 +281,7 @@ export const FeilutbetalingInfoPanel = ({
                 {feilutbetaling.tilbakekrevingValg && (
                   <BodyShort size="small">
                     {
-                      kodeverkSamlingFpTilbake[KodeverkType.TILBAKEKR_VIDERE_BEH].find(
+                      kodeverkSamlingFpTilbake['VidereBehandling'].find(
                         tvb => tvb.kode === feilutbetaling.tilbakekrevingValg?.videreBehandling,
                       )?.navn
                     }

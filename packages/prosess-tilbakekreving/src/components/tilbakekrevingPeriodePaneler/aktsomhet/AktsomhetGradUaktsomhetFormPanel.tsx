@@ -4,10 +4,10 @@ import { Label, VStack } from '@navikt/ds-react';
 
 import { RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { KodeverkMedNavn } from '@navikt/ft-types';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
 import { Aktsomhet } from '../../../kodeverk/aktsomhet';
+import { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
 import { AktsomhetSarligeGrunnerFormPanel } from './AktsomhetSarligeGrunnerFormPanel';
 
 import styles from './aktsomhetGradUaktsomhetFormPanel.module.css';
@@ -40,7 +40,7 @@ export interface Props {
   harMerEnnEnYtelse: boolean;
   feilutbetalingBelop: number;
   erTotalBelopUnder4Rettsgebyr: boolean;
-  sarligGrunnTyper: KodeverkMedNavn[];
+  sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[];
   andelSomTilbakekreves?: string;
   erValgtResultatTypeForstoBurdeForstaatt?: boolean;
   name: string;

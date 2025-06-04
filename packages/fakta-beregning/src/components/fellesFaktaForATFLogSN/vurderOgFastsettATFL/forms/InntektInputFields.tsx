@@ -7,7 +7,7 @@ import { Label, List, ReadMore, VStack } from '@navikt/ds-react';
 import { AktivitetStatus, FaktaOmBeregningTilfelle, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 
-import { KodeverkForPanel } from '../../../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../../../typer/KodeverkForPanel';
 import { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
 import { ArbeidsinntektInput } from '../../../felles/ArbeidsinntektInput';
 import { InntektInput } from '../../../felles/InntektInput';

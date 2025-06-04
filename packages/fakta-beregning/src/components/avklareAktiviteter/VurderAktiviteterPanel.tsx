@@ -9,7 +9,7 @@ import { dateFormat } from '@navikt/ft-utils';
 
 import { AktiviteterValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { leggTilAktivitet } from './vurderAktiviteterPanelUtils';
 import { VurderAktiviteterTabell } from './VurderAktiviteterTabell';
 import { lagAktivitetFieldId } from './vurderAktiviteterTabellUtils';

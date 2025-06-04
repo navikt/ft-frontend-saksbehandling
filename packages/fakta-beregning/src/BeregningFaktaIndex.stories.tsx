@@ -36,6 +36,7 @@ import {
 } from '../testdata/ToArbeidsforholdIOpptjeningsperioden';
 import { BeregningFaktaIndex } from './BeregningFaktaIndex';
 import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { KodeverkForPanel } from './typer/KodeverkForPanel';
 import { Vilkår, Vilkårperiode } from './typer/Vilkår';
 
 import '@navikt/ds-css';
@@ -215,7 +216,7 @@ const meta = {
   component: BeregningFaktaIndex,
   args: {
     erOverstyrer: true,
-    kodeverkSamling: alleKodeverkMock as any,
+    kodeverkSamling: alleKodeverkMock as KodeverkForPanel,
     submitCallback: action('button-click') as (data: any) => Promise<any>,
     readOnly: false,
     submittable: true,

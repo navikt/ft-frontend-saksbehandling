@@ -1,3 +1,6 @@
+import { OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
+import { AndelForFaktaOmBeregning } from '@navikt/ft-types';
+
 import { ArbeidsinntektInput } from './ArbeidsinntektInput';
 
 describe('<ArbeidsinntektInput>', () => {
@@ -10,7 +13,7 @@ describe('<ArbeidsinntektInput>', () => {
         arbeidsforhold: {
           arbeidsgiverIdent: '947064649',
           startdato: '2002-04-20',
-          arbeidsforholdType: 'ARBEID',
+          arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
         },
         andelsnr: 1,
         skalKunneEndreAktivitet: false,
@@ -21,13 +24,13 @@ describe('<ArbeidsinntektInput>', () => {
         inntektskategori: 'FRILANSER',
         aktivitetStatus: 'FL',
         arbeidsforhold: {
-          arbeidsforholdType: 'FRILANS',
+          arbeidsforholdType: OpptjeningAktivitetType.FRILANS,
         },
         andelsnr: 2,
         skalKunneEndreAktivitet: false,
         lagtTilAvSaksbehandler: false,
       },
-    ];
+    ] satisfies AndelForFaktaOmBeregning[];
     const initialValues = ArbeidsinntektInput.buildInitialValues(andelerForFaktaOmBeregning);
     expect(initialValues).toEqual([
       {
@@ -52,13 +55,13 @@ describe('<ArbeidsinntektInput>', () => {
         inntektskategori: 'FRILANSER',
         aktivitetStatus: 'FL',
         arbeidsforhold: {
-          arbeidsforholdType: 'FRILANS',
+          arbeidsforholdType: OpptjeningAktivitetType.FRILANS,
         },
         andelsnr: 2,
         skalKunneEndreAktivitet: false,
         lagtTilAvSaksbehandler: false,
       },
-    ];
+    ] satisfies AndelForFaktaOmBeregning[];
     const initialValues = ArbeidsinntektInput.buildInitialValues(andelerForFaktaOmBeregning);
     expect(initialValues).toEqual([]);
   });

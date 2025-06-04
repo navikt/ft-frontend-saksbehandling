@@ -1,9 +1,9 @@
-import { KodeverkType, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
+import { OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { AktivitetValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { VurderAktiviteterTabell } from './VurderAktiviteterTabell';
 import { lagAktivitetFieldId, skalVurdereAktivitet } from './vurderAktiviteterTabellUtils';
 
@@ -66,7 +66,7 @@ const agOpplysninger: ArbeidsgiverOpplysningerPerId = {
 };
 
 const kodeverkSamling = {
-  [KodeverkType.OPPTJENING_AKTIVITET_TYPE]: [
+  OpptjeningAktivitetType: [
     {
       kode: OpptjeningAktivitetType.ARBEID,
       navn: 'Arbeid',

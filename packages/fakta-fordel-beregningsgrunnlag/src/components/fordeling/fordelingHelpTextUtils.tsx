@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { KodeverkType } from '@navikt/ft-kodeverk';
 import {
   ArbeidsforholdTilFordeling,
   ArbeidsgiverOpplysningerPerId,
@@ -116,30 +115,34 @@ const lagPeriodeStreng = (perioder: PerioderMedGraderingEllerRefusjon[]): string
   return byggListeSomStreng(listeMedPeriodeStrenger);
 };
 
+const getKodeverknavn = (kode: string): string => {
+  if (kode === 'AAP') {
+    return 'Arbeidsavklaringspenger';
+  }
+  return '';
+};
+
 const finnVisningsnavn = (
   arbeidsforhold: ArbeidsforholdTilFordeling,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
 ): string => {
   const agOpplysninger = arbeidsforhold.arbeidsgiverIdent
     ? arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent]
     : undefined;
   if (!agOpplysninger) {
-    return arbeidsforhold.arbeidsforholdType
-      ? getKodeverknavn(arbeidsforhold.arbeidsforholdType, KodeverkType.OPPTJENING_AKTIVITET_TYPE)
-      : '';
+    return arbeidsforhold.arbeidsforholdType ? getKodeverknavn(arbeidsforhold.arbeidsforholdType) : '';
   }
   return formaterArbeidsgiver(agOpplysninger, arbeidsforhold.eksternArbeidsforholdId);
 };
 
+//Denne funksjonen blir kun brukt i test
 export const createFordelArbeidsforholdString = (
   listOfArbeidsforhold: ArbeidsforholdTilFordeling[],
   mTextCase: string,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  getKodeverknavn: (kode: string, kodeverk: KodeverkType) => string,
 ): string => {
   const listOfStrings = listOfArbeidsforhold.map(arbeidsforhold => {
-    const visningsnavn = finnVisningsnavn(arbeidsforhold, arbeidsgiverOpplysningerPerId, getKodeverknavn);
+    const visningsnavn = finnVisningsnavn(arbeidsforhold, arbeidsgiverOpplysningerPerId);
     if (!arbeidsforhold.perioderMedGraderingEllerRefusjon) {
       return '';
     }

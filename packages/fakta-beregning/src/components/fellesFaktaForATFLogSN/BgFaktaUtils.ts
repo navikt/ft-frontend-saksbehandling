@@ -2,7 +2,6 @@ import {
   AktivitetStatus,
   FaktaOmBeregningTilfelle,
   Inntektskategori,
-  KodeverkType,
   OpptjeningAktivitetType as OAType,
   Organisasjonstype as organisasjonstyper,
 } from '@navikt/ft-kodeverk';
@@ -24,7 +23,7 @@ import {
 } from '../../typer/FaktaBeregningTypes';
 import { AndelFieldIdentifikator, AndelFieldValue } from '../../typer/FieldValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse } from './vurderOgFastsettATFL/forms/AvsluttetArbeidsforhold';
@@ -48,10 +47,9 @@ const lagVisningsnavn = (
     : undefined;
   if (!agOpplysning) {
     return andel.arbeidsforhold?.arbeidsforholdType
-      ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(
-          oat => oat.kode === andel.arbeidsforhold?.arbeidsforholdType,
-        )?.navn
-      : kodeverkSamling[KodeverkType.AKTIVITET_STATUS].find(at => at.kode === andel.aktivitetStatus)?.navn;
+      ? kodeverkSamling['OpptjeningAktivitetType'].find(oat => oat.kode === andel.arbeidsforhold?.arbeidsforholdType)
+          ?.navn
+      : kodeverkSamling['AktivitetStatus'].find(at => at.kode === andel.aktivitetStatus)?.navn;
   }
   return formaterArbeidsgiver(agOpplysning, andel.arbeidsforhold?.eksternArbeidsforholdId);
 };

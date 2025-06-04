@@ -13,7 +13,7 @@ import {
   FaktaBeregningTransformedValues,
 } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { ArbeidsinntektInput } from '../felles/ArbeidsinntektInput';
 import { InntektInput } from '../felles/InntektInput';
 import { VurderBesteberegningForm } from './besteberegningFodendeKvinne/VurderBesteberegningForm';

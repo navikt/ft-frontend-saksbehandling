@@ -1,19 +1,13 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { action } from 'storybook/actions';
 
-import {
-  AksjonspunktStatus,
-  BehandlingStatus,
-  ForeldelseVurderingType,
-  RelasjonsRolleType,
-  TilbakekrevingKodeverkType,
-} from '@navikt/ft-kodeverk';
+import { AksjonspunktStatus, BehandlingStatus, ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
 import { Behandling } from '@navikt/ft-types';
 
 import { ForeldelseAksjonspunktCodes } from './ForeldelseAksjonspunktCodes';
 import { ForeldelseProsessIndex } from './ForeldelseProsessIndex';
 import { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
-import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTf';
+import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 import { VurderForeldelseAp } from './types/VurderForeldelseAp';
 
 import '@navikt/ds-css';
@@ -55,7 +49,7 @@ const perioderForeldelse = {
 } as FeilutbetalingPerioderWrapper;
 
 const kodeverkSamling = {
-  [TilbakekrevingKodeverkType.FORELDELSE_VURDERING]: [
+  ForeldelseVurderingType: [
     {
       kode: ForeldelseVurderingType.FORELDET,
       navn: 'Foreldet',
@@ -72,7 +66,7 @@ const kodeverkSamling = {
       kodeverk: 'FORELDELSE_VURDERING',
     },
   ],
-} as KodeverkFpTilbakeForPanel;
+} as KodeverkTilbakeForPanel;
 
 const meta = {
   component: ForeldelseProsessIndex,
@@ -92,7 +86,7 @@ const meta = {
     alleMerknaderFraBeslutter: {},
     relasjonsRolleTypeKodeverk: [
       {
-        kode: 'MORA',
+        kode: RelasjonsRolleType.MOR,
         kodeverk: 'RELASJONSROLLE_TYPE',
         navn: 'Mor',
       },

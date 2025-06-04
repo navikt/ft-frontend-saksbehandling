@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { useFormContext, UseFormReturn } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 
 import { InputField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { AktivitetStatus, KodeverkType, PeriodeAarsak } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
@@ -27,7 +27,7 @@ import {
   TidsbegrensetArbeidsforholdInntektResultat,
   TidsbegrensetArbeidsforholdPeriodeResultat,
 } from '../../types/interface/BeregningsgrunnlagAP';
-import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 import tableStyles from '../tableStyle.module.css';
@@ -86,8 +86,7 @@ const lagVisningsnavnForAktivitet = (
     : null;
   if (!arbeidsforholdInfo) {
     return arbeidsforhold.arbeidsforholdType
-      ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(a => a.kode === arbeidsforhold.arbeidsforholdType)
-          ?.navn
+      ? kodeverkSamling['OpptjeningAktivitetType'].find(a => a.kode === arbeidsforhold.arbeidsforholdType)?.navn
       : '';
   }
   return formaterArbeidsgiver(arbeidsforholdInfo, arbeidsforhold.eksternArbeidsforholdId);

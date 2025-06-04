@@ -5,13 +5,8 @@ import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { ErrorMessage, Table, VStack } from '@navikt/ds-react';
 
 import { useCustomValidation } from '@navikt/ft-form-hooks';
-import { AktivitetStatus, Inntektskategori, KodeverkType } from '@navikt/ft-kodeverk';
-import {
-  AndelForFaktaOmBeregning,
-  ArbeidsgiverOpplysningerPerId,
-  Beregningsgrunnlag,
-  KodeverkMedNavn,
-} from '@navikt/ft-types';
+import { AktivitetStatus, Inntektskategori } from '@navikt/ft-kodeverk';
+import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import {
@@ -23,7 +18,7 @@ import {
   SelvstendigNæringsdrivendeInntektValues,
 } from '../../typer/FaktaBeregningTypes';
 import { AndelFieldValue, InntektTransformed } from '../../typer/FieldValues';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanel';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import {
   erOverstyringAvBeregningsgrunnlag,
@@ -44,7 +39,7 @@ import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 
 import tableStyles from '../felles/tableStyle.module.css';
 
-const lagNyMS = (aktivitetStatuser: KodeverkMedNavn[]): AndelFieldValue => ({
+const lagNyMS = (aktivitetStatuser: KodeverkMedNavn<'AktivitetStatus'>[]): AndelFieldValue => ({
   andel: finnStatus(aktivitetStatuser, AktivitetStatus.MILITAER_ELLER_SIVIL),
   aktivitetStatus: AktivitetStatus.MILITAER_ELLER_SIVIL,
   fastsattBelop: '',
@@ -92,7 +87,7 @@ const erMilitærEllerSivil = (aktivitetStatus: string): boolean =>
 const fjernEllerLeggTilMilitær = (
   fields: AndelFieldValue[],
   skalHaMilitær: boolean,
-  aktivitetStatuser: KodeverkMedNavn[],
+  aktivitetStatuser: KodeverkMedNavn<'AktivitetStatus'>[],
   remove: UseFieldArrayRemove,
   append: UseFieldArrayAppend<AndelFieldValue>,
 ) => {
@@ -182,7 +177,7 @@ export const InntektFieldArray = ({
 
   useEffect(() => {
     const currentFields = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.inntektFieldArray`);
-    const aktivitetStatuser = kodeverkSamling[KodeverkType.AKTIVITET_STATUS];
+    const aktivitetStatuser = kodeverkSamling['AktivitetStatus'];
     if (currentFields) {
       fjernEllerLeggTilMilitær(
         currentFields,
