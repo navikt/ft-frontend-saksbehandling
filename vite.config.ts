@@ -1,5 +1,4 @@
 import react from '@vitejs/plugin-react';
-import appRoot from 'app-root-path';
 import path from 'path';
 import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
 import circleDependency from 'vite-plugin-circular-dependency';
@@ -10,7 +9,7 @@ const vitestConfig = defineVitestConfig({
   test: {
     watch: false,
     globals: true,
-    setupFiles: path.join(appRoot.path, 'vitest-setup.ts'),
+    setupFiles: path.resolve(__dirname, 'vitest-setup.ts'),
     testTimeout: 20000,
     projects: [
       {
