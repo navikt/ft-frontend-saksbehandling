@@ -67,6 +67,7 @@ export const PersonCard = ({
     };
   });
 
+  const personAge = showPersonAge ? getPersonAge(fodselsnummer, age) : '';
   return (
     <VisittKort active={isActive} icon={<GenderIcon gender={gender} isChild={isChild} />}>
       {url ? (
@@ -82,12 +83,12 @@ export const PersonCard = ({
           style={{ display: 'block', minWidth: '80px' }}
         >
           {name}
-          {showPersonAge ? getPersonAge(fodselsnummer, age) : ''}
+          {personAge}
         </BodyShort>
       ) : (
         <BodyShort weight="semibold" truncate style={{ minWidth: '80px' }}>
           {name}
-          {showPersonAge ? getPersonAge(fodselsnummer, age) : ''}
+          {personAge}
         </BodyShort>
       )}
       {isChild ? (
