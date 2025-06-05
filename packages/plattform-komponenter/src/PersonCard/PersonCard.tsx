@@ -22,17 +22,21 @@ export interface Props {
   isChild?: boolean;
   childAge?: string | React.ReactNode;
   showPersonAge?: boolean;
+  age?: number;
 }
 
 function formaterFnr(fnr: string) {
   return fnr.slice(0, 6) + ' ' + fnr.slice(6);
 }
 
-const getPersonAge = (fnr: string) => {
-  const fnrDate = dayjs(`${fnr.substring(0, 2)}-${fnr.substring(2, 4)}-${fnr.substring(4, 6)}`, 'DD-MM-YY');
-  const adjustedDate = fnrDate.year() > dayjs().year() ? fnrDate.subtract(100, 'year') : fnrDate;
-  const age = dayjs().diff(adjustedDate, 'year');
-  return ` (${new Intl.NumberFormat('nb-NO', { style: 'unit', unit: 'year' }).format(age)})`;
+const getPersonAge = (fnr: string, age?: number) => {
+  let alder = age;
+  if (alder == undefined) {
+    const fnrDate = dayjs(`${fnr.substring(0, 2)}-${fnr.substring(2, 4)}-${fnr.substring(4, 6)}`, 'DD-MM-YY');
+    const adjustedDate = fnrDate.year() > dayjs().year() ? fnrDate.subtract(100, 'year') : fnrDate;
+    alder = dayjs().diff(adjustedDate, 'year');
+  }
+  return ` (${new Intl.NumberFormat('nb-NO', { style: 'unit', unit: 'year' }).format(alder)})`;
 };
 
 export const PersonCard = ({
@@ -46,6 +50,7 @@ export const PersonCard = ({
   isChild,
   childAge,
   showPersonAge,
+  age,
 }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const menuRef = React.useRef<HTMLButtonElement>(null);
@@ -77,12 +82,12 @@ export const PersonCard = ({
           style={{ display: 'block', minWidth: '80px' }}
         >
           {name}
-          {showPersonAge ? getPersonAge(fodselsnummer) : ''}
+          {showPersonAge ? getPersonAge(fodselsnummer, age) : ''}
         </BodyShort>
       ) : (
         <BodyShort weight="semibold" truncate style={{ minWidth: '80px' }}>
           {name}
-          {showPersonAge ? getPersonAge(fodselsnummer) : ''}
+          {showPersonAge ? getPersonAge(fodselsnummer, age) : ''}
         </BodyShort>
       )}
       {isChild ? (
