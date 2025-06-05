@@ -9,6 +9,7 @@ export { RhfSelect } from './src/RhfSelect/RhfSelect';
 export { SubmitButton } from './src/SubmitButton';
 export { RhfTextarea } from './src/RhfTextarea/RhfTextarea';
 export { RhfForm } from './src/RhfForm';
-export { PeriodFieldArray } from './src/PeriodFieldArray/PeriodFieldArray';
+// TODO: Bytt ut bruk av PeriodFieldArray med FieldArray
+export { PeriodFieldArray, PeriodFieldArray as FieldArray } from './src/PeriodFieldArray/PeriodFieldArray';
 export { ReadOnlyField } from './src/ReadOnlyField/ReadOnlyField';
 export { useCustomValidation } from './src/useCustomValidation';

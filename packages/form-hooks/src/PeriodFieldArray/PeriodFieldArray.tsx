@@ -1,110 +1,113 @@
-import React, { type ReactNode } from 'react';
-import { type FieldArrayMethodProps } from 'react-hook-form';
+import { type ReactNode } from 'react';
+import type {
+  FieldArray,
+  FieldArrayPath,
+  FieldArrayWithId,
+  FieldValues,
+  UseFieldArrayAppend,
+  UseFieldArrayRemove,
+} from 'react-hook-form';
 
-import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
-import { Button, Detail, Fieldset } from '@navikt/ds-react';
+import { PlusIcon, XMarkIcon } from '@navikt/aksel-icons';
+import { Button, Fieldset } from '@navikt/ds-react';
 
-import styles from './periodFieldArray.module.css';
-
-function onClick<PERIOD_TYPE>(
-  append: (value: PERIOD_TYPE, options?: FieldArrayMethodProps) => void,
-  emptyPeriodTemplate?: any,
-) {
-  return (): void => {
-    append(emptyPeriodTemplate);
-  };
-}
-
-function onKeyDown<PERIOD_TYPE>(
-  append: (value: PERIOD_TYPE, options?: FieldArrayMethodProps) => void,
-  emptyPeriodTemplate?: any,
-) {
-  return ({ key }: React.KeyboardEvent): void => {
-    if (key === 'Enter') {
-      append(emptyPeriodTemplate);
-    }
-  };
-}
-
-const getRemoveButton =
-  (index: number, remove: (index?: number | number[]) => void) =>
-  // eslint-disable-next-line react/display-name
-  (className?: string): ReactNode | undefined => {
-    if (index > 0) {
-      return (
-        <Button
-          className={className}
-          icon={<XMarkIcon aria-hidden />}
-          type="button"
-          onClick={() => {
-            remove(index);
-          }}
-        />
-      );
-    }
-    return undefined;
-  };
-
-interface Props<PERIOD_TYPE> {
-  children: (field: PERIOD_TYPE, index: number, removeButtonElmt?: (className?: string) => ReactNode) => ReactNode;
-  fields: PERIOD_TYPE[];
+interface Props<
+  TFieldValues extends FieldValues,
+  TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>,
+> {
+  children: (
+    field: FieldArrayWithId<TFieldValues, TFieldArrayName>,
+    index: number,
+    removeButton?: ReactNode,
+  ) => ReactNode;
+  fields: FieldArrayWithId<TFieldValues, TFieldArrayName>[];
   readOnly?: boolean;
   titleText?: string;
-  bodyText: string;
-  emptyPeriodTemplate?: any;
-  shouldShowAddButton?: boolean;
-  createAddButtonInsteadOfImageLink?: boolean;
-  remove: (index?: number | number[]) => void;
-  append: (value: PERIOD_TYPE, options?: FieldArrayMethodProps) => void;
+  addButtonText: string;
+  emptyTemplate: FieldArray<TFieldValues, TFieldArrayName>;
+  remove: UseFieldArrayRemove;
+  append: UseFieldArrayAppend<TFieldValues, TFieldArrayName>;
+  size?: 'small' | 'medium';
 }
 
-/**
- * PeriodFieldArray
- *
- * Håndterer å legge til og fjerne perioder
- */
-export const PeriodFieldArray = <PERIOD_TYPE,>({
+export const PeriodFieldArray = <
+  TFieldValues extends FieldValues,
+  TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>,
+>({
   fields,
   readOnly = true,
   titleText,
-  bodyText,
-  emptyPeriodTemplate = {
-    periodeFom: '',
-    periodeTom: '',
-  },
-  shouldShowAddButton = true,
-  createAddButtonInsteadOfImageLink = false,
+  addButtonText,
+  emptyTemplate,
   children,
   remove,
   append,
-}: Props<PERIOD_TYPE>) => (
-  <Fieldset legend={titleText}>
-    {fields.map((field, index) => children(field, index, getRemoveButton(index, remove)))}
-    {shouldShowAddButton && (
-      <>
-        {!createAddButtonInsteadOfImageLink && !readOnly && (
-          <div
-            onClick={onClick<PERIOD_TYPE>(append, emptyPeriodTemplate)}
-            onKeyDown={onKeyDown<PERIOD_TYPE>(append, emptyPeriodTemplate)}
-            className={styles.addPeriode}
-            role="button"
-            tabIndex={0}
-          >
-            <PlusCircleIcon className={styles.addCircleIcon} title={bodyText} />
-            <Detail className={styles.imageText}>{bodyText}</Detail>
-          </div>
-        )}
-        {createAddButtonInsteadOfImageLink && !readOnly && (
-          <Button
-            icon={<PlusCircleIcon aria-hidden />}
-            type="button"
-            onClick={onClick<PERIOD_TYPE>(append, emptyPeriodTemplate)}
-          >
-            {bodyText}
-          </Button>
-        )}
-        <div style={{ marginBottom: '16px' }} />
-      </>
+  size = 'small',
+}: Props<TFieldValues, TFieldArrayName>) => (
+  <Fieldset legend={titleText} size={size}>
+    {fields.map((field, index) =>
+      children(field, index, <RemoveButton index={index} remove={remove} size={size} skjul={readOnly} />),
     )}
+    <AppendButton append={append} emptyTemplate={emptyTemplate} size={size} skjul={readOnly}>
+      {addButtonText}
+    </AppendButton>
   </Fieldset>
 );
+
+interface RemoveButtonProps {
+  index: number;
+  remove: UseFieldArrayRemove;
+  size?: 'small' | 'medium';
+  skjul?: boolean;
+}
+
+const RemoveButton = ({ index, remove, size, skjul }: RemoveButtonProps): ReactNode | null =>
+  index > 0 && !skjul ? (
+    <Button
+      icon={<XMarkIcon aria-hidden />}
+      title="Fjern element"
+      type="button"
+      variant="tertiary-neutral"
+      size={size}
+      onClick={() => {
+        remove(index);
+      }}
+    />
+  ) : null;
+
+interface AppendButtonProps<
+  TFieldValues extends FieldValues,
+  TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>,
+> {
+  append: UseFieldArrayAppend<TFieldValues, TFieldArrayName>;
+  emptyTemplate: FieldArray<TFieldValues, TFieldArrayName>;
+  size?: 'small' | 'medium';
+  children: ReactNode;
+  skjul?: boolean;
+}
+
+const AppendButton = <
+  TFieldValues extends FieldValues,
+  TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>,
+>({
+  append,
+  size,
+  skjul,
+  emptyTemplate,
+  children,
+}: AppendButtonProps<TFieldValues, TFieldArrayName>) =>
+  !skjul ? (
+    <Button
+      onClick={() => append(emptyTemplate)}
+      type="button"
+      tabIndex={0}
+      variant="tertiary"
+      icon={<PlusIcon aria-hidden />}
+      size={size}
+    >
+      {children}
+    </Button>
+  ) : null;
+
+PeriodFieldArray.RemoveButton = RemoveButton;
+PeriodFieldArray.AppendButton = AppendButton;
