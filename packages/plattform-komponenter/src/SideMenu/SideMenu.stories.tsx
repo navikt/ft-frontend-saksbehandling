@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { HStack } from '@navikt/ds-react';
@@ -15,14 +15,10 @@ const meta = {
       onClick(index);
     };
 
-    const linksWithActiveState = useMemo(
-      () =>
-        links.map((link, index) => ({
-          ...link,
-          active: currentIndex === index,
-        })),
-      [links, currentIndex],
-    );
+    const linksWithActiveState = links.map((link, index) => ({
+      ...link,
+      active: currentIndex === index,
+    }));
     return (
       <div style={{ width: '400px', border: '1px dotted black' }}>
         <HStack>

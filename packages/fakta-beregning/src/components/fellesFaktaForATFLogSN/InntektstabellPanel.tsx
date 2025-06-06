@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Button, Heading, HStack, Label, VStack } from '@navikt/ds-react';
@@ -45,10 +45,7 @@ export const InntektstabellPanel = ({
   const [erTabellOverstyrt, setOverstyring] = useState(erOverstyrt);
 
   const beregningsgrunnlagIndeks = React.useContext(BeregningsgrunnlagIndexContext);
-  const kanOverstyre = useMemo(
-    () => getSkalKunneOverstyre(erOverstyrer, avklaringsbehov),
-    [erOverstyrer, avklaringsbehov],
-  );
+  const kanOverstyre = getSkalKunneOverstyre(erOverstyrer, avklaringsbehov);
 
   const toggleOverstyring = () => {
     setOverstyring(!erTabellOverstyrt);

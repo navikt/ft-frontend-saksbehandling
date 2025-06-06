@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Heading, Table, VStack } from '@navikt/ds-react';
@@ -165,11 +165,7 @@ const lagNaturalytelseTabelldata = (
  * av naturalytelse og for hvilke perioder det gjelder.
  */
 export const NaturalytelsePanel = ({ allePerioder, arbeidsgiverOpplysningerPerId }: Props) => {
-  const tableData = useMemo(
-    () => lagNaturalytelseTabelldata(allePerioder, arbeidsgiverOpplysningerPerId),
-    [allePerioder],
-  );
-
+  const tableData = lagNaturalytelseTabelldata(allePerioder, arbeidsgiverOpplysningerPerId);
   if (!tableData) {
     return null;
   }

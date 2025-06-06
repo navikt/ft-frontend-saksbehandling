@@ -1,4 +1,3 @@
-import React, { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Heading, VStack } from '@navikt/ds-react';
@@ -165,7 +164,7 @@ type Props = {
 };
 
 export const BeregningsresultatPanel = ({ beregningsgrunnlag, vilkårsperiode }: Props) => {
-  const tabellData = useMemo(() => utledTabellData(beregningsgrunnlag), [beregningsgrunnlag]);
+  const tabellData = utledTabellData(beregningsgrunnlag);
 
   return (
     <VStack gap="1">
