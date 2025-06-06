@@ -13,6 +13,7 @@
     "test": "lerna run test --stream",
     "test:changed": "lerna run test --stream --since origin/main",
     "test:coverage": "lerna run test:coverage --stream",
+    "test:browser": "yarn vitest --project=browser",
     "tsc": "lerna run tsc --stream",
     "tsc:changed": "lerna run tsc --stream --since origin/main",
     "eslint": "lerna run eslint --stream",
@@ -49,7 +50,8 @@
     "@types/react": "19.1.6",
     "@types/react-dom": "19.1.5",
     "@types/react-responsive": "9.0.0",
-    "@vitejs/plugin-react": "4.5.0",
+    "@vitejs/plugin-react": "4.5.1",
+    "@vitest/browser": "3.2.1",
     "@vitest/coverage-c8": "0.33.0",
     "cross-env": "7.0.3",
     "eslint": "9.28.0",
@@ -67,6 +69,7 @@
     "jsdom": "26.1.0",
     "lerna": "8.2.2",
     "lint-staged": "15.5.2",
+    "playwright": "^1.52.0",
     "postcss-less": "6.0.0",
     "prettier": "3.5.3",
     "react-test-renderer": "19.1.0",
@@ -78,7 +81,7 @@
     "vite": "6.3.5",
     "vite-plugin-circular-dependency": "0.5.0",
     "vite-plugin-dts": "4.5.4",
-    "vitest": "3.1.4"
+    "vitest": "3.2.1"
   },
   "resolutions": {
     "@types/react": "19.0.3",

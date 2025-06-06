@@ -10,9 +10,11 @@
     "dist"
   ],
   "scripts": {
-    "test": "vitest",
-    "test:watch": "vitest --watch=true",
-    "test:coverage": "vitest --coverage",
+    "test": "vitest --project=jsdom",
+    "test:watch": "vitest --project=jsdom --watch=true",
+    "test:coverage": "vitest --project=jsdom --coverage",
+    "test:browser": "vitest --project=browser",
+    "test:browser:watch": "vitest --project=browser --watch=true",
     "tsc": "tsc --pretty",
     "eslint": "eslint \"src/**/*.ts*\" --color",
     "eslint:fix": "eslint --fix \"src/**/*.ts*\" --color",
@@ -55,7 +57,7 @@
     "stylelint": "16.20.0",
     "typescript": "5.8.3",
     "vite": "6.3.5",
-    "vitest": "3.1.4"
+    "vitest": "3.2.1"
   },
   "resolutions": {
     "@types/react": "19.0.3",
