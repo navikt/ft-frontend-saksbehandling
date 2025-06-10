@@ -7,7 +7,7 @@ export const parseQueryString = (queryString = ''): { [paramName: string]: strin
     .map(([key, value]) => ({ [key]: decodeURIComponent(value) })) // URL-decode value
     .reduce((a, b) => ({ ...a, ...b }), {});
 
-export const formatQueryString = (queryParams: Record<string, string> = {}): string =>
+export const formatQueryString = (queryParams: Record<string, string | boolean> = {}): string =>
   `?${
     // Add leading question mark
     Object.entries(queryParams)

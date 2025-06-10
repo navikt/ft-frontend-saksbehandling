@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-hooks",
-  "version": "2.1.11",
+  "version": "2.1.12",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -28,7 +28,7 @@
     "eslint": "9.28.0",
     "typescript": "5.8.3",
     "vite": "6.3.5",
-    "vitest": "3.2.1"
+    "vitest": "3.2.3"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
