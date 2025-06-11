@@ -34,6 +34,7 @@ export const OverstyringKnapp = ({ onClick = () => undefined, erOverstyrt = fals
       type="button"
       size="small"
       onClick={setOverstyrtFn}
+      aria-disabled={erOverstyrt}
       disabled={erOverstyrt}
       icon={
         isOverstyrt ? (
