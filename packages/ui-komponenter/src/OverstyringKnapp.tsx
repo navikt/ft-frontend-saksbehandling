@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 
 import { KeyVerticalFillIcon, KeyVerticalIcon } from '@navikt/aksel-icons';
+import { Button } from '@navikt/ds-react';
 
 import { createIntl } from '@navikt/ft-utils';
-
-import styles from './overstyringKnapp.module.css';
 
 import messages from '../i18n/nb_NO.json';
 
@@ -15,9 +14,6 @@ export interface Props {
   erOverstyrt?: boolean;
 }
 
-/*
- * OverstyringKnapp
- */
 export const OverstyringKnapp = ({ onClick = () => undefined, erOverstyrt = false }: Props) => {
   const [isOverstyrt, setOverstyrt] = useState(erOverstyrt);
   const setOverstyrtFn = () => {
@@ -32,30 +28,33 @@ export const OverstyringKnapp = ({ onClick = () => undefined, erOverstyrt = fals
   }, [erOverstyrt]);
 
   return (
-    <button
-      className={styles.button}
+    <Button
+      variant={isOverstyrt ? 'tertiary-neutral' : 'tertiary'}
       data-testid="overstyringsknapp"
       type="button"
+      size="small"
       onClick={setOverstyrtFn}
       aria-disabled={erOverstyrt}
-    >
-      {isOverstyrt ? (
-        <KeyVerticalFillIcon
-          aria-hidden
-          color="var(--a-gray-300)"
-          height={25}
-          width={25}
-          title={intl.formatMessage({ id: 'OverstyringKnapp.HarOverstyrt' })}
-        />
-      ) : (
-        <KeyVerticalIcon
-          aria-hidden
-          color="var(--a-blue-400)"
-          height={25}
-          width={25}
-          title={intl.formatMessage({ id: 'OverstyringKnapp.Overstyring' })}
-        />
-      )}
-    </button>
+      disabled={erOverstyrt}
+      icon={
+        isOverstyrt ? (
+          <KeyVerticalFillIcon
+            aria-hidden
+            color="var(--a-gray-300)"
+            height={25}
+            width={25}
+            title={intl.formatMessage({ id: 'OverstyringKnapp.HarOverstyrt' })}
+          />
+        ) : (
+          <KeyVerticalIcon
+            aria-hidden
+            color="var(--a-blue-400)"
+            height={25}
+            width={25}
+            title={intl.formatMessage({ id: 'OverstyringKnapp.Overstyring' })}
+          />
+        )
+      }
+    />
   );
 };
