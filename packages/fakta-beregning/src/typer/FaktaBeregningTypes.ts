@@ -81,6 +81,10 @@ export type ArbeidUnderAAPValues = {
   fastsattBelop: number;
 };
 
+export type KunstigAndelValues = {
+  fastsattBelop: number;
+};
+
 export type SelvstendigNæringsdrivendeInntektValues = {
   fastsattBelop: number;
 };
@@ -109,6 +113,7 @@ export type TilfellerValues = VurderMilitærValues &
     tidsbegrensetValues?: TidsbegrensetandelValues;
     vurderMottarYtelseValues?: VurderMottarYtelseValues;
     vurderRefusjonValues?: VurderRefusjonValues;
+    kunstigAndelInntektValues?: KunstigAndelValues;
     frilansInntektValues?: FrilansinntektValues;
     arbeidUnderAAPInntektValues?: ArbeidUnderAAPValues;
     arbeidstakerInntektValues?: ArbeidstakerInntektValues[];

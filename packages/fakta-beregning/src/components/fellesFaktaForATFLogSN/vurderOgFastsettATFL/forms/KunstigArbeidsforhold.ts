@@ -3,6 +3,11 @@ import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
 import { InntektTransformed } from '../../../../typer/FieldValues';
 
+export const kunstigAndelField = 'kunstigAndelInntektValues';
+
+// Uheldig magisk konstant som blir satt backend på kunstige (finnes ikke i registre) arbeidsforhold
+export const erKunstigAndel = (arbeidsgiverIdent: string | undefined): boolean => arbeidsgiverIdent === '342352362';
+
 const harAndelKunstigArbeidsforhold = (andel: BeregningsgrunnlagAndel) =>
   andel.arbeidsforhold &&
   andel.arbeidsforhold.organisasjonstype &&

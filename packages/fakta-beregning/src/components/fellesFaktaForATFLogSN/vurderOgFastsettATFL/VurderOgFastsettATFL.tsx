@@ -154,8 +154,8 @@ export const VurderOgFastsettATFL = ({
 
     if (
       tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE) ||
-      tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON) ||
-      tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_INNTEKT_FOR_ARBEID_UNDER_AAP)
+      tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING) ||
+      tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)
     ) {
       forms.push(
         <VurderMottarYtelseForm
@@ -392,6 +392,7 @@ VurderOgFastsettATFL.transformValues =
       values.dagpengerInntektValues,
       values.selvstendigNæringsdrivendeInntektValues,
       values.militærEllerSivilInntektValues,
+      values.kunstigAndelInntektValues,
       !!values.manuellOverstyringRapportertInntekt,
     );
     const fastsatteAndelsnr: number[] = [];
