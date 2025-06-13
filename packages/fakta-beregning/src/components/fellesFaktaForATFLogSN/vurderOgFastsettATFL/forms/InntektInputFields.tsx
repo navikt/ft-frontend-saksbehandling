@@ -4,12 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Label, List, ReadMore, VStack } from '@navikt/ds-react';
 
-import {
-  AktivitetStatus,
-  FaktaOmBeregningTilfelle,
-  OpptjeningAktivitetType,
-  Organisasjonstype,
-} from '@navikt/ft-kodeverk';
+import { AktivitetStatus, FaktaOmBeregningTilfelle, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import { KodeverkForPanel } from '../../../../typer/KodeverkForPanel';
@@ -20,7 +15,7 @@ import { besteberegningField } from '../../besteberegningFodendeKvinne/VurderBes
 import { getKanRedigereInntekt, mapAndelToField } from '../../BgFaktaUtils';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import { arbeidUnderAapField } from './arbeidUnderAapFormUtils';
-import { kunstigAndelField } from './KunstigArbeidsforhold';
+import { erKunstigAndel, kunstigAndelField } from './KunstigArbeidsforhold';
 import { lonnsendringField } from './lonnsendringFormUtils';
 import { erNyoppstartetFLField } from './NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './VurderEtterlonnSluttpakkeForm';
@@ -37,6 +32,35 @@ interface Props {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   kodeverkSamling: KodeverkForPanel;
 }
+
+const ArbeidUnderAAPLabel = () => (
+  <VStack gap="2">
+    <FormattedMessage id="BeregningInfoPanel.InntektInputFields.MånedsinntektAap" />
+    <ReadMore size="small" header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}>
+      <List size="small">
+        <List.Item>
+          <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ArbeidUnderAap" />
+        </List.Item>
+      </List>
+    </ReadMore>
+  </VStack>
+);
+
+const KunstigAndelLabel = () => (
+  <VStack gap="2">
+    <FormattedMessage id="BeregningInfoPanel.KunstigArbeidsforhold.FastsettKunstigArbeidsforhold" />
+    <ReadMore size="small" header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}>
+      <List size="small">
+        <List.Item>
+          <FormattedMessage id="BeregningInfoPanel.KunstigArbeidsforhold.HvordanGarJegFrem1" />
+        </List.Item>
+        <List.Item>
+          <FormattedMessage id="BeregningInfoPanel.KunstigArbeidsforhold.HvordanGarJegFrem2" />
+        </List.Item>
+      </List>
+    </ReadMore>
+  </VStack>
+);
 
 /**
  * InntektInputFields
@@ -61,11 +85,10 @@ export const InntektInputFields = ({
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`,
   ]);
 
-  const skalRedigereKunstigAndelInntekt = () => {
-    return beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel?.find(
-      a => a.arbeidsforhold?.organisasjonstype === Organisasjonstype.KUNSTIG,
+  const skalRedigereKunstigAndelInntekt =
+    beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel?.some(a =>
+      erKunstigAndel(a.arbeidsforhold?.arbeidsgiverIdent),
     );
-  };
 
   const skalRedigereFrilansinntekt = () => {
     const erVurderMottarYtelseEllerNyoppstartetFL = skalRedigereFrilansinntektRadioValues.includes(true);
@@ -236,42 +259,6 @@ export const InntektInputFields = ({
     );
   };
 
-  const lagArbeidUnderAAPLabel = () => {
-    return (
-      <VStack gap="2">
-        <FormattedMessage id="BeregningInfoPanel.InntektInputFields.MånedsinntektAap" />
-        <ReadMore
-          size="small"
-          header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
-        >
-          <List size="small">
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ArbeidUnderAap" />
-            </List.Item>
-          </List>
-        </ReadMore>
-      </VStack>
-    );
-  };
-
-  const lagKunstigAndelLabel = () => {
-    return (
-      <VStack gap="2">
-        <FormattedMessage id="BeregningInfoPanel.KunstigArbeidsforhold.FastsettKunstigArbeidsforhold" />
-        <ReadMore
-          size="small"
-          header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
-        >
-          <List size="small">
-            <List.Item>
-              <FormattedMessage id="Idk" />
-            </List.Item>
-          </List>
-        </ReadMore>
-      </VStack>
-    );
-  };
-
   /**
    * Viser label med fremgangsmåte for innfylling for inntektsfelter. Dersom man har flere tilfeller med ulik fremgangsmåte vises en enklere label.
    *
@@ -389,12 +376,12 @@ export const InntektInputFields = ({
           ))}
         </>
       )}
-      {skalRedigereKunstigAndelInntekt() && (
+      {skalRedigereKunstigAndelInntekt && (
         <InntektInput
           name={kunstigAndelFieldName}
           readOnly={readOnly}
           isAksjonspunktClosed={isAksjonspunktClosed}
-          label={lagKunstigAndelLabel()}
+          label={<KunstigAndelLabel />}
         />
       )}
       {skalRedigereFrilansinntekt() && (
@@ -410,7 +397,7 @@ export const InntektInputFields = ({
           name={arbeidUnderAAPInntektFieldName}
           readOnly={readOnly}
           isAksjonspunktClosed={isAksjonspunktClosed}
-          label={lagArbeidUnderAAPLabel()}
+          label={<ArbeidUnderAAPLabel />}
         />
       )}
       {skalRedigereArbeidsinntekt || skalRedigereEtterlønnSluttpakke
