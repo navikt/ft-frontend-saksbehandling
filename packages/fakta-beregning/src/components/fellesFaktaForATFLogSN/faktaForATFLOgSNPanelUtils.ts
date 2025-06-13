@@ -26,6 +26,7 @@ import { FastsettBgKunYtelse } from './kunYtelse/FastsettBgKunYtelse';
 import { NyIArbeidslivetSNForm } from './nyIArbeidslivet/NyIArbeidslivetSNForm';
 import { TidsbegrensetArbeidsforholdForm } from './tidsbegrensetArbeidsforhold/TidsbegrensetArbeidsforholdForm';
 import { VurderMilitaer } from './vurderMilitaer/VurderMilitaer';
+import { buildInitialValuesKunstigAndel } from './vurderOgFastsettATFL/forms/KunstigArbeidsforhold';
 import { LonnsendringForm } from './vurderOgFastsettATFL/forms/LonnsendringForm';
 import { NyoppstartetFLForm } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import { VurderEtterlonnSluttpakkeForm } from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';
@@ -215,6 +216,11 @@ export const getBuildInitialValuesFaktaForATFLOgSN = (
     ),
     vurderMottarYtelseValues: VurderMottarYtelseForm.buildInitialValues(
       getVurderMottarYtelse(beregningsgrunnlag),
+      tilfeller,
+    ),
+    kunstigAndelInntektValues: buildInitialValuesKunstigAndel(
+      beregningsgrunnlag,
+      faktaOmBeregning.andelerForFaktaOmBeregning,
       tilfeller,
     ),
     arbeidstakerInntektValues: ArbeidsinntektInput.buildInitialValues(faktaOmBeregning.andelerForFaktaOmBeregning),

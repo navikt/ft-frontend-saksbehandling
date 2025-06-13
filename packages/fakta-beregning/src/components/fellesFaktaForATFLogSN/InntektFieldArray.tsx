@@ -14,6 +14,7 @@ import {
   DagpengerinntektValues,
   FaktaOmBeregningAksjonspunktValues,
   FrilansinntektValues,
+  KunstigAndelValues,
   MilitærEllerSivilInntektValues,
   SelvstendigNæringsdrivendeInntektValues,
 } from '../../typer/FaktaBeregningTypes';
@@ -36,6 +37,7 @@ import {
 import { SummaryRow } from './SummaryRow';
 import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
+import { erKunstigAndel } from './vurderOgFastsettATFL/forms/KunstigArbeidsforhold';
 
 import tableStyles from '../felles/tableStyle.module.css';
 
@@ -301,6 +303,7 @@ InntektFieldArray.transformValues = (
   dagpengerInntektValues: DagpengerinntektValues | undefined,
   selvstendigNæringsdrivendeInntektValues: SelvstendigNæringsdrivendeInntektValues | undefined,
   militærEllerSivilInntektValues: MilitærEllerSivilInntektValues | undefined,
+  kunstigAndelInntektValues: KunstigAndelValues | undefined,
   erOverstyrt: boolean,
 ): InntektTransformed[] => {
   if (!values) return [];
@@ -313,6 +316,7 @@ InntektFieldArray.transformValues = (
         fieldValue.arbeidsgiverId &&
         getFastsattBelopFromArbeidstakerInntekt(arbeidstakerInntektValues, fieldValue.arbeidsgiverId)) ||
       (erDagpenger(fieldValue.aktivitetStatus) && dagpengerInntektValues?.fastsattBelop) ||
+      (erKunstigAndel(fieldValue.arbeidsgiverId) && kunstigAndelInntektValues?.fastsattBelop) ||
       (erSelvstendigNæringsdrivende(fieldValue.aktivitetStatus) &&
         selvstendigNæringsdrivendeInntektValues?.fastsattBelop) ||
       (erMilitærEllerSivil(fieldValue.aktivitetStatus) && militærEllerSivilInntektValues?.fastsattBelop) ||
@@ -339,6 +343,7 @@ InntektFieldArray.transformValues = (
         (erArbeidstaker(aktivitetStatus) &&
           arbeidsgiverId &&
           getFastsattBelopFromArbeidstakerInntekt(arbeidstakerInntektValues, arbeidsgiverId)) ||
+        erKunstigAndel(arbeidsgiverId) ||
         (erDagpenger(aktivitetStatus) && dagpengerInntektValues?.fastsattBelop) ||
         (erSelvstendigNæringsdrivende(aktivitetStatus) && selvstendigNæringsdrivendeInntektValues?.fastsattBelop) ||
         (erMilitærEllerSivil(aktivitetStatus) && militærEllerSivilInntektValues?.fastsattBelop),
