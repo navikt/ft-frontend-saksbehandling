@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-tilbakekreving-feilutbetaling",
   "description": "Saksbehandler angir årsak til at feilutbetalingen har oppstått for hver enkelt periode",
-  "version": "3.2.25",
+  "version": "3.2.27",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -9,9 +9,11 @@
     "dist"
   ],
   "scripts": {
-    "test": "vitest",
-    "test:watch": "vitest --watch=true",
-    "test:coverage": "vitest --coverage",
+    "test": "vitest --project=jsdom",
+    "test:watch": "vitest --project=jsdom --watch=true",
+    "test:coverage": "vitest --project=jsdom --coverage",
+    "test:browser": "vitest --project=browser",
+    "test:browser:watch": "vitest --project=browser --watch=true",
     "tsc": "tsc --pretty",
     "eslint": "eslint \"src/**/*.ts*\" --color",
     "eslint:fix": "eslint --fix \"src/**/*.ts*\" --color",
@@ -56,7 +58,7 @@
     "stylelint": "16.20.0",
     "typescript": "5.8.3",
     "vite": "6.3.5",
-    "vitest": "3.1.4"
+    "vitest": "3.2.3"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

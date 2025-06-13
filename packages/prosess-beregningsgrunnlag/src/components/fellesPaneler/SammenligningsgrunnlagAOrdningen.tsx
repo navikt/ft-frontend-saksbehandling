@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useMemo } from 'react';
+import { ReactElement } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BodyShort, ExpansionCard, Label, VStack } from '@navikt/ds-react';
@@ -144,32 +144,23 @@ export const SammenligningsgrunnlagAOrdningen = ({
 }: Props) => {
   const intl = useIntl();
   const måneder = sammenligningsGrunnlagInntekter?.måneder || TOM_ARRAY;
-  const relevanteStatuser = useMemo(() => utledRelevanteStatuser(måneder), [måneder]);
+  const relevanteStatuser = utledRelevanteStatuser(måneder);
   const sgFom =
     sammenligningsgrunnlag && sammenligningsgrunnlag.length > 0
       ? sammenligningsgrunnlag[0].sammenligningsgrunnlagFom
       : undefined;
-  const dataForArbeid = useMemo(
-    () =>
-      relevanteStatuser.harArbeidsinntekt && sgFom ? finnDataForIAT(måneder, sgFom, InntektAktivitetType.ARBEID) : [],
-    [relevanteStatuser.harArbeidsinntekt, måneder, sgFom],
-  );
-  const dataForFrilans = useMemo(
-    () =>
-      relevanteStatuser.harFrilansinntekt && sgFom ? finnDataForIAT(måneder, sgFom, InntektAktivitetType.FRILANS) : [],
-    [relevanteStatuser.harArbeidsinntekt, måneder, sgFom],
-  );
-  const dataForYtelse = useMemo(
-    () =>
-      relevanteStatuser.harYtelseinntekt && sgFom ? finnDataForIAT(måneder, sgFom, InntektAktivitetType.YTELSE) : [],
-    [relevanteStatuser.harArbeidsinntekt, måneder, sgFom],
-  );
-  const barFormatter = useCallback((params: any) => {
+  const dataForArbeid =
+    relevanteStatuser.harArbeidsinntekt && sgFom ? finnDataForIAT(måneder, sgFom, InntektAktivitetType.ARBEID) : [];
+  const dataForFrilans =
+    relevanteStatuser.harFrilansinntekt && sgFom ? finnDataForIAT(måneder, sgFom, InntektAktivitetType.FRILANS) : [];
+  const dataForYtelse =
+    relevanteStatuser.harYtelseinntekt && sgFom ? finnDataForIAT(måneder, sgFom, InntektAktivitetType.YTELSE) : [];
+  const barFormatter = (params: any) => {
     if (params.value[0] > 5000) {
       return formatCurrencyNoKr(params.value[0]) || '';
     }
     return params.value[0] === 0 ? '' : '..';
-  }, []);
+  };
   if (!måneder || måneder.length === 0 || !sammenligningsgrunnlag || sammenligningsgrunnlag.length < 1) {
     return null;
   }

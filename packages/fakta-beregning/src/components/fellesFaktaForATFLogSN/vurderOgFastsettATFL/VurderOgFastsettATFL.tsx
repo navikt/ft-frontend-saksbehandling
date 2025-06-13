@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo } from 'react';
+import React, { ReactElement } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { VStack } from '@navikt/ds-react';
@@ -81,11 +81,8 @@ export const VurderOgFastsettATFL = ({
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
-  const erOverstyrt = useMemo(
-    () => erOverstyringAvBeregningsgrunnlag(formValues),
-    [formValues, beregningsgrunnlag, avklaringsbehov],
-  );
-  const skalViseTabell = useMemo(() => getSkalViseTabell(tilfeller), [tilfeller]);
+  const erOverstyrt = erOverstyringAvBeregningsgrunnlag(formValues);
+  const skalViseTabell = getSkalViseTabell(tilfeller);
 
   const byggForms = () => {
     const forms: ReactElement[] = [];

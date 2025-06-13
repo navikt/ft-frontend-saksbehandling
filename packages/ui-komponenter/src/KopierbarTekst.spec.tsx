@@ -9,11 +9,16 @@ const { MedUlikVisningFraKopierbarTekst, MedLikVisningSomKopierbarTekst } = comp
 
 describe('KopierbarTekst', () => {
   beforeEach(() => {
-    Object.assign(navigator, {
-      clipboard: {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: {
         writeText: vi.fn(),
       },
+      configurable: true,
     });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it('kopierer tekst til utklippstavlen når det vises en annen tekst', async () => {
