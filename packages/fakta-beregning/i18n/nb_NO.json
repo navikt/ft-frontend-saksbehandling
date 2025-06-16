@@ -130,6 +130,9 @@
   "BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt": "Har søker etterlønn eller sluttvederlag?",
   "BeregningInfoPanel.EtterlønnSluttpakke.HvordanGarJegFrem1": "Gå til A-inntekt og se om etterlønn eller sluttvederlag er rapportert. Hvis ikke, kontakt søker og be de dokumentere etterlønn/sluttvederlag med avtale el.",
 
+  "BeregningInfoPanel.KunstigArbeidsforhold.HvordanGarJegFrem1": "Inntekt kan baseres på dokumentasjon fra vedlegg, som lønnsslipper eller arbeidskontrakter.",
+  "BeregningInfoPanel.KunstigArbeidsforhold.HvordanGarJegFrem2": "Hvis dokumentasjon ikke foreligger, kontakt arbeidsgiver eller søker for å innhente dette.",
+
   "BeregningInfoPanel.VurderMilitaer.HarSøkerMilitærinntekt": "Har søker vært i militær- eller sivilforsvarstjeneste i opptjeningsperioden?",
   "BeregningInfoPanel.VurderMilitaer.HvordanGarJegFrem1": "Kontakt søker og be om dokumentasjon på avtjent tjeneste i opptjeningsperioden. Vurder om tjenesten har vart eller var ment å vare mer enn 28 dager i henhold til §8-46. Denne informasjonen er ikke tilgjengelig i noen registre, og vi må derfor ha dokumentasjon fra søker.",
   "BeregningInfoPanel.VurderMilitaer.HvordanGarJegFrem2": "Svarer du ”ja” vil utbetalingen bli minst 2G (pleiepenger) / 3G (foreldrepenger). Svarer du ”nei” beregnes det etter vanlige regler.",
