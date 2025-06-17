@@ -3,21 +3,20 @@ import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { BrukersAndelValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
 import { setGenerellAndelsinfo } from '../BgFaktaUtils';
 import { KunYtelseBesteberegning } from './KunYtelseBesteberegningPanel';
 import { KunYtelseUtenBesteberegningPanel } from './KunYtelseUtenBesteberegningPanel';
 
 export const brukersAndelFieldArrayName = 'brukersAndelBG';
 
-type Props = {
+interface Props {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
-  skalSjekkeBesteberegning: boolean;
   skalViseInntektstabell?: boolean;
   kodeverkSamling: KodeverkForPanel;
   faktaOmBeregning: FaktaOmBeregning;
-};
+}
 
 /**
  * KunYtelsePanel
@@ -67,7 +66,7 @@ KunYtelsePanel.buildInitialValues = (
   if (!kunYtelse || !kunYtelse.andeler || kunYtelse.andeler.length === 0) {
     return {};
   }
-  const kunYtelseValues = kunYtelse.andeler.map(andel => {
+  const kunYtelseValues = kunYtelse.andeler.map<BrukersAndelValues>(andel => {
     const andelMedInfo = faktaOmBeregningAndeler.find(faktaAndel => faktaAndel.andelsnr === andel.andelsnr);
     if (!andelMedInfo) {
       throw new Error(`Finner ikke faktaAndel med andelsnr ${andel.andelsnr}`);

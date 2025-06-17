@@ -1,4 +1,4 @@
-import { formNameAvklarAktiviteter } from '../components/BeregningFormUtils';
+import { formNameAvklarAktiviteter } from '../utils/BeregningFormUtils';
 import { AvklarAktiviteterValues } from './AvklarAktivitetTypes';
 
 export type AvklarAktiviteterFormValues = {

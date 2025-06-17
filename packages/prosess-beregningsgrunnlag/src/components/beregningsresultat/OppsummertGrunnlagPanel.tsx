@@ -2,18 +2,18 @@ import React, { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
-import { BodyShort, Heading, Label } from '@navikt/ds-react';
-import dayjs from 'dayjs';
+import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus, Dekningsgrad, FagsakYtelseType, VilkarUtfallType } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, YtelseGrunnlag } from '@navikt/ft-types';
-import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
+import { BTag, formatCurrencyNoKr, periodFormat } from '@navikt/ft-utils';
 
 import { TabellData, TabellRadData } from '../../types/BeregningsresultatTabellType';
 import { Vilkårperiode } from '../../types/Vilkår';
+import { HorizontalBox } from '../../util/HorizontalBox';
 
-import styles from './beregningsresultat.module.css';
+import styles from './oppsummertGrunnlagPanel.module.css';
 
 const VIRKEDAGER_PR_AAR = 260;
 
@@ -30,43 +30,43 @@ type StatusKonfig = {
 const statusKonfigMap: StatusKonfig = {
   [AktivitetStatus.ARBEIDSTAKER]: {
     rekkefølgePri: 1,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Arbeid',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Arbeid',
   },
   [AktivitetStatus.FRILANSER]: {
     rekkefølgePri: 2,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Frilans',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Frilans',
   },
   [AktivitetStatus.DAGPENGER]: {
     rekkefølgePri: 3,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Dagpenger',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Dagpenger',
   },
   [AktivitetStatus.SYKEPENGER_AV_DAGPENGER]: {
     rekkefølgePri: 3,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.SykepengerAvDagpenger',
+    beskrivelseId: 'OppsummertGrunnlagPanel.SykepengerAvDagpenger',
   },
   [AktivitetStatus.PLEIEPENGER_AV_DAGPENGER]: {
     rekkefølgePri: 3,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.PleiepengerAvDagpenger',
+    beskrivelseId: 'OppsummertGrunnlagPanel.PleiepengerAvDagpenger',
   },
   [AktivitetStatus.ARBEIDSAVKLARINGSPENGER]: {
     rekkefølgePri: 4,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Arbeidsavklaringspenger',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Arbeidsavklaringspenger',
   },
   [AktivitetStatus.KUN_YTELSE]: {
     rekkefølgePri: 5,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Ytelse',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Ytelse',
   },
   [AktivitetStatus.MILITAER_ELLER_SIVIL]: {
     rekkefølgePri: 6,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Militær',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Militær',
   },
   [AktivitetStatus.BRUKERS_ANDEL]: {
     rekkefølgePri: 7,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.BrukersAndel',
+    beskrivelseId: 'OppsummertGrunnlagPanel.BrukersAndel',
   },
   [AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE]: {
     rekkefølgePri: 8,
-    beskrivelseId: 'Beregningsgrunnlag.Beregningsresultat.Næring',
+    beskrivelseId: 'OppsummertGrunnlagPanel.Næring',
   },
 };
 
@@ -80,9 +80,7 @@ const finnStatusBeskrivelse = (andel: TabellRadData): string => {
   return beskrivelseId || 'Ukjent andel';
 };
 
-const ikkeBeregnetTekst = (): ReactElement => (
-  <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.IkkeBeregnet" />
-);
+const ikkeBeregnetTekst = (): ReactElement => <FormattedMessage id="OppsummertGrunnlagPanel.IkkeBeregnet" />;
 
 const finnTotalInntekt = (andeler: TabellRadData[]): number =>
   andeler.reduce((sum, andel) => (andel.inntektPlussNaturalytelse || 0) + sum, 0);
@@ -94,32 +92,23 @@ const finnDagsats = (tabellData: TabellData, ytelseGrunnlag?: YtelseGrunnlag): n
   return tabellData.dagsats || 0;
 };
 
-const skilleRad = (): ReactElement => <div className={styles.radEnkelLinje} />;
-
 const lagIkkeOppfyltVisning = (grunnbeløp: number, erMidlertidigInaktiv: boolean): ReactElement => (
-  <FlexContainer>
-    <VerticalSpacer twentyPx />
-    <FlexRow>
-      <FlexColumn className={styles.avslåttIkon}>
-        <XMarkOctagonFillIcon />
-      </FlexColumn>
-      <FlexColumn className={styles.kolAvslagTekst}>
-        <BodyShort size="small">
-          <FormattedMessage
-            id={
-              erMidlertidigInaktiv
-                ? 'Beregningsgrunnlag.BeregningTable.VilkarIkkeOppfyltMidlertidigInaktiv'
-                : 'Beregningsgrunnlag.BeregningTable.VilkarIkkeOppfylt2'
-            }
-            values={{
-              grunnbeløp: formatCurrencyNoKr(grunnbeløp),
-              b: (chunks: any) => <b>{chunks}</b>,
-            }}
-          />
-        </BodyShort>
-      </FlexColumn>
-    </FlexRow>
-  </FlexContainer>
+  <HStack gap="2">
+    <XMarkOctagonFillIcon className={styles.avslåttIkon} />
+    <BodyShort size="small" className={styles.avslåttIkon}>
+      <FormattedMessage
+        id={
+          erMidlertidigInaktiv
+            ? 'OppsummertGrunnlagPanel.VilkarIkkeOppfyltMidlertidigInaktiv'
+            : 'OppsummertGrunnlagPanel.VilkarIkkeOppfylt'
+        }
+        values={{
+          grunnbeløp: formatCurrencyNoKr(grunnbeløp),
+          b: BTag,
+        }}
+      />
+    </BodyShort>
+  </HStack>
 );
 
 const sjekkErMidlertidigInaktiv = (beregningsgrunnlag: Beregningsgrunnlag): boolean =>
@@ -130,7 +119,6 @@ const lagResultatRader = (
   tabellData: TabellData,
   vilkårPeriode: Vilkårperiode,
   beregningsgrunnlag: Beregningsgrunnlag,
-  harFlereAndeler: boolean,
 ): ReactElement | null => {
   const sumBrutto = tabellData.andeler.reduce((sum, andel) => (andel.inntektPlussNaturalytelse || 0) + sum, 0);
   if (vilkårPeriode.vilkarStatus === VilkarUtfallType.IKKE_VURDERT) {
@@ -143,55 +131,42 @@ const lagResultatRader = (
   const skalViseAvkortetRad = sumBrutto > seksG;
   const skalViseRedusertRad = beregningsgrunnlag.dekningsgrad !== Dekningsgrad.HUNDRE;
   const dagsatsSomVises = finnDagsats(tabellData, beregningsgrunnlag.ytelsesspesifiktGrunnlag);
-  const skalHaSkilleFraGrunnlagsrader = harFlereAndeler && (skalViseAvkortetRad || skalViseRedusertRad);
+
   return (
-    <FlexContainer>
-      {skalHaSkilleFraGrunnlagsrader && <VerticalSpacer fourtyPx />}
-      {skalViseAvkortetRad && (
-        <>
-          {skilleRad()}
-          <FlexRow className={styles.radNoBorder}>
-            <FlexColumn className={styles.kolBeskrivelse}>
+    <>
+      {(skalViseAvkortetRad || skalViseRedusertRad) && (
+        <div>
+          {skalViseAvkortetRad && (
+            <HorizontalBox borderTop borderBottom>
               <BodyShort size="small">
-                <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Avkortet" />
+                <FormattedMessage id="OppsummertGrunnlagPanel.Avkortet" />
               </BodyShort>
-            </FlexColumn>
-            <FlexColumn className={styles.kolVerdi}>
-              <BodyShort size="small">{formatCurrencyNoKr(tabellData.avkortetPrÅr)}</BodyShort>
-            </FlexColumn>
-          </FlexRow>
-          {skilleRad()}
-        </>
-      )}
-      {skalViseRedusertRad && (
-        <>
-          {!skalViseAvkortetRad && harFlereAndeler && <>{skilleRad()}</>}
-          <FlexRow className={styles.radNoBorder}>
-            <FlexColumn className={styles.kolBeskrivelse}>
               <BodyShort size="small">
-                <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Redusert" />
+                <BeløpLabel beløp={tabellData.avkortetPrÅr} />
               </BodyShort>
-            </FlexColumn>
-            <FlexColumn className={styles.kolVerdi}>
-              <BodyShort size="small">{formatCurrencyNoKr(tabellData.redusertPrÅr)}</BodyShort>
-            </FlexColumn>
-          </FlexRow>
-          {skilleRad()}
-        </>
+            </HorizontalBox>
+          )}
+          {skalViseRedusertRad && (
+            <HorizontalBox borderBottom borderTop={!skalViseAvkortetRad}>
+              <BodyShort size="small">
+                <FormattedMessage id="OppsummertGrunnlagPanel.Redusert" />
+              </BodyShort>
+              <BodyShort size="small">
+                <BeløpLabel beløp={tabellData.redusertPrÅr} />
+              </BodyShort>
+            </HorizontalBox>
+          )}
+        </div>
       )}
-      <VerticalSpacer fourtyPx />
-      <FlexRow className={styles.radNoBorder}>
-        <FlexColumn className={styles.kolBeskrivelse}>
-          <Label size="medium">
-            <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Dagsats" />
-          </Label>
-        </FlexColumn>
-        <FlexColumn className={styles.kolVerdi}>
-          <Label size="medium">{dagsatsSomVises}</Label>
-        </FlexColumn>
-      </FlexRow>
-      <div className={styles.radDobbelLinje} />
-    </FlexContainer>
+      <HorizontalBox doubleBorderBottom>
+        <Label size="medium">
+          <FormattedMessage id="OppsummertGrunnlagPanel.Dagsats" />
+        </Label>
+        <Label size="medium">
+          <BeløpLabel beløp={dagsatsSomVises} />
+        </Label>
+      </HorizontalBox>
+    </>
   );
 };
 
@@ -206,79 +181,57 @@ export const OppsummertGrunnlagPanel = ({ tabellData, skalVisePeriode, vilkårsp
   const skalViseOppsummeringsrad =
     tabellData.andeler.length > 1 && !tabellData.andeler.some(andel => !andel.erFerdigBeregnet);
   tabellData.andeler.sort((a, b) => finnRekkefølgePrioritet(a) - finnRekkefølgePrioritet(b));
-  const harFlereAndeler = tabellData.andeler.length > 1;
   const alleAndelerErFastsatt = tabellData.andeler.every(andel => andel.erFerdigBeregnet);
+
   return (
-    <>
+    <VStack gap="2">
       {skalVisePeriode && (
-        <>
-          <FlexRow>
-            <FlexColumn>
-              <Heading size="xsmall">
-                <FormattedMessage
-                  id="Beregningsgrunnlag.Beregningsresultat.Periode"
-                  values={{
-                    fom: dayjs(tabellData.fom).format(DDMMYYYY_DATE_FORMAT),
-                    tom: tabellData.tom ? dayjs(tabellData.tom).format(DDMMYYYY_DATE_FORMAT) : '',
-                  }}
-                />
-              </Heading>
-            </FlexColumn>
-          </FlexRow>
-          <VerticalSpacer eightPx />
-        </>
+        <Label size="small">
+          <FormattedMessage
+            id="OppsummertGrunnlagPanel.Periode"
+            values={{
+              periode: periodFormat(tabellData.fom, tabellData.tom),
+            }}
+          />
+        </Label>
       )}
-      {tabellData.andeler.map((rad, index) => (
-        <React.Fragment key={rad.status}>
-          {index === 0 && <>{skilleRad()}</>}
-          <FlexRow className={styles.radNoBorder}>
-            <FlexColumn className={styles.kolBeskrivelse}>
-              <BodyShort size="small">
-                <FormattedMessage id={finnStatusBeskrivelse(rad)} />
-              </BodyShort>
-            </FlexColumn>
-            <FlexColumn className={styles.kolVerdi}>
-              <BodyShort size="small" className={rad.erFerdigBeregnet ? '' : styles.kolVerdiRød}>
-                {rad.erFerdigBeregnet ? formatCurrencyNoKr(rad.inntekt) : ikkeBeregnetTekst()}
-              </BodyShort>
-            </FlexColumn>
-          </FlexRow>
-          {!!rad.bortfaltNaturalytelse && (
-            <>
-              {skilleRad()}
-              <FlexRow className={styles.radNoBorder}>
-                <FlexColumn className={styles.kolBeskrivelse}>
+      <VStack gap="6">
+        <div>
+          {tabellData.andeler.map((rad, index) => (
+            <React.Fragment key={rad.status}>
+              <HorizontalBox borderBottom borderTop={index === 0}>
+                <BodyShort size="small">
+                  <FormattedMessage id={finnStatusBeskrivelse(rad)} />
+                </BodyShort>
+                <BodyShort size="small" className={rad.erFerdigBeregnet ? '' : styles.kolVerdiRød}>
+                  {rad.erFerdigBeregnet ? <BeløpLabel beløp={rad.inntekt} /> : ikkeBeregnetTekst()}
+                </BodyShort>
+              </HorizontalBox>
+              {!!rad.bortfaltNaturalytelse && (
+                <HorizontalBox borderBottom>
                   <BodyShort size="small">
-                    <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.Naturalytelser" />
+                    <FormattedMessage id="OppsummertGrunnlagPanel.Naturalytelser" />
                   </BodyShort>
-                </FlexColumn>
-                <FlexColumn className={styles.kolVerdi}>
-                  <BodyShort size="small">{formatCurrencyNoKr(rad.bortfaltNaturalytelse)}</BodyShort>
-                </FlexColumn>
-              </FlexRow>
-            </>
-          )}
-          {skilleRad()}
-        </React.Fragment>
-      ))}
-      {skalViseOppsummeringsrad && (
-        <>
-          <FlexRow className={styles.radNoBorder}>
-            <FlexColumn className={styles.kolBeskrivelse}>
+                  <BodyShort size="small">
+                    <BeløpLabel beløp={rad.bortfaltNaturalytelse} />
+                  </BodyShort>
+                </HorizontalBox>
+              )}
+            </React.Fragment>
+          ))}
+          {skalViseOppsummeringsrad && (
+            <HorizontalBox doubleBorderBottom borderTop>
               <BodyShort size="small">
-                <FormattedMessage id="Beregningsgrunnlag.Beregningsresultat.TotalÅrsinntekt" />
+                <FormattedMessage id="OppsummertGrunnlagPanel.TotalÅrsinntekt" />
               </BodyShort>
-            </FlexColumn>
-            <FlexColumn className={styles.kolVerdi}>
-              <BodyShort size="small">{formatCurrencyNoKr(finnTotalInntekt(tabellData.andeler))}</BodyShort>
-            </FlexColumn>
-          </FlexRow>
-          <div className={styles.radTykkLinje} />
-        </>
-      )}
-      {alleAndelerErFastsatt && (
-        <>{lagResultatRader(tabellData, vilkårsperiode, beregningsgrunnlag, harFlereAndeler)}</>
-      )}
-    </>
+              <BodyShort size="small">
+                <BeløpLabel beløp={finnTotalInntekt(tabellData.andeler)} />
+              </BodyShort>
+            </HorizontalBox>
+          )}
+        </div>
+        {alleAndelerErFastsatt && <>{lagResultatRader(tabellData, vilkårsperiode, beregningsgrunnlag)}</>}
+      </VStack>
+    </VStack>
   );
 };

@@ -1,9 +1,8 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 
 import { LoadingPanel } from './LoadingPanel';
 
 const meta = {
-  title: 'ui-komponenter/LoadingPanel',
   component: LoadingPanel,
 } satisfies Meta<typeof LoadingPanel>;
 

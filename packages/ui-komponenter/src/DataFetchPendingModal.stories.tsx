@@ -1,4 +1,4 @@
-import { Meta, ReactRenderer, StoryObj } from '@storybook/react';
+import { Meta, ReactRenderer, StoryObj } from '@storybook/react-vite';
 import { DecoratorFunction } from 'storybook/internal/types';
 
 import { getIntlDecorator } from '@navikt/ft-frontend-storybook-utils';
@@ -16,7 +16,6 @@ const withWidth: DecoratorFunction<ReactRenderer> = Story => (
 );
 
 const meta = {
-  title: 'ui-komponenter/DataFetchPendingModal',
   component: DataFetchPendingModal,
   decorators: [withWidth, withIntl],
 } satisfies Meta<typeof DataFetchPendingModal>;

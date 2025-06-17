@@ -1,11 +1,10 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
-import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 import { finnBruttoForStatusIPeriode } from './FrisinnUtils';
 
@@ -31,45 +30,36 @@ export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
   );
   const bruttoFL = finnBruttoForStatusIPeriode(AktivitetStatus.FRILANSER, beregningsgrunnlag, gjeldendePeriode);
   const bruttoAT = finnBruttoForStatusIPeriode(AktivitetStatus.ARBEIDSTAKER, beregningsgrunnlag, gjeldendePeriode);
+
   return (
-    <div>
-      <FlexRow>
-        <FlexColumn>
-          <Label size="small" className={beregningStyles.avsnittOverskrift}>
-            <FormattedMessage id="Beregningsgrunnlag.Søknad.Inntektsopplysninger" />
-          </Label>
-        </FlexColumn>
-      </FlexRow>
-      <FlexRow>
-        <FlexColumn className={beregningStyles.tabellAktivitet}>
-          <BodyShort size="small">
-            <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektAT" />
-          </BodyShort>
-        </FlexColumn>
-        <FlexColumn className={beregningStyles.tabellInntekt}>
-          <Label size="small">{formatCurrencyNoKr(bruttoAT)}</Label>
-        </FlexColumn>
-      </FlexRow>
-      <FlexRow>
-        <FlexColumn className={beregningStyles.tabellAktivitet}>
-          <BodyShort size="small">
-            <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektFL" />
-          </BodyShort>
-        </FlexColumn>
-        <FlexColumn className={beregningStyles.tabellInntekt}>
-          <Label size="small">{formatCurrencyNoKr(bruttoFL)}</Label>
-        </FlexColumn>
-      </FlexRow>
-      <FlexRow>
-        <FlexColumn className={beregningStyles.tabellAktivitet}>
-          <BodyShort size="small">
-            <FormattedMessage id="Beregningsgrunnlag.Frisinn.InntektSN" />
-          </BodyShort>
-        </FlexColumn>
-        <FlexColumn className={beregningStyles.tabellInntekt}>
-          <Label size="small">{formatCurrencyNoKr(bruttoSN)}</Label>
-        </FlexColumn>
-      </FlexRow>
-    </div>
+    <VStack gap="2">
+      <Label size="small" className={beregningStyles.avsnittOverskrift}>
+        <FormattedMessage id="Søknad.Inntektsopplysninger" />
+      </Label>
+      <HStack gap="2">
+        <BodyShort size="small" className={beregningStyles.tabellAktivitet}>
+          <FormattedMessage id="Frisinn.InntektAT" />
+        </BodyShort>
+        <Label size="small" className={beregningStyles.tabellInntekt}>
+          <BeløpLabel beløp={bruttoAT} />
+        </Label>
+      </HStack>
+      <HStack gap="2">
+        <BodyShort size="small" className={beregningStyles.tabellAktivitet}>
+          <FormattedMessage id="Frisinn.InntektFL" />
+        </BodyShort>
+        <Label size="small" className={beregningStyles.tabellInntekt}>
+          <BeløpLabel beløp={bruttoFL} />
+        </Label>
+      </HStack>
+      <HStack gap="2">
+        <BodyShort size="small" className={beregningStyles.tabellAktivitet}>
+          <FormattedMessage id="Frisinn.InntektSN" />
+        </BodyShort>
+        <Label size="small" className={beregningStyles.tabellInntekt}>
+          <BeløpLabel beløp={bruttoSN} />
+        </Label>
+      </HStack>
+    </VStack>
   );
 };

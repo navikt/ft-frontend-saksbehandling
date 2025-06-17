@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
@@ -7,7 +6,7 @@ import { BodyShort, HStack, VStack } from '@navikt/ds-react';
 import { Datepicker, InputField } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, hasValidDate, maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
-import { dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { BTag, dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { VurderRefusjonFormValues, VurderRefusjonValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { VurderRefusjonAndelTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
@@ -28,10 +27,8 @@ const lagNøkkel = (prefix: string, andel: RefusjonTilVurderingAndel): string =>
   return `${prefix}${andel.arbeidsgiver.arbeidsgiverAktørId}${andel.internArbeidsforholdRef}`;
 };
 
-export const lagNøkkelRefusjonsstart = (andel: RefusjonTilVurderingAndel): string =>
-  lagNøkkel(FIELD_KEY_REFUSJONSTART, andel);
-export const lagNøkkelDelvisRefusjon = (andel: RefusjonTilVurderingAndel): string =>
-  lagNøkkel(FIELD_KEY_DELVIS_REF, andel);
+const lagNøkkelRefusjonsstart = (andel: RefusjonTilVurderingAndel): string => lagNøkkel(FIELD_KEY_REFUSJONSTART, andel);
+const lagNøkkelDelvisRefusjon = (andel: RefusjonTilVurderingAndel): string => lagNøkkel(FIELD_KEY_DELVIS_REF, andel);
 
 const erValgtDatoLikSTP = (stp: string, verdiFraForm?: string): boolean => {
   if (!verdiFraForm) {
@@ -71,7 +68,6 @@ export const VurderEndringRefusjonRad = ({
     !refusjonAndel.fastsattDelvisRefusjonPrMnd &&
     refusjonAndel.fastsattDelvisRefusjonPrMnd !== 0;
   const harValgtRefusjonFraStart = erValgtDatoLikSTP(skjæringstidspunkt, valgtStartdato);
-  const boldTransformator = useCallback((chunks: any) => <b>{chunks}</b>, []);
   const skalKunneFastsetteDelvisRef =
     refusjonAndel.skalKunneFastsetteDelvisRefusjon && refusjonAndel.maksTillattDelvisRefusjonPrMnd;
   return (
@@ -82,7 +78,7 @@ export const VurderEndringRefusjonRad = ({
           values={{
             ag: navn,
             dato: dateFormat(refusjonAndel.nyttRefusjonskravFom),
-            b: boldTransformator,
+            b: BTag,
           }}
         />
       </BodyShort>
@@ -124,9 +120,9 @@ export const VurderEndringRefusjonRad = ({
 
 VurderEndringRefusjonRad.buildInitialValues = (refusjonAndel: RefusjonTilVurderingAndel): VurderRefusjonValues => {
   const initialValues: VurderRefusjonValues = {};
-  initialValues[lagNøkkelRefusjonsstart(refusjonAndel)] = refusjonAndel.fastsattNyttRefusjonskravFom || '';
+  initialValues[lagNøkkelRefusjonsstart(refusjonAndel)] = refusjonAndel.fastsattNyttRefusjonskravFom ?? '';
   initialValues[lagNøkkelDelvisRefusjon(refusjonAndel)] =
-    formatCurrencyNoKr(refusjonAndel.fastsattDelvisRefusjonPrMnd) || '';
+    formatCurrencyNoKr(refusjonAndel.fastsattDelvisRefusjonPrMnd) ?? '';
   return initialValues;
 };
 

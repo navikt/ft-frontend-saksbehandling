@@ -3,7 +3,6 @@ import React from 'react';
 import { LabelWithHeader } from './LabelWithHeader';
 
 export default {
-  title: 'ui-komponenter/LabelWithHeader',
   component: LabelWithHeader,
 };
 

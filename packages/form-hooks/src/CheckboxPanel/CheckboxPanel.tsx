@@ -27,6 +27,7 @@ export interface CheckboxPanelProps {
   parse?: (value: string) => any;
   hideLegend?: boolean;
   isEdited?: boolean;
+  size?: 'medium' | 'small';
 }
 
 export const CheckboxPanel = ({
@@ -42,6 +43,7 @@ export const CheckboxPanel = ({
   parse = value => value,
   hideLegend = false,
   isEdited = false,
+  size = 'small',
 }: CheckboxPanelProps) => {
   const {
     formState: { errors },
@@ -54,10 +56,10 @@ export const CheckboxPanel = ({
   });
 
   const legend = (
-    <>
+    <HStack justify="center" gap="2">
       {label}
       {isReadOnly && isEdited && <EditedIcon />}
-    </>
+    </HStack>
   );
 
   return (
@@ -71,7 +73,7 @@ export const CheckboxPanel = ({
         }
         field.onChange(value);
       }}
-      size="small"
+      size={size}
       legend={legend}
       error={getError(errors, name)}
       hideLegend={hideLegend}
@@ -79,7 +81,7 @@ export const CheckboxPanel = ({
       {!isHorizontal &&
         checkboxes.map(checkbox => (
           <Fragment key={checkbox.value}>
-            <Checkbox value={parse(checkbox.value)} disabled={checkbox.disabled || disabled || isReadOnly}>
+            <Checkbox size={size} value={parse(checkbox.value)} disabled={checkbox.disabled || disabled || isReadOnly}>
               {checkbox.label}
             </Checkbox>
             {(field.value ?? []).includes(parse(checkbox.value)) && checkbox.element}
@@ -91,6 +93,7 @@ export const CheckboxPanel = ({
             {checkboxes.map(checkbox => (
               <Checkbox
                 key={checkbox.value}
+                size={size}
                 value={parse(checkbox.value)}
                 disabled={checkbox.disabled || disabled || isReadOnly}
               >

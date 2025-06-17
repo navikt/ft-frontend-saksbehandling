@@ -8,16 +8,16 @@ import {
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
 } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { SubmitBeregningType } from '../../typer/interface/SubmitBeregningTsType';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { Vilk책r, Vilk책rperiode } from '../../typer/Vilk책r';
-import { formNameAvklarAktiviteter } from '../BeregningFormUtils';
-import { hasAvklaringsbehov } from '../felles/avklaringsbehovUtil';
-import { AvklareAktiviteterField, buildInitialValues, transformFieldValue } from './AvklareAktiviteterField';
+import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
+import { formNameAvklarAktiviteter } from '../../utils/BeregningFormUtils';
+import { AvklareAktiviteterField } from './AvklareAktiviteterField';
+import { buildInitialValues, transformFieldValue } from './avklareAktiviteterHjelpefunksjoner';
 
 const { OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
@@ -32,14 +32,13 @@ const finnVilk책rperiode = (vilk책r: Vilk책r, vilk책rsperiodeFom: string): Vilk�
 };
 
 const skalSkjuleKomponent = (avklaringsbehov: BeregningAvklaringsbehov[], erOverstyrer: boolean): boolean =>
-  !hasAvklaringsbehov(AVKLAR_AKTIVITETER, avklaringsbehov) &&
-  !hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov) &&
+  !hasAksjonspunkt(AVKLAR_AKTIVITETER, avklaringsbehov) &&
+  !hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov) &&
   !erOverstyrer;
 
-type Props = {
+interface Props {
   readOnly: boolean;
   submittable: boolean;
-  harAndreAvklaringsbehovIPanel: boolean;
   kodeverkSamling: KodeverkForPanel;
   beregningsgrunnlag: Beregningsgrunnlag[];
   aktivtBeregningsgrunnlagIndeks: number;
@@ -50,7 +49,7 @@ type Props = {
   setFormData: (data: AvklarAktiviteterFormValues) => void;
   formData?: AvklarAktiviteterFormValues;
   setAvklarAktiviteterErEndret: (value: boolean) => void;
-};
+}
 
 const transformValues = (values: AvklarAktiviteterFormValues): SubmitBeregningType[] => {
   const fieldArrayList = values[formNameAvklarAktiviteter];
@@ -131,7 +130,6 @@ const getAvklarAktiviteter = (alleGrunnlag: Beregningsgrunnlag[], index: number)
  */
 
 export const AvklareAktiviteterPanel = ({
-  harAndreAvklaringsbehovIPanel,
   erOverstyrer,
   readOnly,
   kodeverkSamling,
@@ -205,34 +203,29 @@ export const AvklareAktiviteterPanel = ({
   };
 
   return (
-    <>
-      <Form<AvklarAktiviteterFormValues>
-        formMethods={formMethods}
-        onSubmit={values => losAvklaringsbehov(values)}
-        setDataOnUnmount={setFormData}
-      >
-        {fields.map(
-          (field, index) =>
-            aktivtBeregningsgrunnlagIndeks === index && (
-              <AvklareAktiviteterField
-                // @ts-expect-error Fiks
-                aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-                key={field.id}
-                fieldId={index}
-                avklarAktiviteter={getAvklarAktiviteter(beregningsgrunnlag, index)}
-                avklaringsbehovListe={beregningsgrunnlag[index].avklaringsbehov}
-                erOverstyrer={erOverstyrer}
-                readOnly={readOnly}
-                submittable={submittable}
-                kodeverkSamling={kodeverkSamling}
-                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-                updateOverstyring={updateOverstyring}
-                submitDisabled={submitDisabled}
-              />
-            ),
-        )}
-      </Form>
-      {harAndreAvklaringsbehovIPanel && <VerticalSpacer twentyPx />}
-    </>
+    <Form<AvklarAktiviteterFormValues>
+      formMethods={formMethods}
+      onSubmit={values => losAvklaringsbehov(values)}
+      setDataOnUnmount={setFormData}
+    >
+      {fields.map(
+        (field, index) =>
+          aktivtBeregningsgrunnlagIndeks === index && (
+            <AvklareAktiviteterField
+              key={field.id}
+              fieldId={index}
+              avklarAktiviteter={getAvklarAktiviteter(beregningsgrunnlag, index)}
+              avklaringsbehovListe={beregningsgrunnlag[index].avklaringsbehov}
+              erOverstyrer={erOverstyrer}
+              readOnly={readOnly}
+              submittable={submittable}
+              kodeverkSamling={kodeverkSamling}
+              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+              updateOverstyring={updateOverstyring}
+              submitDisabled={submitDisabled}
+            />
+          ),
+      )}
+    </Form>
   );
 };

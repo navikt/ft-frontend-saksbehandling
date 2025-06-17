@@ -1,20 +1,16 @@
 import { FormattedMessage } from 'react-intl';
 
-import { Label } from '@navikt/ds-react';
+import { Label, VStack } from '@navikt/ds-react';
 
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
 import { BrukersAndelFieldArray } from './BrukersAndelFieldArray';
 
-import styles from './kunYtelseUtenBesteberegningPanel.module.css';
-
-type Props = {
+interface Props {
   readOnly: boolean;
   brukersAndelFieldArrayName: string;
   isAksjonspunktClosed: boolean;
   kodeverkSamling: KodeverkForPanel;
-};
+}
 
 /**
  * KunYtelseUtenBesteberegningPanel
@@ -29,20 +25,15 @@ export const KunYtelseUtenBesteberegningPanel = ({
   kodeverkSamling,
   isAksjonspunktClosed,
 }: Props) => (
-  <>
-    <FlexRow>
-      <FlexColumn className={styles.flexColumn9}>
-        <Label size="medium">
-          <FormattedMessage id="KunYtelsePanel.RapporterteInntekter" />
-        </Label>
-      </FlexColumn>
-    </FlexRow>
-    <VerticalSpacer eightPx />
+  <VStack gap="4">
+    <Label size="medium">
+      <FormattedMessage id="KunYtelsePanel.RapporterteInntekter" />
+    </Label>
     <BrukersAndelFieldArray
       name={brukersAndelFieldArrayName}
       readOnly={readOnly}
       isAksjonspunktClosed={isAksjonspunktClosed}
       kodeverkSamling={kodeverkSamling}
     />
-  </>
+  </VStack>
 );

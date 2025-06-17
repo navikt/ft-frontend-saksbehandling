@@ -2,26 +2,27 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { Label, List, ReadMore } from '@navikt/ds-react';
+import { Label, List, ReadMore, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus, FaktaOmBeregningTilfelle, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
-import { KodeverkForPanel } from '../../../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../../../typer/KodeverkForPanel';
 import { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
 import { ArbeidsinntektInput } from '../../../felles/ArbeidsinntektInput';
 import { InntektInput } from '../../../felles/InntektInput';
 import { besteberegningField } from '../../besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { getKanRedigereInntekt, mapAndelToField } from '../../BgFaktaUtils';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
-import { lonnsendringField } from './LonnsendringForm';
+import { arbeidUnderAapField } from './arbeidUnderAapFormUtils';
+import { erKunstigAndel, kunstigAndelField } from './KunstigArbeidsforhold';
+import { lonnsendringField } from './lonnsendringFormUtils';
 import { erNyoppstartetFLField } from './NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './VurderEtterlonnSluttpakkeForm';
-import { finnFrilansFieldName, utledArbeidsforholdFieldName } from './VurderMottarYtelseUtils';
+import { frilansFieldName, utledArbeidsforholdFieldName } from './VurderMottarYtelseUtils';
 
 const erATFLSammeOrg = (tilfeller: string[]) =>
-  tilfeller?.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
+  tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
 
 interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
@@ -31,6 +32,35 @@ interface Props {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   kodeverkSamling: KodeverkForPanel;
 }
+
+const ArbeidUnderAAPLabel = () => (
+  <VStack gap="2">
+    <FormattedMessage id="BeregningInfoPanel.InntektInputFields.MånedsinntektAap" />
+    <ReadMore size="small" header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}>
+      <List size="small">
+        <List.Item>
+          <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ArbeidUnderAap" />
+        </List.Item>
+      </List>
+    </ReadMore>
+  </VStack>
+);
+
+const KunstigAndelLabel = () => (
+  <VStack gap="2">
+    <FormattedMessage id="BeregningInfoPanel.KunstigArbeidsforhold.FastsettKunstigArbeidsforhold" />
+    <ReadMore size="small" header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}>
+      <List size="small">
+        <List.Item>
+          <FormattedMessage id="BeregningInfoPanel.KunstigArbeidsforhold.HvordanGarJegFrem1" />
+        </List.Item>
+        <List.Item>
+          <FormattedMessage id="BeregningInfoPanel.KunstigArbeidsforhold.HvordanGarJegFrem2" />
+        </List.Item>
+      </List>
+    </ReadMore>
+  </VStack>
+);
 
 /**
  * InntektInputFields
@@ -51,9 +81,15 @@ export const InntektInputFields = ({
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
   const skalRedigereFrilansinntektRadioValues = getValues([
-    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`,
+    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${frilansFieldName}`,
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`,
   ]);
+
+  const skalRedigereKunstigAndelInntekt =
+    beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel?.some(a =>
+      erKunstigAndel(a.arbeidsforhold?.arbeidsgiverIdent),
+    );
+
   const skalRedigereFrilansinntekt = () => {
     const erVurderMottarYtelseEllerNyoppstartetFL = skalRedigereFrilansinntektRadioValues.includes(true);
     if (erVurderMottarYtelseEllerNyoppstartetFL) {
@@ -99,6 +135,10 @@ export const InntektInputFields = ({
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`,
   ]);
   const skalRedigereArbeidsinntekt = skalRedigereArbeidsinntektRadioValues.includes(true);
+  const skalRedigereArbeidUnderAAPInntekt = (): boolean =>
+    !!beregningsgrunnlag.faktaOmBeregning?.andelerForFaktaOmBeregning.some(
+      andel => andel.arbeidsforhold?.arbeidsforholdType === OpptjeningAktivitetType.ARBEID_UNDER_AAP,
+    );
   const skalRedigereEtterlønnSluttpakke = getValues([
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`,
   ]).includes(true);
@@ -158,6 +198,8 @@ export const InntektInputFields = ({
   );
 
   const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
+  const kunstigAndelFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${kunstigAndelField}.fastsattBelop`;
+  const arbeidUnderAAPInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${arbeidUnderAapField}.fastsattBelop`;
   const dagpengerInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.dagpengerInntektValues.fastsattBelop`;
   // eslint-disable-next-line max-len
   const selvstendigNæringsdrivendeInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.selvstendigNæringsdrivendeInntektValues.fastsattBelop`;
@@ -181,7 +223,7 @@ export const InntektInputFields = ({
       skalRedigereArbeidsinntektRadioValues.filter(value => value === true).length === 1
     ) {
       return (
-        <>
+        <VStack gap="2">
           <FormattedMessage
             id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift"
             values={{
@@ -204,7 +246,7 @@ export const InntektInputFields = ({
               </List.Item>
             </List>
           </ReadMore>
-        </>
+        </VStack>
       );
     }
     return (
@@ -234,12 +276,10 @@ export const InntektInputFields = ({
       return <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" />;
     }
     if (
-      getValues(
-        `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${finnFrilansFieldName()}`,
-      )
+      getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${frilansFieldName}`)
     ) {
       return (
-        <>
+        <VStack gap="2">
           <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" />
           <ReadMore
             size="small"
@@ -257,12 +297,12 @@ export const InntektInputFields = ({
               </List.Item>
             </List>
           </ReadMore>
-        </>
+        </VStack>
       );
     }
     if (erNyoppstartetFrilanser) {
       return (
-        <>
+        <VStack gap="2">
           <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" />
           <ReadMore
             size="small"
@@ -282,7 +322,7 @@ export const InntektInputFields = ({
               </List.Item>
             </List>
           </ReadMore>
-        </>
+        </VStack>
       );
     }
     return null;
@@ -292,37 +332,39 @@ export const InntektInputFields = ({
     <>
       {erATFLSammeOrg(tilfeller) && (
         <>
-          <Label>
-            <FormattedMessage
-              id={
-                atflSammeOrgHarInntektsmelding
-                  ? 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLFrilans'
-                  : 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLSamlet'
-              }
-            />
-          </Label>
-          <ReadMore
-            size="small"
-            header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
-          >
-            <List size="small">
-              <List.Item>
-                <FormattedMessage
-                  id={
-                    atflSammeOrgHarInntektsmelding
-                      ? 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1MedIM'
-                      : 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1'
-                  }
-                  values={{
-                    br: <br />,
-                  }}
-                />
-              </List.Item>
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate2" />
-              </List.Item>
-            </List>
-          </ReadMore>
+          <VStack gap="2" color="red">
+            <Label>
+              <FormattedMessage
+                id={
+                  atflSammeOrgHarInntektsmelding
+                    ? 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLFrilans'
+                    : 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLSamlet'
+                }
+              />
+            </Label>
+            <ReadMore
+              size="small"
+              header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+            >
+              <List size="small">
+                <List.Item>
+                  <FormattedMessage
+                    id={
+                      atflSammeOrgHarInntektsmelding
+                        ? 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1MedIM'
+                        : 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1'
+                    }
+                    values={{
+                      br: <br />,
+                    }}
+                  />
+                </List.Item>
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate2" />
+                </List.Item>
+              </List>
+            </ReadMore>
+          </VStack>
           {atflOgSammeOrgArbeidsgivere?.map(arbeidsgiver => (
             <ArbeidsinntektInput
               key={arbeidsgiver.arbeidsforhold?.arbeidsgiverIdent}
@@ -334,16 +376,29 @@ export const InntektInputFields = ({
           ))}
         </>
       )}
+      {skalRedigereKunstigAndelInntekt && (
+        <InntektInput
+          name={kunstigAndelFieldName}
+          readOnly={readOnly}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          label={<KunstigAndelLabel />}
+        />
+      )}
       {skalRedigereFrilansinntekt() && (
-        <>
-          <VerticalSpacer thirtyTwoPx />
-          <InntektInput
-            name={frilanserInntektFieldName}
-            readOnly={readOnly}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            label={getFrilansinntektInputLabel()}
-          />
-        </>
+        <InntektInput
+          name={frilanserInntektFieldName}
+          readOnly={readOnly}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          label={getFrilansinntektInputLabel()}
+        />
+      )}
+      {skalRedigereArbeidUnderAAPInntekt() && (
+        <InntektInput
+          name={arbeidUnderAAPInntektFieldName}
+          readOnly={readOnly}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          label={<ArbeidUnderAAPLabel />}
+        />
       )}
       {skalRedigereArbeidsinntekt || skalRedigereEtterlønnSluttpakke
         ? andelerMedArbeidsinntekt
@@ -375,37 +430,28 @@ export const InntektInputFields = ({
           ))}
 
       {skalRedigereDagpengerInntekt && (
-        <>
-          {(skalRedigereFrilansinntekt() || skalRedigereArbeidsinntekt) && <VerticalSpacer thirtyTwoPx />}
-          <InntektInput
-            name={dagpengerInntektFieldName}
-            readOnly={readOnly}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.ManedsinntektDagpenger" />}
-          />
-        </>
+        <InntektInput
+          name={dagpengerInntektFieldName}
+          readOnly={readOnly}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.ManedsinntektDagpenger" />}
+        />
       )}
       {skalRedigereSelvstendigNæringsgivendeInntekt() && (
-        <>
-          <VerticalSpacer thirtyTwoPx />
-          <InntektInput
-            name={selvstendigNæringsdrivendeInntektFieldName}
-            readOnly={readOnly}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.SelvstendigNæringsdrivende" />}
-          />
-        </>
+        <InntektInput
+          name={selvstendigNæringsdrivendeInntektFieldName}
+          readOnly={readOnly}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.SelvstendigNæringsdrivende" />}
+        />
       )}
       {skalRedigereMilitærEllerSivilInntekt() && (
-        <>
-          <VerticalSpacer thirtyTwoPx />
-          <InntektInput
-            name={militærEllerSivilInntektFieldName}
-            readOnly={readOnly}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.MilitærEllerSivil" />}
-          />
-        </>
+        <InntektInput
+          name={militærEllerSivilInntektFieldName}
+          readOnly={readOnly}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          label={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.MilitærEllerSivil" />}
+        />
       )}
     </>
   );

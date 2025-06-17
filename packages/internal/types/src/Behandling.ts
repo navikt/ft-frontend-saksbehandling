@@ -1,3 +1,5 @@
+import { BehandlingStatus, BehandlingType } from '@navikt/ft-kodeverk';
+
 import { Behandlingsresultat } from './Behandlingsresultat';
 
 export type BehandlingÅrsak = {
@@ -9,8 +11,8 @@ export type BehandlingÅrsak = {
 export type Behandling = {
   versjon: number;
   uuid: string;
-  status: string;
-  type: string;
+  status: BehandlingStatus;
+  type: BehandlingType;
   fristBehandlingPåVent?: string;
   venteArsakKode?: string;
   behandlingPaaVent: boolean;

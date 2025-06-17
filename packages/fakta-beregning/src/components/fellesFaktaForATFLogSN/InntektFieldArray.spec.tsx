@@ -1,10 +1,11 @@
-import { AktivitetStatus as aktivitetStatuser, KodeverkType } from '@navikt/ft-kodeverk';
+import { AktivitetStatus as aktivitetStatuser } from '@navikt/ft-kodeverk';
 
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
-import { InntektFieldArray, leggTilDagpengerOmBesteberegning } from './InntektFieldArray';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { InntektFieldArray } from './InntektFieldArray';
+import { leggTilDagpengerOmBesteberegning } from './inntektFieldArrayUtils';
 
 const kodeverkSamling = {
-  [KodeverkType.AKTIVITET_STATUS]: [
+  AktivitetStatus: [
     {
       kode: aktivitetStatuser.MILITAER_ELLER_SIVIL,
       navn: 'Militær og siviltjeneste',
@@ -38,14 +39,14 @@ const kodeverkSamling = {
   ],
 } as KodeverkForPanel;
 
-describe('<InntektFieldArray>', () => {
+describe('InntektFieldArray', () => {
   it('skal ikkje fjerne dagpengeandel om dagpenger og ikkje lagt til manuelt', () => {
     const newfields = [{ aktivitetStatus: aktivitetStatuser.DAGPENGER, lagtTilAvSaksbehandler: false }];
     const rm = (index: number) => newfields.splice(index, 1);
     leggTilDagpengerOmBesteberegning(
       newfields as any,
       false,
-      kodeverkSamling[KodeverkType.AKTIVITET_STATUS],
+      kodeverkSamling['AktivitetStatus'],
       false,
       rm as any,
       (values: any) => newfields.push(values),

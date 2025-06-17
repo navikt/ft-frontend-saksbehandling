@@ -1,35 +1,26 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { Alert, Heading, List, ReadMore, Tabs } from '@navikt/ds-react';
-import dayjs from 'dayjs';
+import { BodyShort, Heading, Tabs, VStack } from '@navikt/ds-react';
 
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
-  KortvarigAndel,
-  RefusjonskravSomKommerForSentListe,
   StandardFaktaPanelProps,
 } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { createIntl, dateFormat, periodFormat } from '@navikt/ft-utils';
 
-import { createVisningsnavnFakta } from './components/ArbeidsforholdHelper';
+import { AksjonspunktTekster } from './AksjonspunktTekster';
 import { BeregningInfoPanel } from './components/BeregningInfoPanel';
-import {
-  getFaktaOmBeregningTilfellerKoder,
-  hasAksjonspunkt,
-  isAksjonspunktClosed,
-} from './components/fellesFaktaForATFLogSN/BgFaktaUtils';
 import { AvklarAktiviteterFormValues } from './typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { SubmitBeregningType } from './typer/interface/SubmitBeregningTsType';
-import { KodeverkForPanel } from './typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from './typer/KodeverkForPanel';
 import { Vilkår, Vilkårperiode } from './typer/Vilkår';
 import { VurderFaktaBeregningFormValues } from './typer/VurderFaktaBeregningFormValues';
+import { hasAksjonspunkt, isAksjonspunktClosed } from './utils/aksjonspunktUtils';
 
 import styles from './beregningFaktaIndex.module.css';
 
@@ -37,16 +28,16 @@ import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-type OwnProps = {
+interface Props {
   beregningsgrunnlag?: Beregningsgrunnlag[];
   erOverstyrer: boolean;
   skalKunneOverstyreAktiviteter?: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  vilkar: Vilkår;
+  vilkar: Vilkår | null;
   kodeverkSamling: KodeverkForPanel;
   submittable: boolean;
   skalKunneAvbryteOverstyring?: boolean;
-};
+}
 
 const { VURDER_FAKTA_FOR_ATFL_SN, AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSGRUNNLAG } =
   FaktaBeregningAvklaringsbehovCode;
@@ -61,12 +52,9 @@ const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]) =>
   const vilkårPeriode = vilkårsperioder.find(({ periode }) => periode.fom === stpOpptjening);
   if (vilkårPeriode) {
     const { fom, tom } = vilkårPeriode.periode;
-    if (tom !== null) {
-      return `${dayjs(fom).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(tom).format(DDMMYYYY_DATE_FORMAT)}`;
-    }
-    return `${dayjs(fom).format(DDMMYYYY_DATE_FORMAT)} - `;
+    return periodFormat(fom, tom);
   }
-  return `${dayjs(stpOpptjening).format(DDMMYYYY_DATE_FORMAT)}`;
+  return dateFormat(stpOpptjening);
 };
 
 const harAvklaringsbehovIPanel = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean => {
@@ -90,319 +78,15 @@ const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]
   );
 };
 
-export const lagHelpTextsForFakta = (
-  beregningsgrunnlag: Beregningsgrunnlag,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-): ReactElement => {
-  const tilfeller: string[] = getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag);
-  const erFrilans: boolean = !!beregningsgrunnlag?.faktaOmBeregning?.vurderMottarYtelse?.erFrilans;
-  const alerts: ReactElement[] = [];
-  const keys: string[] = [];
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)) {
-    const harInntektsmelding =
-      beregningsgrunnlag?.faktaOmBeregning?.arbeidstakerOgFrilanserISammeOrganisasjonListe?.some(
-        aftlSammeOrg => !!aftlSammeOrg.inntektPrMnd,
-      );
-    keys.push(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id={
-            harInntektsmelding
-              ? 'BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrg'
-              : 'BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrgUtenIM'
-          }
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
+const initAktivtBeregningsgrunnlagIndeks = (beregningsgrunnlag: Beregningsgrunnlag[], vilkår: Vilkår | null) => {
+  if (vilkår?.perioder) {
+    const periodeMedAksjonspunktIndex = beregningsgrunnlag.findIndex(bg => skalVurderes(bg, vilkår.perioder));
+    if (periodeMedAksjonspunktIndex > -1) {
+      return periodeMedAksjonspunktIndex;
+    }
   }
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderLonnsendringHelpText"
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
-  }
-  if (erFrilans && tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
-    keys.push(`${FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE}_frilans`);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderMottarYtelseHelpTextFrilans"
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
-  }
-
-  if (!erFrilans && tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
-    keys.push(`${FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE}_arbeidstaker`);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderMottarYtelseHelpTextArbeidstaker"
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
-  }
-
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderEtterlonnSluttpakkeHelpText"
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
-  }
-
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD);
-
-    const kortvarigeArbeidsforhold = beregningsgrunnlag?.faktaOmBeregning?.kortvarigeArbeidsforhold || [];
-
-    let arbeidsgivereNavn = '';
-    kortvarigeArbeidsforhold.forEach((kortvarigArbeidsforhold: KortvarigAndel, index: number) => {
-      const agi = kortvarigArbeidsforhold.arbeidsforhold?.arbeidsgiverIdent;
-      if (!agi) {
-        throw new Error('Må ha arbeidsgiverIdent på kortvarige andeler');
-      }
-      const opplysninger = arbeidsgiverOpplysningerPerId[agi];
-      const arbeidsgiverVisningsnavn = opplysninger ? createVisningsnavnFakta(opplysninger) : agi;
-      if (index === 0) {
-        arbeidsgivereNavn = arbeidsgiverVisningsnavn;
-      } else {
-        arbeidsgivereNavn = `${arbeidsgivereNavn}, ${arbeidsgiverVisningsnavn}`;
-      }
-    });
-
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.TidsbegrensetArbeidsforholdHelpText"
-          values={{
-            arbeidsgiverVisningsnavn: arbeidsgivereNavn,
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
-  }
-
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_MILITÆR_SIVILTJENESTE);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderMilitaerSiviltjenesteHelpText"
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
-  }
-
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE)) {
-    keys.push(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelseHelpText"
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-        <VerticalSpacer fourPx />
-        <ReadMore
-          size="small"
-          header={
-            <FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFremForFastsetteManedsinntekt" />
-          }
-        >
-          <List size="small">
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt1" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt2" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt3" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt4" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt5" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt6" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt7" />
-            </List.Item>
-          </List>
-        </ReadMore>
-        <VerticalSpacer fourPx />
-        <ReadMore
-          size="small"
-          header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvaBetyrInntektskategori" />}
-        >
-          <List size="small">
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori1" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori2" />
-            </List.Item>
-            <List.Item>
-              <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori3" />
-            </List.Item>
-          </List>
-        </ReadMore>
-      </Alert>,
-    );
-  }
-
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderNyoppstartetFLHelpText"
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
-  }
-
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET)) {
-    keys.push(FaktaOmBeregningTilfelle.VURDER_SN_NY_I_ARBEIDSLIVET);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderSNNyIArbeidslivetHelpText"
-          values={{
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
-  }
-
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT)) {
-    const senRefusjonkravListe = beregningsgrunnlag?.faktaOmBeregning?.refusjonskravSomKommerForSentListe || [];
-    let arbeidsgivereNavn = '';
-    senRefusjonkravListe.forEach((kravPerArbeidsgiver: RefusjonskravSomKommerForSentListe, index: number) => {
-      const { arbeidsgiverIdent } = kravPerArbeidsgiver;
-      const opplysninger = arbeidsgiverOpplysningerPerId[arbeidsgiverIdent];
-      const arbeidsgiverVisningsnavn = opplysninger ? createVisningsnavnFakta(opplysninger) : arbeidsgiverIdent;
-      if (index === 0) {
-        arbeidsgivereNavn = arbeidsgiverVisningsnavn;
-      } else {
-        arbeidsgivereNavn = `${arbeidsgivereNavn}, ${arbeidsgiverVisningsnavn}`;
-      }
-    });
-
-    keys.push(FaktaOmBeregningTilfelle.VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT);
-    alerts.push(
-      <Alert size="small" variant="warning">
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.VurderRefusjonskravKommetForSentHelpText"
-          values={{
-            arbeidsgiverVisningsnavn: arbeidsgivereNavn,
-            h3: (...chunks) => (
-              <Heading size="xsmall" level="3">
-                {chunks}
-              </Heading>
-            ),
-          }}
-        />
-      </Alert>,
-    );
-  }
-  if (alerts.length > 0) {
-    return (
-      <>
-        {alerts.map((alert, index) => (
-          <React.Fragment key={keys[index]}>
-            {index > 0 && <VerticalSpacer sixteenPx />}
-            {alert}
-          </React.Fragment>
-        ))}
-      </>
-    );
-  }
-
-  return (
-    <Alert size="small" variant="warning">
-      <FormattedMessage key="VurderFaktaForBeregningen" id="BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning" />
-    </Alert>
-  );
+  return 0;
 };
-
-type AksjonspunktDataDef = SubmitBeregningType[];
 
 export const BeregningFaktaIndex = ({
   beregningsgrunnlag = [],
@@ -417,22 +101,23 @@ export const BeregningFaktaIndex = ({
   setFormData,
   vilkar,
   skalKunneAvbryteOverstyring = false,
-}: OwnProps &
-  StandardFaktaPanelProps<AksjonspunktDataDef, AvklarAktiviteterFormValues | VurderFaktaBeregningFormValues>) => {
-  const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
-  const vilkårsperioder = vilkar?.perioder;
-  useEffect(() => {
-    if (vilkårsperioder) {
-      const periodeMedAksjonspunktIndex = beregningsgrunnlag?.findIndex(bg => skalVurderes(bg, vilkårsperioder));
-      if (periodeMedAksjonspunktIndex > -1) {
-        setAktivtBeregningsgrunnlagIndeks(periodeMedAksjonspunktIndex);
-      }
-    }
-  }, []);
+}: Props &
+  StandardFaktaPanelProps<SubmitBeregningType[], AvklarAktiviteterFormValues | VurderFaktaBeregningFormValues>) => {
+  const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(
+    initAktivtBeregningsgrunnlagIndeks(beregningsgrunnlag, vilkar),
+  );
 
   if (beregningsgrunnlag.length === 0 || !vilkar) {
-    return <>Har ikke beregningsgrunnlag.</>;
+    return (
+      <RawIntlProvider value={intl}>
+        <BodyShort>
+          <FormattedMessage id="BeregningFaktaIndex.IngenBeregningsgrunnlag" />
+        </BodyShort>
+      </RawIntlProvider>
+    );
   }
+
+  const vilkårsperioder = vilkar.perioder;
 
   const skalBrukeTabs = beregningsgrunnlag.length > 1;
   const aktivtBeregningsgrunnlag = beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks];
@@ -442,22 +127,19 @@ export const BeregningFaktaIndex = ({
   return (
     <RawIntlProvider value={intl}>
       <div className={styles.main}>
-        <Heading size="small" level="2">
-          <FormattedMessage id="BeregningInfoPanel.AksjonspunktHelpText.SaksopplysningerBeregning" />
-        </Heading>
-        {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aktiveAvklaringsBehov) ||
-          hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, aktiveAvklaringsBehov)) &&
-        !isAksjonspunktClosed(aktiveAvklaringsBehov) ? (
-          <>
-            <VerticalSpacer sixteenPx />
-            {lagHelpTextsForFakta(aktivtBeregningsgrunnlag, arbeidsgiverOpplysningerPerId)}
-            <VerticalSpacer twentyPx />
-          </>
-        ) : (
-          <VerticalSpacer eightPx />
-        )}
-        {skalBrukeTabs && (
-          <div className={styles.tabsContainer}>
+        <VStack gap="6" className={styles.container}>
+          <Heading size="small" level="2">
+            <FormattedMessage id="BeregningFaktaIndex.SaksopplysningerBeregning" />
+          </Heading>
+          {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, aktiveAvklaringsBehov) ||
+            hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, aktiveAvklaringsBehov)) &&
+            !isAksjonspunktClosed(aktiveAvklaringsBehov) && (
+              <AksjonspunktTekster
+                beregningsgrunnlag={aktivtBeregningsgrunnlag}
+                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+              />
+            )}
+          {skalBrukeTabs && (
             <Tabs
               value={aktivtBeregningsgrunnlagIndeks.toString()}
               onChange={(clickedIndex: string) => setAktivtBeregningsgrunnlagIndeks(Number(clickedIndex))}
@@ -468,34 +150,33 @@ export const BeregningFaktaIndex = ({
                     key={currentBeregningsgrunnlag.skjaeringstidspunktBeregning}
                     value={currentBeregningsgrunnlagIndex.toString()}
                     label={lagLabel(currentBeregningsgrunnlag, vilkårsperioder)}
-                    className={skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) ? 'harAksjonspunkt' : ''}
                     icon={
                       skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) && (
-                        <ExclamationmarkTriangleFillIcon width={20} height={20} color="Orange" />
+                        <ExclamationmarkTriangleFillIcon aria-hidden color="Orange" />
                       )
                     }
                   />
                 ))}
               </Tabs.List>
             </Tabs>
-          </div>
-        )}
-        <BeregningInfoPanel
-          aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-          beregningsgrunnlag={beregningsgrunnlag}
-          kodeverkSamling={kodeverkSamling}
-          avklaringsbehov={aktiveAvklaringsBehov}
-          submitCallback={submitCallback}
-          readOnly={readOnly || erForlengelse(beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks], vilkårsperioder)}
-          submittable={submittable}
-          erOverstyrer={erOverstyrer}
-          skalKunneOverstyreAktiviteter={skalKunneOverstyreAktiviteter}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          setFormData={setFormData}
-          formData={formData}
-          vilkar={vilkar}
-          skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
-        />
+          )}
+          <BeregningInfoPanel
+            aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+            beregningsgrunnlag={beregningsgrunnlag}
+            kodeverkSamling={kodeverkSamling}
+            avklaringsbehov={aktiveAvklaringsBehov}
+            submitCallback={submitCallback}
+            readOnly={readOnly || erForlengelse(beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks], vilkårsperioder)}
+            submittable={submittable}
+            erOverstyrer={erOverstyrer}
+            skalKunneOverstyreAktiviteter={skalKunneOverstyreAktiviteter}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            setFormData={setFormData}
+            formData={formData}
+            vilkar={vilkar}
+            skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
+          />
+        </VStack>
       </div>
     </RawIntlProvider>
   );

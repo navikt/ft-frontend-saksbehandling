@@ -2,8 +2,6 @@ import {
   AktivitetStatus,
   FaktaOmBeregningTilfelle,
   Inntektskategori,
-  isAksjonspunktOpen,
-  KodeverkType,
   OpptjeningAktivitetType as OAType,
   Organisasjonstype as organisasjonstyper,
 } from '@navikt/ft-kodeverk';
@@ -16,7 +14,7 @@ import {
   FaktaOmBeregning,
   FaktaOmBeregningAndel,
 } from '@navikt/ft-types';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { formatCurrencyNoKr, formaterArbeidsgiver } from '@navikt/ft-utils';
 
 import {
   ArbeidstakerInntektValues,
@@ -25,12 +23,11 @@ import {
 } from '../../typer/FaktaBeregningTypes';
 import { AndelFieldIdentifikator, AndelFieldValue } from '../../typer/FieldValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
-import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse } from './vurderOgFastsettATFL/forms/AvsluttetArbeidsforhold';
-import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
+import { lonnsendringField } from './vurderOgFastsettATFL/forms/lonnsendringFormUtils';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';
 import { andelsnrMottarYtelseMap } from './vurderOgFastsettATFL/forms/VurderMottarYtelseUtils';
@@ -50,12 +47,11 @@ const lagVisningsnavn = (
     : undefined;
   if (!agOpplysning) {
     return andel.arbeidsforhold?.arbeidsforholdType
-      ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(
-          oat => oat.kode === andel.arbeidsforhold?.arbeidsforholdType,
-        )?.navn
-      : kodeverkSamling[KodeverkType.AKTIVITET_STATUS].find(at => at.kode === andel.aktivitetStatus)?.navn;
+      ? kodeverkSamling['OpptjeningAktivitetType'].find(oat => oat.kode === andel.arbeidsforhold?.arbeidsforholdType)
+          ?.navn
+      : kodeverkSamling['AktivitetStatus'].find(at => at.kode === andel.aktivitetStatus)?.navn;
   }
-  return createVisningsnavnFakta(agOpplysning, andel.arbeidsforhold?.eksternArbeidsforholdId);
+  return formaterArbeidsgiver(agOpplysning, andel.arbeidsforhold?.eksternArbeidsforholdId);
 };
 
 export const setGenerellAndelsinfo = (
@@ -99,6 +95,9 @@ export const erArbeidstaker = (field: AndelFieldIdentifikator): boolean =>
 
 export const erFrilanser = (field: AndelFieldIdentifikator): boolean =>
   !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.FRILANSER;
+
+export const erArbeidUnderAap = (field: AndelFieldIdentifikator): boolean =>
+  field.arbeidsforholdType === OAType.ARBEID_UNDER_AAP;
 
 export const erDagpenger = (field: AndelFieldIdentifikator): boolean =>
   !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.DAGPENGER;
@@ -181,7 +180,7 @@ const andelErEtterlønnSluttpakkeOgSkalFastsettes = (
 };
 
 // Manuelt registrert med handlingstype LAGT_TIL_AV_BRUKER
-const erAndelKunstigArbeidsforhold = (
+export const erAndelKunstigArbeidsforhold = (
   andel: AndelFieldIdentifikator,
   beregningsgrunnlag: Beregningsgrunnlag,
 ): boolean => {
@@ -202,7 +201,7 @@ const harKunYtelse = (faktaOmBeregning: FaktaOmBeregning): boolean =>
   faktaOmBeregning.faktaOmBeregningTilfeller.find(kode => kode === FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE) !==
     undefined;
 
-const skalKunneOverstigeRapportertInntektOgTotaltBeregningsgrunnlag =
+const skalFastsettInntektForAndel =
   (
     values: FaktaOmBeregningAksjonspunktValues,
     faktaOmBeregning: FaktaOmBeregning,
@@ -239,33 +238,32 @@ const skalKunneOverstigeRapportertInntektOgTotaltBeregningsgrunnlag =
     if (andelErEtterlønnSluttpakkeOgSkalFastsettes(andel, values)) {
       return true;
     }
+    if (erArbeidUnderAap(andel)) {
+      return true;
+    }
     return false;
   };
 
-const skalKunneEndreTotaltBeregningsgrunnlag =
+const skalKunneEndreBeregningsgrunnlag =
   (
     values: FaktaOmBeregningAksjonspunktValues,
     faktaOmBeregning: FaktaOmBeregning,
     beregningsgrunnlag: Beregningsgrunnlag,
   ) =>
   (andel: AndelFieldIdentifikator): boolean => {
-    if (
-      skalKunneOverstigeRapportertInntektOgTotaltBeregningsgrunnlag(values, faktaOmBeregning, beregningsgrunnlag)(andel)
-    ) {
+    if (skalFastsettInntektForAndel(values, faktaOmBeregning, beregningsgrunnlag)(andel)) {
       return true;
     }
     return erNyoppstartetFrilanser(andel, values);
   };
 
 // Overstyring
-export const erOverstyring = (values: FaktaOmBeregningAksjonspunktValues): boolean =>
+export const erOverstyringAvBeregningsgrunnlag = (values: FaktaOmBeregningAksjonspunktValues): boolean =>
   !!values && values[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD] === true;
 
-export const harOverstyringsAP = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
+const harOverstyringsAP = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
   avklaringsbehov &&
   avklaringsbehov.some(ap => ap.definisjon === FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
-
-export const erOverstyringAvBeregningsgrunnlag = (values: FaktaOmBeregningAksjonspunktValues) => erOverstyring(values);
 
 export const erInitialOverstyringAvBeregningsgrunnlag = (beregningsgrunnlag: Beregningsgrunnlag) =>
   beregningsgrunnlag.erOverstyrtInntekt || harOverstyringsAP(beregningsgrunnlag.avklaringsbehov);
@@ -278,7 +276,7 @@ export const skalFastsetteInntektForAndel =
   ) =>
   (andel: AndelFieldIdentifikator): boolean =>
     harKunYtelse(faktaOmBeregning) ||
-    skalKunneEndreTotaltBeregningsgrunnlag(values, faktaOmBeregning, beregningsgrunnlag)(andel);
+    skalKunneEndreBeregningsgrunnlag(values, faktaOmBeregning, beregningsgrunnlag)(andel);
 
 export const kanRedigereInntektForAndel =
   (
@@ -287,7 +285,8 @@ export const kanRedigereInntektForAndel =
     beregningsgrunnlag: Beregningsgrunnlag,
   ) =>
   (andel: AndelFieldIdentifikator) =>
-    erOverstyring(values) || skalFastsetteInntektForAndel(values, faktaOmBeregning, beregningsgrunnlag)(andel);
+    erOverstyringAvBeregningsgrunnlag(values) ||
+    skalFastsetteInntektForAndel(values, faktaOmBeregning, beregningsgrunnlag)(andel);
 
 export const getKanRedigereInntekt =
   (values: FaktaOmBeregningAksjonspunktValues, beregningsgrunnlag: Beregningsgrunnlag) =>
@@ -299,12 +298,10 @@ export const getKanRedigereInntekt =
   };
 
 // Skal redigere inntektskategori
-export const skalRedigereInntektskategoriForAndel =
-  (beregningsgrunnlag: Beregningsgrunnlag) => (andel: AndelFieldIdentifikator) =>
-    erAndelKunstigArbeidsforhold(andel, beregningsgrunnlag);
-
-export const getSkalRedigereInntektskategori = (beregningsgrunnlag: Beregningsgrunnlag) =>
-  skalRedigereInntektskategoriForAndel(beregningsgrunnlag);
+export const skalRedigereInntektskategoriForAndel = (
+  beregningsgrunnlag: Beregningsgrunnlag,
+  andel: AndelFieldIdentifikator,
+) => erAndelKunstigArbeidsforhold(andel, beregningsgrunnlag);
 
 export const mapAndelToField = (
   andel: AndelForFaktaOmBeregning,
@@ -344,16 +341,4 @@ export const getFaktaOmBeregning = (beregningsgrunnlag: Beregningsgrunnlag): Fak
 };
 
 export const getFaktaOmBeregningTilfellerKoder = (beregningsgrunnlag: Beregningsgrunnlag): string[] =>
-  getFaktaOmBeregning(beregningsgrunnlag)?.faktaOmBeregningTilfeller || [];
-
-export const hasAksjonspunkt = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
-  avklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
-
-export const isAksjonspunktClosed = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean => {
-  const relevantAp = avklaringsbehov.filter(
-    ap =>
-      ap.definisjon === FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN ||
-      ap.definisjon === FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-  );
-  return relevantAp.length === 0 ? false : relevantAp.some(ap => !isAksjonspunktOpen(ap.status));
-};
+  getFaktaOmBeregning(beregningsgrunnlag)?.faktaOmBeregningTilfeller ?? [];

@@ -1,19 +1,14 @@
-import { action } from '@storybook/addon-actions';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { action } from 'storybook/actions';
 
-import {
-  AksjonspunktStatus,
-  BehandlingStatus,
-  ForeldelseVurderingType,
-  RelasjonsRolleType,
-  TilbakekrevingKodeverkType,
-} from '@navikt/ft-kodeverk';
+import { AksjonspunktStatus, BehandlingStatus, ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
 import { Behandling } from '@navikt/ft-types';
 
 import { ForeldelseAksjonspunktCodes } from './ForeldelseAksjonspunktCodes';
 import { ForeldelseProsessIndex } from './ForeldelseProsessIndex';
 import { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
-import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTf';
+import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
+import { VurderForeldelseAp } from './types/VurderForeldelseAp';
 
 import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';
@@ -54,7 +49,7 @@ const perioderForeldelse = {
 } as FeilutbetalingPerioderWrapper;
 
 const kodeverkSamling = {
-  [TilbakekrevingKodeverkType.FORELDELSE_VURDERING]: [
+  ForeldelseVurderingType: [
     {
       kode: ForeldelseVurderingType.FORELDET,
       navn: 'Foreldet',
@@ -71,13 +66,12 @@ const kodeverkSamling = {
       kodeverk: 'FORELDELSE_VURDERING',
     },
   ],
-} as KodeverkFpTilbakeForPanel;
+} as KodeverkTilbakeForPanel;
 
 const meta = {
-  title: 'prosess-tilbakekreving-foreldelse/ForeldelseProsessIndex',
   component: ForeldelseProsessIndex,
   args: {
-    submitCallback: action('button-click') as (data: any) => Promise<void>,
+    submitCallback: action('button-click') as (data: VurderForeldelseAp) => Promise<void>,
     behandling: {
       uuid: '1',
       versjon: 1,
@@ -88,11 +82,11 @@ const meta = {
     setFormData: () => undefined,
     perioderForeldelse,
     relasjonsRolleType: RelasjonsRolleType.MOR,
-    beregnBelop: (params?: any) => Promise.resolve(params),
+    beregnBelop: () => Promise.resolve({ perioder: [{ belop: 10000 }, { belop: 12000 }] }),
     alleMerknaderFraBeslutter: {},
     relasjonsRolleTypeKodeverk: [
       {
-        kode: 'MORA',
+        kode: RelasjonsRolleType.MOR,
         kodeverk: 'RELASJONSROLLE_TYPE',
         navn: 'Mor',
       },

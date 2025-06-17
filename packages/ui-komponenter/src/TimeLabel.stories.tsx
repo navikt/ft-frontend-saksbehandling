@@ -8,11 +8,10 @@ import { TimeLabel } from './TimeLabel';
 const intl = createIntl({});
 
 export default {
-  title: 'ui-komponenter/TimeLabel',
   component: TimeLabel,
 };
 
-export const visTidslabel = () => (
+export const VisTidslabel = () => (
   <RawIntlProvider value={intl}>
     <TimeLabel dateTimeString="2020-08-02T00:54:25.455" />
   </RawIntlProvider>

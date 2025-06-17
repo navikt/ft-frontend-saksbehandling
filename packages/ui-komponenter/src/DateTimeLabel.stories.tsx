@@ -1,7 +1,7 @@
 import React from 'react';
 import { RawIntlProvider } from 'react-intl';
 
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 
 import { createIntl } from '@navikt/ft-utils';
 
@@ -10,7 +10,6 @@ import { DateTimeLabel } from './DateTimeLabel';
 const intl = createIntl({});
 
 const meta: Meta<typeof DateTimeLabel> = {
-  title: 'ui-komponenter/DateTimeLabel',
   component: DateTimeLabel,
   decorators: Story => (
     <RawIntlProvider value={intl}>
@@ -27,7 +26,7 @@ const meta: Meta<typeof DateTimeLabel> = {
     dateTimeString: { control: 'date' },
   },
   args: {
-    dateTimeString: '2024-08-02T10:54:00',
+    dateTimeString: '2024-05-02T09:54:21',
   },
 };
 
@@ -40,6 +39,7 @@ export const MedTilpassetUtrykk: Story = {
     separator: 'kl',
     day: 'numeric',
     month: 'long',
+    year: '2-digit',
     second: '2-digit',
   },
 };

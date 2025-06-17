@@ -3,33 +3,31 @@ import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 // TODO (SAFIR) PFP-6021 Ta i bruk InntektFieldArray i staden for BrukersAndelFieldArray
-import { Label } from '@navikt/ds-react';
+import { BodyShort, Label, Link, VStack } from '@navikt/ds-react';
 
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '@navikt/ft-konstanter';
 import { KunYtelse } from '@navikt/ft-types';
-import { ArrowBox, FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
+import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
 import { VurderBesteberegningMedKunYtelseValues } from '../../../typer/FaktaBeregningTypes';
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
 import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
-import { formNameVurderFaktaBeregning } from '../../BeregningFormUtils';
+import { formNameVurderFaktaBeregning } from '../../../utils/BeregningFormUtils';
+import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '../eksterneLenker';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import { BrukersAndelFieldArray } from './BrukersAndelFieldArray';
 
-import styles from './kunYtelseBesteberegningPanel.module.css';
+const besteberegningField = 'besteberegningField';
 
-export const besteberegningField = 'besteberegningField';
-
-type Props = {
+interface Props {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   brukersAndelFieldArrayName: string;
   skalViseInntektstabell?: boolean;
   kodeverkSamling: KodeverkForPanel;
-};
+}
 
 /**
  * KunYtelseBesteberegningPanel
@@ -66,39 +64,32 @@ export const KunYtelseBesteberegning = ({
       />
 
       {erBesteberegning !== undefined && erBesteberegning !== null && (
-        <ArrowBox alignOffset={erBesteberegning ? 0 : 60}>
-          <FlexRow>
-            <FlexColumn className={styles.flexColumn9}>
-              <Label size="small">
-                <FormattedMessage id="KunYtelsePanel.OverskriftBesteberegning" />
-              </Label>
-            </FlexColumn>
-            {erBesteberegning && (
-              <FlexColumn className={styles.flexColumn3}>
-                <a
-                  className={styles.navetLink}
-                  href={LINK_TIL_BESTE_BEREGNING_REGNEARK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
-                </a>
-              </FlexColumn>
-            )}
-          </FlexRow>
-          {skalViseInntektstabell && (
-            <FlexRow>
-              <FlexColumn className={styles.flexColumn12}>
+        <div style={{ marginTop: '10px' }}>
+          <ArrowBox alignOffset={erBesteberegning ? 0 : 60}>
+            <VStack gap="4">
+              <VStack gap="2" justify="space-between">
+                <Label size="small">
+                  <FormattedMessage id="KunYtelsePanel.OverskriftBesteberegning" />
+                </Label>
+                {erBesteberegning && (
+                  <BodyShort>
+                    <Link href={LINK_TIL_BESTE_BEREGNING_REGNEARK} target="_blank" rel="noopener noreferrer">
+                      <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
+                    </Link>
+                  </BodyShort>
+                )}
+              </VStack>
+              {skalViseInntektstabell && (
                 <BrukersAndelFieldArray
                   name={brukersAndelFieldArrayName}
                   readOnly={readOnly}
                   isAksjonspunktClosed={isAksjonspunktClosed}
                   kodeverkSamling={kodeverkSamling}
                 />
-              </FlexColumn>
-            </FlexRow>
-          )}
-        </ArrowBox>
+              )}
+            </VStack>
+          </ArrowBox>
+        </div>
       )}
     </div>
   );

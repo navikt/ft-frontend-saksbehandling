@@ -1,26 +1,17 @@
 import { useFieldArray, useFormContext } from 'react-hook-form';
+import { FormattedMessage } from 'react-intl';
 
-import moment from 'moment';
+import { Table } from '@navikt/ds-react';
 
 import { SelectField } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { KodeverkType } from '@navikt/ft-kodeverk';
-import { Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
-import { DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { BeløpLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
 import { FeilutbetalingÅrsak } from '../types/FeilutbetalingÅrsak';
 import { FeilutbetalingFakta } from '../types/FeilutbetalingFakta';
-import { KodeverkFpTilbakeForPanel } from '../types/KodeverkFpTilbakeForPanelFtf';
-
-import styles from './feilutbetalingPerioderFieldArray.module.css';
+import { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 
 const FIELD_ARRAY_NAME = 'perioder';
-
-const headerTextCodes = [
-  'FeilutbetalingInfoPanel.Period',
-  'FeilutbetalingInfoPanel.Hendelse',
-  'FeilutbetalingInfoPanel.Beløp',
-];
 
 const getHendelseUndertyper = (
   årsaker: FeilutbetalingÅrsak['hendelseTyper'],
@@ -43,7 +34,7 @@ type Props = {
   årsaker: FeilutbetalingÅrsak['hendelseTyper'];
   readOnly: boolean;
   behandlePerioderSamlet: boolean;
-  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
 };
 
 export const FeilutbetalingPerioderFieldArray = ({
@@ -78,27 +69,35 @@ export const FeilutbetalingPerioderFieldArray = ({
   };
 
   return (
-    <div className={styles.feilutbetalingTable}>
-      <Table headerTextCodes={headerTextCodes} noHover>
+    <Table>
+      <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell scope="col">
+            <FormattedMessage id="FeilutbetalingInfoPanel.Period" />
+          </Table.HeaderCell>
+          <Table.HeaderCell scope="col">
+            <FormattedMessage id="FeilutbetalingInfoPanel.Hendelse" />
+          </Table.HeaderCell>
+          <Table.HeaderCell scope="col">
+            <FormattedMessage id="FeilutbetalingInfoPanel.Beløp" />
+          </Table.HeaderCell>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
         {fields.map((periode, index) => {
           const årsak = watch(`${FIELD_ARRAY_NAME}.${index}.årsak`);
           const hendelseUndertyper = getHendelseUndertyper(årsaker, årsak);
           return (
-            <TableRow key={periode.id}>
-              <TableColumn>
-                {`${moment(periode.fom).format(DDMMYYYY_DATE_FORMAT)} - ${moment(periode.tom).format(
-                  DDMMYYYY_DATE_FORMAT,
-                )}`}
-              </TableColumn>
-              <TableColumn>
+            <Table.Row key={periode.id}>
+              <Table.DataCell>
+                <PeriodLabel dateStringFom={periode.fom} dateStringTom={periode.tom} />
+              </Table.DataCell>
+              <Table.DataCell>
                 <SelectField
                   name={`${FIELD_ARRAY_NAME}.${index}.årsak`}
                   selectValues={årsaker.map(a => (
                     <option key={a.hendelseType} value={a.hendelseType}>
-                      {
-                        kodeverkSamlingFpTilbake[KodeverkType.HENDELSE_TYPE].find(ht => ht.kode === a.hendelseType)
-                          ?.navn
-                      }
+                      {kodeverkSamlingFpTilbake['HendelseType'].find(ht => ht.kode === a.hendelseType)?.navn}
                     </option>
                   ))}
                   validate={[required]}
@@ -111,7 +110,7 @@ export const FeilutbetalingPerioderFieldArray = ({
                     name={`${FIELD_ARRAY_NAME}.${index}.${årsak}.underÅrsak`}
                     selectValues={hendelseUndertyper.map(a => (
                       <option key={a} value={a}>
-                        {kodeverkSamlingFpTilbake[KodeverkType.HENDELSE_UNDERTYPE].find(hu => hu.kode === a)?.navn}
+                        {kodeverkSamlingFpTilbake['HendelseUnderType'].find(hu => hu.kode === a)?.navn}
                       </option>
                     ))}
                     validate={[required]}
@@ -120,12 +119,14 @@ export const FeilutbetalingPerioderFieldArray = ({
                     label=""
                   />
                 )}
-              </TableColumn>
-              <TableColumn className={styles.redText}>{perioder ? perioder[index].belop : null}</TableColumn>
-            </TableRow>
+              </Table.DataCell>
+              <Table.DataCell align="right">
+                {perioder ? <BeløpLabel rød beløp={perioder[index].belop} /> : null}
+              </Table.DataCell>
+            </Table.Row>
           );
         })}
-      </Table>
-    </div>
+      </Table.Body>
+    </Table>
   );
 };

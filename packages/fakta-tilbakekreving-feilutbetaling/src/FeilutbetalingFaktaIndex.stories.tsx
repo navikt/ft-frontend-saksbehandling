@@ -1,5 +1,5 @@
-import { action } from '@storybook/addon-actions';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { action } from 'storybook/actions';
 
 import { alleKodeverk, alleTilbakekrevingKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import {
@@ -14,8 +14,8 @@ import { FeilutbetalingFaktaIndex } from './FeilutbetalingFaktaIndex';
 import { AvklartFaktaFeilutbetalingAp } from './types/AvklartFaktaFeilutbetalingAp';
 import { FeilutbetalingÅrsak } from './types/FeilutbetalingÅrsak';
 import { FeilutbetalingFakta } from './types/FeilutbetalingFakta';
-import { KodeverkFpSakForPanel } from './types/KodeverkFpSakForPanelFtf';
-import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelFtf';
+import { KodeverkForPanel } from './types/KodeverkForPanel';
+import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 
 import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';
@@ -58,7 +58,7 @@ const feilutbetalingFakta = {
     },
     datoForRevurderingsvedtak: '2019-01-01',
   },
-};
+} satisfies FeilutbetalingFakta;
 
 const feilutbetalingAarsak = [
   {
@@ -80,17 +80,16 @@ const feilutbetalingAarsak = [
   },
 ] as FeilutbetalingÅrsak[];
 
-const fpTilbakekrevingAlleKodeverk = alleTilbakekrevingKodeverk as KodeverkFpTilbakeForPanel;
-const fpSakAlleKodeverk = alleKodeverk as KodeverkFpSakForPanel;
+const fpTilbakekrevingAlleKodeverk = alleTilbakekrevingKodeverk as KodeverkTilbakeForPanel;
+const fpSakAlleKodeverk = alleKodeverk as KodeverkForPanel;
 
 const meta = {
-  title: 'fakta-tilbakekreving-feilutbetaling/FeilutbetalingFaktaIndex',
   component: FeilutbetalingFaktaIndex,
   args: {
     submitCallback: action('button-click') as (data: AvklartFaktaFeilutbetalingAp) => Promise<any>,
     isReadOnly: false,
     setFormData: () => undefined,
-    feilutbetalingFakta: feilutbetalingFakta as FeilutbetalingFakta,
+    feilutbetalingFakta,
     feilutbetalingAarsak,
     kodeverkSamlingFpsak: fpSakAlleKodeverk,
     kodeverkSamlingFpTilbake: fpTilbakekrevingAlleKodeverk,

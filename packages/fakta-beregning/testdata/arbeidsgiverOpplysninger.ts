@@ -1,4 +1,6 @@
-export const agOpplysninger = {
+import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
+
+export const agOpplysninger: ArbeidsgiverOpplysningerPerId = {
   12345678: {
     navn: 'Bedriften',
     identifikator: '12345678',

@@ -2,14 +2,13 @@ import { FormattedMessage } from 'react-intl';
 
 import { RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { KodeverkMedNavn } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { Aktsomhet } from '../../../kodeverk/aktsomhet';
+import { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
 import { AktsomhetInfo } from '../../../types/VilkårsvurdertePerioder';
 import { AktsomhetGradFormPanel } from './AktsomhetGradFormPanel';
-import { ANDELER, EGENDEFINERT } from './AktsomhetReduksjonAvBelopFormPanel';
+import { ANDELER, EGENDEFINERT } from './aktsomhetUtils';
 
 const uaktsomhetCodes = [Aktsomhet.GROVT_UAKTSOM, Aktsomhet.SIMPEL_UAKTSOM, Aktsomhet.FORSETT];
 
@@ -39,7 +38,7 @@ export interface InitialValuesAktsomhetForm {
 
 export interface Props {
   readOnly: boolean;
-  resetFields: (...args: any[]) => any;
+  resetFields: () => void;
   harGrunnerTilReduksjon?: boolean;
   erSerligGrunnAnnetValgt?: boolean;
   erValgtResultatTypeForstoBurdeForstaatt?: boolean;
@@ -47,8 +46,8 @@ export interface Props {
   antallYtelser: number;
   feilutbetalingBelop: number;
   erTotalBelopUnder4Rettsgebyr: boolean;
-  aktsomhetTyper: KodeverkMedNavn[];
-  sarligGrunnTyper: KodeverkMedNavn[];
+  aktsomhetTyper: KodeverkMedNavnTilbakekreving<'Aktsomhet'>[];
+  sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[];
   andelSomTilbakekreves?: string;
   name: string;
 }
@@ -69,7 +68,6 @@ export const AktsomhetFormPanel = ({
   name,
 }: Props) => (
   <>
-    <VerticalSpacer sixteenPx />
     <RadioGroupPanel
       name={`${name}.handletUaktsomhetGrad`}
       label={<FormattedMessage id="AktsomhetFormPanel.HandletUaktsomhetGrad" />}
@@ -114,7 +112,7 @@ const parseFloatAndelSomTilbakekreves = (andelSomTilbakekreves: string, harGrunn
   return !harGrunnerTilReduksjon || Number.isNaN(parsedValue) ? {} : { andelTilbakekreves: parsedValue };
 };
 
-const formatAktsomhetData = (aktsomhet: any, sarligGrunnTyper: KodeverkMedNavn[]) => {
+const formatAktsomhetData = (aktsomhet: any, sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[]) => {
   if (aktsomhet.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr === false) {
     return {
       tilbakekrevSelvOmBeloepErUnder4Rettsgebyr: aktsomhet.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr,
@@ -122,7 +120,7 @@ const formatAktsomhetData = (aktsomhet: any, sarligGrunnTyper: KodeverkMedNavn[]
   }
 
   const sarligeGrunner = sarligGrunnTyper.reduce(
-    (acc: string[], type: KodeverkMedNavn) => (aktsomhet[type.kode] ? acc.concat(type.kode) : acc),
+    (acc: string[], type) => (aktsomhet[type.kode] ? acc.concat(type.kode) : acc),
     [],
   );
 
@@ -148,7 +146,7 @@ const formatAktsomhetData = (aktsomhet: any, sarligGrunnTyper: KodeverkMedNavn[]
 
 AktsomhetFormPanel.transformValues = (
   info: { handletUaktsomhetGrad: string },
-  sarligGrunnTyper: KodeverkMedNavn[],
+  sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[],
   vurderingBegrunnelse: string,
 ) => {
   // @ts-expect-error Fiks
@@ -178,7 +176,7 @@ const lagAktsomhetData = (
   sarligGrunnerBegrunnelse: decodeHtmlEntity(aktsomhetInfo.sarligGrunnerBegrunnelse),
   tilbakekrevSelvOmBeloepErUnder4Rettsgebyr: aktsomhetInfo.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr,
   ...(aktsomhetInfo.sarligGrunner
-    ? aktsomhetInfo.sarligGrunner.reduce((acc: any, sg: any) => ({ ...acc, [sg.kode ? sg.kode : sg]: true }), {})
+    ? aktsomhetInfo.sarligGrunner.reduce((acc: any, sg: any) => ({ ...acc, [sg.kode ?? sg]: true }), {})
     : {}),
 });
 

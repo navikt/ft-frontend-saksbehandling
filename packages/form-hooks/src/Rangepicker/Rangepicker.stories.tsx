@@ -1,10 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { rhfDecorator } from '../../.storybook/decorators';
 import { Rangepicker } from './Rangepicker';
 
 const meta = {
-  title: 'form-hooks/Rangepicker',
   component: Rangepicker,
   tags: ['autodocs'],
   decorators: rhfDecorator({ fomPre: '2022-10-22', tomPre: '2022-10-27' }),

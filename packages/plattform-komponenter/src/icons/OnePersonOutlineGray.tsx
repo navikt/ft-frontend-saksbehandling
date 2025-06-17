@@ -2,6 +2,9 @@ interface OnePersonOutlineGrayProps {
   classname?: string;
 }
 
+/**
+ * @deprecated Bruk heller ikona frå Aksel: https://aksel.nav.no/ikoner
+ */
 export const OnePersonOutlineGray = ({ classname }: OnePersonOutlineGrayProps) => (
   <svg width="41" height="43" viewBox="0 0 41 43" fill="none" xmlns="http://www.w3.org/2000/svg" className={classname}>
     <path

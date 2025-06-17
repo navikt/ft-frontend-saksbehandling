@@ -2,23 +2,63 @@ import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 import { Form } from '@navikt/ft-form-hooks';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import {
+  ArbeidsgiverOpplysningerPerId,
+  BeregningAvklaringsbehov,
+  Beregningsgrunnlag,
+  BeregningsgrunnlagTilBekreftelse,
+} from '@navikt/ft-types';
 import { ErrorBoundary } from '@navikt/ft-ui-komponenter';
 
-import { VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { VurderRefusjonFieldValues, VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import { VurderRefusjonAksjonspunktSubmitType } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
+import {
+  VurderRefusjonAksjonspunktSubmitType,
+  VurderRefusjonTransformedValues,
+} from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { Vilkårperiode } from '../../types/Vilkår';
 import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
-import {
-  buildFieldInitialValues,
-  transformFieldValues,
-  VurderEndringRefusjonField,
-} from './VurderEndringRefusjonField';
+import { VurderEndringRefusjonField } from './VurderEndringRefusjonField';
+import { VurderEndringRefusjonRad } from './VurderEndringRefusjonRad';
 
 export const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 
 const { VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
+
+const finnAvklaringsbehov = (avklaringsbehov: BeregningAvklaringsbehov[]): BeregningAvklaringsbehov | undefined =>
+  avklaringsbehov ? avklaringsbehov.find(ap => ap.definisjon === VURDER_REFUSJON_BERGRUNN) : undefined;
+
+const buildFieldInitialValues = (bg: Beregningsgrunnlag, vilkårsperiode: Vilkårperiode): VurderRefusjonFieldValues => {
+  const andeler = bg.refusjonTilVurdering?.andeler ?? [];
+  const refusjonAP = finnAvklaringsbehov(bg.avklaringsbehov);
+  let initialValues = {
+    beregningsgrunnlagStp: bg.skjaeringstidspunktBeregning,
+    periode: vilkårsperiode.periode,
+    begrunnelse: refusjonAP?.begrunnelse,
+  } as unknown as VurderRefusjonFieldValues;
+  andeler.forEach(andel => {
+    initialValues = {
+      ...initialValues,
+      ...VurderEndringRefusjonRad.buildInitialValues(andel),
+    };
+  });
+  return initialValues;
+};
+
+const transformFieldValues = (
+  values: VurderRefusjonFieldValues,
+  bg: Beregningsgrunnlag,
+): BeregningsgrunnlagTilBekreftelse<VurderRefusjonTransformedValues> => {
+  const andeler = bg.refusjonTilVurdering?.andeler ?? [];
+  const transformedAndeler = andeler.map(andel =>
+    VurderEndringRefusjonRad.transformValues(values, andel, bg.skjaeringstidspunktBeregning),
+  );
+  return {
+    periode: values.periode,
+    begrunnelse: values.begrunnelse,
+    fastsatteAndeler: transformedAndeler,
+  };
+};
 
 const buildInitialValues = (
   beregningsgrunnlagListe: Beregningsgrunnlag[],
@@ -40,6 +80,15 @@ const finnBeregningsgrunnlag = (
   return matchetndeBG;
 };
 
+const harAvklaringsbehovVurderRefusjon = (
+  beregningsgrunnlagStp: string,
+  beregninsgrunnlagListe: Beregningsgrunnlag[],
+): boolean => {
+  return beregninsgrunnlagListe
+    .filter(bg => bg.skjaeringstidspunktBeregning === beregningsgrunnlagStp)
+    .some(bg => bg.avklaringsbehov.some(ab => ab.definisjon === 'VURDER_REFUSJONSKRAV'));
+};
+
 const transformValues = (
   values: VurderRefusjonFormValues,
   beregninsgrunnlagListe: Beregningsgrunnlag[],
@@ -48,6 +97,7 @@ const transformValues = (
   const fields = values[FORM_NAME];
   const grunnlag = fields
     .filter(f => vurderesIBehandlingen(vilkårsperioder, f.periode.fom))
+    .filter(f => harAvklaringsbehovVurderRefusjon(f.beregningsgrunnlagStp, beregninsgrunnlagListe))
     .map(field => transformFieldValues(field, finnBeregningsgrunnlag(field.periode.fom, beregninsgrunnlagListe)));
   const begrunnelse = grunnlag.map(gr => gr.begrunnelse).reduce((b1, b2) => (b1 !== null ? `${b1} ${b2}` : b2));
   return {

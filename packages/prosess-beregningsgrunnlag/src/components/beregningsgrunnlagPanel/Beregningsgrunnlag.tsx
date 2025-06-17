@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { VStack } from '@navikt/ds-react';
 
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -16,11 +16,12 @@ import {
   FastsettAvvikATFLTidsbegrensetResultatAP,
 } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 import { AksjonspunktBehandlerAT } from '../arbeidstaker/AksjonspunktBehandlerAT';
 import { AksjonspunktBehandlerTidsbegrenset } from '../arbeidstaker/AksjonspunktBehandlerTB';
 import { GrunnlagForAarsinntektPanelAT } from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
+import { NaturalytelsePanel } from '../arbeidstaker/NaturalytelsePanel';
 import { SammenligningsgrunnlagAOrdningen } from '../fellesPaneler/SammenligningsgrunnlagAOrdningen';
 import { GrunnlagForAarsinntektPanelFL } from '../frilanser/GrunnlagForAarsinntektPanelFL';
 import { MilitaerPanel } from '../militar/MilitaerPanel';
@@ -28,8 +29,6 @@ import { GrunnlagForAarsinntektPanelSN } from '../selvstendigNaeringsdrivende/Gr
 import { NaeringsopplysningsPanel } from '../selvstendigNaeringsdrivende/NaeringsOpplysningsPanel';
 import { TilstotendeYtelser } from '../tilstotendeYtelser/TilstotendeYtelser';
 import { YtelserFraInfotrygd } from '../tilstotendeYtelser/YtelserFraInfotrygd';
-
-import beregningStyles from './beregningsgrunnlag.module.css';
 
 const { FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD } =
   ProsessBeregningsgrunnlagAvklaringsbehovCode;
@@ -50,84 +49,6 @@ const finnAlleAndelerIFørstePeriode = (allePerioder?: BeregningsgrunnlagPeriode
   }
   return [];
 };
-
-const storSpacer = <div className={beregningStyles.storSpace} />;
-
-const createRelevantePaneler = (
-  alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
-  relevanteStatuser: RelevanteStatuserProp,
-  allePerioder: BeregningsgrunnlagPeriodeProp[],
-  gjelderBesteberegning: boolean,
-  kodeverkSamling: KodeverkForPanel,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  sammenligningsgrunnlag?: SammenligningsgrunlagProp[],
-  sammenligningsGrunnlagInntekter?: Inntektsgrunnlag,
-): ReactElement => ( // NOSONAR TODO splitte i flere komponenter?
-  <div className={beregningStyles.panelLeft}>
-    {relevanteStatuser.isArbeidstaker && (
-      <GrunnlagForAarsinntektPanelAT
-        alleAndelerIFørstePeriode={alleAndelerIForstePeriode}
-        allePerioder={allePerioder}
-        kodeverkSamling={kodeverkSamling}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-      />
-    )}
-    {relevanteStatuser.isFrilanser && (
-      <>
-        {storSpacer}
-        <GrunnlagForAarsinntektPanelFL alleAndeler={alleAndelerIForstePeriode} />
-      </>
-    )}
-    {relevanteStatuser.harDagpengerEllerAAP && (
-      <div>
-        {storSpacer}
-        <TilstotendeYtelser
-          alleAndeler={alleAndelerIForstePeriode}
-          relevanteStatuser={relevanteStatuser}
-          gjelderBesteberegning={gjelderBesteberegning}
-        />
-      </div>
-    )}
-    {relevanteStatuser.isMilitaer && (
-      <>
-        {storSpacer}
-        <MilitaerPanel alleAndeler={alleAndelerIForstePeriode} />
-      </>
-    )}
-    {relevanteStatuser.harAndreTilstotendeYtelser && (
-      <>
-        {storSpacer}
-        <YtelserFraInfotrygd bruttoPrAar={allePerioder[0].bruttoPrAar} />
-      </>
-    )}
-
-    {(relevanteStatuser.isSelvstendigNaeringsdrivende || relevanteStatuser.isMidlertidigInaktiv) && (
-      <>
-        {storSpacer}
-        <GrunnlagForAarsinntektPanelSN
-          alleAndeler={alleAndelerIForstePeriode}
-          inntektsgrunnlag={sammenligningsGrunnlagInntekter}
-        />
-        {storSpacer}
-        <NaeringsopplysningsPanel
-          alleAndelerIForstePeriode={alleAndelerIForstePeriode}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        />
-      </>
-    )}
-    {(relevanteStatuser.isFrilanser || relevanteStatuser.isArbeidstaker) &&
-      sammenligningsGrunnlagInntekter &&
-      sammenligningsgrunnlag && (
-        <>
-          {storSpacer}
-          <SammenligningsgrunnlagAOrdningen
-            sammenligningsGrunnlagInntekter={sammenligningsGrunnlagInntekter}
-            sammenligningsgrunnlag={sammenligningsgrunnlag}
-          />
-        </>
-      )}
-  </div>
-);
 
 type Props = {
   relevanteStatuser: RelevanteStatuserProp;
@@ -161,15 +82,56 @@ export const Beregningsgrunnlag = ({
     return null;
   }
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
-  return createRelevantePaneler(
-    alleAndelerIForstePeriode,
-    relevanteStatuser,
-    allePerioder,
-    gjelderBesteberegning,
-    kodeverkSamling,
-    arbeidsgiverOpplysningerPerId,
-    sammenligningsgrunnlag,
-    sammenligningsGrunnlagInntekter,
+
+  return (
+    <VStack gap="8">
+      {relevanteStatuser.isArbeidstaker && (
+        <>
+          <GrunnlagForAarsinntektPanelAT
+            alleAndelerIFørstePeriode={alleAndelerIForstePeriode}
+            kodeverkSamling={kodeverkSamling}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          />
+          <NaturalytelsePanel
+            allePerioder={allePerioder}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          />
+        </>
+      )}
+      {relevanteStatuser.isFrilanser && <GrunnlagForAarsinntektPanelFL alleAndeler={alleAndelerIForstePeriode} />}
+      {relevanteStatuser.harDagpengerEllerAAP && (
+        <TilstotendeYtelser
+          alleAndeler={alleAndelerIForstePeriode}
+          relevanteStatuser={relevanteStatuser}
+          gjelderBesteberegning={gjelderBesteberegning}
+        />
+      )}
+      {relevanteStatuser.isMilitaer && <MilitaerPanel alleAndeler={alleAndelerIForstePeriode} />}
+      {relevanteStatuser.harAndreTilstotendeYtelser && (
+        <YtelserFraInfotrygd bruttoPrAar={allePerioder[0].bruttoPrAar} />
+      )}
+
+      {(relevanteStatuser.isSelvstendigNaeringsdrivende || relevanteStatuser.isMidlertidigInaktiv) && (
+        <>
+          <GrunnlagForAarsinntektPanelSN
+            alleAndeler={alleAndelerIForstePeriode}
+            inntektsgrunnlag={sammenligningsGrunnlagInntekter}
+          />
+          <NaeringsopplysningsPanel
+            alleAndelerIForstePeriode={alleAndelerIForstePeriode}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          />
+        </>
+      )}
+      {(relevanteStatuser.isFrilanser || relevanteStatuser.isArbeidstaker) &&
+        sammenligningsGrunnlagInntekter &&
+        sammenligningsgrunnlag && (
+          <SammenligningsgrunnlagAOrdningen
+            sammenligningsGrunnlagInntekter={sammenligningsGrunnlagInntekter}
+            sammenligningsgrunnlag={sammenligningsgrunnlag}
+          />
+        )}
+    </VStack>
   );
 };
 

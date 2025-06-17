@@ -1,13 +1,15 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { rhfDecorator } from '../../.storybook/decorators';
 import { TextAreaField } from './TextAreaField';
 
 const meta = {
-  title: 'form-hooks/TextAreaField',
   component: TextAreaField,
   tags: ['autodocs'],
-  decorators: rhfDecorator({ testTextAreaFieldPre: 'Dette er en begrunnelse' }),
+  decorators: rhfDecorator({
+    testTextAreaFieldPre:
+      'Ein tekst med linjeskift.\nNeste linje, så to linjeskift.\n\nSå tre linjeskift.\n\n\nSiste linje',
+  }),
 } satisfies Meta<typeof TextAreaField>;
 
 export default meta;

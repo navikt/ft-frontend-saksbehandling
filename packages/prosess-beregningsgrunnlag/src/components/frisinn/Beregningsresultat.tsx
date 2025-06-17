@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
-import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 
 import { BeregningsresultatPeriode } from './BeregningsresultatPeriode';
 import {
@@ -86,13 +85,9 @@ export const Beregningsresultat = ({ beregningsgrunnlag }: Props) => {
     : [];
   return (
     <div>
-      <FlexRow>
-        <FlexColumn>
-          <Label size="small" className={beregningStyles.avsnittOverskrift}>
-            <FormattedMessage id="Beregningsgrunnlag.Frisinn.Resultat" />
-          </Label>
-        </FlexColumn>
-      </FlexRow>
+      <Label size="small" className={beregningStyles.avsnittOverskrift}>
+        <FormattedMessage id="Frisinn.Resultat" />
+      </Label>
       {bgPerioderSomSkalVises.map(periode => (
         <div key={periode.beregningsgrunnlagPeriodeFom}>
           <BeregningsresultatPeriode

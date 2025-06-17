@@ -8,17 +8,16 @@ import { PeriodLabel } from './PeriodLabel';
 const intl = createIntl({});
 
 export default {
-  title: 'ui-komponenter/PeriodLabel',
   component: PeriodLabel,
 };
 
-export const visPeriodelabel = () => (
+export const VisPeriodelabel = () => (
   <RawIntlProvider value={intl}>
     <PeriodLabel dateStringFom="2020-01-02" dateStringTom="2020-01-04" />
   </RawIntlProvider>
 );
 
-export const visPeriodelabelTilDagensDato = () => (
+export const VisPeriodelabelTilDagensDato = () => (
   <RawIntlProvider value={intl}>
     <PeriodLabel dateStringFom="2020-01-02" showTodayString />
   </RawIntlProvider>

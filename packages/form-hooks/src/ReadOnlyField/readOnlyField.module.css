@@ -1,17 +1,9 @@
-.readOnlyContainer {
-  display: inline-block;
-}
-.readOnlyContainer .readOnlyContent {
-  white-space: pre-wrap;
-}
-.readOnlyContainer .readOnlyContentCenter {
-  float: right;
-  white-space: pre-wrap;
-}
 .textarea {
-  border-left: 4px solid var(--a-gray-100);
+  border-left: 4px solid var(--a-border-on-inverted);
   padding-left: 7px;
+  white-space: pre-line;
 }
-.space {
-  margin-left: 5px;
+
+.readOnlyField {
+  white-space: pre-line;
 }

@@ -1,4 +1,4 @@
-import { composeStories } from '@storybook/react';
+import { composeStories } from '@storybook/react-vite';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -20,7 +20,7 @@ const {
 const scrollIntoViewMock = vi.fn();
 window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
 
-describe('<BeregningsgrunnlagProsessIndex>', () => {
+describe('BeregningsgrunnlagProsessIndex', () => {
   it('skal vise informasjon om arbeidstakerinntekt', async () => {
     render(<ArbeidstakerUtenAvvikFlereArbeidsforholdMedLønnsendring />);
     expect(await screen.findByText('Søker har hatt lønnsendring i løpet av de siste tre månedene')).toBeInTheDocument();
@@ -152,8 +152,8 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(screen.getByText('9 861 482')).toBeInTheDocument();
 
     // Næringsopplysinger
-    expect(screen.getByText('Gardslien transport og Gardiner AS')).toBeInTheDocument();
-    expect(screen.getByText('Regnskapsfører Regn S. Fører-99999999')).toBeInTheDocument();
+    expect(screen.getByText('Gardslien transport og Gardiner AS (999999998)')).toBeInTheDocument();
+    expect(screen.getByText('Regnskapsfører Regn S. Fører - Tlf: 99999999')).toBeInTheDocument();
     expect(screen.getByText('Søker har oppgitt varig endring fra')).toBeInTheDocument();
     expect(screen.getByText('01.05.2016')).toBeInTheDocument();
     expect(
@@ -261,9 +261,9 @@ describe('<BeregningsgrunnlagProsessIndex>', () => {
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     // Næringsopplysinger
-    expect(screen.getByText('Gardslien transport og Gardiner AS')).toBeInTheDocument();
-    expect(screen.getByText('Regnskapsfører Regn S. Fører-99999999')).toBeInTheDocument();
-    expect(screen.getByText('01.11.2015-')).toBeInTheDocument();
+    expect(screen.getByText('Gardslien transport og Gardiner AS (999999998)')).toBeInTheDocument();
+    expect(screen.getByText('Regnskapsfører Regn S. Fører - Tlf: 99999999')).toBeInTheDocument();
+    expect(screen.getByText('01.11.2015 -')).toBeInTheDocument();
 
     // Aksjonspunkt
     expect(

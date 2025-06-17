@@ -1,27 +1,24 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
+import { Heading, Table, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagArbeidsforhold,
-  BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
-import { FlexColumn, FlexContainer, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { dateFormat, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
-import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
-import { Ledelinje } from '../fellesPaneler/Ledelinje';
-import { NaturalytelsePanel } from './NaturalytelsePanel';
 
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
+import tableStyle from '../tableStyle.module.css';
 
-export const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
+const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   // Andelen er fastsatt før og må kunne fastsettes igjen
   if (andel.overstyrtPrAar !== null && andel.overstyrtPrAar !== undefined) {
     return true;
@@ -40,115 +37,78 @@ const finnAndelerSomSkalVises = (andeler: BeregningsgrunnlagAndel[]): Beregnings
     .filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
 };
 
-const createArbeidsPeriodeText = (arbeidsforhold: BeregningsgrunnlagArbeidsforhold): string => {
-  const periodeArr = [];
-
-  if (Object.prototype.hasOwnProperty.call(arbeidsforhold, 'startdato') && arbeidsforhold.startdato) {
-    periodeArr.push(dateFormat(arbeidsforhold.startdato));
-  }
-  if (Object.prototype.hasOwnProperty.call(arbeidsforhold, 'opphoersdato') && arbeidsforhold.opphoersdato) {
-    periodeArr.push('-');
-    periodeArr.push(dateFormat(arbeidsforhold.opphoersdato));
-  }
-  return periodeArr.join(' ');
-};
-
 const createArbeidsStillingsNavnOgProsent = (arbeidsforhold: BeregningsgrunnlagArbeidsforhold): string => {
-  // TODO: her må stillingsnavn og stillingsprosent hentes når vi får disse dataene fra backend
-  const stillingArr = [''];
-  if (Object.prototype.hasOwnProperty.call(arbeidsforhold, 'stillingsNavn') && arbeidsforhold.stillingsNavn) {
-    stillingArr.push(arbeidsforhold.stillingsNavn);
-  }
-  if (Object.prototype.hasOwnProperty.call(arbeidsforhold, 'stillingsProsent') && arbeidsforhold.stillingsProsent) {
-    stillingArr.push(`${arbeidsforhold.stillingsProsent}%`);
-  }
-  if (stillingArr.length !== 0) {
-    return stillingArr.join(' ');
-  }
-  return ' ';
+  const { stillingsProsent, stillingsNavn } = arbeidsforhold;
+  return `${stillingsNavn} ${stillingsProsent}%`;
 };
 
-const finnBeregnetEller0 = (andel: BeregningsgrunnlagAndel): number => (andel.beregnetPrAar ? andel.beregnetPrAar : 0);
+const finnBeregnetEller0 = (andel: BeregningsgrunnlagAndel): number => andel.beregnetPrAar ?? 0;
 
 const createArbeidinntektRows = (
   relevanteAndeler: BeregningsgrunnlagAndel[],
   kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): ReactElement[] => {
+  return relevanteAndeler.map(andel => {
+    const visningsNavn = createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling);
+    return (
+      <Table.Body key={`ArbInntektWrapper${visningsNavn}`} className={tableStyle.tableGroup}>
+        <Table.Row shadeOnHover={false}>
+          <Table.HeaderCell textSize="small" colSpan={3}>
+            {visningsNavn}
+          </Table.HeaderCell>
+        </Table.Row>
+        <Table.Row>
+          <Table.DataCell textSize="small">
+            {andel.arbeidsforhold && andel.arbeidsforhold.stillingsNavn && (
+              <div>{createArbeidsStillingsNavnOgProsent(andel.arbeidsforhold)}</div>
+            )}
+            {andel.arbeidsforhold && andel.arbeidsforhold.startdato && (
+              <div>
+                <PeriodLabel
+                  dateStringFom={andel.arbeidsforhold.startdato}
+                  dateStringTom={andel.arbeidsforhold.opphoersdato}
+                />
+              </div>
+            )}
+            {andel.erTidsbegrensetArbeidsforhold && (
+              <FormattedMessage id="GrunnlagForAarsinntektPanelAT.Tidsbegrenset" tagName="div" />
+            )}
+          </Table.DataCell>
+          <Table.DataCell align="right" textSize="small">
+            <BeløpLabel beløp={finnBeregnetEller0(andel) / 12} />
+          </Table.DataCell>
+          <Table.DataCell align="right" textSize="small">
+            <BeløpLabel beløp={andel.beregnetPrAar} />
+          </Table.DataCell>
+        </Table.Row>
+      </Table.Body>
+    );
+  });
+};
+
+const createSummaryRow = (relevanteAndeler: BeregningsgrunnlagAndel[]): ReactElement => {
   const beregnetAarsinntekt = relevanteAndeler.reduce((acc, andel) => acc + finnBeregnetEller0(andel), 0);
   const beregnetMaanedsinntekt = beregnetAarsinntekt ? beregnetAarsinntekt / 12 : 0;
-  const rows = relevanteAndeler.map((andel, index) => (
-    <React.Fragment
-      key={`ArbInntektWrapper${createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling)}${
-        index + 1
-      }`}
-    >
-      <FlexContainer>
-        <FlexRow>
-          <FlexColumn className={beregningStyles.tabellAktivitet}>
-            <Label size="small" key={`ColLableTxt${index + 1}`} className={beregningStyles.semiBoldText}>
-              {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling)}
-            </Label>
-          </FlexColumn>
-          <FlexColumn className={beregningStyles.tabellInntekt}>
-            <BodyShort key={`ColBrgMndTxt${andel.arbeidsforhold?.arbeidsgiverIdent}`}>
-              {formatCurrencyNoKr(finnBeregnetEller0(andel) / 12)}
-            </BodyShort>
-          </FlexColumn>
-          <FlexColumn className={beregningStyles.tabellInntekt}>
-            <Label key={`ColBrgAarTxt${andel.arbeidsforhold?.arbeidsgiverIdent}`}>
-              {formatCurrencyNoKr(andel.beregnetPrAar)}
-            </Label>
-          </FlexColumn>
-        </FlexRow>
-        <FlexRow key={`indexD${andel.arbeidsforhold?.arbeidsgiverIdent}`}>
-          {andel.arbeidsforhold && andel.arbeidsforhold.stillingsNavn && (
-            <FlexColumn>
-              <BodyShort>{createArbeidsStillingsNavnOgProsent(andel.arbeidsforhold)}</BodyShort>
-            </FlexColumn>
-          )}
-          {andel.arbeidsforhold && andel.arbeidsforhold.startdato && (
-            <FlexColumn>
-              <Detail>{createArbeidsPeriodeText(andel.arbeidsforhold)}</Detail>
-            </FlexColumn>
-          )}
-          {andel.erTidsbegrensetArbeidsforhold && (
-            <FlexColumn>
-              <Detail>
-                <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Tidsbegrenset" />
-              </Detail>
-            </FlexColumn>
-          )}
-        </FlexRow>
-      </FlexContainer>
-      <VerticalSpacer eightPx />
-      <Ledelinje prosentBredde={100} />
-    </React.Fragment>
-  ));
-  if (relevanteAndeler.length > 1) {
-    const summaryRow = (
-      <FlexContainer key="SummaryRow">
-        <FlexRow>
-          <FlexColumn className={beregningStyles.tabellAktivitet}>
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.TotaltArbeidsinntekt" />
-          </FlexColumn>
-          <FlexColumn className={beregningStyles.tabellInntekt}>
-            <BodyShort>{formatCurrencyNoKr(beregnetMaanedsinntekt)}</BodyShort>
-          </FlexColumn>
-          <FlexColumn className={beregningStyles.tabellInntekt}>
-            <Label>{formatCurrencyNoKr(beregnetAarsinntekt)}</Label>
-          </FlexColumn>
-        </FlexRow>
-      </FlexContainer>
-    );
-    rows.push(summaryRow);
-  }
-  return rows;
+  return (
+    <tfoot>
+      <Table.Row>
+        <Table.DataCell>
+          <FormattedMessage id="GrunnlagForAarsinntektPanelAT.TotaltArbeidsinntekt" />
+        </Table.DataCell>
+        <Table.DataCell align="right" textSize="small">
+          <BeløpLabel beløp={beregnetMaanedsinntekt} />
+        </Table.DataCell>
+        <Table.HeaderCell align="right" textSize="small">
+          <BeløpLabel beløp={beregnetAarsinntekt} />
+        </Table.HeaderCell>
+      </Table.Row>
+    </tfoot>
+  );
 };
 
 type Props = {
   alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[];
-  allePerioder: BeregningsgrunnlagPeriodeProp[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   kodeverkSamling: KodeverkForPanel;
 };
@@ -161,40 +121,32 @@ type Props = {
  */
 export const GrunnlagForAarsinntektPanelAT = ({
   alleAndelerIFørstePeriode,
-  allePerioder,
   arbeidsgiverOpplysningerPerId,
   kodeverkSamling,
 }: Props) => {
   const relevanteAndeler = finnAndelerSomSkalVises(alleAndelerIFørstePeriode);
   if (!relevanteAndeler || relevanteAndeler.length === 0) return null;
   return (
-    <>
-      <FlexRow>
-        <FlexColumn>
-          <Heading size="medium">
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt" />
-          </Heading>
-        </FlexColumn>
-      </FlexRow>
-      <FlexContainer>
-        <FlexRow>
-          <FlexColumn className={beregningStyles.tabellAktivitet} />
-          <FlexColumn className={beregningStyles.tabellInntekt}>
-            <Detail>
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
-            </Detail>
-          </FlexColumn>
-          <FlexColumn className={beregningStyles.tabellInntekt}>
-            <Detail>
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
-            </Detail>
-          </FlexColumn>
-        </FlexRow>
-      </FlexContainer>
-      <Ledelinje prosentBredde={100} />
-      {createArbeidinntektRows(relevanteAndeler, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
-      <NaturalytelsePanel allePerioder={allePerioder} arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId} />
-    </>
+    <VStack gap="2">
+      <Heading size="medium">
+        <FormattedMessage id="GrunnlagForAarsinntektPanelAT.Tittel" />
+      </Heading>
+      <Table size="small">
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell />
+            <Table.HeaderCell align="right" textSize="small">
+              <FormattedMessage id="TabellKolonne.Maaned" />
+            </Table.HeaderCell>
+            <Table.HeaderCell align="right" textSize="small">
+              <FormattedMessage id="TabellKolonne.BeregnetAar" />
+            </Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        {createArbeidinntektRows(relevanteAndeler, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
+        {relevanteAndeler.length > 1 && createSummaryRow(relevanteAndeler)}
+      </Table>
+    </VStack>
   );
 };
 
@@ -204,7 +156,7 @@ GrunnlagForAarsinntektPanelAT.buildInitialValues = (
   const relevanteAndeler = finnAndelerSomSkalVises(alleAndeler);
   const initialValues = {} as ArbeidstakerInntektValues;
   relevanteAndeler.forEach((inntekt, index) => {
-    initialValues[`inntekt${index}`] = formatCurrencyNoKr(inntekt.overstyrtPrAar) || '';
+    initialValues[`inntekt${index}`] = formatCurrencyNoKr(inntekt.overstyrtPrAar) ?? '';
   });
   return initialValues;
 };

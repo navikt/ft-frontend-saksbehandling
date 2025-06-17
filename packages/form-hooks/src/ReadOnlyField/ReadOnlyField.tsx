@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import { BodyLong, Label } from '@navikt/ds-react';
+import { BodyLong, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
@@ -22,14 +22,14 @@ export const ReadOnlyField = ({ label, value, isEdited = false, type, hideLabel,
     return null;
   }
   return (
-    <div className={styles.readOnlyContainer}>
-      {label && !hideLabel && <Label size="small">{label}</Label>}
-      <div className={type === 'textarea' ? styles.textarea : ''}>
-        <BodyLong className={styles.readOnlyContent} size={size}>
+    <VStack gap="1">
+      {label && !hideLabel && <Label size={size}>{label}</Label>}
+      <HStack gap="2" align="center" wrap={false}>
+        <BodyLong className={type === 'textarea' ? styles.textarea : styles.readOnlyField} size={size}>
           {value}
-          {isEdited && <EditedIcon className={styles.space} />}
         </BodyLong>
-      </div>
-    </div>
+        {isEdited && <EditedIcon />}
+      </HStack>
+    </VStack>
   );
 };

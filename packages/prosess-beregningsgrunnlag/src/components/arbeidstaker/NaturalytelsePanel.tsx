@@ -1,7 +1,7 @@
-import { ReactElement, useMemo } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, Label } from '@navikt/ds-react';
+import { Heading, Table, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import {
@@ -9,13 +9,12 @@ import {
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { dateFormat, formatCurrencyNoKr, ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
+import { BeløpLabel, NoWrap, PeriodLabel } from '@navikt/ft-ui-komponenter';
+import { formaterArbeidsgiver, ISO_DATE_FORMAT, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { NaturalytelseEndring, NaturalytelseTabellData, NaturalytelseTabellRad } from '../../types/NaturalytelseTable';
-import { createVisningsnavnForAktivitet } from '../../util/createVisningsnavnForAktivitet';
 
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
+import tableStyle from '../tableStyle.module.css';
 
 type Props = {
   allePerioder: BeregningsgrunnlagPeriodeProp[];
@@ -39,7 +38,7 @@ const lagVisningForAndel = (
     return 'Ukjent arbeidsforhold';
   }
   const arbeidsforholdInfo = arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent];
-  return createVisningsnavnForAktivitet(arbeidsforholdInfo, andel.arbeidsforhold.eksternArbeidsforholdId);
+  return formaterArbeidsgiver(arbeidsforholdInfo, andel.arbeidsforhold.eksternArbeidsforholdId);
 };
 
 const andelslisteEllerTom = (bgperiode: BeregningsgrunnlagPeriodeProp): BeregningsgrunnlagAndel[] =>
@@ -113,7 +112,7 @@ const slåSammenEndringerSomHengerSammen = (endringer: NaturalytelseEndring[]): 
   if (!endringer || endringer.length < 2) {
     return endringer;
   }
-  endringer.sort((a, b) => dayjs(a.fom).diff(dayjs(b.fom)));
+  endringer.sort(sortPeriodsByFom);
   const sammenslåtteEndringer = [] as NaturalytelseEndring[];
   let kontrollertTom = dayjs(endringer[0].fom);
   endringer.forEach(end => {
@@ -159,37 +158,6 @@ const lagNaturalytelseTabelldata = (
   return !alleNatAndeler || alleNatAndeler.length < 1 ? undefined : { rader: alleNatAndeler };
 };
 
-const lagPeriodeTekst = (endring: NaturalytelseEndring): string => {
-  if (endring.tom) {
-    return `${dateFormat(endring.fom)} - ${dateFormat(endring.tom)}`;
-  }
-  return `${dateFormat(endring.fom)} -`;
-};
-
-const lagTabell = (data: NaturalytelseTabellData): ReactElement[] =>
-  data.rader.map(rad => (
-    <div key={rad.nøkkel}>
-      <FlexRow>
-        <FlexColumn className={beregningStyles.noPaddingRight}>
-          <Label size="small">{rad.visningsnavn}</Label>
-        </FlexColumn>
-      </FlexRow>
-      {rad.naturalytelseEndringer.map(endring => (
-        <FlexRow key={rad.nøkkel + endring.fom}>
-          <FlexColumn className={beregningStyles.tabellAktivitet}>
-            <BodyShort size="small">{lagPeriodeTekst(endring)}</BodyShort>
-          </FlexColumn>
-          <FlexColumn className={beregningStyles.tabellInntekt}>
-            <BodyShort size="small">{formatCurrencyNoKr(endring.beløpPrMåned)}</BodyShort>
-          </FlexColumn>
-          <FlexColumn className={beregningStyles.tabellInntekt}>
-            <Label size="small">{formatCurrencyNoKr(endring.beløpPrÅr)}</Label>
-          </FlexColumn>
-        </FlexRow>
-      ))}
-    </div>
-  ));
-
 /**
  * NaturalytelsePanel
  *
@@ -197,33 +165,54 @@ const lagTabell = (data: NaturalytelseTabellData): ReactElement[] =>
  * av naturalytelse og for hvilke perioder det gjelder.
  */
 export const NaturalytelsePanel = ({ allePerioder, arbeidsgiverOpplysningerPerId }: Props) => {
-  const tableData = useMemo(
-    () => lagNaturalytelseTabelldata(allePerioder, arbeidsgiverOpplysningerPerId),
-    [allePerioder],
-  );
+  const tableData = lagNaturalytelseTabelldata(allePerioder, arbeidsgiverOpplysningerPerId);
   if (!tableData) {
     return null;
   }
+
   return (
-    <>
-      <VerticalSpacer thirtyTwoPx />
-      <Label size="small" className={beregningStyles.avsnittOverskrift}>
-        <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Naturalytelse2" />
-      </Label>
-      <FlexRow>
-        <FlexColumn className={beregningStyles.tabellAktivitet} />
-        <FlexColumn className={beregningStyles.tabellInntekt}>
-          <Detail>
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
-          </Detail>
-        </FlexColumn>
-        <FlexColumn className={beregningStyles.tabellInntekt}>
-          <Detail>
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
-          </Detail>
-        </FlexColumn>
-      </FlexRow>
-      {lagTabell(tableData)}
-    </>
+    <VStack gap="1">
+      <Heading size="medium">
+        <FormattedMessage id="NaturalytelsePanel.Tittel" />
+      </Heading>
+
+      <Table size="small">
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell />
+            <Table.HeaderCell textSize="small" align="right">
+              <FormattedMessage id="TabellKolonne.Maaned" />
+            </Table.HeaderCell>
+            <Table.HeaderCell textSize="small" align="right">
+              <NoWrap>
+                <FormattedMessage id="TabellKolonne.BeregnetAar" />
+              </NoWrap>
+            </Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        {tableData.rader.map(rad => (
+          <Table.Body key={rad.nøkkel} className={tableStyle.tableGroup}>
+            <Table.Row shadeOnHover={false}>
+              <Table.HeaderCell textSize="small" colSpan={3}>
+                {rad.visningsnavn}
+              </Table.HeaderCell>
+            </Table.Row>
+            {rad.naturalytelseEndringer.map(endring => (
+              <Table.Row key={rad.nøkkel + endring.fom}>
+                <Table.DataCell textSize="small">
+                  <PeriodLabel dateStringFom={endring.fom} dateStringTom={endring.tom} />
+                </Table.DataCell>
+                <Table.DataCell textSize="small" align="right">
+                  <BeløpLabel beløp={endring.beløpPrMåned} />
+                </Table.DataCell>
+                <Table.DataCell textSize="small" align="right">
+                  <BeløpLabel beløp={endring.beløpPrÅr} />
+                </Table.DataCell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        ))}
+      </Table>
+    </VStack>
   );
 };

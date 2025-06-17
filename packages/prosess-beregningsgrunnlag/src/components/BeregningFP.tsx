@@ -1,3 +1,5 @@
+import { VStack } from '@navikt/ds-react';
+
 import {
   AktivitetStatus,
   isStatusArbeidstakerOrKombinasjon,
@@ -13,7 +15,7 @@ import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrun
 import { BeregningFormValues } from '../types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from '../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from '../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../types/KodeverkForPanel';
 import { RelevanteStatuserProp } from '../types/RelevanteStatuser';
 import { Vilkår, Vilkårperiode } from '../types/Vilkår';
 import { BeregningForm } from './beregningForm/BeregningForm';
@@ -70,7 +72,7 @@ type Props = {
 };
 
 const finnVilkårperiode = (vilkår: Vilkår, vilkårsperiodeFom: string): Vilkårperiode =>
-  // @ts-expect-error
+  // @ts-expect-error Fiks
   vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
 
 /**
@@ -92,7 +94,7 @@ export const BeregningFP = ({
   setFormData,
 }: Props) => {
   const aktivtBeregningsgrunnlag = beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks];
-  // @ts-expect-error
+  // @ts-expect-error Fiks
   const relevanteStatuser = getRelevanteStatuser(aktivtBeregningsgrunnlag.aktivitetStatus);
   const aksjonspunktGraderingPaaAndelUtenBG = getAvklaringsbehovForGraderingPaaAndelUtenBG(
     aktivtBeregningsgrunnlag.avklaringsbehov,
@@ -104,7 +106,7 @@ export const BeregningFP = ({
   }
 
   return (
-    <>
+    <VStack gap="14">
       <BeregningForm
         readOnly={readOnly || !skalVurderes(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks])}
         valgtBeregningsgrunnlag={beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]}
@@ -128,6 +130,6 @@ export const BeregningFP = ({
       {aksjonspunktGraderingPaaAndelUtenBG && (
         <GraderingUtenBGReadOnly avklaringsbehov={aksjonspunktGraderingPaaAndelUtenBG} />
       )}
-    </>
+    </VStack>
   );
 };

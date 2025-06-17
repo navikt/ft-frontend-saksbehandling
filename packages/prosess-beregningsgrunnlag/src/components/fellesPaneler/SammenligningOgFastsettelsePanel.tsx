@@ -1,7 +1,7 @@
 import { ReactNode, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Heading } from '@navikt/ds-react';
+import { Heading, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus, SammenligningType } from '@navikt/ft-kodeverk';
 import {
@@ -10,20 +10,17 @@ import {
   BeregningsgrunnlagAndel,
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { BeregningFormValues } from '../../types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 import { Vilkår } from '../../types/Vilkår';
-import { AksjonspunktBehandler, finnFormName } from './AksjonspunktBehandler';
-import { LovParagraf, mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagraf';
+import { AksjonspunktBehandler, defaultFormName } from './AksjonspunktBehandler';
+import { LovParagraf, mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagrafUtils';
 import { SammenligningForklaringPanel } from './SammenligningForklaringPanel';
 import { SammenligningsgrunnlagPanel } from './SammenligningsgrunnlagPanel';
-
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   // Andelen er fastsatt før og må kunne fastsettes igjen
@@ -51,9 +48,9 @@ const beløpEller0 = (beløp: number | undefined): number => {
   return beløp;
 };
 
-const beregnet = (andel: BeregningsgrunnlagAndel): number => (andel.beregnetPrAar ? andel.beregnetPrAar : 0);
+const beregnet = (andel: BeregningsgrunnlagAndel): number => andel.beregnetPrAar ?? 0;
 
-const beregnAarsintektForAktivitetStatuser = (
+const beregnAarsinntektForAktivitetStatuser = (
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
   statuser: string[],
 ): number => {
@@ -74,8 +71,8 @@ const beregnAarsintektForAktivitetStatuser = (
 };
 
 const finnTittel = (sammenligningsgrunnlag: SammenligningsgrunlagProp, lovparagraf: LovParagraf): ReactNode => {
-  const atflTittel = <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.ATFL.Tittel" />;
-  const snTittel = <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.SN.Tittel" />;
+  const atflTittel = <FormattedMessage id="SammenligningOgFastsettelsePanel.ATFL.Tittel" />;
+  const snTittel = <FormattedMessage id="SammenligningOgFastsettelsePanel.SN.Tittel" />;
   switch (sammenligningsgrunnlag.sammenligningsgrunnlagType) {
     case SammenligningType.AT:
     case SammenligningType.FL:
@@ -86,7 +83,7 @@ const finnTittel = (sammenligningsgrunnlag: SammenligningsgrunlagProp, lovparagr
     case SammenligningType.ATFLSN:
       return lovparagraf === LovParagraf.ÅTTE_TRETTIFEM ? snTittel : atflTittel;
     case SammenligningType.MIDLERTIDIG_INAKTIV:
-      return <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.MIDL.Tittel" />;
+      return <FormattedMessage id="SammenligningOgFastsettelsePanel.MIDL.Tittel" />;
     default:
       throw new Error(`Ukjent sammenligningstype ${sammenligningsgrunnlag.sammenligningsgrunnlagType}`);
   }
@@ -108,24 +105,24 @@ const finnBeregnetInntekt = (
   );
   if (sg.sammenligningsgrunnlagType === SammenligningType.SN && pgiAndel) {
     return {
-      inntekt: pgiAndel.pgiSnitt || 0,
+      inntekt: pgiAndel.pgiSnitt ?? 0,
       erPGI: true,
     };
   }
   if (sg.sammenligningsgrunnlagType === SammenligningType.MIDLERTIDIG_INAKTIV && pgiAndel) {
     return {
-      inntekt: pgiAndel.pgiSnitt || 0,
+      inntekt: pgiAndel.pgiSnitt ?? 0,
       erPGI: true,
     };
   }
   if (sg.sammenligningsgrunnlagType === SammenligningType.ATFLSN) {
     return pgiAndel
       ? {
-          inntekt: pgiAndel.pgiSnitt || 0,
+          inntekt: pgiAndel.pgiSnitt ?? 0,
           erPGI: true,
         }
       : {
-          inntekt: beregnAarsintektForAktivitetStatuser(alleAndelerIFørstePeriode, [
+          inntekt: beregnAarsinntektForAktivitetStatuser(alleAndelerIFørstePeriode, [
             AktivitetStatus.ARBEIDSTAKER,
             AktivitetStatus.FRILANSER,
           ]),
@@ -133,7 +130,7 @@ const finnBeregnetInntekt = (
         };
   }
   return {
-    inntekt: beregnAarsintektForAktivitetStatuser(alleAndelerIFørstePeriode, [
+    inntekt: beregnAarsinntektForAktivitetStatuser(alleAndelerIFørstePeriode, [
       AktivitetStatus.ARBEIDSTAKER,
       AktivitetStatus.FRILANSER,
     ]),
@@ -160,6 +157,8 @@ type Props = {
 type GruppertPrLovparagraf = {
   [key: string]: Beregningsgrunnlag[];
 };
+
+const finnFormName = (lovparagraf: LovParagraf): string => `${defaultFormName}_${lovparagraf}`;
 
 function leggTilBeregningsgrunnlag(
   gruppert: GruppertPrLovparagraf,
@@ -252,20 +251,19 @@ export const SammenligningOgFastsettelsePanel = ({
         aktivtGrunnlagForLovparagraf &&
         !!aktivtGrunnlagForLovparagraf.avklaringsbehov.find(a => mapAvklaringsbehovTilLovparagraf(a) === lovparagraf);
       const andelerIFørstePeriode =
-        aktivtGrunnlagForLovparagraf?.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel || [];
+        aktivtGrunnlagForLovparagraf?.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel ?? [];
       const formName = finnFormName(lovparagraf);
       return (
-        <div>
+        <VStack gap="10">
           {!!sg && (
-            <>
+            <VStack gap="1">
               <Heading size="xsmall">{finnTittel(sg, lovparagraf)}</Heading>
               <SammenligningsgrunnlagPanel
                 sammenligningsgrunnlag={sg}
                 beregnetAarsinntekt={finnBeregnetInntekt(sg, andelerIFørstePeriode).inntekt}
                 erPGI={finnBeregnetInntekt(sg, andelerIFørstePeriode).erPGI}
               />
-              <div className={beregningStyles.storSpace} />
-            </>
+            </VStack>
           )}
           {harAvklaringsbehovForLovparagraf && (
             <div style={{ display: harAktivtAvklaringsbehovForLovparagraf ? 'block' : 'none' }}>
@@ -284,21 +282,21 @@ export const SammenligningOgFastsettelsePanel = ({
                 finnesFormSomSubmittes={finnesFormSomSubmittes}
                 setSubmitting={setSubmitting}
               />
-              <div className={beregningStyles.storSpace} />
             </div>
           )}
-        </div>
+        </VStack>
       );
     }
     return null;
   };
 
   return (
-    <div className={beregningStyles.panelRight}>
+    <VStack gap="5">
       {panelForklaring}
-      <VerticalSpacer twentyPx />
-      {lagPanelForLovparagraf(LovParagraf.ÅTTE_TRETTI)}
-      {lagPanelForLovparagraf(LovParagraf.ÅTTE_TRETTIFEM)}
-    </div>
+      <VStack gap="8">
+        {lagPanelForLovparagraf(LovParagraf.ÅTTE_TRETTI)}
+        {lagPanelForLovparagraf(LovParagraf.ÅTTE_TRETTIFEM)}
+      </VStack>
+    </VStack>
   );
 };

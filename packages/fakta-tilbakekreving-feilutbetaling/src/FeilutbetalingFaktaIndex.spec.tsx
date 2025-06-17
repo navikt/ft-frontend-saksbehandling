@@ -1,4 +1,4 @@
-import { composeStories } from '@storybook/react';
+import { composeStories } from '@storybook/react-vite';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -6,7 +6,7 @@ import * as stories from './FeilutbetalingFaktaIndex.stories';
 
 const { Default } = composeStories(stories);
 
-describe('<FeilutbetalingFaktaIndex>', () => {
+describe('FeilutbetalingFaktaIndex', () => {
   it('skal legge til hendelse for alle perioder og så lagre', async () => {
     const lagre = vi.fn();
 
@@ -14,8 +14,8 @@ describe('<FeilutbetalingFaktaIndex>', () => {
 
     expect(await screen.findByText('Kontroller at korrekt hendelse er satt')).toBeInTheDocument();
     expect(screen.getByText('01.01.2019 - 02.01.2019')).toBeInTheDocument();
-    expect(await screen.findByText('10000')).toBeInTheDocument();
-    expect(await screen.findAllByText('5000')).toHaveLength(2);
+    expect(await screen.findByText('10 000')).toBeInTheDocument();
+    expect(await screen.findAllByText('5 000')).toHaveLength(2);
 
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
@@ -69,8 +69,8 @@ describe('<FeilutbetalingFaktaIndex>', () => {
 
     expect(await screen.findByText('Kontroller at korrekt hendelse er satt')).toBeInTheDocument();
     expect(screen.getByText('01.01.2019 - 02.01.2019')).toBeInTheDocument();
-    expect(await screen.findByText('10000')).toBeInTheDocument();
-    expect(await screen.findAllByText('5000')).toHaveLength(2);
+    expect(await screen.findByText('10 000')).toBeInTheDocument();
+    expect(await screen.findAllByText('5 000')).toHaveLength(2);
 
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
@@ -125,8 +125,8 @@ describe('<FeilutbetalingFaktaIndex>', () => {
 
     expect(await screen.findByText('Kontroller at korrekt hendelse er satt')).toBeInTheDocument();
     expect(screen.getByText('01.01.2019 - 02.01.2019')).toBeInTheDocument();
-    expect(await screen.findByText('10000')).toBeInTheDocument();
-    expect(await screen.findAllByText('5000')).toHaveLength(2);
+    expect(await screen.findByText('10 000')).toBeInTheDocument();
+    expect(await screen.findAllByText('5 000')).toHaveLength(2);
 
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 

@@ -1,10 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { rhfDecorator } from '../../.storybook/decorators';
 import { CheckboxPanel } from './CheckboxPanel';
 
 const meta = {
-  title: 'form-hooks/CheckboxPanel',
   component: CheckboxPanel,
   tags: ['autodocs'],
   args: {

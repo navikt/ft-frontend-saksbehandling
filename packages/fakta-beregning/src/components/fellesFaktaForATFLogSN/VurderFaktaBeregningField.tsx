@@ -1,26 +1,31 @@
 import React from 'react';
 import { FieldErrors, useFormContext, UseFormGetValues } from 'react-hook-form';
 
+import { HStack, VStack } from '@navikt/ds-react';
+
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
-import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { Vilkårperiode } from '../../typer/Vilkår';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
-import { formNameVurderFaktaBeregning } from '../BeregningFormUtils';
+import { hasAksjonspunkt, isAksjonspunktClosed } from '../../utils/aksjonspunktUtils';
+import { formNameVurderFaktaBeregning } from '../../utils/BeregningFormUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
-import { erOverstyringAvBeregningsgrunnlag, hasAksjonspunkt, isAksjonspunktClosed } from './BgFaktaUtils';
+import { erOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
 import { FaktaForATFLOgSNPanel } from './FaktaForATFLOgSNPanel';
+import {
+  BEGRUNNELSE_FAKTA_TILFELLER_NAME,
+  erSubmittable,
+  harIkkeEndringerIAvklarMedFlereAksjonspunkter,
+} from './vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext, VurderFaktaContext } from './VurderFaktaContext';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
-export const BEGRUNNELSE_FAKTA_TILFELLER_NAME = 'begrunnelseFaktaTilfeller';
-
-export interface Props {
+interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
   erOverstyrer: boolean;
   readOnly: boolean;
@@ -32,22 +37,6 @@ export interface Props {
   verdiForAvklarAktivitetErEndret: boolean;
   submitDisabled: boolean;
 }
-
-export const erSubmittable = (submittable: boolean, submitEnabled: boolean, hasErrors: boolean): boolean =>
-  submittable && submitEnabled && !hasErrors;
-
-export const harIkkeEndringerIAvklarMedFlereAksjonspunkter = (
-  verdiForAvklarAktivitetErEndret: boolean,
-  avklaringsbehov: BeregningAvklaringsbehov[],
-): boolean => {
-  if (
-    hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov) ||
-    hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov)
-  ) {
-    return !verdiForAvklarAktivitetErEndret;
-  }
-  return true;
-};
 
 const erOverstyrt = (index: number, getValues: UseFormGetValues<VurderFaktaBeregningFormValues>) => {
   const formValue = getValues(`${formNameVurderFaktaBeregning}.${index}`);
@@ -81,19 +70,16 @@ export const VurderFaktaBeregningField = ({
 
   const { avklaringsbehov: avklaringsbehovListe } = beregningsgrunnlag;
   const avklaringsbehov = avklaringsbehovListe.find(
-    ab =>
-      ab.definisjon === FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN ||
-      ab.definisjon === FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
+    ab => ab.definisjon === VURDER_FAKTA_FOR_ATFL_SN || ab.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
   );
 
   const skalVurderes = vilkarsperiode.vurderesIBehandlingen;
   const renderTextFieldAndSubmitButton = () => (
     <>
-      <VerticalSpacer thirtyTwoPx />
       {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehovListe) ||
         hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehovListe) ||
         erOverstyrt(beregningsgrunnlagIndeks, getValues)) && (
-        <>
+        <VStack gap="6">
           {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehovListe) ||
             erOverstyrt(beregningsgrunnlagIndeks, getValues)) && (
             <>
@@ -106,22 +92,26 @@ export const VurderFaktaBeregningField = ({
               <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
             </>
           )}
-          <VerticalSpacer twentyPx />
-          <SubmitButton
-            isSubmittable={
-              erSubmittable(
-                submittable &&
-                  harIkkeEndringerIAvklarMedFlereAksjonspunkter(verdiForAvklarAktivitetErEndret, avklaringsbehovListe),
-                true,
-                finnesFeilForBegrunnelse(beregningsgrunnlagIndeks, errors),
-              ) && !verdiForAvklarAktivitetErEndret
-            }
-            isReadOnly={readOnly || !skalVurderes}
-            isDirty={isDirty}
-            isSubmitting={submitDisabled}
-            hasErrors={finnesFeilForBegrunnelse(beregningsgrunnlagIndeks, errors)}
-          />
-        </>
+          <HStack>
+            <SubmitButton
+              isSubmittable={
+                erSubmittable(
+                  submittable &&
+                    harIkkeEndringerIAvklarMedFlereAksjonspunkter(
+                      verdiForAvklarAktivitetErEndret,
+                      avklaringsbehovListe,
+                    ),
+                  true,
+                  finnesFeilForBegrunnelse(beregningsgrunnlagIndeks, errors),
+                ) && !verdiForAvklarAktivitetErEndret
+              }
+              isReadOnly={readOnly || !skalVurderes}
+              isDirty={isDirty}
+              isSubmitting={submitDisabled}
+              hasErrors={finnesFeilForBegrunnelse(beregningsgrunnlagIndeks, errors)}
+            />
+          </HStack>
+        </VStack>
       )}
     </>
   );

@@ -1,7 +1,5 @@
-import { KodeverkMedNavn } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-
 import { Aktsomhet } from '../../../kodeverk/aktsomhet';
+import { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
 import { AktsomhetGradForsettFormPanel } from './AktsomhetGradForsettFormPanel';
 import { AktsomhetGradUaktsomhetFormPanel } from './AktsomhetGradUaktsomhetFormPanel';
 
@@ -14,7 +12,7 @@ export interface Props {
   harMerEnnEnYtelse: boolean;
   feilutbetalingBelop: number;
   erTotalBelopUnder4Rettsgebyr: boolean;
-  sarligGrunnTyper: KodeverkMedNavn[];
+  sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[];
   andelSomTilbakekreves?: string;
   name: string;
 }
@@ -33,7 +31,6 @@ export const AktsomhetGradFormPanel = ({
   name,
 }: Props) => (
   <>
-    <VerticalSpacer eightPx />
     {handletUaktsomhetGrad === Aktsomhet.FORSETT && (
       <AktsomhetGradForsettFormPanel
         name={name}

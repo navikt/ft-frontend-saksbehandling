@@ -2,20 +2,18 @@ import { useEffect, useState } from 'react';
 import { FormattedMessage, RawIntlProvider } from 'react-intl';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { Heading } from '@navikt/ds-react';
+import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import classNames from 'classnames/bind';
-import dayjs from 'dayjs';
 
 import { SideMenu } from '@navikt/ft-plattform-komponenter';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { createIntl, dateFormat } from '@navikt/ft-utils';
 
 import { BeregningFP } from './components/BeregningFP';
 import { BeregningFormValues } from './types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from './types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from './types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from './types/KodeverkForPanel';
 import { Vilkår } from './types/Vilkår';
 
 import styles from './beregningsgrunnlagProsessIndex.module.css';
@@ -37,36 +35,33 @@ const cx = classNames.bind(styles);
 
 const intl = createIntl(messages);
 
-const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkår) => {
+const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkår | null) => {
   const ikkeTilstrekkeligInntektsgrunnlag = beregningsgrunnlagsvilkar?.perioder?.some(
     periode => periode.avslagKode === '1043',
   );
 
   return (
-    <>
+    <VStack gap="2">
       <Heading size="medium">
-        <FormattedMessage id="Beregningsgrunnlag.Title" />
+        <FormattedMessage id="BeregningsgrunnlagProsessIndex.Title" />
       </Heading>
-      <VerticalSpacer eightPx />
-      <FlexRow>
-        <FlexColumn>
-          <FormattedMessage
-            id={
-              ikkeTilstrekkeligInntektsgrunnlag
-                ? 'Beregningsgrunnlag.Avslagsårsak.IkkeTilstrekkeligInntektsgrunnlag'
-                : 'Beregningsgrunnlag.HarIkkeBeregningsregler'
-            }
-          />
-        </FlexColumn>
-      </FlexRow>
-    </>
+      <BodyShort size="small">
+        <FormattedMessage
+          id={
+            ikkeTilstrekkeligInntektsgrunnlag
+              ? 'BeregningsgrunnlagProsessIndex.IkkeTilstrekkeligInntektsgrunnlag'
+              : 'BeregningsgrunnlagProsessIndex.HarIkkeBeregningsregler'
+          }
+        />
+      </BodyShort>
+    </VStack>
   );
 };
 
-type OwnProps = {
+type Props = {
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  beregningsgrunnlagsvilkar: Vilkår;
+  beregningsgrunnlagsvilkar: Vilkår | null;
   readOnlySubmitButton: boolean;
   kodeverkSamling: KodeverkForPanel;
 };
@@ -77,7 +72,7 @@ type MenyProp = {
   stp: string;
 };
 
-const erBGTilVurdering = (bgVilkar: Vilkår, beregningsgrunnlag: Beregningsgrunnlag) => {
+const erBGTilVurdering = (bgVilkar: Vilkår | null, beregningsgrunnlag: Beregningsgrunnlag) => {
   const vilårsperiodeFom = beregningsgrunnlag.vilkårsperiodeFom;
   const perioderTilVurdering =
     bgVilkar && bgVilkar.perioder
@@ -91,11 +86,11 @@ const harAvklaringsbehovSomkanLøses = (beregningsgrunnlag: Beregningsgrunnlag) 
     ab => beregningAksjonspunkter.some(bap => bap === ab.definisjon) && ab.kanLoses,
   );
 
-const lagMenyProps = (kronologiskeGrunnlag: Beregningsgrunnlag[], bgVilkår: Vilkår): MenyProp[] =>
+const lagMenyProps = (kronologiskeGrunnlag: Beregningsgrunnlag[], bgVilkår: Vilkår | null): MenyProp[] =>
   kronologiskeGrunnlag.map(gr => ({
     skalVurderes: erBGTilVurdering(bgVilkår, gr),
     harAvklaringsbehov: harAvklaringsbehovSomkanLøses(gr),
-    stp: dayjs(gr.skjaeringstidspunktBeregning).format(DDMMYYYY_DATE_FORMAT),
+    stp: dateFormat(gr.skjaeringstidspunktBeregning),
   }));
 
 export const BeregningsgrunnlagProsessIndex = ({
@@ -108,7 +103,7 @@ export const BeregningsgrunnlagProsessIndex = ({
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
-}: OwnProps & StandardProsessPanelProps<BeregningAksjonspunktSubmitType[], BeregningFormValues>) => {
+}: Props & StandardProsessPanelProps<BeregningAksjonspunktSubmitType[], BeregningFormValues>) => {
   const listeMedGrunnlag = beregningsgrunnlagListe || TOM_ARRAY;
 
   const skalBrukeSidemeny = listeMedGrunnlag.length > 1;
@@ -132,6 +127,7 @@ export const BeregningsgrunnlagProsessIndex = ({
   }, [beregningsgrunnlagListe]);
 
   if (
+    !beregningsgrunnlagsvilkar ||
     beregningsgrunnlagListe.length === 0 ||
     (beregningsgrunnlagListe.length === 1 && !beregningsgrunnlagListe[0].aktivitetStatus)
   ) {

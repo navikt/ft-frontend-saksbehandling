@@ -1,18 +1,16 @@
-import { ReactElement } from 'react';
-
 import { BodyShort } from '@navikt/ds-react';
 
 import { InputField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
 import { ArbeidsinntektResultat } from '../../types/interface/BeregningsgrunnlagAP';
-import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
+import { HorizontalBox } from '../../util/HorizontalBox';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 
@@ -33,37 +31,6 @@ const finnAndelerSomSkalVisesAT = (andeler: BeregningsgrunnlagAndel[]): Beregnin
     .filter(andel => andel.skalFastsetteGrunnlag === true)
     .filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
 };
-
-const createRows = (
-  relevanteAndelerAT: BeregningsgrunnlagAndel[],
-  kodeverkSamling: KodeverkForPanel,
-  readOnly: boolean,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  fieldIndex: number,
-  formName: string,
-  skalValideres: boolean,
-): ReactElement[] =>
-  relevanteAndelerAT.map((andel, index) => (
-    <FlexRow key={`index${index + 1}`} className={styles.verticalAlignMiddle}>
-      <FlexColumn className={styles.atflAvvikAktivitet}>
-        <BodyShort size="small">
-          {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling)}
-        </BodyShort>
-      </FlexColumn>
-      <FlexColumn className={styles.atflAvvikInntekt}>
-        <div id="readOnlyWrapper" className={readOnly ? styles.inputPadding : undefined}>
-          <InputField
-            name={`${formName}.${fieldIndex}.inntekt${index}`}
-            validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
-            readOnly={readOnly}
-            parse={parseCurrencyInput}
-            className={styles.breddeInntekt}
-            isEdited={readOnly && (!!andel.overstyrtPrAar || andel.overstyrtPrAar === 0)}
-          />
-        </div>
-      </FlexColumn>
-    </FlexRow>
-  ));
 
 type Props = {
   readOnly: boolean;
@@ -87,15 +54,22 @@ export const AksjonspunktBehandlerAT = ({
   const relevanteAndelerAT = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode);
   return (
     <>
-      {createRows(
-        relevanteAndelerAT,
-        kodeverkSamling,
-        readOnly,
-        arbeidsgiverOpplysningerPerId,
-        fieldIndex,
-        formName,
-        skalValideres,
-      )}
+      {relevanteAndelerAT.map((andel, index) => (
+        <HorizontalBox key={andel.andelsnr}>
+          <BodyShort size="small">
+            {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling)}
+          </BodyShort>
+          <InputField
+            name={`${formName}.${fieldIndex}.inntekt${index}`}
+            validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
+            readOnly={readOnly}
+            parse={parseCurrencyInput}
+            className={styles.beløpInput}
+            hideLabel
+            isEdited={readOnly && (!!andel.overstyrtPrAar || andel.overstyrtPrAar === 0)}
+          />
+        </HorizontalBox>
+      ))}
     </>
   );
 };

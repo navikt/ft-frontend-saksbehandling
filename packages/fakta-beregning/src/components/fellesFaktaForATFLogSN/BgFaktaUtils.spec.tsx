@@ -1,11 +1,11 @@
 import {
   AktivitetStatus as aktivitetStatuser,
   FaktaOmBeregningTilfelle,
-  KodeverkType,
   Organisasjonstype as organisasjonstyper,
 } from '@navikt/ft-kodeverk';
 import {
   AndelForFaktaOmBeregning,
+  ArbeidsgiverOpplysningerPerId,
   ATFLSammeOrgAndel,
   Beregningsgrunnlag,
   BeregningsgrunnlagArbeidsforhold,
@@ -13,7 +13,7 @@ import {
 } from '@navikt/ft-types';
 
 import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../typer/FaktaBeregningTypes';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import {
   kanRedigereInntektForAndel,
   mapAndelToField,
@@ -22,17 +22,22 @@ import {
   skalRedigereInntektskategoriForAndel,
 } from './BgFaktaUtils';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
-import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
+import { lonnsendringField } from './vurderOgFastsettATFL/forms/lonnsendringFormUtils';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
-import {
-  finnFrilansFieldName,
-  utledArbeidsforholdFieldName,
-} from './vurderOgFastsettATFL/forms/VurderMottarYtelseUtils';
+import { frilansFieldName, utledArbeidsforholdFieldName } from './vurderOgFastsettATFL/forms/VurderMottarYtelseUtils';
 
 const arbeidsgiver = {
   arbeidsgiverIdent: '3284788923',
   startdato: '2017-01-01',
   opphoersdato: '2018-01-01',
+};
+
+const agOpplysning: ArbeidsgiverOpplysningerPerId = {
+  3284788923: {
+    identifikator: '3284788923',
+    navn: 'Virksomheten',
+    erPrivatPerson: false,
+  },
 };
 
 const arbeidstakerIkkeFastsatt = {
@@ -51,7 +56,7 @@ const arbeidstakerAndel1 = {
 };
 
 const kodeverkSamling = {
-  [KodeverkType.AKTIVITET_STATUS]: [
+  AktivitetStatus: [
     {
       kode: aktivitetStatuser.ARBEIDSAVKLARINGSPENGER,
       kodeverk: 'AKTIVITET_STATUS',
@@ -75,7 +80,7 @@ const kodeverkSamling = {
   ],
 } as KodeverkForPanel;
 
-describe('<BgFaktaUtils>', () => {
+describe('bgFaktaUtils', () => {
   const dagpengerAndel = {
     aktivitetStatus: aktivitetStatuser.DAGPENGER,
     andelsnr: 1,
@@ -206,14 +211,6 @@ describe('<BgFaktaUtils>', () => {
       inntektskategori: 'ARBEIDSTAKER',
     };
 
-    const agOpplysning = {
-      3284788923: {
-        identifikator: '3284788923',
-        navn: 'Virksomheten',
-        erPrivatPerson: false,
-      },
-    };
-
     const andelsInfo = setGenerellAndelsinfo(andelValueFromState, agOpplysning, {} as KodeverkForPanel);
     expect(andelsInfo.andel).toBe('Virksomheten (3284788923)...a7e2');
     expect(andelsInfo.aktivitetStatus).toBe('AT');
@@ -258,6 +255,7 @@ describe('<BgFaktaUtils>', () => {
     arbeidsgiverIdent: '42672364432',
     startdato: '2017-01-01',
     opphoersdato: '2018-01-01',
+    // @ts-expect-error Denne skal vel ikkje kunna vera ''? (Testar feilar om eg set den til noko anna)
     arbeidsforholdType: '',
     organisasjonstype: organisasjonstyper.KUNSTIG,
   };
@@ -332,7 +330,7 @@ describe('<BgFaktaUtils>', () => {
 
   const vurderYtelse: VurderMottarYtelseValues = {};
   vurderYtelse[utledArbeidsforholdFieldName(arbeidstakerAndel3)] = true;
-  vurderYtelse[finnFrilansFieldName()] = true;
+  vurderYtelse[frilansFieldName] = true;
   const values: FaktaOmBeregningAksjonspunktValues = {
     vurderMottarYtelseValues: vurderYtelse,
     erTilVurdering: true,
@@ -363,30 +361,16 @@ describe('<BgFaktaUtils>', () => {
   };
 
   it('skal redigere inntektskategori for kunstig arbeid', () => {
-    const agOpplysning = {
-      3284788923: {
-        identifikator: '3284788923',
-        navn: 'Virksomheten',
-        erPrivatPerson: false,
-      },
-    };
     const andelFieldValue = {
       ...andelValuesUtenInntektsmelding,
       arbeidsgiverId: kunstigArbeidsgiver.arbeidsgiverIdent,
       ...setGenerellAndelsinfo(kunstigArbeidstakerAndel, agOpplysning, kodeverkSamling),
     };
-    const skalRedigereInntektskategori = skalRedigereInntektskategoriForAndel(beregningsgrunnlag)(andelFieldValue);
+    const skalRedigereInntektskategori = skalRedigereInntektskategoriForAndel(beregningsgrunnlag, andelFieldValue);
     expect(skalRedigereInntektskategori).toBe(true);
   });
 
   it('skal redigere inntekt ved overstyring', () => {
-    const agOpplysning = {
-      3284788923: {
-        identifikator: '3284788923',
-        navn: 'Virksomheten',
-        erPrivatPerson: false,
-      },
-    };
     const andelFieldValue = {
       ...andelValuesMedInntektsmelding,
       ...setGenerellAndelsinfo(arbeidstakerAndel4, agOpplysning, {} as KodeverkForPanel),
@@ -402,13 +386,6 @@ describe('<BgFaktaUtils>', () => {
   });
 
   it('skal redigere inntekt for arbeidstakerandel som mottar ytelse', () => {
-    const agOpplysning = {
-      3284788923: {
-        identifikator: '3284788923',
-        navn: 'Virksomheten',
-        erPrivatPerson: false,
-      },
-    };
     const andelFieldValue = {
       ...andelValuesUtenInntektsmelding,
       ...setGenerellAndelsinfo(arbeidstakerAndel3, agOpplysning, {} as KodeverkForPanel),
@@ -422,13 +399,6 @@ describe('<BgFaktaUtils>', () => {
   });
 
   it('skal redigere inntekt for arbeidstakerandel som ikke mottar ytelse, men har lonnsendring', () => {
-    const agOpplysning = {
-      3284788923: {
-        identifikator: '3284788923',
-        navn: 'Virksomheten',
-        erPrivatPerson: false,
-      },
-    };
     const andelFieldValue = {
       ...andelValuesUtenInntektsmelding,
       ...setGenerellAndelsinfo(arbeidstakerAndel1, agOpplysning, {} as KodeverkForPanel),
@@ -455,13 +425,6 @@ describe('<BgFaktaUtils>', () => {
   });
 
   it('skal ikkje redigere inntekt for arbeidstakerandel med inntektsmelding i samme org som frilans', () => {
-    const agOpplysning = {
-      3284788923: {
-        identifikator: '3284788923',
-        navn: 'Virksomheten',
-        erPrivatPerson: false,
-      },
-    };
     const andelFieldValue = {
       ...andelValuesUtenInntektsmelding,
       ...setGenerellAndelsinfo(arbeidstakerAndel4, agOpplysning, {} as KodeverkForPanel),
@@ -483,13 +446,6 @@ describe('<BgFaktaUtils>', () => {
   });
 
   it('skal redigere inntekt for arbeidstakerandel uten inntektsmelding i samme org som frilans', () => {
-    const agOpplysning = {
-      3284788923: {
-        identifikator: '3284788923',
-        navn: 'Virksomheten',
-        erPrivatPerson: false,
-      },
-    };
     const andelFieldValue = {
       ...andelValuesMedInntektsmelding,
       ...setGenerellAndelsinfo(arbeidstakerAndel4, agOpplysning, {} as KodeverkForPanel),
@@ -525,7 +481,7 @@ describe('<BgFaktaUtils>', () => {
 
   it('skal redigere inntekt for frilansandel som ikke mottar ytelse, men er nyoppstartet', () => {
     const vurderYtelseKopi: VurderMottarYtelseValues = {
-      [finnFrilansFieldName()]: false,
+      [frilansFieldName]: false,
     };
     const valuesLocalCopy: FaktaOmBeregningAksjonspunktValues = {
       ...values,
@@ -546,7 +502,7 @@ describe('<BgFaktaUtils>', () => {
 
   it('skal ikke redigere inntekt for frilansandel som ikke mottar ytelse og ikke er nyoppstartet', () => {
     const vurderYtelseKopi: VurderMottarYtelseValues = {
-      [finnFrilansFieldName()]: false,
+      [frilansFieldName]: false,
     };
     const valuesLocalCopy = {
       ...values,

@@ -27,7 +27,6 @@ export {
   minLength,
   requiredIfCustomFunctionIsTrue,
   requiredIfCustomFunctionIsTrueNew,
-  requiredIfNotPristine,
   notDash,
   required,
   maxLengthOrFodselsnr,

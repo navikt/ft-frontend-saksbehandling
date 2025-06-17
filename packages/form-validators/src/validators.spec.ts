@@ -27,7 +27,6 @@ import {
   minValue,
   required,
   requiredIfCustomFunctionIsTrue,
-  requiredIfNotPristine,
 } from './validators';
 import { today } from './validatorsHelper';
 
@@ -49,28 +48,6 @@ describe('Validators', () => {
 
     it('skal ikke gi feilmelding når verdi er ulik null og undefined', () => {
       const result = required('test');
-      expect(result).toBeUndefined();
-    });
-  });
-
-  describe('requiredIfNotPristine', () => {
-    it('skal ikke gi feilmelding når ingen formverdier er endret', () => {
-      const result = requiredIfNotPristine(null, null, { pristine: true });
-      expect(result).toBeUndefined();
-    });
-
-    it('skal gi feilmelding når formverdier er endret og verdi er null', () => {
-      const result = requiredIfNotPristine(null, null, { pristine: false });
-      expect(result).toEqual('Feltet må fylles ut');
-    });
-
-    it('skal gi feilmelding når formverdier er endret og verdi er undefined', () => {
-      const result = requiredIfNotPristine(undefined, null, { pristine: false });
-      expect(result).toEqual('Feltet må fylles ut');
-    });
-
-    it('skal ikke gi feilmelding når formverdier er endret men verdi er ulik null og undefined', () => {
-      const result = requiredIfNotPristine('test', null, { pristine: false });
       expect(result).toBeUndefined();
     });
   });
@@ -211,7 +188,6 @@ describe('Validators', () => {
     });
 
     it('skal ikke feile når dato er tom', () => {
-      // @ts-expect-error Fiks
       const result = hasValidDate();
       expect(result).toBeNull();
     });

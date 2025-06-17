@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
-import { Tabs } from '@navikt/ds-react';
-import dayjs from 'dayjs';
+import { Tabs, VStack } from '@navikt/ds-react';
 
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardFaktaPanelProps } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { createIntl, DDMMYYYY_DATE_FORMAT } from '@navikt/ft-utils';
+import { DateLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
+import { createIntl } from '@navikt/ft-utils';
 
 import { finnVilkårsperiode, vurderesIBehandlingen } from './components/felles/vilkårsperiodeUtils';
 import { FordelBeregningsgrunnlagPanel } from './components/FordelBeregningsgrunnlagPanel';
@@ -26,16 +25,13 @@ const intl = createIntl(messages);
 
 const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
 
-const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]): string => {
+const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]) => {
   const vilkårPeriode = finnVilkårsperiode(vilkårsperioder, bg.vilkårsperiodeFom);
   if (vilkårPeriode) {
     const { fom, tom } = vilkårPeriode.periode;
-    if (tom !== null) {
-      return `${dayjs(fom).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(tom).format(DDMMYYYY_DATE_FORMAT)}`;
-    }
-    return `${dayjs(fom).format(DDMMYYYY_DATE_FORMAT)} - `;
+    return <PeriodLabel dateStringFom={fom} dateStringTom={tom} />;
   }
-  return `${dayjs(bg.vilkårsperiodeFom).format(DDMMYYYY_DATE_FORMAT)}`;
+  return <DateLabel dateString={bg.vilkårsperiodeFom} />;
 };
 
 const kreverManuellBehandlingFn = (bg: Beregningsgrunnlag) =>
@@ -45,11 +41,12 @@ const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]
   kreverManuellBehandlingFn(bg) && vurderesIBehandlingen(vilkårsperioder, bg.vilkårsperiodeFom);
 
 type OwnProps = {
-  beregningsgrunnlagVilkår: Vilkår;
+  beregningsgrunnlagVilkår: Vilkår | null;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   kodeverkSamling: KodeverkForPanel;
   submittable: boolean;
+  skalHåndtereNyInntekt?: boolean;
 };
 
 type Props = OwnProps &
@@ -72,7 +69,7 @@ export const FordelBeregningsgrunnlagFaktaIndex = ({
   const bgMedAvklaringsbehov = beregningsgrunnlagListe.filter(bg => kreverManuellBehandlingFn(bg));
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
 
-  if (bgMedAvklaringsbehov.length === 0) {
+  if (bgMedAvklaringsbehov.length === 0 || !beregningsgrunnlagVilkår) {
     return null;
   }
 
@@ -80,38 +77,39 @@ export const FordelBeregningsgrunnlagFaktaIndex = ({
 
   return (
     <RawIntlProvider value={intl}>
-      {skalBrukeTabs && (
-        <Tabs
-          value={aktivtBeregningsgrunnlagIndeks.toString()}
-          onChange={(clickedIndex: string) => setAktivtBeregningsgrunnlagIndeks(Number(clickedIndex))}
-        >
-          <Tabs.List>
-            {bgMedAvklaringsbehov.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => (
-              <Tabs.Tab
-                key={currentBeregningsgrunnlag.skjaeringstidspunktBeregning}
-                value={currentBeregningsgrunnlagIndex.toString()}
-                label={lagLabel(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder)}
-                className={
-                  skalVurderes(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder) ? 'harAksjonspunkt' : ''
-                }
-              />
-            ))}
-          </Tabs.List>
-        </Tabs>
-      )}
-      <VerticalSpacer eightPx />
-      <FordelBeregningsgrunnlagPanel
-        aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-        kodeverkSamling={kodeverkSamling}
-        submitCallback={submitCallback}
-        readOnly={readOnly}
-        beregningsgrunnlagListe={bgMedAvklaringsbehov}
-        vilkarperioder={beregningsgrunnlagVilkår.perioder}
-        submittable={submittable}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        formData={formData}
-        setFormData={setFormData}
-      />
+      <VStack gap="2">
+        {skalBrukeTabs && (
+          <Tabs
+            value={aktivtBeregningsgrunnlagIndeks.toString()}
+            onChange={(clickedIndex: string) => setAktivtBeregningsgrunnlagIndeks(Number(clickedIndex))}
+          >
+            <Tabs.List>
+              {bgMedAvklaringsbehov.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => (
+                <Tabs.Tab
+                  key={currentBeregningsgrunnlag.skjaeringstidspunktBeregning}
+                  value={currentBeregningsgrunnlagIndex.toString()}
+                  label={lagLabel(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder)}
+                  className={
+                    skalVurderes(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder) ? 'harAksjonspunkt' : ''
+                  }
+                />
+              ))}
+            </Tabs.List>
+          </Tabs>
+        )}
+        <FordelBeregningsgrunnlagPanel
+          aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+          kodeverkSamling={kodeverkSamling}
+          submitCallback={submitCallback}
+          readOnly={readOnly}
+          beregningsgrunnlagListe={bgMedAvklaringsbehov}
+          vilkarperioder={beregningsgrunnlagVilkår.perioder}
+          submittable={submittable}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          formData={formData}
+          setFormData={setFormData}
+        />
+      </VStack>
     </RawIntlProvider>
   );
 };

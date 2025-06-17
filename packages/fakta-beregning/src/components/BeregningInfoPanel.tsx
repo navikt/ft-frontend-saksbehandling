@@ -1,25 +1,23 @@
 import { useState } from 'react';
 
 import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { AvklarAktiviteterFormValues } from '../typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { SubmitBeregningType } from '../typer/interface/SubmitBeregningTsType';
-import { KodeverkForPanel } from '../typer/KodeverkForPanelForFb';
+import { KodeverkForPanel } from '../typer/KodeverkForPanel';
 import { Vilkår } from '../typer/Vilkår';
 import { VurderFaktaBeregningFormValues } from '../typer/VurderFaktaBeregningFormValues';
+import { formNameAvklarAktiviteter, formNameVurderFaktaBeregning } from '../utils/BeregningFormUtils';
+import { hasAksjonspunkt } from './../utils/aksjonspunktUtils';
 import { AvklareAktiviteterPanel } from './avklareAktiviteter/AvklareAktiviteterPanelFunksjon';
-import { formNameAvklarAktiviteter, formNameVurderFaktaBeregning } from './BeregningFormUtils';
-import { hasAvklaringsbehov } from './felles/avklaringsbehovUtil';
 import { VurderFaktaBeregningPanel } from './fellesFaktaForATFLogSN/VurderFaktaBeregningPanel';
 
-const { VURDER_FAKTA_FOR_ATFL_SN, OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER } =
-  FaktaBeregningAvklaringsbehovCode;
+const { OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
 const relevanteKoder = [OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER];
 
-type Props = {
+interface Props {
   submitCallback: (aksjonspunktData: SubmitBeregningType[]) => Promise<void>;
   readOnly: boolean;
   avklaringsbehov: BeregningAvklaringsbehov[];
@@ -34,7 +32,7 @@ type Props = {
   setFormData: (data: AvklarAktiviteterFormValues | VurderFaktaBeregningFormValues) => void;
   formData?: AvklarAktiviteterFormValues | VurderFaktaBeregningFormValues;
   skalKunneAvbryteOverstyring: boolean;
-};
+}
 
 /**
  * BeregningInfoPanel
@@ -63,15 +61,14 @@ export const BeregningInfoPanel = ({
   const avklarAktiviteterReadOnly =
     readOnly ||
     ((relevanteLøsbareAvklaringsbehov.length === 0 ||
-      hasAvklaringsbehov(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov)) &&
+      hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov)) &&
       !erOverstyrer);
   const [avklarAktiviteterErEndret, setAvklarAktiviteterErEndret] = useState<boolean>(false);
 
   return (
-    <div>
+    <>
       <AvklareAktiviteterPanel
         readOnly={avklarAktiviteterReadOnly}
-        harAndreAvklaringsbehovIPanel={hasAvklaringsbehov(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehov)}
         submitCallback={submitCallback}
         submittable={submittable}
         erOverstyrer={erOverstyrer && skalKunneOverstyreAktiviteter}
@@ -84,7 +81,6 @@ export const BeregningInfoPanel = ({
         vilkår={vilkar}
         setAvklarAktiviteterErEndret={setAvklarAktiviteterErEndret}
       />
-      <VerticalSpacer thirtyTwoPx />
       <VurderFaktaBeregningPanel
         submitCallback={submitCallback}
         submittable={submittable}
@@ -100,6 +96,6 @@ export const BeregningInfoPanel = ({
         avklarAktiviteterErEndret={avklarAktiviteterErEndret}
         skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
       />
-    </div>
+    </>
   );
 };

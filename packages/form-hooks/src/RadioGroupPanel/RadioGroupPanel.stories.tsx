@@ -1,12 +1,11 @@
 import React from 'react';
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { rhfDecorator } from '../../.storybook/decorators';
 import { RadioGroupPanel } from './RadioGroupPanel';
 
 const meta = {
-  title: 'form-hooks/RadioGroupPanel',
   component: RadioGroupPanel,
   tags: ['autodocs'],
   args: {

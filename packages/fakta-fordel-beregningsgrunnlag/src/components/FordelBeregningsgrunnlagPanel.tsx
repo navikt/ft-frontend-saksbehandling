@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
+import { VStack } from '@navikt/ds-react';
+
 import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import {
   FordelBeregningsgrunnlagFormValues,
@@ -74,24 +75,21 @@ export const FordelBeregningsgrunnlagPanel = ({
   const skalViseRefusjon = refusjonAP && harRefusjonInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
 
   return (
-    <>
+    <VStack gap="2">
       {skalViseRefusjon && (
-        <>
-          <VurderEndringRefusjonForm
-            aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-            submittable={submittable && !fordelingFormIsDirty}
-            readOnly={readOnly}
-            //@ts-expect-error
-            submitCallback={submitCallback}
-            beregningsgrunnlagListe={beregningsgrunnlagListe}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            formData={formData as VurderRefusjonFormValues}
-            setFormData={setFormData}
-            vilkarperioder={vilkarperioder}
-            setRefusjonFormIsDirty={setRefusjonFormIsDirty}
-          />
-          <VerticalSpacer fourtyPx />
-        </>
+        <VurderEndringRefusjonForm
+          aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
+          submittable={submittable && !fordelingFormIsDirty}
+          readOnly={readOnly}
+          //@ts-expect-error Fiks
+          submitCallback={submitCallback}
+          beregningsgrunnlagListe={beregningsgrunnlagListe}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          formData={formData as VurderRefusjonFormValues}
+          setFormData={setFormData}
+          vilkarperioder={vilkarperioder}
+          setRefusjonFormIsDirty={setRefusjonFormIsDirty}
+        />
       )}
       {skalViseFordeling && (
         <FordelingForm
@@ -108,6 +106,6 @@ export const FordelBeregningsgrunnlagPanel = ({
           setFordelingFormIsDirty={setFordelingFormIsDirty}
         />
       )}
-    </>
+    </VStack>
   );
 };

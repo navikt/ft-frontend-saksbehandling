@@ -1,11 +1,12 @@
 import { FormattedMessage } from 'react-intl';
 
-import { Heading, Label } from '@navikt/ds-react';
+import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
+
+import { HorizontalBox } from '../../util/HorizontalBox';
 
 type Props = {
   alleAndeler: BeregningsgrunnlagAndel[];
@@ -20,20 +21,18 @@ export const MilitaerPanel = ({ alleAndeler }: Props) => {
   const relevanteAndeler = alleAndeler.filter(andel => andel.aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL);
   const beregnetAarsinntekt = relevanteAndeler && relevanteAndeler.length > 0 ? relevanteAndeler[0].beregnetPrAar : '';
   return (
-    <>
-      <FlexRow>
-        <FlexColumn>
-          <Heading size="medium">
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Militær" />
-          </Heading>
-        </FlexColumn>
-      </FlexRow>
-      <VerticalSpacer eightPx />
-      <FlexRow>
-        <FlexColumn>
-          <Label size="small">{formatCurrencyNoKr(beregnetAarsinntekt)}</Label>
-        </FlexColumn>
-      </FlexRow>
-    </>
+    <VStack gap="2">
+      <Heading size="medium">
+        <FormattedMessage id="MilitaerPanel.Tittel" />
+      </Heading>
+      <HorizontalBox>
+        <BodyShort size="small">
+          <FormattedMessage id="MilitaerPanel.BeregnetAar" />
+        </BodyShort>
+        <BodyShort size="small">
+          <BeløpLabel beløp={beregnetAarsinntekt} />
+        </BodyShort>
+      </HorizontalBox>
+    </VStack>
   );
 };

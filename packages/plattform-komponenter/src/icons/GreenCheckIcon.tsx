@@ -1,9 +1,12 @@
-import { Icon } from '../icon/Icon';
+import { Icon } from '../Icon/Icon';
 
 interface GreenCheckIconProps {
   size?: number;
 }
 
+/**
+ * @deprecated Bruk heller ikona frå Aksel: https://aksel.nav.no/ikoner
+ */
 export const GreenCheckIcon = ({ size }: GreenCheckIconProps) => (
   <Icon size={size || 24}>
     <path

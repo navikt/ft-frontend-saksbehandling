@@ -1,13 +1,15 @@
 import { AvklarBeregningAktiviteter, BeregningAktivitet } from '@navikt/ft-types';
+import { TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
-import { finnPlasseringIListe, leggTilAktivitet, VurderAktiviteterPanel } from './VurderAktiviteterPanel';
-import { lagAktivitetFieldId } from './VurderAktiviteterTabell';
+import { VurderAktiviteterPanel } from './VurderAktiviteterPanel';
+import { finnPlasseringIListe, leggTilAktivitet } from './vurderAktiviteterPanelUtils';
+import { lagAktivitetFieldId } from './vurderAktiviteterTabellUtils';
 
 const aktivitet1 = {
   arbeidsgiverIdent: '384723894723',
   fom: '2019-01-01',
-  tom: '9999-12-31',
+  tom: TIDENES_ENDE,
   skalBrukes: undefined,
   arbeidsforholdType: 'ARBEID',
 };

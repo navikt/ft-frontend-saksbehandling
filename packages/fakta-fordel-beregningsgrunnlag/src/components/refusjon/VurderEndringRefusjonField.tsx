@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { Heading } from '@navikt/ds-react';
+import { Heading, VStack } from '@navikt/ds-react';
 
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
@@ -9,15 +9,12 @@ import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
-  BeregningsgrunnlagTilBekreftelse,
   RefusjonTilVurderingAndel,
 } from '@navikt/ft-types';
-import { AksjonspunktHelpTextHTML, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
 
-import { VurderRefusjonFieldValues, VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import { VurderRefusjonTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
-import { Vilkårperiode } from '../../types/Vilkår';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { SubmitButton } from '../felles/SubmitButton';
 import { TidligereUtbetalinger } from './TidligereUtbetalinger';
@@ -40,41 +37,6 @@ const lagRadNøkkel = (andel: RefusjonTilVurderingAndel): string => {
   return `${andel.arbeidsgiver.arbeidsgiverOrgnr}${andel.internArbeidsforholdRef})`;
 };
 
-export const buildFieldInitialValues = (
-  bg: Beregningsgrunnlag,
-  vilkårsperiode: Vilkårperiode,
-): VurderRefusjonFieldValues => {
-  const andeler = bg.refusjonTilVurdering?.andeler || [];
-  const refusjonAP = finnAvklaringsbehov(bg.avklaringsbehov);
-  let initialValues = {
-    beregningsgrunnlagStp: bg.skjaeringstidspunktBeregning,
-    periode: vilkårsperiode.periode,
-    begrunnelse: refusjonAP && refusjonAP.begrunnelse ? refusjonAP.begrunnelse : undefined,
-  } as unknown as VurderRefusjonFieldValues;
-  andeler.forEach(andel => {
-    initialValues = {
-      ...initialValues,
-      ...VurderEndringRefusjonRad.buildInitialValues(andel),
-    };
-  });
-  return initialValues;
-};
-
-export const transformFieldValues = (
-  values: VurderRefusjonFieldValues,
-  bg: Beregningsgrunnlag,
-): BeregningsgrunnlagTilBekreftelse<VurderRefusjonTransformedValues> => {
-  const andeler = bg.refusjonTilVurdering?.andeler || [];
-  const transformedAndeler = andeler.map(andel =>
-    VurderEndringRefusjonRad.transformValues(values, andel, bg.skjaeringstidspunktBeregning),
-  );
-  return {
-    periode: values.periode,
-    begrunnelse: values.begrunnelse,
-    fastsatteAndeler: transformedAndeler,
-  };
-};
-
 type Props = {
   readOnly: boolean;
   formSubmittes: boolean;
@@ -95,28 +57,25 @@ export const VurderEndringRefusjonField = ({
   const manglerAksjonspunkt = !beregningsgrunnlag.avklaringsbehov.some(
     ab => ab.definisjon === FaktaFordelBeregningAvklaringsbehovCode.VURDER_REFUSJON_BERGRUNN,
   );
-  const andeler = beregningsgrunnlag.refusjonTilVurdering?.andeler || [];
+  const andeler = beregningsgrunnlag.refusjonTilVurdering?.andeler ?? [];
   const avklaringsbehovRefusjon = finnAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
   const erAksjonspunktÅpent = avklaringsbehovRefusjon ? isAksjonspunktOpen(avklaringsbehovRefusjon.status) : false;
   const formMethods = useFormContext<VurderRefusjonFormValues>();
   const begrunnelse = formMethods.watch(`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.begrunnelse`);
   return (
-    <>
+    <VStack gap="4">
       {erAksjonspunktÅpent && (
         <AksjonspunktHelpTextHTML>
           {[<FormattedMessage id="BeregningInfoPanel.RefusjonBG.Aksjonspunkt" key="aksjonspunktText" />]}
         </AksjonspunktHelpTextHTML>
       )}
-      <VerticalSpacer sixteenPx />
       <Heading size="small">
         <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Tittel" />
       </Heading>
-      <VerticalSpacer sixteenPx />
       <TidligereUtbetalinger
         beregningsgrunnlag={beregningsgrunnlag}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
       />
-      <VerticalSpacer sixteenPx />
       {andeler.map(andel => (
         <VurderEndringRefusjonRad
           refusjonAndel={andel}
@@ -129,22 +88,23 @@ export const VurderEndringRefusjonField = ({
           vilkårperiodeFieldIndex={vilkårperiodeFieldIndex}
         />
       ))}
-      <VerticalSpacer twentyPx />
-      <FaktaBegrunnelseTextField
-        name={`${FORM_NAME}.${vilkårperiodeFieldIndex}.begrunnelse`}
-        isSubmittable={submittable}
-        isReadOnly={manglerAksjonspunkt || readOnly}
-        hasBegrunnelse={!!begrunnelse}
-      />
-      <AssessedBy ident={avklaringsbehovRefusjon?.vurdertAv} date={avklaringsbehovRefusjon?.vurdertTidspunkt} />
-      <VerticalSpacer twentyPx />
-      <SubmitButton
-        isSubmittable={submittable}
-        isReadOnly={manglerAksjonspunkt || readOnly}
-        isSubmitting={formSubmittes}
-        isDirty={formMethods.formState.isDirty}
-      />
-      <VerticalSpacer sixteenPx />
-    </>
+      <div>
+        <FaktaBegrunnelseTextField
+          name={`${FORM_NAME}.${vilkårperiodeFieldIndex}.begrunnelse`}
+          isSubmittable={submittable}
+          isReadOnly={manglerAksjonspunkt || readOnly}
+          hasBegrunnelse={!!begrunnelse}
+        />
+        <AssessedBy ident={avklaringsbehovRefusjon?.vurdertAv} date={avklaringsbehovRefusjon?.vurdertTidspunkt} />
+      </div>
+      <div>
+        <SubmitButton
+          isSubmittable={submittable}
+          isReadOnly={manglerAksjonspunkt || readOnly}
+          isSubmitting={formSubmittes}
+          isDirty={formMethods.formState.isDirty}
+        />
+      </div>
+    </VStack>
   );
 };

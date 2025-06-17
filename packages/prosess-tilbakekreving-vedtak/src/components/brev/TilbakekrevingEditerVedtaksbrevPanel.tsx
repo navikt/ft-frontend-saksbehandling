@@ -1,9 +1,8 @@
 import React from 'react';
 import { FormattedMessage, IntlShape } from 'react-intl';
 
-import { BodyShort, ExpansionCard, Heading, Label } from '@navikt/ds-react';
+import { BodyShort, ExpansionCard, Heading, Label, VStack } from '@navikt/ds-react';
 
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity } from '@navikt/ft-utils';
 
 import { UnderavsnittType } from '../../kodeverk/avsnittType';
@@ -31,12 +30,10 @@ export const TilbakekrevingEditerVedtaksbrevPanel = ({
   fritekstOppsummeringPakrevdMenIkkeUtfylt = false,
   erRevurderingTilbakekrevingFeilBeløpBortfalt,
 }: Props) => (
-  <div className={styles.container}>
-    <VerticalSpacer twentyPx />
+  <VStack gap="2" className={styles.container}>
     <Heading size="small">
       <FormattedMessage id="TilbakekrevingVedtak.Vedtaksbrev" />
     </Heading>
-    <VerticalSpacer eightPx />
     {vedtaksbrevAvsnitt.map(avsnitt => {
       const underavsnitter = avsnitt.underavsnittsliste;
       const periode = `${avsnitt.fom}_${avsnitt.tom}`;
@@ -58,37 +55,37 @@ export const TilbakekrevingEditerVedtaksbrevPanel = ({
               </ExpansionCard.Title>
             </ExpansionCard.Header>
             <ExpansionCard.Content>
-              {underavsnitter.map(underavsnitt => (
-                <React.Fragment
-                  key={(underavsnitt.underavsnittstype || '') + underavsnitt.overskrift + underavsnitt.brødtekst}
-                >
-                  {underavsnitt.overskrift && <Label size="small">{underavsnitt.overskrift}</Label>}
-                  {underavsnitt.brødtekst && <BodyShort size="small">{underavsnitt.brødtekst}</BodyShort>}
-                  {underavsnitt.fritekstTillatt && (
-                    <>
-                      <VerticalSpacer eightPx />
-                      <TilbakekrevingVedtakUtdypendeTekstPanel
-                        type={
-                          underavsnitt.underavsnittstype
-                            ? `${periode}.${underavsnitt.underavsnittstype}`
-                            : avsnitt.avsnittstype
-                        }
-                        readOnly={readOnly}
-                        fritekstPakrevet={underavsnitt.fritekstPåkrevet}
-                        maximumLength={erRevurderingTilbakekrevingFeilBeløpBortfalt ? 10000 : undefined}
-                      />
-                    </>
-                  )}
-                  <VerticalSpacer eightPx />
-                </React.Fragment>
-              ))}
+              <VStack gap="2">
+                {underavsnitter.map(underavsnitt => (
+                  <VStack
+                    gap="2"
+                    key={(underavsnitt.underavsnittstype || '') + underavsnitt.overskrift + underavsnitt.brødtekst}
+                  >
+                    {underavsnitt.overskrift && <Label size="small">{underavsnitt.overskrift}</Label>}
+                    {underavsnitt.brødtekst && <BodyShort size="small">{underavsnitt.brødtekst}</BodyShort>}
+                    {underavsnitt.fritekstTillatt && (
+                      <>
+                        <TilbakekrevingVedtakUtdypendeTekstPanel
+                          type={
+                            underavsnitt.underavsnittstype
+                              ? `${periode}.${underavsnitt.underavsnittstype}`
+                              : avsnitt.avsnittstype
+                          }
+                          readOnly={readOnly}
+                          fritekstPakrevet={underavsnitt.fritekstPåkrevet}
+                          maximumLength={erRevurderingTilbakekrevingFeilBeløpBortfalt ? 10000 : undefined}
+                        />
+                      </>
+                    )}
+                  </VStack>
+                ))}
+              </VStack>
             </ExpansionCard.Content>
           </ExpansionCard>
-          <VerticalSpacer eightPx />
         </React.Fragment>
       );
     })}
-  </div>
+  </VStack>
 );
 
 TilbakekrevingEditerVedtaksbrevPanel.buildInitialValues = (vedtaksbrevAvsnitt: VedtaksbrevAvsnitt[]): FormValues =>

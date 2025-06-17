@@ -4,7 +4,7 @@ import { ArbeidstakerUtenIMAndel, Beregningsgrunnlag, BeregningsgrunnlagArbeidsf
 import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { VurderMottarYtelseForm } from './VurderMottarYtelseForm';
-import { finnFrilansFieldName, utledArbeidsforholdFieldName } from './VurderMottarYtelseUtils';
+import { frilansFieldName, utledArbeidsforholdFieldName } from './VurderMottarYtelseUtils';
 
 const beregningsgrunnlag = {
   beregningsgrunnlagPeriode: [
@@ -84,7 +84,7 @@ describe('<VurderMottarYtelseForm>', () => {
       frilansMottarYtelse: undefined,
     };
     const initialValues = VurderMottarYtelseForm.buildInitialValues(mottarYtelse, tilfeller);
-    expect(initialValues[finnFrilansFieldName()]).toBe(undefined);
+    expect(initialValues[frilansFieldName]).toBe(undefined);
   });
 
   it('skal teste at initial values bygges korrekt med frilans med mottar ytelse', () => {
@@ -94,7 +94,7 @@ describe('<VurderMottarYtelseForm>', () => {
       frilansMottarYtelse: true,
     };
     const initialValues = VurderMottarYtelseForm.buildInitialValues(mottarYtelse, tilfeller);
-    expect(initialValues[finnFrilansFieldName()]).toBe(true);
+    expect(initialValues[frilansFieldName]).toBe(true);
   });
 
   it('skal teste at initial values bygges korrekt med frilans uten mottar ytelse', () => {
@@ -104,7 +104,7 @@ describe('<VurderMottarYtelseForm>', () => {
       frilansMottarYtelse: false,
     };
     const initialValues = VurderMottarYtelseForm.buildInitialValues(mottarYtelse, tilfeller);
-    expect(initialValues[finnFrilansFieldName()]).toBe(false);
+    expect(initialValues[frilansFieldName]).toBe(false);
   });
 
   it('skal teste at initial values bygges korrekt med frilans og arbeidsforhold uten inntektsmelding', () => {
@@ -115,7 +115,7 @@ describe('<VurderMottarYtelseForm>', () => {
       arbeidstakerAndelerUtenIM,
     };
     const initialValues = VurderMottarYtelseForm.buildInitialValues(mottarYtelse, tilfeller);
-    expect(initialValues[finnFrilansFieldName()]).toBe(false);
+    expect(initialValues[frilansFieldName]).toBe(false);
     expect(initialValues[utledArbeidsforholdFieldName(andel)]).toBe(undefined);
     expect(initialValues[utledArbeidsforholdFieldName(andel2)]).toBe(false);
     expect(initialValues[utledArbeidsforholdFieldName(andel3)]).toBe(true);
@@ -232,7 +232,7 @@ describe('<VurderMottarYtelseForm>', () => {
     };
     const values = {
       vurderMottarYtelseValues: {
-        [finnFrilansFieldName()]: true,
+        [frilansFieldName]: true,
       },
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
@@ -279,7 +279,7 @@ describe('<VurderMottarYtelseForm>', () => {
     const fastsatteAndelsnr: number[] = [];
     const values = {
       vurderMottarYtelseValues: {
-        [finnFrilansFieldName()]: true,
+        [frilansFieldName]: true,
         [utledArbeidsforholdFieldName(andel)]: true,
         [utledArbeidsforholdFieldName(andel2)]: false,
         [utledArbeidsforholdFieldName(andel3)]: true,
@@ -370,7 +370,7 @@ describe('<VurderMottarYtelseForm>', () => {
     const fastsatteAndelsnr = [4];
     const values = {
       vurderMottarYtelseValues: {
-        [finnFrilansFieldName()]: true,
+        [frilansFieldName]: true,
       },
       erTilVurdering: true,
       periode: { fom: '2022-01-01', tom: '2022-02-01' },

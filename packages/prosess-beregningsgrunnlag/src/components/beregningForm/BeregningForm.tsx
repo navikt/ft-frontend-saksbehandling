@@ -1,8 +1,8 @@
 import { FormattedMessage } from 'react-intl';
 
-import { Heading } from '@navikt/ds-react';
+import { Heading, HGrid, VStack } from '@navikt/ds-react';
 
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, FagsakYtelseType, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
@@ -11,11 +11,10 @@ import {
   FaktaOmBeregning,
   YtelseGrunnlag,
 } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
 import { BeregningFormValues } from '../../types/BeregningFormValues';
 import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
-import { KodeverkForPanel } from '../../types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 import { Vilkår, Vilkårperiode } from '../../types/Vilkår';
 import { Beregningsgrunnlag } from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
@@ -24,21 +23,22 @@ import { BesteberegningResultatGrunnlagPanel } from '../besteberegning/Bestebere
 import { AksjonspunktTittel } from '../fellesPaneler/AksjonspunktTittel';
 import { SammenligningOgFastsettelsePanel } from '../fellesPaneler/SammenligningOgFastsettelsePanel';
 import { SkjeringspunktOgStatusPanel } from '../fellesPaneler/SkjeringspunktOgStatusPanel';
-import { YtelsegrunnlagPanel } from '../frisinn/YtelsegrunnlagPanel';
+import { Frisinnpanel } from '../frisinn/Frisinnpanel';
 
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
-
-const gjelderBehandlingenBesteberegning = (faktaOmBeregning?: FaktaOmBeregning): boolean =>
+const gjelderBehandlingenBesteberegning = (faktaOmBeregning: FaktaOmBeregning | undefined): boolean =>
   faktaOmBeregning && faktaOmBeregning.faktaOmBeregningTilfeller
     ? faktaOmBeregning.faktaOmBeregningTilfeller.some(
         tilfelle => tilfelle === FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE,
       )
     : false;
 
-const erAutomatiskBesteberegnet = (ytelsesspesifiktGrunnlag?: YtelseGrunnlag): boolean =>
+const erAutomatiskBesteberegnet = (ytelsesspesifiktGrunnlag: YtelseGrunnlag | undefined): boolean =>
   !!ytelsesspesifiktGrunnlag?.besteberegninggrunnlag;
 
-const getStatusList = (beregningsgrunnlagPerioder: BeregningsgrunnlagPeriodeProp[]): string[] =>
+const erFrisinn = (ytelsesspesifiktGrunnlag: YtelseGrunnlag | undefined): boolean =>
+  !!ytelsesspesifiktGrunnlag && ytelsesspesifiktGrunnlag.ytelsetype === FagsakYtelseType.FRISINN;
+
+const getStatusList = (beregningsgrunnlagPerioder: BeregningsgrunnlagPeriodeProp[]): AktivitetStatus[] =>
   beregningsgrunnlagPerioder[0].beregningsgrunnlagPrStatusOgAndel
     ? beregningsgrunnlagPerioder[0].beregningsgrunnlagPrStatusOgAndel
         .filter(statusAndel => statusAndel.erTilkommetAndel !== true)
@@ -62,9 +62,6 @@ type Props = {
   aktivIndex: number;
 };
 
-// ------------------------------------------------------------------------------------------ //
-// Component : BeregningFormImpl
-// ------------------------------------------------------------------------------------------ //
 /**
  *
  * BeregningForm
@@ -94,62 +91,54 @@ export const BeregningForm = ({
 
   const gjelderBesteberegning = gjelderBehandlingenBesteberegning(faktaOmBeregning);
   const gjelderAutomatiskBesteberegning = erAutomatiskBesteberegnet(ytelsesspesifiktGrunnlag);
-  const storSpacer = <div className={beregningStyles.storSpace} />;
-
+  const gjelderFrisinn = erFrisinn(ytelsesspesifiktGrunnlag);
   const aktivitetStatusList = getStatusList(beregningsgrunnlagPeriode);
   const harAksjonspunkter = gjeldendeAvklaringsbehov && gjeldendeAvklaringsbehov.length > 0;
   return (
-    <>
+    <VStack gap="4">
       {harAksjonspunkter && (
-        <>
-          <VerticalSpacer eightPx />
-          <AksjonspunktTittel avklaringsbehov={gjeldendeAvklaringsbehov} beregningsgrunnlag={valgtBeregningsgrunnlag} />
-        </>
+        <AksjonspunktTittel avklaringsbehov={gjeldendeAvklaringsbehov} beregningsgrunnlag={valgtBeregningsgrunnlag} />
       )}
-      <FlexRow>
-        <FlexColumn className={beregningStyles.venstreKolonne}>
+      <HGrid gap="12" columns={{ sm: 1, md: 2 }}>
+        <VStack gap="4">
           <Heading size="medium">
-            <FormattedMessage id="Beregningsgrunnlag.Title.Beregning" />
+            <FormattedMessage id="BeregningForm.Beregning.Tittel" />
           </Heading>
-          <VerticalSpacer sixteenPx />
-          <SkjeringspunktOgStatusPanel
-            kodeverkSamling={kodeverkSamling}
-            aktivitetStatusList={aktivitetStatusList}
-            skjeringstidspunktDato={skjaeringstidspunktBeregning}
-            saksopplysninger={
-              valgtBeregningsgrunnlag.faktaOmBeregning
-                ? valgtBeregningsgrunnlag.faktaOmBeregning.saksopplysninger
-                : undefined
-            }
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          />
-          {storSpacer}
-          {relevanteStatuser.skalViseBeregningsgrunnlag && (
-            <Beregningsgrunnlag
-              relevanteStatuser={relevanteStatuser}
-              allePerioder={beregningsgrunnlagPeriode}
-              gjelderBesteberegning={gjelderBesteberegning}
+          <VStack gap="10">
+            <SkjeringspunktOgStatusPanel
               kodeverkSamling={kodeverkSamling}
+              aktivitetStatusList={aktivitetStatusList}
+              skjeringstidspunktDato={skjaeringstidspunktBeregning}
+              saksopplysninger={
+                valgtBeregningsgrunnlag.faktaOmBeregning
+                  ? valgtBeregningsgrunnlag.faktaOmBeregning.saksopplysninger
+                  : undefined
+              }
               arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-              sammenligningsGrunnlagInntekter={valgtBeregningsgrunnlag.inntektsgrunnlag}
-              sammenligningsgrunnlag={valgtBeregningsgrunnlag.sammenligningsgrunnlagPrStatus}
             />
-          )}
-          {gjelderAutomatiskBesteberegning && (
-            <>
-              {storSpacer}
+            {relevanteStatuser.skalViseBeregningsgrunnlag && (
+              <Beregningsgrunnlag
+                relevanteStatuser={relevanteStatuser}
+                allePerioder={beregningsgrunnlagPeriode}
+                gjelderBesteberegning={gjelderBesteberegning}
+                kodeverkSamling={kodeverkSamling}
+                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                sammenligningsGrunnlagInntekter={valgtBeregningsgrunnlag.inntektsgrunnlag}
+                sammenligningsgrunnlag={valgtBeregningsgrunnlag.sammenligningsgrunnlagPrStatus}
+              />
+            )}
+            {gjelderAutomatiskBesteberegning && (
               <BesteberegningResultatGrunnlagPanel
                 besteMåneder={ytelsesspesifiktGrunnlag?.besteberegninggrunnlag?.besteMåneder}
                 periode={beregningsgrunnlagPeriode[0]}
               />
-            </>
-          )}
-        </FlexColumn>
-        <FlexColumn className={beregningStyles.hoyreKolonne}>
-          <Heading size="medium" className={beregningStyles.panelRight}>
-            <FormattedMessage id="Beregningsgrunnlag.Title.Fastsettelse" />
+            )}
+          </VStack>
+        </VStack>
+        <VStack gap="6">
+          <Heading size="medium">
+            <FormattedMessage id="BeregningForm.Fastsettelse.Tittel" />
           </Heading>
-          <VerticalSpacer sixteenPx />
           <SammenligningOgFastsettelsePanel
             readOnly={readOnly}
             readOnlySubmitButton={readOnlySubmitButton}
@@ -165,15 +154,12 @@ export const BeregningForm = ({
             setFormData={setFormData}
             aktivIndex={aktivIndex}
           />
-          <>
-            <VerticalSpacer sixteenPx />
-            <YtelsegrunnlagPanel beregningsgrunnlag={valgtBeregningsgrunnlag} />
-          </>
+          {gjelderFrisinn && <Frisinnpanel beregningsgrunnlag={valgtBeregningsgrunnlag} />}
           {vilkarPeriode && (
             <BeregningsresultatPanel beregningsgrunnlag={valgtBeregningsgrunnlag} vilkårsperiode={vilkarPeriode} />
           )}
-        </FlexColumn>
-      </FlexRow>
-    </>
+        </VStack>
+      </HGrid>
+    </VStack>
   );
 };

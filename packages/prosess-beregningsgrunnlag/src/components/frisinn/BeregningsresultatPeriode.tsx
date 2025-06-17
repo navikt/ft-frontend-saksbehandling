@@ -1,33 +1,16 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, Label } from '@navikt/ds-react';
+import { BodyShort, Detail, HStack, Label, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
-import { FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, TIDENES_ENDE } from '@navikt/ft-utils';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
+import { periodFormat } from '@navikt/ft-utils';
 
 import { finnOppgittInntektForAndelIPeriode, FrisinnAndel, FrisinnGrunnlag } from './FrisinnUtils';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
-
-const lagPeriodeHeader = (fom: string, originalTom: string) => {
-  let tom = null;
-  if (originalTom !== TIDENES_ENDE) {
-    tom = originalTom;
-  }
-  return (
-    <FormattedMessage
-      id="Beregningsgrunnlag.BeregningTable.Periode"
-      key={`fom-tom${fom}${tom}`}
-      values={{
-        fom: dayjs(fom).format(DDMMYYYY_DATE_FORMAT),
-        tom: tom ? dayjs(tom).format(DDMMYYYY_DATE_FORMAT) : '',
-      }}
-    />
-  );
-};
 
 const statuserDetErSøktOmIPerioden = (
   bgPeriode: BeregningsgrunnlagPeriodeProp,
@@ -42,15 +25,15 @@ const statuserDetErSøktOmIPerioden = (
   return gjeldendePeriode ? gjeldendePeriode.frisinnAndeler : [];
 };
 
-const lagBeskrivelseMedBeløpRad = (tekstId: string, beløp: number) => (
-  <FlexRow>
-    <FlexColumn className={beregningStyles.tabellAktivitet}>
+const BeskrivelseMedBeløpRad = ({ tekstId, beløp }: { tekstId: string; beløp: number }) => (
+  <HStack gap="2">
+    <BodyShort className={beregningStyles.tabellAktivitet}>
       <FormattedMessage id={tekstId} />
-    </FlexColumn>
-    <FlexColumn className={beregningStyles.tabellInntekt}>
-      <BodyShort size="small">{formatCurrencyNoKr(beløp)}</BodyShort>
-    </FlexColumn>
-  </FlexRow>
+    </BodyShort>
+    <BodyShort size="small" className={beregningStyles.tabellInntekt}>
+      <BeløpLabel beløp={beløp} />
+    </BodyShort>
+  </HStack>
 );
 
 const lagRedusertBGRad = (
@@ -64,24 +47,24 @@ const lagRedusertBGRad = (
   const redusert = beløpÅRedusere * multiplikator;
   return (
     <>
-      <FlexRow>
-        <FlexColumn className={beregningStyles.tabellAktivitet}>
+      <HStack gap="2">
+        <BodyShort className={beregningStyles.tabellAktivitet}>
           <FormattedMessage id={tekstIdRedusert} values={{ grad: gjeldendeDekningsgrad }} />
-        </FlexColumn>
-        <FlexColumn className={beregningStyles.tabellInntekt}>
-          <BodyShort size="small">{formatCurrencyNoKr(redusert)}</BodyShort>
-        </FlexColumn>
-      </FlexRow>
+        </BodyShort>
+        <BodyShort size="small" className={beregningStyles.tabellInntekt}>
+          <BeløpLabel beløp={redusert} />
+        </BodyShort>
+      </HStack>
       {!!løpendeBeløp ||
         (løpendeBeløp === 0 && (
-          <FlexRow>
-            <FlexColumn className={beregningStyles.tabellAktivitet}>
+          <HStack gap="2">
+            <BodyShort className={beregningStyles.tabellAktivitet}>
               <FormattedMessage id={tekstIdLøpende} />
-            </FlexColumn>
-            <FlexColumn className={beregningStyles.tabellInntekt}>
-              <BodyShort size="small">{formatCurrencyNoKr(løpendeBeløp)}</BodyShort>
-            </FlexColumn>
-          </FlexRow>
+            </BodyShort>
+            <BodyShort size="small" className={beregningStyles.tabellInntekt}>
+              <BeløpLabel beløp={løpendeBeløp} />
+            </BodyShort>
+          </HStack>
         ))}
     </>
   );
@@ -125,41 +108,37 @@ const lagPeriodeblokk = (
   const gjeldendeDekningsgrad = finnDekningsgrad(bgperiode.beregningsgrunnlagPeriodeFom);
   return (
     <>
-      {erBeløpSatt(beregningsgrunnlagFL) &&
-        lagBeskrivelseMedBeløpRad('Beregningsgrunnlag.Frisinn.BeregningsgrunnlagFL', beregningsgrunnlagFL || 0)}
+      {erBeløpSatt(beregningsgrunnlagFL) && (
+        <BeskrivelseMedBeløpRad tekstId="Frisinn.BeregningsgrunnlagFL" beløp={beregningsgrunnlagFL || 0} />
+      )}
       {erBeløpSatt(beregningsgrunnlagFL) &&
         lagRedusertBGRad(
-          'Beregningsgrunnlag.Frisinn.BeregningsgrunnlagRedusertFL',
+          'Frisinn.BeregningsgrunnlagRedusertFL',
           beregningsgrunnlagFL || 0,
-          'Beregningsgrunnlag.Søknad.LøpendeFL',
+          'Søknad.LøpendeFL',
           løpendeInntektFL,
           gjeldendeDekningsgrad,
         )}
-      {erBeløpSatt(beregningsgrunnlagSN) &&
-        lagBeskrivelseMedBeløpRad('Beregningsgrunnlag.Frisinn.BeregningsgrunnlagSN', beregningsgrunnlagSN || 0)}
+      {erBeløpSatt(beregningsgrunnlagSN) && (
+        <BeskrivelseMedBeløpRad tekstId="Frisinn.BeregningsgrunnlagSN" beløp={beregningsgrunnlagSN || 0} />
+      )}
       {erBeløpSatt(beregningsgrunnlagSN) &&
         lagRedusertBGRad(
-          'Beregningsgrunnlag.Frisinn.BeregningsgrunnlagRedusertSN',
+          'Frisinn.BeregningsgrunnlagRedusertSN',
           beregningsgrunnlagSN || 0,
-          'Beregningsgrunnlag.Søknad.LøpendeSN',
+          'Søknad.LøpendeSN',
           løpendeInntektSN,
           gjeldendeDekningsgrad,
         )}
-      <FlexRow>
-        <FlexColumn>
-          <div className={beregningStyles.colDevider} />
-        </FlexColumn>
-      </FlexRow>
-      <FlexRow>
-        <FlexColumn className={beregningStyles.tabellAktivitet}>
-          <Detail>
-            <FormattedMessage id="Beregningsgrunnlag.Resultat.Dagsats" />
-          </Detail>
-        </FlexColumn>
-        <FlexColumn className={beregningStyles.tabellInntekt}>
-          <BodyShort size="small">{formatCurrencyNoKr(bgperiode.dagsats)}</BodyShort>
-        </FlexColumn>
-      </FlexRow>
+      <div className={beregningStyles.colDevider} />
+      <HStack gap="2">
+        <Detail className={beregningStyles.tabellAktivitet}>
+          <FormattedMessage id="Resultat.Dagsats" />
+        </Detail>
+        <BodyShort size="small" className={beregningStyles.tabellInntekt}>
+          <BeløpLabel beløp={bgperiode.dagsats} />
+        </BodyShort>
+      </HStack>
     </>
   );
 };
@@ -179,16 +158,16 @@ export const BeregningsresultatPeriode = ({ bgperiode, ytelsegrunnlag, frilansGr
   const visningFrilans = frilansGrunnlag >= 0 ? frilansGrunnlag : 0;
   const visningNæring = næringGrunnlag >= 0 ? næringGrunnlag : 0;
   return (
-    <div>
-      <VerticalSpacer eightPx />
-      <FlexRow>
-        <FlexColumn>
-          <Label size="small">
-            {lagPeriodeHeader(bgperiode.beregningsgrunnlagPeriodeFom, bgperiode.beregningsgrunnlagPeriodeTom)}
-          </Label>
-        </FlexColumn>
-      </FlexRow>
+    <VStack gap="2">
+      <Label size="small">
+        <FormattedMessage
+          id="BeregningsresultatPeriode.Label"
+          values={{
+            periode: periodFormat(bgperiode.beregningsgrunnlagPeriodeFom, bgperiode.beregningsgrunnlagPeriodeTom),
+          }}
+        />
+      </Label>
       {lagPeriodeblokk(bgperiode, ytelsegrunnlag, visningFrilans, visningNæring)}
-    </div>
+    </VStack>
   );
 };

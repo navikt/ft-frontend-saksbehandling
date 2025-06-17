@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { BodyShort, Table } from '@navikt/ds-react';
 
 import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel, TidligereUtbetalinger } from '@navikt/ft-types';
-import { dateFormat, TIDENES_ENDE } from '@navikt/ft-utils';
+import { PeriodLabel } from '@navikt/ft-ui-komponenter';
 
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';
 
@@ -25,13 +25,9 @@ const lagPeriode = (utbetaling: TidligereUtbetalinger): ReactElement | undefined
   if (!utbetaling) {
     return undefined;
   }
-  const utbTom = utbetaling.tom === TIDENES_ENDE ? undefined : utbetaling.tom;
   return (
     <BodyShort>
-      <FormattedMessage
-        id="BeregningInfoPanel.RefusjonBG.Periode"
-        values={{ fom: dateFormat(utbetaling.fom), tom: utbTom ? dateFormat(utbTom) : '' }}
-      />
+      <PeriodLabel dateStringFom={utbetaling.fom} dateStringTom={utbetaling.tom} />
     </BodyShort>
   );
 };

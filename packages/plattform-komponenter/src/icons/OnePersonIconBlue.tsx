@@ -1,5 +1,8 @@
-import { Icon } from '../icon/Icon';
+import { Icon } from '../Icon/Icon';
 
+/**
+ * @deprecated Bruk heller ikona frå Aksel: https://aksel.nav.no/ikoner
+ */
 export const OnePersonIconBlue = () => (
   <Icon size={24}>
     <path

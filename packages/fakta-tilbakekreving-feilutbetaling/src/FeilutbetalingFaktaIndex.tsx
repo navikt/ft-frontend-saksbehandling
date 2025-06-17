@@ -7,8 +7,8 @@ import { FeilutbetalingInfoPanel, FormValues } from './components/Feilutbetaling
 import { AvklartFaktaFeilutbetalingAp } from './types/AvklartFaktaFeilutbetalingAp';
 import { FeilutbetalingÅrsak } from './types/FeilutbetalingÅrsak';
 import { FeilutbetalingFakta } from './types/FeilutbetalingFakta';
-import { KodeverkFpSakForPanel } from './types/KodeverkFpSakForPanelFtf';
-import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelFtf';
+import { KodeverkForPanel } from './types/KodeverkForPanel';
+import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 
 import messages from '../i18n/nb_NO.json';
 
@@ -18,8 +18,8 @@ export interface Props {
   feilutbetalingFakta: FeilutbetalingFakta;
   feilutbetalingAarsak: FeilutbetalingÅrsak[];
   fagsakYtelseTypeKode: string;
-  kodeverkSamlingFpTilbake: KodeverkFpTilbakeForPanel;
-  kodeverkSamlingFpsak: KodeverkFpSakForPanel;
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
+  kodeverkSamlingFpsak: KodeverkForPanel;
   isAksjonspunktOpen: boolean;
   alleMerknaderFraBeslutter: { [key: string]: { notAccepted?: boolean } };
 }

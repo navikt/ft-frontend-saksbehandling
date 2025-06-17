@@ -1,12 +1,13 @@
-import { action } from '@storybook/addon-actions';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import dayjs from 'dayjs';
+import { action } from 'storybook/actions';
 
 import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import {
   AktivitetStatus,
   InntektAktivitetType,
   LønnsendringScenario,
+  OpptjeningAktivitetType,
   PeriodeAarsak,
   PgiType,
   SammenligningType,
@@ -14,6 +15,7 @@ import {
   VilkarUtfallType,
 } from '@navikt/ft-kodeverk';
 import {
+  ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
@@ -28,7 +30,7 @@ import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { BeregningsgrunnlagProsessIndex } from './BeregningsgrunnlagProsessIndex';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from './types/KodeverkForPanelForBg';
+import { KodeverkForPanel } from './types/KodeverkForPanel';
 import { Vilkår } from './types/Vilkår';
 
 import '@navikt/ds-css';
@@ -180,7 +182,7 @@ const vilkarMedUtfall = (kode: string, fom?: string, tom?: string): Vilkår =>
     ],
   }) as Vilkår;
 
-const arbeidsgiverOpplysninger = {
+const arbeidsgiverOpplysninger: ArbeidsgiverOpplysningerPerId = {
   999999996: {
     identifikator: '999999996',
     navn: 'BEDRIFT AS',
@@ -213,7 +215,7 @@ const lagArbeidsforhold = (
   arbeidsgiverIdent,
   arbeidsforholdId,
   eksternArbeidsforholdId,
-  arbeidsforholdType: 'ARBEID',
+  arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
   refusjonPrAar: 360000,
   belopFraInntektsmeldingPrMnd: 30000,
   organisasjonstype: 'VIRKSOMHET',
@@ -292,7 +294,7 @@ const lagFrilansandel = (
   arbeidsforhold: malArbeidsorhold(),
 });
 
-const lagGenerellAndel = (andelnr: number, status: string, beregnet: number): BeregningsgrunnlagAndel => ({
+const lagGenerellAndel = (andelnr: number, status: AktivitetStatus, beregnet: number): BeregningsgrunnlagAndel => ({
   aktivitetStatus: status,
   beregningsperiodeFom: '2019-06-01',
   beregningsperiodeTom: '2019-08-31',
@@ -544,12 +546,11 @@ const lagBG = (
     erOverstyrtInntekt: false,
     inntektsgrunnlag,
   };
-  // @ts-expect-error
+  // @ts-expect-error Fiks
   return beregningsgrunnlag;
 };
 
 const meta = {
-  title: 'prosess-beregningsgrunnlag/BeregningsgrunnlagProsessIndex',
   component: BeregningsgrunnlagProsessIndex,
   args: {
     submitCallback: action('button-click') as (data: any) => Promise<void>,

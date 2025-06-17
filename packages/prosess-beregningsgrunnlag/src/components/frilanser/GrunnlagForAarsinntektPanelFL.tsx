@@ -1,15 +1,13 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, Heading, Label } from '@navikt/ds-react';
+import { Heading, Label, Table } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { DateLabel, FlexColumn, FlexRow, VerticalSpacer } from '@navikt/ft-ui-komponenter';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
+import { BTag, dateFormat } from '@navikt/ft-utils';
 
-import { Ledelinje } from '../fellesPaneler/Ledelinje';
-
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
+import tableStyle from '../tableStyle.module.css';
 
 type Props = {
   alleAndeler: BeregningsgrunnlagAndel[];
@@ -30,49 +28,46 @@ export const GrunnlagForAarsinntektPanelFL = ({ alleAndeler }: Props) => {
     return null;
   }
   const beregnetAarsinntekt = relevantAndel.beregnetPrAar;
-  const startDato = relevantAndel.arbeidsforhold?.startdato;
+  const startdato = relevantAndel.arbeidsforhold?.startdato;
   return (
-    <>
+    <div>
       <Heading size="medium">
-        <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Frilansinntekt" />
+        <FormattedMessage id="GrunnlagForAarsinntektPanelFL.Tittel" />
       </Heading>
-      <VerticalSpacer fourPx />
-      <FlexRow className={beregningStyles.rows}>
-        <FlexColumn className={beregningStyles.tabellAktivitet}>
-          {startDato && (
-            <BodyShort size="small">
-              <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.FrilansStartDato2" />
-              <span className={beregningStyles.semiBoldText}>
-                <DateLabel dateString={startDato} />
-              </span>
-            </BodyShort>
-          )}
-        </FlexColumn>
-        <FlexColumn className={beregningStyles.tabellInntekt}>
-          <Detail>
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Maaned" />
-          </Detail>
-        </FlexColumn>
-        <FlexColumn className={beregningStyles.tabellInntekt}>
-          <Detail>
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.Arbeidsinntekt.Aar" />
-          </Detail>
-        </FlexColumn>
-      </FlexRow>
-      <Ledelinje prosentBredde={100} />
-      <FlexRow className={beregningStyles.rows}>
-        <FlexColumn className={beregningStyles.tabellAktivitet}>
-          <BodyShort size="small">
-            <FormattedMessage id="Beregningsgrunnlag.AarsinntektPanel.InnrapportertFrilans" />
-          </BodyShort>
-        </FlexColumn>
-        <FlexColumn className={beregningStyles.tabellInntekt}>
-          <BodyShort size="small">{beregnetAarsinntekt ? formatCurrencyNoKr(beregnetAarsinntekt / 12) : 0}</BodyShort>
-        </FlexColumn>
-        <FlexColumn className={beregningStyles.tabellInntekt}>
-          <Label size="small">{beregnetAarsinntekt ? formatCurrencyNoKr(beregnetAarsinntekt) : 0}</Label>
-        </FlexColumn>
-      </FlexRow>
-    </>
+      {startdato && (
+        <Label size="small">
+          <FormattedMessage
+            id="GrunnlagForAarsinntektPanelFL.FrilansStartDato"
+            values={{ b: BTag, startdato: dateFormat(startdato) }}
+          />
+        </Label>
+      )}
+      <Table size="small" className={tableStyle.table}>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell />
+            <Table.HeaderCell textSize="small" align="right">
+              <FormattedMessage id="TabellKolonne.Maaned" />
+            </Table.HeaderCell>
+            <Table.HeaderCell textSize="small" align="right">
+              <FormattedMessage id="TabellKolonne.BeregnetAar" />
+            </Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          <Table.Row>
+            <Table.DataCell textSize="small">
+              <FormattedMessage id="GrunnlagForAarsinntektPanelFL.InnrapportertFrilans" />
+            </Table.DataCell>
+            <Table.DataCell textSize="small" align="right">
+              <BeløpLabel beløp={beregnetAarsinntekt ? beregnetAarsinntekt / 12 : 0} />
+            </Table.DataCell>
+            <Table.DataCell textSize="small" align="right">
+              <BeløpLabel beløp={beregnetAarsinntekt ?? 0} />
+            </Table.DataCell>
+          </Table.Row>
+        </Table.Body>
+      </Table>
+    </div>
   );
 };

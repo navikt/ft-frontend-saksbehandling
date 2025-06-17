@@ -1,5 +1,5 @@
-import { action } from '@storybook/addon-actions';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { action } from 'storybook/actions';
 
 import { alleTilbakekrevingKodeverk, getIntlDecorator } from '@navikt/ft-frontend-storybook-utils';
 import { BehandlingStatus, ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
@@ -8,7 +8,8 @@ import { Behandling } from '@navikt/ft-types';
 import { TilbakekrevingProsessIndex } from './TilbakekrevingProsessIndex';
 import { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
 import { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
-import { KodeverkFpTilbakeForPanel } from './types/KodeverkFpTilbakeForPanelTb';
+import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
+import { VilkårsvurderingAp } from './types/VilkårsvurderingAp';
 
 import messages from '../i18n/nb_NO.json';
 
@@ -60,30 +61,27 @@ const vilkarvurdering = {
   vilkarsVurdertePerioder: [],
 };
 
-const kodeverkSamling = alleTilbakekrevingKodeverk as KodeverkFpTilbakeForPanel;
-
 const meta = {
-  title: 'prosess-tilbakekreving/TilbakekrevingProsessIndex',
   component: TilbakekrevingProsessIndex,
   decorators: [withIntl],
   args: {
-    submitCallback: action('button-click') as (data: any) => Promise<void>,
+    submitCallback: action('button-click') as (data: VilkårsvurderingAp) => Promise<void>,
     behandling: {
       uuid: '1',
       versjon: 1,
       status: BehandlingStatus.BEHANDLING_UTREDES,
     } as Behandling,
-    kodeverkSamlingFpTilbake: kodeverkSamling,
+    kodeverkSamlingFpTilbake: alleTilbakekrevingKodeverk as unknown as KodeverkTilbakeForPanel,
     isReadOnly: false,
     setFormData: () => undefined,
     perioderForeldelse,
     vilkarvurdering,
-    beregnBelop: (params?: any) => Promise.resolve(params),
+    beregnBelop: () => Promise.resolve({ perioder: [{ belop: 10000 }, { belop: 12000 }] }),
     alleMerknaderFraBeslutter: {},
     relasjonsRolleType: RelasjonsRolleType.MOR,
     relasjonsRolleTypeKodeverk: [
       {
-        kode: 'MORA',
+        kode: RelasjonsRolleType.MOR,
         kodeverk: 'RELASJONSROLLE_TYPE',
         navn: 'Mor',
       },

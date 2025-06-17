@@ -2,21 +2,22 @@ import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
-import { BodyShort, Detail, HStack, Label } from '@navikt/ds-react';
+import { BodyShort, Detail, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { InputField, RadioGroupPanel, SelectField } from '@navikt/ft-form-hooks';
 import { maxValue, minValue, required } from '@navikt/ft-form-validators';
-import { ArrowBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { ArrowBox } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { Aktsomhet } from '../../../kodeverk/aktsomhet';
+import { ANDELER, EGENDEFINERT } from './aktsomhetUtils';
 
 import styles from './aktsomhetReduksjonAvBelopFormPanel.module.css';
 
 const minValue1 = minValue(0.0);
 const maxValue100 = maxValue(99.99);
 
-const parseCurrencyInput = (input: any) => {
+const parseCurrencyInput = (input: string | number) => {
   const inputNoSpace = input.toString().replace(/\s/g, '');
   const parsedValue = parseInt(inputNoSpace, 10);
   return Number.isNaN(parsedValue) ? '' : parsedValue;
@@ -28,9 +29,6 @@ const validerAtMindreEnn = (intl: IntlShape, feilutbetalingBelop: number) => (be
   }
   return undefined;
 };
-
-export const EGENDEFINERT = 'Egendefinert';
-export const ANDELER = ['30', '50', '70', EGENDEFINERT];
 
 export interface Props {
   name: string;
@@ -63,8 +61,7 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
   }, []);
 
   return (
-    <>
-      <VerticalSpacer sixteenPx />
+    <VStack gap="4">
       <RadioGroupPanel
         name={`${name}.harGrunnerTilReduksjon`}
         label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalSarligeGrunnerGiReduksjon" />}
@@ -83,7 +80,6 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
         isTrueOrFalseSelection
         isHorizontal
       />
-      <VerticalSpacer sixteenPx />
       {harGrunnerTilReduksjon && (
         <ArrowBox alignOffset={24}>
           <HStack gap="4">
@@ -169,32 +165,33 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
               }
             />
           </Detail>
-          <BodyShort size="small" className={styles.labelPadding}>
-            {harMerEnnEnYtelse ? formatCurrencyNoKr(feilutbetalingBelop) : '100%'}
-          </BodyShort>
-          <VerticalSpacer sixteenPx />
-          {handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM && (
-            <RadioGroupPanel
-              name={tilleggesRenterFelt}
-              label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
-              validate={[required]}
-              radios={[
-                {
-                  label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
-                  value: 'true',
-                },
-                {
-                  label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
-                  value: 'false',
-                },
-              ]}
-              isReadOnly={readOnly}
-              isTrueOrFalseSelection
-              isHorizontal
-            />
-          )}
+          <VStack gap="4">
+            <BodyShort size="small" className={styles.labelPadding}>
+              {harMerEnnEnYtelse ? formatCurrencyNoKr(feilutbetalingBelop) : '100%'}
+            </BodyShort>
+            {handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM && (
+              <RadioGroupPanel
+                name={tilleggesRenterFelt}
+                label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
+                validate={[required]}
+                radios={[
+                  {
+                    label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
+                    value: 'true',
+                  },
+                  {
+                    label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
+                    value: 'false',
+                  },
+                ]}
+                isReadOnly={readOnly}
+                isTrueOrFalseSelection
+                isHorizontal
+              />
+            )}
+          </VStack>
         </ArrowBox>
       )}
-    </>
+    </VStack>
   );
 };

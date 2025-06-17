@@ -1,14 +1,15 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Button, Heading, HStack, Label } from '@navikt/ds-react';
+import { Button, Heading, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
-import { OverstyringKnapp, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { OverstyringKnapp } from '@navikt/ft-ui-komponenter';
 
 import { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 
 import styles from './InntektstabellPanel.module.css';
@@ -17,13 +18,10 @@ export const MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD = 'manuellOverstyringR
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
-const hasAksjonspunkt = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
-  avklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
-
 const getSkalKunneOverstyre = (erOverstyrer: boolean, avklaringsbehov: BeregningAvklaringsbehov[]) =>
   erOverstyrer && !avklaringsbehov.some(ap => ap.definisjon === AVKLAR_AKTIVITETER && isAksjonspunktOpen(ap.status));
 
-type Props = {
+interface Props {
   tabell: React.ReactNode;
   hjelpeTekstId?: string;
   skalViseTabell?: boolean;
@@ -32,7 +30,7 @@ type Props = {
   erOverstyrer: boolean;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
   erOverstyrt: boolean;
-};
+}
 
 export const InntektstabellPanel = ({
   tabell,
@@ -47,10 +45,7 @@ export const InntektstabellPanel = ({
   const [erTabellOverstyrt, setOverstyring] = useState(erOverstyrt);
 
   const beregningsgrunnlagIndeks = React.useContext(BeregningsgrunnlagIndexContext);
-  const kanOverstyre = useMemo(
-    () => getSkalKunneOverstyre(erOverstyrer, avklaringsbehov),
-    [erOverstyrer, avklaringsbehov],
-  );
+  const kanOverstyre = getSkalKunneOverstyre(erOverstyrer, avklaringsbehov);
 
   const toggleOverstyring = () => {
     setOverstyring(!erTabellOverstyrt);
@@ -58,9 +53,8 @@ export const InntektstabellPanel = ({
   };
   return (
     <div className={styles.fadeinTabell}>
-      <VerticalSpacer thirtyTwoPx />
       {skalViseTabell && (
-        <>
+        <VStack gap="4">
           <HStack gap="4">
             <Heading level="3" size="xsmall">
               <FormattedMessage id="InntektstabellPanel.RapporterteInntekter" />
@@ -74,7 +68,6 @@ export const InntektstabellPanel = ({
               />
             )}
           </HStack>
-          <VerticalSpacer sixteenPx />
           {hjelpeTekstId && (
             <Label size="small">
               <FormattedMessage id={hjelpeTekstId} />
@@ -82,11 +75,13 @@ export const InntektstabellPanel = ({
           )}
           {tabell}
           {erTabellOverstyrt && !readOnly && (
-            <Button size="small" onClick={toggleOverstyring} variant="secondary">
-              <FormattedMessage id="InntektstabellPanel.Avbryt" />
-            </Button>
+            <HStack>
+              <Button size="small" onClick={toggleOverstyring} variant="secondary">
+                <FormattedMessage id="InntektstabellPanel.Avbryt" />
+              </Button>
+            </HStack>
           )}
-        </>
+        </VStack>
       )}
     </div>
   );

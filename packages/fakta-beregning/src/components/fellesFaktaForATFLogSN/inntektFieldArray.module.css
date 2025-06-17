@@ -1,69 +1,93 @@
 .slettIkon {
   color: var(--a-red-500);
 }
+
 .rightAlign {
   text-align: right;
 }
+
 .rightAlignInput {
   text-align: right;
 }
+
 .rightAlignInput :global(.navds-form-field) {
   margin-left: auto;
 }
+
+.rightAlignInput > div > div {
+  justify-content: end;
+}
+
 .rightAlignInput > div > input {
   margin-right: 0;
   text-align: right;
 }
-.rightAlignInput > div > p {
+
+.rightAlignInput > div > div > div > p {
   text-align: right;
-  width: 140px;
 }
 
 .buttonRow {
   margin-top: 0;
 }
+
 .addPeriode,
 .customLink,
 .removeButton {
   cursor: pointer;
 }
+
 .addCircleIcon,
 .imageText {
   display: inline-block;
   margin-right: 1ex;
   vertical-align: text-bottom;
 }
+
 .readOnlyContainer {
   display: inline-block;
 }
+
 .readOnlyContainer .readOnlyContent {
   margin-bottom: 16px;
   padding-bottom: 0.45rem;
   white-space: pre-wrap;
 }
+
+.tableMedInput .navds-table__data-cell--align-right > div > input {
+  text-align: right;
+}
+
 .storBredde {
   width: 150px;
 }
+
 .mediumBredde {
   width: 100px;
 }
+
 .litenBredde {
   width: 70px;
 }
+
 .inntekt {
   display: flex;
   justify-content: flex-end;
 }
+
 .inntektNew {
   margin-left: 0.5rem;
   margin-right: 0.25rem;
 }
+
 .inntektOld {
   display: inline-block;
 }
+
 .inntektOldStrikethrough {
   display: inline-block;
 }
+
 .inntektOldStrikethrough p {
   color: var(--text-subtle, rgba(0, 0, 0, 0.65));
   text-decoration: line-through;

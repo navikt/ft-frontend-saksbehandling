@@ -1,22 +1,18 @@
 import { useIntl } from 'react-intl';
 
-import { BodyShort, Table } from '@navikt/ds-react';
+import { HStack, Table } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { Datepicker, RadioGroupPanel } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
-import { KodeverkType } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { DateLabel, EditedIcon, PeriodLabel } from '@navikt/ft-ui-komponenter';
-import { prettifyDateString } from '@navikt/ft-utils';
+import { formaterArbeidsgiver, periodFormat } from '@navikt/ft-utils';
 
-import { KodeverkForPanel } from '../../typer/KodeverkForPanelForFb';
-import { createVisningsnavnFakta } from '../ArbeidsforholdHelper';
-import { lagAktivitetFieldId, skalVurdereAktivitet } from './VurderAktiviteterTabell';
+import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { lagAktivitetFieldId, skalVurdereAktivitet } from './vurderAktiviteterTabellUtils';
 
-import styles from './vurderAktiviteterTabell.module.css';
-
-type Props = {
+interface Props {
   readOnly: boolean;
   isAvklaringsbehovClosed: boolean;
   aktivitet: BeregningAktivitet;
@@ -28,7 +24,7 @@ type Props = {
   ingenAktiviterErBrukt: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldId: number;
-};
+}
 
 const isSameOrBefore = (dato1: string | undefined, dato2: string): boolean =>
   dayjs(dato1).isSame(dayjs(dato2)) || dayjs(dato1).isBefore(dayjs(dato2));
@@ -43,11 +39,10 @@ const lagVisningsnavn = (
     : undefined;
   if (!agOpplysning) {
     return aktivitet.arbeidsforholdType
-      ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(oat => oat.kode === aktivitet.arbeidsforholdType)
-          ?.navn || ''
+      ? kodeverkSamling['OpptjeningAktivitetType'].find(oat => oat.kode === aktivitet.arbeidsforholdType)?.navn || ''
       : '';
   }
-  return createVisningsnavnFakta(agOpplysning, aktivitet.eksternArbeidsforholdId);
+  return formaterArbeidsgiver(agOpplysning, aktivitet.eksternArbeidsforholdId);
 };
 
 export const VurderAktiviteterTabellRad = ({
@@ -69,38 +64,37 @@ export const VurderAktiviteterTabellRad = ({
     tomDatoForAktivitetGruppe,
   );
 
+  const visningsnavn = lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, kodeverkSamling);
+
   const lagLabel = (skalBrukes: boolean) => {
-    const arbeidsgiver = lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, kodeverkSamling);
-    const dato = `${prettifyDateString(aktivitet.fom)} til ${prettifyDateString(aktivitet.tom || '')}`;
-    return `${skalBrukes ? 'Benytt' : 'Ikke benytt'} ${arbeidsgiver} ${dato}`;
+    const dato = periodFormat(aktivitet.fom, aktivitet.tom, { separator: 'til' });
+    return `${
+      skalBrukes
+        ? intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.Benytt' })
+        : intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.IkkeBenytt' })
+    } ${visningsnavn} ${dato}`;
   };
 
   return (
     <Table.Row key={lagAktivitetFieldId(aktivitet)}>
-      <Table.DataCell className={styles.navnKol}>
-        <BodyShort size="small">{lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, kodeverkSamling)}</BodyShort>
-      </Table.DataCell>
-      <Table.DataCell className={styles.rowalign}>
-        {!erOverstyrt && (
-          <BodyShort>
-            <PeriodLabel size="small" dateStringFom={aktivitet.fom} dateStringTom={aktivitet.tom} />
-          </BodyShort>
-        )}
+      <Table.DataCell textSize="small">{visningsnavn}</Table.DataCell>
+      <Table.DataCell textSize="small">
+        {!erOverstyrt && <PeriodLabel dateStringFom={aktivitet.fom} dateStringTom={aktivitet.tom} />}
         {erOverstyrt && (
-          <div>
-            <BodyShort as="span" size="small">
-              <DateLabel dateString={aktivitet.fom} /> -{' '}
-            </BodyShort>
+          <HStack gap="2" align="center">
+            <DateLabel dateString={aktivitet.fom} />
+            <span>-</span>
             <Datepicker
               name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.tom`}
               validate={[required, hasValidDate, dateAfterOrEqual(aktivitet.fom)]}
               isReadOnly={readOnly}
               size="small"
+              hideLabel
             />
-          </div>
+          </HStack>
         )}
       </Table.DataCell>
-      <Table.DataCell className={styles.radios}>
+      <Table.DataCell>
         <RadioGroupPanel
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
           label={intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.Benytt' })}
@@ -126,7 +120,7 @@ export const VurderAktiviteterTabellRad = ({
           hideRadioLabels
         />
       </Table.DataCell>
-      <Table.DataCell className={styles.radios}>
+      <Table.DataCell>
         <RadioGroupPanel
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
           label={intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.IkkeBenytt' })}

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import { VStack } from '@navikt/ds-react';
+
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -8,7 +10,7 @@ import {
   FordelBeregningsgrunnlagPeriode,
   ForlengelsePeriodeProp,
 } from '@navikt/ft-types';
-import { BorderBox, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { BorderBox } from '@navikt/ft-ui-komponenter';
 
 import { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import {
@@ -18,14 +20,11 @@ import {
 import { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import { erPeriodeTilVurdering } from '../util/ForlengelseUtils';
 import { FordelBeregningsgrunnlagPeriodePanel } from './FordelBeregningsgrunnlagPeriodePanel';
-import {
-  fordelBGFieldArrayNamePrefix,
-  getFieldNameKey,
-  lagPerioderForSubmit,
-  slaaSammenPerioder,
-} from './FordelPerioderUtils';
+import { fordelBGFieldArrayNamePrefix, lagPerioderForSubmit, slaaSammenPerioder } from './FordelPerioderUtils';
 
 import styles from './fordelBeregningsgrunnlagForm.module.css';
+
+const getFieldNameKey = (index: number): string => fordelBGFieldArrayNamePrefix + index;
 
 const finnRiktigBgPeriode = (
   periode: FordelBeregningsgrunnlagPeriode,
@@ -38,7 +37,7 @@ const finnRiktigBgPeriode = (
   return matchetPeriode;
 };
 
-export const transformPerioder = (
+const transformPerioder = (
   fordelBGPerioder: FordelBeregningsgrunnlagPeriode[],
   values: FordelBeregningsgrunnlagValues,
   bgPerioder: BeregningsgrunnlagPeriodeProp[],
@@ -124,27 +123,27 @@ export const FordelBeregningsgrunnlagForm = ({
 
   return (
     <BorderBox className={styles.lessPadding}>
-      {slaaSammenPerioder(perioder, bgPerioder, beregningsgrunnlag.forlengelseperioder).map((periode, index) => (
-        <React.Fragment key={fordelBGFieldArrayNamePrefix + periode.fom}>
-          <VerticalSpacer eightPx />
-          <FordelBeregningsgrunnlagPeriodePanel
-            readOnly={readOnly || !erPeriodeTilVurdering(periode, beregningsgrunnlag.forlengelseperioder)}
-            erVurdertTidligere={erVurdertTidligere(periode, beregningsgrunnlag)}
-            fordelingsperiode={periode}
-            fordelBGFieldArrayName={getFieldNameKey(index)}
-            open={openPanels ? openPanels.filter(panel => panel === periode.fom).length > 0 : false}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            showPanel={showPanel}
-            beregningsgrunnlag={beregningsgrunnlag}
-            kodeverkSamling={kodeverkSamling}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            fieldIndex={fieldIndex}
-            setFieldArrayToRepeat={setFieldArrayToRepeat}
-            fieldArrayToRepeat={fieldArrayToRepeat}
-          />
-          <VerticalSpacer eightPx />
-        </React.Fragment>
-      ))}
+      <VStack gap="2">
+        {slaaSammenPerioder(perioder, bgPerioder, beregningsgrunnlag.forlengelseperioder).map((periode, index) => (
+          <React.Fragment key={fordelBGFieldArrayNamePrefix + periode.fom}>
+            <FordelBeregningsgrunnlagPeriodePanel
+              readOnly={readOnly || !erPeriodeTilVurdering(periode, beregningsgrunnlag.forlengelseperioder)}
+              erVurdertTidligere={erVurdertTidligere(periode, beregningsgrunnlag)}
+              fordelingsperiode={periode}
+              fordelBGFieldArrayName={getFieldNameKey(index)}
+              open={openPanels ? openPanels.filter(panel => panel === periode.fom).length > 0 : false}
+              isAksjonspunktClosed={isAksjonspunktClosed}
+              showPanel={showPanel}
+              beregningsgrunnlag={beregningsgrunnlag}
+              kodeverkSamling={kodeverkSamling}
+              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+              fieldIndex={fieldIndex}
+              setFieldArrayToRepeat={setFieldArrayToRepeat}
+              fieldArrayToRepeat={fieldArrayToRepeat}
+            />
+          </React.Fragment>
+        ))}
+      </VStack>
     </BorderBox>
   );
 };

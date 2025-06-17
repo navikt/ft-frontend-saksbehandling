@@ -1,23 +1,22 @@
 import { AksjonspunktBox } from './AksjonspunktBox';
 
 export default {
-  title: 'ui-komponenter/AksjonspunktBox',
   component: AksjonspunktBox,
 };
 
-export const visBoksDerAksjonspunktErÅpent = () => (
+export const VisBoksDerAksjonspunktErÅpent = () => (
   <AksjonspunktBox erAksjonspunktApent erIkkeGodkjentAvBeslutter={false}>
     <div>Dette er en aksjonspunktboks</div>
   </AksjonspunktBox>
 );
 
-export const visBoksDerAksjonspunktErLukket = () => (
+export const VisBoksDerAksjonspunktErLukket = () => (
   <AksjonspunktBox erAksjonspunktApent={false} erIkkeGodkjentAvBeslutter={false}>
     <div>Dette er en aksjonspunktboks</div>
   </AksjonspunktBox>
 );
 
-export const visBoksDerAksjonspunktetIkkeErGodkjentAvBeslutter = () => (
+export const VisBoksDerAksjonspunktetIkkeErGodkjentAvBeslutter = () => (
   <AksjonspunktBox erAksjonspunktApent erIkkeGodkjentAvBeslutter>
     <div>Dette er en aksjonspunktboks</div>
   </AksjonspunktBox>

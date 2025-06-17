@@ -9,7 +9,7 @@ const mockBGMedStatus = (mili: boolean) => ({
   },
 });
 
-describe('<VurderMilitaer>', () => {
+describe('VurderMilitaer', () => {
   it('Skal teste at buildInitialvalues bygges korrekt når vi ikke har satt verdi i fakta om beregning', () => {
     const faktaBg = {
       vurderMilitaer: undefined,

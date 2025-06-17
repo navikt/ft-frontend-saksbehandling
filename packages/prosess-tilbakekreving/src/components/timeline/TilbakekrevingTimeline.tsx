@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { useIntl } from 'react-intl';
 
 import {
@@ -13,13 +13,12 @@ import {
   SilhouetteFillIcon,
   XMarkOctagonIcon,
 } from '@navikt/aksel-icons';
-import { Button, Timeline } from '@navikt/ds-react';
+import { Button, HStack, Timeline, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { RelasjonsRolleType } from '@navikt/ft-kodeverk';
-import { KodeverkMedNavn } from '@navikt/ft-types';
-import { FloatRight, VerticalSpacer } from '@navikt/ft-ui-komponenter';
 
+import { KodeverkMedNavn } from '../../types/kodeverkMedNavn';
 import { TidslinjePeriode } from '../../types/TidslinjePeriode';
 
 import styles from './tilbakekrevingTimeline.module.css';
@@ -72,8 +71,8 @@ export interface Props {
   perioder: TidslinjePeriode[];
   valgtPeriode?: TidslinjePeriode;
   setPeriode: (periode?: TidslinjePeriode) => void;
-  relasjonsRolleType: string;
-  relasjonsRolleTypeKodeverk: KodeverkMedNavn[];
+  relasjonsRolleType: RelasjonsRolleType;
+  relasjonsRolleTypeKodeverk: KodeverkMedNavn<RelasjonsRolleType>[];
 }
 
 /**
@@ -92,15 +91,12 @@ export const TilbakekrevingTimeline = ({
 
   const formatertePerioder = formaterPerioder(perioder);
 
-  const velgPeriode = useCallback(
-    (id: number): void => {
-      const periode = perioder.find(p => p.id === id);
-      if (periode) {
-        setPeriode(periode);
-      }
-    },
-    [perioder, setPeriode],
-  );
+  const velgPeriode = (id: number): void => {
+    const periode = perioder.find(p => p.id === id);
+    if (periode) {
+      setPeriode(periode);
+    }
+  };
 
   const originalFomDato = dayjs(formatertePerioder[0].fom);
   const originalTomDato = dayjs(formatertePerioder[formatertePerioder.length - 1].tom);
@@ -108,37 +104,36 @@ export const TilbakekrevingTimeline = ({
   const [fomDato, setFomDato] = useState(originalFomDato);
   const [tomDato, setTomDato] = useState(originalTomDato);
 
-  const goBackward = useCallback(() => {
+  const goBackward = () => {
     if (!fomDato.subtract(1, 'month').isBefore(originalFomDato)) {
       setFomDato(fomDato.subtract(1, 'month'));
       setTomDato(tomDato.subtract(1, 'month'));
     }
-  }, [fomDato, tomDato, originalFomDato]);
+  };
 
-  const goForward = useCallback(() => {
+  const goForward = () => {
     if (!tomDato.add(1, 'month').isAfter(originalTomDato)) {
       setFomDato(fomDato.add(1, 'month'));
       setTomDato(tomDato.add(1, 'month'));
     }
-  }, [fomDato, tomDato, originalFomDato]);
+  };
 
-  const zoomIn = useCallback(() => {
+  const zoomIn = () => {
     if (!fomDato.add(3, 'month').isAfter(tomDato)) {
       setFomDato(fomDato.add(1, 'month'));
       setTomDato(tomDato.subtract(1, 'month'));
     }
-  }, [fomDato, tomDato]);
+  };
 
-  const zoomOut = useCallback(() => {
+  const zoomOut = () => {
     if (tomDato.add(1, 'month').diff(fomDato.subtract(1, 'month'), 'months') < 36) {
       setFomDato(fomDato.subtract(1, 'month'));
       setTomDato(tomDato.add(1, 'month'));
     }
-  }, [fomDato, tomDato]);
+  };
 
   return (
-    <>
-      <VerticalSpacer fourtyPx />
+    <VStack gap="4">
       <Timeline startDate={dayjs(fomDato).toDate()} endDate={dayjs(tomDato).add(1, 'days').toDate()}>
         <Timeline.Row
           label={relasjonsRolleTypeKodeverk.find(k => k.kode === relasjonsRolleType)?.navn || '-'}
@@ -159,8 +154,7 @@ export const TilbakekrevingTimeline = ({
           ))}
         </Timeline.Row>
       </Timeline>
-      <VerticalSpacer twentyPx />
-      <FloatRight>
+      <HStack justify="end">
         <Button
           className={styles.margin}
           size="small"
@@ -197,7 +191,7 @@ export const TilbakekrevingTimeline = ({
           type="button"
           title={intl.formatMessage({ id: 'TilbakekrevingTimeline.ScrollTilHogre' })}
         />
-      </FloatRight>
-    </>
+      </HStack>
+    </VStack>
   );
 };

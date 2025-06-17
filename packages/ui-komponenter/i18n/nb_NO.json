@@ -1,26 +1,15 @@
 {
   "HelpText.Aksjonspunkt": "Aksjonspunkt",
   "HelpText.Aksjonspunkt.BehandletAksjonspunkt": "Behandlet aksjonspunkt: ",
-
   "DataFetchPendingModal.LosningenJobberMedBehandlingen": "Løsningen jobber med behandlingen...",
-
   "Behandling.EditedField": "Saksbehandler har endret feltets verdi",
-
   "OkAvbrytModal.Ok": "OK",
   "OkAvbrytModal.Avbryt": "Avbryt",
-
   "OverstyringKnapp.Overstyring": "Overstyr",
   "OverstyringKnapp.HarOverstyrt": "Har overstyrt",
-
-  "PeriodLabel.DateToday": "d.d.",
-
   "PeriodFieldArray.LeggTilPeriode": "Legg til periode",
-
-  "DateTimeLabel.Kl": " kl.",
-
   "ExpandableTableRow.Apne": "Åpne rad",
   "ExpandableTableRow.Lukke": "Lukk rad",
-
   "Calendar.Day.0": "søndag",
   "Calendar.Day.1": "mandag",
   "Calendar.Day.2": "tirsdag",
@@ -46,5 +35,11 @@
   "Calendar.Month.8": "September",
   "Calendar.Month.9": "Oktober",
   "Calendar.Month.10": "November",
-  "Calendar.Month.11": "Desember"
+  "Calendar.Month.11": "Desember",
+
+  "UtvidbarTekst.VisMer": "Vis mer",
+  "UtvidbarTekst.VisMindre": "Vis mindre",
+
+  "KopierbarTekst.Kopier": "Klikk for å kopiere",
+  "KopierbarTekst.Kopiert": "Kopiert!"
 }

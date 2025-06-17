@@ -9,8 +9,8 @@ import {
 import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { INNTEKT_FIELD_ARRAY_NAME } from './BgFaktaUtils';
-import { transformValues, transformValuesFaktaForATFLOgSN } from './FaktaForATFLOgSNPanel';
-import { lonnsendringField } from './vurderOgFastsettATFL/forms/LonnsendringForm';
+import { transformValues, transformValuesFaktaForATFLOgSN } from './faktaForATFLOgSNPanelUtils';
+import { lonnsendringField } from './vurderOgFastsettATFL/forms/lonnsendringFormUtils';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 
 const lagBeregningsgrunnlag = (andeler: FaktaOmBeregningAndel[]): Beregningsgrunnlag =>
@@ -29,8 +29,11 @@ const lagBeregningsgrunnlag = (andeler: FaktaOmBeregningAndel[]): Beregningsgrun
 describe('<FaktaForATFLOgSNPanel>', () => {
   it('skal kunne transform values for kun besteberegning', () => {
     const aktivePaneler = [FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE];
-    const andel1 = { andelsnr: 1, aktivitetStatus: 'ATFL' } as BeregningsgrunnlagAndel;
-    const andel2 = { andelsnr: 2, aktivitetStatus: 'SN' } as BeregningsgrunnlagAndel;
+    const andel1 = { andelsnr: 1, aktivitetStatus: AktivitetStatus.ARBEIDSAVKLARINGSPENGER };
+    const andel2 = {
+      andelsnr: 2,
+      aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    } as BeregningsgrunnlagAndel;
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: aktivePaneler,

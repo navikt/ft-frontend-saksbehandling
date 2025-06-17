@@ -1,9 +1,9 @@
-import { ReactElement, useEffect } from 'react';
+import { ReactElement, ReactNode, useEffect } from 'react';
 import { useFieldArray, useFormContext, UseFormGetValues } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
-import { Button, Checkbox, Detail, ErrorMessage, Label } from '@navikt/ds-react';
+import { Button, Checkbox, Detail, ErrorMessage, Label, Table } from '@navikt/ds-react';
 
 import { InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
@@ -12,19 +12,16 @@ import {
   BeregningsgrunnlagAndelType,
   Inntektskategori,
   isSelvstendigNæringsdrivende,
-  KodeverkType,
 } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, KodeverkMedNavn } from '@navikt/ft-types';
-import { FloatRight, Table, TableColumn, TableRow } from '@navikt/ft-ui-komponenter';
-import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import { formatCurrencyNoKr, formaterArbeidsgiver, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import {
   BGFordelArbeidsforhold,
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagFormValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { KodeverkForPanel } from '../../types/kodeverkForPanel';
-import { createVisningsnavnForAktivitetFordeling } from '../util/visningsnavnHelper';
+import { KodeverkForPanel, KodeverkMedNavn } from '../../types/kodeverkForPanel';
 import { finnUnikeArbeidsforhold } from './FinnUnikeArbeidsforhold';
 import {
   validateSumFastsattBelop,
@@ -37,8 +34,7 @@ import {
 
 import styles from './renderFordelBGFieldArray.module.css';
 
-const fordelBGFieldArrayNamePrefix = 'fordelBGPeriode';
-export const getFieldNameKey = (index: number): string => fordelBGFieldArrayNamePrefix + index;
+const FloatRight = ({ children }: { children?: ReactNode }) => <span className={styles.floatRight}>{children}</span>;
 
 const defaultBGFordeling = (periodeUtenAarsak: boolean): any => ({
   nyAndel: true,
@@ -57,12 +53,11 @@ const lagVisningsnavn = (
 ): string => {
   if (!arbeidsforhold.arbeidsgiverIdent || !arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent]) {
     return arbeidsforhold.arbeidsforholdType
-      ? kodeverkSamling[KodeverkType.OPPTJENING_AKTIVITET_TYPE].find(
-          oat => oat.kode === arbeidsforhold.arbeidsforholdType,
-        )?.navn || ''
+      ? (kodeverkSamling['OpptjeningAktivitetType'].find(oat => oat.kode === arbeidsforhold.arbeidsforholdType)?.navn ??
+          '')
       : '';
   }
-  return createVisningsnavnForAktivitetFordeling(
+  return formaterArbeidsgiver(
     arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent],
     arbeidsforhold.eksternArbeidsforholdId,
   );
@@ -98,7 +93,7 @@ const arbeidsgiverSelectValuesForKunYtelse = (
   return nedtrekksvalgListe;
 };
 
-const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]): ReactElement[] =>
+const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn<'Inntektskategori'>[]): ReactElement[] =>
   kategorier.map(ik => (
     <option value={ik.kode} key={ik.kode}>
       {ik.navn}
@@ -107,7 +102,7 @@ const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn[]): ReactEleme
 
 const sumEllerTomString = (sum: number): string => {
   if (sum > 0) {
-    return formatCurrencyNoKr(sum) || '';
+    return formatCurrencyNoKr(sum) ?? '';
   }
   return '';
 };
@@ -126,7 +121,7 @@ const summerFordeling = (
       getValues(`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.fastsattBelop`),
     );
     if (field.skalRedigereInntekt) {
-      sum += fastsattBeløp || 0;
+      sum += fastsattBeløp ?? 0;
     } else {
       sum += field.readOnlyBelop ? fastsattBeløp : 0;
     }
@@ -229,7 +224,7 @@ const grunnlagInputKolonne = (
 ): ReactElement => {
   if (skalIkkeRedigereInntekt) {
     return (
-      <TableColumn>
+      <Table.DataCell>
         <FloatRight>
           <InputField
             name={`${fieldNavn}.readOnlyBelop`}
@@ -239,11 +234,11 @@ const grunnlagInputKolonne = (
             isEdited={false}
           />
         </FloatRight>
-      </TableColumn>
+      </Table.DataCell>
     );
   }
   return (
-    <TableColumn className={styles.rightAlignInput}>
+    <Table.DataCell className={styles.rightAlignInput}>
       <FloatRight>
         <InputField
           name={`${fieldNavn}.fastsattBelop`}
@@ -254,7 +249,7 @@ const grunnlagInputKolonne = (
           className={styles.litenBredde}
         />
       </FloatRight>
-    </TableColumn>
+    </Table.DataCell>
   );
 };
 
@@ -273,7 +268,7 @@ const tittelKolonne = (
   updateFieldMethod: any,
   lagFeltNavn: (fieldIndex: number) => string,
 ): ReactElement => (
-  <TableColumn>
+  <Table.DataCell>
     {arbeidsforholdReadOnlyOrSelect(
       fields,
       index,
@@ -291,20 +286,20 @@ const tittelKolonne = (
         />
       </div>
     )}
-  </TableColumn>
+  </Table.DataCell>
 );
 
 const graderingKolonne = (gjelderGradering: boolean, fieldNavn: string): ReactElement | null => {
   if (!gjelderGradering) return null;
   return (
-    <TableColumn>
+    <Table.DataCell>
       <InputField
         name={`${fieldNavn}.andelIArbeid`}
         readOnly
         className={styles.litenBredde}
         normalizeOnBlur={value => (Number.isNaN(value) ? value : parseFloat(value.toString()).toFixed(2))}
       />
-    </TableColumn>
+    </Table.DataCell>
   );
 };
 
@@ -314,7 +309,9 @@ const refusjonKolonne = (
   index: number,
   lagFeltNavn: (fieldIndex: number) => string,
 ): ReactElement => (
-  <TableColumn className={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon ? undefined : styles.rightAlignInput}>
+  <Table.DataCell
+    className={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon ? undefined : styles.rightAlignInput}
+  >
     <FloatRight>
       <InputField
         name={`${lagFeltNavn(index)}.refusjonskrav`}
@@ -324,26 +321,26 @@ const refusjonKolonne = (
         validate={fields[index].skalKunneEndreRefusjon ? [required, maxValueFormatted(178956970)] : []}
       />
     </FloatRight>
-  </TableColumn>
+  </Table.DataCell>
 );
 
 const grunnlagKolonne = (fieldNavn: string): ReactElement => (
-  <TableColumn>
+  <Table.DataCell>
     <InputField
       name={`${fieldNavn}.beregningsgrunnlagPrAar`}
       className={styles.litenBredde}
       readOnly
       parse={parseCurrencyInput}
     />
-  </TableColumn>
+  </Table.DataCell>
 );
 
 const inntektskategoriKolonne = (
   skalIkkeEndres: boolean,
   fieldNavn: string,
-  inntektskategoriKoder: KodeverkMedNavn[],
+  inntektskategoriKoder: KodeverkMedNavn<'Inntektskategori'>[],
 ): ReactElement => (
-  <TableColumn className={skalIkkeEndres ? styles.shortLeftAligned : undefined}>
+  <Table.DataCell className={skalIkkeEndres ? styles.shortLeftAligned : undefined}>
     <FloatRight>
       <SelectField
         label=""
@@ -354,7 +351,7 @@ const inntektskategoriKolonne = (
         readOnly={skalIkkeEndres}
       />
     </FloatRight>
-  </TableColumn>
+  </Table.DataCell>
 );
 
 const knappKolonne = (
@@ -363,7 +360,7 @@ const knappKolonne = (
   skalIkkeEndres: boolean,
   removeFromFieldsMethod: (index?: number | number[]) => void,
 ): ReactElement => (
-  <TableColumn>
+  <Table.DataCell>
     {skalViseSletteknapp(index, fields, skalIkkeEndres) && (
       <Button
         icon={<XMarkIcon aria-hidden className={styles.slettIkon} />}
@@ -372,7 +369,7 @@ const knappKolonne = (
         variant="tertiary"
       />
     )}
-  </TableColumn>
+  </Table.DataCell>
 );
 
 const createBruttoBGSummaryRow = (
@@ -380,35 +377,22 @@ const createBruttoBGSummaryRow = (
   sumBeregningsgrunnlagPrAar: string,
   gjelderGradering: boolean,
 ): ReactElement => (
-  <TableRow key="bruttoBGSummaryRow">
-    <TableColumn>
+  <Table.Row key="bruttoBGSummaryRow">
+    <Table.DataCell>
       <FormattedMessage id="BeregningInfoPanel.FordelBG.Sum" />
-    </TableColumn>
-    {gjelderGradering && <TableColumn />}
-    <TableColumn />
-    <TableColumn>
+    </Table.DataCell>
+    {gjelderGradering && <Table.DataCell />}
+    <Table.DataCell />
+    <Table.DataCell>
       <Label size="small">{sumBeregningsgrunnlagPrAar}</Label>
-    </TableColumn>
-    <TableColumn>
+    </Table.DataCell>
+    <Table.DataCell>
       <Label size="small">{sumFordeling}</Label>
-    </TableColumn>
-    <TableColumn />
-    <TableColumn />
-  </TableRow>
+    </Table.DataCell>
+    <Table.DataCell />
+    <Table.DataCell />
+  </Table.Row>
 );
-
-const getHeaderTextCodes = (gjelderGradering: boolean): string[] => {
-  const headerCodes = [];
-  headerCodes.push('BeregningInfoPanel.FordelBG.Andel');
-  if (gjelderGradering) {
-    headerCodes.push('BeregningInfoPanel.FordelBG.AndelIArbeid');
-  }
-  headerCodes.push('BeregningInfoPanel.FordelBG.Refusjonskrav');
-  headerCodes.push('BeregningInfoPanel.FordelBG.Beregningsgrunnlag');
-  headerCodes.push('BeregningInfoPanel.FordelBG.Fordeling');
-  headerCodes.push('BeregningInfoPanel.FordelBG.Inntektskategori');
-  return headerCodes;
-};
 
 type Props = {
   readOnly: boolean;
@@ -428,7 +412,7 @@ type Props = {
 
 const getGjelderGradering = (beregningsgrunnlag: Beregningsgrunnlag): boolean => {
   const arbeidTilFordeling =
-    beregningsgrunnlag.faktaOmFordeling?.fordelBeregningsgrunnlag?.arbeidsforholdTilFordeling || [];
+    beregningsgrunnlag.faktaOmFordeling?.fordelBeregningsgrunnlag?.arbeidsforholdTilFordeling ?? [];
   return arbeidTilFordeling.some(a => a.perioderMedGraderingEllerRefusjon?.some(p => p.erGradering));
 };
 
@@ -490,7 +474,7 @@ export const FordelPeriodeFieldArray = ({
   const sumFordeling = summerFordeling(vilkårperiodeFieldIndex, fieldName, fields, watch);
   const sumBeregningsgrunnlagPrAar = summerBeregningsgrunnlagPrAar(fields);
   const gjelderGradering = getGjelderGradering(beregningsgrunnlag);
-  const inntektskategoriKoder = kodeverkSamling[KodeverkType.INNTEKTSKATEGORI];
+  const inntektskategoriKoder = kodeverkSamling['Inntektskategori'];
   const intl = useIntl();
   const selectVals = harKunYtelse
     ? arbeidsgiverSelectValuesForKunYtelse(arbeidsforholdList, intl, kodeverkSamling, arbeidsgiverOpplysningerPerId)
@@ -502,7 +486,7 @@ export const FordelPeriodeFieldArray = ({
   const tablerows = fields.map((field, index) => {
     const skalIkkeEndres = readOnly || skalIkkeRedigereInntekt;
     return (
-      <TableRow key={field.id}>
+      <Table.Row key={field.id}>
         {tittelKolonne(fields, index, selectVals, skalIkkeEndres, arbeidsforholdList, update, lagFeltNavn)}
         {graderingKolonne(gjelderGradering, lagFeltNavn(index))}
         {refusjonKolonne(skalIkkeEndres, fields, index, lagFeltNavn)}
@@ -510,7 +494,7 @@ export const FordelPeriodeFieldArray = ({
         {grunnlagInputKolonne(readOnly, skalIkkeRedigereInntekt, isAksjonspunktClosed, lagFeltNavn(index))}
         {inntektskategoriKolonne(skalIkkeEndres, lagFeltNavn(index), inntektskategoriKoder)}
         {knappKolonne(fields, index, skalIkkeEndres, remove)}
-      </TableRow>
+      </Table.Row>
     );
   });
 
@@ -576,8 +560,33 @@ export const FordelPeriodeFieldArray = ({
 
   return (
     <div>
-      <Table headerTextCodes={getHeaderTextCodes(gjelderGradering)} noHover classNameTable={styles.inntektTable}>
-        {tablerows}
+      <Table className={styles.inntektTable}>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell scope="col">
+              <FormattedMessage id="BeregningInfoPanel.FordelBG.Andel" />
+            </Table.HeaderCell>
+            {gjelderGradering && (
+              <Table.HeaderCell scope="col">
+                <FormattedMessage id="BeregningInfoPanel.FordelBG.AndelIArbeid" />
+              </Table.HeaderCell>
+            )}
+            <Table.HeaderCell scope="col">
+              <FormattedMessage id="BeregningInfoPanel.FordelBG.Refusjonskrav" />
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col">
+              <FormattedMessage id="BeregningInfoPanel.FordelBG.Beregningsgrunnlag" />
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col">
+              <FormattedMessage id="BeregningInfoPanel.FordelBG.Fordeling" />
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col">
+              <FormattedMessage id="BeregningInfoPanel.FordelBG.Inntektskategori" />
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col" />
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>{tablerows}</Table.Body>
       </Table>
       {!readOnly && !skalIkkeRedigereInntekt && (
         <Button

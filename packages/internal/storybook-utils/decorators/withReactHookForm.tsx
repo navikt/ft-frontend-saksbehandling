@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 
-import type { ReactRenderer } from '@storybook/react';
-import type { DecoratorFunction } from '@storybook/types';
+import type { ReactRenderer } from '@storybook/react-vite';
+import type { DecoratorFunction } from 'storybook/internal/types';
 
 import { Form } from '@navikt/ft-form-hooks';
 

@@ -1,21 +1,12 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort } from '@navikt/ds-react';
+import { Table } from '@navikt/ds-react';
 
 import { SammenligningsgrunlagProp } from '@navikt/ft-types';
-import { FlexColumn, FlexRow } from '@navikt/ft-ui-komponenter';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
-import styles from './avvikopplysningerPanel.module.css';
-
-const skilleLinje = (
-  <FlexRow>
-    <FlexColumn>
-      <div className={styles.linjeSkille} />
-    </FlexColumn>
-  </FlexRow>
-);
+import tableStyles from '../tableStyle.module.css';
 
 type Props = {
   beregnetAarsinntekt?: number;
@@ -27,68 +18,49 @@ export const SammenligningsgrunnlagPanel = ({ beregnetAarsinntekt, sammenligning
   const { differanseBeregnet, rapportertPrAar, avvikProsent } = sammenligningsgrunnlag;
   const avvikProsentAvrundet = parseFloat(avvikProsent.toFixed(1));
   const inntektTekst = erPGI
-    ? 'Beregningsgrunnlag.Avviksopplysninger.OmregnetAarsinntekt.Naring'
-    : 'Beregningsgrunnlag.Avviksopplysninger.OmregnetAarsinntekt';
+    ? 'SammenligningsgrunnlagPanel.OmregnetAarsinntekt.Naring'
+    : 'SammenligningsgrunnlagPanel.OmregnetAarsinntekt';
   const sammenligningTekst = erPGI
-    ? 'Beregningsgrunnlag.Avviksopplysninger.SamletInntekt'
-    : 'Beregningsgrunnlag.Avviksopplysninger.RapportertAarsinntekt';
+    ? 'SammenligningsgrunnlagPanel.SamletInntekt'
+    : 'SammenligningsgrunnlagPanel.RapportertAarsinntekt';
 
   return (
-    <>
-      {skilleLinje}
-      <FlexRow>
-        <FlexColumn className={styles.colLable}>
-          <BodyShort size="small">
+    <Table size="small" className={tableStyles.table}>
+      <Table.Body>
+        <Table.Row>
+          <Table.DataCell textSize="small" colSpan={2}>
             <FormattedMessage id={inntektTekst} />
-          </BodyShort>
-        </FlexColumn>
-        <FlexColumn className={styles.colValue}>
-          <BodyShort size="small">
-            {beregnetAarsinntekt || beregnetAarsinntekt === 0 ? formatCurrencyNoKr(beregnetAarsinntekt) : '-'}
-          </BodyShort>
-        </FlexColumn>
-        <FlexColumn className={styles.colAvvik} />
-      </FlexRow>
-      {skilleLinje}
-      <FlexRow>
-        <FlexColumn className={styles.colLable}>
-          <BodyShort size="small">
+          </Table.DataCell>
+          <Table.DataCell textSize="small" align="right">
+            <BeløpLabel beløp={beregnetAarsinntekt === 0 ? undefined : beregnetAarsinntekt} />
+          </Table.DataCell>
+        </Table.Row>
+        <Table.Row>
+          <Table.DataCell textSize="small" colSpan={2}>
             <FormattedMessage id={sammenligningTekst} />
-          </BodyShort>
-        </FlexColumn>
-        <FlexColumn className={styles.colValue}>
-          <BodyShort size="small">{formatCurrencyNoKr(rapportertPrAar)}</BodyShort>
-        </FlexColumn>
-        <FlexColumn className={styles.colAvvik} />
-      </FlexRow>
-      <FlexRow>
-        <FlexColumn>
-          <div className={styles.linjeSkilleTykk} />
-        </FlexColumn>
-      </FlexRow>
-      <FlexRow>
-        <FlexColumn className={styles.colLable}>
-          <BodyShort size="small">
-            <FormattedMessage id="Beregningsgrunnlag.Avviksopplysninger.BeregnetAvvik" />
-          </BodyShort>
-        </FlexColumn>
-        <FlexColumn className={styles.colValue}>
-          <BodyShort size="small">
-            {formatCurrencyNoKr(differanseBeregnet === undefined ? 0 : differanseBeregnet)}
-          </BodyShort>
-        </FlexColumn>
-        <FlexColumn className={styles.colAvvik}>
-          <BodyShort
-            size="small"
-            className={`${avvikProsentAvrundet > 25 ? beregningStyles.redError : ''} ${beregningStyles.semiBoldText}`}
+          </Table.DataCell>
+          <Table.DataCell textSize="small" align="right">
+            <BeløpLabel beløp={rapportertPrAar} />
+          </Table.DataCell>
+        </Table.Row>
+      </Table.Body>
+      <tfoot>
+        <Table.Row>
+          <Table.HeaderCell textSize="small">
+            <FormattedMessage id="SammenligningsgrunnlagPanel.BeregnetAvvik" />
+          </Table.HeaderCell>
+          <Table.HeaderCell
+            textSize="small"
+            align="right"
+            className={avvikProsentAvrundet > 25 ? beregningStyles.redError : ''}
           >
-            <FormattedMessage
-              id="Beregningsgrunnlag.Avviksopplysninger.AvvikProsent"
-              values={{ avvik: avvikProsentAvrundet }}
-            />
-          </BodyShort>
-        </FlexColumn>
-      </FlexRow>
-    </>
+            {avvikProsentAvrundet + '%'}
+          </Table.HeaderCell>
+          <Table.HeaderCell textSize="small" align="right">
+            <BeløpLabel beløp={differanseBeregnet ?? 0} />
+          </Table.HeaderCell>
+        </Table.Row>
+      </tfoot>
+    </Table>
   );
 };

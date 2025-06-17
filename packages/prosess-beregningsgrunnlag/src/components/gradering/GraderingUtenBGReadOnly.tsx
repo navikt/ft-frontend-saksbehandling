@@ -1,9 +1,9 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, Label, VStack } from '@navikt/ds-react';
 
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
-import { EditedIcon, VerticalSpacer } from '@navikt/ft-ui-komponenter';
+import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import styles from './graderingUtenBGReadOnly.module.css';
 
@@ -21,14 +21,13 @@ export const GraderingUtenBGReadOnly = ({ avklaringsbehov }: Props) => {
     return null;
   }
   return (
-    <>
+    <VStack gap="4">
       <Label size="small">
-        <FormattedMessage id="Beregningsgrunnlag.Gradering.Beskrivelse" />
+        <FormattedMessage id="GraderingUtenBGReadOnly.Label" />
       </Label>
-      <VerticalSpacer sixteenPx />
       <BodyShort size="small" className={styles.readOnlyBlokk}>
         {avklaringsbehov.begrunnelse} <EditedIcon />
       </BodyShort>
-    </>
+    </VStack>
   );
 };

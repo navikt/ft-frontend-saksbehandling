@@ -5,7 +5,7 @@ import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTy
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import { transformValuesVurderFaktaBeregning } from './transformValuesHjelpefunksjoner';
-import { BEGRUNNELSE_FAKTA_TILFELLER_NAME } from './VurderFaktaBeregningField';
+import { BEGRUNNELSE_FAKTA_TILFELLER_NAME } from './vurderFaktaBeregningHjelpefunksjoner';
 
 const { AVKLAR_AKTIVITETER, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
@@ -23,7 +23,7 @@ const aksjonspunkter: BeregningAvklaringsbehov[] = [
   },
 ];
 
-describe('<VurderFaktaBeregningPanel>', () => {
+describe('VurderFaktaBeregningPanel', () => {
   it('skal ikkje transformValues uten aksjonspunkt', () => {
     const faktaOmBeregning: FaktaOmBeregning = {
       andelerForFaktaOmBeregning: [],

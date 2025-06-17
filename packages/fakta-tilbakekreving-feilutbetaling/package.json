@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-tilbakekreving-feilutbetaling",
   "description": "Saksbehandler angir årsak til at feilutbetalingen har oppstått for hver enkelt periode",
-  "version": "3.1.5",
+  "version": "3.2.27",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -9,9 +9,11 @@
     "dist"
   ],
   "scripts": {
-    "test": "vitest",
-    "test:watch": "vitest --watch=true",
-    "test:coverage": "vitest --coverage",
+    "test": "vitest --project=jsdom",
+    "test:watch": "vitest --project=jsdom --watch=true",
+    "test:coverage": "vitest --project=jsdom --coverage",
+    "test:browser": "vitest --project=browser",
+    "test:browser:watch": "vitest --project=browser --watch=true",
     "tsc": "tsc --pretty",
     "eslint": "eslint \"src/**/*.ts*\" --color",
     "eslint:fix": "eslint --fix \"src/**/*.ts*\" --color",
@@ -22,16 +24,15 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ds-css": "7.10.0",
-    "@navikt/ds-react": "7.10.0",
+    "@navikt/ds-css": "7.22.0",
+    "@navikt/ds-react": "7.22.0",
     "@navikt/ft-form-hooks": "workspace:^",
     "@navikt/ft-form-validators": "workspace:^",
     "@navikt/ft-ui-komponenter": "workspace:^",
     "@navikt/ft-utils": "workspace:^",
-    "moment": "2.30.1",
-    "react": "19.0.0",
-    "react-hook-form": "7.54.2",
-    "react-intl": "7.1.5"
+    "react": "19.1.0",
+    "react-hook-form": "7.57.0",
+    "react-intl": "7.1.11"
   },
   "peerDependencies": {
     "@navikt/ds-css": "7.x",
@@ -42,8 +43,7 @@
     "@navikt/ft-types": "3.x",
     "@navikt/ft-ui-komponenter": "2.x",
     "@navikt/ft-utils": "2.x",
-    "moment": "2.30.1",
-    "react": "19.0.0",
+    "react": "19.1.0",
     "react-hook-form": "7.x",
     "react-intl": "6.x"
   },
@@ -51,14 +51,14 @@
     "@navikt/ft-frontend-storybook-utils": "workspace:^",
     "@navikt/ft-frontend-utils-test": "workspace:^",
     "@testing-library/dom": "10.4.0",
-    "@testing-library/react": "16.2.0",
+    "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
     "cross-env": "7.0.3",
-    "eslint": "9.19.0",
-    "stylelint": "16.14.1",
-    "typescript": "5.7.3",
-    "vite": "6.0.11",
-    "vitest": "3.0.5"
+    "eslint": "9.28.0",
+    "stylelint": "16.20.0",
+    "typescript": "5.8.3",
+    "vite": "6.3.5",
+    "vitest": "3.2.3"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

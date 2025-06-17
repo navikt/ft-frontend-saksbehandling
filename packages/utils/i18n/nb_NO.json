@@ -2,6 +2,8 @@
   "Malform.Bokmal": "Bokmål",
   "Malform.Nynorsk": "Nynorsk",
   "Malform.Engelsk": "Engelsk",
+  "DateTimeLabel.Kl": " kl. ",
+  "PeriodLabel.DateToday": "d.d.",
   "Dato.AntallDagerOgUker": "{weeks, plural, =0 {} one {# uke}  other {# uker}}{seperator}{days, plural,=0 {} one {# dag} other {# dager}}",
   "Dato.NullDager": "0 dager",
   "Dato.TidenesEnde": "Antall uker og dager -"

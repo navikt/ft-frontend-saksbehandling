@@ -1,5 +1,7 @@
 {
-  "BeregningInfoPanel.AksjonspunktHelpText.SaksopplysningerBeregning": "Saksopplysninger beregning",
+  "BeregningFaktaIndex.IngenBeregningsgrunnlag": "Har ikke beregningsgrunnlag.",
+  "BeregningFaktaIndex.SaksopplysningerBeregning": "Saksopplysninger beregning",
+
   "BeregningInfoPanel.AksjonspunktHelpText.FaktaOmBeregning": "Vurder fakta for beregningen",
   "BeregningInfoPanel.AksjonspunktHelpText.ForSentRefusjonskrav": "{arbeidsgiverVisningsnavn} har minst ett refusjonskrav som har kommet for sent.",
   "BeregningInfoPanel.TidsbegrensetArbFor.Arbeidsforhold": "Er arbeidsforholdet i {navn} med varighet {fom} - {tom} tidsbegrenset?",
@@ -73,6 +75,7 @@
   "BeregningInfoPanel.VurderFaktaBeregningField.VurderEtterlonnSluttpakkeHelpText": "<h3>Vurder om søker har etterlønn eller sluttvederlag i beregningsperioden</h3>Søker har oppgitt etterlønn eller sluttvederlag i søknaden.",
   "BeregningInfoPanel.VurderFaktaBeregningField.VurderMilitaerSiviltjenesteHelpText": "<h3>Vurder om søker har vært i militær- eller siviljeneste i opptjeningsperioden</h3>Søker har oppgitt militær- eller siviltjeneste i søknaden.",
   "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelseHelpText": "<h3>Søker har ytelse som eneste inntekt</h3>Det er funnet utbetaling av ytelse i beregningsperioden, men beløp og inntektskategori kan ikke hentes fra registrene.",
+  "BeregningInfoPanel.VurderFaktaBeregningField.FastsettArbeidUnderAap": "<h3>Fastsett arbeidsinntekt som sammenfaller med arbeidsavklaringspenger</h3>Søker har hatt arbeidsinntekt i beregningsperioden og går nå på arbeidsavklaringspenger, arbeidsinntekt må fastsettes.",
   "BeregningInfoPanel.VurderFaktaBeregningField.VurderNyoppstartetFLHelpText": "<h3>Vurder om frilanser er nyoppstartet</h3>Det er funnet frilansoppdrag med oppstartsdato i beregningsperioden. Vurder om frilansoppdrag er nyoppstartet, og om det skal benyttes en kortere periode for å fastsette inntekt.",
   "BeregningInfoPanel.VurderFaktaBeregningField.VurderSNNyIArbeidslivetHelpText": "<h3>Vurder om søker ble yrkesaktiv i løpet av de siste tre årene</h3>Søker har oppgitt i søknaden at de er selvstendig næringsdrivende og ny i arbeidslivet.",
   "BeregningInfoPanel.VurderFaktaBeregningField.VurderRefusjonskravKommetForSentHelpText": "<h3>Vurder refusjonskrav som har kommet for sent</h3>{arbeidsgiverVisningsnavn} har minst ett refusjonskrav som har kommet for sent.",
@@ -127,10 +130,14 @@
   "BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt": "Har søker etterlønn eller sluttvederlag?",
   "BeregningInfoPanel.EtterlønnSluttpakke.HvordanGarJegFrem1": "Gå til A-inntekt og se om etterlønn eller sluttvederlag er rapportert. Hvis ikke, kontakt søker og be de dokumentere etterlønn/sluttvederlag med avtale el.",
 
+  "BeregningInfoPanel.KunstigArbeidsforhold.HvordanGarJegFrem1": "Inntekt kan baseres på dokumentasjon fra vedlegg, som lønnsslipper eller arbeidskontrakter.",
+  "BeregningInfoPanel.KunstigArbeidsforhold.HvordanGarJegFrem2": "Hvis dokumentasjon ikke foreligger, kontakt arbeidsgiver eller søker for å innhente dette.",
+
   "BeregningInfoPanel.VurderMilitaer.HarSøkerMilitærinntekt": "Har søker vært i militær- eller sivilforsvarstjeneste i opptjeningsperioden?",
   "BeregningInfoPanel.VurderMilitaer.HvordanGarJegFrem1": "Kontakt søker og be om dokumentasjon på avtjent tjeneste i opptjeningsperioden. Vurder om tjenesten har vart eller var ment å vare mer enn 28 dager i henhold til §8-46. Denne informasjonen er ikke tilgjengelig i noen registre, og vi må derfor ha dokumentasjon fra søker.",
   "BeregningInfoPanel.VurderMilitaer.HvordanGarJegFrem2": "Svarer du ”ja” vil utbetalingen bli minst 2G (pleiepenger) / 3G (foreldrepenger). Svarer du ”nei” beregnes det etter vanlige regler.",
-
+  "BeregningInfoPanel.InntektInputFields.ArbeidUnderAap": "Fastsett arbeidsinntekt fra beregningsperioden som er bortfalt på skjæringstidspunktet.",
+  "BeregningInfoPanel.InntektInputFields.MånedsinntektAap": "Fastsett gjennomsnitt månedlig arbeidsinntekt under arbeidsavklaringspenger",
   "VurderRefusjonForm.ErRefusjonskravGyldig": "Skal refusjonskrav som ikke har kommet innen fristen tas med i beregning?",
   "VurderRefusjonForm.ReadMore": "Undersøk om det har vært fristavbrytende kontakt med arbeidsgiver innen frist for refusjonskrav (3 måneder).",
 
@@ -138,5 +145,7 @@
 
   "FaktaBegrunnelseTextField.BegrunnEndringene": "Begrunn endringene",
   "FaktaBegrunnelseTextField.Begrunnelse": "Begrunnelse",
-  "SubmitButton.ConfirmInformation": "Bekreft og fortsett"
+  "SubmitButton.ConfirmInformation": "Bekreft og fortsett",
+
+  "InntektFieldArrayRow.MåFastsettes": "Må fastsettes"
 }

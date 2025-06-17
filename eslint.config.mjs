@@ -3,7 +3,9 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import pluginReact from 'eslint-plugin-react';
+import reactRefresh from 'eslint-plugin-react-refresh';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import storybook from 'eslint-plugin-storybook';
 import vitest from 'eslint-plugin-vitest';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -27,10 +29,12 @@ export default [
     languageOptions: { globals: globals.browser },
   },
   pluginJs.configs.recommended,
+  ...storybook.configs['flat/recommended'],
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
   jsxA11y.flatConfigs.recommended,
   importPlugin.flatConfigs.recommended,
+  reactRefresh.configs.vite,
   eslintConfigPrettier,
   {
     rules: {
@@ -70,10 +74,11 @@ export default [
           },
         },
       ],
+      '@typescript-eslint/ban-ts-comment': ERROR,
 
       // Note: you must disable the base rule as it can report incorrect errors
       'no-use-before-define': OFF,
-      '@typescript-eslint/no-use-before-define': [ERROR],
+      '@typescript-eslint/no-use-before-define': [OFF],
       'no-shadow': OFF,
       '@typescript-eslint/no-shadow': [ERROR],
       'no-unused-vars': OFF,
@@ -81,7 +86,6 @@ export default [
 
       // TODO (TOR) Ignorert inntil videre grunnet kost/nytte
       '@typescript-eslint/no-explicit-any': OFF,
-      '@typescript-eslint/ban-ts-comment': OFF,
 
       'simple-import-sort/imports': [
         'error',
@@ -92,7 +96,7 @@ export default [
     },
   },
   {
-    ignores: ['**/*.stories.tsx', 'eslint.config.mjs'],
+    ignores: ['**/*.stories.tsx', 'eslint.config.mjs', '.storybook/**/*'],
     rules: {
       'import/no-default-export': ERROR,
     },

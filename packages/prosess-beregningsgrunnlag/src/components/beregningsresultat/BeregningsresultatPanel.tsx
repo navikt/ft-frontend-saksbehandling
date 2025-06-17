@@ -1,20 +1,16 @@
-import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Heading } from '@navikt/ds-react';
+import { Heading, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { AktivitetStatus, isAksjonspunktOpen, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import { BeregningAvklaringsbehov, Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { VerticalSpacer } from '@navikt/ft-ui-komponenter';
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { TabellData, TabellMap, TabellRadData } from '../../types/BeregningsresultatTabellType';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import { Vilkårperiode } from '../../types/Vilkår';
 import { OppsummertGrunnlagPanel } from './OppsummertGrunnlagPanel';
-
-import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 const ÅRSAKER_SOM_KAN_GI_NY_DAGSATS: string[] = [
   PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET,
@@ -168,25 +164,24 @@ type Props = {
 };
 
 export const BeregningsresultatPanel = ({ beregningsgrunnlag, vilkårsperiode }: Props) => {
-  const tabellData = useMemo(() => utledTabellData(beregningsgrunnlag), [beregningsgrunnlag]);
-  const skalVisePeriodePrTabell = tabellData.length > 1;
+  const tabellData = utledTabellData(beregningsgrunnlag);
+
   return (
-    <div className={beregningStyles.panelRight}>
-      <Heading size="small" className={beregningStyles.avsnittOverskrift}>
-        <FormattedMessage id="Beregningsgrunnlag.BeregningTable.Tittel" />
+    <VStack gap="1">
+      <Heading size="xsmall">
+        <FormattedMessage id="BeregningsresultatPanel.Tittel" />
       </Heading>
-      <VerticalSpacer eightPx />
-      {tabellData.map(tab => (
-        <div key={tab.fom}>
+      <VStack gap="8">
+        {tabellData.map(tab => (
           <OppsummertGrunnlagPanel
+            key={tab.fom}
             tabellData={tab}
-            skalVisePeriode={skalVisePeriodePrTabell}
+            skalVisePeriode={tabellData.length > 1}
             vilkårsperiode={vilkårsperiode}
             beregningsgrunnlag={beregningsgrunnlag}
           />
-          <VerticalSpacer fourtyPx />
-        </div>
-      ))}
-    </div>
+        ))}
+      </VStack>
+    </VStack>
   );
 };
