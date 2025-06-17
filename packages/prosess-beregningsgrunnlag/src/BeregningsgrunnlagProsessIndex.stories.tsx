@@ -405,6 +405,8 @@ const lagInntektPgi = (beløp: number, pgiType: string) => ({
 
 const inntektsgrunnlagSN = {
   måneder: [],
+  beregningsgrunnlagInntekter: [],
+  sammenligningsgrunnlagInntekter: [],
   pgiGrunnlag: [
     {
       år: 2015,
