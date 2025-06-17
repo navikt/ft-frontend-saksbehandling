@@ -11,12 +11,10 @@ import { finnVilkårsperiode, vurderesIBehandlingen } from './components/felles/
 import { FordelBeregningsgrunnlagPanel } from './components/FordelBeregningsgrunnlagPanel';
 import {
   FordelBeregningsgrunnlagFormValues,
-  TilkommetAktivitetFormValues,
   VurderRefusjonFormValues,
 } from './types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from './types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import { FordelBeregningsgrunnlagAP } from './types/interface/FordelBeregningsgrunnlagAP';
-import { VurderNyttInntektsforholdAP } from './types/interface/VurderNyttInntektsforholdAP';
 import { VurderRefusjonBeregningsgrunnlagAP } from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { KodeverkForPanel } from './types/kodeverkForPanel';
 import { Vilkår, Vilkårperiode } from './types/Vilkår';
@@ -25,8 +23,7 @@ import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN, VURDER_NYTT_INNTKTSFRHLD } =
-  FaktaFordelBeregningAvklaringsbehovCode;
+const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
 
 const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]) => {
   const vilkårPeriode = finnVilkårsperiode(vilkårsperioder, bg.vilkårsperiodeFom);
@@ -37,16 +34,11 @@ const lagLabel = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]) =>
   return <DateLabel dateString={bg.vilkårsperiodeFom} />;
 };
 
-const kreverManuellBehandlingFn = (bg: Beregningsgrunnlag, skalHåndtereNyInntekt: boolean) =>
-  bg.avklaringsbehov.some(
-    a =>
-      a.definisjon === VURDER_REFUSJON_BERGRUNN ||
-      a.definisjon === FORDEL_BEREGNINGSGRUNNLAG ||
-      (a.definisjon === VURDER_NYTT_INNTKTSFRHLD && skalHåndtereNyInntekt),
-  );
+const kreverManuellBehandlingFn = (bg: Beregningsgrunnlag) =>
+  bg.avklaringsbehov.some(a => a.definisjon === VURDER_REFUSJON_BERGRUNN || a.definisjon === FORDEL_BEREGNINGSGRUNNLAG);
 
-const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[], skalHåndtereNyInntekt: boolean) =>
-  kreverManuellBehandlingFn(bg, skalHåndtereNyInntekt) && vurderesIBehandlingen(vilkårsperioder, bg.vilkårsperiodeFom);
+const skalVurderes = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]) =>
+  kreverManuellBehandlingFn(bg) && vurderesIBehandlingen(vilkårsperioder, bg.vilkårsperiodeFom);
 
 type OwnProps = {
   beregningsgrunnlagVilkår: Vilkår | null;
@@ -59,8 +51,8 @@ type OwnProps = {
 
 type Props = OwnProps &
   StandardFaktaPanelProps<
-    FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP | VurderNyttInntektsforholdAP,
-    FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues | TilkommetAktivitetFormValues
+    FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP,
+    FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues
   >;
 
 export const FordelBeregningsgrunnlagFaktaIndex = ({
@@ -73,11 +65,8 @@ export const FordelBeregningsgrunnlagFaktaIndex = ({
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
-  skalHåndtereNyInntekt = true,
 }: Props) => {
-  const bgMedAvklaringsbehov = beregningsgrunnlagListe.filter(bg =>
-    kreverManuellBehandlingFn(bg, skalHåndtereNyInntekt),
-  );
+  const bgMedAvklaringsbehov = beregningsgrunnlagListe.filter(bg => kreverManuellBehandlingFn(bg));
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
 
   if (bgMedAvklaringsbehov.length === 0 || !beregningsgrunnlagVilkår) {
@@ -101,9 +90,7 @@ export const FordelBeregningsgrunnlagFaktaIndex = ({
                   value={currentBeregningsgrunnlagIndex.toString()}
                   label={lagLabel(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder)}
                   className={
-                    skalVurderes(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder, skalHåndtereNyInntekt)
-                      ? 'harAksjonspunkt'
-                      : ''
+                    skalVurderes(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder) ? 'harAksjonspunkt' : ''
                   }
                 />
               ))}
@@ -121,7 +108,6 @@ export const FordelBeregningsgrunnlagFaktaIndex = ({
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           formData={formData}
           setFormData={setFormData}
-          skalHåndtereNyInntekt={skalHåndtereNyInntekt}
         />
       </VStack>
     </RawIntlProvider>

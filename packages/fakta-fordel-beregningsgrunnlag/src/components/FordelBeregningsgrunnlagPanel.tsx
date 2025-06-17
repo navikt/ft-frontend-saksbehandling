@@ -6,29 +6,22 @@ import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrun
 
 import {
   FordelBeregningsgrunnlagFormValues,
-  TilkommetAktivitetFormValues,
   VurderRefusjonFormValues,
 } from '../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import { FordelBeregningsgrunnlagAP } from '../types/interface/FordelBeregningsgrunnlagAP';
-import { VurderNyttInntektsforholdAP } from '../types/interface/VurderNyttInntektsforholdAP';
 import { VurderRefusjonBeregningsgrunnlagAP } from '../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { KodeverkForPanel } from '../types/kodeverkForPanel';
 import { Vilkårperiode } from '../types/Vilkår';
 import { FordelingForm } from './fordeling/FordelingForm';
 import { VurderEndringRefusjonForm } from './refusjon/VurderEndringRefusjonForm';
-import { TilkommetAktivitet } from './tilkommetAktivitet/TilkommetAktivitet';
 
-const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN, VURDER_NYTT_INNTKTSFRHLD } =
-  FaktaFordelBeregningAvklaringsbehovCode;
+const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
 
 const harFordelInfo = (bg: Beregningsgrunnlag): boolean =>
   bg && bg.faktaOmFordeling ? !!bg.faktaOmFordeling.fordelBeregningsgrunnlag : false;
 
 const harRefusjonInfo = (bg: Beregningsgrunnlag): boolean => !!(bg && bg.refusjonTilVurdering);
-
-const harNyttInntektsforholdInfo = (bg: Beregningsgrunnlag): boolean =>
-  bg && bg.faktaOmFordeling ? !!bg.faktaOmFordeling.vurderNyttInntektsforholdDto : false;
 
 const getAvklaringsbehov = (
   avklaringsbehov: BeregningAvklaringsbehov[],
@@ -39,19 +32,14 @@ const getAvklaringsbehov = (
 export interface Props {
   aktivtBeregningsgrunnlagIndeks: number;
   readOnly: boolean;
-  submitCallback: (
-    aksjonspunktData: FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP | VurderNyttInntektsforholdAP,
-  ) => Promise<void>;
+  submitCallback: (aksjonspunktData: FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP) => Promise<void>;
   submittable: boolean;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkarperioder: Vilkårperiode[];
   kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  formData?: FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues | TilkommetAktivitetFormValues;
-  setFormData: (
-    data: FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues | TilkommetAktivitetFormValues,
-  ) => void;
-  skalHåndtereNyInntekt: boolean;
+  formData?: FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues;
+  setFormData: (data: FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues) => void;
 }
 
 /**
@@ -70,9 +58,7 @@ export const FordelBeregningsgrunnlagPanel = ({
   arbeidsgiverOpplysningerPerId,
   formData,
   setFormData,
-  skalHåndtereNyInntekt,
 }: Props) => {
-  const [tilkommetAktivitetFormIsDirty, setTilkommetAktivitetFormIsDirty] = useState(false);
   const [refusjonFormIsDirty, setRefusjonFormIsDirty] = useState(false);
   const [fordelingFormIsDirty, setFordelingFormIsDirty] = useState(false);
   const fordelAP = getAvklaringsbehov(
@@ -83,15 +69,6 @@ export const FordelBeregningsgrunnlagPanel = ({
     beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks].avklaringsbehov,
     VURDER_REFUSJON_BERGRUNN,
   );
-  const nyttInntektsforholdAP = getAvklaringsbehov(
-    beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks].avklaringsbehov,
-    VURDER_NYTT_INNTKTSFRHLD,
-  );
-
-  const harNyttInntektsforholdAP =
-    skalHåndtereNyInntekt &&
-    nyttInntektsforholdAP &&
-    harNyttInntektsforholdInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
 
   const skalViseFordeling = fordelAP && harFordelInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
 
@@ -99,24 +76,10 @@ export const FordelBeregningsgrunnlagPanel = ({
 
   return (
     <VStack gap="2">
-      {harNyttInntektsforholdAP && (
-        <TilkommetAktivitet
-          aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-          formData={formData as TilkommetAktivitetFormValues}
-          setFormData={setFormData}
-          submittable={submittable && !refusjonFormIsDirty && !fordelingFormIsDirty}
-          readOnly={readOnly}
-          submitCallback={submitCallback}
-          beregningsgrunnlagListe={beregningsgrunnlagListe}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          vilkarperioder={vilkarperioder}
-          setTilkommetAktivitetFormIsDirty={setTilkommetAktivitetFormIsDirty}
-        />
-      )}
       {skalViseRefusjon && (
         <VurderEndringRefusjonForm
           aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-          submittable={submittable && !tilkommetAktivitetFormIsDirty && !fordelingFormIsDirty}
+          submittable={submittable && !fordelingFormIsDirty}
           readOnly={readOnly}
           //@ts-expect-error Fiks
           submitCallback={submitCallback}
@@ -131,7 +94,7 @@ export const FordelBeregningsgrunnlagPanel = ({
       {skalViseFordeling && (
         <FordelingForm
           aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
-          submittable={submittable && !tilkommetAktivitetFormIsDirty && !refusjonFormIsDirty}
+          submittable={submittable && !refusjonFormIsDirty}
           readOnly={readOnly}
           submitCallback={submitCallback}
           kodeverkSamling={kodeverkSamling}
