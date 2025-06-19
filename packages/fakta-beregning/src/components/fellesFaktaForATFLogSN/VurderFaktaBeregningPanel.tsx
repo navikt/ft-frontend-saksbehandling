@@ -191,6 +191,7 @@ export const VurderFaktaBeregningPanel = ({
             if (!vilkårsperiode) {
               throw new Error(`Filler ikke vilkårsperiode med fom ${valgtBeregningsgrunnlag.vilkårsperiodeFom}`);
             }
+            // Mulig vi på sikt skal vise den for alle saker, men det gir oss en myk start å kun vise for dette tilfellet.
             const skalViseInntektabell = valgtBeregningsgrunnlag.faktaOmBeregning?.faktaOmBeregningTilfeller?.some(
               tilf => tilf === FaktaOmBeregningTilfelle.FASTSETT_INNTEKT_FOR_ARBEID_UNDER_AAP,
             );

@@ -143,7 +143,7 @@ export const SammenligningsgrunnlagAOrdningen = ({
   sammenligningsgrunnlag,
 }: Props) => {
   const intl = useIntl();
-  const måneder = sammenligningsGrunnlagInntekter?.måneder || TOM_ARRAY;
+  const måneder = sammenligningsGrunnlagInntekter?.sammenligningsgrunnlagInntekter || TOM_ARRAY;
   const relevanteStatuser = utledRelevanteStatuser(måneder);
   const sgFom =
     sammenligningsgrunnlag && sammenligningsgrunnlag.length > 0

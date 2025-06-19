@@ -95,7 +95,6 @@ const lagBeregningsgrunnlag = (
       },
     ],
     inntektsgrunnlag: {
-      måneder: [],
       pgiGrunnlag: [],
       sammenligningsgrunnlagInntekter: [],
       beregningsgrunnlagInntekter: [

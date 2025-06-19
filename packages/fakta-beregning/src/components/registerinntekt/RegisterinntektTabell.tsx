@@ -80,10 +80,6 @@ export const RegisterinntektTabell = ({ beregningsgrunnlag, arbeidsgiverOpplysni
             </Table.HeaderCell>
             <Table.HeaderCell textSize="small">
               {' '}
-              <FormattedMessage id="Registerinntekt.Tabell.Type" />
-            </Table.HeaderCell>
-            <Table.HeaderCell textSize="small">
-              {' '}
               <FormattedMessage id="Registerinntekt.Tabell.Aktivt" />
             </Table.HeaderCell>
           </Table.Row>
@@ -100,7 +96,6 @@ export const RegisterinntektTabell = ({ beregningsgrunnlag, arbeidsgiverOpplysni
                     <FormattedMessage id={finnAktivitetNavn(inntekt, arbeidsgiverOpplysningerPerId)} />
                   </Table.DataCell>
                   <Table.DataCell textSize="small">{formatCurrencyNoKr(inntekt.beløp)}</Table.DataCell>
-                  <Table.DataCell textSize="small">{inntekt.inntektAktivitetType}</Table.DataCell>
                   <Table.DataCell textSize="small">
                     <FormattedMessage
                       id={

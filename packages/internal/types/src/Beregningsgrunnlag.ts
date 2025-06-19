@@ -31,7 +31,6 @@ export type PGIPrÅr = Readonly<{
 export type Inntektsgrunnlag = Readonly<{
   beregningsgrunnlagInntekter: InntektsgrunnlagMåned[];
   sammenligningsgrunnlagInntekter: InntektsgrunnlagMåned[];
-  måneder: InntektsgrunnlagMåned[];
   pgiGrunnlag: PGIPrÅr[];
 }>;
 
