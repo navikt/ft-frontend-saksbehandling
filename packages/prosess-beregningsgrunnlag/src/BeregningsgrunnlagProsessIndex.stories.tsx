@@ -405,6 +405,8 @@ const lagInntektPgi = (beløp: number, pgiType: string) => ({
 
 const inntektsgrunnlagSN = {
   måneder: [],
+  beregningsgrunnlagInntekter: [],
+  sammenligningsgrunnlagInntekter: [],
   pgiGrunnlag: [
     {
       år: 2015,
@@ -422,85 +424,85 @@ const inntektsgrunnlagSN = {
 };
 
 const lagInntektsgrunnlag = (): Inntektsgrunnlag => {
-  const måneder = [];
-  måneder.push(
+  const sammenligningsgrunnlagInntekter = [];
+  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-01-01', '2020-01-31', [
       lagATInntektsgrunnlag(35000),
       lagYtelseInntektsgrunnlag(4000),
       lagFLInntektsgrunnlag(0),
     ]),
   );
-  måneder.push(
+  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-02-01', '2020-02-28', [
       lagATInntektsgrunnlag(70000),
       lagYtelseInntektsgrunnlag(6000),
       lagFLInntektsgrunnlag(5000),
     ]),
   );
-  måneder.push(
+  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-03-01', '2020-03-31', [
       lagATInntektsgrunnlag(40000),
       lagYtelseInntektsgrunnlag(7000),
       lagFLInntektsgrunnlag(12000),
     ]),
   );
-  måneder.push(
+  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-04-01', '2020-04-30', [
       lagATInntektsgrunnlag(50000),
       lagYtelseInntektsgrunnlag(20000),
       lagFLInntektsgrunnlag(45000),
     ]),
   );
-  måneder.push(
+  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-05-01', '2020-05-31', [
       lagATInntektsgrunnlag(37000),
       lagYtelseInntektsgrunnlag(10000),
       lagFLInntektsgrunnlag(30000),
     ]),
   );
-  måneder.push(
+  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-06-01', '2020-06-30', [
       lagATInntektsgrunnlag(45000),
       lagYtelseInntektsgrunnlag(5000),
       lagFLInntektsgrunnlag(20000),
     ]),
   );
-  måneder.push(
+  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-07-01', '2020-07-31', [
       lagATInntektsgrunnlag(25000),
       lagYtelseInntektsgrunnlag(3000),
       lagFLInntektsgrunnlag(25000),
     ]),
   );
-  måneder.push(
+  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-08-01', '2020-08-31', [
       lagATInntektsgrunnlag(33000),
       lagYtelseInntektsgrunnlag(7000),
       lagFLInntektsgrunnlag(0),
     ]),
   );
-  måneder.push(
+  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-09-01', '2020-09-30', [
       lagATInntektsgrunnlag(25000),
       lagYtelseInntektsgrunnlag(6000),
       lagFLInntektsgrunnlag(33000),
     ]),
   );
-  måneder.push(
+  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-10-01', '2020-10-31', [
       lagATInntektsgrunnlag(8000),
       lagYtelseInntektsgrunnlag(20000),
       lagFLInntektsgrunnlag(1000),
     ]),
   );
-  måneder.push(
+  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-11-01', '2020-11-30', [
       lagATInntektsgrunnlag(54000),
       lagYtelseInntektsgrunnlag(1000),
       lagFLInntektsgrunnlag(25000),
     ]),
   );
-  måneder.push(
+  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-12-01', '2020-12-31', [
       lagATInntektsgrunnlag(47000),
       lagYtelseInntektsgrunnlag(0),
@@ -508,7 +510,7 @@ const lagInntektsgrunnlag = (): Inntektsgrunnlag => {
     ]),
   );
   return {
-    måneder,
+    sammenligningsgrunnlagInntekter,
   } as Inntektsgrunnlag;
 };
 

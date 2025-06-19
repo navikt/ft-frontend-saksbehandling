@@ -8,6 +8,7 @@ import { Besteberegninggrunnlag } from './Besteberegning';
 
 export type InntektsgrunnlagInntekt = Readonly<{
   inntektAktivitetType: string;
+  arbeidsgiverIdent?: string;
   beløp: number;
 }>;
 
@@ -28,7 +29,8 @@ export type PGIPrÅr = Readonly<{
 }>;
 
 export type Inntektsgrunnlag = Readonly<{
-  måneder: InntektsgrunnlagMåned[];
+  beregningsgrunnlagInntekter: InntektsgrunnlagMåned[];
+  sammenligningsgrunnlagInntekter: InntektsgrunnlagMåned[];
   pgiGrunnlag: PGIPrÅr[];
 }>;
 

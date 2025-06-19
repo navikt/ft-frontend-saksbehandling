@@ -125,7 +125,7 @@
   "KunYtelsePanel.RapporterteInntekter": "Rapporterte inntekter",
   "BeregningInfoPanel.FordelBG.Validation.UlikeAndeler": "Andeler for samme aktivitet må ha ulik inntektskategori",
 
-  "InntektstabellPanel.RapporterteInntekter": "Rapporterte inntekter",
+  "InntektstabellPanel.RapporterteInntekter": "Fastsetting av inntekt",
 
   "BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt": "Har søker etterlønn eller sluttvederlag?",
   "BeregningInfoPanel.EtterlønnSluttpakke.HvordanGarJegFrem1": "Gå til A-inntekt og se om etterlønn eller sluttvederlag er rapportert. Hvis ikke, kontakt søker og be de dokumentere etterlønn/sluttvederlag med avtale el.",
@@ -147,5 +147,15 @@
   "FaktaBegrunnelseTextField.Begrunnelse": "Begrunnelse",
   "SubmitButton.ConfirmInformation": "Bekreft og fortsett",
 
-  "InntektFieldArrayRow.MåFastsettes": "Må fastsettes"
+  "InntektFieldArrayRow.MåFastsettes": "Må fastsettes",
+
+  "Registerinntekt.Overskrift": "Inntekter i beregningsperioden fra A-inntekt",
+  "Registerinntekt.Tabell.Måned": "Måned",
+  "Registerinntekt.Tabell.Aktivitet": "Aktivitet",
+  "Registerinntekt.Tabell.Beløp": "Beløp",
+  "Registerinntekt.Tabell.Aktivt": "Aktivt ved skjæringstidspunktet",
+  "Registerinntekt.Tabell.Ja": "Ja",
+  "Registerinntekt.Tabell.Nei": "Nei",
+  "Registerinntekt.Tabell.Frilans": "Frilans",
+  "Registerinntekt.Tabell.Annen": "Annen inntekt"
 }

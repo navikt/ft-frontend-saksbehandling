@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
+import { VStack } from '@navikt/ds-react';
+
 import { Form } from '@navikt/ft-form-hooks';
-import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import { FaktaOmBeregningTilfelle, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
@@ -13,6 +15,7 @@ import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregning
 import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { formNameVurderFaktaBeregning } from '../../utils/BeregningFormUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
+import { RegisterinntektTabell } from '../registerinntekt/RegisterinntektTabell';
 import { getBuildInitialValuesFaktaForATFLOgSN } from './faktaForATFLOgSNPanelUtils';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { transformValuesVurderFaktaBeregning } from './transformValuesHjelpefunksjoner';
@@ -174,35 +177,47 @@ export const VurderFaktaBeregningPanel = ({
               avklaringspunkt => harRelevantAksjonspunkt(avklaringspunkt) && kanLøses(avklaringspunkt),
             );
 
+            const valgtBeregningsgrunnlag = beregningsgrunnlag[index];
             const readOnlyAvAndreÅrsaker =
               readOnly ||
-              erForlengelse(beregningsgrunnlag[index], vilkar.perioder) ||
+              erForlengelse(valgtBeregningsgrunnlag, vilkar.perioder) ||
               (hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov) && !erOverstyrer);
 
             const isReadOnly = readOnlyAvAndreÅrsaker || (løsbareAksjonspunkter.length === 0 && !erOverstyrer);
 
             const vilkårsperiode = vilkar.perioder.find(
-              p => p.periode.fom === beregningsgrunnlag[index].vilkårsperiodeFom,
+              p => p.periode.fom === valgtBeregningsgrunnlag.vilkårsperiodeFom,
             );
             if (!vilkårsperiode) {
-              throw new Error(`Filler ikke vilkårsperiode med fom ${beregningsgrunnlag[index].vilkårsperiodeFom}`);
+              throw new Error(`Filler ikke vilkårsperiode med fom ${valgtBeregningsgrunnlag.vilkårsperiodeFom}`);
             }
-
+            // Mulig vi på sikt skal vise den for alle saker, men det gir oss en myk start å kun vise for dette tilfellet.
+            const skalViseInntektabell = valgtBeregningsgrunnlag.faktaOmBeregning?.faktaOmBeregningTilfeller?.some(
+              tilf => tilf === FaktaOmBeregningTilfelle.FASTSETT_INNTEKT_FOR_ARBEID_UNDER_AAP,
+            );
             return (
               <BeregningsgrunnlagIndexContext.Provider key={field.id} value={index}>
-                <VurderFaktaBeregningField
-                  key={field.id}
-                  vilkarsperiode={vilkårsperiode}
-                  beregningsgrunnlag={beregningsgrunnlag[index]}
-                  erOverstyrer={erOverstyrer}
-                  readOnly={isReadOnly}
-                  kodeverkSamling={kodeverkSamling}
-                  arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-                  submittable={submittable}
-                  updateOverstyring={updateOverstyring}
-                  submitDisabled={submitDisabled}
-                  verdiForAvklarAktivitetErEndret={verdiForAvklarAktivitetErEndret}
-                />
+                <VStack gap="6">
+                  {skalViseInntektabell && (
+                    <RegisterinntektTabell
+                      arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                      beregningsgrunnlag={valgtBeregningsgrunnlag}
+                    />
+                  )}
+                  <VurderFaktaBeregningField
+                    key={field.id}
+                    vilkarsperiode={vilkårsperiode}
+                    beregningsgrunnlag={valgtBeregningsgrunnlag}
+                    erOverstyrer={erOverstyrer}
+                    readOnly={isReadOnly}
+                    kodeverkSamling={kodeverkSamling}
+                    arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                    submittable={submittable}
+                    updateOverstyring={updateOverstyring}
+                    submitDisabled={submitDisabled}
+                    verdiForAvklarAktivitetErEndret={verdiForAvklarAktivitetErEndret}
+                  />
+                </VStack>
               </BeregningsgrunnlagIndexContext.Provider>
             );
           })}

@@ -90,9 +90,68 @@ const lagBeregningsgrunnlag = (
           andelsnr: andel.andelsnr,
           aktivitetStatus: andel.aktivitetStatus,
           inntektskategori: andel.inntektskategori,
+          arbeidsforhold: andel.arbeidsforhold,
         })),
       },
     ],
+    inntektsgrunnlag: {
+      pgiGrunnlag: [],
+      sammenligningsgrunnlagInntekter: [],
+      beregningsgrunnlagInntekter: [
+        {
+          fom: '2024-12-01',
+          tom: '2024-12-31',
+          inntekter: [
+            {
+              inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
+              beløp: 20000,
+              arbeidsgiverIdent: '795349533',
+            },
+          ],
+        },
+        {
+          fom: '2024-11-01',
+          tom: '2024-11-30',
+          inntekter: [
+            {
+              inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
+              beløp: 30000,
+              arbeidsgiverIdent: '795349533',
+            },
+            {
+              inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
+              beløp: 31756,
+              arbeidsgiverIdent: '12345679',
+            },
+          ],
+        },
+        {
+          fom: '2024-10-01',
+          tom: '2024-10-31',
+          inntekter: [
+            {
+              inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
+              beløp: 40000,
+              arbeidsgiverIdent: '795349533',
+            },
+            {
+              inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
+              beløp: 12456,
+              arbeidsgiverIdent: '12345679',
+            },
+            {
+              inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
+              beløp: 513,
+              arbeidsgiverIdent: '12345678',
+            },
+            {
+              inntektAktivitetType: 'FRILANSINNTEKT',
+              beløp: 9824,
+            },
+          ],
+        },
+      ],
+    },
     faktaOmBeregning,
   }) as Beregningsgrunnlag;
 

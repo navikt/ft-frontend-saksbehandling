@@ -26,4 +26,9 @@ export const agOpplysninger: ArbeidsgiverOpplysningerPerId = {
     identifikator: '910909088',
     erPrivatPerson: false,
   },
+  342352362: {
+    navn: 'Kunstig',
+    identifikator: '342352362',
+    erPrivatPerson: false,
+  },
 };
