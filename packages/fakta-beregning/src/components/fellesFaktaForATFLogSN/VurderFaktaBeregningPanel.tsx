@@ -202,7 +202,7 @@ export const VurderFaktaBeregningPanel = ({
                     <RegisterinntektTabell
                       arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
                       beregningsgrunnlag={valgtBeregningsgrunnlag}
-                    ></RegisterinntektTabell>
+                    />
                   )}
                   <VurderFaktaBeregningField
                     key={field.id}
