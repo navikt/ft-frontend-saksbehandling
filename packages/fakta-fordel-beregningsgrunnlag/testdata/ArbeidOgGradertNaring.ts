@@ -1,5 +1,5 @@
 import { AktivitetStatus, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
-import { Aksjonspunkt, Beregningsgrunnlag } from '@navikt/ft-types';
+import { Beregningsgrunnlag } from '@navikt/ft-types';
 
 export const beregningsgrunnlag = {
   avklaringsbehov: [
@@ -456,13 +456,3 @@ export const beregningsgrunnlag = {
   dekningsgrad: 100,
   erOverstyrtInntekt: false,
 } satisfies Beregningsgrunnlag;
-
-export const aksjonspunkt = [
-  {
-    definisjon: 'FORDEL_BG',
-    status: 'OPPR',
-    toTrinnsBehandling: true,
-    aksjonspunktType: 'MANU',
-    kanLoses: true,
-  },
-] satisfies Aksjonspunkt[];
