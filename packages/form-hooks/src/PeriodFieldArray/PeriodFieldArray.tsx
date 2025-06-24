@@ -1,23 +1,34 @@
 import React, { ReactNode } from 'react';
-import { FieldArrayMethodProps } from 'react-hook-form';
+import {
+  FieldArray,
+  FieldArrayPath,
+  FieldArrayWithId,
+  FieldValues,
+  UseFieldArrayAppend,
+  UseFieldArrayRemove,
+} from 'react-hook-form';
 
-import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
-import { Button, Detail, Fieldset } from '@navikt/ds-react';
+import { PlusCircleIcon, TrashIcon } from '@navikt/aksel-icons';
+import { Button, Fieldset } from '@navikt/ds-react';
 
-import styles from './periodFieldArray.module.css';
-
-function onClick<PERIOD_TYPE>(
-  append: (value: PERIOD_TYPE, options?: FieldArrayMethodProps) => void,
-  emptyPeriodTemplate?: any,
+function onClick<
+  TFieldValues extends FieldValues,
+  TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>,
+>(
+  append: UseFieldArrayAppend<TFieldValues, TFieldArrayName>,
+  emptyPeriodTemplate: FieldArray<TFieldValues, TFieldArrayName>,
 ) {
   return (): void => {
     append(emptyPeriodTemplate);
   };
 }
 
-function onKeyDown<PERIOD_TYPE>(
-  append: (value: PERIOD_TYPE, options?: FieldArrayMethodProps) => void,
-  emptyPeriodTemplate?: any,
+function onKeyDown<
+  TFieldValues extends FieldValues,
+  TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>,
+>(
+  append: UseFieldArrayAppend<TFieldValues, TFieldArrayName>,
+  emptyPeriodTemplate: FieldArray<TFieldValues, TFieldArrayName>,
 ) {
   return ({ key }: React.KeyboardEvent): void => {
     if (key === 'Enter') {
@@ -26,36 +37,53 @@ function onKeyDown<PERIOD_TYPE>(
   };
 }
 
-const getRemoveButton =
-  (index: number, remove: (index?: number | number[]) => void) =>
-  // eslint-disable-next-line react/display-name
-  (className?: string): ReactNode | undefined => {
-    if (index > 0) {
-      return (
-        <Button
-          className={className}
-          icon={<XMarkIcon aria-hidden />}
-          type="button"
-          onClick={() => {
-            remove(index);
-          }}
-        />
-      );
-    }
-    return undefined;
-  };
+const getRemoveButton = (
+  index: number,
+  remove: (index?: number | number[]) => void,
+  size?: 'small' | 'medium',
+): ReactNode | undefined => {
+  if (index > 0) {
+    return (
+      <Button
+        icon={<TrashIcon aria-hidden />}
+        type="button"
+        variant="tertiary-neutral"
+        size={size}
+        onClick={() => {
+          remove(index);
+        }}
+      />
+    );
+  }
+  return undefined;
+};
 
-export interface Props<PERIOD_TYPE> {
-  children: (id: any, index: number, removeButtonElmt?: (className?: string) => ReactNode) => ReactNode;
-  fields: PERIOD_TYPE[];
+interface DefaultType extends Record<string, any> {
+  periodeFom: string;
+  periodeTom: string;
+}
+
+export interface Props<
+  TFieldValues extends FieldValues = DefaultType,
+  TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>,
+> {
+  children: (
+    field: FieldArrayWithId<TFieldValues, TFieldArrayName>,
+    index: number,
+    props: {
+      removeButton?: ReactNode;
+      size?: 'small' | 'medium';
+    },
+  ) => ReactNode;
+  fields: FieldArrayWithId<TFieldValues, TFieldArrayName>[];
   readOnly?: boolean;
   titleText?: string;
-  bodyText: string;
-  emptyPeriodTemplate?: any;
+  addButtonText: string;
   shouldShowAddButton?: boolean;
-  createAddButtonInsteadOfImageLink?: boolean;
-  remove: (index?: number | number[]) => void;
-  append: (value: PERIOD_TYPE, options?: FieldArrayMethodProps) => void;
+  emptyPeriodTemplate?: FieldArray<TFieldValues, TFieldArrayName>;
+  remove: UseFieldArrayRemove;
+  append: UseFieldArrayAppend<TFieldValues, TFieldArrayName>;
+  size?: 'small' | 'medium';
 }
 
 /**
@@ -63,48 +91,35 @@ export interface Props<PERIOD_TYPE> {
  *
  * Håndterer å legge til og fjerne perioder
  */
-export const PeriodFieldArray = <PERIOD_TYPE,>({
+export const PeriodFieldArray = <
+  TFieldValues extends FieldValues,
+  TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>,
+>({
   fields,
   readOnly = true,
   titleText,
-  bodyText,
-  emptyPeriodTemplate = {
-    periodeFom: '',
-    periodeTom: '',
-  },
+  addButtonText,
+  emptyPeriodTemplate = { periodeFom: '', periodeTom: '' } as FieldArray<TFieldValues, TFieldArrayName>,
   shouldShowAddButton = true,
-  createAddButtonInsteadOfImageLink = false,
   children,
   remove,
   append,
-}: Props<PERIOD_TYPE>) => (
-  <Fieldset legend={titleText}>
-    {fields.map((field, index) => children(field, index, getRemoveButton(index, remove)))}
-    {shouldShowAddButton && (
-      <>
-        {!createAddButtonInsteadOfImageLink && !readOnly && (
-          <div
-            onClick={onClick<PERIOD_TYPE>(append, emptyPeriodTemplate)}
-            onKeyDown={onKeyDown<PERIOD_TYPE>(append, emptyPeriodTemplate)}
-            className={styles.addPeriode}
-            role="button"
-            tabIndex={0}
-          >
-            <PlusCircleIcon className={styles.addCircleIcon} title={bodyText} />
-            <Detail className={styles.imageText}>{bodyText}</Detail>
-          </div>
-        )}
-        {createAddButtonInsteadOfImageLink && !readOnly && (
-          <Button
-            icon={<PlusCircleIcon aria-hidden />}
-            type="button"
-            onClick={onClick<PERIOD_TYPE>(append, emptyPeriodTemplate)}
-          >
-            {bodyText}
-          </Button>
-        )}
-        <div style={{ marginBottom: '16px' }} />
-      </>
+  size = 'small',
+}: Props<TFieldValues, TFieldArrayName>) => (
+  <Fieldset legend={titleText} size={size}>
+    {fields.map((field, index) => children(field, index, { removeButton: getRemoveButton(index, remove, size), size }))}
+    {shouldShowAddButton && !readOnly && (
+      <Button
+        onClick={onClick(append, emptyPeriodTemplate)}
+        onKeyDown={onKeyDown(append, emptyPeriodTemplate)}
+        role="button"
+        tabIndex={0}
+        variant="tertiary-neutral"
+        icon={<PlusCircleIcon aria-hidden />}
+        size={size}
+      >
+        {addButtonText}
+      </Button>
     )}
   </Fieldset>
 );
