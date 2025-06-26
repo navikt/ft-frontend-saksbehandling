@@ -81,7 +81,7 @@ export const RhfCheckboxGroup = <T extends FieldValues>({
       error={getError(errors, name)}
       hideLegend={hideLegend}
     >
-      {children && children}
+      {children}
       {checkboxes &&
         !isHorizontal &&
         checkboxes.map(checkbox => (
