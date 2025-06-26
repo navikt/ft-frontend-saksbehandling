@@ -121,9 +121,6 @@
 .inntektTable > tbody > tr > td:not(:first-child) {
   text-align: right;
 }
-.inntektTable > tbody > tr > td:not(:first-child) > div {
-  margin-bottom: 8px;
-}
 .inntektTable > tbody > tr > td:not(:first-child) > div > div > input {
   text-align: right;
 }
