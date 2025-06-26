@@ -138,7 +138,7 @@
   "BeregningInfoPanel.VurderMilitaer.HvordanGarJegFrem2": "Svarer du ”ja” vil utbetalingen bli minst 2G (pleiepenger) / 3G (foreldrepenger). Svarer du ”nei” beregnes det etter vanlige regler.",
   "BeregningInfoPanel.InntektInputFields.ArbeidUnderAap": "Fastsett arbeidsinntekt fra beregningsperioden som er bortfalt på skjæringstidspunktet.",
   "BeregningInfoPanel.InntektInputFields.MånedsinntektAap": "Fastsett gjennomsnitt månedlig arbeidsinntekt under arbeidsavklaringspenger",
-  "VurderRefusjonForm.ErRefusjonskravGyldig": "Skal refusjonskrav som ikke har kommet innen fristen tas med i beregning?",
+  "VurderRefusjonForm.ErRefusjonskravGyldig": "Skal refusjonskravet for {arbeidsgiverVisningsnavn} som ikke har kommet innen fristen tas med i beregning?",
   "VurderRefusjonForm.ReadMore": "Undersøk om det har vært fristavbrytende kontakt med arbeidsgiver innen frist for refusjonskrav (3 måneder).",
 
   "BeregningInfoPanel.Validation.MinstEnFastsatt": "Må ha overstyrt inntekt for minst én aktivitet.",
