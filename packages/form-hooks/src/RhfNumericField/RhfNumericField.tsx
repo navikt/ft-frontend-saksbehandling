@@ -39,7 +39,7 @@ export const RhfNumericField = <T extends FieldValues>({
 }: Props<T>) => {
   const { name, control, disabled } = controllerProps;
 
-  const [hasFocus, setFocus] = useState(false);
+  const [hasFocus, setHasFocus] = useState(false);
 
   const {
     formState: { errors },
@@ -78,7 +78,7 @@ export const RhfNumericField = <T extends FieldValues>({
       inputMode="decimal"
       className={className}
       onChange={event => {
-        setFocus(true);
+        setHasFocus(true);
         const targetValue = event.currentTarget.value;
         let newValue;
         if (targetValue === '') {
@@ -101,7 +101,7 @@ export const RhfNumericField = <T extends FieldValues>({
         return field.onChange(newValue);
       }}
       onBlur={() => {
-        setFocus(false);
+        setHasFocus(false);
         field.onBlur();
 
         if (forceTwoDecimalDigits && value.slice(-1) === '.') {
