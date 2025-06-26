@@ -87,8 +87,8 @@ export const MedCheckboxSomInput: Story = {
   },
   render: args => (
     <RhfCheckboxGroup {...args}>
-      <Checkbox>test 1</Checkbox>
-      <Checkbox>test 2</Checkbox>
+      <Checkbox value="1">test 1</Checkbox>
+      <Checkbox value="2">test 2</Checkbox>
     </RhfCheckboxGroup>
   ),
 };
