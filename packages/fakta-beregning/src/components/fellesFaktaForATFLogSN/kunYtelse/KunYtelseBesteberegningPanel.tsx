@@ -5,7 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 // TODO (SAFIR) PFP-6021 Ta i bruk InntektFieldArray i staden for BrukersAndelFieldArray
 import { BodyShort, Label, Link, VStack } from '@navikt/ds-react';
 
-import { RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { KunYtelse } from '@navikt/ft-types';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
@@ -42,7 +42,7 @@ export const KunYtelseBesteberegning = ({
   skalViseInntektstabell = true,
   kodeverkSamling,
 }: Props) => {
-  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
+  const { getValues, control } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`${formNameVurderFaktaBeregning}.${beregningsgrunnlagIndeks}`);
 
@@ -50,8 +50,9 @@ export const KunYtelseBesteberegning = ({
   const intl = useIntl();
   return (
     <div>
-      <RadioGroupPanel
+      <RhfRadioGroup
         name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.besteberegningField`}
+        control={control}
         isReadOnly={readOnly}
         label={<FormattedMessage id="KunYtelsePanel.HarBesteberegning" />}
         radios={[

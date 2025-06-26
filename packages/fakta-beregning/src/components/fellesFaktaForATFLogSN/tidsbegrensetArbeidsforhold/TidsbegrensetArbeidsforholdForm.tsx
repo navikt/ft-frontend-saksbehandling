@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ReadMore, VStack } from '@navikt/ds-react';
 
-import { RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import {
   ArbeidsgiverOpplysningerPerId,
@@ -76,7 +76,7 @@ export const TidsbegrensetArbeidsforholdForm = ({
         const visningsNavn = lagVisningsnavn(arbeidsforhold, arbeidsgiverOpplysningerPerId);
 
         return (
-          <RadioGroupPanel
+          <RhfRadioGroup
             key={`fastsettTidsbegrensedeForhold_${visningsNavn}`}
             label={
               <VStack gap="2">

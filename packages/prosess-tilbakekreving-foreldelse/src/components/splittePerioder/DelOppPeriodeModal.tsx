@@ -4,7 +4,7 @@ import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { Alert, BodyShort, Button, Heading, Label, Modal, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { Datepicker, Form } from '@navikt/ft-form-hooks';
+import { Form, RhfDatepicker } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
@@ -99,8 +99,9 @@ export const DelOppPeriodeModal = ({
                 ).format(DDMMYYYY_DATE_FORMAT)}`}
               </BodyShort>
             </div>
-            <Datepicker
+            <RhfDatepicker
               name="forstePeriodeTomDato"
+              control={formMethods.control}
               label={<FormattedMessage id="DelOppPeriodeModalImpl.AngiTomDato" />}
               validate={[required, hasValidDate, validerMotPeriode(periodeData, intl)]}
               fromDate={dayjs(periodeData.fom).toDate()}

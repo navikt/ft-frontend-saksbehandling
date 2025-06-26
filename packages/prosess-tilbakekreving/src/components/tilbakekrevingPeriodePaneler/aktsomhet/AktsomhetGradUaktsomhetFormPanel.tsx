@@ -2,7 +2,7 @@ import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { Label, VStack } from '@navikt/ds-react';
 
-import { RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
@@ -20,7 +20,7 @@ const sarligGrunnerBegrunnelseDiv = (name: string, readOnly: boolean, intl: Intl
     <Label size="small">
       <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.SærligGrunner" />
     </Label>
-    <TextAreaField
+    <RhfTextarea
       name={`${name}.sarligGrunnerBegrunnelse`}
       label={intl.formatMessage({ id: 'AktsomhetGradUaktsomhetFormPanel.VurderSærligGrunner' })}
       validate={[required, minLength3, maxLength1500, hasValidText]}
@@ -65,7 +65,7 @@ export const AktsomhetGradUaktsomhetFormPanel = ({
     <ArrowBox alignOffset={handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM ? grovUaktsomOffset : 20}>
       <div className={styles.panelWidth}>
         {handletUaktsomhetGrad === Aktsomhet.SIMPEL_UAKTSOM && erTotalBelopUnder4Rettsgebyr && (
-          <RadioGroupPanel
+          <RhfRadioGroup
             name={`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`}
             label={<FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.Tilbakekrev" />}
             validate={[required]}

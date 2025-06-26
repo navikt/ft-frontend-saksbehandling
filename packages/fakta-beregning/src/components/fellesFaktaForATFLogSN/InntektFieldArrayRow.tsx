@@ -5,7 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { PersonPencilFillIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { Button, ErrorMessage, Table } from '@navikt/ds-react';
 
-import { InputField, SelectField } from '@navikt/ft-form-hooks';
+import { RhfSelect, RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { Beregningsgrunnlag } from '@navikt/ft-types';
 import { PeriodLabel } from '@navikt/ft-ui-komponenter';
@@ -72,7 +72,7 @@ export const InntektFieldArrayAndelRow = ({
   skalFastsetteInntektForAndel,
 }: Props) => {
   const intl = useIntl();
-  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
+  const { getValues, control } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
   const erFrilansInntekt = erFrilanser(field);
@@ -164,7 +164,13 @@ export const InntektFieldArrayAndelRow = ({
   return (
     <Table.Row>
       <Table.DataCell>
-        <InputField size="small" name={`${rowName}.andel`} readOnly />
+        <RhfTextField
+          // @ts-expect-error Fiks
+          name={`${rowName}.andel`}
+          control={control}
+          size="small"
+          readOnly
+        />
       </Table.DataCell>
       <Table.DataCell textSize="small">
         {skalVisePeriode && harPeriode && field.arbeidsperiodeFom && (
@@ -180,9 +186,11 @@ export const InntektFieldArrayAndelRow = ({
                   <FormattedMessage id="InntektFieldArrayRow.MåFastsettes" />
                 </ErrorMessage>
               ) : (
-                <InputField
-                  size="small"
+                <RhfTextField
+                  // @ts-expect-error Fiks
                   name={`${rowName}.belopReadOnly`}
+                  control={control}
+                  size="small"
                   className={styles.mediumBredde}
                   parse={parseCurrencyInput}
                   readOnly
@@ -192,9 +200,11 @@ export const InntektFieldArrayAndelRow = ({
             {harEndretInntekt && (
               <>
                 <div className={styles.inntektNew}>
-                  <InputField
-                    size="small"
+                  <RhfTextField
+                    // @ts-expect-error Fiks
                     name={getInputFieldName()}
+                    control={control}
+                    size="small"
                     className={styles.mediumBredde}
                     parse={parseCurrencyInput}
                     readOnly
@@ -208,7 +218,10 @@ export const InntektFieldArrayAndelRow = ({
       )}
       {skalViseOverstyrtInntektInput && (
         <Table.DataCell align="right" className={styles.rightAlignInput}>
-          <InputField
+          <RhfTextField
+            // @ts-expect-error Fiks
+            name={`${rowName}.fastsattBelop`}
+            control={control}
             size="small"
             label={intl.formatMessage(
               {
@@ -216,7 +229,6 @@ export const InntektFieldArrayAndelRow = ({
               },
               { andel: field.andel },
             )}
-            name={`${rowName}.fastsattBelop`}
             parse={parseCurrencyInput}
             className={styles.mediumBredde}
             validate={skalFastsetteInntektForAndel(field) ? [required, maxValueFormatted(178956970)] : []}
@@ -227,13 +239,22 @@ export const InntektFieldArrayAndelRow = ({
 
       {skalViseRefusjon && (
         <Table.DataCell align="right">
-          <InputField size="small" name={`${rowName}.refusjonskrav`} readOnly parse={parseCurrencyInput} />
+          <RhfTextField
+            // @ts-expect-error Fiks
+            name={`${rowName}.refusjonskrav`}
+            control={control}
+            size="small"
+            readOnly
+            parse={parseCurrencyInput}
+          />
         </Table.DataCell>
       )}
       <Table.DataCell align="right">
-        <SelectField
-          label={intl.formatMessage({ id: 'BeregningInfoPanel.FordelingBG.Inntektskategori' })}
+        <RhfSelect
+          // @ts-expect-error Fiks
           name={`${rowName}.inntektskategori`}
+          control={control}
+          label={intl.formatMessage({ id: 'BeregningInfoPanel.FordelingBG.Inntektskategori' })}
           selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
           validate={readOnly ? [] : [required]}
           readOnly={readOnly || !skalRedigereInntektskategori}

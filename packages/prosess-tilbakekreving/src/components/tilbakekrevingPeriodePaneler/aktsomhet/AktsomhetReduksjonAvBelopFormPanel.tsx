@@ -4,7 +4,7 @@ import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { BodyShort, Detail, HStack, Label, VStack } from '@navikt/ds-react';
 
-import { InputField, RadioGroupPanel, SelectField } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup, RhfSelect, RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValue, minValue, required } from '@navikt/ft-form-validators';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
@@ -23,12 +23,15 @@ const parseCurrencyInput = (input: string | number) => {
   return Number.isNaN(parsedValue) ? '' : parsedValue;
 };
 
-const validerAtMindreEnn = (intl: IntlShape, feilutbetalingBelop: number) => (belopSomSkalTilbakekreves: number) => {
-  if (belopSomSkalTilbakekreves >= feilutbetalingBelop) {
-    return intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.BelopMaVereMindreEnnFeilutbetalingen' });
-  }
-  return undefined;
-};
+const validerAtMindreEnn =
+  (intl: IntlShape, feilutbetalingBelop: number) => (belopSomSkalTilbakekreves: number | string) => {
+    const numericValue =
+      typeof belopSomSkalTilbakekreves === 'string' ? Number(belopSomSkalTilbakekreves) : belopSomSkalTilbakekreves;
+    if (numericValue >= feilutbetalingBelop) {
+      return intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.BelopMaVereMindreEnnFeilutbetalingen' });
+    }
+    return undefined;
+  };
 
 export interface Props {
   name: string;
@@ -51,6 +54,7 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
 }: Props) => {
   const intl = useIntl();
 
+  // TODO (TOR) Mangler type for useFormContext
   const context = useFormContext();
   const tilleggesRenterFelt = `${name}.skalDetTilleggesRenter`;
   useEffect(() => {
@@ -62,8 +66,9 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
 
   return (
     <VStack gap="4">
-      <RadioGroupPanel
+      <RhfRadioGroup
         name={`${name}.harGrunnerTilReduksjon`}
+        control={context.control}
         label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalSarligeGrunnerGiReduksjon" />}
         validate={[required]}
         radios={[
@@ -89,8 +94,9 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
                   <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.AngiAndelSomTilbakekreves" />
                 </Label>
                 <HStack gap="2">
-                  <SelectField
+                  <RhfSelect
                     name={`${name}.andelSomTilbakekreves`}
+                    control={context.control}
                     label=""
                     validate={[required]}
                     selectValues={ANDELER.map(andel => (
@@ -109,9 +115,10 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
                   <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.AngiAndelSomTilbakekreves" />
                 </Label>
                 <HStack gap="4">
-                  <InputField
-                    className={styles.inputFelt}
+                  <RhfTextField
                     name={`${name}.andelSomTilbakekrevesManuell`}
+                    control={context.control}
+                    className={styles.inputFelt}
                     readOnly={readOnly}
                     validate={[required, minValue1, maxValue100]}
                     normalizeOnBlur={(value: string | number) =>
@@ -131,8 +138,9 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
               </>
             )}
             {harMerEnnEnYtelse && (
-              <InputField
+              <RhfTextField
                 name={`${name}.belopSomSkalTilbakekreves`}
+                control={context.control}
                 label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.AngiBelopSomSkalTilbakekreves" />}
                 validate={[required, minValue1, validerAtMindreEnn(intl, feilutbetalingBelop)]}
                 readOnly={readOnly}
@@ -170,8 +178,9 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
               {harMerEnnEnYtelse ? formatCurrencyNoKr(feilutbetalingBelop) : '100%'}
             </BodyShort>
             {handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM && (
-              <RadioGroupPanel
+              <RhfRadioGroup
                 name={tilleggesRenterFelt}
+                control={context.control}
                 label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
                 validate={[required]}
                 radios={[

@@ -4,7 +4,7 @@ import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { VStack } from '@navikt/ds-react';
 
-import { Form, TextAreaField } from '@navikt/ft-form-hooks';
+import { Form, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { AksjonspunktStatus, AktivitetStatus, PeriodeAarsak, SammenligningType } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
@@ -294,7 +294,7 @@ const ArbeidstakerEllerFrilansContainer = ({
         )}
       </div>
       <div>
-        <TextAreaField
+        <RhfTextarea
           name={`${formName}.${fieldIndex}.ATFLVurdering`}
           label={<FormattedMessage id="Forms.Vurdering" />}
           validate={[required, maxLength4000, minLength3, hasValidText]}

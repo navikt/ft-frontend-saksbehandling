@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ReadMore, VStack } from '@navikt/ds-react';
 
-import { RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregningTilfelle, isAksjonspunktOpen, OpptjeningAktivitetType as OAType } from '@navikt/ft-kodeverk';
 import { Aksjonspunkt, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
@@ -38,7 +38,7 @@ export const VurderEtterlonnSluttpakkeForm = ({ readOnly }: Props) => {
   const intl = useIntl();
   return (
     <div>
-      <RadioGroupPanel
+      <RhfRadioGroup
         label={
           <VStack gap="2">
             <FormattedMessage id="BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt" />

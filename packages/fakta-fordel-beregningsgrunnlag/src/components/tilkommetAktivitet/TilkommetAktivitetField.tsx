@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Table, Tag, VStack } from '@navikt/ds-react';
 
-import { TextAreaField } from '@navikt/ft-form-hooks';
+import { RhfTextarea } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import {
@@ -163,8 +163,9 @@ export const TilkommetAktivitetField = ({
         {skalViseBegrunnelse && (
           <>
             <div>
-              <TextAreaField
+              <RhfTextarea
                 name={`${formName}.${formFieldIndex}.begrunnelse`}
+                control={control}
                 label="Begrunnelse"
                 readOnly={readOnly}
                 validate={[required]}

@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BodyShort, HStack, VStack } from '@navikt/ds-react';
 
-import { InputField, RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup, RhfTextarea, RhfTextField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
@@ -102,8 +102,9 @@ export const VurderVarigEndringEllerNyoppstartet = ({
   ];
   return (
     <VStack gap="4">
-      <RadioGroupPanel
+      <RhfRadioGroup
         name={`${formName}.${fieldIndex}.${varigEndringRadioname}`}
+        control={formMethods.control}
         validate={skalValideres ? [required] : []}
         label={intl.formatMessage({ id: radioLabel })}
         isHorizontal={false}
@@ -115,8 +116,9 @@ export const VurderVarigEndringEllerNyoppstartet = ({
       {varigEndringBekreftetVerdi && (
         <HStack gap="4" align="center">
           <BodyShort size="small">{inntektFastsettesText(erVarigEndretArbeidssituasjon)}</BodyShort>
-          <InputField
+          <RhfTextField
             name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
+            control={formMethods.control}
             validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
             parse={parseCurrencyInput}
             hideLabel
@@ -126,8 +128,9 @@ export const VurderVarigEndringEllerNyoppstartet = ({
           />
         </HStack>
       )}
-      <TextAreaField
+      <RhfTextarea
         name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
+        control={formMethods.control}
         label={<FormattedMessage id="Forms.Vurdering" />}
         validate={skalValideres ? [required, maxLength4000, minLength3, hasValidText] : []}
         maxLength={MAX_LENGTH}

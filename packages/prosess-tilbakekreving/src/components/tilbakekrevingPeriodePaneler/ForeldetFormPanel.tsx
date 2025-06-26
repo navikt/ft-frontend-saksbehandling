@@ -3,12 +3,12 @@ import { FormattedMessage } from 'react-intl';
 
 import { Detail, HStack } from '@navikt/ds-react';
 
-import { RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup, RhfTextarea } from '@navikt/ft-form-hooks';
 
 export const ForeldetFormPanel = () => (
   <HStack gap="4">
-    <TextAreaField name="foreldetBegrunnelse" label={<FormattedMessage id="ForeldetPanel.Vurdering" />} readOnly />
-    <RadioGroupPanel
+    <RhfTextarea name="foreldetBegrunnelse" label={<FormattedMessage id="ForeldetPanel.Vurdering" />} readOnly />
+    <RhfRadioGroup
       name="periodenErForeldet"
       label={
         <Detail>

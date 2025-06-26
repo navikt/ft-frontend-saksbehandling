@@ -5,7 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { BodyShort, Button, Heading, HStack, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { Form, RadioGroupPanel, SelectField, TextAreaField } from '@navikt/ft-form-hooks';
+import { Form, RhfRadioGroup, RhfSelect, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { usePrevious } from '@navikt/ft-ui-komponenter';
 import { BTag, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
@@ -91,6 +91,7 @@ export const TilbakekrevingPeriodeForm = ({
   const intl = useIntl();
   const [showModal, setShowModal] = useState(false);
 
+  // TODO (TOR) Fiks type for form
   const formMethods = useForm<any>({
     defaultValues: periode,
   });
@@ -201,8 +202,9 @@ export const TilbakekrevingPeriodeForm = ({
         </VStack>
         <TilbakekrevingAktivitetTabell ytelser={data.ytelser} />
         {!readOnly && !data.erForeldet && vurdertePerioder.length > 0 && (
-          <SelectField
+          <RhfSelect
             name="perioderForKopi"
+            control={formMethods.control}
             selectValues={vurdertePerioder.map(per => {
               const perId = `${per.fom}_${per.tom}`;
               const perValue = `${dayjs(per.fom).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(per.tom).format(
@@ -227,8 +229,9 @@ export const TilbakekrevingPeriodeForm = ({
                 <Heading size="small">
                   <FormattedMessage id="TilbakekrevingPeriodeForm.VilkarForTilbakekreving" />
                 </Heading>
-                <TextAreaField
+                <RhfTextarea
                   name="begrunnelse"
+                  control={formMethods.control}
                   label={intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.Vurdering' })}
                   validate={[required, minLength3, maxLength1500, hasValidText]}
                   maxLength={1500}
@@ -236,8 +239,9 @@ export const TilbakekrevingPeriodeForm = ({
                   className={styles.explanationTextarea}
                   description={intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.Vurdering.Hjelpetekst' })}
                 />
-                <RadioGroupPanel
+                <RhfRadioGroup
                   name="valgtVilkarResultatType"
+                  control={formMethods.control}
                   label={<FormattedMessage id="TilbakekrevingPeriodeForm.oppfylt" />}
                   validate={[required]}
                   radios={vilkarResultatTyper.map(vrt => ({
@@ -262,8 +266,9 @@ export const TilbakekrevingPeriodeForm = ({
                     }
                   />
                 </Heading>
-                <TextAreaField
+                <RhfTextarea
                   name="vurderingBegrunnelse"
+                  control={formMethods.control}
                   label={intl.formatMessage({
                     id:
                       valgtVilkarResultatType === VilkårResultat.GOD_TRO

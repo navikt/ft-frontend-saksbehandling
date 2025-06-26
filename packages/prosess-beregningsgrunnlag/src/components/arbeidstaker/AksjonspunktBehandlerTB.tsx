@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { Label, Table } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { InputField } from '@navikt/ft-form-hooks';
+import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import {
@@ -236,7 +236,7 @@ const createRows = (
         }
         return (
           <Table.DataCell key={`Col-${element.inputfieldKey}`} align="right">
-            <InputField
+            <RhfTextField
               name={`${formName}.${fieldIndex}.${element.inputfieldKey}`}
               validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
               readOnly={readOnly}

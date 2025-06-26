@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import { HStack, Table } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { Datepicker, RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { RhfDatepicker, RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
 import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { DateLabel, EditedIcon, PeriodLabel } from '@navikt/ft-ui-komponenter';
@@ -84,7 +84,7 @@ export const VurderAktiviteterTabellRad = ({
           <HStack gap="2" align="center">
             <DateLabel dateString={aktivitet.fom} />
             <span>-</span>
-            <Datepicker
+            <RhfDatepicker
               name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.tom`}
               validate={[required, hasValidDate, dateAfterOrEqual(aktivitet.fom)]}
               isReadOnly={readOnly}
@@ -95,7 +95,7 @@ export const VurderAktiviteterTabellRad = ({
         )}
       </Table.DataCell>
       <Table.DataCell>
-        <RadioGroupPanel
+        <RhfRadioGroup
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
           label={intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.Benytt' })}
           validate={[required]}
@@ -121,7 +121,7 @@ export const VurderAktiviteterTabellRad = ({
         />
       </Table.DataCell>
       <Table.DataCell>
-        <RadioGroupPanel
+        <RhfRadioGroup
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
           label={intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.IkkeBenytt' })}
           validate={[required]}

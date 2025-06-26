@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, HStack, VStack } from '@navikt/ds-react';
 
-import { Datepicker, InputField } from '@navikt/ft-form-hooks';
+import { RhfDatepicker, RhfTextField } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, hasValidDate, maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
 import { BTag, dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -88,7 +88,7 @@ export const VurderEndringRefusjonRad = ({
             <FormattedMessage id="BeregningInfoPanel.RefusjonBG.RefusjonFra" />
           </BodyShort>
         </div>
-        <Datepicker
+        <RhfDatepicker
           name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelRefusjonsstart(refusjonAndel)}`}
           isReadOnly={readOnly}
           validate={
@@ -104,7 +104,7 @@ export const VurderEndringRefusjonRad = ({
               <FormattedMessage id="BeregningInfoPanel.RefusjonBG.DelvisPrMnd" />
             </BodyShort>
           </div>
-          <InputField
+          <RhfTextField
             name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelDelvisRefusjon(refusjonAndel)}`}
             className={styles.bredde}
             validate={readOnly ? [] : [required, maxValueFormatted(refusjonAndel.maksTillattDelvisRefusjonPrMnd)]}

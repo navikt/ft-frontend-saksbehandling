@@ -3,7 +3,7 @@ import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { List, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import {
@@ -69,7 +69,7 @@ const mottarYtelseArbeidsforholdRadioAndInputs = (
 ): React.ReactNode => {
   const key = utledArbeidsforholdFieldName(andel);
   return (
-    <RadioGroupPanel
+    <RhfRadioGroup
       key={key}
       label={
         <VStack gap="2">
@@ -150,7 +150,7 @@ export const VurderMottarYtelseForm = ({
   return (
     <>
       {erFrilans && !erATFLSammeOrg(tilfeller) && (
-        <RadioGroupPanel
+        <RhfRadioGroup
           label={
             <VStack gap="2">
               <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />

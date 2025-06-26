@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort } from '@navikt/ds-react';
 
-import { InputField } from '@navikt/ft-form-hooks';
+import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
@@ -43,7 +43,7 @@ export const AksjonspunktBehandlerFL = ({
     <BodyShort size="small">
       <FormattedMessage id="AksjonspunktBehandlerFL.Label" />
     </BodyShort>
-    <InputField
+    <RhfTextField
       name={`${formName}.${fieldIndex}.inntektFrilanser`}
       validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
       readOnly={readOnly}
