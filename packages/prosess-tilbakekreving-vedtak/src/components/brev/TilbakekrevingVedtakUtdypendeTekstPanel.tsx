@@ -5,7 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { PlusCircleIcon } from '@navikt/aksel-icons';
 import { Detail } from '@navikt/ds-react';
 
-import { TextAreaField } from '@navikt/ft-form-hooks';
+import { RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 
 import styles from './tilbakekrevingVedtakUtdypendeTekstPanel.module.css';
@@ -25,7 +25,10 @@ export interface Props {
 
 export const TilbakekrevingVedtakUtdypendeTekstPanel = ({ type, readOnly, fritekstPakrevet, maximumLength }: Props) => {
   const intl = useIntl();
-  const { watch } = useFormContext();
+
+  // TODO (TOR) Type manglar
+  const { watch, control } = useFormContext();
+
   const isEmpty = watch(type) === undefined;
 
   const [isTextfieldHidden, hideTextField] = useState(isEmpty && !fritekstPakrevet);
@@ -60,8 +63,9 @@ export const TilbakekrevingVedtakUtdypendeTekstPanel = ({ type, readOnly, fritek
         </>
       )}
       {!isTextfieldHidden && (
-        <TextAreaField
+        <RhfTextarea
           name={type}
+          control={control}
           label={intl.formatMessage({ id: 'TilbakekrevingVedtakUtdypendeTekstPanel.UtdypendeTekst' })}
           validate={valideringsRegler}
           maxLength={maximumLength || 4000}

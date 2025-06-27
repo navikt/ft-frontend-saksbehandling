@@ -1,4 +1,7 @@
-export const getValidationRules = (validate: ((value: any) => any)[]) =>
+//TODO (TOR) Trur ein bør fjerna undefined her
+export type ValidationReturnType = string | null | undefined;
+
+export const getValidationRules = (validate: ((value: any) => ValidationReturnType)[]) =>
   validate.reduce(
     (acc, fn, index) => ({
       ...acc,

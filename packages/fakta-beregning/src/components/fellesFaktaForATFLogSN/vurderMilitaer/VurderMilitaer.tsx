@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { List, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregning } from '@navikt/ft-types';
 
@@ -28,7 +28,7 @@ export const VurderMilitaer = ({ readOnly }: Props) => {
   const intl = useIntl();
 
   return (
-    <RadioGroupPanel
+    <RhfRadioGroup
       label={
         <VStack gap="2">
           <FormattedMessage id="BeregningInfoPanel.VurderMilitaer.HarSøkerMilitærinntekt" />

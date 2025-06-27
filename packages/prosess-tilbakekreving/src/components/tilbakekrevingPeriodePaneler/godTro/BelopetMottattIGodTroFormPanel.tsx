@@ -2,7 +2,7 @@ import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { BodyShort, VStack } from '@navikt/ds-react';
 
-import { InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup, RhfTextField } from '@navikt/ft-form-hooks';
 import { minValue, required } from '@navikt/ft-form-validators';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -17,8 +17,9 @@ const parseCurrencyInput = (input: string | number) => {
   return Number.isNaN(parsedValue) ? '' : parsedValue;
 };
 
-const validerAtMindreEnn = (intl: IntlShape, feilutbetalingBelop: number) => (tilbakekrevdBelop: number) => {
-  if (tilbakekrevdBelop > feilutbetalingBelop) {
+const validerAtMindreEnn = (intl: IntlShape, feilutbetalingBelop: number) => (tilbakekrevdBelop: number | string) => {
+  const numericValue = typeof tilbakekrevdBelop === 'string' ? Number(tilbakekrevdBelop) : tilbakekrevdBelop;
+  if (numericValue > feilutbetalingBelop) {
     return intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.BelopKanIkkeVereStorreEnnFeilutbetalingen' });
   }
   return undefined;
@@ -40,7 +41,7 @@ export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehol
   const intl = useIntl();
   return (
     <VStack gap="2">
-      <RadioGroupPanel
+      <RhfRadioGroup
         name={`${name}.erBelopetIBehold`}
         label={<FormattedMessage id="BelopetMottattIGodTroFormPanel.BelopetIBehold" />}
         validate={[required]}
@@ -61,7 +62,7 @@ export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehol
       <div className={styles.arrowbox}>
         {erBelopetIBehold === true && (
           <ArrowBox alignOffset={25}>
-            <InputField
+            <RhfTextField
               name={`${name}.tilbakekrevdBelop`}
               label={<FormattedMessage id="BelopetMottattIGodTroFormPanel.AngiBelop" />}
               validate={[required, minValue1, validerAtMindreEnn(intl, feilutbetalingBelop)]}

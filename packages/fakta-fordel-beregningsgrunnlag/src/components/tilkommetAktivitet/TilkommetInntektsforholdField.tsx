@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Alert, Label, ReadMore, VStack } from '@navikt/ds-react';
 
-import { InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup, RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
@@ -18,7 +18,7 @@ import { getAktivitetNavnFraField } from './TilkommetAktivitetUtils';
 
 import styles from './tilkommetAktivitet.module.css';
 
-const inntektStørreEnn0 = (inntekt: number) =>
+const inntektStørreEnn0 = (inntekt: number | string) =>
   removeSpacesFromNumber(inntekt) > 0
     ? null
     : `Du kan ikke registrere 0,- i inntekt, da dette ikke vil medføre gradering mot inntekt. 
@@ -135,9 +135,10 @@ export const TilkommetInntektsforholdField = ({
 
   return (
     <VStack gap="4">
-      <RadioGroupPanel
-        label={getRadioGroupLabel()}
+      <RhfRadioGroup
         name={`${formName}.${formFieldIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.skalRedusereUtbetaling`}
+        control={formMethods.control}
+        label={getRadioGroupLabel()}
         radios={[
           { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Ja' }) },
           { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Nei' }) },
@@ -162,8 +163,9 @@ export const TilkommetInntektsforholdField = ({
             </ReadMore>
           </VStack>
           <div className={styles.bruttoInntektContainer}>
-            <InputField
+            <RhfTextField
               name={`${formName}.${formFieldIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.bruttoInntektPrÅr`}
+              control={formMethods.control}
               label="Fastsett årsinntekt"
               hideLabel
               readOnly={readOnly}

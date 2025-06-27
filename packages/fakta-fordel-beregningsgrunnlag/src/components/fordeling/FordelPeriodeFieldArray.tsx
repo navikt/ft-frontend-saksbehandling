@@ -5,7 +5,7 @@ import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { Button, Checkbox, Detail, ErrorMessage, Label, Table } from '@navikt/ds-react';
 
-import { InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
+import { RhfSelect, RhfTextField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import {
   AktivitetStatus,
@@ -198,10 +198,10 @@ const arbeidsforholdReadOnlyOrSelect = (
 ): ReactElement => (
   <>
     {!fields[index].nyAndel && (
-      <InputField name={`${lagFeltNavn(index)}.andel`} className={styles.storBredde} readOnly />
+      <RhfTextField name={`${lagFeltNavn(index)}.andel`} className={styles.storBredde} readOnly />
     )}
     {fields[index].nyAndel && (
-      <SelectField
+      <RhfSelect
         name={`${lagFeltNavn(index)}.andel`}
         className={styles.storBredde}
         label=""
@@ -226,7 +226,7 @@ const grunnlagInputKolonne = (
     return (
       <Table.DataCell>
         <FloatRight>
-          <InputField
+          <RhfTextField
             name={`${fieldNavn}.readOnlyBelop`}
             className={styles.litenBredde}
             parse={parseCurrencyInput}
@@ -240,7 +240,7 @@ const grunnlagInputKolonne = (
   return (
     <Table.DataCell className={styles.rightAlignInput}>
       <FloatRight>
-        <InputField
+        <RhfTextField
           name={`${fieldNavn}.fastsattBelop`}
           parse={parseCurrencyInput}
           readOnly={readOnly}
@@ -280,7 +280,7 @@ const tittelKolonne = (
     )}
     {!isSelvstendigOrFrilanser(fields[index]) && (
       <div className={styles.wordwrap}>
-        <InputField
+        <RhfTextField
           name={`${lagFeltNavn(index)}.arbeidsperiodeFom - ${lagFeltNavn(index)}.arbeidsperiodeTom`}
           readOnly
         />
@@ -293,7 +293,7 @@ const graderingKolonne = (gjelderGradering: boolean, fieldNavn: string): ReactEl
   if (!gjelderGradering) return null;
   return (
     <Table.DataCell>
-      <InputField
+      <RhfTextField
         name={`${fieldNavn}.andelIArbeid`}
         readOnly
         className={styles.litenBredde}
@@ -313,7 +313,7 @@ const refusjonKolonne = (
     className={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon ? undefined : styles.rightAlignInput}
   >
     <FloatRight>
-      <InputField
+      <RhfTextField
         name={`${lagFeltNavn(index)}.refusjonskrav`}
         readOnly={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon}
         parse={parseCurrencyInput}
@@ -326,7 +326,7 @@ const refusjonKolonne = (
 
 const grunnlagKolonne = (fieldNavn: string): ReactElement => (
   <Table.DataCell>
-    <InputField
+    <RhfTextField
       name={`${fieldNavn}.beregningsgrunnlagPrAar`}
       className={styles.litenBredde}
       readOnly
@@ -342,7 +342,7 @@ const inntektskategoriKolonne = (
 ): ReactElement => (
   <Table.DataCell className={skalIkkeEndres ? styles.shortLeftAligned : undefined}>
     <FloatRight>
-      <SelectField
+      <RhfSelect
         label=""
         name={`${fieldNavn}.inntektskategori`}
         className={styles.storBredde}

@@ -101,21 +101,26 @@ export const maxLength =
 
 export const minValue =
   (length: number) =>
-  (number: number): FormValidationResult =>
-    number >= length ? null : minValueMessage(length);
+  (number: number | string): FormValidationResult =>
+    getNumberFromText(number) >= length ? null : minValueMessage(length);
+
 export const maxValue =
   (length: number) =>
-  (number: number): FormValidationResult =>
-    number <= length ? null : maxValueMessage(length);
+  (number: number | string): FormValidationResult =>
+    getNumberFromText(number) <= length ? null : maxValueMessage(length);
 
 export const maxValueFormatted =
   (max: number) =>
-  (number: number): FormValidationResult =>
+  (number: number | string): FormValidationResult =>
     removeSpacesFromNumber(number) <= max ? null : maxValueMessage(max);
 
-export const hasValidOrgNumber = (number: number): FormValidationResult =>
+const getNumberFromText = (number: string | number): number => {
+  return typeof number === 'string' ? Number(number) : number;
+};
+
+export const hasValidOrgNumber = (number: string | number): FormValidationResult =>
   number.toString().trim().length === 9 ? null : invalidOrgNumberMessage();
-export const hasValidOrgNumberOrFodselsnr = (number: number): FormValidationResult =>
+export const hasValidOrgNumberOrFodselsnr = (number: string | number): FormValidationResult =>
   number.toString().trim().length === 9 || number.toString().trim().length === 11
     ? null
     : invalidOrgNumberOrFodselsnrMessage();

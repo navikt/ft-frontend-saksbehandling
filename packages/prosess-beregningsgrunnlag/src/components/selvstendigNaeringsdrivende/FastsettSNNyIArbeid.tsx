@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BodyShort, VStack } from '@navikt/ds-react';
 
-import { InputField, TextAreaField } from '@navikt/ft-form-hooks';
+import { RhfTextarea, RhfTextField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
@@ -62,7 +62,7 @@ export const FastsettSNNyIArbeid = ({
           <BodyShort size="small">
             <FormattedMessage id="FastsettSNNyIArbeid.Tittel" />
           </BodyShort>
-          <InputField
+          <RhfTextField
             name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
             validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
             parse={parseCurrencyInput}
@@ -72,7 +72,7 @@ export const FastsettSNNyIArbeid = ({
           />
         </HorizontalBox>
       )}
-      <TextAreaField
+      <RhfTextarea
         name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
         label={<FormattedMessage id="Forms.VurderingAvFastsattBeregningsgrunnlag" />}
         validate={skalValideres ? [required, maxLength4000, minLength3, hasValidText] : []}

@@ -1,6 +1,6 @@
 import { BodyShort } from '@navikt/ds-react';
 
-import { InputField } from '@navikt/ft-form-hooks';
+import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
@@ -59,7 +59,7 @@ export const AksjonspunktBehandlerAT = ({
           <BodyShort size="small">
             {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling)}
           </BodyShort>
-          <InputField
+          <RhfTextField
             name={`${formName}.${fieldIndex}.inntekt${index}`}
             validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
             readOnly={readOnly}

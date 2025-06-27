@@ -5,7 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { Button, HStack, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { Datepicker, Form, RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
+import { Form, RhfDatepicker, RhfRadioGroup, RhfTextarea } from '@navikt/ft-form-hooks';
 import {
   dateBeforeOrEqualToToday,
   hasValidDate,
@@ -65,16 +65,18 @@ export const ForeldelsePeriodeForm = ({
   return (
     <Form formMethods={formMethods} onSubmit={(values: FormValues) => oppdaterPeriode(values)}>
       <VStack gap="4">
-        <TextAreaField
+        <RhfTextarea
           name="begrunnelse"
+          control={formMethods.control}
           label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.Vurdering' })}
           validate={[required, minLength3, maxLength1500, hasValidText]}
           maxLength={1500}
           readOnly={readOnly}
         />
         <HStack gap="10">
-          <RadioGroupPanel
+          <RhfRadioGroup
             name="foreldet"
+            control={formMethods.control}
             label={<FormattedMessage id="ForeldelsePeriodeForm.RadioGroup.Foreldet" />}
             validate={[required]}
             radios={foreldelseVurderingTyper.map(type => ({
@@ -85,16 +87,18 @@ export const ForeldelsePeriodeForm = ({
           />
           <VStack gap="5">
             {(erForeldet || erMedTilleggsfrist) && (
-              <Datepicker
+              <RhfDatepicker
                 name="foreldelsesfrist"
+                control={formMethods.control}
                 label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.Foreldelsesfrist' })}
                 validate={[required, hasValidDate]}
                 isReadOnly={readOnly}
               />
             )}
             {erMedTilleggsfrist && (
-              <Datepicker
+              <RhfDatepicker
                 name="oppdagelsesDato"
+                control={formMethods.control}
                 label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.OppdagelsesDato' })}
                 validate={[required, hasValidDate, dateBeforeOrEqualToToday]}
                 isReadOnly={readOnly}

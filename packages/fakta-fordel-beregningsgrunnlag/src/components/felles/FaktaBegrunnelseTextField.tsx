@@ -1,6 +1,6 @@
 import { RawIntlProvider } from 'react-intl';
 
-import { TextAreaField } from '@navikt/ft-form-hooks';
+import { RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { createIntl, decodeHtmlEntity } from '@navikt/ft-utils';
@@ -48,7 +48,7 @@ export const FaktaBegrunnelseTextField = ({
     <RawIntlProvider value={intl}>
       {(isSubmittable || hasBegrunnelse) && (
         <div className={styles.begrunnelseTextField}>
-          <TextAreaField
+          <RhfTextarea
             name={name}
             label={isReadOnly ? '' : textAreaLabel}
             validate={isReadOnly ? [] : [required, minLength3, maxLength1500, hasValidText]}

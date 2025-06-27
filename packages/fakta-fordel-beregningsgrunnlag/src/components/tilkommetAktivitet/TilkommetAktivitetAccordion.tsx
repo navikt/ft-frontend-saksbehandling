@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import { Accordion, Label, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { TextAreaField } from '@navikt/ft-form-hooks';
+import { RhfTextarea } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
@@ -139,8 +139,9 @@ export const TilkommetAktivitetAccordion = ({
       {fields.length > 1 && (
         <VStack gap="4" className={styles.aktivitetContainer}>
           <div>
-            <TextAreaField
+            <RhfTextarea
               name={`${formName}.${formFieldIndex}.begrunnelse`}
+              control={formMethods.control}
               label="Begrunnelse for alle perioder"
               readOnly={readOnly}
               validate={[required]}

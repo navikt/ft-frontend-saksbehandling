@@ -1,6 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 
-import { RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { decodeHtmlEntity, removeSpacesFromNumber } from '@navikt/ft-utils';
 
@@ -68,7 +68,7 @@ export const AktsomhetFormPanel = ({
   name,
 }: Props) => (
   <>
-    <RadioGroupPanel
+    <RhfRadioGroup
       name={`${name}.handletUaktsomhetGrad`}
       label={<FormattedMessage id="AktsomhetFormPanel.HandletUaktsomhetGrad" />}
       validate={[required]}

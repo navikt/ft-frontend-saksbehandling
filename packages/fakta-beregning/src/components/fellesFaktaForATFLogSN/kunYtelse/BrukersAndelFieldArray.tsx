@@ -5,7 +5,7 @@ import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { Button, ErrorMessage, Table, VStack } from '@navikt/ds-react';
 
-import { InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
+import { RhfSelect, RhfTextField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -68,7 +68,7 @@ const createAndelerTableRows = (
         <FormattedMessage id="BeregningInfoPanel.FordelingBG.Ytelse" />
       </Table.DataCell>
       <Table.DataCell align="right">
-        <InputField
+        <RhfTextField
           name={`${fieldArrayName}.${index}.fastsattBelop`}
           parse={parseCurrencyInput}
           readOnly={readOnly}
@@ -85,7 +85,7 @@ const createAndelerTableRows = (
         />
       </Table.DataCell>
       <Table.DataCell align="right">
-        <SelectField
+        <RhfSelect
           label={intl.formatMessage(
             {
               id: 'BeregningInfoPanel.FordelingBG.InntektskategoriMedAndelnavn',

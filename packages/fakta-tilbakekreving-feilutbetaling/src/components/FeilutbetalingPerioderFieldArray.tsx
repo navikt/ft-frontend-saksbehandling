@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Table } from '@navikt/ds-react';
 
-import { SelectField } from '@navikt/ft-form-hooks';
+import { RhfSelect } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { BeløpLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
@@ -93,8 +93,9 @@ export const FeilutbetalingPerioderFieldArray = ({
                 <PeriodLabel dateStringFom={periode.fom} dateStringTom={periode.tom} />
               </Table.DataCell>
               <Table.DataCell>
-                <SelectField
+                <RhfSelect
                   name={`${FIELD_ARRAY_NAME}.${index}.årsak`}
+                  control={control}
                   selectValues={årsaker.map(a => (
                     <option key={a.hendelseType} value={a.hendelseType}>
                       {kodeverkSamlingFpTilbake['HendelseType'].find(ht => ht.kode === a.hendelseType)?.navn}
@@ -106,8 +107,10 @@ export const FeilutbetalingPerioderFieldArray = ({
                   label=""
                 />
                 {hendelseUndertyper && (
-                  <SelectField
+                  <RhfSelect
+                    // @ts-expect-error Fiks. Må legge til årsak.underÅrsak i FormValues
                     name={`${FIELD_ARRAY_NAME}.${index}.${årsak}.underÅrsak`}
+                    control={control}
                     selectValues={hendelseUndertyper.map(a => (
                       <option key={a} value={a}>
                         {kodeverkSamlingFpTilbake['HendelseUnderType'].find(hu => hu.kode === a)?.navn}

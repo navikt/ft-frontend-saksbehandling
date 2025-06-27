@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BodyShort, Button, Detail, HStack, Label, VStack } from '@navikt/ds-react';
 
-import { CheckboxField, Form, TextAreaField } from '@navikt/ft-form-hooks';
+import { Form, RhfCheckbox, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { AksjonspunktHelpTextHTML, BeløpLabel, DateLabel, FaktaGruppe, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity, sortPeriodsByFom } from '@navikt/ft-utils';
@@ -196,8 +196,9 @@ export const FeilutbetalingInfoPanel = ({
                   </BodyShort>
                 </VStack>
               </HStack>
-              <CheckboxField
+              <RhfCheckbox
                 name="behandlePerioderSamlet"
+                control={formMethods.control}
                 label={intl.formatMessage({ id: 'FeilutbetalingInfoPanel.BehandlePerioderSamlet' })}
                 readOnly={readOnly}
               />
@@ -291,8 +292,9 @@ export const FeilutbetalingInfoPanel = ({
             </VStack>
           </HStack>
           <div className={styles.textarea}>
-            <TextAreaField
+            <RhfTextarea
               name="begrunnelse"
+              control={formMethods.control}
               label={intl.formatMessage({ id: 'FeilutbetalingInfoPanel.Begrunnelse' })}
               validate={[required, minLength3, maxLength4000, hasValidText]}
               maxLength={MAX_LENGTH}
