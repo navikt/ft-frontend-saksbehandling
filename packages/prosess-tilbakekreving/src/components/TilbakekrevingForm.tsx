@@ -19,7 +19,7 @@ import {
 } from '../types/DetaljerteFeilutbetalingsperioder';
 import { FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
 import { KodeverkMedNavn } from '../types/kodeverkMedNavn';
-import { KodeverkMedNavnTilbakekreving,KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
+import { KodeverkMedNavnTilbakekreving, KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 import { TidslinjePeriode } from '../types/TidslinjePeriode';
 import { VilkårsvurderingAp } from '../types/VilkårsvurderingAp';
 import { VilkårsvurdertePerioderWrapper, VilkårsvurdertPeriode } from '../types/VilkårsvurdertePerioder';

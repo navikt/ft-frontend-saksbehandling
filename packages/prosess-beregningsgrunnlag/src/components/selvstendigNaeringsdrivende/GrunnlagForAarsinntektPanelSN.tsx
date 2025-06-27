@@ -7,8 +7,6 @@ import { AktivitetStatus, PgiType } from '@navikt/ft-kodeverk';
 import { BeregningsgrunnlagAndel, Inntektsgrunnlag, PGIPrÅr, PgiVerdier } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
-const TOM_ARRAY: PGIPrÅr[] = [];
-
 const lagTabellRad = (år: number, pgiVerdier: PgiVerdier[], pgiGrunnlag: PGIPrÅr[]): React.ReactNode => {
   const inntektsgrunnlag = pgiGrunnlag.find(gr => gr.år === år);
   const næringsgrunnlag =
@@ -72,7 +70,7 @@ export const GrunnlagForAarsinntektPanelSN = ({ alleAndeler, inntektsgrunnlag }:
       a.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE ||
       a.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL,
   );
-  const pgiGrunlag = inntektsgrunnlag?.pgiGrunnlag || TOM_ARRAY;
+  const pgiGrunlag = inntektsgrunnlag?.pgiGrunnlag || [];
   if (!andel || !andel.pgiSnitt || !andel.pgiVerdier) {
     return null;
   }

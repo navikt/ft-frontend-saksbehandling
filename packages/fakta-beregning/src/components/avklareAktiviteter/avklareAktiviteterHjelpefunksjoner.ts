@@ -10,26 +10,22 @@ import { BeregningAktiviteterTransformedValues } from '../../typer/interface/Ber
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { Vilkårperiode } from '../../typer/Vilkår';
-import { hasAksjonspunkt, hasOpenAksjonspunkt } from '../../utils/aksjonspunktUtils';
+import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { VurderAktiviteterPanel } from './VurderAktiviteterPanel';
 
 const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
-export const harAvklaringsbehovSomKanLøses = (
+const harAvklaringsbehovSomKanLøses = (
   avklaringsbehovCode: string,
   avklaringsbehov: BeregningAvklaringsbehov[],
 ): boolean => avklaringsbehov.some(ap => ap.definisjon === avklaringsbehovCode && ap.kanLoses);
 
-export const skalKunneLoseAvklaringsbehov = (
+const skalKunneLoseAvklaringsbehov = (
   skalOverstyre: boolean,
   avklaringsbehov: BeregningAvklaringsbehov[],
   erTilVurdering: boolean,
 ) => (skalOverstyre || harAvklaringsbehovSomKanLøses(AVKLAR_AKTIVITETER, avklaringsbehov)) && erTilVurdering;
-
-export const hasOpenAvklarAvklaringsbehov = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
-  hasOpenAksjonspunkt(AVKLAR_AKTIVITETER, avklaringsbehov) ||
-  hasOpenAksjonspunkt(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov);
 
 export const findAvklaringsbehovForAktiviteter = (
   avklaringsbehov: BeregningAvklaringsbehov[],

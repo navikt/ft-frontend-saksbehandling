@@ -6,6 +6,8 @@ import {
   BehandlingArsakType,
   BehandlingResultatType,
   FagsakYtelseType,
+  HendelseType,
+  HendelseUnderType,
   KonsekvensForYtelsen,
   TilbakekrevingVidereBehandling,
 } from '@navikt/ft-kodeverk';
@@ -21,7 +23,7 @@ import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-ui-komponenter/dist/style.css';
 
-const feilutbetalingFakta = {
+const feilutbetalingFakta: FeilutbetalingFakta = {
   behandlingFakta: {
     perioder: [
       {
@@ -58,27 +60,27 @@ const feilutbetalingFakta = {
     },
     datoForRevurderingsvedtak: '2019-01-01',
   },
-} satisfies FeilutbetalingFakta;
+};
 
-const feilutbetalingAarsak = [
+const feilutbetalingAarsak: FeilutbetalingÅrsak[] = [
   {
     ytelseType: FagsakYtelseType.FORELDREPENGER,
     hendelseTyper: [
       {
-        hendelseType: 'MEDLEMSKAP',
+        hendelseType: HendelseType.MEDLEMSKAP,
         hendelseUndertyper: [],
       },
       {
-        hendelseType: 'OKONOMI_FEIL',
-        hendelseUndertyper: ['OKONOMI_FEIL_TREKK'],
+        hendelseType: HendelseType.OKONOMI_FEIL,
+        hendelseUndertyper: [HendelseUnderType.OKONOMI_FEIL_TREKK],
       },
       {
-        hendelseType: 'BEREGNING_TYPE',
-        hendelseUndertyper: ['IKKE_BOSATT'],
+        hendelseType: HendelseType.FP_BEREGNING_TYPE,
+        hendelseUndertyper: [HendelseUnderType.IKKE_BOSATT],
       },
     ],
   },
-] as FeilutbetalingÅrsak[];
+];
 
 const fpTilbakekrevingAlleKodeverk = alleTilbakekrevingKodeverk as KodeverkTilbakeForPanel;
 const fpSakAlleKodeverk = alleKodeverk as KodeverkForPanel;

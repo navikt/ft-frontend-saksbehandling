@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
 import { alleTilbakekrevingKodeverk, getIntlDecorator } from '@navikt/ft-frontend-storybook-utils';
-import { BehandlingStatus, ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
+import { BehandlingStatus, ForeldelseVurderingType, HendelseType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
 import { Behandling } from '@navikt/ft-types';
 
 import { TilbakekrevingProsessIndex } from './TilbakekrevingProsessIndex';
@@ -19,7 +19,7 @@ import '@navikt/ft-ui-komponenter/dist/style.css';
 
 const withIntl = getIntlDecorator(messages);
 
-const perioderForeldelse = {
+const perioderForeldelse: FeilutbetalingPerioderWrapper = {
   perioder: [
     {
       fom: '2019-01-01',
@@ -34,9 +34,9 @@ const perioderForeldelse = {
       foreldelseVurderingType: ForeldelseVurderingType.FORELDET,
     },
   ],
-} as FeilutbetalingPerioderWrapper;
+};
 
-const defaultVilkarvurderingsperioder = {
+const defaultVilkarvurderingsperioder: DetaljerteFeilutbetalingsperioder = {
   perioder: [
     {
       fom: '2019-01-01',
@@ -44,7 +44,7 @@ const defaultVilkarvurderingsperioder = {
       foreldet: false,
       feilutbetaling: 10,
       årsak: {
-        hendelseType: 'MEDLEMSKAP',
+        hendelseType: HendelseType.MEDLEMSKAP,
       },
       redusertBeloper: [],
       ytelser: [
@@ -56,9 +56,6 @@ const defaultVilkarvurderingsperioder = {
     },
   ],
   rettsgebyr: 1000,
-} as DetaljerteFeilutbetalingsperioder;
-const vilkarvurdering = {
-  vilkarsVurdertePerioder: [],
 };
 
 const meta = {
@@ -75,7 +72,9 @@ const meta = {
     isReadOnly: false,
     setFormData: () => undefined,
     perioderForeldelse,
-    vilkarvurdering,
+    vilkarvurdering: {
+      vilkarsVurdertePerioder: [],
+    },
     beregnBelop: () => Promise.resolve({ perioder: [{ belop: 10000 }, { belop: 12000 }] }),
     alleMerknaderFraBeslutter: {},
     relasjonsRolleType: RelasjonsRolleType.MOR,
@@ -110,11 +109,7 @@ export const MedToPerioder: Story = {
           foreldet: false,
           feilutbetaling: 100,
           årsak: {
-            hendelseType: {
-              kode: 'MEDLEM',
-              kodeverk: '',
-              navn: '§22 Medlemskap',
-            },
+            hendelseType: HendelseType.MEDLEMSKAP,
           },
           redusertBeloper: [],
           ytelser: [
@@ -126,6 +121,6 @@ export const MedToPerioder: Story = {
         },
       ],
       rettsgebyr: 1000,
-    } as DetaljerteFeilutbetalingsperioder,
+    },
   },
 };

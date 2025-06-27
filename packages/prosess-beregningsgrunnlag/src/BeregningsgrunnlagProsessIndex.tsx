@@ -29,8 +29,6 @@ const beregningAksjonspunkter = [
   ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
 ];
 
-const TOM_ARRAY: Beregningsgrunnlag[] = [];
-
 const cx = classNames.bind(styles);
 
 const intl = createIntl(messages);
@@ -104,7 +102,7 @@ export const BeregningsgrunnlagProsessIndex = ({
   formData,
   setFormData,
 }: Props & StandardProsessPanelProps<BeregningAksjonspunktSubmitType[], BeregningFormValues>) => {
-  const listeMedGrunnlag = beregningsgrunnlagListe || TOM_ARRAY;
+  const listeMedGrunnlag = beregningsgrunnlagListe || [];
 
   const skalBrukeSidemeny = listeMedGrunnlag.length > 1;
   listeMedGrunnlag
