@@ -1,4 +1,5 @@
 import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BodyShort, Label, Link, VStack } from '@navikt/ds-react';
@@ -15,6 +16,7 @@ import {
   FaktaBeregningTransformedValues,
 } from '../../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '../eksterneLenker';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
@@ -38,10 +40,13 @@ interface Props {
 export const VurderBesteberegningForm = ({ readOnly, erOverstyrt }: Props) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
+  const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const isReadOnly = readOnly || erOverstyrt;
 
   return (
     <RhfRadioGroup
+      name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`}
+      control={control}
       label={
         <VStack gap="2" justify="space-between">
           <Label size="small">
@@ -54,7 +59,6 @@ export const VurderBesteberegningForm = ({ readOnly, erOverstyrt }: Props) => {
           </BodyShort>
         </VStack>
       }
-      name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`}
       isReadOnly={isReadOnly}
       validate={isReadOnly ? [] : [required]}
       radios={[

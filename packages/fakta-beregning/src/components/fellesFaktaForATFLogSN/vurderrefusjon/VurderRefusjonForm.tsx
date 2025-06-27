@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import { Control, useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ReadMore, VStack } from '@navikt/ds-react';
@@ -10,6 +11,7 @@ import { ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, RefusjonskravSomKommer
 import { formaterArbeidsgiver } from '@navikt/ft-utils';
 
 import { FaktaOmBeregningAksjonspunktValues, VurderRefusjonValues } from '../../../typer/FaktaBeregningTypes';
+import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
@@ -24,6 +26,7 @@ const lagRefusjonskravRadios = (
   readOnly: boolean,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   aktivtBeregningsgrunnlagIndeks: number,
+  control: Control<VurderFaktaBeregningFormValues, any, VurderFaktaBeregningFormValues>,
 ): ReactElement[] =>
   senRefusjonkravListe.map((kravPerArbeidsgiver: RefusjonskravSomKommerForSentListe) => {
     const { arbeidsgiverIdent } = kravPerArbeidsgiver;
@@ -34,6 +37,10 @@ const lagRefusjonskravRadios = (
     return (
       <RhfRadioGroup
         key={arbeidsgiverIdent}
+        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderRefusjonValues.${lagFieldName(
+          arbeidsgiverIdent,
+        )}`}
+        control={control}
         label={
           <VStack gap="2">
             <FormattedMessage
@@ -50,9 +57,6 @@ const lagRefusjonskravRadios = (
             </ReadMore>
           </VStack>
         }
-        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderRefusjonValues.${lagFieldName(
-          arbeidsgiverIdent,
-        )}`}
         validate={[required]}
         isReadOnly={readOnly}
         radios={[
@@ -76,6 +80,7 @@ interface Props {
  * Container komponent. Har ansvar for å sette opp Formen for vurdering av refusjonskrav som har kommet for sent.
  */
 export const VurderRefusjonForm = ({ readOnly, faktaOmBeregning, arbeidsgiverOpplysningerPerId }: Props) => {
+  const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const senRefusjonkravListe = faktaOmBeregning?.refusjonskravSomKommerForSentListe;
   if (!senRefusjonkravListe) {
@@ -86,6 +91,7 @@ export const VurderRefusjonForm = ({ readOnly, faktaOmBeregning, arbeidsgiverOpp
     readOnly,
     arbeidsgiverOpplysningerPerId,
     beregningsgrunnlagIndeks,
+    control,
   );
 };
 
