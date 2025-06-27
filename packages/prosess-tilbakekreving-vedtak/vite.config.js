@@ -1,7 +1,7 @@
 import { mergeConfig } from 'vite';
 import { defineConfig } from 'vitest/config';
 
-import commonConfig from '../../vite.config';
+import commonConfig from '@navikt/ft-config-vite';
 
 import { peerDependencies } from './package.json';
 
@@ -18,4 +18,5 @@ const config = defineConfig({
   },
 });
 
+// eslint-disable-next-line import/no-default-export
 export default mergeConfig(commonConfig, config);

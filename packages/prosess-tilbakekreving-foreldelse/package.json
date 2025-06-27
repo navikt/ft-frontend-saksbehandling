@@ -53,6 +53,9 @@
     "react-intl": "6.x"
   },
   "devDependencies": {
+    "@navikt/ft-config-eslint": "workspace:^",
+    "@navikt/ft-config-typescript": "workspace:^",
+    "@navikt/ft-config-vite": "workspace:^",
     "@navikt/ft-frontend-storybook-utils": "workspace:^",
     "@navikt/ft-frontend-utils-test": "workspace:^",
     "@testing-library/dom": "10.4.0",
