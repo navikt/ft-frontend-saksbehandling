@@ -9,7 +9,7 @@ import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 type Props<T extends FieldValues> = {
   name: string;
   label?: string | ReactNode;
-  validate?: ((value: string | number) => ValidationReturnType)[];
+  validate?: ((value: string) => ValidationReturnType)[] | ((value: number) => ValidationReturnType)[];
   readOnly?: boolean;
   description?: string;
   onBlur?: (value: any) => void;

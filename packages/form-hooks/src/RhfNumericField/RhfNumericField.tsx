@@ -12,7 +12,7 @@ const DECIMAL_REGEXP = /^(\d{1,20}[,.]?(\d{1,10})?)$/;
 type Props<T extends FieldValues> = {
   label?: string | ReactNode;
   hideLabel?: boolean;
-  validate?: Array<(value: string) => ValidationReturnType>;
+  validate?: ((value: string) => ValidationReturnType)[] | ((value: number) => ValidationReturnType)[];
   readOnly?: boolean;
   description?: string;
   autoFocus?: boolean;

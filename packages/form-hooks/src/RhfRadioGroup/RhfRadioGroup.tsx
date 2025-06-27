@@ -13,7 +13,7 @@ import styles from './rhfRadioGroup.module.css';
 
 export interface RadioProps {
   value: string;
-  label: string | ReactNode;
+  label: string | ReactElement;
   disabled?: boolean;
   element?: ReactElement;
 }
