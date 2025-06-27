@@ -2456,7 +2456,7 @@ __metadata:
     "@navikt/aksel-icons": 7.23.1
     "@navikt/ds-css": 7.23.1
     "@navikt/ds-react": 7.23.1
-    "@navikt/ft-form-validators": ^3.2.5
+    "@navikt/ft-form-validators": ^4.0.0
     "@navikt/ft-frontend-utils-test": "workspace:^"
     "@navikt/ft-ui-komponenter": ^4.5.1
     "@navikt/ft-utils": ^3.6.3
@@ -2492,7 +2492,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-form-validators@^3.2.5, @navikt/ft-form-validators@workspace:^, @navikt/ft-form-validators@workspace:packages/form-validators":
+"@navikt/ft-form-validators@^4.0.0, @navikt/ft-form-validators@workspace:^, @navikt/ft-form-validators@workspace:packages/form-validators":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-form-validators@workspace:packages/form-validators"
   dependencies:
