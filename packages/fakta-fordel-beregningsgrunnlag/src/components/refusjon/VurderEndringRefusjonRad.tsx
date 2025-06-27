@@ -37,7 +37,7 @@ const erValgtDatoLikSTP = (stp: string, verdiFraForm?: string): boolean => {
   return new Date(verdiFraForm).getTime() === new Date(stp).getTime();
 };
 
-type Props = {
+interface Props {
   refusjonAndel: RefusjonTilVurderingAndel;
   readOnly: boolean;
   erAksjonspunktÅpent: boolean;
@@ -45,7 +45,7 @@ type Props = {
   skjæringstidspunkt: string;
   formName: string;
   vilkårperiodeFieldIndex: number;
-};
+}
 
 export const VurderEndringRefusjonRad = ({
   refusjonAndel,
@@ -71,8 +71,8 @@ export const VurderEndringRefusjonRad = ({
   const skalKunneFastsetteDelvisRef =
     refusjonAndel.skalKunneFastsetteDelvisRefusjon && refusjonAndel.maksTillattDelvisRefusjonPrMnd;
   return (
-    <VStack>
-      <BodyShort>
+    <VStack gap="2">
+      <BodyShort size="small">
         <FormattedMessage
           id={andelTekst}
           values={{
@@ -82,33 +82,34 @@ export const VurderEndringRefusjonRad = ({
           }}
         />
       </BodyShort>
-      <HStack gap="6">
-        <div className={styles.tekstMidtstilt}>
-          <BodyShort>
-            <FormattedMessage id="BeregningInfoPanel.RefusjonBG.RefusjonFra" />
-          </BodyShort>
-        </div>
+      <HStack align="center" gap="6">
+        <BodyShort as="span" size="small">
+          <FormattedMessage id="BeregningInfoPanel.RefusjonBG.RefusjonFra" />
+        </BodyShort>
         <RhfDatepicker
           name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelRefusjonsstart(refusjonAndel)}`}
           control={formMethods.control}
+          size="small"
           isReadOnly={readOnly}
+          hideLabel
           validate={
             readOnly ? [] : [required, hasValidDate, dateAfterOrEqual(refusjonAndel.tidligsteMuligeRefusjonsdato)]
           }
           isEdited={!!refusjonAndel.fastsattNyttRefusjonskravFom && !erAksjonspunktÅpent}
         />
       </HStack>
+
       {skalKunneFastsetteDelvisRef && !harValgtRefusjonFraStart && !aksjonspunktErLøstUtenDelvisRef && (
-        <HStack gap="6">
-          <div className={styles.tekstMidtstilt}>
-            <BodyShort>
-              <FormattedMessage id="BeregningInfoPanel.RefusjonBG.DelvisPrMnd" />
-            </BodyShort>
-          </div>
+        <HStack align="center" gap="6">
+          <BodyShort as="span" size="small">
+            <FormattedMessage id="BeregningInfoPanel.RefusjonBG.DelvisPrMnd" />
+          </BodyShort>
           <RhfTextField
             name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelDelvisRefusjon(refusjonAndel)}`}
             control={formMethods.control}
             className={styles.bredde}
+            size="small"
+            hideLabel
             validate={readOnly ? [] : [required, maxValueFormatted(refusjonAndel.maksTillattDelvisRefusjonPrMnd)]}
             parse={parseCurrencyInput}
             readOnly={readOnly}

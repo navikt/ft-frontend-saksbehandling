@@ -107,7 +107,7 @@ const transformValues = (
   };
 };
 
-type Props = {
+interface Props {
   aktivtBeregningsgrunnlagIndeks: number;
   submitCallback: (aksjonspunktData: VurderRefusjonAksjonspunktSubmitType) => Promise<void>;
   readOnly: boolean;
@@ -118,7 +118,7 @@ type Props = {
   formData?: VurderRefusjonFormValues;
   setFormData: (data: VurderRefusjonFormValues) => void;
   setRefusjonFormIsDirty: (isDirty: boolean) => void;
-};
+}
 
 export const VurderEndringRefusjonForm = ({
   aktivtBeregningsgrunnlagIndeks,

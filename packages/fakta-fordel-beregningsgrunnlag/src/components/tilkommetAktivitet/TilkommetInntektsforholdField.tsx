@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { Alert, Label, ReadMore, VStack } from '@navikt/ds-react';
+import { Alert, ReadMore, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup, RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
@@ -14,18 +14,18 @@ import {
   TilkommetAktivitetFormValues,
   TilkommetInntektsforholdFieldValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { getAktivitetNavnFraField } from './TilkommetAktivitetUtils';
+import { getAktivitetNavnFraField } from './tilkommetAktivitetUtils';
 
 import styles from './tilkommetAktivitet.module.css';
 
 const inntektStørreEnn0 = (inntekt: number | string) =>
   removeSpacesFromNumber(inntekt) > 0
     ? null
-    : `Du kan ikke registrere 0,- i inntekt, da dette ikke vil medføre gradering mot inntekt. 
+    : `Du kan ikke registrere 0 kr i inntekt, da dette ikke vil medføre gradering mot inntekt. 
        Hvis arbeidsforholdet ikke medfører inntekter enda, men kanskje vil det senere, velger du nei. 
        Informer også bruker om at de må melde fra hvis de begynner å jobbe for denne arbeidsgiveren.`;
 
-type Props = {
+interface Props {
   formName: string;
   formFieldIndex: number;
   periodeFieldIndex: number;
@@ -33,7 +33,7 @@ type Props = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   inntektsforholdFieldIndex: number;
   field: TilkommetInntektsforholdFieldValues;
-};
+}
 
 export const TilkommetInntektsforholdField = ({
   formName,
@@ -52,22 +52,6 @@ export const TilkommetInntektsforholdField = ({
 
   const lagHjelpetekst = (): ReactElement => {
     switch (field.aktivitetStatus) {
-      case AktivitetStatus.ARBEIDSTAKER:
-        return (
-          <>
-            Her skal du fastsette den inntekten bruker ville hatt fremover ved fullt arbeid i sin «normalarbeidstid».
-            Dette vurderes helhetlig ut fra opplysninger fra inntektsmelding, a-inntekt eller fra bruker selv. <br />
-            <br />
-            Det er viktig at det er samsvar mellom forventet inntekt sett opp mot den normalarbeidstiden bruker ville
-            hatt hvis de jobbet fullt. Bruk opplysninger om arbeidstid i Aa-reg og fra søknaden.
-            <br />
-            <br /> Er du usikker på arbeidstid og/eller inntekt, må du kontakte bruker for avklaring. Spesielt ved
-            varierende inntekt og arbeidstid, kan det være behov for å utrede inntektsforholdet. Du kan for eksempel be
-            om arbeidskontrakt, innbetalt forskuddsskatt, foreløpig resultatregnskap og lignende.
-            <br />
-            <br /> Husk å begrunne fastsatt inntekt for alle periodene.
-          </>
-        );
       case AktivitetStatus.FRILANSER:
         return (
           <>
@@ -153,29 +137,21 @@ export const TilkommetInntektsforholdField = ({
         </Alert>
       )}
       {skalRedusereValg && (
-        <>
-          <VStack gap="1">
-            <Label size="small">
-              <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Fastsett" />
-            </Label>
-            <ReadMore header={<FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.LesMer" />}>
+        <RhfTextField
+          name={`${formName}.${formFieldIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.bruttoInntektPrÅr`}
+          control={formMethods.control}
+          className={styles.inputAlignRight}
+          label={<FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Fastsett" />}
+          description={
+            <ReadMore size="small" header={<FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.LesMer" />}>
               {lagHjelpetekst()}
             </ReadMore>
-          </VStack>
-          <div className={styles.bruttoInntektContainer}>
-            <RhfTextField
-              name={`${formName}.${formFieldIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.bruttoInntektPrÅr`}
-              control={formMethods.control}
-              label="Fastsett årsinntekt"
-              hideLabel
-              readOnly={readOnly}
-              htmlSize={9}
-              parse={parseCurrencyInput}
-              validate={[required, maxValueFormatted(178956970), inntektStørreEnn0]}
-            />
-            <span className={styles.bruttoInntektCurrency}>kr</span>
-          </div>
-        </>
+          }
+          readOnly={readOnly}
+          htmlSize={9}
+          parse={parseCurrencyInput}
+          validate={[required, maxValueFormatted(178956970), inntektStørreEnn0]}
+        />
       )}
     </VStack>
   );

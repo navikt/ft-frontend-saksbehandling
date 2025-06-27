@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
+import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { Tabs, VStack } from '@navikt/ds-react';
 
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardFaktaPanelProps } from '@navikt/ft-types';
@@ -88,7 +89,7 @@ export const FordelBeregningsgrunnlagFaktaIndex = ({
 
   return (
     <RawIntlProvider value={intl}>
-      <VStack gap="2">
+      <VStack gap="2" maxWidth="800px">
         {skalBrukeTabs && (
           <Tabs
             value={aktivtBeregningsgrunnlagIndeks.toString()}
@@ -97,14 +98,18 @@ export const FordelBeregningsgrunnlagFaktaIndex = ({
             <Tabs.List>
               {bgMedAvklaringsbehov.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => (
                 <Tabs.Tab
+                  icon={
+                    skalVurderes(
+                      currentBeregningsgrunnlag,
+                      beregningsgrunnlagVilkår.perioder,
+                      skalHåndtereNyInntekt,
+                    ) ? (
+                      <ExclamationmarkTriangleFillIcon color="var(--a-icon-warning)" />
+                    ) : undefined
+                  }
                   key={currentBeregningsgrunnlag.skjaeringstidspunktBeregning}
                   value={currentBeregningsgrunnlagIndex.toString()}
                   label={lagLabel(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder)}
-                  className={
-                    skalVurderes(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder, skalHåndtereNyInntekt)
-                      ? 'harAksjonspunkt'
-                      : ''
-                  }
                 />
               ))}
             </Tabs.List>

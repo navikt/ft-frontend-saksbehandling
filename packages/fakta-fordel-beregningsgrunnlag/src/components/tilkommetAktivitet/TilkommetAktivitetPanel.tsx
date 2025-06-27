@@ -25,7 +25,7 @@ const finnAktivitetStatus = (
     ),
   );
 
-type Props = {
+interface Props {
   formName: string;
   beregningsgrunnlag: Beregningsgrunnlag;
   formFieldIndex: number;
@@ -33,7 +33,7 @@ type Props = {
   submittable: boolean;
   erAksjonspunktÅpent: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-};
+}
 
 export const TilkommetAktivitetPanel = ({
   formName,

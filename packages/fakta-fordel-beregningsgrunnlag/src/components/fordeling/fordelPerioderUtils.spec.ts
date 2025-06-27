@@ -6,7 +6,7 @@ import {
   FordelBeregningsgrunnlagPeriode,
 } from '@navikt/ft-types';
 
-import { lagPerioderForSubmit, slaaSammenPerioder as slåSammenPerioder } from './FordelPerioderUtils';
+import { lagPerioderForSubmit, slåSammenPerioder } from './fordelPerioderUtils';
 
 const arbeidsforhold1 = {
   arbeidsforholdId: undefined,
@@ -47,7 +47,7 @@ const fordelAndel2 = {
   nyttArbeidsforhold: true,
 } satisfies FordelBeregningsgrunnlagAndel;
 
-describe('<FordelBeregningsgrunnlagForm>', () => {
+describe('fordelPerioderUtils', () => {
   it('skal returnere liste med en periode om kun en periode i grunnlag', () => {
     const perioder = [
       {
