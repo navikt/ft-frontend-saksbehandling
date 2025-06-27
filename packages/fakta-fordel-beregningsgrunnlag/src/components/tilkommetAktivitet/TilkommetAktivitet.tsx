@@ -31,9 +31,7 @@ import {
 import { Vilkårperiode } from '../../types/Vilkår';
 import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
 import { TilkommetAktivitetPanel } from './TilkommetAktivitetPanel';
-import { erVurdertTidligere, slaaSammenPerioder } from './TilkommetAktivitetUtils';
-
-import styles from './tilkommetAktivitet.module.css';
+import { erVurdertTidligere, slaaSammenPerioder } from './tilkommetAktivitetUtils';
 
 dayjs.extend(isBetween);
 const { VURDER_NYTT_INNTKTSFRHLD } = FaktaFordelBeregningAvklaringsbehovCode;
@@ -188,7 +186,7 @@ const transformValues = (
   };
 };
 
-type Props = {
+interface Props {
   aktivtBeregningsgrunnlagIndeks: number;
   formData?: TilkommetAktivitetFormValues;
   setFormData: (data: TilkommetAktivitetFormValues) => void;
@@ -199,7 +197,7 @@ type Props = {
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkarperioder: Vilkårperiode[];
   setTilkommetAktivitetFormIsDirty: (isDirty: boolean) => void;
-};
+}
 
 export const TilkommetAktivitet = ({
   aktivtBeregningsgrunnlagIndeks,
@@ -246,46 +244,44 @@ export const TilkommetAktivitet = ({
 
   return (
     <ErrorBoundary errorMessage="Noe gikk galt ved visning av tilkommet aktivitet">
-      <div className={styles.tilkommetAktivitet}>
-        <Form
-          formMethods={formMethods}
-          onSubmit={values => {
-            if (Object.keys(errors).length === 0) {
-              submitCallback(transformValues(values, beregningsgrunnlagListe, vilkarperioder));
-            }
-          }}
-          setDataOnUnmount={setFormData}
-        >
-          {fields.map((field, formFieldIndex) => {
-            const beregningsgrunnlagIndeks = beregningsgrunnlagListe.findIndex(
-              bg => bg.skjaeringstidspunktBeregning === field.beregningsgrunnlagStp,
-            );
+      <Form
+        formMethods={formMethods}
+        onSubmit={values => {
+          if (Object.keys(errors).length === 0) {
+            submitCallback(transformValues(values, beregningsgrunnlagListe, vilkarperioder));
+          }
+        }}
+        setDataOnUnmount={setFormData}
+      >
+        {fields.map((field, formFieldIndex) => {
+          const beregningsgrunnlagIndeks = beregningsgrunnlagListe.findIndex(
+            bg => bg.skjaeringstidspunktBeregning === field.beregningsgrunnlagStp,
+          );
 
-            return (
-              <div
-                key={field.id}
-                style={{ display: beregningsgrunnlagIndeks === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none' }}
-              >
-                <TilkommetAktivitetPanel
-                  formName={FORM_NAME}
-                  beregningsgrunnlag={beregningsgrunnlagListe[beregningsgrunnlagIndeks]}
-                  formFieldIndex={formFieldIndex}
-                  readOnly={
-                    readOnly ||
-                    !vurderesIBehandlingen(
-                      vilkarperioder,
-                      beregningsgrunnlagListe[beregningsgrunnlagIndeks].vilkårsperiodeFom,
-                    )
-                  }
-                  submittable={submittable}
-                  erAksjonspunktÅpent={erAksjonspunktÅpent}
-                  arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-                />
-              </div>
-            );
-          })}
-        </Form>
-      </div>
+          return (
+            <div
+              key={field.id}
+              style={{ display: beregningsgrunnlagIndeks === aktivtBeregningsgrunnlagIndeks ? 'block' : 'none' }}
+            >
+              <TilkommetAktivitetPanel
+                formName={FORM_NAME}
+                beregningsgrunnlag={beregningsgrunnlagListe[beregningsgrunnlagIndeks]}
+                formFieldIndex={formFieldIndex}
+                readOnly={
+                  readOnly ||
+                  !vurderesIBehandlingen(
+                    vilkarperioder,
+                    beregningsgrunnlagListe[beregningsgrunnlagIndeks].vilkårsperiodeFom,
+                  )
+                }
+                submittable={submittable}
+                erAksjonspunktÅpent={erAksjonspunktÅpent}
+                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+              />
+            </div>
+          );
+        })}
+      </Form>
     </ErrorBoundary>
   );
 };

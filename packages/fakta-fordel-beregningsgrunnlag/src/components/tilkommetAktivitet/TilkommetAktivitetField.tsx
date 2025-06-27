@@ -2,7 +2,7 @@ import React from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Table, Tag, VStack } from '@navikt/ds-react';
+import { HStack, Table, Tag, VStack } from '@navikt/ds-react';
 
 import { RhfTextarea } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -16,12 +16,12 @@ import { BeløpLabel, EditedIcon, PeriodLabel } from '@navikt/ft-ui-komponenter'
 
 import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { SubmitButton } from '../felles/SubmitButton';
-import { getAktivitetNavnFraInnteksforhold } from './TilkommetAktivitetUtils';
+import { getAktivitetNavnFraInnteksforhold } from './tilkommetAktivitetUtils';
 import { TilkommetInntektsforholdField } from './TilkommetInntektsforholdField';
 
 import styles from './tilkommetAktivitet.module.css';
 
-type Props = {
+interface Props {
   formName: string;
   vurderInntektsforholdPeriode: VurderInntektsforholdPeriode;
   formFieldIndex: number;
@@ -32,7 +32,7 @@ type Props = {
   erAksjonspunktÅpent: boolean;
   skalViseBegrunnelse: boolean;
   avklaringsbehov?: BeregningAvklaringsbehov;
-};
+}
 
 const erDefinert = (tall?: number) => !!tall && +tall > 0;
 
@@ -62,103 +62,83 @@ export const TilkommetAktivitetField = ({
     inntektsforhold => !!inntektsforhold.periode,
   );
 
-  const getInntektsforholdTableRows = (inntektsforholdPeriode: VurderInntektsforholdPeriode): React.ReactElement[] => {
-    const tableRows: React.ReactElement[] = [];
-    const { inntektsforholdListe } = inntektsforholdPeriode;
-    inntektsforholdListe.forEach(inntektsforhold => {
-      const harBruttoInntekt = erDefinert(inntektsforhold.bruttoInntektPrÅr);
-      const harInntektsmelding = erDefinert(inntektsforhold.inntektFraInntektsmeldingPrÅr);
-
-      tableRows.push(
-        <Table.Row key={inntektsforhold.arbeidsgiverId ?? inntektsforhold.aktivitetStatus}>
-          <Table.DataCell>
-            <BodyShort size="small">
-              {getAktivitetNavnFraInnteksforhold(inntektsforhold, arbeidsgiverOpplysningerPerId)}
-            </BodyShort>
-          </Table.DataCell>
-          {(harBruttoInntekt || harInntektsmelding || harInntektsforholdMedPeriode) && (
-            <Table.DataCell className={styles.inntektColumn}>
-              <BodyShort size="small">
-                {harBruttoInntekt && !harInntektsmelding && (
-                  <>
-                    <BeløpLabel beløp={inntektsforhold.bruttoInntektPrÅr ?? 0} kr />
-                    <EditedIcon />
-                  </>
-                )}
-                {harInntektsmelding && (
-                  <>
-                    <BeløpLabel beløp={inntektsforhold.inntektFraInntektsmeldingPrÅr ?? 0} kr />
-                    <Tag className={styles.inntektsmeldingTag} variant="neutral" size="xsmall">
-                      IM
-                    </Tag>
-                  </>
-                )}
-              </BodyShort>
-            </Table.DataCell>
-          )}
-          {inntektsforhold.periode && (
-            <Table.DataCell className={styles.periodeColumn}>
-              <BodyShort size="small">
-                <PeriodLabel dateStringFom={inntektsforhold.periode.fom} dateStringTom={inntektsforhold.periode.tom} />
-              </BodyShort>
-            </Table.DataCell>
-          )}
-        </Table.Row>,
-      );
-    });
-    return tableRows;
-  };
   return (
     <VStack gap="4">
-      <div className={styles.aktivitetContainer}>
-        <Table className={styles.aktivitetTable}>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell scope="col">
-                <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Aktivitet" />
+      <Table className={styles.table}>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell scope="col" textSize="small">
+              <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Aktivitet" />
+            </Table.HeaderCell>
+            {harInntektsforholdMedÅrsinntekt && (
+              <Table.HeaderCell scope="col" align="right" textSize="small">
+                <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Årsinntekt" />
               </Table.HeaderCell>
-              {harInntektsforholdMedÅrsinntekt && (
-                <Table.HeaderCell scope="col">
-                  <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Årsinntekt" />
-                </Table.HeaderCell>
-              )}
-              {!harInntektsforholdMedÅrsinntekt && (
-                <Table.HeaderCell scope="col">
-                  <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.TomTekst" />
-                </Table.HeaderCell>
-              )}
-              {harInntektsforholdMedPeriode && (
-                <Table.HeaderCell scope="col">
-                  <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Periode" />
-                </Table.HeaderCell>
-              )}
-              {!harInntektsforholdMedPeriode && (
-                <Table.HeaderCell scope="col">
-                  <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.TomTekst" />
-                </Table.HeaderCell>
-              )}
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>{getInntektsforholdTableRows(vurderInntektsforholdPeriode)}</Table.Body>
-        </Table>
-      </div>
+            )}
+            {harInntektsforholdMedPeriode && (
+              <Table.HeaderCell scope="col" textSize="small">
+                <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Periode" />
+              </Table.HeaderCell>
+            )}
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {vurderInntektsforholdPeriode.inntektsforholdListe.map(inntektsforhold => {
+            const harBruttoInntekt = erDefinert(inntektsforhold.bruttoInntektPrÅr);
+            const harInntektsmelding = erDefinert(inntektsforhold.inntektFraInntektsmeldingPrÅr);
+            return (
+              <Table.Row key={inntektsforhold.arbeidsgiverId ?? inntektsforhold.aktivitetStatus}>
+                <Table.DataCell textSize="small">
+                  {getAktivitetNavnFraInnteksforhold(inntektsforhold, arbeidsgiverOpplysningerPerId)}
+                </Table.DataCell>
+                {harInntektsforholdMedÅrsinntekt && (
+                  <Table.DataCell textSize="small" align="right">
+                    {harBruttoInntekt && !harInntektsmelding && (
+                      <HStack gap="2" justify="end">
+                        <BeløpLabel beløp={inntektsforhold.bruttoInntektPrÅr ?? 0} />
+                        <EditedIcon />
+                      </HStack>
+                    )}
+                    {harInntektsmelding && (
+                      <HStack gap="2" justify="end">
+                        <BeløpLabel beløp={inntektsforhold.inntektFraInntektsmeldingPrÅr ?? 0} />
+                        <Tag variant="neutral" size="xsmall">
+                          IM
+                        </Tag>
+                      </HStack>
+                    )}
+                  </Table.DataCell>
+                )}
+                {harInntektsforholdMedPeriode && (
+                  <Table.DataCell className={styles.periodeColumn} textSize="small">
+                    {inntektsforhold.periode && (
+                      <PeriodLabel
+                        dateStringFom={inntektsforhold.periode.fom}
+                        dateStringTom={inntektsforhold.periode.tom}
+                      />
+                    )}
+                  </Table.DataCell>
+                )}
+              </Table.Row>
+            );
+          })}
+        </Table.Body>
+      </Table>
       <VStack
         gap="4"
         className={erAksjonspunktÅpent ? styles.aksjonspunktContainer : styles.aksjonspunktContainerLukketAP}
       >
         {fields.map((field, index) => (
-          <React.Fragment key={field.id}>
-            <TilkommetInntektsforholdField
-              key={field.id}
-              formName={formName}
-              formFieldIndex={formFieldIndex}
-              periodeFieldIndex={periodeFieldIndex}
-              inntektsforholdFieldIndex={index}
-              field={field}
-              readOnly={readOnly}
-              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            />
-          </React.Fragment>
+          <TilkommetInntektsforholdField
+            key={field.id}
+            formName={formName}
+            formFieldIndex={formFieldIndex}
+            periodeFieldIndex={periodeFieldIndex}
+            inntektsforholdFieldIndex={index}
+            field={field}
+            readOnly={readOnly}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          />
         ))}
         {skalViseBegrunnelse && (
           <>

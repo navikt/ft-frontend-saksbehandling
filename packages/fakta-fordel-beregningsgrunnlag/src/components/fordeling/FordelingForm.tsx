@@ -29,7 +29,7 @@ import { BEGRUNNELSE_FORDELING_NAME, FordelingField } from './FordelingField';
 
 const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAvklaringsbehovCode;
 
-export const FORM_NAME = 'FORDEL_BEREGNING_FORM';
+const FORM_NAME = 'FORDEL_BEREGNING_FORM';
 
 const finnFordelPerioder = (bg: Beregningsgrunnlag): FordelBeregningsgrunnlagPeriode[] =>
   bg.faktaOmFordeling?.fordelBeregningsgrunnlag?.fordelBeregningsgrunnlagPerioder ?? [];
@@ -118,11 +118,11 @@ const transformValues = (
   };
 };
 
-function fordelPredicate(bg: Beregningsgrunnlag) {
+const fordelPredicate = (bg: Beregningsgrunnlag) => {
   return bg.avklaringsbehov.some(
     v => v.definisjon === FaktaFordelBeregningAvklaringsbehovCode.FORDEL_BEREGNINGSGRUNNLAG,
   );
-}
+};
 
 const buildInitialValues = (
   beregningsgrunnlagListe: Beregningsgrunnlag[],
@@ -156,11 +156,6 @@ interface Props {
   setFordelingFormIsDirty: (isDirty: boolean) => void;
 }
 
-/**
- * FordelingForm
- *
- * Container komponent. Har ansvar for å sette opp Formen for å fordele beregningsgrunnlag.
- */
 export const FordelingForm = ({
   aktivtBeregningsgrunnlagIndeks,
   readOnly,

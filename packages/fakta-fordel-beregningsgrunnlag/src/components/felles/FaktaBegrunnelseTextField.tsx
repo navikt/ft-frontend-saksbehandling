@@ -14,14 +14,14 @@ const intl = createIntl(messages);
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
 
-type Props = {
+interface Props {
   isReadOnly: boolean;
   isSubmittable: boolean;
   hasBegrunnelse: boolean;
   label?: string;
   hasVurderingText?: boolean;
   name: string;
-};
+}
 
 export type FormValues = {
   [key: string]: any;

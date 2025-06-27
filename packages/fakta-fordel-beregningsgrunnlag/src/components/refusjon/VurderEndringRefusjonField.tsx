@@ -37,14 +37,14 @@ const lagRadNøkkel = (andel: RefusjonTilVurderingAndel): string => {
   return `${andel.arbeidsgiver.arbeidsgiverOrgnr}${andel.internArbeidsforholdRef})`;
 };
 
-type Props = {
+interface Props {
   readOnly: boolean;
   formSubmittes: boolean;
   submittable: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   vilkårperiodeFieldIndex: number;
-};
+}
 
 export const VurderEndringRefusjonField = ({
   submittable,

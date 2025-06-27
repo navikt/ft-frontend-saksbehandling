@@ -12,11 +12,11 @@ export type Periode = {
   tom: string;
 };
 
-type Props = {
+interface Props {
   periode: Periode;
   forhåndsvisPeriodesplitt: (nyFom: string) => Periode[];
   setValgtDato: (dato: string) => void;
-};
+}
 
 export const PeriodesplittDatoValg = ({ periode, forhåndsvisPeriodesplitt, setValgtDato }: Props) => {
   const intl = useIntl();

@@ -18,7 +18,7 @@ import {
   FordelBeregningsgrunnlagFastsatteVerdierTransformedValues,
   FordelBeregningsgrunnlagPeriodeTransformedValues,
 } from '../../types/interface/FordelBeregningsgrunnlagAP';
-import { erPeriodeTilVurdering } from '../util/ForlengelseUtils';
+import { erPeriodeTilVurdering } from '../util/forlengelseUtils';
 
 export const fordelBGFieldArrayNamePrefix = 'fordelBGPeriode';
 
@@ -294,7 +294,7 @@ export const lagPerioderForSubmit = (
       tom: p.tom,
     }));
 
-export const slaaSammenPerioder = (
+export const slåSammenPerioder = (
   perioder: FordelBeregningsgrunnlagPeriode[],
   bgPerioder: BeregningsgrunnlagPeriodeProp[],
   forlengelseperioder?: ForlengelsePeriodeProp[],

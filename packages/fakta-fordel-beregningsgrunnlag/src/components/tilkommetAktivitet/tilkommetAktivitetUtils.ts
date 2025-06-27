@@ -12,7 +12,7 @@ import {
 import { calcDays, formaterArbeidsgiver } from '@navikt/ft-utils';
 
 import { TilkommetInntektsforholdFieldValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { erPeriodeTilVurdering } from '../util/ForlengelseUtils';
+import { erPeriodeTilVurdering } from '../util/forlengelseUtils';
 
 dayjs.extend(isBetween);
 const DATO_PRAKSISENDRING_TILKOMMET_INNTEKT = '2023-05-01';
