@@ -1,0 +1,7 @@
+import{r as t,j as e,M as a,H as m,ae as p,L as h,l as u}from"./iframe-DDl4FSim.js";import{g as x}from"./withIntl-CQakGMYE.js";import{m as M}from"./nb_NO-D4PbtzLx.js";const f="_modalText_lvzd7_1",j={modalText:f},D=u(M),b=2e3,i=({pendingMessage:n})=>{const[l,c]=t.useState(!1);return t.useEffect(()=>{const g=setTimeout(()=>c(!0),b);return()=>clearTimeout(g)},[]),l?e.jsx(a,{width:"small",open:!0,"aria-label":n,onClose:()=>{},children:e.jsx(a.Body,{children:e.jsxs(m,{children:[e.jsx(p,{size:"large"}),e.jsx("div",{className:j.modalText,children:e.jsx(h,{size:"small",children:D.formatMessage({id:"DataFetchPendingModal.LosningenJobberMedBehandlingen"})})})]})})}):null};i.__docgenInfo={description:`DataFetchPendingModal
+
+Denne modalen vises når det går mer enn to sekund å polle etter serverdata.`,methods:[],displayName:"DataFetchPendingModal",props:{pendingMessage:{required:!0,tsType:{name:"string"},description:""}}};const L=x({"DataFetchPendingModal.LosningenJobberMedBehandlingen":"Løsningen jobber med behandlingen..."}),_=n=>e.jsx("div",{style:{width:"200px"},children:e.jsx(n,{})}),T={component:i,decorators:[_,L]},s={args:{pendingMessage:"Henting av data pågår"}};var r,o,d;s.parameters={...s.parameters,docs:{...(r=s.parameters)==null?void 0:r.docs,source:{originalSource:`{
+  args: {
+    pendingMessage: 'Henting av data pågår'
+  }
+}`,...(d=(o=s.parameters)==null?void 0:o.docs)==null?void 0:d.source}}};const w=["Default"];export{s as Default,w as __namedExportsOrder,T as default};
