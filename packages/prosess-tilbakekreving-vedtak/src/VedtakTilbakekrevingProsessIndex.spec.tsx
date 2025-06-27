@@ -8,7 +8,7 @@ import * as stories from './VedtakTilbakekrevingProsessIndex.stories';
 
 const { Default } = composeStories(stories);
 
-describe('<VedtakTilbakekrevingProsessIndex>', () => {
+describe('VedtakTilbakekrevingProsessIndex', () => {
   it('skal fylle ut to obligatoriske felter for periode og så bekrefte', async () => {
     const lagre = vi.fn(() => Promise.resolve());
 
