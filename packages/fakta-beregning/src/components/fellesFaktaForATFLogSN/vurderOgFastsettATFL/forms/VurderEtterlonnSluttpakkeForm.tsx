@@ -1,4 +1,5 @@
 import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ReadMore, VStack } from '@navikt/ds-react';
@@ -14,6 +15,7 @@ import {
 } from '../../../../typer/FaktaBeregningTypes';
 import { InntektTransformed } from '../../../../typer/FieldValues';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
+import { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 
@@ -34,11 +36,15 @@ interface Props {
 }
 
 export const VurderEtterlonnSluttpakkeForm = ({ readOnly }: Props) => {
+  const { control } = useFormContext<VurderFaktaBeregningFormValues>();
+
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
   return (
     <div>
       <RhfRadioGroup
+        name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`}
+        control={control}
         label={
           <VStack gap="2">
             <FormattedMessage id="BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt" />
@@ -50,7 +56,6 @@ export const VurderEtterlonnSluttpakkeForm = ({ readOnly }: Props) => {
             </ReadMore>
           </VStack>
         }
-        name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`}
         validate={[required]}
         isReadOnly={readOnly}
         radios={[

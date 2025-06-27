@@ -91,6 +91,7 @@ export const VurderEndringRefusjonField = ({
       <div>
         <FaktaBegrunnelseTextField
           name={`${FORM_NAME}.${vilkårperiodeFieldIndex}.begrunnelse`}
+          control={formMethods.control}
           isSubmittable={submittable}
           isReadOnly={manglerAksjonspunkt || readOnly}
           hasBegrunnelse={!!begrunnelse}

@@ -96,6 +96,7 @@ export const AvklareAktiviteterField = ({
     resetField,
     watch,
     getValues,
+    control,
     formState: { isSubmitting, errors, dirtyFields },
   } = useFormContext<AvklarAktiviteterFormValues>();
 
@@ -207,6 +208,7 @@ export const AvklareAktiviteterField = ({
         <>
           <FaktaBegrunnelseTextField
             name={`avklarAktiviteterForm.${fieldId}.${BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME}`}
+            control={control}
             isSubmittable={submittable}
             isReadOnly={readOnly}
             hasBegrunnelse={!!avklaringsbehov?.begrunnelse}

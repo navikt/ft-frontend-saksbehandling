@@ -1,5 +1,6 @@
 import React from 'react';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { useFormContext } from 'react-hook-form';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { List, ReadMore, VStack } from '@navikt/ds-react';
 
@@ -23,6 +24,7 @@ import {
   FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues,
 } from '../../../../typer/interface/BeregningFaktaAP';
 import { KodeverkForPanel } from '../../../../typer/KodeverkForPanel';
+import { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import {
@@ -59,18 +61,29 @@ const utledArbeidsforholdUtenIMRadioTekst = (
   );
 };
 
-const mottarYtelseArbeidsforholdRadioAndInputs = (
-  andel: ArbeidstakerUtenIMAndel,
-  readOnly: boolean,
-  kodeverkSamling: KodeverkForPanel,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  aktivtBeregningsgrunnlagIndeks: number,
-  intl: IntlShape,
-): React.ReactNode => {
+interface MottarProps {
+  andel: ArbeidstakerUtenIMAndel;
+  readOnly: boolean;
+  kodeverkSamling: KodeverkForPanel;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  aktivtBeregningsgrunnlagIndeks: number;
+}
+
+const MottarYtelseArbeidsforholdRadioAndInputs = ({
+  andel,
+  readOnly,
+  kodeverkSamling,
+  arbeidsgiverOpplysningerPerId,
+  aktivtBeregningsgrunnlagIndeks,
+}: MottarProps): React.ReactNode => {
+  const intl = useIntl();
+  const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const key = utledArbeidsforholdFieldName(andel);
+
   return (
     <RhfRadioGroup
-      key={key}
+      name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${key}`}
+      control={control}
       label={
         <VStack gap="2">
           {andel.arbeidsforhold &&
@@ -90,7 +103,6 @@ const mottarYtelseArbeidsforholdRadioAndInputs = (
           </ReadMore>
         </VStack>
       }
-      name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${key}`}
       isReadOnly={readOnly}
       radios={[
         { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
@@ -136,6 +148,8 @@ export const VurderMottarYtelseForm = ({
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
 }: Props) => {
+  const { control } = useFormContext<VurderFaktaBeregningFormValues>();
+
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const vurderMottarYtelse = beregningsgrunnlag.faktaOmBeregning
     ? beregningsgrunnlag.faktaOmBeregning.vurderMottarYtelse
@@ -151,6 +165,8 @@ export const VurderMottarYtelseForm = ({
     <>
       {erFrilans && !erATFLSammeOrg(tilfeller) && (
         <RhfRadioGroup
+          name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${frilansFieldName}`}
+          control={control}
           label={
             <VStack gap="2">
               <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
@@ -169,7 +185,6 @@ export const VurderMottarYtelseForm = ({
               </ReadMore>
             </VStack>
           }
-          name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${frilansFieldName}`}
           isReadOnly={readOnly}
           radios={[
             {
@@ -187,16 +202,16 @@ export const VurderMottarYtelseForm = ({
       )}
       {arbeidsforholdUtenIM.length > 0 && (
         <VStack gap="6">
-          {arbeidsforholdUtenIM.map(andel =>
-            mottarYtelseArbeidsforholdRadioAndInputs(
-              andel,
-              readOnly,
-              kodeverkSamling,
-              arbeidsgiverOpplysningerPerId,
-              beregningsgrunnlagIndeks,
-              intl,
-            ),
-          )}
+          {arbeidsforholdUtenIM.map(andel => (
+            <MottarYtelseArbeidsforholdRadioAndInputs
+              key={andel.andelsnr}
+              andel={andel}
+              readOnly={readOnly}
+              kodeverkSamling={kodeverkSamling}
+              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+              aktivtBeregningsgrunnlagIndeks={beregningsgrunnlagIndeks}
+            />
+          ))}
         </VStack>
       )}
     </>
