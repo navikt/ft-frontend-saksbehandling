@@ -1,7 +1,6 @@
 .bredde {
-  width: 70px;
-}
-.tekstMidtstilt {
-  margin-bottom: auto;
-  margin-top: auto;
+  > input {
+    min-width: 80px;
+    text-align: right;
+  }
 }

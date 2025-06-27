@@ -1,6 +1,6 @@
 import { Inntektsforhold, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 
-import { slaaSammenPerioder } from './TilkommetAktivitetUtils';
+import { slaaSammenPerioder } from './tilkommetAktivitetUtils';
 
 const lagInntektsforhold = (aktivitetStatus: string, arbeidsgiverId: string): Inntektsforhold => ({
   aktivitetStatus,
@@ -15,7 +15,7 @@ const lagInntektsperiode = (fom: string, tom: string, andeler?: Inntektsforhold[
   inntektsforholdListe: andeler || [],
 });
 
-describe('<TilkommetAktivitetUtils>', () => {
+describe('tilkommetAktivitetUtils', () => {
   it('skal slå sammen to perioder som går vegg i vegg', () => {
     const inntektsforhold = lagInntektsforhold('AT', '123');
     const perioder = [

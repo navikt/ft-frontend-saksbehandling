@@ -24,7 +24,7 @@ window.ResizeObserver =
     unobserve: vi.fn(),
   }));
 
-describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
+describe('FordelBeregningsgrunnlagFaktaIndex', () => {
   it.skip('skal kunne løse aksjonspunkt for nytt refusjonskrav', async () => {
     const lagre = vi.fn();
 
@@ -642,7 +642,7 @@ it('skal kunne løse aksjonspunkt for tilkommet aktivitet med forlengelse', asyn
   await userEvent.click(screen.getByText('09.11.2022 - 15.11.2022'));
 
   expect(screen.getAllByText('Årsinntekt')).toHaveLength(2);
-  expect(screen.getAllByText('450 000 kr')).toHaveLength(2);
+  expect(screen.getAllByText('450 000')).toHaveLength(1);
 
   expect(screen.getByText('Reduserer inntektstap')).toBeInTheDocument();
 
@@ -749,7 +749,7 @@ it('skal kunne løse aksjonspunkt for tilkommet i revurdering og legge til nye p
   // 18.04.2023 - 28.04.2023
   await userEvent.click(screen.getAllByLabelText('Ja')[2]);
   await userEvent.click(screen.getAllByLabelText('Ja')[3]);
-  expect(screen.getAllByLabelText('Fastsett årsinntekt')).toHaveLength(2);
+  expect(screen.getAllByLabelText(/Fastsett årsinntekt/)).toHaveLength(2);
 
   await userEvent.type(screen.getAllByLabelText('Fastsett årsinntekt')[0], '200000');
   await userEvent.type(screen.getAllByLabelText('Fastsett årsinntekt')[1], '350000');

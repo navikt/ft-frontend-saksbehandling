@@ -1,5 +1,3 @@
 .vurdertIForrigeIcon {
-  display: inline-block;
-  margin-left: 8px;
-  vertical-align: text-bottom;
+  margin-left: var(--a-spacing-4);
 }

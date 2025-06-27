@@ -10,7 +10,7 @@ import {
   FordelBeregningsgrunnlagFormValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { KodeverkForPanel } from '../../types/kodeverkForPanel';
-import { GRADERING_RANGE_DENOMINATOR, mapToBelop } from './BgFordelingUtils';
+import { GRADERING_RANGE_DENOMINATOR, mapToBelop } from './bgFordelingUtils';
 
 const convertToNumber = (n?: string): number => (!n ? 0 : Number(removeSpacesFromNumber(n)));
 

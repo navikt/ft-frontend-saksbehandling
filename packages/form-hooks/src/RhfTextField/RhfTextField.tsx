@@ -11,7 +11,6 @@ type Props<T extends FieldValues> = {
   label?: string | ReactNode;
   validate?: ((value: string) => ValidationReturnType)[] | ((value: number) => ValidationReturnType)[];
   readOnly?: boolean;
-  description?: string;
   onBlur?: (value: any) => void;
   onChange?: (value: any) => void;
   shouldValidateOnBlur?: boolean;

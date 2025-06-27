@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { VStack } from '@navikt/ds-react';
+import { Accordion } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import {
@@ -10,7 +10,6 @@ import {
   FordelBeregningsgrunnlagPeriode,
   ForlengelsePeriodeProp,
 } from '@navikt/ft-types';
-import { BorderBox } from '@navikt/ft-ui-komponenter';
 
 import { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import {
@@ -18,11 +17,9 @@ import {
   FordelBeregningsgrunnlagPeriodeTransformedValues,
 } from '../../types/interface/FordelBeregningsgrunnlagAP';
 import { KodeverkForPanel } from '../../types/kodeverkForPanel';
-import { erPeriodeTilVurdering } from '../util/ForlengelseUtils';
+import { erPeriodeTilVurdering } from '../util/forlengelseUtils';
 import { FordelBeregningsgrunnlagPeriodePanel } from './FordelBeregningsgrunnlagPeriodePanel';
-import { fordelBGFieldArrayNamePrefix, lagPerioderForSubmit, slaaSammenPerioder } from './FordelPerioderUtils';
-
-import styles from './fordelBeregningsgrunnlagForm.module.css';
+import { fordelBGFieldArrayNamePrefix, lagPerioderForSubmit, slåSammenPerioder } from './fordelPerioderUtils';
 
 const getFieldNameKey = (index: number): string => fordelBGFieldArrayNamePrefix + index;
 
@@ -44,7 +41,7 @@ const transformPerioder = (
   forlengelseperioder?: ForlengelsePeriodeProp[],
 ): FordelBeregningsgrunnlagPeriodeTransformedValues[] => {
   const fordelBeregningsgrunnlagPerioder: FordelBeregningsgrunnlagPeriodeTransformedValues[] = [];
-  const kombinertePerioder = slaaSammenPerioder(fordelBGPerioder, bgPerioder, forlengelseperioder);
+  const kombinertePerioder = slåSammenPerioder(fordelBGPerioder, bgPerioder, forlengelseperioder);
   for (let index = 0; index < kombinertePerioder.length; index += 1) {
     const { skalRedigereInntekt } = kombinertePerioder[index];
     if (skalRedigereInntekt && erPeriodeTilVurdering(kombinertePerioder[index])) {
@@ -56,7 +53,7 @@ const transformPerioder = (
   return fordelBeregningsgrunnlagPerioder;
 };
 
-type Props = {
+interface Props {
   readOnly: boolean;
   perioder: FordelBeregningsgrunnlagPeriode[];
   isAksjonspunktClosed: boolean;
@@ -65,7 +62,7 @@ type Props = {
   kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldIndex: number;
-};
+}
 
 function filtrerForlengelse(beregningsgrunnlag: Beregningsgrunnlag, periode: FordelBeregningsgrunnlagPeriode) {
   return erPeriodeTilVurdering(periode, beregningsgrunnlag.forlengelseperioder);
@@ -122,29 +119,26 @@ export const FordelBeregningsgrunnlagForm = ({
   // dersom den ikke er tom, så skal kun forlengelsesperioder kunne redigeres
 
   return (
-    <BorderBox className={styles.lessPadding}>
-      <VStack gap="2">
-        {slaaSammenPerioder(perioder, bgPerioder, beregningsgrunnlag.forlengelseperioder).map((periode, index) => (
-          <React.Fragment key={fordelBGFieldArrayNamePrefix + periode.fom}>
-            <FordelBeregningsgrunnlagPeriodePanel
-              readOnly={readOnly || !erPeriodeTilVurdering(periode, beregningsgrunnlag.forlengelseperioder)}
-              erVurdertTidligere={erVurdertTidligere(periode, beregningsgrunnlag)}
-              fordelingsperiode={periode}
-              fordelBGFieldArrayName={getFieldNameKey(index)}
-              open={openPanels ? openPanels.filter(panel => panel === periode.fom).length > 0 : false}
-              isAksjonspunktClosed={isAksjonspunktClosed}
-              showPanel={showPanel}
-              beregningsgrunnlag={beregningsgrunnlag}
-              kodeverkSamling={kodeverkSamling}
-              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-              fieldIndex={fieldIndex}
-              setFieldArrayToRepeat={setFieldArrayToRepeat}
-              fieldArrayToRepeat={fieldArrayToRepeat}
-            />
-          </React.Fragment>
-        ))}
-      </VStack>
-    </BorderBox>
+    <Accordion headingSize="xsmall">
+      {slåSammenPerioder(perioder, bgPerioder, beregningsgrunnlag.forlengelseperioder).map((periode, index) => (
+        <FordelBeregningsgrunnlagPeriodePanel
+          key={fordelBGFieldArrayNamePrefix + periode.fom}
+          readOnly={readOnly || !erPeriodeTilVurdering(periode, beregningsgrunnlag.forlengelseperioder)}
+          erVurdertTidligere={erVurdertTidligere(periode, beregningsgrunnlag)}
+          fordelingsperiode={periode}
+          fordelBGFieldArrayName={getFieldNameKey(index)}
+          open={openPanels ? openPanels.filter(panel => panel === periode.fom).length > 0 : false}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          showPanel={showPanel}
+          beregningsgrunnlag={beregningsgrunnlag}
+          kodeverkSamling={kodeverkSamling}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          fieldIndex={fieldIndex}
+          setFieldArrayToRepeat={setFieldArrayToRepeat}
+          fieldArrayToRepeat={fieldArrayToRepeat}
+        />
+      ))}
+    </Accordion>
   );
 };
 
@@ -169,7 +163,7 @@ FordelBeregningsgrunnlagForm.buildInitialValues = (
   }
   const harKunYtelse = !!bg.aktivitetStatus && bg.aktivitetStatus.some(status => status === AktivitetStatus.KUN_YTELSE);
   const bgPerioder = bg.beregningsgrunnlagPeriode;
-  slaaSammenPerioder(fordelBGPerioder, bgPerioder, bg.forlengelseperioder).forEach((periode, index) => {
+  slåSammenPerioder(fordelBGPerioder, bgPerioder, bg.forlengelseperioder).forEach((periode, index) => {
     const bgPeriode = finnRiktigBgPeriode(periode, bgPerioder);
     initialValues[getFieldNameKey(index)] = FordelBeregningsgrunnlagPeriodePanel.buildInitialValues(
       periode,

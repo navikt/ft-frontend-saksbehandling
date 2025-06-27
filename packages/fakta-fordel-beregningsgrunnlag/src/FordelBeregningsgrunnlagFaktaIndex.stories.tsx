@@ -15,6 +15,7 @@ import {
   FordelBeregningsgrunnlagAndel,
   FordelBeregningsgrunnlagPeriode,
 } from '@navikt/ft-types';
+import { TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { FaktaFordelBeregningAvklaringsbehovCode } from '..';
 import { beregningsgrunnlag as bgArbeidOgGradertNæring } from '../testdata/ArbeidOgGradertNaring';
@@ -152,7 +153,7 @@ const lagBGPeriode = (
   const sum = andelsliste.reduce((acc, andel) => acc + (andel.beregnetPrAar ? andel.beregnetPrAar : 0), 0);
   return {
     beregningsgrunnlagPeriodeFom: fom,
-    beregningsgrunnlagPeriodeTom: tom || '9999-12-31',
+    beregningsgrunnlagPeriodeTom: tom || TIDENES_ENDE,
     beregnetPrAar: sum,
     bruttoPrAar: sum,
     bruttoInkludertBortfaltNaturalytelsePrAar: sum,
@@ -288,7 +289,7 @@ export const FlerePerioderMedHelg: Story = {
     beregningsgrunnlagVilkår: lagVilkår(
       bgFlerePerioderMedHelg.map(bg => ({
         fom: bg.vilkårsperiodeFom,
-        tom: '9999-12-31',
+        tom: TIDENES_ENDE,
         vurderesIBehandlingen: true,
       })),
     ),
@@ -302,7 +303,7 @@ export const FlerePerioderMedForlengelse: Story = {
     beregningsgrunnlagVilkår: lagVilkår(
       bgFlerePerioderMedForlengelse.map(bg => ({
         fom: bg.vilkårsperiodeFom,
-        tom: '9999-12-31',
+        tom: TIDENES_ENDE,
         vurderesIBehandlingen: true,
       })),
     ),
@@ -316,7 +317,7 @@ export const ArbeidOgGradertNæringUtenBeregningsgrunnlagAp5046: Story = {
     beregningsgrunnlagVilkår: lagVilkår(
       [bgArbeidOgGradertNæring].map(bg => ({
         fom: bg.vilkårsperiodeFom,
-        tom: '9999-12-31',
+        tom: TIDENES_ENDE,
         vurderesIBehandlingen: true,
       })),
     ),
@@ -330,7 +331,7 @@ export const TilkommetArbeidMedFlyttingAvNaturalytelseAp5046: Story = {
     beregningsgrunnlagVilkår: lagVilkår(
       [bgMedNaturalytelse].map(bg => ({
         fom: bg.vilkårsperiodeFom,
-        tom: '9999-12-31',
+        tom: TIDENES_ENDE,
         vurderesIBehandlingen: true,
       })),
     ),
@@ -344,7 +345,7 @@ export const ViseVurderTilkommetRefusjonskravAp5059: Story = {
     beregningsgrunnlagVilkår: lagVilkår(
       [vurderRefusjonBG].map(bg => ({
         fom: bg.vilkårsperiodeFom,
-        tom: '9999-12-31',
+        tom: TIDENES_ENDE,
         vurderesIBehandlingen: true,
       })),
     ),
@@ -358,7 +359,7 @@ export const SkalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjon
     beregningsgrunnlagVilkår: lagVilkår(
       [vurderDelvisRefBG].map(bg => ({
         fom: bg.vilkårsperiodeFom,
-        tom: '9999-12-31',
+        tom: TIDENES_ENDE,
         vurderesIBehandlingen: true,
       })),
     ),
@@ -415,7 +416,7 @@ export const AapOgRefusjonAp5046: Story = {
     beregningsgrunnlagVilkår: lagVilkår(
       beregningsgrunnlagListeAapOgRefusjonAp5046.map(bg => ({
         fom: bg.vilkårsperiodeFom,
-        tom: '9999-12-31',
+        tom: TIDENES_ENDE,
         vurderesIBehandlingen: true,
       })),
     ),
@@ -472,7 +473,7 @@ export const FordelingKanEndreRefusjonskravAp5046: Story = {
     beregningsgrunnlagVilkår: lagVilkår(
       beregningsgrunnlagListeFordelingKanEndreRefusjonskravAp5046.map(bg => ({
         fom: bg.vilkårsperiodeFom,
-        tom: '9999-12-31',
+        tom: TIDENES_ENDE,
         vurderesIBehandlingen: true,
       })),
     ),
@@ -594,7 +595,7 @@ export const SkalSlåSammenNaturalytelseperioderAp5046: Story = {
     beregningsgrunnlagVilkår: lagVilkår(
       beregningsgrunnlagListeSkalSlåSammenNaturalytelseperioderAp5046.map(bg => ({
         fom: bg.vilkårsperiodeFom,
-        tom: '9999-12-31',
+        tom: TIDENES_ENDE,
         vurderesIBehandlingen: true,
       })),
     ),
@@ -657,7 +658,7 @@ const beregningsgrunnlagListeFordelingFlereBeregningsgrunnlagKanEndreRefusjonskr
         ],
         [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
         '2020-01-01',
-        '9999-12-31',
+        TIDENES_ENDE,
       ),
     ],
     lagFaktaOmFordeling(
@@ -677,7 +678,7 @@ const beregningsgrunnlagListeFordelingFlereBeregningsgrunnlagKanEndreRefusjonskr
           true,
           true,
           '2020-01-01',
-          '9999-12-31',
+          TIDENES_ENDE,
         ),
       ],
     ),
@@ -693,7 +694,7 @@ export const FordelingFlereBeregningsgrunnlagKanEndreRefusjonskravAp5046: Story 
     beregningsgrunnlagVilkår: lagVilkår(
       beregningsgrunnlagListeFordelingFlereBeregningsgrunnlagKanEndreRefusjonskravAp5046.map(bg => ({
         fom: bg.vilkårsperiodeFom,
-        tom: '9999-12-31',
+        tom: TIDENES_ENDE,
         vurderesIBehandlingen: true,
       })),
     ),
@@ -889,7 +890,7 @@ export const TilkommetAktivitet: Story = {
           },
           {
             beregningsgrunnlagPeriodeFom: '2022-11-09',
-            beregningsgrunnlagPeriodeTom: '9999-12-31',
+            beregningsgrunnlagPeriodeTom: TIDENES_ENDE,
             beregnetPrAar: 0,
             bruttoPrAar: 480000,
             bruttoInkludertBortfaltNaturalytelsePrAar: 480000,
@@ -952,7 +953,7 @@ export const TilkommetAktivitet: Story = {
                   {
                     arbeidsgiverIdent: '999999997',
                     fom: '2022-10-27',
-                    tom: '9999-12-31',
+                    tom: TIDENES_ENDE,
                     arbeidsforholdType: 'ARBEID',
                   },
                 ],
@@ -977,7 +978,7 @@ export const TilkommetAktivitet: Story = {
             vurderInntektsforholdPerioder: [
               {
                 fom: '2022-11-09',
-                tom: '9999-12-31',
+                tom: TIDENES_ENDE,
                 inntektsforholdListe: [
                   {
                     aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
@@ -1032,7 +1033,7 @@ export const TilkommetAktivitet: Story = {
               },
               {
                 fom: '2022-11-09',
-                tom: '9999-12-31',
+                tom: TIDENES_ENDE,
                 fordelBeregningsgrunnlagAndeler: [
                   {
                     andelsnr: 1,

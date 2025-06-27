@@ -8,7 +8,7 @@ import {
   setGenerellAndelsinfo,
   settAndelIArbeid,
   settFastsattBelop,
-} from './BgFordelingUtils';
+} from './bgFordelingUtils';
 
 const arbeidsgiver = {
   arbeidsgiverIdent: '3284788923',
@@ -45,7 +45,7 @@ const kodeverkSamling = {
   ],
 } as KodeverkForPanel;
 
-describe('<BgFordelingUtils>', () => {
+describe('bgFordelingUtils', () => {
   it('skal sette riktig fastsatt beløp for andel i periode fastsatt bruttoPrAar og fordeltPrAar', () => {
     const fordeltPrAar = 10000;
     const bruttoPrAar = 50000;

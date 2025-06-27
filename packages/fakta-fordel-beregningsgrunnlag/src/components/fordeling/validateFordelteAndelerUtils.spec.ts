@@ -7,7 +7,7 @@ import {
   validateTotalRefusjonPrArbeidsforhold,
   validateUlikeAndeler,
   validerBGGraderteAndeler,
-} from './ValidateFordelteAndelerUtils';
+} from './validateFordelteAndelerUtils';
 
 import messages from '../../../i18n/nb_NO.json';
 
@@ -29,7 +29,7 @@ const arbeidsgiverOppysninger: ArbeidsgiverOpplysningerPerId = {
   },
 };
 
-describe('<ValidateFordelteAndelerUtils>', () => {
+describe('validateFordelteAndelerUtils', () => {
   it('skal ikke gi feil om ingen andeler er lagt til', () => {
     const andeler = [
       {

@@ -8,13 +8,13 @@ import { calcDays, periodFormat, TIDENES_ENDE } from '@navikt/ft-utils';
 import { TilkommetAktivitetValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { Periode, PeriodesplittDatoValg } from './PeriodesplittDatoValg';
 
-type Props = {
+interface Props {
   fields: TilkommetAktivitetValues[];
   forhåndsvisPeriodesplitt: (nyFom: string) => Periode[];
   utførPeriodesplitt: (nyFom: string) => void;
   skalViseModal: boolean;
   lukkModal: () => void;
-};
+}
 
 const periodeInneholderFlereVirkedager = (periode: Periode): boolean => {
   if (!periode) {
