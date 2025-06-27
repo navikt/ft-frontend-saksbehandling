@@ -48,7 +48,7 @@ const perioderForeldelse = {
   ],
 } as FeilutbetalingPerioderWrapper;
 
-const kodeverkSamling = {
+const kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel = {
   ForeldelseVurderingType: [
     {
       kode: ForeldelseVurderingType.FORELDET,
@@ -66,7 +66,7 @@ const kodeverkSamling = {
       kodeverk: 'FORELDELSE_VURDERING',
     },
   ],
-} as KodeverkTilbakeForPanel;
+};
 
 const meta = {
   component: ForeldelseProsessIndex,
@@ -77,7 +77,7 @@ const meta = {
       versjon: 1,
       status: BehandlingStatus.BEHANDLING_UTREDES,
     } as Behandling,
-    kodeverkSamlingFpTilbake: kodeverkSamling,
+    kodeverkSamlingFpTilbake,
     isReadOnly: false,
     setFormData: () => undefined,
     perioderForeldelse,

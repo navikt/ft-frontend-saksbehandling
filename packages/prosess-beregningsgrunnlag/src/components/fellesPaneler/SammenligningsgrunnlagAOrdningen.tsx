@@ -20,7 +20,6 @@ import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import { HorizontalBox } from '../../util/HorizontalBox';
 import { ReactECharts } from '../echart/ReactECharts';
 
-const TOM_ARRAY: InntektsgrunnlagMåned[] = [];
 const GRAF_FARGE_AT = '#99bdcd';
 const GRAF_FARGE_FL = '#c1b5d0';
 const GRAF_FARGE_YTELSE = '#C6C2BF';
@@ -143,7 +142,7 @@ export const SammenligningsgrunnlagAOrdningen = ({
   sammenligningsgrunnlag,
 }: Props) => {
   const intl = useIntl();
-  const måneder = sammenligningsGrunnlagInntekter?.sammenligningsgrunnlagInntekter || TOM_ARRAY;
+  const måneder = sammenligningsGrunnlagInntekter?.sammenligningsgrunnlagInntekter || [];
   const relevanteStatuser = utledRelevanteStatuser(måneder);
   const sgFom =
     sammenligningsgrunnlag && sammenligningsgrunnlag.length > 0

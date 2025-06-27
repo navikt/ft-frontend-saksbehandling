@@ -22,6 +22,8 @@ import {
   BeregningsgrunnlagArbeidsforhold,
   BeregningsgrunnlagPeriodeProp,
   Inntektsgrunnlag,
+  InntektsgrunnlagInntekt,
+  InntektsgrunnlagMåned,
   Næring,
   Saksopplysninger,
   SammenligningsgrunlagProp,
@@ -91,23 +93,22 @@ const lagSNUtenPGI = (
   skalFastsettGrunnlag: boolean,
   erNyIArbeidslivet?: boolean,
   næring?: Næring,
-): BeregningsgrunnlagAndel =>
-  ({
-    aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
-    beregningsperiodeFom: '2019-01-01',
-    beregningsperiodeTom: '2021-12-31',
-    beregnetPrAar: beregnet,
-    overstyrtPrAar: overstyrt,
-    bruttoPrAar: overstyrt || beregnet,
-    avkortetPrAar: 360000,
-    redusertPrAar: 599000,
-    erNyIArbeidslivet,
-    skalFastsetteGrunnlag: skalFastsettGrunnlag,
-    andelsnr: andelnr,
-    lagtTilAvSaksbehandler: false,
-    erTilkommetAndel: false,
-    næringer: næring ? [næring] : [lagNæring(!!overstyrt, false)],
-  }) as BeregningsgrunnlagAndel;
+): BeregningsgrunnlagAndel => ({
+  aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+  beregningsperiodeFom: '2019-01-01',
+  beregningsperiodeTom: '2021-12-31',
+  beregnetPrAar: beregnet,
+  overstyrtPrAar: overstyrt,
+  bruttoPrAar: overstyrt || beregnet,
+  avkortetPrAar: 360000,
+  redusertPrAar: 599000,
+  erNyIArbeidslivet,
+  skalFastsetteGrunnlag: skalFastsettGrunnlag,
+  andelsnr: andelnr,
+  lagtTilAvSaksbehandler: false,
+  erTilkommetAndel: false,
+  næringer: næring ? [næring] : [lagNæring(!!overstyrt, false)],
+});
 
 const lagSNMedPGI = (
   andelnr: number,
@@ -116,48 +117,46 @@ const lagSNMedPGI = (
   skalFastsettGrunnlag: boolean,
   erNyIArbeidslivet?: boolean,
   næring?: Næring,
-): BeregningsgrunnlagAndel =>
-  ({
-    aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
-    beregningsperiodeFom: '2019-01-01',
-    beregningsperiodeTom: '2021-12-31',
-    beregnetPrAar: beregnet,
-    overstyrtPrAar: overstyrt,
-    bruttoPrAar: overstyrt || beregnet,
-    avkortetPrAar: 360000,
-    redusertPrAar: 599000,
-    erNyIArbeidslivet,
-    skalFastsetteGrunnlag: skalFastsettGrunnlag,
-    andelsnr: andelnr,
-    lagtTilAvSaksbehandler: false,
-    erTilkommetAndel: false,
-    pgiSnitt: lagPGISnitt(),
-    pgiVerdier: lagPGIVerdier(),
-    næringer: næring ? [næring] : [lagNæring(!!overstyrt, false)],
-  }) as BeregningsgrunnlagAndel;
+): BeregningsgrunnlagAndel => ({
+  aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+  beregningsperiodeFom: '2019-01-01',
+  beregningsperiodeTom: '2021-12-31',
+  beregnetPrAar: beregnet,
+  overstyrtPrAar: overstyrt,
+  bruttoPrAar: overstyrt || beregnet,
+  avkortetPrAar: 360000,
+  redusertPrAar: 599000,
+  erNyIArbeidslivet,
+  skalFastsetteGrunnlag: skalFastsettGrunnlag,
+  andelsnr: andelnr,
+  lagtTilAvSaksbehandler: false,
+  erTilkommetAndel: false,
+  pgiSnitt: lagPGISnitt(),
+  pgiVerdier: lagPGIVerdier(),
+  næringer: næring ? [næring] : [lagNæring(!!overstyrt, false)],
+});
 
 const lagBrukersAndelMedPGI = (
   andelnr: number,
   beregnet: number,
   overstyrt: number | undefined,
   skalFastsettGrunnlag: boolean,
-): BeregningsgrunnlagAndel =>
-  ({
-    aktivitetStatus: AktivitetStatus.BRUKERS_ANDEL,
-    beregningsperiodeFom: '2019-01-01',
-    beregningsperiodeTom: '2021-12-31',
-    beregnetPrAar: beregnet,
-    overstyrtPrAar: overstyrt,
-    bruttoPrAar: overstyrt || beregnet,
-    avkortetPrAar: 360000,
-    redusertPrAar: 599000,
-    skalFastsetteGrunnlag: skalFastsettGrunnlag,
-    andelsnr: andelnr,
-    lagtTilAvSaksbehandler: false,
-    erTilkommetAndel: false,
-    pgiSnitt: lagPGISnitt(),
-    pgiVerdier: lagPGIVerdier(),
-  }) as BeregningsgrunnlagAndel;
+): BeregningsgrunnlagAndel => ({
+  aktivitetStatus: AktivitetStatus.BRUKERS_ANDEL,
+  beregningsperiodeFom: '2019-01-01',
+  beregningsperiodeTom: '2021-12-31',
+  beregnetPrAar: beregnet,
+  overstyrtPrAar: overstyrt,
+  bruttoPrAar: overstyrt || beregnet,
+  avkortetPrAar: 360000,
+  redusertPrAar: 599000,
+  skalFastsetteGrunnlag: skalFastsettGrunnlag,
+  andelsnr: andelnr,
+  lagtTilAvSaksbehandler: false,
+  erTilkommetAndel: false,
+  pgiSnitt: lagPGISnitt(),
+  pgiVerdier: lagPGIVerdier(),
+});
 
 const lagAPMedKode = (kode: string, begrunnelse?: string): DeepWriteable<BeregningAvklaringsbehov> => ({
   definisjon: kode,
@@ -166,21 +165,21 @@ const lagAPMedKode = (kode: string, begrunnelse?: string): DeepWriteable<Beregni
   kanLoses: true,
 });
 
-const vilkarMedUtfall = (kode: string, fom?: string, tom?: string): Vilkår =>
-  ({
-    vilkarType: VilkarType.BEREGNINGSGRUNNLAGVILKARET,
-    perioder: [
-      {
-        periode: {
-          fom: fom || STP,
-          tom: tom || etterSTP(20),
-        },
-        vurderesIBehandlingen: true,
-        vilkarStatus: kode,
-        merknadParametere: {},
+const vilkarMedUtfall = (kode: string, fom?: string, tom?: string): Vilkår => ({
+  vilkarType: VilkarType.BEREGNINGSGRUNNLAGVILKARET,
+  perioder: [
+    {
+      periode: {
+        fom: fom || STP,
+        tom: tom || etterSTP(20),
       },
-    ],
-  }) as Vilkår;
+      vurderesIBehandlingen: true,
+      vilkarStatus: kode,
+      merknadParametere: {},
+    },
+  ],
+  overstyrbar: true,
+});
 
 const arbeidsgiverOpplysninger: ArbeidsgiverOpplysningerPerId = {
   999999996: {
@@ -331,6 +330,9 @@ const lagPeriode = (
   bruttoInkludertBortfaltNaturalytelsePrAar: 360000,
   avkortetPrAar: 360000,
   redusertPrAar: 360000,
+  ledetekstBrutto: 'Brutto beregningsgrunnlag',
+  ledetekstAvkortet: 'Avkortet beregningsgrunnlag (6G=599148)',
+  ledetekstRedusert: 'Redusert beregningsgrunnlag (100%)',
   periodeAarsaker,
   dagsats,
   beregningsgrunnlagPrStatusOgAndel: andelsliste,
@@ -366,33 +368,22 @@ const lagSammenligningsGrunnlag = (
 const malSGGrunnlagAvvik = (kode: string) => lagSammenligningsGrunnlag(kode, 200000, 30, -150000);
 const malSGGrunnlag = (kode: string) => lagSammenligningsGrunnlag(kode, 200000, 0, 0);
 
-type Inntekt = {
-  inntektAktivitetType: string;
-  beløp: number;
-};
-
-type InntektOgPeriode = {
-  fom: string;
-  tom: string;
-  inntekter: Inntekt[];
-};
-
-const lagATInntektsgrunnlag = (inntekt: number): Inntekt => ({
+const lagATInntektsgrunnlag = (inntekt: number): InntektsgrunnlagInntekt => ({
   inntektAktivitetType: InntektAktivitetType.ARBEID,
   beløp: inntekt,
 });
 
-const lagYtelseInntektsgrunnlag = (inntekt: number): Inntekt => ({
+const lagYtelseInntektsgrunnlag = (inntekt: number): InntektsgrunnlagInntekt => ({
   inntektAktivitetType: InntektAktivitetType.YTELSE,
   beløp: inntekt,
 });
 
-const lagFLInntektsgrunnlag = (inntekt: number): Inntekt => ({
+const lagFLInntektsgrunnlag = (inntekt: number): InntektsgrunnlagInntekt => ({
   inntektAktivitetType: InntektAktivitetType.FRILANS,
   beløp: inntekt,
 });
 
-const lagMånedInntekt = (fom: string, tom: string, inntekter: Inntekt[]): InntektOgPeriode => ({
+const lagMånedInntekt = (fom: string, tom: string, inntekter: InntektsgrunnlagInntekt[]): InntektsgrunnlagMåned => ({
   fom,
   tom,
   inntekter,
@@ -403,8 +394,7 @@ const lagInntektPgi = (beløp: number, pgiType: string) => ({
   pgiType,
 });
 
-const inntektsgrunnlagSN = {
-  måneder: [],
+const inntektsgrunnlagSN: Inntektsgrunnlag = {
   beregningsgrunnlagInntekter: [],
   sammenligningsgrunnlagInntekter: [],
   pgiGrunnlag: [
@@ -423,134 +413,97 @@ const inntektsgrunnlagSN = {
   ],
 };
 
-const lagInntektsgrunnlag = (): Inntektsgrunnlag => {
-  const sammenligningsgrunnlagInntekter = [];
-  sammenligningsgrunnlagInntekter.push(
+const lagInntektsgrunnlag = (): Inntektsgrunnlag => ({
+  sammenligningsgrunnlagInntekter: [
     lagMånedInntekt('2020-01-01', '2020-01-31', [
       lagATInntektsgrunnlag(35000),
       lagYtelseInntektsgrunnlag(4000),
       lagFLInntektsgrunnlag(0),
     ]),
-  );
-  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-02-01', '2020-02-28', [
       lagATInntektsgrunnlag(70000),
       lagYtelseInntektsgrunnlag(6000),
       lagFLInntektsgrunnlag(5000),
     ]),
-  );
-  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-03-01', '2020-03-31', [
       lagATInntektsgrunnlag(40000),
       lagYtelseInntektsgrunnlag(7000),
       lagFLInntektsgrunnlag(12000),
     ]),
-  );
-  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-04-01', '2020-04-30', [
       lagATInntektsgrunnlag(50000),
       lagYtelseInntektsgrunnlag(20000),
       lagFLInntektsgrunnlag(45000),
     ]),
-  );
-  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-05-01', '2020-05-31', [
       lagATInntektsgrunnlag(37000),
       lagYtelseInntektsgrunnlag(10000),
       lagFLInntektsgrunnlag(30000),
     ]),
-  );
-  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-06-01', '2020-06-30', [
       lagATInntektsgrunnlag(45000),
       lagYtelseInntektsgrunnlag(5000),
       lagFLInntektsgrunnlag(20000),
     ]),
-  );
-  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-07-01', '2020-07-31', [
       lagATInntektsgrunnlag(25000),
       lagYtelseInntektsgrunnlag(3000),
       lagFLInntektsgrunnlag(25000),
     ]),
-  );
-  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-08-01', '2020-08-31', [
       lagATInntektsgrunnlag(33000),
       lagYtelseInntektsgrunnlag(7000),
       lagFLInntektsgrunnlag(0),
     ]),
-  );
-  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-09-01', '2020-09-30', [
       lagATInntektsgrunnlag(25000),
       lagYtelseInntektsgrunnlag(6000),
       lagFLInntektsgrunnlag(33000),
     ]),
-  );
-  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-10-01', '2020-10-31', [
       lagATInntektsgrunnlag(8000),
       lagYtelseInntektsgrunnlag(20000),
       lagFLInntektsgrunnlag(1000),
     ]),
-  );
-  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-11-01', '2020-11-30', [
       lagATInntektsgrunnlag(54000),
       lagYtelseInntektsgrunnlag(1000),
       lagFLInntektsgrunnlag(25000),
     ]),
-  );
-  sammenligningsgrunnlagInntekter.push(
     lagMånedInntekt('2020-12-01', '2020-12-31', [
       lagATInntektsgrunnlag(47000),
       lagYtelseInntektsgrunnlag(0),
       lagFLInntektsgrunnlag(10000),
     ]),
-  );
-  return {
-    sammenligningsgrunnlagInntekter,
-  } as Inntektsgrunnlag;
-};
+  ],
+  beregningsgrunnlagInntekter: [],
+  pgiGrunnlag: [],
+});
 
 const lagBG = (
   perioder: BeregningsgrunnlagPeriodeProp[],
-  statuser: string[],
+  aktivitetStatus: string[],
   inntektsgrunnlag?: Inntektsgrunnlag,
   sammenligningsgrunnlagPrStatus?: SammenligningsgrunlagProp[],
   avklaringsbehov?: BeregningAvklaringsbehov[],
   skjæringstidspunkt: string = STP,
   saksopplysninger: Saksopplysninger = { lønnsendringSaksopplysning: [], kortvarigeArbeidsforhold: [] },
-): Beregningsgrunnlag => {
-  const beregningsgrunnlag = {
-    avklaringsbehov: avklaringsbehov || [],
-    skjaeringstidspunktBeregning: skjæringstidspunkt,
-    vilkårsperiodeFom: skjæringstidspunkt,
-    aktivitetStatus: statuser,
-    beregningsgrunnlagPeriode: perioder,
-    dekningsgrad: 80,
-    grunnbeløp: 99858,
-    sammenligningsgrunnlagPrStatus: sammenligningsgrunnlagPrStatus || null,
-    ledetekstBrutto: 'Brutto beregningsgrunnlag',
-    ledetekstAvkortet: 'Avkortet beregningsgrunnlag (6G=599148)',
-    ledetekstRedusert: 'Redusert beregningsgrunnlag (100%)',
-    halvG: 49929,
-    faktaOmBeregning: {
-      andelerForFaktaOmBeregning: [],
-      saksopplysninger,
-    },
-    hjemmel: {
-      kode: 'F_14_7_8_30',
-      kodeverk: 'BG_HJEMMEL',
-    },
-    årsinntektVisningstall: 360000,
-    erOverstyrtInntekt: false,
-    inntektsgrunnlag,
-  };
-  // @ts-expect-error Fiks
-  return beregningsgrunnlag;
-};
+): Beregningsgrunnlag => ({
+  avklaringsbehov: avklaringsbehov || [],
+  skjaeringstidspunktBeregning: skjæringstidspunkt,
+  vilkårsperiodeFom: skjæringstidspunkt,
+  aktivitetStatus,
+  beregningsgrunnlagPeriode: perioder,
+  dekningsgrad: 80,
+  grunnbeløp: 99858,
+  sammenligningsgrunnlagPrStatus,
+  faktaOmBeregning: {
+    andelerForFaktaOmBeregning: [],
+    saksopplysninger,
+  },
+  erOverstyrtInntekt: false,
+  inntektsgrunnlag,
+});
 
 const meta = {
   component: BeregningsgrunnlagProsessIndex,
@@ -780,7 +733,7 @@ export const ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagAp5038: Story = {
           merknadParametere: {},
         },
       ],
-    } as Vilkår,
+    },
   },
 };
 
@@ -832,7 +785,7 @@ export const ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp503
           merknadParametere: {},
         },
       ],
-    } as Vilkår,
+    },
   },
 };
 
@@ -1035,8 +988,10 @@ export const MangeTidsbegrensetArbeidsforholdMedAvvikAp5047: Story = {
         vilkårsperiodeFom: STP,
         dekningsgrad: 100,
         aktivitetStatus: ['AT_FL'],
+        grunnbeløp: 124028,
+        erOverstyrtInntekt: false,
       },
-    ] as Beregningsgrunnlag[],
+    ],
     beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
   },
 };
@@ -1095,8 +1050,10 @@ export const MangeTidsbegrensetArbeidsforholdMedAvvikFastsattAp5047: Story = {
         vilkårsperiodeFom: STP,
         dekningsgrad: 100,
         aktivitetStatus: ['AT_FL'],
+        grunnbeløp: 124028,
+        erOverstyrtInntekt: false,
       },
-    ] as Beregningsgrunnlag[],
+    ],
     beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
   },
 };
@@ -1125,8 +1082,10 @@ export const TidsbegrensetArbeidsforholdMedAvvikAp5047: Story = {
         vilkårsperiodeFom: STP,
         dekningsgrad: 100,
         aktivitetStatus: ['AT'],
+        grunnbeløp: 124028,
+        erOverstyrtInntekt: false,
       },
-    ] as Beregningsgrunnlag[],
+    ],
     beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
   },
 };
@@ -1160,7 +1119,7 @@ export const NaturalYtelse: Story = {
     isReadOnly: false,
     beregningsgrunnlagListe: [
       {
-        avklaringsbehov: [] as BeregningAvklaringsbehov[],
+        avklaringsbehov: [],
         beregningsgrunnlagPeriode: [
           lagPeriode(
             [
@@ -1228,8 +1187,10 @@ export const NaturalYtelse: Story = {
         vilkårsperiodeFom: STP,
         dekningsgrad: 100,
         aktivitetStatus: ['AT'],
+        grunnbeløp: 124028,
+        erOverstyrtInntekt: false,
       },
-    ] as Beregningsgrunnlag[],
+    ],
     beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT, STP, etterSTP(200)),
   },
 };
