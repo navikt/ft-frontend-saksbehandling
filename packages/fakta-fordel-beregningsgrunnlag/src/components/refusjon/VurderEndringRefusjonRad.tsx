@@ -90,6 +90,7 @@ export const VurderEndringRefusjonRad = ({
         </div>
         <RhfDatepicker
           name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelRefusjonsstart(refusjonAndel)}`}
+          control={formMethods.control}
           isReadOnly={readOnly}
           validate={
             readOnly ? [] : [required, hasValidDate, dateAfterOrEqual(refusjonAndel.tidligsteMuligeRefusjonsdato)]
@@ -106,6 +107,7 @@ export const VurderEndringRefusjonRad = ({
           </div>
           <RhfTextField
             name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelDelvisRefusjon(refusjonAndel)}`}
+            control={formMethods.control}
             className={styles.bredde}
             validate={readOnly ? [] : [required, maxValueFormatted(refusjonAndel.maksTillattDelvisRefusjonPrMnd)]}
             parse={parseCurrencyInput}

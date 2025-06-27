@@ -1,3 +1,4 @@
+import { useFormContext } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 
 import { HStack, Table } from '@navikt/ds-react';
@@ -9,6 +10,7 @@ import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-ty
 import { DateLabel, EditedIcon, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { formaterArbeidsgiver, periodFormat } from '@navikt/ft-utils';
 
+import { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
 import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { lagAktivitetFieldId, skalVurdereAktivitet } from './vurderAktiviteterTabellUtils';
 
@@ -64,6 +66,8 @@ export const VurderAktiviteterTabellRad = ({
     tomDatoForAktivitetGruppe,
   );
 
+  const { control } = useFormContext<AvklarAktiviteterFormValues>();
+
   const visningsnavn = lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, kodeverkSamling);
 
   const lagLabel = (skalBrukes: boolean) => {
@@ -86,6 +90,7 @@ export const VurderAktiviteterTabellRad = ({
             <span>-</span>
             <RhfDatepicker
               name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.tom`}
+              control={control}
               validate={[required, hasValidDate, dateAfterOrEqual(aktivitet.fom)]}
               isReadOnly={readOnly}
               size="small"
@@ -97,6 +102,7 @@ export const VurderAktiviteterTabellRad = ({
       <Table.DataCell>
         <RhfRadioGroup
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
+          control={control}
           label={intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.Benytt' })}
           validate={[required]}
           isHorizontal
@@ -123,6 +129,7 @@ export const VurderAktiviteterTabellRad = ({
       <Table.DataCell>
         <RhfRadioGroup
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
+          control={control}
           label={intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.IkkeBenytt' })}
           validate={[required]}
           isHorizontal

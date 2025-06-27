@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { FieldArrayWithId, useFieldArray, UseFieldArrayRemove, useFormContext, useWatch } from 'react-hook-form';
+import { FieldArrayWithId, useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
@@ -52,67 +52,6 @@ function skalViseSletteknapp(
 ) {
   return (fields[index].nyAndel || fields[index].lagtTilAvSaksbehandler) && !readOnly;
 }
-
-const createAndelerTableRows = (
-  fields: FieldArrayWithId<VurderFaktaBeregningFormValues, 'vurderFaktaBeregningForm.0.brukersAndelBG', 'id'>[],
-  isAksjonspunktClosed: boolean,
-  readOnly: boolean,
-  inntektskategoriKoder: KodeverkMedNavn<'Inntektskategori'>[],
-  intl: IntlShape,
-  fieldArrayName: string,
-  remove: UseFieldArrayRemove,
-): ReactElement[] =>
-  fields.map((field, index) => (
-    <Table.Row key={field.id}>
-      <Table.DataCell textSize="small">
-        <FormattedMessage id="BeregningInfoPanel.FordelingBG.Ytelse" />
-      </Table.DataCell>
-      <Table.DataCell align="right">
-        <RhfTextField
-          name={`${fieldArrayName}.${index}.fastsattBelop`}
-          parse={parseCurrencyInput}
-          readOnly={readOnly}
-          isEdited={isAksjonspunktClosed}
-          validate={readOnly ? [] : [required, maxValueFormatted(178956970)]}
-          label={intl.formatMessage(
-            {
-              id: 'BeregningInfoPanel.FordelingBG.FordelingMedAndelnavn',
-            },
-            { andel: `ytelse ${index + 1}` },
-          )}
-          hideLabel
-          size="small"
-        />
-      </Table.DataCell>
-      <Table.DataCell align="right">
-        <RhfSelect
-          label={intl.formatMessage(
-            {
-              id: 'BeregningInfoPanel.FordelingBG.InntektskategoriMedAndelnavn',
-            },
-            { andel: `ytelse ${index + 1}` },
-          )}
-          name={`${fieldArrayName}.${index}.inntektskategori`}
-          selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
-          readOnly={readOnly}
-          validate={readOnly ? [] : [required]}
-          hideLabel
-          size="small"
-        />
-      </Table.DataCell>
-      <Table.DataCell align="right">
-        {skalViseSletteknapp(index, fields, readOnly) && (
-          <Button
-            size="small"
-            icon={<XMarkIcon aria-hidden />}
-            onClick={() => remove(index)}
-            type="button"
-            variant="tertiary-neutral"
-          />
-        )}
-      </Table.DataCell>
-    </Table.Row>
-  ));
 
 const createBruttoBGSummaryRow = (sumFordeling: string | undefined): ReactElement => (
   <Table.Row>
@@ -174,15 +113,7 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
     control,
   });
   const sumFordeling = fieldArrayValues ? summerFordeling(fieldArrayValues) : '0';
-  const tableRows = createAndelerTableRows(
-    fields,
-    isAksjonspunktClosed,
-    readOnly,
-    inntektskategoriKoder,
-    intl,
-    fieldArrayName,
-    remove,
-  );
+
   const feilmelding = validate(fieldArrayValues, intl);
   const skjemaNavn = `${fieldArrayName}.skjemagruppe`;
   const errorMessage = useCustomValidation(skjemaNavn, feilmelding);
@@ -205,7 +136,61 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {tableRows}
+          {fields.map((field, index) => (
+            <Table.Row key={field.id}>
+              <Table.DataCell textSize="small">
+                <FormattedMessage id="BeregningInfoPanel.FordelingBG.Ytelse" />
+              </Table.DataCell>
+              <Table.DataCell align="right">
+                <RhfTextField
+                  // @ts-expect-error fiks! Dynamisk navn
+                  name={`${fieldArrayName}.${index}.fastsattBelop`}
+                  control={control}
+                  parse={parseCurrencyInput}
+                  readOnly={readOnly}
+                  isEdited={isAksjonspunktClosed}
+                  validate={readOnly ? [] : [required, maxValueFormatted(178956970)]}
+                  label={intl.formatMessage(
+                    {
+                      id: 'BeregningInfoPanel.FordelingBG.FordelingMedAndelnavn',
+                    },
+                    { andel: `ytelse ${index + 1}` },
+                  )}
+                  hideLabel
+                  size="small"
+                />
+              </Table.DataCell>
+              <Table.DataCell align="right">
+                <RhfSelect
+                  // @ts-expect-error fiks! Dynamisk navn
+                  name={`${fieldArrayName}.${index}.inntektskategori`}
+                  control={control}
+                  label={intl.formatMessage(
+                    {
+                      id: 'BeregningInfoPanel.FordelingBG.InntektskategoriMedAndelnavn',
+                    },
+                    { andel: `ytelse ${index + 1}` },
+                  )}
+                  selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
+                  readOnly={readOnly}
+                  validate={readOnly ? [] : [required]}
+                  hideLabel
+                  size="small"
+                />
+              </Table.DataCell>
+              <Table.DataCell align="right">
+                {skalViseSletteknapp(index, fields, readOnly) && (
+                  <Button
+                    size="small"
+                    icon={<XMarkIcon aria-hidden />}
+                    onClick={() => remove(index)}
+                    type="button"
+                    variant="tertiary-neutral"
+                  />
+                )}
+              </Table.DataCell>
+            </Table.Row>
+          ))}
           {createBruttoBGSummaryRow(sumFordeling)}
         </Table.Body>
       </Table>

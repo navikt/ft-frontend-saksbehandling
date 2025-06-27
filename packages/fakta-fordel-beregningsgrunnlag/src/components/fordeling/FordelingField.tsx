@@ -68,6 +68,7 @@ export const FordelingField = ({
       <div>
         <FaktaBegrunnelseTextField
           name={`FORDEL_BEREGNING_FORM.${fieldIndex}.begrunnelse`}
+          control={formMethods.control}
           isSubmittable={submittable}
           isReadOnly={readOnly}
           hasBegrunnelse={!!begrunnelse}

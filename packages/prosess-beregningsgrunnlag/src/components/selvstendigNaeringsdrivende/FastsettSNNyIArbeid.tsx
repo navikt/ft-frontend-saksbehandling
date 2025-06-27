@@ -1,4 +1,5 @@
 import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BodyShort, VStack } from '@navikt/ds-react';
@@ -10,6 +11,7 @@ import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
+import { BeregningFormValues } from '../../types/BeregningFormValues';
 import { NyIArbeidslivetruttoNæringResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import { NyIArbeidslivetValues } from '../../types/NæringAksjonspunkt';
@@ -55,6 +57,8 @@ export const FastsettSNNyIArbeid = ({
 }: Props) => {
   const intl = useIntl();
 
+  const { control } = useFormContext<BeregningFormValues>();
+
   return (
     <VStack gap="10">
       {erNyArbLivet && (
@@ -64,6 +68,7 @@ export const FastsettSNNyIArbeid = ({
           </BodyShort>
           <RhfTextField
             name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
+            control={control}
             validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
             parse={parseCurrencyInput}
             className={styles.beløpInput}
@@ -74,6 +79,7 @@ export const FastsettSNNyIArbeid = ({
       )}
       <RhfTextarea
         name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
+        control={control}
         label={<FormattedMessage id="Forms.VurderingAvFastsattBeregningsgrunnlag" />}
         validate={skalValideres ? [required, maxLength4000, minLength3, hasValidText] : []}
         isEdited={readOnly && isAksjonspunktClosed}

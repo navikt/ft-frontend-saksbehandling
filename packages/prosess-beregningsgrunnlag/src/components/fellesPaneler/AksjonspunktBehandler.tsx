@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useRef } from 'react';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useFieldArray, useForm, useFormContext } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { VStack } from '@navikt/ds-react';
@@ -254,6 +254,8 @@ const ArbeidstakerEllerFrilansContainer = ({
   avklaringsbehov: BeregningAvklaringsbehov;
   skalValideres: boolean;
 }): ReactElement => {
+  const { control } = useFormContext<BeregningFormValues>();
+
   const erTidsbegrenset = harPerioderMedAvsluttedeArbeidsforhold(allePerioder);
   const visFL = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.FRILANSER);
   const visAT = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.ARBEIDSTAKER);
@@ -296,6 +298,7 @@ const ArbeidstakerEllerFrilansContainer = ({
       <div>
         <RhfTextarea
           name={`${formName}.${fieldIndex}.ATFLVurdering`}
+          control={control}
           label={<FormattedMessage id="Forms.Vurdering" />}
           validate={[required, maxLength4000, minLength3, hasValidText]}
           maxLength={MAX_LENGTH}

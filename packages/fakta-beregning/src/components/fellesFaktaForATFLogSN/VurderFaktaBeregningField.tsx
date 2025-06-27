@@ -62,6 +62,7 @@ export const VurderFaktaBeregningField = ({
 }: Props) => {
   const {
     getValues,
+    control,
     formState: { errors, isDirty },
   } = useFormContext<VurderFaktaBeregningFormValues>();
   const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
@@ -85,6 +86,7 @@ export const VurderFaktaBeregningField = ({
             <>
               <FaktaBegrunnelseTextField
                 name={`${formNameVurderFaktaBeregning}.${beregningsgrunnlagIndeks}.${BEGRUNNELSE_FAKTA_TILFELLER_NAME}`}
+                control={control}
                 isSubmittable={submittable}
                 isReadOnly={readOnly || !skalVurderes}
                 hasBegrunnelse={!!avklaringsbehov?.begrunnelse}

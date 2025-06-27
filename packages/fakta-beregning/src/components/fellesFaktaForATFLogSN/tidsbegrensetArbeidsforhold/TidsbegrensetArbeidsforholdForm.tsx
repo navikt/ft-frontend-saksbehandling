@@ -1,4 +1,5 @@
 import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ReadMore, VStack } from '@navikt/ds-react';
@@ -18,6 +19,7 @@ import {
   FaktaBeregningTransformedValues,
   VurderteArbeidsforholdTransformedValues,
 } from '../../../typer/interface/BeregningFaktaAP';
+import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
@@ -62,6 +64,7 @@ export const TidsbegrensetArbeidsforholdForm = ({
   faktaOmBeregning,
   arbeidsgiverOpplysningerPerId,
 }: Props) => {
+  const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const andelsliste = faktaOmBeregning.kortvarigeArbeidsforhold;
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const intl = useIntl();
@@ -78,6 +81,10 @@ export const TidsbegrensetArbeidsforholdForm = ({
         return (
           <RhfRadioGroup
             key={`fastsettTidsbegrensedeForhold_${visningsNavn}`}
+            name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.tidsbegrensetValues.${createArbeidsforholdRadioKey(
+              andel,
+            )}`}
+            control={control}
             label={
               <VStack gap="2">
                 <FormattedMessage
@@ -96,9 +103,6 @@ export const TidsbegrensetArbeidsforholdForm = ({
                 </ReadMore>
               </VStack>
             }
-            name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.tidsbegrensetValues.${createArbeidsforholdRadioKey(
-              andel,
-            )}`}
             isReadOnly={readOnly}
             radios={[
               { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { List, ReadMore, VStack } from '@navikt/ds-react';
@@ -10,6 +11,7 @@ import { Beregningsgrunnlag, BeregningsgrunnlagAndel, FaktaOmBeregning } from '@
 
 import { FaktaOmBeregningAksjonspunktValues, LønnsendringValues } from '../../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
+import { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import { lonnsendringField } from './lonnsendringFormUtils';
@@ -29,10 +31,13 @@ interface Props {
 
 export const LonnsendringForm = ({ readOnly }: Props) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const intl = useIntl();
 
   return (
     <RhfRadioGroup
+      name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.lonnsendringField`}
+      control={control}
       label={
         <VStack gap="2">
           <FormattedMessage id="BeregningInfoPanel.LonnsendringForm.HarSokerEndring" />
@@ -51,7 +56,6 @@ export const LonnsendringForm = ({ readOnly }: Props) => {
           </ReadMore>
         </VStack>
       }
-      name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.lonnsendringField`}
       isReadOnly={readOnly}
       radios={[
         {
