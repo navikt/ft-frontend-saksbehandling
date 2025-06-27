@@ -1,6 +1,8 @@
-.container {
-  max-width: 1000px;
-}
 .gulmarkering {
-  border-left: 5px solid var(--a-orange-400);
+  > div {
+    border-left: 5px solid var(--a-orange-400);
+  }
+}
+.paddingTop {
+  padding-top: var(--a-spacing-4);
 }

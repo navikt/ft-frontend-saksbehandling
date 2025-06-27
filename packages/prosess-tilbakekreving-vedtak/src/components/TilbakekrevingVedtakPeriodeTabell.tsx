@@ -1,111 +1,85 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Label, Table } from '@navikt/ds-react';
+import { Table } from '@navikt/ds-react';
 
-import { PeriodLabel } from '@navikt/ft-ui-komponenter';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
 import { BeregningResultatPeriode } from '../types/BeregningsresultatTilbakekreving';
 import { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
-
-import styles from './tilbakekrevingVedtakPeriodeTabell.module.css';
 
 interface Props {
   perioder: BeregningResultatPeriode[];
   kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
 }
 
-export const TilbakekrevingVedtakPeriodeTabell = ({ perioder, kodeverkSamlingFpTilbake }: Props) => {
-  const rader = perioder
-    .map(periode => (
-      <Table.Row key={periode.periode.fom}>
-        <Table.DataCell>
-          <BodyShort size="small">
-            <PeriodLabel dateStringFom={periode.periode.fom} dateStringTom={periode.periode.tom} />
-          </BodyShort>
-        </Table.DataCell>
-        <Table.DataCell>
-          <BodyShort size="small">{formatCurrencyNoKr(periode.feilutbetaltBeløp)}</BodyShort>
-        </Table.DataCell>
-        <Table.DataCell>
-          <BodyShort size="small">
-            {kodeverkSamlingFpTilbake['Aktsomhet'].find(a => a.kode === periode.vurdering)?.navn}
-          </BodyShort>
-        </Table.DataCell>
-        <Table.DataCell>
-          <BodyShort size="small">
-            {periode.andelAvBeløp !== undefined && periode.andelAvBeløp !== null ? `${periode.andelAvBeløp}%` : ''}
-          </BodyShort>
-        </Table.DataCell>
-        <Table.DataCell>
-          <BodyShort size="small">{periode.renterProsent ? `${periode.renterProsent}%` : ''}</BodyShort>
-        </Table.DataCell>
-        <Table.DataCell>
-          <BodyShort size="small">{formatCurrencyNoKr(periode.tilbakekrevingBeløp)}</BodyShort>
-        </Table.DataCell>
-        <Table.DataCell>
-          <BodyShort size="small">{formatCurrencyNoKr(periode.tilbakekrevingBeløpEtterSkatt)}</BodyShort>
-        </Table.DataCell>
+export const TilbakekrevingVedtakPeriodeTabell = ({ perioder, kodeverkSamlingFpTilbake }: Props) => (
+  <Table>
+    <Table.Header>
+      <Table.Row>
+        <Table.HeaderCell scope="col">
+          <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.Periode" />
+        </Table.HeaderCell>
+        <Table.HeaderCell scope="col" align="right">
+          <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.FeilutbetaltBelop" />
+        </Table.HeaderCell>
+        <Table.HeaderCell scope="col">
+          <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.Vurdering" />
+        </Table.HeaderCell>
+        <Table.HeaderCell scope="col" align="right">
+          <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.AndelAvBelop" />
+        </Table.HeaderCell>
+        <Table.HeaderCell scope="col" align="right">
+          <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.Renter" />
+        </Table.HeaderCell>
+        <Table.HeaderCell scope="col" align="right">
+          <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.ForSkatt" />
+        </Table.HeaderCell>
+        <Table.HeaderCell scope="col" align="right">
+          <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.BelopSomTilbakekreves" />
+        </Table.HeaderCell>
       </Table.Row>
-    ))
-    .concat(
+    </Table.Header>
+    <Table.Body>
+      {perioder.map(periode => (
+        <Table.Row key={periode.periode.fom}>
+          <Table.DataCell>
+            <PeriodLabel dateStringFom={periode.periode.fom} dateStringTom={periode.periode.tom} />
+          </Table.DataCell>
+          <Table.DataCell align="right">
+            <BeløpLabel beløp={periode.feilutbetaltBeløp} />
+          </Table.DataCell>
+          <Table.DataCell>
+            {kodeverkSamlingFpTilbake['Aktsomhet'].find(a => a.kode === periode.vurdering)?.navn}
+          </Table.DataCell>
+          <Table.DataCell align="right">
+            {periode.andelAvBeløp !== undefined && periode.andelAvBeløp !== null ? `${periode.andelAvBeløp}%` : ''}
+          </Table.DataCell>
+          <Table.DataCell align="right">{periode.renterProsent ? `${periode.renterProsent}%` : ''}</Table.DataCell>
+          <Table.DataCell align="right">
+            <BeløpLabel beløp={periode.tilbakekrevingBeløp} />
+          </Table.DataCell>
+          <Table.DataCell align="right">
+            <BeløpLabel beløp={periode.tilbakekrevingBeløpEtterSkatt} />
+          </Table.DataCell>
+        </Table.Row>
+      ))}
       <Table.Row key="sum">
-        <Table.DataCell>
-          <BodyShort size="small">
-            <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.Sum" />
-          </BodyShort>
-        </Table.DataCell>
-        <Table.DataCell>
-          <BodyShort size="small">
-            {formatCurrencyNoKr(perioder.reduce((sum, periode) => sum + periode.feilutbetaltBeløp, 0))}
-          </BodyShort>
-        </Table.DataCell>
+        <Table.HeaderCell>
+          <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.Sum" />
+        </Table.HeaderCell>
+        <Table.HeaderCell align="right">
+          <BeløpLabel beløp={perioder.reduce((sum, periode) => sum + periode.feilutbetaltBeløp, 0)} />
+        </Table.HeaderCell>
         <Table.DataCell />
         <Table.DataCell />
         <Table.DataCell />
-        <Table.DataCell>
-          <Label size="small">
-            {formatCurrencyNoKr(perioder.reduce((sum, periode) => sum + periode.tilbakekrevingBeløp, 0))}
-          </Label>
-        </Table.DataCell>
-        <Table.DataCell>
-          <Label size="small">
-            {formatCurrencyNoKr(perioder.reduce((sum, periode) => sum + periode.tilbakekrevingBeløpEtterSkatt, 0))}
-          </Label>
-        </Table.DataCell>
-      </Table.Row>,
-    );
-
-  return (
-    <div className={styles.table}>
-      <Table>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell scope="col">
-              <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.Periode" />
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col">
-              <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.FeilutbetaltBelop" />
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col">
-              <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.Vurdering" />
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col">
-              <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.AndelAvBelop" />
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col">
-              <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.Renter" />
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col">
-              <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.ForSkatt" />
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col">
-              <FormattedMessage id="TilbakekrevingVedtakPeriodeTabell.BelopSomTilbakekreves" />
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>{rader}</Table.Body>
-      </Table>
-    </div>
-  );
-};
+        <Table.HeaderCell align="right">
+          <BeløpLabel beløp={perioder.reduce((sum, periode) => sum + periode.tilbakekrevingBeløp, 0)} />
+        </Table.HeaderCell>
+        <Table.HeaderCell align="right">
+          <BeløpLabel beløp={perioder.reduce((sum, periode) => sum + periode.tilbakekrevingBeløpEtterSkatt, 0)} />
+        </Table.HeaderCell>
+      </Table.Row>
+    </Table.Body>
+  </Table>
+);

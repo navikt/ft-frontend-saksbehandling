@@ -153,7 +153,7 @@ const vedtaksbrev = {
   ],
 };
 
-const beregningsresultat = {
+const beregningsresultat: BeregningsresultatTilbakekreving = {
   beregningResultatPerioder: [
     {
       periode: {
@@ -181,7 +181,7 @@ const beregningsresultat = {
     },
   ],
   vedtakResultatType: VedtakResultatType.DELVIS_TILBAKEBETALING,
-} as BeregningsresultatTilbakekreving;
+};
 
 const kodeverkSamlingFpTilbake = alleTilbakekrevingKodeverk as KodeverkTilbakeForPanel;
 

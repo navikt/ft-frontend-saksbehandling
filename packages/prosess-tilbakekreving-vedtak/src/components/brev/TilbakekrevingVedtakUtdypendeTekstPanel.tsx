@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { PlusCircleIcon } from '@navikt/aksel-icons';
-import { Detail } from '@navikt/ds-react';
+import { Detail, HStack } from '@navikt/ds-react';
 
 import { RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
@@ -38,35 +38,36 @@ export const TilbakekrevingVedtakUtdypendeTekstPanel = ({ type, readOnly, fritek
   return (
     <>
       {isTextfieldHidden && !readOnly && (
-        <>
-          <div
-            onClick={event => {
-              event.preventDefault();
-              hideTextField(false);
-            }}
-            onKeyDown={event => {
-              event.preventDefault();
-              hideTextField(false);
-            }}
-            className={styles.addPeriode}
-            role="button"
-            tabIndex={0}
-          >
+        <div
+          onClick={event => {
+            event.preventDefault();
+            hideTextField(false);
+          }}
+          onKeyDown={event => {
+            event.preventDefault();
+            hideTextField(false);
+          }}
+          className={styles.addPeriode}
+          role="button"
+          tabIndex={0}
+        >
+          <HStack gap="2" align="center">
             <PlusCircleIcon
               className={styles.addCircleIcon}
               title={intl.formatMessage({ id: 'TilbakekrevingVedtakUtdypendeTekstPanel.LeggTilUtdypendeTekst' })}
             />
-            <Detail size="small" className={styles.imageText}>
+            <Detail as="span">
               <FormattedMessage id="TilbakekrevingVedtakUtdypendeTekstPanel.LeggTilUtdypendeTekst" />
             </Detail>
-          </div>
-        </>
+          </HStack>
+        </div>
       )}
       {!isTextfieldHidden && (
         <RhfTextarea
+          className={styles.textfield}
           name={type}
           control={control}
-          label={intl.formatMessage({ id: 'TilbakekrevingVedtakUtdypendeTekstPanel.UtdypendeTekst' })}
+          label={<FormattedMessage id="TilbakekrevingVedtakUtdypendeTekstPanel.UtdypendeTekst" />}
           validate={valideringsRegler}
           maxLength={maximumLength || 4000}
           readOnly={readOnly}

@@ -2,9 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { HStack, VStack } from '@navikt/ds-react';
-import classNames from 'classnames';
+import { Alert, HStack, Link, VStack } from '@navikt/ds-react';
 
 import { Form, SubmitButton } from '@navikt/ft-form-hooks';
 import { omit } from '@navikt/ft-utils';
@@ -14,8 +12,6 @@ import { ForeslaVedtakTilbakekrevingAp } from '../types/ForeslaVedtakTilbakekrev
 import { VedtaksbrevAvsnitt } from '../types/VedtaksbrevAvsnitt';
 import { VedtakAksjonspunktCode } from '../VedtakAksjonspunktCode';
 import { FormValues, TilbakekrevingEditerVedtaksbrevPanel } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
-
-import styles from './tilbakekrevingVedtakForm.module.css';
 
 type VedtakData = {
   oppsummeringstekst: string;
@@ -103,7 +99,7 @@ const fetchPreview =
     e.preventDefault();
   };
 
-export interface Props {
+interface Props {
   submitCallback: (aksjonspunktData: ForeslaVedtakTilbakekrevingAp) => Promise<void>;
   avsnittsliste: VedtaksbrevAvsnitt[];
   readOnly: boolean;
@@ -163,7 +159,7 @@ export const TilbakekrevingVedtakForm = ({
           fritekstOppsummeringPakrevdMenIkkeUtfylt={fritekstOppsummeringPakrevdMenIkkeUtfylt}
           erRevurderingTilbakekrevingFeilBeløpBortfalt={erRevurderingTilbakekrevingFeilBeløpBortfalt}
         />
-        <HStack gap="10">
+        <HStack gap="4" align="center">
           <SubmitButton
             text={intl.formatMessage({ id: 'TilbakekrevingVedtakForm.TilGodkjenning' })}
             isReadOnly={readOnly}
@@ -175,26 +171,21 @@ export const TilbakekrevingVedtakForm = ({
             hasErrors={harObligatoriskeFelterSomIkkeErUtfylt}
           />
           {perioderSomIkkeHarUtfyltObligatoriskVerdi.length === 0 && (
-            <div className={styles.padding}>
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a
-                href=""
-                onClick={fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)}
-                onKeyDown={e =>
-                  e.key === 'Enter' ? fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)(e) : null
-                }
-                className={classNames(styles.buttonLink, 'lenke lenke--frittstaende')}
-              >
-                <FormattedMessage id="TilbakekrevingVedtakForm.ForhandvisBrev" />
-              </a>
-            </div>
+            <Link
+              href=""
+              onClick={fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)}
+              onKeyDown={e =>
+                e.key === 'Enter' ? fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)(e) : null
+              }
+            >
+              <FormattedMessage id="TilbakekrevingVedtakForm.ForhandvisBrev" />
+            </Link>
           )}
         </HStack>
         {erRevurderingTilbakekrevingKlage && (
-          <HStack>
-            <ExclamationmarkTriangleFillIcon className={styles.infoTextIcon} />
+          <Alert inline variant="warning" contentMaxWidth={false}>
             <FormattedMessage id="TilbakekrevingVedtakForm.Infotekst.Klage" />
-          </HStack>
+          </Alert>
         )}
       </VStack>
     </Form>

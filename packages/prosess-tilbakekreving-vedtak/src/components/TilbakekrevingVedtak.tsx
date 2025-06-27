@@ -1,6 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, Heading, VStack } from '@navikt/ds-react';
+import { BodyShort, Heading, Label, VStack } from '@navikt/ds-react';
 
 import { VedtakResultatType } from '@navikt/ft-kodeverk';
 
@@ -41,17 +41,15 @@ export const TilbakekrevingVedtak = ({
   formData,
   setFormData,
 }: Props) => (
-  <VStack gap="4">
+  <VStack gap="6" maxWidth="1200px">
     <Heading size="small">
       <FormattedMessage id="TilbakekrevingVedtak.Vedtak" />
     </Heading>
     <div>
-      <Detail>
+      <Label>
         <FormattedMessage id="TilbakekrevingVedtak.Resultat" />
-      </Detail>
-      <BodyShort size="small">
-        {kodeverkSamlingFpTilbake['VedtakResultatType'].find(vrt => vrt.kode === resultat)?.navn}
-      </BodyShort>
+      </Label>
+      <BodyShort>{kodeverkSamlingFpTilbake['VedtakResultatType'].find(vrt => vrt.kode === resultat)?.navn}</BodyShort>
     </div>
     <TilbakekrevingVedtakPeriodeTabell perioder={perioder} kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake} />
     <TilbakekrevingVedtakForm

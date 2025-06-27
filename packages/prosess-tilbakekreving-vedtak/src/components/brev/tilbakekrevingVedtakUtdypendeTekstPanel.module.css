@@ -1,14 +1,14 @@
 .addCircleIcon {
   color: var(--a-blue-500);
-  display: inline-block;
-  margin-right: 1ex;
-  vertical-align: text-bottom;
+  height: 18px;
+  width: 18px;
 }
-.imageText {
-  display: inline-block;
-  margin-right: 1ex;
-  vertical-align: text-bottom;
-}
+
 .addPeriode {
   cursor: pointer;
+  padding-block: var(--a-spacing-1);
+}
+
+.textfield {
+  padding-top: var(--a-spacing-2);
 }
