@@ -1,0 +1,13 @@
+{
+  "name": "@navikt/ft-config-typescript",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "main": "tsconfig.json",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "6.6.3",
+    "vite": "6.3.5",
+    "vitest": "3.2.3"
+  }
+}
