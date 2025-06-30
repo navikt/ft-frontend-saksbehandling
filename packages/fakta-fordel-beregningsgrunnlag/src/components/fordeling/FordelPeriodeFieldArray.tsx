@@ -1,5 +1,5 @@
 import { ReactElement, useEffect } from 'react';
-import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
+import { useFieldArray, UseFieldArrayUpdate, useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
@@ -146,7 +146,10 @@ const setArbeidsforholdInfo = (
   index: number,
   arbeidsforholdList: BGFordelArbeidsforhold[],
   val: string,
-  updateFieldMethod: (index: number, obj: object) => void,
+  updateFieldMethod: UseFieldArrayUpdate<
+    FordelBeregningsgrunnlagFormValues,
+    `FORDEL_BEREGNING_FORM.${number}.${string}`
+  >,
 ): void => {
   const field = fields[index];
   const arbeidsforhold = finnArbeidsforholdForAndel(arbeidsforholdList, val);
@@ -165,69 +168,11 @@ const setArbeidsforholdInfo = (
   }
 };
 
-const arbeidsforholdReadOnlyOrSelect = (
-  fields: FordelBeregningsgrunnlagAndelValues[],
-  index: number,
-  selectVals: ReactElement[],
-  isReadOnly: boolean,
-  arbeidsforholdList: BGFordelArbeidsforhold[],
-  updateFieldMethod: (index: number, obj: object) => void,
-  feltNavnForRad: string,
-): ReactElement =>
-  fields[index].nyAndel ? (
-    <RhfSelect
-      name={`${feltNavnForRad}.andel`}
-      size="small"
-      label=""
-      hideLabel
-      selectValues={selectVals}
-      readOnly={isReadOnly}
-      validate={[required]}
-      onChange={event =>
-        setArbeidsforholdInfo(fields, index, arbeidsforholdList, event.target.value, updateFieldMethod)
-      }
-    />
-  ) : (
-    <RhfTextField name={`${feltNavnForRad}.andel`} size="small" hideLabel readOnly />
-  );
-
 const skalViseSletteknapp = (
   index: number,
   fields: FordelBeregningsgrunnlagAndelValues[],
   readOnly: boolean,
 ): boolean => (fields[index].nyAndel || fields[index].lagtTilAvSaksbehandler) && !readOnly;
-
-const tittelKolonne = (
-  fields: FordelBeregningsgrunnlagAndelValues[],
-  index: number,
-  selectVals: ReactElement[],
-  skalIkkeEndres: boolean,
-  arbeidsforholdList: BGFordelArbeidsforhold[],
-  updateFieldMethod: any,
-  feltNavnForRad: string,
-): ReactElement => (
-  <Table.DataCell textSize="small">
-    {arbeidsforholdReadOnlyOrSelect(
-      fields,
-      index,
-      selectVals,
-      skalIkkeEndres,
-      arbeidsforholdList,
-      updateFieldMethod,
-      feltNavnForRad,
-    )}
-    {!isSelvstendigOrFrilanser(fields[index]) && (
-      <div className={styles.wordwrap}>
-        <RhfTextField
-          size="small"
-          hideLabel
-          name={`${feltNavnForRad}.arbeidsperiodeFom - ${feltNavnForRad}.arbeidsperiodeTom`}
-          readOnly
-        />
-      </div>
-    )}
-  </Table.DataCell>
-);
 
 interface Props {
   readOnly: boolean;
@@ -402,15 +347,45 @@ export const FordelPeriodeFieldArray = ({
         <Table.Body>
           {fields.map((field, index) => {
             const skalIkkeEndres = readOnly || skalIkkeRedigereInntekt;
-            const feltNavnForRad = `${fieldArrayName}.${index}`;
+            const feltNavnForRad = `${fieldArrayName}.${index}` as const;
             return (
               <Table.Row key={field.id}>
-                {tittelKolonne(fields, index, selectVals, skalIkkeEndres, arbeidsforholdList, update, feltNavnForRad)}
+                <Table.DataCell textSize="small">
+                  {fields[index].nyAndel ? (
+                    <RhfSelect
+                      control={control}
+                      name={`${feltNavnForRad}.andel`}
+                      size="small"
+                      label=""
+                      hideLabel
+                      selectValues={selectVals}
+                      readOnly={skalIkkeEndres}
+                      validate={[required]}
+                      onChange={event =>
+                        setArbeidsforholdInfo(fields, index, arbeidsforholdList, event.target.value, update)
+                      }
+                    />
+                  ) : (
+                    <RhfTextField control={control} name={`${feltNavnForRad}.andel`} size="small" hideLabel readOnly />
+                  )}
+                  {!isSelvstendigOrFrilanser(fields[index]) && (
+                    <div className={styles.wordwrap}>
+                      <RhfTextField
+                        control={control}
+                        name={`${feltNavnForRad}.arbeidsperiodeFom - ${feltNavnForRad}.arbeidsperiodeTom`}
+                        size="small"
+                        hideLabel
+                        readOnly
+                      />
+                    </div>
+                  )}
+                </Table.DataCell>
                 {gjelderGradering && (
                   <Table.DataCell align="right" textSize="small">
                     <RhfTextField
-                      size="small"
+                      control={control}
                       name={`${feltNavnForRad}.andelIArbeid`}
+                      size="small"
                       hideLabel
                       readOnly
                       className={styles.litenBredde}
@@ -420,6 +395,7 @@ export const FordelPeriodeFieldArray = ({
                 )}
                 <Table.DataCell align="right" textSize="small">
                   <RhfTextField
+                    control={control}
                     name={`${feltNavnForRad}.refusjonskrav`}
                     size="small"
                     hideLabel
@@ -431,8 +407,9 @@ export const FordelPeriodeFieldArray = ({
                 </Table.DataCell>
                 <Table.DataCell align="right" textSize="small">
                   <RhfTextField
-                    size="small"
+                    control={control}
                     name={`${feltNavnForRad}.beregningsgrunnlagPrAar`}
+                    size="small"
                     hideLabel
                     className={styles.litenBredde}
                     parse={parseCurrencyInput}
@@ -442,10 +419,11 @@ export const FordelPeriodeFieldArray = ({
 
                 <Table.DataCell align="right" textSize="small">
                   <RhfTextField
-                    size="small"
+                    control={control}
                     name={
                       skalIkkeRedigereInntekt ? `${feltNavnForRad}.readOnlyBelop` : `${feltNavnForRad}.fastsattBelop`
                     }
+                    size="small"
                     hideLabel
                     className={styles.litenBredde}
                     validate={[required, maxValueFormatted(178956970)]}
@@ -456,11 +434,12 @@ export const FordelPeriodeFieldArray = ({
                 </Table.DataCell>
                 <Table.DataCell textSize="small">
                   <RhfSelect
+                    control={control}
+                    name={`${feltNavnForRad}.inntektskategori`}
                     size="small"
                     label=""
                     hideLabel
                     className={styles.storBredde}
-                    name={`${feltNavnForRad}.inntektskategori`}
                     validate={skalIkkeEndres ? [] : [required]}
                     selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
                     readOnly={skalIkkeEndres}
