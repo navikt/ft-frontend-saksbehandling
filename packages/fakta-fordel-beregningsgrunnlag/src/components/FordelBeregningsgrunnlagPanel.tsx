@@ -36,7 +36,7 @@ const getAvklaringsbehov = (
 ): BeregningAvklaringsbehov | undefined =>
   avklaringsbehov && def ? avklaringsbehov.find(ap => ap.definisjon === def) : undefined;
 
-export interface Props {
+interface Props {
   aktivtBeregningsgrunnlagIndeks: number;
   readOnly: boolean;
   submitCallback: (
@@ -54,11 +54,6 @@ export interface Props {
   skalHåndtereNyInntekt: boolean;
 }
 
-/**
- * FordelBeregningsgrunnlagPanel
- *
- * Har ansvar for å sette opp Formen for "avklar fakta om fordeling" panel.
- */
 export const FordelBeregningsgrunnlagPanel = ({
   aktivtBeregningsgrunnlagIndeks,
   readOnly,

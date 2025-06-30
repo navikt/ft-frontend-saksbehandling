@@ -1,7 +1,7 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { Accordion, Label, VStack } from '@navikt/ds-react';
+import { Accordion, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { RhfTextarea } from '@navikt/ft-form-hooks';
@@ -19,11 +19,9 @@ import { SubmitButton } from '../felles/SubmitButton';
 import { VurdertIForrigeBehandlingIcon } from '../felles/VurdertIForrigeBehandlingIcon';
 import { TidligereVurderteAktiviteterPanel } from './TidligereVurderteAktiviteterPanel';
 import { TilkommetAktivitetField } from './TilkommetAktivitetField';
-import { erVurdertTidligere, slaaSammenPerioder } from './TilkommetAktivitetUtils';
+import { erVurdertTidligere, slaaSammenPerioder } from './tilkommetAktivitetUtils';
 
-import styles from './tilkommetAktivitetAccordion.module.css';
-
-type Props = {
+interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formName: string;
@@ -32,7 +30,7 @@ type Props = {
   submittable: boolean;
   erAksjonspunktÅpent: boolean;
   fields: TilkommetAktivitetValues[];
-};
+}
 
 export const TilkommetAktivitetAccordion = ({
   beregningsgrunnlag,
@@ -98,14 +96,14 @@ export const TilkommetAktivitetAccordion = ({
 
   return (
     <VStack gap="6">
-      <Accordion className={styles.statusOk}>
+      <Accordion headingSize="xsmall">
         {tidligereVurderte.map(tidligereVurdertPeriode => (
           <Accordion.Item
             open={openPanels.filter(panel => panel === tidligereVurdertPeriode.fom).length > 0}
             key={tidligereVurdertPeriode.fom}
           >
             <Accordion.Header onClick={visPanel(tidligereVurdertPeriode.fom)}>
-              {renderDateHeading(tidligereVurdertPeriode.fom, tidligereVurdertPeriode.tom)}{' '}
+              <PeriodLabel dateStringFom={tidligereVurdertPeriode.fom} dateStringTom={tidligereVurdertPeriode.tom} />
               <VurdertIForrigeBehandlingIcon />
             </Accordion.Header>
             <Accordion.Content>
@@ -118,7 +116,9 @@ export const TilkommetAktivitetAccordion = ({
         ))}
         {fields.map((field, index) => (
           <Accordion.Item open={openPanels.filter(panel => panel === field.fom).length > 0} key={field.fom}>
-            <Accordion.Header onClick={visPanel(field.fom)}>{renderDateHeading(field.fom, field.tom)}</Accordion.Header>
+            <Accordion.Header onClick={visPanel(field.fom)}>
+              <PeriodLabel dateStringFom={field.fom} dateStringTom={field.tom} />
+            </Accordion.Header>
             <Accordion.Content>
               <TilkommetAktivitetField
                 arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
@@ -137,7 +137,7 @@ export const TilkommetAktivitetAccordion = ({
         ))}
       </Accordion>
       {fields.length > 1 && (
-        <VStack gap="4" className={styles.aktivitetContainer}>
+        <VStack gap="4">
           <div>
             <RhfTextarea
               name={`${formName}.${formFieldIndex}.begrunnelse`}
@@ -162,13 +162,5 @@ export const TilkommetAktivitetAccordion = ({
         </VStack>
       )}
     </VStack>
-  );
-};
-
-const renderDateHeading = (fom: string, tom: string | undefined): ReactElement => {
-  return (
-    <Label size="medium">
-      <PeriodLabel dateStringFom={fom} dateStringTom={tom} />
-    </Label>
   );
 };

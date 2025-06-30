@@ -36,7 +36,7 @@ const agOpplysninger: ArbeidsgiverOpplysningerPerId = {
   },
 };
 
-describe('FordelingHelpText', () => {
+describe('fordelingHelpTextUtils', () => {
   it('skal lage endret arbeidsforhold for permisjon', () => {
     const string = createFordelArbeidsforholdString(arbeidsforholdListe, textCase.PERMISJON, agOpplysninger);
     expect(string).toEqual('Sopra Steria (123456789)...6789 f.o.m 01.10.2018');

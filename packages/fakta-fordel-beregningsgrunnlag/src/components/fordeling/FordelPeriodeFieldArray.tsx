@@ -1,9 +1,9 @@
-import { ReactElement, ReactNode, useEffect } from 'react';
-import { useFieldArray, useFormContext, UseFormGetValues } from 'react-hook-form';
+import { ReactElement, useEffect } from 'react';
+import { useFieldArray, UseFieldArrayUpdate, useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
-import { Button, Checkbox, Detail, ErrorMessage, Label, Table } from '@navikt/ds-react';
+import { Button, Checkbox, ErrorMessage, HStack, Table, VStack } from '@navikt/ds-react';
 
 import { RhfSelect, RhfTextField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
@@ -14,6 +14,7 @@ import {
   isSelvstendigNæringsdrivende,
 } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, formaterArbeidsgiver, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import {
@@ -22,7 +23,7 @@ import {
   FordelBeregningsgrunnlagFormValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { KodeverkForPanel, KodeverkMedNavn } from '../../types/kodeverkForPanel';
-import { finnUnikeArbeidsforhold } from './FinnUnikeArbeidsforhold';
+import { finnUnikeArbeidsforhold } from './finnUnikeArbeidsforhold';
 import {
   validateSumFastsattBelop,
   validateSumFastsattForUgraderteAktiviteter,
@@ -30,11 +31,9 @@ import {
   validateTotalRefusjonPrArbeidsforhold,
   validateUlikeAndeler,
   validerBGGraderteAndeler,
-} from './ValidateFordelteAndelerUtils';
+} from './validateFordelteAndelerUtils';
 
-import styles from './renderFordelBGFieldArray.module.css';
-
-const FloatRight = ({ children }: { children?: ReactNode }) => <span className={styles.floatRight}>{children}</span>;
+import styles from './fordelPeriodeFieldArray.module.css';
 
 const defaultBGFordeling = (periodeUtenAarsak: boolean): any => ({
   nyAndel: true,
@@ -100,45 +99,24 @@ const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn<'Inntektskateg
     </option>
   ));
 
-const sumEllerTomString = (sum: number): string => {
-  if (sum > 0) {
-    return formatCurrencyNoKr(sum) ?? '';
-  }
-  return '';
-};
-
-const summerFordeling = (
-  vilkårperiodeFieldIndex: number,
-  fieldname: string,
-  fields: FordelBeregningsgrunnlagAndelValues[],
-  getValues: UseFormGetValues<FordelBeregningsgrunnlagFormValues>,
-): string => {
-  let sum = 0;
-  let index = 0;
-  for (index; index < fields.length; index += 1) {
-    const field = fields[index];
-    const fastsattBeløp = removeSpacesFromNumber(
-      getValues(`FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldname}.${index}.fastsattBelop`),
-    );
-    if (field.skalRedigereInntekt) {
-      sum += fastsattBeløp ?? 0;
+const summerFordeling = (fields: FordelBeregningsgrunnlagAndelValues[]) => {
+  const sum = fields.reduce((acc, { fastsattBelop, readOnlyBelop, skalRedigereInntekt }) => {
+    const parsedValue = removeSpacesFromNumber(fastsattBelop);
+    if (skalRedigereInntekt) {
+      return acc + (parsedValue ?? 0);
     } else {
-      sum += field.readOnlyBelop ? fastsattBeløp : 0;
+      return acc + (readOnlyBelop ? parsedValue : 0);
     }
-  }
-  return sumEllerTomString(sum);
+  }, 0);
+  return <BeløpLabel beløp={sum} />;
 };
 
-const summerBeregningsgrunnlagPrAar = (fields: FordelBeregningsgrunnlagAndelValues[]): string => {
-  let sum = 0;
-  let index = 0;
-  for (index; index < fields.length; index += 1) {
-    const field = fields[index];
-    if (field.beregningsgrunnlagPrAar) {
-      sum += field.beregningsgrunnlagPrAar ? Number(removeSpacesFromNumber(field.beregningsgrunnlagPrAar)) : 0;
-    }
-  }
-  return sumEllerTomString(sum);
+const summerBeregningsgrunnlagPrÅr = (fields: FordelBeregningsgrunnlagAndelValues[]) => {
+  const sum = fields.reduce((acc, { beregningsgrunnlagPrAar }) => {
+    const parsedValue = beregningsgrunnlagPrAar ? removeSpacesFromNumber(beregningsgrunnlagPrAar) : 0;
+    return acc + parsedValue;
+  }, 0);
+  return <BeløpLabel beløp={sum} />;
 };
 
 const isSelvstendigOrFrilanser = (fieldVal: FordelBeregningsgrunnlagAndelValues): boolean => {
@@ -168,7 +146,10 @@ const setArbeidsforholdInfo = (
   index: number,
   arbeidsforholdList: BGFordelArbeidsforhold[],
   val: string,
-  updateFieldMethod: (index: number, obj: object) => void,
+  updateFieldMethod: UseFieldArrayUpdate<
+    FordelBeregningsgrunnlagFormValues,
+    `FORDEL_BEREGNING_FORM.${number}.${string}`
+  >,
 ): void => {
   const field = fields[index];
   const arbeidsforhold = finnArbeidsforholdForAndel(arbeidsforholdList, val);
@@ -187,214 +168,13 @@ const setArbeidsforholdInfo = (
   }
 };
 
-const arbeidsforholdReadOnlyOrSelect = (
-  fields: FordelBeregningsgrunnlagAndelValues[],
-  index: number,
-  selectVals: ReactElement[],
-  isReadOnly: boolean,
-  arbeidsforholdList: BGFordelArbeidsforhold[],
-  updateFieldMethod: (index: number, obj: object) => void,
-  lagFeltNavn: (fieldIndex: number) => string,
-): ReactElement => (
-  <>
-    {!fields[index].nyAndel && (
-      <RhfTextField name={`${lagFeltNavn(index)}.andel`} className={styles.storBredde} readOnly />
-    )}
-    {fields[index].nyAndel && (
-      <RhfSelect
-        name={`${lagFeltNavn(index)}.andel`}
-        className={styles.storBredde}
-        label=""
-        selectValues={selectVals}
-        readOnly={isReadOnly}
-        validate={[required]}
-        onChange={event =>
-          setArbeidsforholdInfo(fields, index, arbeidsforholdList, event.target.value, updateFieldMethod)
-        }
-      />
-    )}
-  </>
-);
-
-const grunnlagInputKolonne = (
-  readOnly: boolean,
-  skalIkkeRedigereInntekt: boolean,
-  isAksjonspunktClosed: boolean,
-  fieldNavn: string,
-): ReactElement => {
-  if (skalIkkeRedigereInntekt) {
-    return (
-      <Table.DataCell>
-        <FloatRight>
-          <RhfTextField
-            name={`${fieldNavn}.readOnlyBelop`}
-            className={styles.litenBredde}
-            parse={parseCurrencyInput}
-            readOnly
-            isEdited={false}
-          />
-        </FloatRight>
-      </Table.DataCell>
-    );
-  }
-  return (
-    <Table.DataCell className={styles.rightAlignInput}>
-      <FloatRight>
-        <RhfTextField
-          name={`${fieldNavn}.fastsattBelop`}
-          parse={parseCurrencyInput}
-          readOnly={readOnly}
-          validate={[required, maxValueFormatted(178956970)]}
-          isEdited={isAksjonspunktClosed && !skalIkkeRedigereInntekt}
-          className={styles.litenBredde}
-        />
-      </FloatRight>
-    </Table.DataCell>
-  );
-};
-
 const skalViseSletteknapp = (
   index: number,
   fields: FordelBeregningsgrunnlagAndelValues[],
   readOnly: boolean,
 ): boolean => (fields[index].nyAndel || fields[index].lagtTilAvSaksbehandler) && !readOnly;
 
-const tittelKolonne = (
-  fields: FordelBeregningsgrunnlagAndelValues[],
-  index: number,
-  selectVals: ReactElement[],
-  skalIkkeEndres: boolean,
-  arbeidsforholdList: BGFordelArbeidsforhold[],
-  updateFieldMethod: any,
-  lagFeltNavn: (fieldIndex: number) => string,
-): ReactElement => (
-  <Table.DataCell>
-    {arbeidsforholdReadOnlyOrSelect(
-      fields,
-      index,
-      selectVals,
-      skalIkkeEndres,
-      arbeidsforholdList,
-      updateFieldMethod,
-      lagFeltNavn,
-    )}
-    {!isSelvstendigOrFrilanser(fields[index]) && (
-      <div className={styles.wordwrap}>
-        <RhfTextField
-          name={`${lagFeltNavn(index)}.arbeidsperiodeFom - ${lagFeltNavn(index)}.arbeidsperiodeTom`}
-          readOnly
-        />
-      </div>
-    )}
-  </Table.DataCell>
-);
-
-const graderingKolonne = (gjelderGradering: boolean, fieldNavn: string): ReactElement | null => {
-  if (!gjelderGradering) return null;
-  return (
-    <Table.DataCell>
-      <RhfTextField
-        name={`${fieldNavn}.andelIArbeid`}
-        readOnly
-        className={styles.litenBredde}
-        normalizeOnBlur={value => (Number.isNaN(value) ? value : parseFloat(value.toString()).toFixed(2))}
-      />
-    </Table.DataCell>
-  );
-};
-
-const refusjonKolonne = (
-  skalIkkeEndres: boolean,
-  fields: FordelBeregningsgrunnlagAndelValues[],
-  index: number,
-  lagFeltNavn: (fieldIndex: number) => string,
-): ReactElement => (
-  <Table.DataCell
-    className={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon ? undefined : styles.rightAlignInput}
-  >
-    <FloatRight>
-      <RhfTextField
-        name={`${lagFeltNavn(index)}.refusjonskrav`}
-        readOnly={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon}
-        parse={parseCurrencyInput}
-        className={styles.litenBredde}
-        validate={fields[index].skalKunneEndreRefusjon ? [required, maxValueFormatted(178956970)] : []}
-      />
-    </FloatRight>
-  </Table.DataCell>
-);
-
-const grunnlagKolonne = (fieldNavn: string): ReactElement => (
-  <Table.DataCell>
-    <RhfTextField
-      name={`${fieldNavn}.beregningsgrunnlagPrAar`}
-      className={styles.litenBredde}
-      readOnly
-      parse={parseCurrencyInput}
-    />
-  </Table.DataCell>
-);
-
-const inntektskategoriKolonne = (
-  skalIkkeEndres: boolean,
-  fieldNavn: string,
-  inntektskategoriKoder: KodeverkMedNavn<'Inntektskategori'>[],
-): ReactElement => (
-  <Table.DataCell className={skalIkkeEndres ? styles.shortLeftAligned : undefined}>
-    <FloatRight>
-      <RhfSelect
-        label=""
-        name={`${fieldNavn}.inntektskategori`}
-        className={styles.storBredde}
-        validate={skalIkkeEndres ? [] : [required]}
-        selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
-        readOnly={skalIkkeEndres}
-      />
-    </FloatRight>
-  </Table.DataCell>
-);
-
-const knappKolonne = (
-  fields: FordelBeregningsgrunnlagAndelValues[],
-  index: number,
-  skalIkkeEndres: boolean,
-  removeFromFieldsMethod: (index?: number | number[]) => void,
-): ReactElement => (
-  <Table.DataCell>
-    {skalViseSletteknapp(index, fields, skalIkkeEndres) && (
-      <Button
-        icon={<XMarkIcon aria-hidden className={styles.slettIkon} />}
-        onClick={() => removeFromFieldsMethod(index)}
-        type="button"
-        variant="tertiary"
-      />
-    )}
-  </Table.DataCell>
-);
-
-const createBruttoBGSummaryRow = (
-  sumFordeling: string,
-  sumBeregningsgrunnlagPrAar: string,
-  gjelderGradering: boolean,
-): ReactElement => (
-  <Table.Row key="bruttoBGSummaryRow">
-    <Table.DataCell>
-      <FormattedMessage id="BeregningInfoPanel.FordelBG.Sum" />
-    </Table.DataCell>
-    {gjelderGradering && <Table.DataCell />}
-    <Table.DataCell />
-    <Table.DataCell>
-      <Label size="small">{sumBeregningsgrunnlagPrAar}</Label>
-    </Table.DataCell>
-    <Table.DataCell>
-      <Label size="small">{sumFordeling}</Label>
-    </Table.DataCell>
-    <Table.DataCell />
-    <Table.DataCell />
-  </Table.Row>
-);
-
-type Props = {
+interface Props {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   skalIkkeRedigereInntekt: boolean;
@@ -408,7 +188,7 @@ type Props = {
   vilkårperiodeFieldIndex: number;
   setFieldArrayToRepeat: (fieldArrayName: string) => void;
   fieldArrayToRepeat: string;
-};
+}
 
 const getGjelderGradering = (beregningsgrunnlag: Beregningsgrunnlag): boolean => {
   const arbeidTilFordeling =
@@ -416,12 +196,6 @@ const getGjelderGradering = (beregningsgrunnlag: Beregningsgrunnlag): boolean =>
   return arbeidTilFordeling.some(a => a.perioderMedGraderingEllerRefusjon?.some(p => p.erGradering));
 };
 
-/**
- *  RenderFordelBGFieldArray
- *
- * Presentasjonskomponent: Viser fordeling av brutto beregningsgrunnlag ved endret beregningsgrunnlag
- * Komponenten må rendres som komponenten til et FieldArray.
- */
 export const FordelPeriodeFieldArray = ({
   fieldName,
   readOnly,
@@ -437,11 +211,17 @@ export const FordelPeriodeFieldArray = ({
   setFieldArrayToRepeat,
   fieldArrayToRepeat,
 }: Props) => {
-  const { control, watch, getValues } = useFormContext<FordelBeregningsgrunnlagFormValues>();
-  const fieldArrayName = `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldName}`;
+  const { control, getValues } = useFormContext<FordelBeregningsgrunnlagFormValues>();
+  const fieldArrayName = `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldName}` as const;
+
   const { fields, append, remove, update } = useFieldArray({
     control,
-    name: `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldName}`,
+    name: fieldArrayName,
+  });
+
+  const watchedArray = useWatch({
+    control,
+    name: fieldArrayName,
   });
 
   useEffect(() => {
@@ -471,34 +251,13 @@ export const FordelPeriodeFieldArray = ({
     !!beregningsgrunnlag.aktivitetStatus &&
     beregningsgrunnlag.aktivitetStatus.some(status => status === AktivitetStatus.KUN_YTELSE);
   const arbeidsforholdList = finnUnikeArbeidsforhold(beregningsgrunnlag);
-  const sumFordeling = summerFordeling(vilkårperiodeFieldIndex, fieldName, fields, watch);
-  const sumBeregningsgrunnlagPrAar = summerBeregningsgrunnlagPrAar(fields);
+
   const gjelderGradering = getGjelderGradering(beregningsgrunnlag);
   const inntektskategoriKoder = kodeverkSamling['Inntektskategori'];
   const intl = useIntl();
   const selectVals = harKunYtelse
     ? arbeidsgiverSelectValuesForKunYtelse(arbeidsforholdList, intl, kodeverkSamling, arbeidsgiverOpplysningerPerId)
     : arbeidsgiverSelectValues(arbeidsforholdList, kodeverkSamling, arbeidsgiverOpplysningerPerId);
-
-  const lagFeltNavn = (fieldIndex: number): string =>
-    `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldName}.${fieldIndex}`;
-
-  const tablerows = fields.map((field, index) => {
-    const skalIkkeEndres = readOnly || skalIkkeRedigereInntekt;
-    return (
-      <Table.Row key={field.id}>
-        {tittelKolonne(fields, index, selectVals, skalIkkeEndres, arbeidsforholdList, update, lagFeltNavn)}
-        {graderingKolonne(gjelderGradering, lagFeltNavn(index))}
-        {refusjonKolonne(skalIkkeEndres, fields, index, lagFeltNavn)}
-        {grunnlagKolonne(lagFeltNavn(index))}
-        {grunnlagInputKolonne(readOnly, skalIkkeRedigereInntekt, isAksjonspunktClosed, lagFeltNavn(index))}
-        {inntektskategoriKolonne(skalIkkeEndres, lagFeltNavn(index), inntektskategoriKoder)}
-        {knappKolonne(fields, index, skalIkkeEndres, remove)}
-      </Table.Row>
-    );
-  });
-
-  tablerows.push(createBruttoBGSummaryRow(sumFordeling, sumBeregningsgrunnlagPrAar, gjelderGradering));
 
   const valideringsresultat: string[] = [];
 
@@ -544,7 +303,7 @@ export const FordelPeriodeFieldArray = ({
       );
     }
   }
-  const skjemaNavn = `FORDEL_BEREGNING_FORM.${vilkårperiodeFieldIndex}.${fieldName}.skjemagruppe`;
+  const skjemaNavn = `${fieldArrayName}.skjemagruppe`;
   const feilmeldinger = valideringsresultat.filter(fm => !!fm);
   const feilmeldingSomSkalVises = feilmeldinger.length > 0 ? feilmeldinger[0] : undefined;
 
@@ -557,59 +316,185 @@ export const FordelPeriodeFieldArray = ({
       setFieldArrayToRepeat(fieldArrayName);
     }
   };
-
   return (
-    <div>
-      <Table className={styles.inntektTable}>
+    <VStack gap="4">
+      <Table className={styles.tableMedInput}>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell scope="col">
+            <Table.HeaderCell scope="col" textSize="small">
               <FormattedMessage id="BeregningInfoPanel.FordelBG.Andel" />
             </Table.HeaderCell>
             {gjelderGradering && (
-              <Table.HeaderCell scope="col">
+              <Table.HeaderCell scope="col" align="right" textSize="small">
                 <FormattedMessage id="BeregningInfoPanel.FordelBG.AndelIArbeid" />
               </Table.HeaderCell>
             )}
-            <Table.HeaderCell scope="col">
+            <Table.HeaderCell scope="col" align="right" textSize="small">
               <FormattedMessage id="BeregningInfoPanel.FordelBG.Refusjonskrav" />
             </Table.HeaderCell>
-            <Table.HeaderCell scope="col">
+            <Table.HeaderCell scope="col" align="right" textSize="small">
               <FormattedMessage id="BeregningInfoPanel.FordelBG.Beregningsgrunnlag" />
             </Table.HeaderCell>
-            <Table.HeaderCell scope="col">
+            <Table.HeaderCell scope="col" align="right" textSize="small">
               <FormattedMessage id="BeregningInfoPanel.FordelBG.Fordeling" />
             </Table.HeaderCell>
-            <Table.HeaderCell scope="col">
+            <Table.HeaderCell scope="col" textSize="small">
               <FormattedMessage id="BeregningInfoPanel.FordelBG.Inntektskategori" />
             </Table.HeaderCell>
             <Table.HeaderCell scope="col" />
           </Table.Row>
         </Table.Header>
-        <Table.Body>{tablerows}</Table.Body>
+        <Table.Body>
+          {fields.map((field, index) => {
+            const skalIkkeEndres = readOnly || skalIkkeRedigereInntekt;
+            const feltNavnForRad = `${fieldArrayName}.${index}` as const;
+            return (
+              <Table.Row key={field.id}>
+                <Table.DataCell textSize="small">
+                  {fields[index].nyAndel ? (
+                    <RhfSelect
+                      control={control}
+                      name={`${feltNavnForRad}.andel`}
+                      size="small"
+                      label=""
+                      hideLabel
+                      selectValues={selectVals}
+                      readOnly={skalIkkeEndres}
+                      validate={[required]}
+                      onChange={event =>
+                        setArbeidsforholdInfo(fields, index, arbeidsforholdList, event.target.value, update)
+                      }
+                    />
+                  ) : (
+                    <RhfTextField control={control} name={`${feltNavnForRad}.andel`} size="small" hideLabel readOnly />
+                  )}
+                  {!isSelvstendigOrFrilanser(fields[index]) && (
+                    <div className={styles.wordwrap}>
+                      <RhfTextField
+                        control={control}
+                        name={`${feltNavnForRad}.arbeidsperiodeFom - ${feltNavnForRad}.arbeidsperiodeTom`}
+                        size="small"
+                        hideLabel
+                        readOnly
+                      />
+                    </div>
+                  )}
+                </Table.DataCell>
+                {gjelderGradering && (
+                  <Table.DataCell align="right" textSize="small">
+                    <RhfTextField
+                      control={control}
+                      name={`${feltNavnForRad}.andelIArbeid`}
+                      size="small"
+                      hideLabel
+                      readOnly
+                      className={styles.litenBredde}
+                      normalizeOnBlur={value => (Number.isNaN(value) ? value : parseFloat(value.toString()).toFixed(2))}
+                    />
+                  </Table.DataCell>
+                )}
+                <Table.DataCell align="right" textSize="small">
+                  <RhfTextField
+                    control={control}
+                    name={`${feltNavnForRad}.refusjonskrav`}
+                    size="small"
+                    hideLabel
+                    readOnly={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon}
+                    parse={parseCurrencyInput}
+                    className={styles.litenBredde}
+                    validate={fields[index].skalKunneEndreRefusjon ? [required, maxValueFormatted(178956970)] : []}
+                  />
+                </Table.DataCell>
+                <Table.DataCell align="right" textSize="small">
+                  <RhfTextField
+                    control={control}
+                    name={`${feltNavnForRad}.beregningsgrunnlagPrAar`}
+                    size="small"
+                    hideLabel
+                    className={styles.litenBredde}
+                    parse={parseCurrencyInput}
+                    readOnly
+                  />
+                </Table.DataCell>
+
+                <Table.DataCell align="right" textSize="small">
+                  <RhfTextField
+                    control={control}
+                    name={
+                      skalIkkeRedigereInntekt ? `${feltNavnForRad}.readOnlyBelop` : `${feltNavnForRad}.fastsattBelop`
+                    }
+                    size="small"
+                    hideLabel
+                    className={styles.litenBredde}
+                    validate={[required, maxValueFormatted(178956970)]}
+                    parse={parseCurrencyInput}
+                    readOnly={skalIkkeRedigereInntekt || readOnly}
+                    isEdited={skalIkkeRedigereInntekt ? false : isAksjonspunktClosed && !skalIkkeRedigereInntekt}
+                  />
+                </Table.DataCell>
+                <Table.DataCell textSize="small">
+                  <RhfSelect
+                    control={control}
+                    name={`${feltNavnForRad}.inntektskategori`}
+                    size="small"
+                    label=""
+                    hideLabel
+                    className={styles.storBredde}
+                    validate={skalIkkeEndres ? [] : [required]}
+                    selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
+                    readOnly={skalIkkeEndres}
+                  />
+                </Table.DataCell>
+                <Table.DataCell align="right" textSize="small">
+                  {skalViseSletteknapp(index, fields, skalIkkeEndres) && (
+                    <Button
+                      size="small"
+                      icon={<XMarkIcon aria-hidden color="var(--a-red-500)" />}
+                      onClick={() => remove(index)}
+                      type="button"
+                      variant="tertiary-neutral"
+                    />
+                  )}
+                </Table.DataCell>
+              </Table.Row>
+            );
+          })}
+        </Table.Body>
+        <tfoot>
+          <Table.Row key="bruttoBGSummaryRow">
+            <Table.HeaderCell textSize="small">
+              <FormattedMessage id="BeregningInfoPanel.FordelBG.Sum" />
+            </Table.HeaderCell>
+            {gjelderGradering && <Table.DataCell />}
+            <Table.DataCell />
+            <Table.HeaderCell align="right" textSize="small">
+              {summerBeregningsgrunnlagPrÅr(watchedArray)}
+            </Table.HeaderCell>
+            <Table.HeaderCell align="right" textSize="small">
+              {summerFordeling(watchedArray)}
+            </Table.HeaderCell>
+            <Table.DataCell />
+            <Table.DataCell />
+          </Table.Row>
+        </tfoot>
       </Table>
       {!readOnly && !skalIkkeRedigereInntekt && (
-        <Button
-          icon={<PlusCircleIcon aria-hidden />}
-          onClick={() => append(defaultBGFordeling(skalIkkeRedigereInntekt))}
-          type="button"
-          variant="secondary"
-        >
-          <Detail>
+        <HStack justify="space-between">
+          <Button
+            size="small"
+            icon={<PlusCircleIcon aria-hidden />}
+            onClick={() => append(defaultBGFordeling(skalIkkeRedigereInntekt))}
+            type="button"
+            variant="tertiary"
+          >
             <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
-          </Detail>
-        </Button>
-      )}
-      {!readOnly && !skalIkkeRedigereInntekt && (
-        <Checkbox
-          className={styles.benyttCheckbox}
-          checked={fieldArrayName === fieldArrayToRepeat}
-          onChange={handleBenyttCheckbox}
-        >
-          Benytt for alle perioder
-        </Checkbox>
+          </Button>
+          <Checkbox size="small" checked={fieldArrayName === fieldArrayToRepeat} onChange={handleBenyttCheckbox}>
+            Benytt for alle perioder
+          </Checkbox>
+        </HStack>
       )}
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-    </div>
+    </VStack>
   );
 };
