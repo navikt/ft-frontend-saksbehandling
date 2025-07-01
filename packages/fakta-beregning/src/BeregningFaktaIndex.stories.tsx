@@ -61,7 +61,6 @@ const {
   VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD,
   VURDER_ETTERLONN_SLUTTPAKKE,
   FASTSETT_BG_KUN_YTELSE,
-  FASTSETT_INNTEKT_FOR_ARBEID_UNDER_AAP,
   VURDER_SN_NY_I_ARBEIDSLIVET,
 } = FaktaOmBeregningTilfelle;
 
@@ -201,13 +200,6 @@ const etterlønnSluttpakkeFaktaArbeidstakerAndel = {
     arbeidsgiverIdent: '795349533',
     startdato: '2019-09-01',
     arbeidsforholdType: OpptjeningAktivitetType.ETTERLONN_SLUTTPAKKE,
-  },
-};
-const arbeidUnderAAPFaktaArbeidstakerAndel = {
-  ...lagAndel(11, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
-  lagtTilAvSaksbehandler: false,
-  arbeidsforhold: {
-    arbeidsforholdType: OpptjeningAktivitetType.ARBEID_UNDER_AAP,
   },
 };
 const standardFaktaDagpengerAndel = {
@@ -870,36 +862,6 @@ const lagBeregningsgrunnlag14 = () => {
     andelerForFaktaOmBeregning,
   };
   return [lagBeregningsgrunnlag(andeler, faktaOmBeregning, '2022-03-02', [opprettetVurderFakta])];
-};
-
-const lagBeregningsgrunnlag19 = () => {
-  const arbeidUnderAAPAndel = {
-    andelsnr: arbeidUnderAAPFaktaArbeidstakerAndel.andelsnr,
-    aktivitetStatus: arbeidUnderAAPFaktaArbeidstakerAndel.aktivitetStatus,
-    inntektskategori: arbeidUnderAAPFaktaArbeidstakerAndel.inntektskategori,
-    arbeidsforhold: arbeidUnderAAPFaktaArbeidstakerAndel.arbeidsforhold,
-  };
-  const etterlønnSluttpakkeBeregningsgrunnlagAndel = {
-    andelsnr: etterlønnSluttpakkeFaktaArbeidstakerAndel.andelsnr,
-    aktivitetStatus: etterlønnSluttpakkeFaktaArbeidstakerAndel.aktivitetStatus,
-    inntektskategori: etterlønnSluttpakkeFaktaArbeidstakerAndel.inntektskategori,
-    arbeidsforhold: etterlønnSluttpakkeFaktaArbeidstakerAndel.arbeidsforhold,
-  };
-  const andeler = [arbeidUnderAAPAndel, etterlønnSluttpakkeBeregningsgrunnlagAndel];
-  const andelerForFaktaOmBeregning = [arbeidUnderAAPFaktaArbeidstakerAndel, etterlønnSluttpakkeFaktaArbeidstakerAndel];
-  const faktaOmBeregning = {
-    faktaOmBeregningTilfeller: [FASTSETT_INNTEKT_FOR_ARBEID_UNDER_AAP, VURDER_ETTERLONN_SLUTTPAKKE],
-    andelerForFaktaOmBeregning,
-  };
-  return [lagBeregningsgrunnlag(andeler, faktaOmBeregning, '2022-03-02', [opprettetVurderFakta])];
-};
-
-export const FastsettArbeidUnderAAPApMedEtterlønnSluttpakke5058: Story = {
-  args: {
-    erOverstyrer: false,
-    beregningsgrunnlag: lagBeregningsgrunnlag19(),
-    vilkar: vilkar,
-  },
 };
 
 /**

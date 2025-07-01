@@ -85,16 +85,6 @@ export const AksjonspunktTekster = ({ beregningsgrunnlag, arbeidsgiverOpplysning
     );
   }
 
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_INNTEKT_FOR_ARBEID_UNDER_AAP)) {
-    alerts.push(
-      <Alert size="small" variant="warning" key={FaktaOmBeregningTilfelle.FASTSETT_INNTEKT_FOR_ARBEID_UNDER_AAP}>
-        <FormattedMessage
-          id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettArbeidUnderAap"
-          values={{ h3: H3 }}
-        />
-      </Alert>,
-    );
-  }
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD)) {
     const kortvarigeArbeidsforhold = beregningsgrunnlag?.faktaOmBeregning?.kortvarigeArbeidsforhold ?? [];
 

@@ -6187,11 +6187,6 @@ export const alleKodeverk = {
       kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
     },
     {
-      kode: 'ARBEID_UNDER_AAP',
-      navn: 'Arbeid under arbeidsavklaringspenger',
-      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-    },
-    {
       kode: 'FRISINN',
       navn: 'FRISINN',
       kodeverk: 'OPPTJENING_AKTIVITET_TYPE',

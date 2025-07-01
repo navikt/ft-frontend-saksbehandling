@@ -37,12 +37,9 @@ export const InntektInput = ({ name, readOnly, isAksjonspunktClosed, label }: Pr
 InntektInput.buildInitialValues = (
   andelerForFaktaOmBeregning: AndelForFaktaOmBeregning[],
   aktivitetStatus: string,
-  opptjeningsaktivitetType?: string,
 ): { fastsattBelop: number } | undefined => {
   const fastsattBelop = andelerForFaktaOmBeregning?.find(
-    andel =>
-      andel.aktivitetStatus === aktivitetStatus &&
-      (!opptjeningsaktivitetType || andel.arbeidsforhold?.arbeidsforholdType === opptjeningsaktivitetType),
+    andel => andel.aktivitetStatus === aktivitetStatus,
   )?.fastsattBelop;
 
   if (!fastsattBelop) {
