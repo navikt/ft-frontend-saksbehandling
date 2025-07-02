@@ -4,7 +4,7 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { VStack } from '@navikt/ds-react';
 
 import { Form } from '@navikt/ft-form-hooks';
-import { FaktaOmBeregningTilfelle, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
@@ -191,10 +191,8 @@ export const VurderFaktaBeregningPanel = ({
             if (!vilkårsperiode) {
               throw new Error(`Filler ikke vilkårsperiode med fom ${valgtBeregningsgrunnlag.vilkårsperiodeFom}`);
             }
-            // Mulig vi på sikt skal vise den for alle saker, men det gir oss en myk start å kun vise for dette tilfellet.
-            const skalViseInntektabell = valgtBeregningsgrunnlag.faktaOmBeregning?.faktaOmBeregningTilfeller?.some(
-              tilf => tilf === FaktaOmBeregningTilfelle.FASTSETT_INNTEKT_FOR_ARBEID_UNDER_AAP,
-            );
+            // Må lage ny logikk for visning her
+            const skalViseInntektabell = false;
             return (
               <BeregningsgrunnlagIndexContext.Provider key={field.id} value={index}>
                 <VStack gap="6">

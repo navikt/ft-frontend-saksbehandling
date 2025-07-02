@@ -14,7 +14,6 @@ import { InntektInput } from '../../../felles/InntektInput';
 import { besteberegningField } from '../../besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { getKanRedigereInntekt, mapAndelToField } from '../../BgFaktaUtils';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
-import { arbeidUnderAapField } from './arbeidUnderAapFormUtils';
 import { erKunstigAndel, kunstigAndelField } from './KunstigArbeidsforhold';
 import { lonnsendringField } from './lonnsendringFormUtils';
 import { erNyoppstartetFLField } from './NyoppstartetFLForm';
@@ -32,19 +31,6 @@ interface Props {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   kodeverkSamling: KodeverkForPanel;
 }
-
-const ArbeidUnderAAPLabel = () => (
-  <VStack gap="2">
-    <FormattedMessage id="BeregningInfoPanel.InntektInputFields.MånedsinntektAap" />
-    <ReadMore size="small" header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}>
-      <List size="small">
-        <List.Item>
-          <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ArbeidUnderAap" />
-        </List.Item>
-      </List>
-    </ReadMore>
-  </VStack>
-);
 
 const KunstigAndelLabel = () => (
   <VStack gap="2">
@@ -135,10 +121,6 @@ export const InntektInputFields = ({
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`,
   ]);
   const skalRedigereArbeidsinntekt = skalRedigereArbeidsinntektRadioValues.includes(true);
-  const skalRedigereArbeidUnderAAPInntekt = (): boolean =>
-    !!beregningsgrunnlag.faktaOmBeregning?.andelerForFaktaOmBeregning.some(
-      andel => andel.arbeidsforhold?.arbeidsforholdType === OpptjeningAktivitetType.ARBEID_UNDER_AAP,
-    );
   const skalRedigereEtterlønnSluttpakke = getValues([
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`,
   ]).includes(true);
@@ -199,7 +181,6 @@ export const InntektInputFields = ({
 
   const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
   const kunstigAndelFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${kunstigAndelField}.fastsattBelop`;
-  const arbeidUnderAAPInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${arbeidUnderAapField}.fastsattBelop`;
   const dagpengerInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.dagpengerInntektValues.fastsattBelop`;
   // eslint-disable-next-line max-len
   const selvstendigNæringsdrivendeInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.selvstendigNæringsdrivendeInntektValues.fastsattBelop`;
@@ -390,14 +371,6 @@ export const InntektInputFields = ({
           readOnly={readOnly}
           isAksjonspunktClosed={isAksjonspunktClosed}
           label={getFrilansinntektInputLabel()}
-        />
-      )}
-      {skalRedigereArbeidUnderAAPInntekt() && (
-        <InntektInput
-          name={arbeidUnderAAPInntektFieldName}
-          readOnly={readOnly}
-          isAksjonspunktClosed={isAksjonspunktClosed}
-          label={<ArbeidUnderAAPLabel />}
         />
       )}
       {skalRedigereArbeidsinntekt || skalRedigereEtterlønnSluttpakke

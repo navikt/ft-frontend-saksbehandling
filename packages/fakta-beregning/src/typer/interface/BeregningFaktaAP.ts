@@ -113,10 +113,6 @@ export type FastsettEtterlønnSluttpakkeTransformedValues = {
   fastsattPrMnd: number;
 };
 
-export type FastsettArbeidUnderAapTransformedValues = {
-  fastsattPrMnd: number;
-};
-
 export type ArbeidstakerandelUtenIMMottarYtelseTransformedValues = {
   andelsnr: number;
   mottarYtelse: boolean;
@@ -149,7 +145,6 @@ export type FaktaBeregningTransformedValues = {
   kunYtelseFordeling?: FastsettBgKunYtelseTransformedValues;
   vurderEtterlønnSluttpakke?: VurderEtterlønnSluttpakkeTransformedValues;
   fastsettEtterlønnSluttpakke?: FastsettEtterlønnSluttpakkeTransformedValues;
-  fastsettArbeidUnderAap?: FastsettArbeidUnderAapTransformedValues;
   mottarYtelse?: MottarYtelseTransformedValues;
   vurderMilitaer?: VurderMilitærTransformedValues;
   refusjonskravGyldighet?: RefusjonskravPrArbeidsgiverVurderingTransformedValues[];

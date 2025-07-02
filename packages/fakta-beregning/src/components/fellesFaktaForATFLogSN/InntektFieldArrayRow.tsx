@@ -17,7 +17,6 @@ import { KodeverkForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanel'
 import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import {
   erArbeidstaker,
-  erArbeidUnderAap,
   erDagpenger,
   erFrilanser,
   erMilitaerEllerSivil,
@@ -30,7 +29,6 @@ import {
 } from './BgFaktaUtils';
 import { getInntektskategorierAlfabetiskSortert } from './inntektFieldArrayUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
-import { arbeidUnderAapField } from './vurderOgFastsettATFL/forms/arbeidUnderAapFormUtils';
 
 import styles from './inntektFieldArray.module.css';
 
@@ -76,7 +74,6 @@ export const InntektFieldArrayAndelRow = ({
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
   const erFrilansInntekt = erFrilanser(field);
-  const erArbeidUnderAapInntekt = erArbeidUnderAap(field);
   const erInntektDagpenger = erDagpenger(field);
   const erInntektSelvstendigNæringsdrivende = erSelvstendigNæringsdrivende(field);
   const erInntektMilitærEllerSivil = erMilitaerEllerSivil(field);
@@ -85,12 +82,6 @@ export const InntektFieldArrayAndelRow = ({
 
   const harEndretFrilansinntekt =
     erFrilansInntekt && kanRedigereInntekt && formValues?.frilansInntektValues?.fastsattBelop;
-
-  const harEndretArbeidUnderAapInntekt =
-    erArbeidUnderAapInntekt &&
-    kanRedigereInntekt &&
-    (formValues?.arbeidUnderAAPInntektValues?.fastsattBelop ||
-      formValues?.arbeidUnderAAPInntektValues?.fastsattBelop === 0);
 
   const harEndretInntektForArbeidsgiver =
     erArbeidstakerInntekt &&
@@ -111,7 +102,6 @@ export const InntektFieldArrayAndelRow = ({
 
   const visMåFastsettesText =
     (erFrilansInntekt && kanRedigereInntekt && !formValues?.frilansInntektValues?.fastsattBelop) ||
-    (erArbeidUnderAapInntekt && kanRedigereInntekt && !formValues?.arbeidUnderAAPInntektValues?.fastsattBelop) ||
     (erArbeidstakerInntekt &&
       kanRedigereInntekt &&
       field.arbeidsgiverId &&
@@ -125,7 +115,6 @@ export const InntektFieldArrayAndelRow = ({
   const harEndretInntekt =
     harEndretFrilansinntekt ||
     harEndretInntektForArbeidsgiver ||
-    harEndretArbeidUnderAapInntekt ||
     harEndretInntektForDagpenger ||
     harEndretInntektForSelvstendigNæringsdrivende ||
     harEndretInntektForMilitærEllerSivil;
@@ -145,9 +134,6 @@ export const InntektFieldArrayAndelRow = ({
     }
     if (harEndretFrilansinntekt) {
       return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
-    }
-    if (harEndretArbeidUnderAapInntekt) {
-      return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${arbeidUnderAapField}.fastsattBelop`;
     }
     if (harEndretInntektForDagpenger) {
       return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.dagpengerInntektValues.fastsattBelop`;

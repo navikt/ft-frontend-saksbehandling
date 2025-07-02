@@ -31,7 +31,6 @@ import { TidsbegrensetArbeidsforholdForm } from '../tidsbegrensetArbeidsforhold/
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import { VurderMilitaer } from '../vurderMilitaer/VurderMilitaer';
 import { VurderRefusjonForm } from '../vurderrefusjon/VurderRefusjonForm';
-import { transformValuesArbeidUnderAap } from './forms/arbeidUnderAapFormUtils';
 import { transformValuesArbeidUtenInntektsmelding } from './forms/ArbeidUtenInntektsmelding';
 import { transformValuesForATFLISammeOrg } from './forms/ATFLSammeOrg';
 import { InntektInputFields } from './forms/InntektInputFields';
@@ -328,9 +327,6 @@ const transformValuesForAksjonspunkt = (
         fastsatteAndelsnr,
       ),
     );
-
-    // Arbeid under AAP
-    transformed = concatTilfeller(transformed, transformValuesArbeidUnderAap(values, faktaOmBeregning));
 
     // Etterlønn / sluttpakke
     transformed = concatTilfeller(
