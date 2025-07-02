@@ -191,8 +191,10 @@ export const VurderFaktaBeregningPanel = ({
             if (!vilkårsperiode) {
               throw new Error(`Filler ikke vilkårsperiode med fom ${valgtBeregningsgrunnlag.vilkårsperiodeFom}`);
             }
-            // Må lage ny logikk for visning her
-            const skalViseInntektabell = false;
+            // I første omgang ikke aktivert i prod til vi har testet og er fornøyde
+            const erDev = window.location.href.includes('dev.intern.nav.no');
+            const erLokalt = window.location.href.includes('localhost:90');
+            const skalViseInntektabell = erDev || erLokalt;
             return (
               <BeregningsgrunnlagIndexContext.Provider key={field.id} value={index}>
                 <VStack gap="6">
