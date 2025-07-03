@@ -10,6 +10,9 @@ const meta = {
     testTextAreaFieldPre:
       'Ein tekst med linjeskift.\nNeste linje, så to linjeskift.\n\nSå tre linjeskift.\n\n\nSiste linje',
   }),
+  args: {
+    control: undefined, // This will be provided by the decorator
+  },
 } satisfies Meta<typeof RhfTextarea>;
 
 export default meta;

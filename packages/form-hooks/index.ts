@@ -9,7 +9,7 @@ export type { RadioProps } from './src/RhfRadioGroup/RhfRadioGroup';
 export { RhfSelect } from './src/RhfSelect/RhfSelect';
 export { SubmitButton } from './src/SubmitButton';
 export { RhfTextarea } from './src/RhfTextarea/RhfTextarea';
-export { Form } from './src/Form';
+export { RhfForm } from './src/RhfForm';
 export { PeriodFieldArray } from './src/PeriodFieldArray/PeriodFieldArray';
 export { ReadOnlyField } from './src/ReadOnlyField/ReadOnlyField';
 export { useCustomValidation } from './src/useCustomValidation';

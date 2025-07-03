@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
-import { Form } from '@navikt/ft-form-hooks';
+import { RhfForm } from '@navikt/ft-form-hooks';
 import {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
@@ -161,7 +161,7 @@ export const VurderEndringRefusjonForm = ({
   });
   return (
     <ErrorBoundary errorMessage="Noe gikk galt ved visning av refusjon">
-      <Form
+      <RhfForm
         formMethods={formMethods}
         onSubmit={values => {
           if (Object.keys(errors).length === 0) {
@@ -199,7 +199,7 @@ export const VurderEndringRefusjonForm = ({
             </div>
           );
         })}
-      </Form>
+      </RhfForm>
     </ErrorBoundary>
   );
 };

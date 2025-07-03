@@ -5,7 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { BodyShort, Button, Heading, HStack, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { Form, RhfRadioGroup, RhfSelect, RhfTextarea } from '@navikt/ft-form-hooks';
+import { RhfForm, RhfRadioGroup, RhfSelect, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { usePrevious } from '@navikt/ft-ui-komponenter';
 import { BTag, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
@@ -183,7 +183,7 @@ export const TilbakekrevingPeriodeForm = ({
     per => !per.erForeldet && per.valgtVilkarResultatType != null,
   );
   return (
-    <Form formMethods={formMethods} onSubmit={saveOrToggleModal}>
+    <RhfForm formMethods={formMethods} onSubmit={saveOrToggleModal}>
       <VStack gap="4">
         <VStack gap="2">
           {reduserteBelop &&
@@ -322,6 +322,6 @@ export const TilbakekrevingPeriodeForm = ({
         </HStack>
         {showModal && <TotalbelopetUnder4RettsgebyrModal showModal submit={saveForm} />}
       </VStack>
-    </Form>
+    </RhfForm>
   );
 };

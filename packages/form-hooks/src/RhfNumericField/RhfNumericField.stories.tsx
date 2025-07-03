@@ -7,6 +7,9 @@ const meta = {
   component: RhfNumericField,
   tags: ['autodocs'],
   decorators: rhfDecorator({ testnumberpre: 45.1 }),
+  args: {
+    control: undefined, // This will be provided by the decorator
+  },
 } satisfies Meta<typeof RhfNumericField>;
 
 export default meta;

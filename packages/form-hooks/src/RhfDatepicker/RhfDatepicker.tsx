@@ -25,7 +25,8 @@ type Props<T extends FieldValues> = {
   size?: 'medium' | 'small';
   fromDate?: Date;
   toDate?: Date;
-} & UseControllerProps<T>;
+  control: UseControllerProps<T>['control'];
+} & Omit<UseControllerProps<T>, 'control'>;
 
 export const RhfDatepicker = <T extends FieldValues>({
   label,

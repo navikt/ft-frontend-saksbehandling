@@ -5,7 +5,7 @@ import { Button, VStack } from '@navikt/ds-react';
 import type { Meta } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
-import { Form } from './../src/Form';
+import { RhfForm } from './../src/RhfForm';
 
 export const rhfDecorator =
   (defaultValues: UseFormProps['defaultValues']): Meta['decorators'] =>
@@ -16,7 +16,7 @@ export const rhfDecorator =
     });
 
     return (
-      <Form formMethods={formMethods} onSubmit={action('button-click') as (data: unknown) => Promise<unknown>}>
+      <RhfForm formMethods={formMethods} onSubmit={action('button-click') as (data: unknown) => Promise<unknown>}>
         <VStack gap="4">
           <Story />
           <div>
@@ -25,6 +25,6 @@ export const rhfDecorator =
             </Button>
           </div>
         </VStack>
-      </Form>
+      </RhfForm>
     );
   };

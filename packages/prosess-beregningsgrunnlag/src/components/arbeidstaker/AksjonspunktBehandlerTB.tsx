@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { useFormContext, UseFormReturn } from 'react-hook-form';
+import { Control, useFormContext, UseFormReturn } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
 import { Label, Table } from '@navikt/ds-react';
@@ -223,6 +223,7 @@ const createRows = (
   fieldIndex: number,
   formName: string,
   skalValideres: boolean,
+  control: Control<BeregningFormValues, any, BeregningFormValues>,
 ): ReactElement[] => {
   return Object.entries(tableData).map(([key, val]) => (
     <Table.Row key={key} shadeOnHover={false}>
@@ -238,6 +239,7 @@ const createRows = (
           <Table.DataCell key={`Col-${element.inputfieldKey}`} align="right">
             <RhfTextField
               name={`${formName}.${fieldIndex}.${element.inputfieldKey}`}
+              control={control}
               validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
               readOnly={readOnly}
               isEdited={readOnly && finnesAlleredeLøstPeriode}
@@ -319,7 +321,15 @@ export const AksjonspunktBehandlerTidsbegrenset = ({
     <Table className={tableStyles.table}>
       <Table.Header>{createPerioderRow(bruttoPrPeriodeList)}</Table.Header>
       <Table.Body>
-        {createRows(tabellData, readOnly, finnesAlleredeLøstPeriode, fieldIndex, formName, skalValideres)}
+        {createRows(
+          tabellData,
+          readOnly,
+          finnesAlleredeLøstPeriode,
+          fieldIndex,
+          formName,
+          skalValideres,
+          formMethods.control,
+        )}
       </Table.Body>
       <tfoot>{createSummaryTableRow(bruttoPrPeriodeList)}</tfoot>
     </Table>

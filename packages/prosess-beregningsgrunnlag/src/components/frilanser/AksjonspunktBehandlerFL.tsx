@@ -1,3 +1,4 @@
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
 import { BodyShort } from '@navikt/ds-react';
@@ -9,6 +10,7 @@ import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr, parseCurrencyInput } from '@navikt/ft-utils';
 
 import { FrilansInntektValues } from '../../types/ATFLAksjonspunkt';
+import { BeregningFormValues } from '../../types/BeregningFormValues';
 import { HorizontalBox } from '../../util/HorizontalBox';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
@@ -38,22 +40,26 @@ export const AksjonspunktBehandlerFL = ({
   formName,
   alleAndelerIForstePeriode,
   skalValideres,
-}: Props) => (
-  <HorizontalBox>
-    <BodyShort size="small">
-      <FormattedMessage id="AksjonspunktBehandlerFL.Label" />
-    </BodyShort>
-    <RhfTextField
-      name={`${formName}.${fieldIndex}.inntektFrilanser`}
-      validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
-      readOnly={readOnly}
-      hideLabel
-      parse={parseCurrencyInput}
-      className={styles.beløpInput}
-      isEdited={readOnly && erFrilansFastsatt(alleAndelerIForstePeriode)}
-    />
-  </HorizontalBox>
-);
+}: Props) => {
+  const { control } = useFormContext<BeregningFormValues>();
+  return (
+    <HorizontalBox>
+      <BodyShort size="small">
+        <FormattedMessage id="AksjonspunktBehandlerFL.Label" />
+      </BodyShort>
+      <RhfTextField
+        control={control}
+        name={`${formName}.${fieldIndex}.inntektFrilanser`}
+        validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
+        readOnly={readOnly}
+        hideLabel
+        parse={parseCurrencyInput}
+        className={styles.beløpInput}
+        isEdited={readOnly && erFrilansFastsatt(alleAndelerIForstePeriode)}
+      />
+    </HorizontalBox>
+  );
+};
 
 AksjonspunktBehandlerFL.buildInitialValues = (relevanteAndeler: BeregningsgrunnlagAndel[]): FrilansInntektValues => {
   const overstyrtBeløp =

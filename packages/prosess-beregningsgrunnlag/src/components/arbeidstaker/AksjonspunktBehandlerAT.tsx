@@ -1,3 +1,5 @@
+import { useFormContext } from 'react-hook-form';
+
 import { BodyShort } from '@navikt/ds-react';
 
 import { RhfTextField } from '@navikt/ft-form-hooks';
@@ -7,6 +9,7 @@ import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/
 import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
+import { BeregningFormValues } from '../../types/BeregningFormValues';
 import { ArbeidsinntektResultat } from '../../types/interface/BeregningsgrunnlagAP';
 import { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
@@ -51,6 +54,7 @@ export const AksjonspunktBehandlerAT = ({
   formName,
   skalValideres,
 }: Props) => {
+  const { control } = useFormContext<BeregningFormValues>();
   const relevanteAndelerAT = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode);
   return (
     <>
@@ -61,6 +65,7 @@ export const AksjonspunktBehandlerAT = ({
           </BodyShort>
           <RhfTextField
             name={`${formName}.${fieldIndex}.inntekt${index}`}
+            control={control}
             validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
             readOnly={readOnly}
             parse={parseCurrencyInput}

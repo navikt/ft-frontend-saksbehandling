@@ -4,7 +4,7 @@ import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { VStack } from '@navikt/ds-react';
 
-import { Form, RhfTextarea } from '@navikt/ft-form-hooks';
+import { RhfForm, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { AksjonspunktStatus, AktivitetStatus, PeriodeAarsak, SammenligningType } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
@@ -573,7 +573,7 @@ export const AksjonspunktBehandler = ({
 
   return (
     <div ref={panelRef}>
-      <Form
+      <RhfForm
         formMethods={formMethods}
         onSubmit={values => losAvklaringsbehov(values, lovparagraf)}
         setDataOnUnmount={setFormData}
@@ -604,7 +604,7 @@ export const AksjonspunktBehandler = ({
             </VStack>
           </div>
         ))}
-      </Form>
+      </RhfForm>
     </div>
   );
 };

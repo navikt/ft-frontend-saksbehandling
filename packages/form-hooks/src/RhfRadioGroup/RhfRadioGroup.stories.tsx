@@ -12,6 +12,7 @@ const meta = {
     isHorizontal: false,
     isReadOnly: false,
     isEdited: false,
+    control: undefined, // This will be provided by the decorator
   },
   decorators: rhfDecorator({ radiopre: 'no' }),
 } satisfies Meta<typeof RhfRadioGroup>;

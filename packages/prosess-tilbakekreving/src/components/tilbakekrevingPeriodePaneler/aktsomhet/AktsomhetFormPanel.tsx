@@ -1,3 +1,4 @@
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
@@ -66,41 +67,46 @@ export const AktsomhetFormPanel = ({
   erTotalBelopUnder4Rettsgebyr,
   andelSomTilbakekreves,
   name,
-}: Props) => (
-  <>
-    <RhfRadioGroup
-      name={`${name}.handletUaktsomhetGrad`}
-      label={<FormattedMessage id="AktsomhetFormPanel.HandletUaktsomhetGrad" />}
-      validate={[required]}
-      radios={aktsomhetTyper.map(vrt => ({
-        label: erValgtResultatTypeForstoBurdeForstaatt ? (
-          <FormattedMessage id={forstoBurdeForstattTekster[vrt.kode]} />
-        ) : (
-          vrt.navn
-        ),
-        value: vrt.kode,
-      }))}
-      isReadOnly={readOnly}
-      onChange={resetFields}
-      isHorizontal
-    />
-    {uaktsomhetCodes.some(uc => uc === handletUaktsomhetGrad) && (
-      <AktsomhetGradFormPanel
-        name={`${name}.${handletUaktsomhetGrad}`}
-        harGrunnerTilReduksjon={harGrunnerTilReduksjon}
-        readOnly={readOnly}
-        handletUaktsomhetGrad={handletUaktsomhetGrad}
-        erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
-        erValgtResultatTypeForstoBurdeForstaatt={erValgtResultatTypeForstoBurdeForstaatt}
-        sarligGrunnTyper={sarligGrunnTyper}
-        harMerEnnEnYtelse={antallYtelser > 1}
-        feilutbetalingBelop={feilutbetalingBelop}
-        erTotalBelopUnder4Rettsgebyr={erTotalBelopUnder4Rettsgebyr}
-        andelSomTilbakekreves={andelSomTilbakekreves}
+}: Props) => {
+  // TODO (TOR) Manglar type
+  const { control } = useFormContext();
+  return (
+    <>
+      <RhfRadioGroup
+        name={`${name}.handletUaktsomhetGrad`}
+        control={control}
+        label={<FormattedMessage id="AktsomhetFormPanel.HandletUaktsomhetGrad" />}
+        validate={[required]}
+        radios={aktsomhetTyper.map(vrt => ({
+          label: erValgtResultatTypeForstoBurdeForstaatt ? (
+            <FormattedMessage id={forstoBurdeForstattTekster[vrt.kode]} />
+          ) : (
+            vrt.navn
+          ),
+          value: vrt.kode,
+        }))}
+        isReadOnly={readOnly}
+        onChange={resetFields}
+        isHorizontal
       />
-    )}
-  </>
-);
+      {uaktsomhetCodes.some(uc => uc === handletUaktsomhetGrad) && (
+        <AktsomhetGradFormPanel
+          name={`${name}.${handletUaktsomhetGrad}`}
+          harGrunnerTilReduksjon={harGrunnerTilReduksjon}
+          readOnly={readOnly}
+          handletUaktsomhetGrad={handletUaktsomhetGrad}
+          erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
+          erValgtResultatTypeForstoBurdeForstaatt={erValgtResultatTypeForstoBurdeForstaatt}
+          sarligGrunnTyper={sarligGrunnTyper}
+          harMerEnnEnYtelse={antallYtelser > 1}
+          feilutbetalingBelop={feilutbetalingBelop}
+          erTotalBelopUnder4Rettsgebyr={erTotalBelopUnder4Rettsgebyr}
+          andelSomTilbakekreves={andelSomTilbakekreves}
+        />
+      )}
+    </>
+  );
+};
 
 const parseIntAndelSomTilbakekreves = (andelSomTilbakekreves: string, harGrunnerTilReduksjon: boolean) => {
   const parsedValue = parseInt(andelSomTilbakekreves, 10);

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
-import { Form } from '@navikt/ft-form-hooks';
+import { RhfForm } from '@navikt/ft-form-hooks';
 import {
   ArbeidsgiverOpplysningerPerId,
   AvklarBeregningAktiviteterMap,
@@ -203,7 +203,7 @@ export const AvklareAktiviteterPanel = ({
   };
 
   return (
-    <Form<AvklarAktiviteterFormValues>
+    <RhfForm<AvklarAktiviteterFormValues>
       formMethods={formMethods}
       onSubmit={values => losAvklaringsbehov(values)}
       setDataOnUnmount={setFormData}
@@ -226,6 +226,6 @@ export const AvklareAktiviteterPanel = ({
             />
           ),
       )}
-    </Form>
+    </RhfForm>
   );
 };

@@ -11,6 +11,7 @@ const meta = {
     isReadOnly: false,
     isEdited: false,
     isHorizontal: false,
+    control: undefined, // This will be provided by the decorator
   },
   decorators: rhfDecorator({ checkboxpanelpre: ['verdi1', 'verdi3'] }),
 } satisfies Meta<typeof RhfCheckboxGroup>;

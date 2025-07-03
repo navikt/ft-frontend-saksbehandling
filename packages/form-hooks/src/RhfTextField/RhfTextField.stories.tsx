@@ -7,6 +7,9 @@ const meta = {
   component: RhfTextField,
   tags: ['autodocs'],
   decorators: rhfDecorator({ testinputpre: 'Hei hei' }),
+  args: {
+    control: undefined, // This will be provided by the decorator
+  },
 } satisfies Meta<typeof RhfTextField>;
 
 export default meta;

@@ -27,7 +27,8 @@ type Props<T extends FieldValues> = {
   size?: 'medium' | 'small';
   checkboxes?: CheckboxProps[];
   children?: ReactElement<typeof Checkbox>[];
-} & UseControllerProps<T>;
+  control: UseControllerProps<T>['control'];
+} & Omit<UseControllerProps<T>, 'control'>;
 
 export const RhfCheckboxGroup = <T extends FieldValues>({
   label,
