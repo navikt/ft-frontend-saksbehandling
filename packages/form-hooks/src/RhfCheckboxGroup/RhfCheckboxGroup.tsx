@@ -1,4 +1,4 @@
-import { Fragment, ReactElement, ReactNode, useMemo } from 'react';
+import { ReactElement, ReactNode, useMemo } from 'react';
 import { FieldValues, useController, UseControllerProps, useFormContext } from 'react-hook-form';
 
 import { Checkbox, CheckboxGroup, HStack } from '@navikt/ds-react';
@@ -20,12 +20,9 @@ type Props<T extends FieldValues> = {
   validate?: ((value: string | number) => ValidationReturnType)[];
   onChange?: (value: any) => void;
   isReadOnly?: boolean;
-  isHorizontal?: boolean;
-  parse?: (value: string) => any;
   hideLegend?: boolean;
   isEdited?: boolean;
   size?: 'medium' | 'small';
-  checkboxes?: CheckboxProps[];
   children?: ReactElement<typeof Checkbox>[];
   control: UseControllerProps<T>['control'];
 } & Omit<UseControllerProps<T>, 'control'>;
@@ -34,18 +31,15 @@ export const RhfCheckboxGroup = <T extends FieldValues>({
   label,
   description,
   validate = [],
-  checkboxes,
   onChange,
   isReadOnly = false,
-  isHorizontal = false,
-  parse = value => value,
   hideLegend = false,
   isEdited = false,
   size = 'small',
   children,
   ...controllerProps
 }: Props<T>) => {
-  const { name, control, disabled } = controllerProps;
+  const { name, control } = controllerProps;
 
   const {
     formState: { errors },
@@ -83,37 +77,6 @@ export const RhfCheckboxGroup = <T extends FieldValues>({
       hideLegend={hideLegend}
     >
       {children}
-      {checkboxes &&
-        !isHorizontal &&
-        checkboxes.map(checkbox => (
-          <Fragment key={checkbox.value}>
-            <Checkbox size={size} value={parse(checkbox.value)} disabled={checkbox.disabled || disabled || isReadOnly}>
-              {checkbox.label}
-            </Checkbox>
-            {(field.value ?? []).some(v => v === parse(checkbox.value)) && checkbox.element}
-          </Fragment>
-        ))}
-      {checkboxes && isHorizontal && (
-        <>
-          <HStack gap="4">
-            {checkboxes.map(checkbox => (
-              <Checkbox
-                key={checkbox.value}
-                size={size}
-                value={parse(checkbox.value)}
-                disabled={checkbox.disabled || disabled || isReadOnly}
-              >
-                {checkbox.label}
-              </Checkbox>
-            ))}
-          </HStack>
-          {checkboxes
-            .filter(checkbox => (field.value ?? []).some(v => v === parse(checkbox.value)))
-            .map(checkbox => (
-              <Fragment key={checkbox.value}>{checkbox.element}</Fragment>
-            ))}
-        </>
-      )}
     </CheckboxGroup>
   );
 };
