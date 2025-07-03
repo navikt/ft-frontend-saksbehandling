@@ -5,7 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { Button, HStack, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { Form, RhfDatepicker, RhfRadioGroup, RhfTextarea } from '@navikt/ft-form-hooks';
+import { RhfDatepicker, RhfForm, RhfRadioGroup, RhfTextarea } from '@navikt/ft-form-hooks';
 import {
   dateBeforeOrEqualToToday,
   hasValidDate,
@@ -63,7 +63,7 @@ export const ForeldelsePeriodeForm = ({
   );
 
   return (
-    <Form formMethods={formMethods} onSubmit={(values: FormValues) => oppdaterPeriode(values)}>
+    <RhfForm formMethods={formMethods} onSubmit={(values: FormValues) => oppdaterPeriode(values)}>
       <VStack gap="4">
         <RhfTextarea
           name="begrunnelse"
@@ -122,6 +122,6 @@ export const ForeldelsePeriodeForm = ({
           </Button>
         </HStack>
       </VStack>
-    </Form>
+    </RhfForm>
   );
 };

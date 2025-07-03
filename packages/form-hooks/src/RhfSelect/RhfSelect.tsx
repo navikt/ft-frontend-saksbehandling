@@ -18,7 +18,8 @@ type Props<T extends FieldValues> = {
   hideLabel?: boolean;
   isEdited?: boolean;
   size?: 'medium' | 'small';
-} & UseControllerProps<T>;
+  control: UseControllerProps<T>['control'];
+} & Omit<UseControllerProps<T>, 'control'>;
 
 export const RhfSelect = <T extends FieldValues>({
   label,

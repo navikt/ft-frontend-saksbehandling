@@ -3,7 +3,7 @@ import { useFieldArray, useForm } from 'react-hook-form';
 
 import { VStack } from '@navikt/ds-react';
 
-import { Form } from '@navikt/ft-form-hooks';
+import { RhfForm } from '@navikt/ft-form-hooks';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
@@ -160,7 +160,7 @@ export const VurderFaktaBeregningPanel = ({
   ) {
     return (
       <VurderFaktaContext.Provider value={aktivtBeregningsgrunnlagIndeks}>
-        <Form
+        <RhfForm
           formMethods={formMethods}
           onSubmit={values => {
             losAvklaringsbehov(values);
@@ -219,7 +219,7 @@ export const VurderFaktaBeregningPanel = ({
               </BeregningsgrunnlagIndexContext.Provider>
             );
           })}
-        </Form>
+        </RhfForm>
       </VurderFaktaContext.Provider>
     );
   }

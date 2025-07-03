@@ -9,7 +9,7 @@ export interface Props<FormValues extends FieldValues> {
   setDataOnUnmount?: (data?: any) => void;
 }
 
-export const Form = <FormValues extends FieldValues>({
+export const RhfForm = <FormValues extends FieldValues>({
   formMethods,
   onSubmit,
   children,

@@ -7,6 +7,9 @@ const meta = {
   component: RhfCheckbox,
   tags: ['autodocs'],
   decorators: rhfDecorator({ testcheckboxpre: true }),
+  args: {
+    control: undefined, // This will be provided by the decorator
+  },
 } satisfies Meta<typeof RhfCheckbox>;
 
 export default meta;

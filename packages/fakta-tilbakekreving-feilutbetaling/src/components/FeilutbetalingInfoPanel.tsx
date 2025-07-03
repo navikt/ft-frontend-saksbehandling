@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BodyShort, Button, Detail, HStack, Label, VStack } from '@navikt/ds-react';
 
-import { Form, RhfCheckbox, RhfTextarea } from '@navikt/ft-form-hooks';
+import { RhfCheckbox, RhfForm, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { AksjonspunktHelpTextHTML, BeløpLabel, DateLabel, FaktaGruppe, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity, sortPeriodsByFom } from '@navikt/ft-utils';
@@ -152,7 +152,7 @@ export const FeilutbetalingInfoPanel = ({
           <FormattedMessage id="FeilutbetalingInfoPanel.Aksjonspunkt" />
         </AksjonspunktHelpTextHTML>
       )}
-      <Form
+      <RhfForm
         formMethods={formMethods}
         onSubmit={(values: FormValues) => submitCallback(transformValues(values, årsaker))}
         setDataOnUnmount={setFormData}
@@ -312,7 +312,7 @@ export const FeilutbetalingInfoPanel = ({
             </Button>
           </div>
         </VStack>
-      </Form>
+      </RhfForm>
     </VStack>
   );
 };

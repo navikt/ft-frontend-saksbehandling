@@ -25,8 +25,9 @@ type Props<T extends FieldValues> = {
   type?: 'email' | 'password' | 'tel' | 'text' | 'url';
   className?: string;
   hideLabel?: boolean;
+  control: UseControllerProps<T>['control'];
 } & Omit<TextFieldProps, 'label' | 'autoComplete'> &
-  UseControllerProps<T>;
+  Omit<UseControllerProps<T>, 'control'>;
 
 export const RhfTextField = <T extends FieldValues>({
   name,

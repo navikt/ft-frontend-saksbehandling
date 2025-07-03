@@ -3,13 +3,13 @@ import { useForm } from 'react-hook-form';
 import type { ReactRenderer } from '@storybook/react-vite';
 import type { DecoratorFunction } from 'storybook/internal/types';
 
-import { Form } from '@navikt/ft-form-hooks';
+import { RhfForm } from '@navikt/ft-form-hooks';
 
 export const WithReactHookForm: DecoratorFunction<ReactRenderer> = Story => {
   const formMethods = useForm();
   return (
-    <Form formMethods={formMethods}>
+    <RhfForm formMethods={formMethods}>
       <Story />
-    </Form>
+    </RhfForm>
   );
 };

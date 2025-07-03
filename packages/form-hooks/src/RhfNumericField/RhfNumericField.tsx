@@ -21,7 +21,8 @@ type Props<T extends FieldValues> = {
   className?: string;
   returnAsNumber?: boolean;
   onChange?: (value: any) => void;
-} & UseControllerProps<T>;
+  control: UseControllerProps<T>['control'];
+} & Omit<UseControllerProps<T>, 'control'>;
 
 export const RhfNumericField = <T extends FieldValues>({
   label,

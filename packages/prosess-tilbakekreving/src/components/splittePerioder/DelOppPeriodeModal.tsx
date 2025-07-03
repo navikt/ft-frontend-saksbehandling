@@ -4,7 +4,7 @@ import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 import { Alert, BodyShort, Button, Heading, Label, Modal, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { Form, RhfDatepicker } from '@navikt/ft-form-hooks';
+import { RhfDatepicker, RhfForm } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
@@ -72,7 +72,7 @@ export const DelOppPeriodeModal = ({
   const formMethods = useForm<FormValues>();
 
   return (
-    <Form
+    <RhfForm
       formMethods={formMethods}
       onSubmit={(values: FormValues) => splitPeriod(transformValues(values, periodeData))}
     >
@@ -123,6 +123,6 @@ export const DelOppPeriodeModal = ({
           </Button>
         </Modal.Footer>
       </Modal>
-    </Form>
+    </RhfForm>
   );
 };

@@ -32,7 +32,8 @@ type Props<T extends FieldValues> = {
   hideRadioLabels?: boolean;
   isEdited?: boolean;
   size?: 'medium' | 'small';
-} & UseControllerProps<T>;
+  control: UseControllerProps<T>['control'];
+} & Omit<UseControllerProps<T>, 'control'>;
 
 export const RhfRadioGroup = <T extends FieldValues>({
   label,

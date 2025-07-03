@@ -1,3 +1,4 @@
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
 
 import { BodyShort, VStack } from '@navikt/ds-react';
@@ -39,10 +40,15 @@ export interface Props {
 
 export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehold, feilutbetalingBelop }: Props) => {
   const intl = useIntl();
+
+  // TODO (TOR) Manglar type
+  const { control } = useFormContext();
+
   return (
     <VStack gap="2">
       <RhfRadioGroup
         name={`${name}.erBelopetIBehold`}
+        control={control}
         label={<FormattedMessage id="BelopetMottattIGodTroFormPanel.BelopetIBehold" />}
         validate={[required]}
         radios={[

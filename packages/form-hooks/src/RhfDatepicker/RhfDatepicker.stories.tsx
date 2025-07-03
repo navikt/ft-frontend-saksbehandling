@@ -7,6 +7,9 @@ const meta = {
   component: RhfDatepicker,
   tags: ['autodocs'],
   decorators: rhfDecorator({ datepickerFieldPre: '2022-10-11' }),
+  args: {
+    control: undefined, // This will be provided by the decorator
+  },
 } satisfies Meta<typeof RhfDatepicker>;
 export default meta;
 

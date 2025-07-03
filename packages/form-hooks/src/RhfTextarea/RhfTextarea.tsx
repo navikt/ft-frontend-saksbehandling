@@ -26,8 +26,9 @@ export type Props<T extends FieldValues> = {
   description?: string;
   isEdited?: boolean;
   size?: 'small' | 'medium';
+  control: UseControllerProps<T>['control'];
 } & TextareaProps &
-  UseControllerProps<T>;
+  Omit<UseControllerProps<T>, 'control'>;
 
 export const RhfTextarea = <T extends FieldValues>({
   name,

@@ -9,6 +9,9 @@ const meta = {
   component: RhfSelect,
   tags: ['autodocs'],
   decorators: rhfDecorator({ testSelectFieldpre: 'value3' }),
+  args: {
+    control: undefined, // This will be provided by the decorator
+  },
 } satisfies Meta<typeof RhfSelect>;
 
 export default meta;

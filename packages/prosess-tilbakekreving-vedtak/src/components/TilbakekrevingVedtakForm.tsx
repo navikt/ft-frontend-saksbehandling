@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Alert, HStack, Link, VStack } from '@navikt/ds-react';
 
-import { Form, SubmitButton } from '@navikt/ft-form-hooks';
+import { RhfForm, SubmitButton } from '@navikt/ft-form-hooks';
 import { omit } from '@navikt/ft-utils';
 
 import { UnderavsnittType } from '../kodeverk/avsnittType';
@@ -145,7 +145,7 @@ export const TilbakekrevingVedtakForm = ({
     fritekstOppsummeringPakrevdMenIkkeUtfylt || perioderSomIkkeHarUtfyltObligatoriskVerdi.length > 0;
 
   return (
-    <Form
+    <RhfForm
       formMethods={formMethods}
       onSubmit={(values: FormValues) => submitCallback(transformValues(values))}
       setDataOnUnmount={setFormData}
@@ -188,6 +188,6 @@ export const TilbakekrevingVedtakForm = ({
           </Alert>
         )}
       </VStack>
-    </Form>
+    </RhfForm>
   );
 };
