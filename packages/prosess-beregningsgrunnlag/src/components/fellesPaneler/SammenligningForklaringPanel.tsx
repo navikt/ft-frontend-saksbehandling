@@ -3,9 +3,9 @@ import { FormattedMessage } from 'react-intl';
 import { BodyShort, VStack } from '@navikt/ds-react';
 
 import { SammenligningType } from '@navikt/ft-kodeverk';
-import { SammenligningsgrunlagProp } from '@navikt/ft-types';
+import type { SammenligningsgrunlagProp } from '@navikt/ft-types';
 
-import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
+import type { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 
 type Props = {
   sammenligningsgrunnlag: SammenligningsgrunlagProp[];

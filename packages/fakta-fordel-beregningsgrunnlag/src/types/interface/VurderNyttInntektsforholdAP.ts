@@ -1,4 +1,4 @@
-import { BeregningAvklaringsbehovTilBekreftelse } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehovTilBekreftelse } from '@navikt/ft-types';
 
 import { FaktaFordelBeregningAvklaringsbehovCode } from './FaktaFordelBeregningAvklaringsbehovCode';
 

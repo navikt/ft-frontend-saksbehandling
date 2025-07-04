@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { FaktaGruppe } from './FaktaGruppe';
 
 export default {

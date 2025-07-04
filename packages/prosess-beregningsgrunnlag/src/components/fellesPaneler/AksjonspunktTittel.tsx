@@ -1,8 +1,8 @@
-import { ReactElement } from 'react';
+import { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { AktivitetStatus, isAksjonspunktOpen, SammenligningType } from '@navikt/ft-kodeverk';
-import {
+import type {
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   Beregningsgrunnlag as BeregningsgrunnlagProp,

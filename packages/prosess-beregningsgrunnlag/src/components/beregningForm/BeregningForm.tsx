@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { Heading, HGrid, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus, FagsakYtelseType, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag as BeregningsgrunnlagProp,
@@ -12,11 +12,11 @@ import {
   YtelseGrunnlag,
 } from '@navikt/ft-types';
 
-import { BeregningFormValues } from '../../types/BeregningFormValues';
-import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
-import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
-import { Vilkår, Vilkårperiode } from '../../types/Vilkår';
+import type { BeregningFormValues } from '../../types/BeregningFormValues';
+import type { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
+import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import type { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
+import type { Vilkår, Vilkårperiode } from '../../types/Vilkår';
 import { Beregningsgrunnlag } from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
 import { BeregningsresultatPanel } from '../beregningsresultat/BeregningsresultatPanel';
 import { BesteberegningResultatGrunnlagPanel } from '../besteberegning/BesteberegningResultatGrunnlagPanel';

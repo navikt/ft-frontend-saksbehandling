@@ -1,9 +1,9 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
 import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import { AktivitetStatus, Inntektskategori, OpptjeningAktivitetType, PeriodeAarsak } from '@navikt/ft-kodeverk';
-import {
+import type {
   ArbeidsforholdTilFordeling,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
@@ -33,11 +33,11 @@ import {
   bgUtenDelvisRefusjon as vurderRefusjonBG,
 } from '../testdata/VurderRefusjon';
 import { FordelBeregningsgrunnlagFaktaIndex } from './FordelBeregningsgrunnlagFaktaIndex';
-import { FordelBeregningsgrunnlagAP } from './types/interface/FordelBeregningsgrunnlagAP';
-import { VurderNyttInntektsforholdAP } from './types/interface/VurderNyttInntektsforholdAP';
-import { VurderRefusjonBeregningsgrunnlagAP } from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
-import { KodeverkForPanel } from './types/kodeverkForPanel';
-import { Vilkår } from './types/Vilkår';
+import type { FordelBeregningsgrunnlagAP } from './types/interface/FordelBeregningsgrunnlagAP';
+import type { VurderNyttInntektsforholdAP } from './types/interface/VurderNyttInntektsforholdAP';
+import type { VurderRefusjonBeregningsgrunnlagAP } from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
+import type { KodeverkForPanel } from './types/kodeverkForPanel';
+import type { Vilkår } from './types/Vilkår';
 
 import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';

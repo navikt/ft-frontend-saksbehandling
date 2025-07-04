@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import dayjs from 'dayjs';
 import { action } from 'storybook/actions';
 
@@ -14,7 +14,7 @@ import {
   VilkarType,
   VilkarUtfallType,
 } from '@navikt/ft-kodeverk';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -32,8 +32,8 @@ import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { BeregningsgrunnlagProsessIndex } from './BeregningsgrunnlagProsessIndex';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from './types/KodeverkForPanel';
-import { Vilkår } from './types/Vilkår';
+import type { KodeverkForPanel } from './types/KodeverkForPanel';
+import type { Vilkår } from './types/Vilkår';
 
 import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';

@@ -8,13 +8,13 @@ import { RhfRadioGroup, RhfTextarea, RhfTextField } from '@navikt/ft-form-hooks'
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
-import { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { BeregningFormValues } from '../../types/BeregningFormValues';
-import { VurderVarigEndretNyoppstartetResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
+import type { BeregningFormValues } from '../../types/BeregningFormValues';
+import type { VurderVarigEndretNyoppstartetResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
+import type { VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 

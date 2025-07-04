@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { FadingPanel } from './FadingPanel';
 
 export default {

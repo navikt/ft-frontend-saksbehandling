@@ -1,4 +1,4 @@
-import { BeregningAvklaringsbehov } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehov } from '@navikt/ft-types';
 
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';

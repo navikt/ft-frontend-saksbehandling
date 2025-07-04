@@ -1,13 +1,13 @@
-import { ReactElement } from 'react';
+import { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, HStack, Tag, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, Saksopplysninger } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, Saksopplysninger } from '@navikt/ft-types';
 import { DateLabel } from '@navikt/ft-ui-komponenter';
 
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { Lønnsendring } from './Lønnsendring';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';

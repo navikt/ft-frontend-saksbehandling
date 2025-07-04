@@ -1,16 +1,16 @@
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
 import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus, Dekningsgrad, FagsakYtelseType, VilkarUtfallType } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag, YtelseGrunnlag } from '@navikt/ft-types';
+import type { Beregningsgrunnlag, YtelseGrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { BTag, formatCurrencyNoKr, periodFormat } from '@navikt/ft-utils';
 
-import { TabellData, TabellRadData } from '../../types/BeregningsresultatTabellType';
-import { Vilkårperiode } from '../../types/Vilkår';
+import type { TabellData, TabellRadData } from '../../types/BeregningsresultatTabellType';
+import type { Vilkårperiode } from '../../types/Vilkår';
 import { HorizontalBox } from '../../util/HorizontalBox';
 
 import styles from './oppsummertGrunnlagPanel.module.css';

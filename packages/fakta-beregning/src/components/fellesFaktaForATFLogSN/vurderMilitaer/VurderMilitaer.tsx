@@ -6,10 +6,10 @@ import { List, ReadMore, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { FaktaOmBeregning } from '@navikt/ft-types';
+import type { FaktaOmBeregning } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues, VurderMilitærValues } from '../../../typer/FaktaBeregningTypes';
-import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
+import type { FaktaOmBeregningAksjonspunktValues, VurderMilitærValues } from '../../../typer/FaktaBeregningTypes';
+import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 

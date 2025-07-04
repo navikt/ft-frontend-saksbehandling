@@ -198,7 +198,7 @@ describe('Validators', () => {
       ['datostring', farPastDate],
       ['dato', dayjs(farPastDate)],
       ['timestamp', `${farPastDate}T10:00:00.000Z`],
-    ])('skal godta %s som er før spesifisert dato', (name, dato) => {
+    ])('skal godta %s som er før spesifisert dato', (_name, dato) => {
       const result = dateBeforeOrEqual(today())(dato);
       expect(result).toBeNull();
     });
@@ -212,7 +212,7 @@ describe('Validators', () => {
       ['datostring', farPastDate],
       ['dato', dayjs(farPastDate)],
       ['timestamp', `${farPastDate}T10:00:00.000Z`],
-    ])('skal godta identisk %s', (name, dato) => {
+    ])('skal godta identisk %s', (_name, dato) => {
       const result = dateBeforeOrEqual(dato)(dato);
       expect(result).toBeNull();
     });
@@ -221,7 +221,7 @@ describe('Validators', () => {
       ['datostring', farFutureDate],
       ['dato', dayjs(farFutureDate)],
       ['timestamp', `${farFutureDate}T10:00:00.000Z`],
-    ])('skal feile for %s som er etter spesifisert dato', (name, dato) => {
+    ])('skal feile for %s som er etter spesifisert dato', (_name, dato) => {
       const result = dateBeforeOrEqual(today())(dato);
       expect(result).toEqual(`Dato må være før eller lik ${today().format(DDMMYYYY_DATE_FORMAT)}`);
     });
@@ -237,7 +237,7 @@ describe('Validators', () => {
       ['datostring', farFutureDate],
       ['dato', dayjs(farFutureDate)],
       ['timestamp', `${farFutureDate}T10:00:00.000Z`],
-    ])('skal godta  %s som er etter spesifisert dato', (name, dato) => {
+    ])('skal godta  %s som er etter spesifisert dato', (_name, dato) => {
       const result = dateAfterOrEqual(today())(dato);
       expect(result).toBeNull();
     });
@@ -253,7 +253,7 @@ describe('Validators', () => {
       ['datostring', farPastDate],
       ['dato', dayjs(farPastDate)],
       ['timestamp', `${farPastDate}T10:00:00.000Z`],
-    ])('skal feile %s som er før spesifisert dato', (name, dato) => {
+    ])('skal feile %s som er før spesifisert dato', (_name, dato) => {
       const result = dateAfterOrEqual(today())(dato);
       expect(result).toEqual(`Dato må være etter eller lik ${today().format(DDMMYYYY_DATE_FORMAT)}`);
     });

@@ -1,11 +1,11 @@
-import { ReactElement, ReactNode, useMemo } from 'react';
-import { FieldValues, useController, UseControllerProps, useFormContext } from 'react-hook-form';
+import { type ReactElement, type ReactNode, useMemo } from 'react';
+import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
 
 import { Checkbox, CheckboxGroup, HStack } from '@navikt/ds-react';
 
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
-import { getError, getValidationRules, ValidationReturnType } from '../formUtils';
+import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 
 export interface CheckboxProps {
   value: string;

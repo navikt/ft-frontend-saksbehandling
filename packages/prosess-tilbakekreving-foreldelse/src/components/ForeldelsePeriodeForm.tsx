@@ -16,8 +16,8 @@ import {
 } from '@navikt/ft-form-validators';
 import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 
-import { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
-import { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
+import type { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
+import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);

@@ -5,11 +5,11 @@ import { BodyShort, HStack, VStack } from '@navikt/ds-react';
 
 import { RhfDatepicker, RhfTextField } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, hasValidDate, maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
 import { BTag, dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { VurderRefusjonFormValues, VurderRefusjonValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { VurderRefusjonAndelTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
+import type { VurderRefusjonFormValues, VurderRefusjonValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import type { VurderRefusjonAndelTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';
 
 import styles from './vurderEndringRefusjonRad.module.css';

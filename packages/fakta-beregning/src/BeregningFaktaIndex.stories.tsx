@@ -10,7 +10,7 @@ import {
   Inntektskategori,
   OpptjeningAktivitetType,
 } from '@navikt/ft-kodeverk';
-import {
+import type {
   AndelForFaktaOmBeregning,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -36,8 +36,8 @@ import {
 } from '../testdata/ToArbeidsforholdIOpptjeningsperioden';
 import { BeregningFaktaIndex } from './BeregningFaktaIndex';
 import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from './typer/KodeverkForPanel';
-import { Vilkår, Vilkårperiode } from './typer/Vilkår';
+import type { KodeverkForPanel } from './typer/KodeverkForPanel';
+import type { Vilkår, Vilkårperiode } from './typer/Vilkår';
 
 import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';

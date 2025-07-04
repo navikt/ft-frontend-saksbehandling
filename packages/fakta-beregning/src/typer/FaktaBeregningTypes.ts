@@ -1,4 +1,4 @@
-import {
+import type {
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   FaktaOmBeregning,
@@ -7,7 +7,7 @@ import {
   VurderMottarYtelse,
 } from '@navikt/ft-types';
 
-import { AndelFieldValue } from './FieldValues';
+import type { AndelFieldValue } from './FieldValues';
 
 export type TidsbegrensetandelValues = {
   [key: string]: boolean;

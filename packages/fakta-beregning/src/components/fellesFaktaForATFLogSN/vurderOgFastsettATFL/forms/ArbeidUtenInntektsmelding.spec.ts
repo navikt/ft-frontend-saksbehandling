@@ -3,10 +3,10 @@ import {
   FaktaOmBeregningTilfelle,
   Organisasjonstype as organisasjonstyper,
 } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
-import { InntektTransformed } from '../../../../typer/FieldValues';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
+import type { InntektTransformed } from '../../../../typer/FieldValues';
 import { transformValuesArbeidUtenInntektsmelding } from './ArbeidUtenInntektsmelding';
 import { lonnsendringField } from './lonnsendringFormUtils';
 

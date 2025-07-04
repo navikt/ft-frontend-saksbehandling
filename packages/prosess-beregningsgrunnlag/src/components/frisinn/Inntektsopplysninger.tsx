@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag } from '@navikt/ft-types';
+import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 import { finnBruttoForStatusIPeriode } from './FrisinnUtils';

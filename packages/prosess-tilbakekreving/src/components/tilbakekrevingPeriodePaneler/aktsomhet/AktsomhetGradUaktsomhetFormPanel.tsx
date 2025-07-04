@@ -8,7 +8,7 @@ import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-va
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
 import { Aktsomhet } from '../../../kodeverk/aktsomhet';
-import { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
+import type { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
 import { AktsomhetSarligeGrunnerFormPanel } from './AktsomhetSarligeGrunnerFormPanel';
 
 import styles from './aktsomhetGradUaktsomhetFormPanel.module.css';

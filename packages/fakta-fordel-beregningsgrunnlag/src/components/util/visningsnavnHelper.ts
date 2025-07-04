@@ -1,4 +1,4 @@
-import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
 import { formaterArbeidsgiver } from '@navikt/ft-utils';
 
 export const createVisningsnavnForAktivitetRefusjon = (

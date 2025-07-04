@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
   ForlengelsePeriodeProp,
@@ -11,7 +11,7 @@ import {
 } from '@navikt/ft-types';
 import { calcDays, formaterArbeidsgiver } from '@navikt/ft-utils';
 
-import { TilkommetInntektsforholdFieldValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import type { TilkommetInntektsforholdFieldValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { erPeriodeTilVurdering } from '../util/forlengelseUtils';
 
 dayjs.extend(isBetween);

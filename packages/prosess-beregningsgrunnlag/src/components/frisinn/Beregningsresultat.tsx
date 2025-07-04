@@ -4,15 +4,15 @@ import { Label } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
+import type { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 
 import { BeregningsresultatPeriode } from './BeregningsresultatPeriode';
 import {
   erSøktForAndelISøknadsperiode,
   finnBruttoForStatusIPeriode,
   finnFrisinnperioderSomSkalVises,
-  FrisinnGrunnlag,
-  FrisinnPeriode,
+  type FrisinnGrunnlag,
+  type FrisinnPeriode,
 } from './FrisinnUtils';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';

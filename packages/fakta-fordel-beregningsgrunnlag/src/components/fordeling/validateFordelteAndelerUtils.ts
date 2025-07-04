@@ -1,15 +1,15 @@
-import { UseFormGetValues } from 'react-hook-form';
-import { IntlShape } from 'react-intl';
+import { type UseFormGetValues } from 'react-hook-form';
+import { type IntlShape } from 'react-intl';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 import { formatCurrencyNoKr, formaterArbeidsgiver, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import {
+import type {
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagFormValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { KodeverkForPanel } from '../../types/kodeverkForPanel';
+import type { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import { GRADERING_RANGE_DENOMINATOR, mapToBelop } from './bgFordelingUtils';
 
 const convertToNumber = (n?: string): number => (!n ? 0 : Number(removeSpacesFromNumber(n)));
@@ -247,9 +247,7 @@ export const likFordeling = (value: number, fordeling: number, intl: IntlShape):
 
 const validateFordelingForGradertAndel = (
   vilkårperiodeFieldIndex: number,
-  intl: IntlShape,
   andel: FordelBeregningsgrunnlagAndelValues,
-  periodeFom: string,
   getValues: UseFormGetValues<FordelBeregningsgrunnlagFormValues>,
   fieldname: string,
   index: number,
@@ -277,11 +275,10 @@ export const validerBGGraderteAndeler = (
   getValues: UseFormGetValues<FordelBeregningsgrunnlagFormValues>,
   fieldname: string,
   fields: FordelBeregningsgrunnlagAndelValues[],
-  periodeFom: string,
   intl: IntlShape,
 ): string | undefined => {
   const finnesUgyldigAndel = fields.some((field, index) =>
-    validateFordelingForGradertAndel(vilkårperiodeFieldIndex, intl, field, periodeFom, getValues, fieldname, index),
+    validateFordelingForGradertAndel(vilkårperiodeFieldIndex, field, getValues, fieldname, index),
   );
   return finnesUgyldigAndel ? kanIkkjeHaNullBeregningsgrunnlagError(intl) : undefined;
 };
@@ -302,7 +299,6 @@ export const validateSumFastsattBelop = (
 
 const finnFastsattRefusjon = (
   vilkårperiodeFieldIndex: number,
-  field: FordelBeregningsgrunnlagAndelValues,
   fieldname: string,
   index: number,
   getValues: UseFormGetValues<FordelBeregningsgrunnlagFormValues>,
@@ -323,10 +319,10 @@ export const validateSumRefusjon = (
 ): string | undefined => {
   const harGraderingUtenRefusjon = !!fields.find(
     (v, index) =>
-      v.andelIArbeid !== '0.00' && finnFastsattRefusjon(vilkårperiodeFieldIndex, v, fieldname, index, getValues) === 0,
+      v.andelIArbeid !== '0.00' && finnFastsattRefusjon(vilkårperiodeFieldIndex, fieldname, index, getValues) === 0,
   );
   const sumRefusjon = fields
-    .map((field, index) => finnFastsattRefusjon(vilkårperiodeFieldIndex, field, fieldname, index, getValues))
+    .map((_field, index) => finnFastsattRefusjon(vilkårperiodeFieldIndex, fieldname, index, getValues))
     .reduce((sum, refusjonskrav) => sum + refusjonskrav, 0);
   const seksG = 6 * grunnbeløp;
   return harGraderingUtenRefusjon ? totalRefusjonSkalVereLavereEnn(sumRefusjon, seksG, intl) : undefined;

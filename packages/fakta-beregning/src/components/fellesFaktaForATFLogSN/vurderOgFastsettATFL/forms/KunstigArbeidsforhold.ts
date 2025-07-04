@@ -1,7 +1,7 @@
 import { FaktaOmBeregningTilfelle, Organisasjonstype as organisasjonstyper } from '@navikt/ft-kodeverk';
-import { AndelForFaktaOmBeregning, Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { AndelForFaktaOmBeregning, Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
-import { InntektTransformed } from '../../../../typer/FieldValues';
+import type { InntektTransformed } from '../../../../typer/FieldValues';
 
 export const kunstigAndelField = 'kunstigAndelInntektValues';
 

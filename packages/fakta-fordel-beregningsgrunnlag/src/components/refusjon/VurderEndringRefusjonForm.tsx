@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 import { RhfForm } from '@navikt/ft-form-hooks';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -10,13 +10,16 @@ import {
 } from '@navikt/ft-types';
 import { ErrorBoundary } from '@navikt/ft-ui-komponenter';
 
-import { VurderRefusjonFieldValues, VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import type {
+  VurderRefusjonFieldValues,
+  VurderRefusjonFormValues,
+} from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import {
+import type {
   VurderRefusjonAksjonspunktSubmitType,
   VurderRefusjonTransformedValues,
 } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
-import { Vilkårperiode } from '../../types/Vilkår';
+import type { Vilkårperiode } from '../../types/Vilkår';
 import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
 import { VurderEndringRefusjonField } from './VurderEndringRefusjonField';
 import { VurderEndringRefusjonRad } from './VurderEndringRefusjonRad';

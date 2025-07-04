@@ -1,7 +1,7 @@
-import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formaterArbeidsgiver } from '@navikt/ft-utils';
 
-import { KodeverkForPanel } from '../types/KodeverkForPanel';
+import type { KodeverkForPanel } from '../types/KodeverkForPanel';
 
 const lagVisningFraArbeidType = (andel: BeregningsgrunnlagAndel, kodeverkSamling: KodeverkForPanel): string =>
   andel.arbeidsforhold && andel.arbeidsforhold.arbeidsforholdType

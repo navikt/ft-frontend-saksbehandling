@@ -1,15 +1,21 @@
 import React, { useEffect } from 'react';
-import { useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useFormContext, useWatch } from 'react-hook-form';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import {
+  useFieldArray,
+  type UseFieldArrayAppend,
+  type UseFieldArrayRemove,
+  useFormContext,
+  useWatch,
+} from 'react-hook-form';
+import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
 import { ErrorMessage, Table, VStack } from '@navikt/ds-react';
 
 import { useCustomValidation } from '@navikt/ft-form-hooks';
 import { AktivitetStatus, Inntektskategori } from '@navikt/ft-kodeverk';
-import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import type { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import {
+import type {
   ArbeidstakerInntektValues,
   DagpengerinntektValues,
   FaktaOmBeregningAksjonspunktValues,
@@ -18,9 +24,9 @@ import {
   MilitærEllerSivilInntektValues,
   SelvstendigNæringsdrivendeInntektValues,
 } from '../../typer/FaktaBeregningTypes';
-import { AndelFieldValue, InntektTransformed } from '../../typer/FieldValues';
-import { KodeverkForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanel';
-import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
+import type { AndelFieldValue, InntektTransformed } from '../../typer/FieldValues';
+import type { KodeverkForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanel';
+import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import {
   erOverstyringAvBeregningsgrunnlag,
   getFastsattBelopFromArbeidstakerInntekt,

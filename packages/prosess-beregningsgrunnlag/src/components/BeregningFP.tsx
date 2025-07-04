@@ -10,14 +10,14 @@ import {
   isStatusSNOrKombinasjon,
   isStatusTilstotendeYtelse,
 } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
-import { BeregningFormValues } from '../types/BeregningFormValues';
-import { BeregningAksjonspunktSubmitType } from '../types/interface/BeregningsgrunnlagAP';
+import type { BeregningFormValues } from '../types/BeregningFormValues';
+import type { BeregningAksjonspunktSubmitType } from '../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from '../types/KodeverkForPanel';
-import { RelevanteStatuserProp } from '../types/RelevanteStatuser';
-import { Vilkår, Vilkårperiode } from '../types/Vilkår';
+import type { KodeverkForPanel } from '../types/KodeverkForPanel';
+import type { RelevanteStatuserProp } from '../types/RelevanteStatuser';
+import type { Vilkår, Vilkårperiode } from '../types/Vilkår';
 import { BeregningForm } from './beregningForm/BeregningForm';
 import { GraderingUtenBGReadOnly } from './gradering/GraderingUtenBGReadOnly';
 

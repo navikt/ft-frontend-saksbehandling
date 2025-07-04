@@ -6,7 +6,7 @@ import { ErrorMessage, Label, VStack } from '@navikt/ds-react';
 import { RhfCheckbox, RhfTextarea, useCustomValidation } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 
-import { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
+import type { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
 import { AktsomhetReduksjonAvBelopFormPanel } from './AktsomhetReduksjonAvBelopFormPanel';
 
 const minLength3 = minLength(3);

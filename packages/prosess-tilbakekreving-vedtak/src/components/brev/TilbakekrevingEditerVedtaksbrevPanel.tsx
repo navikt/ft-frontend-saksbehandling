@@ -1,12 +1,12 @@
 import React from 'react';
-import { FormattedMessage, IntlShape } from 'react-intl';
+import { FormattedMessage, type IntlShape } from 'react-intl';
 
 import { BodyShort, ExpansionCard, Heading, Label, VStack } from '@navikt/ds-react';
 
 import { decodeHtmlEntity } from '@navikt/ft-utils';
 
 import { UnderavsnittType } from '../../kodeverk/avsnittType';
-import { VedtaksbrevAvsnitt } from '../../types/VedtaksbrevAvsnitt';
+import type { VedtaksbrevAvsnitt } from '../../types/VedtaksbrevAvsnitt';
 import { TilbakekrevingVedtakUtdypendeTekstPanel } from './TilbakekrevingVedtakUtdypendeTekstPanel';
 
 import styles from './tilbakekrevingEditerVedtaksbrevPanel.module.css';

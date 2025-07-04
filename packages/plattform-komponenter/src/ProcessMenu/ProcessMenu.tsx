@@ -1,8 +1,6 @@
-import React from 'react';
-
 import { HStack } from '@navikt/ds-react';
 
-import { Step, StepProps } from './components/Step';
+import { Step, type StepProps } from './components/Step';
 
 interface ProcessMenuProps {
   steps: StepProps[];

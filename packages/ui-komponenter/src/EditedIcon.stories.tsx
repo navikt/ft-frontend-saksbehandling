@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { EditedIcon } from './EditedIcon';
 
 export default {};

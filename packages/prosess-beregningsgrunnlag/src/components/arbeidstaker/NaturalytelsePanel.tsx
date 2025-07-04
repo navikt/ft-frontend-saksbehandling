@@ -1,10 +1,9 @@
-import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Heading, Table, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
@@ -12,7 +11,11 @@ import {
 import { BeløpLabel, NoWrap, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { formaterArbeidsgiver, ISO_DATE_FORMAT, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
 
-import { NaturalytelseEndring, NaturalytelseTabellData, NaturalytelseTabellRad } from '../../types/NaturalytelseTable';
+import type {
+  NaturalytelseEndring,
+  NaturalytelseTabellData,
+  NaturalytelseTabellRad,
+} from '../../types/NaturalytelseTable';
 
 import tableStyle from '../tableStyle.module.css';
 

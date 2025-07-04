@@ -7,9 +7,9 @@ import { RhfSelect } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { BeløpLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
-import { FeilutbetalingÅrsak } from '../types/FeilutbetalingÅrsak';
-import { FeilutbetalingFakta } from '../types/FeilutbetalingFakta';
-import { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
+import type { FeilutbetalingÅrsak } from '../types/FeilutbetalingÅrsak';
+import type { FeilutbetalingFakta } from '../types/FeilutbetalingFakta';
+import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 
 const FIELD_ARRAY_NAME = 'perioder';
 

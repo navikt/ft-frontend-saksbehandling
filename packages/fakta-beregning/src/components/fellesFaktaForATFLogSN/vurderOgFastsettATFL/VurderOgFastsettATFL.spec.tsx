@@ -4,11 +4,16 @@ import {
   FaktaOmBeregningTilfelle,
   Inntektskategori,
 } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag, BeregningsgrunnlagAndel, FaktaOmBeregning, FaktaOmBeregningAndel } from '@navikt/ft-types';
-import { ATFLSammeOrgAndel } from '@navikt/ft-types/src/BeregningsgrunnlagFakta';
+import type {
+  ATFLSammeOrgAndel,
+  Beregningsgrunnlag,
+  BeregningsgrunnlagAndel,
+  FaktaOmBeregning,
+  FaktaOmBeregningAndel,
+} from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
-import { AndelFieldValue } from '../../../typer/FieldValues';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
+import type { AndelFieldValue } from '../../../typer/FieldValues';
 import { besteberegningField } from '../besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { INNTEKT_FIELD_ARRAY_NAME } from '../BgFaktaUtils';
 import { lonnsendringField } from './forms/lonnsendringFormUtils';

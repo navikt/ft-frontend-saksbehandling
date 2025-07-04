@@ -8,7 +8,7 @@ import {
   isStatusArbeidstakerOrKombinasjon,
   isStatusFrilanserOrKombinasjon,
 } from '@navikt/ft-kodeverk';
-import { BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 

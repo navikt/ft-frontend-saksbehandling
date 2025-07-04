@@ -1,9 +1,9 @@
-import React, { ReactNode, useMemo, useState } from 'react';
-import { FieldValues, useController, UseControllerProps, useFormContext } from 'react-hook-form';
+import { type ReactNode, useMemo, useState } from 'react';
+import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
 
 import { TextField } from '@navikt/ds-react';
 
-import { getError, getValidationRules, ValidationReturnType } from '../formUtils';
+import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
 const TWO_DECIMALS_REGEXP = /^(\d+[,]?(\d{1,2})?)$/;

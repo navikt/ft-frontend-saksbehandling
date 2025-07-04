@@ -1,14 +1,14 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
 import { alleTilbakekrevingKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import { BehandlingStatus, VedtakResultatType } from '@navikt/ft-kodeverk';
-import { Behandling } from '@navikt/ft-types';
+import type { Behandling } from '@navikt/ft-types';
 
 import { Aktsomhet } from './kodeverk/aktsomhet';
-import { BeregningsresultatTilbakekreving } from './types/BeregningsresultatTilbakekreving';
-import { ForeslaVedtakTilbakekrevingAp } from './types/ForeslaVedtakTilbakekrevingAp';
-import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
+import type { BeregningsresultatTilbakekreving } from './types/BeregningsresultatTilbakekreving';
+import type { ForeslaVedtakTilbakekrevingAp } from './types/ForeslaVedtakTilbakekrevingAp';
+import type { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 import { VedtakTilbakekrevingProsessIndex } from './VedtakTilbakekrevingProsessIndex';
 
 import '@navikt/ds-css';

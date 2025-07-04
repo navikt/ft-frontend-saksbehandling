@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Table, VStack } from '@navikt/ds-react';
 
-import { BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp, Månedsgrunnlag } from '@navikt/ft-types';
+import type { BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp, Månedsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 export interface Props {

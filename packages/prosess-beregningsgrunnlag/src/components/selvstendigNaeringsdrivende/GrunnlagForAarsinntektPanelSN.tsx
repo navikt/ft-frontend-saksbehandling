@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { Heading, Table, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus, PgiType } from '@navikt/ft-kodeverk';
-import { BeregningsgrunnlagAndel, Inntektsgrunnlag, PGIPrÅr, PgiVerdier } from '@navikt/ft-types';
+import type { BeregningsgrunnlagAndel, Inntektsgrunnlag, PGIPrÅr, PgiVerdier } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 const lagTabellRad = (år: number, pgiVerdier: PgiVerdier[], pgiGrunnlag: PGIPrÅr[]): React.ReactNode => {

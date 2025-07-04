@@ -1,7 +1,7 @@
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag } from '@navikt/ft-types';
+import type { Beregningsgrunnlag } from '@navikt/ft-types';
 
-import { AndelFieldIdentifikator, InntektTransformed } from '../../../../typer/FieldValues';
+import type { AndelFieldIdentifikator, InntektTransformed } from '../../../../typer/FieldValues';
 
 export const erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse = (
   andel: AndelFieldIdentifikator | InntektTransformed,

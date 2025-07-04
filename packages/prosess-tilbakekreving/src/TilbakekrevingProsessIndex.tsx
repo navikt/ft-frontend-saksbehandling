@@ -1,18 +1,18 @@
 import { RawIntlProvider } from 'react-intl';
 
 import { RelasjonsRolleType } from '@navikt/ft-kodeverk';
-import { Behandling, StandardProsessPanelProps } from '@navikt/ft-types';
+import type { Behandling, StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
-import { BeregnBeløpParams } from './components/splittePerioder/PeriodeController';
+import { type BeregnBeløpParams } from './components/splittePerioder/PeriodeController';
 import { TilbakekrevingForm } from './components/TilbakekrevingForm';
-import { CustomVilkarsVurdertePeriode } from './components/TilbakekrevingPeriodeForm';
-import { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
-import { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
-import { KodeverkMedNavn } from './types/kodeverkMedNavn';
-import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
-import { VilkårsvurderingAp } from './types/VilkårsvurderingAp';
-import { VilkårsvurdertePerioderWrapper } from './types/VilkårsvurdertePerioder';
+import { type CustomVilkarsVurdertePeriode } from './components/TilbakekrevingPeriodeForm';
+import type { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
+import type { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
+import type { KodeverkMedNavn } from './types/kodeverkMedNavn';
+import type { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
+import type { VilkårsvurderingAp } from './types/VilkårsvurderingAp';
+import type { VilkårsvurdertePerioderWrapper } from './types/VilkårsvurdertePerioder';
 
 import messages from '../i18n/nb_NO.json';
 

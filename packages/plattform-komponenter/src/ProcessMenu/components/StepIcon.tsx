@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { CheckmarkIcon, ExclamationmarkTriangleFillIcon, XMarkOctagonFillIcon } from '@navikt/aksel-icons';
 import classnames from 'classnames';
 

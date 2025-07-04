@@ -5,8 +5,8 @@ import { Button, Modal, Select, VStack } from '@navikt/ds-react';
 
 import { calcDays, periodFormat, TIDENES_ENDE } from '@navikt/ft-utils';
 
-import { TilkommetAktivitetValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { Periode, PeriodesplittDatoValg } from './PeriodesplittDatoValg';
+import type { TilkommetAktivitetValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { type Periode, PeriodesplittDatoValg } from './PeriodesplittDatoValg';
 
 interface Props {
   fields: TilkommetAktivitetValues[];

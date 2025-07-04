@@ -4,10 +4,10 @@ import { FormattedMessage } from 'react-intl';
 import { Button, Heading, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
-import { BeregningAvklaringsbehov } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { OverstyringKnapp } from '@navikt/ft-ui-komponenter';
 
-import { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
+import type { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';

@@ -1,9 +1,9 @@
-import { ReactNode, useMemo } from 'react';
-import { FieldValues, useController, UseControllerProps, useFormContext } from 'react-hook-form';
+import { type ReactNode, useMemo } from 'react';
+import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
 
 import { Checkbox, ErrorMessage } from '@navikt/ds-react';
 
-import { getError, getValidationRules, ValidationReturnType } from '../formUtils';
+import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 
 type Props<T extends FieldValues> = {
   label: string | ReactNode;

@@ -1,5 +1,5 @@
 import { OpptjeningAktivitetType, PeriodeAarsak } from '@navikt/ft-kodeverk';
-import {
+import type {
   BeregningsgrunnlagArbeidsforhold,
   BeregningsgrunnlagPeriodeProp,
   FordelBeregningsgrunnlagAndel,

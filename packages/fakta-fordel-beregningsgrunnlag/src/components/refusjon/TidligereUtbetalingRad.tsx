@@ -1,9 +1,9 @@
-import { ReactElement } from 'react';
+import { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Table } from '@navikt/ds-react';
 
-import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel, TidligereUtbetalinger } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel, TidligereUtbetalinger } from '@navikt/ft-types';
 import { PeriodLabel } from '@navikt/ft-ui-komponenter';
 
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';

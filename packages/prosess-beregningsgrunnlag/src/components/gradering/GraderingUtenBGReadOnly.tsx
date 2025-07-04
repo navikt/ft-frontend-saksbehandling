@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Label, VStack } from '@navikt/ds-react';
 
-import { BeregningAvklaringsbehov } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import styles from './graderingUtenBGReadOnly.module.css';

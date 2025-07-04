@@ -1,7 +1,7 @@
-import { AvklarBeregningAktiviteter, BeregningAktivitet } from '@navikt/ft-types';
+import type { AvklarBeregningAktiviteter, BeregningAktivitet } from '@navikt/ft-types';
 import { TIDENES_ENDE } from '@navikt/ft-utils';
 
-import { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
+import type { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { VurderAktiviteterPanel } from './VurderAktiviteterPanel';
 import { finnPlasseringIListe, leggTilAktivitet } from './vurderAktiviteterPanelUtils';
 import { lagAktivitetFieldId } from './vurderAktiviteterTabellUtils';

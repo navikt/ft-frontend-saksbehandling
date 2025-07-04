@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { type ReactElement, useState } from 'react';
 import { useIntl } from 'react-intl';
 
 import {
@@ -18,8 +18,8 @@ import dayjs from 'dayjs';
 
 import { RelasjonsRolleType } from '@navikt/ft-kodeverk';
 
-import { KodeverkMedNavn } from '../../types/kodeverkMedNavn';
-import { TidslinjePeriode } from '../../types/TidslinjePeriode';
+import type { KodeverkMedNavn } from '../../types/kodeverkMedNavn';
+import type { TidslinjePeriode } from '../../types/TidslinjePeriode';
 
 import styles from './tilbakekrevingTimeline.module.css';
 

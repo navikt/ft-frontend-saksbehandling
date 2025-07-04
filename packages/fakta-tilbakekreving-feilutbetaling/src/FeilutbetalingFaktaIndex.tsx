@@ -1,14 +1,14 @@
 import { RawIntlProvider } from 'react-intl';
 
-import { StandardProsessPanelProps } from '@navikt/ft-types';
+import type { StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
-import { FeilutbetalingInfoPanel, FormValues } from './components/FeilutbetalingInfoPanel';
-import { AvklartFaktaFeilutbetalingAp } from './types/AvklartFaktaFeilutbetalingAp';
-import { FeilutbetalingÅrsak } from './types/FeilutbetalingÅrsak';
-import { FeilutbetalingFakta } from './types/FeilutbetalingFakta';
-import { KodeverkForPanel } from './types/KodeverkForPanel';
-import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
+import { FeilutbetalingInfoPanel, type FormValues } from './components/FeilutbetalingInfoPanel';
+import type { AvklartFaktaFeilutbetalingAp } from './types/AvklartFaktaFeilutbetalingAp';
+import type { FeilutbetalingÅrsak } from './types/FeilutbetalingÅrsak';
+import type { FeilutbetalingFakta } from './types/FeilutbetalingFakta';
+import type { KodeverkForPanel } from './types/KodeverkForPanel';
+import type { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 
 import messages from '../i18n/nb_NO.json';
 

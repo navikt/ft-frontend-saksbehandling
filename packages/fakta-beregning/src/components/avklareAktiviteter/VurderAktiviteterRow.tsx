@@ -6,12 +6,12 @@ import dayjs from 'dayjs';
 
 import { RhfDatepicker, RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
-import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { DateLabel, EditedIcon, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { formaterArbeidsgiver, periodFormat } from '@navikt/ft-utils';
 
-import { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import type { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
+import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { lagAktivitetFieldId, skalVurdereAktivitet } from './vurderAktiviteterTabellUtils';
 
 interface Props {

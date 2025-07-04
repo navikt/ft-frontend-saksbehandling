@@ -1,4 +1,4 @@
-import { FieldValues, UseControllerProps } from 'react-hook-form';
+import type { FieldValues, UseControllerProps } from 'react-hook-form';
 import { RawIntlProvider } from 'react-intl';
 
 import { RhfTextarea } from '@navikt/ft-form-hooks';

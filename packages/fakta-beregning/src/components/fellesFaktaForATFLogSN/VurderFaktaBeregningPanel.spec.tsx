@@ -1,9 +1,9 @@
 import { AksjonspunktStatus } from '@navikt/ft-kodeverk';
-import { BeregningAvklaringsbehov, FaktaOmBeregning } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehov, FaktaOmBeregning } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
+import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import { transformValuesVurderFaktaBeregning } from './transformValuesHjelpefunksjoner';
 import { BEGRUNNELSE_FAKTA_TILFELLER_NAME } from './vurderFaktaBeregningHjelpefunksjoner';
 

@@ -4,7 +4,7 @@ import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
+import type { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, periodFormat, TIDENES_ENDE } from '@navikt/ft-utils';
 
@@ -12,8 +12,8 @@ import {
   erSøktForAndelISøknadsperiode,
   finnBruttoForStatusIPeriode,
   finnFrisinnperioderSomSkalVises,
-  FrisinnGrunnlag,
-  FrisinnPeriode,
+  type FrisinnGrunnlag,
+  type FrisinnPeriode,
 } from './FrisinnUtils';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';

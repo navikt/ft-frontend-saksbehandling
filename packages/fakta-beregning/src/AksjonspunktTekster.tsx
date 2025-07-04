@@ -1,10 +1,10 @@
-import React, { ReactElement, ReactNode } from 'react';
+import { type ReactElement, type ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Alert, Heading, List, ReadMore, VStack } from '@navikt/ds-react';
 
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
   KortvarigAndel,

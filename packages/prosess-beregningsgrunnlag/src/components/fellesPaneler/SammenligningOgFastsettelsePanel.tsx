@@ -1,22 +1,22 @@
-import { ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Heading, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus, SammenligningType } from '@navikt/ft-kodeverk';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
 
-import { BeregningFormValues } from '../../types/BeregningFormValues';
-import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
+import type { BeregningFormValues } from '../../types/BeregningFormValues';
+import type { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
-import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
-import { Vilkår } from '../../types/Vilkår';
+import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import type { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
+import type { Vilkår } from '../../types/Vilkår';
 import { AksjonspunktBehandler, defaultFormName } from './AksjonspunktBehandler';
 import { LovParagraf, mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagrafUtils';
 import { SammenligningForklaringPanel } from './SammenligningForklaringPanel';

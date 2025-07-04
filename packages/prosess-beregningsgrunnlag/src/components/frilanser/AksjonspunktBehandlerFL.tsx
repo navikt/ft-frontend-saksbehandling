@@ -6,11 +6,11 @@ import { BodyShort } from '@navikt/ds-react';
 import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr, parseCurrencyInput } from '@navikt/ft-utils';
 
-import { FrilansInntektValues } from '../../types/ATFLAksjonspunkt';
-import { BeregningFormValues } from '../../types/BeregningFormValues';
+import type { FrilansInntektValues } from '../../types/ATFLAksjonspunkt';
+import type { BeregningFormValues } from '../../types/BeregningFormValues';
 import { HorizontalBox } from '../../util/HorizontalBox';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';

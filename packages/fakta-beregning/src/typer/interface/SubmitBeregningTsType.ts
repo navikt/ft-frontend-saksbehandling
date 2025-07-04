@@ -1,4 +1,4 @@
-import { BeregningAktivitetAP } from './BeregningAktivitetAP';
-import { BeregningFaktaOgOverstyringAP } from './BeregningFaktaAP';
+import type { BeregningAktivitetAP } from './BeregningAktivitetAP';
+import type { BeregningFaktaOgOverstyringAP } from './BeregningFaktaAP';
 
 export type SubmitBeregningType = BeregningFaktaOgOverstyringAP | BeregningAktivitetAP;

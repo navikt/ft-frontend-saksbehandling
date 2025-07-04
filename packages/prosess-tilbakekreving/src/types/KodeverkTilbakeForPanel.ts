@@ -2,7 +2,7 @@ import { HendelseType } from '@navikt/ft-kodeverk';
 
 import { Aktsomhet } from '../kodeverk/aktsomhet';
 import { SærligGrunn } from '../kodeverk/særligGrunn';
-import { VilkarResultatInfo } from './VilkårsvurdertePerioder';
+import type { VilkarResultatInfo } from './VilkårsvurdertePerioder';
 
 //Mapping mellom KodeverkType og enums/union-types med verdier
 type KodeverkEnumMap = {

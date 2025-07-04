@@ -4,12 +4,12 @@ import { BodyShort, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { hasValidDate } from '@navikt/ft-form-validators';
-import { ArbeidsgiverOpplysningerPerId, AvklarBeregningAktiviteter } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, AvklarBeregningAktiviteter } from '@navikt/ft-types';
 import { dateFormat } from '@navikt/ft-utils';
 
-import { AktiviteterValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
-import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import type { AktiviteterValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
+import type { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
+import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { leggTilAktivitet } from './vurderAktiviteterPanelUtils';
 import { VurderAktiviteterTabell } from './VurderAktiviteterTabell';
 import { lagAktivitetFieldId } from './vurderAktiviteterTabellUtils';

@@ -9,12 +9,15 @@ import { AksjonspunktHelpTextHTML, BeløpLabel, DateLabel, FaktaGruppe, PeriodLa
 import { decodeHtmlEntity, sortPeriodsByFom } from '@navikt/ft-utils';
 
 import { FeilutbetalingAksjonspunktCode } from '../FeilutbetalingAksjonspunktCode';
-import { AvklartFaktaFeilutbetalingAp } from '../types/AvklartFaktaFeilutbetalingAp';
-import { FeilutbetalingÅrsak } from '../types/FeilutbetalingÅrsak';
-import { FeilutbetalingFakta } from '../types/FeilutbetalingFakta';
-import { KodeverkForPanel } from '../types/KodeverkForPanel';
-import { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
-import { FeilutbetalingPerioderFieldArray, FormValues as PeriodeFormValues } from './FeilutbetalingPerioderFieldArray';
+import type { AvklartFaktaFeilutbetalingAp } from '../types/AvklartFaktaFeilutbetalingAp';
+import type { FeilutbetalingÅrsak } from '../types/FeilutbetalingÅrsak';
+import type { FeilutbetalingFakta } from '../types/FeilutbetalingFakta';
+import type { KodeverkForPanel } from '../types/KodeverkForPanel';
+import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
+import {
+  FeilutbetalingPerioderFieldArray,
+  type FormValues as PeriodeFormValues,
+} from './FeilutbetalingPerioderFieldArray';
 
 import styles from './feilutbetalingInfoPanel.module.css';
 

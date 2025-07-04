@@ -1,4 +1,4 @@
-import { dateTimeFormat, DateTimeFormatOptions } from '@navikt/ft-utils';
+import { dateTimeFormat, type DateTimeFormatOptions } from '@navikt/ft-utils';
 
 export type Props = {
   dateTimeString: string;

@@ -1,14 +1,14 @@
-import { ReactElement } from 'react';
+import { type ReactElement } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BodyShort, ExpansionCard, Label, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 import norskFormat from 'dayjs/locale/nb';
-import { CallbackDataParams } from 'echarts/types/dist/shared';
-import { OptionDataValue } from 'echarts/types/src/util/types';
+import { type CallbackDataParams } from 'echarts/types/dist/shared';
+import type { OptionDataValue } from 'echarts/types/src/util/types.js';
 
 import { InntektAktivitetType } from '@navikt/ft-kodeverk';
-import {
+import type {
   Inntektsgrunnlag,
   InntektsgrunnlagInntekt,
   InntektsgrunnlagMåned,

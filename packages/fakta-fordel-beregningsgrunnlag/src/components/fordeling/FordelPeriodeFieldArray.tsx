@@ -1,6 +1,6 @@
-import { ReactElement, useEffect } from 'react';
-import { useFieldArray, UseFieldArrayUpdate, useFormContext, useWatch } from 'react-hook-form';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { type ReactElement, useEffect } from 'react';
+import { useFieldArray, type UseFieldArrayUpdate, useFormContext, useWatch } from 'react-hook-form';
+import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { Button, Checkbox, ErrorMessage, HStack, Table, VStack } from '@navikt/ds-react';
@@ -13,16 +13,16 @@ import {
   Inntektskategori,
   isSelvstendigNæringsdrivende,
 } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, formaterArbeidsgiver, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import {
+import type {
   BGFordelArbeidsforhold,
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagFormValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { KodeverkForPanel, KodeverkMedNavn } from '../../types/kodeverkForPanel';
+import type { KodeverkForPanel, KodeverkMedNavn } from '../../types/kodeverkForPanel';
 import { finnUnikeArbeidsforhold } from './finnUnikeArbeidsforhold';
 import {
   validateSumFastsattBelop,
@@ -184,7 +184,6 @@ interface Props {
   fieldName: string;
   skalKunneEndreRefusjon: boolean;
   sumIPeriode: number;
-  periodeFom: string;
   vilkårperiodeFieldIndex: number;
   setFieldArrayToRepeat: (fieldArrayName: string) => void;
   fieldArrayToRepeat: string;
@@ -206,7 +205,6 @@ export const FordelPeriodeFieldArray = ({
   beregningsgrunnlag,
   skalKunneEndreRefusjon,
   sumIPeriode,
-  periodeFom,
   vilkårperiodeFieldIndex,
   setFieldArrayToRepeat,
   fieldArrayToRepeat,
@@ -274,7 +272,7 @@ export const FordelPeriodeFieldArray = ({
     valider(validateUlikeAndeler(vilkårperiodeFieldIndex, getValues, fieldName, fields, intl));
     valider(validateSumFastsattBelop(vilkårperiodeFieldIndex, getValues, fieldName, fields, sumIPeriode, intl));
     if (gjelderGradering) {
-      valider(validerBGGraderteAndeler(vilkårperiodeFieldIndex, getValues, fieldName, fields, periodeFom, intl));
+      valider(validerBGGraderteAndeler(vilkårperiodeFieldIndex, getValues, fieldName, fields, intl));
       valider(
         validateSumFastsattForUgraderteAktiviteter(
           vilkårperiodeFieldIndex,

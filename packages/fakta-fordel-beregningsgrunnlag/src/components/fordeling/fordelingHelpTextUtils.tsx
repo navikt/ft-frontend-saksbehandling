@@ -1,7 +1,7 @@
-import { ReactElement } from 'react';
+import { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import {
+import type {
   ArbeidsforholdTilFordeling,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,

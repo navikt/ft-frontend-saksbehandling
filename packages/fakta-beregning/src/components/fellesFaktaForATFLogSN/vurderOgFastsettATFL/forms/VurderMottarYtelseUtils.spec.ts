@@ -1,7 +1,7 @@
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag, BeregningsgrunnlagArbeidsforhold, VurderMottarYtelse } from '@navikt/ft-types';
+import type { Beregningsgrunnlag, BeregningsgrunnlagArbeidsforhold, VurderMottarYtelse } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
 import {
   andelsnrMottarYtelseMap,
   frilansFieldName,

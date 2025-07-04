@@ -1,4 +1,4 @@
-import {
+import type {
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagArbeidsforhold,
@@ -7,7 +7,7 @@ import {
   FordelBeregningsgrunnlagPeriode,
 } from '@navikt/ft-types';
 
-import { BGFordelArbeidsforhold } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import type { BGFordelArbeidsforhold } from '../../types/FordelBeregningsgrunnlagPanelValues';
 
 const arbeidsforholdEksistererIListen = (
   arbeidsforhold: BeregningsgrunnlagArbeidsforhold,

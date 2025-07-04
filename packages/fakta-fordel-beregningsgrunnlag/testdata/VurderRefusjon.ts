@@ -1,4 +1,4 @@
-import { BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
 // @ts-expect-error Fiks
 export const bgUtenDelvisRefusjon = {

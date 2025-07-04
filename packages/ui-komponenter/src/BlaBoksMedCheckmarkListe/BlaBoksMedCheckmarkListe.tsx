@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { CheckmarkIcon } from '@navikt/aksel-icons';

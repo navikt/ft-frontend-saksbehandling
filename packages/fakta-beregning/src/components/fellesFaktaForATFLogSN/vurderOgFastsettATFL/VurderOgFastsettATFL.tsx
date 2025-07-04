@@ -1,10 +1,10 @@
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { VStack } from '@navikt/ds-react';
 
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -12,15 +12,18 @@ import {
 } from '@navikt/ft-types';
 import { AksjonspunktBox } from '@navikt/ft-ui-komponenter';
 
-import { FaktaOmBeregningAksjonspunktValues, VurderOgFastsettATFLValues } from '../../../typer/FaktaBeregningTypes';
-import { InntektTransformed } from '../../../typer/FieldValues';
-import {
+import type {
+  FaktaOmBeregningAksjonspunktValues,
+  VurderOgFastsettATFLValues,
+} from '../../../typer/FaktaBeregningTypes';
+import type { InntektTransformed } from '../../../typer/FieldValues';
+import type {
   BeregningFaktaTransformedValues,
   FaktaBeregningTransformedValues,
   FastsettBeregningsgrunnlagAndelTransformedValues,
 } from '../../../typer/interface/BeregningFaktaAP';
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
-import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
+import type { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
+import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { besteberegningField, VurderBesteberegningForm } from '../besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { vurderBesteberegningTransform } from '../besteberegningFodendeKvinne/vurderBesteberegningFormUtils';
 import { erOverstyringAvBeregningsgrunnlag, INNTEKT_FIELD_ARRAY_NAME } from '../BgFaktaUtils';

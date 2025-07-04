@@ -7,10 +7,10 @@ import { List, ReadMore, VStack } from '@navikt/ds-react';
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag } from '@navikt/ft-types';
+import type { Beregningsgrunnlag } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues, NyIArbeidslivetValues } from '../../../typer/FaktaBeregningTypes';
-import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
+import type { FaktaOmBeregningAksjonspunktValues, NyIArbeidslivetValues } from '../../../typer/FaktaBeregningTypes';
+import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 

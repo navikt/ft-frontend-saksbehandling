@@ -3,7 +3,7 @@ import React from 'react';
 import { Search } from '@navikt/ds-react';
 
 import { AutocompleteSuggestion } from './AutocompleteSuggestion';
-import { Suggestion } from './types/Suggestion';
+import type { Suggestion } from './types/Suggestion';
 
 import styles from './autocomplete.module.css';
 
@@ -64,7 +64,7 @@ export class Autocomplete extends React.Component<AutocompleteProps, State> {
     this.onSearchButtonClick = this.onSearchButtonClick.bind(this);
   }
 
-  componentWillUnmount() {
+  override componentWillUnmount() {
     const { blurDelay } = this.state;
     if (blurDelay) {
       clearTimeout(blurDelay);
@@ -205,7 +205,7 @@ export class Autocomplete extends React.Component<AutocompleteProps, State> {
     this.setState({ shouldBlur: true });
   }
 
-  render() {
+  override render() {
     const { suggestions, id, ariaLabel, placeholder, value, name, shouldFocusOnMount, isLoading } = this.props;
     const { activeSuggestionIndex, setAriaActiveDescendant, hasFocus, shouldShowSuggestions } = this.state;
 

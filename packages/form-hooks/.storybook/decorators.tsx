@@ -1,5 +1,4 @@
-import React from 'react';
-import { useForm, UseFormProps } from 'react-hook-form';
+import { useForm, type UseFormProps } from 'react-hook-form';
 
 import { Button, VStack } from '@navikt/ds-react';
 import type { Meta } from '@storybook/react-vite';

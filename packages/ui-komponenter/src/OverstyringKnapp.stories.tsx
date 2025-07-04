@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { OverstyringKnapp } from './OverstyringKnapp';
 
 export default {
