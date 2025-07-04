@@ -1,9 +1,9 @@
-import React, { ReactNode, useMemo } from 'react';
-import { FieldValues, useController, UseControllerProps, useFormContext } from 'react-hook-form';
+import { type ReactNode, useMemo } from 'react';
+import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
 
-import { Tag, Textarea, TextareaProps } from '@navikt/ds-react';
+import { Tag, Textarea, type TextareaProps } from '@navikt/ds-react';
 
-import { getError, getValidationRules, ValidationReturnType } from '../formUtils';
+import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
 import styles from './rhfTextarea.module.css';

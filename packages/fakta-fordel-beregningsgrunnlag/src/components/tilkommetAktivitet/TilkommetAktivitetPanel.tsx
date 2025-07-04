@@ -7,11 +7,11 @@ import { Alert, BodyShort, Button, Heading, HStack, Label, VStack } from '@navik
 import dayjs from 'dayjs';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { ISO_DATE_FORMAT, sortPeriodsByFom } from '@navikt/ft-utils';
 
-import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { Periode } from './PeriodesplittDatoValg';
+import type { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import { type Periode } from './PeriodesplittDatoValg';
 import { PeriodesplittModal } from './PeriodesplittModal';
 import { TilkommetAktivitetAccordion } from './TilkommetAktivitetAccordion';
 

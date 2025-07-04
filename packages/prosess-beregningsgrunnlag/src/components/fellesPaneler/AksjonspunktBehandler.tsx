@@ -1,6 +1,6 @@
-import { ReactElement, useEffect, useRef } from 'react';
+import { type ReactElement, useEffect, useRef } from 'react';
 import { useFieldArray, useForm, useFormContext } from 'react-hook-form';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
 import { VStack } from '@navikt/ds-react';
 
@@ -8,7 +8,7 @@ import { RhfForm, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { AksjonspunktStatus, AktivitetStatus, PeriodeAarsak, SammenligningType } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -19,14 +19,17 @@ import {
 } from '@navikt/ft-types';
 import { usePrevious } from '@navikt/ft-ui-komponenter';
 
-import { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
-import { BeregningFormValues } from '../../types/BeregningFormValues';
-import { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunkt';
-import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
+import type { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
+import type { BeregningFormValues } from '../../types/BeregningFormValues';
+import type { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunkt';
+import type {
+  BeregningAksjonspunktSubmitType,
+  GruppertAksjonspunktData,
+} from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
-import { VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
-import { Vilkår, Vilkårperiode } from '../../types/Vilkår';
+import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import type { VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
+import type { Vilkår, Vilkårperiode } from '../../types/Vilkår';
 import { AksjonspunktBehandlerAT } from '../arbeidstaker/AksjonspunktBehandlerAT';
 import { AksjonspunktBehandlerTidsbegrenset as AksjonspunktBehandlerTB } from '../arbeidstaker/AksjonspunktBehandlerTB';
 import { GrunnlagForAarsinntektPanelAT } from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';

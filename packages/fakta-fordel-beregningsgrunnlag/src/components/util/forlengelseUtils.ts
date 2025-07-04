@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 import { Inntektskategori } from '@navikt/ft-kodeverk';
-import { FordelBeregningsgrunnlagPeriode, ForlengelsePeriodeProp } from '@navikt/ft-types';
+import type { FordelBeregningsgrunnlagPeriode, ForlengelsePeriodeProp } from '@navikt/ft-types';
 
 function inneholderPeriode(p1: { fom: string; tom?: string }, p2: { fom: string; tom?: string }) {
   return (

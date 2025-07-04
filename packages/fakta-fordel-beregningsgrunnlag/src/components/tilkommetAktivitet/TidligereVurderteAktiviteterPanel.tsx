@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { HStack, Table, Tag } from '@navikt/ds-react';
 
-import { ArbeidsgiverOpplysningerPerId, Inntektsforhold, VurderInntektsforholdPeriode } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, Inntektsforhold, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { BeløpLabel, EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import { getAktivitetNavnFraInnteksforhold } from './tilkommetAktivitetUtils';

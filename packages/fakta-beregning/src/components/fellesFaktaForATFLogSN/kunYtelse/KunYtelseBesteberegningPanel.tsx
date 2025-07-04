@@ -7,12 +7,12 @@ import { BodyShort, Label, Link, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { KunYtelse } from '@navikt/ft-types';
+import type { KunYtelse } from '@navikt/ft-types';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
-import { VurderBesteberegningMedKunYtelseValues } from '../../../typer/FaktaBeregningTypes';
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
-import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
+import type { VurderBesteberegningMedKunYtelseValues } from '../../../typer/FaktaBeregningTypes';
+import type { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
+import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../../utils/BeregningFormUtils';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '../eksterneLenker';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';

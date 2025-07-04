@@ -1,13 +1,12 @@
-import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Heading, Table, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus, isStatusDagpengerOrAAP } from '@navikt/ft-kodeverk';
-import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
-import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
+import type { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 import tableStyle from '../tableStyle.module.css';

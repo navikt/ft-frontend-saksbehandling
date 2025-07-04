@@ -1,9 +1,9 @@
 import { OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { TIDENES_ENDE } from '@navikt/ft-utils';
 
-import { AktivitetValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import type { AktivitetValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
+import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { VurderAktiviteterTabell } from './VurderAktiviteterTabell';
 import { lagAktivitetFieldId, skalVurdereAktivitet } from './vurderAktiviteterTabellUtils';
 

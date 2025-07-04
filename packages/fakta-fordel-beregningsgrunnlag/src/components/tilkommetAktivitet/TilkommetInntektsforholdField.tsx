@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { type ReactElement } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -7,10 +7,10 @@ import { Alert, ReadMore, VStack } from '@navikt/ds-react';
 import { RhfRadioGroup, RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import {
+import type {
   TilkommetAktivitetFormValues,
   TilkommetInntektsforholdFieldValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';

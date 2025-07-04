@@ -1,4 +1,4 @@
-import { createIntl as createReactIntl, createIntlCache, IntlShape } from 'react-intl';
+import { createIntl as createReactIntl, createIntlCache, type IntlShape } from 'react-intl';
 
 const cache = createIntlCache();
 

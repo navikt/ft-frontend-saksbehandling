@@ -1,5 +1,5 @@
-import React, { ReactElement } from 'react';
-import { Control, useFormContext } from 'react-hook-form';
+import React, { type ReactElement } from 'react';
+import { type Control, useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ReadMore, VStack } from '@navikt/ds-react';
@@ -7,11 +7,15 @@ import { ReadMore, VStack } from '@navikt/ds-react';
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, RefusjonskravSomKommerForSentListe } from '@navikt/ft-types';
+import type {
+  ArbeidsgiverOpplysningerPerId,
+  FaktaOmBeregning,
+  RefusjonskravSomKommerForSentListe,
+} from '@navikt/ft-types';
 import { formaterArbeidsgiver } from '@navikt/ft-utils';
 
-import { FaktaOmBeregningAksjonspunktValues, VurderRefusjonValues } from '../../../typer/FaktaBeregningTypes';
-import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
+import type { FaktaOmBeregningAksjonspunktValues, VurderRefusjonValues } from '../../../typer/FaktaBeregningTypes';
+import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 

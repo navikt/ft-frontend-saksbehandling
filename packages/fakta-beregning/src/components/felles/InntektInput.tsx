@@ -3,10 +3,10 @@ import { useFormContext } from 'react-hook-form';
 
 import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { AndelForFaktaOmBeregning } from '@navikt/ft-types';
+import type { AndelForFaktaOmBeregning } from '@navikt/ft-types';
 import { parseCurrencyInput } from '@navikt/ft-utils';
 
-import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
+import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 
 interface Props {
   name: string;

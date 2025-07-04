@@ -7,7 +7,7 @@ import { List, ReadMore, VStack } from '@navikt/ds-react';
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   ArbeidstakerUtenIMAndel,
   Beregningsgrunnlag,
@@ -17,14 +17,17 @@ import {
 } from '@navikt/ft-types';
 import { formaterArbeidsgiver, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../../../typer/FaktaBeregningTypes';
-import { InntektTransformed } from '../../../../typer/FieldValues';
-import {
+import type {
+  FaktaOmBeregningAksjonspunktValues,
+  VurderMottarYtelseValues,
+} from '../../../../typer/FaktaBeregningTypes';
+import type { InntektTransformed } from '../../../../typer/FieldValues';
+import type {
   FaktaBeregningTransformedValues,
   FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues,
 } from '../../../../typer/interface/BeregningFaktaAP';
-import { KodeverkForPanel } from '../../../../typer/KodeverkForPanel';
-import { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
+import type { KodeverkForPanel } from '../../../../typer/KodeverkForPanel';
+import type { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import {

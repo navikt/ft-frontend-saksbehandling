@@ -1,6 +1,9 @@
-import { AksjonspunktTilBekreftelse } from '@navikt/ft-types';
+import type { AksjonspunktTilBekreftelse } from '@navikt/ft-types';
 
-import { BeregningAktiviteterTransformedValues, BeregningAktivitetTransformedValues } from './BeregningFaktaAP';
+import {
+  type BeregningAktiviteterTransformedValues,
+  type BeregningAktivitetTransformedValues,
+} from './BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from './FaktaBeregningAvklaringsbehovCode';
 
 export type OverstyrBeregningsaktiviteterAP = BeregningAktivitetTransformedValues &

@@ -1,9 +1,9 @@
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { FaktaOmBeregning } from '@navikt/ft-types';
+import type { FaktaOmBeregning } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
-import { InntektTransformed } from '../../../typer/FieldValues';
-import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
+import type { InntektTransformed } from '../../../typer/FieldValues';
+import type { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import { VurderBesteberegningForm } from './VurderBesteberegningForm';
 
 export const vurderBesteberegningTransform =

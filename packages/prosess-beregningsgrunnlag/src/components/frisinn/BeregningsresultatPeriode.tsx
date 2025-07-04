@@ -4,11 +4,11 @@ import { BodyShort, Detail, HStack, Label, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
+import type { BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { periodFormat } from '@navikt/ft-utils';
 
-import { finnOppgittInntektForAndelIPeriode, FrisinnAndel, FrisinnGrunnlag } from './FrisinnUtils';
+import { finnOppgittInntektForAndelIPeriode, type FrisinnAndel, type FrisinnGrunnlag } from './FrisinnUtils';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 

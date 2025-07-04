@@ -1,12 +1,12 @@
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
-import { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
-import {
+import type {
   NyIArbeidslivetruttoNæringResultatAP,
   VurderVarigEndretNyoppstartetResultatAP,
 } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { NyIArbeidslivetValues, VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
+import type { NyIArbeidslivetValues, VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
 import { FastsettSNNyIArbeid } from './FastsettSNNyIArbeid';
 import { VurderVarigEndringEllerNyoppstartet } from './VurderVarigEndringEllerNyoppstartet';
 

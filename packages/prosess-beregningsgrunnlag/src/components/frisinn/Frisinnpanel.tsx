@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Detail, VStack } from '@navikt/ds-react';
 
-import { Beregningsgrunnlag } from '@navikt/ft-types';
+import type { Beregningsgrunnlag } from '@navikt/ft-types';
 
 import { Beregningsresultat } from './Beregningsresultat';
 import { Grenseverdi } from './Grenseverdi';

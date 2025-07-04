@@ -1,10 +1,10 @@
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
+import type { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
-import { InntektTransformed } from '../../../../typer/FieldValues';
-import {
+import type { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
+import type { InntektTransformed } from '../../../../typer/FieldValues';
+import type {
   FaktaBeregningTransformedValues,
   FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues,
 } from '../../../../typer/interface/BeregningFaktaAP';

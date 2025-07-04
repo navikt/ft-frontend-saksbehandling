@@ -1,7 +1,7 @@
 import { getIntlMock } from '@navikt/ft-frontend-utils-test';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 
-import { AndelFieldValue } from '../../typer/FieldValues';
+import type { AndelFieldValue } from '../../typer/FieldValues';
 import { compareAndeler, ulikeAndelerErrorMessage, validateUlikeAndeler } from './ValidateAndelerUtils';
 
 import messages from '../../../i18n/nb_NO.json';

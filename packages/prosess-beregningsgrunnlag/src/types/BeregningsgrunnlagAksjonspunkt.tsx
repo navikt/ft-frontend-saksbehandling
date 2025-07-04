@@ -1,7 +1,7 @@
-import { BeregningAvklaringsbehov, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehov, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 
-import { ATFLTidsbegrensetValues, ATFLValues, FrilansInntektValues } from './ATFLAksjonspunkt';
-import { NyIArbeidslivetValues, VurderOgFastsettValues } from './NæringAksjonspunkt';
+import type { ATFLTidsbegrensetValues, ATFLValues, FrilansInntektValues } from './ATFLAksjonspunkt';
+import type { NyIArbeidslivetValues, VurderOgFastsettValues } from './NæringAksjonspunkt';
 
 type VurderingValues = {
   periode: {

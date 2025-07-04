@@ -1,10 +1,10 @@
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 
-import { BeregningAvklaringsbehov } from './BeregningAvklaringsbehov';
-import { BeregningsgrunnlagArbeidsforhold } from './BeregningsgrunnlagArbeidsforhold';
-import { FaktaOmBeregning } from './BeregningsgrunnlagFakta';
-import { FaktaOmFordeling, RefusjonTilVurdering } from './BeregningsgrunnlagFordeling';
-import { Besteberegninggrunnlag } from './Besteberegning';
+import type { BeregningAvklaringsbehov } from './BeregningAvklaringsbehov';
+import type { BeregningsgrunnlagArbeidsforhold } from './BeregningsgrunnlagArbeidsforhold';
+import type { FaktaOmBeregning } from './BeregningsgrunnlagFakta';
+import type { FaktaOmFordeling, RefusjonTilVurdering } from './BeregningsgrunnlagFordeling';
+import type { Besteberegninggrunnlag } from './Besteberegning';
 
 export type InntektsgrunnlagInntekt = Readonly<{
   inntektAktivitetType: string;

@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
 import { BodyShort, VStack } from '@navikt/ds-react';
 

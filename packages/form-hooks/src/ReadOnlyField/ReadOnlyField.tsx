@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import { BodyLong, HStack, Label, VStack } from '@navikt/ds-react';
 

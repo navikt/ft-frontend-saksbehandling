@@ -8,10 +8,10 @@ import { RhfForm, SubmitButton } from '@navikt/ft-form-hooks';
 import { omit } from '@navikt/ft-utils';
 
 import { UnderavsnittType } from '../kodeverk/avsnittType';
-import { ForeslaVedtakTilbakekrevingAp } from '../types/ForeslaVedtakTilbakekrevingAp';
-import { VedtaksbrevAvsnitt } from '../types/VedtaksbrevAvsnitt';
+import type { ForeslaVedtakTilbakekrevingAp } from '../types/ForeslaVedtakTilbakekrevingAp';
+import type { VedtaksbrevAvsnitt } from '../types/VedtaksbrevAvsnitt';
 import { VedtakAksjonspunktCode } from '../VedtakAksjonspunktCode';
-import { FormValues, TilbakekrevingEditerVedtaksbrevPanel } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
+import { type FormValues, TilbakekrevingEditerVedtaksbrevPanel } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
 
 type VedtakData = {
   oppsummeringstekst: string;

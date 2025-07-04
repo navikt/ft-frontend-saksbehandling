@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
 import { alleKodeverk, alleTilbakekrevingKodeverk } from '@navikt/ft-frontend-storybook-utils';
@@ -13,11 +13,11 @@ import {
 } from '@navikt/ft-kodeverk';
 
 import { FeilutbetalingFaktaIndex } from './FeilutbetalingFaktaIndex';
-import { AvklartFaktaFeilutbetalingAp } from './types/AvklartFaktaFeilutbetalingAp';
-import { FeilutbetalingÅrsak } from './types/FeilutbetalingÅrsak';
-import { FeilutbetalingFakta } from './types/FeilutbetalingFakta';
-import { KodeverkForPanel } from './types/KodeverkForPanel';
-import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
+import type { AvklartFaktaFeilutbetalingAp } from './types/AvklartFaktaFeilutbetalingAp';
+import type { FeilutbetalingÅrsak } from './types/FeilutbetalingÅrsak';
+import type { FeilutbetalingFakta } from './types/FeilutbetalingFakta';
+import type { KodeverkForPanel } from './types/KodeverkForPanel';
+import type { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 
 import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';

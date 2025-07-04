@@ -1,7 +1,7 @@
-import { FaktaOmBeregning } from '@navikt/ft-types';
+import type { FaktaOmBeregning } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
-import { InntektTransformed } from '../../../../typer/FieldValues';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
+import type { InntektTransformed } from '../../../../typer/FieldValues';
 
 export const lonnsendringField = 'lonnsendringField';
 

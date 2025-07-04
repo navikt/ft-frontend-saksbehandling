@@ -1,11 +1,11 @@
-import { Fragment, ReactElement, ReactNode, useMemo } from 'react';
-import { FieldValues, useController, UseControllerProps, useFormContext } from 'react-hook-form';
+import { Fragment, type ReactElement, type ReactNode, useMemo } from 'react';
+import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
 
 import { HStack, Radio, RadioGroup } from '@navikt/ds-react';
 
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
-import { getError, getValidationRules, ValidationReturnType } from '../formUtils';
+import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 
 import styles from './rhfRadioGroup.module.css';
 

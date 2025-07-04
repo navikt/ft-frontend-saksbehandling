@@ -1,4 +1,3 @@
-import React from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
@@ -7,14 +6,14 @@ import { HStack, Table, Tag, VStack } from '@navikt/ds-react';
 import { RhfTextarea } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   VurderInntektsforholdPeriode,
 } from '@navikt/ft-types';
 import { BeløpLabel, EditedIcon, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
-import { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import type { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { SubmitButton } from '../felles/SubmitButton';
 import { getAktivitetNavnFraInnteksforhold } from './tilkommetAktivitetUtils';
 import { TilkommetInntektsforholdField } from './TilkommetInntektsforholdField';

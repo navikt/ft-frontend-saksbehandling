@@ -1,12 +1,11 @@
-import React from 'react';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
 import { Heading, Table } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 import norskFormat from 'dayjs/locale/nb';
 
 import { AktivitetStatus, InntektAktivitetType } from '@navikt/ft-kodeverk';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,

@@ -6,7 +6,7 @@ import isBetween from 'dayjs/plugin/isBetween';
 
 import { RhfForm } from '@navikt/ft-form-hooks';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -17,18 +17,18 @@ import {
 import { ErrorBoundary } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import {
+import type {
   TilkommetAktivitetFieldValues,
   TilkommetAktivitetFormValues,
   TilkommetAktivitetValues,
   TilkommetInntektsforholdFieldValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import {
+import type {
   VurderNyttInntektsforholdAP,
   VurderNyttInntektsforholTransformedValues,
 } from '../../types/interface/VurderNyttInntektsforholdAP';
-import { Vilkårperiode } from '../../types/Vilkår';
+import type { Vilkårperiode } from '../../types/Vilkår';
 import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
 import { TilkommetAktivitetPanel } from './TilkommetAktivitetPanel';
 import { erVurdertTidligere, slaaSammenPerioder } from './tilkommetAktivitetUtils';
@@ -212,7 +212,7 @@ export const TilkommetAktivitet = ({
   setTilkommetAktivitetFormIsDirty,
 }: Props) => {
   const formMethods = useForm<TilkommetAktivitetFormValues>({
-    defaultValues: formData?.VURDER_TILKOMMET_AKTIVITET_FORM
+    defaultValues: formData?.['VURDER_TILKOMMET_AKTIVITET_FORM']
       ? formData
       : buildInitialValues(beregningsgrunnlagListe, vilkarperioder),
   });

@@ -1,4 +1,4 @@
-import React, { Component, ErrorInfo } from 'react';
+import React, { Component, type ErrorInfo } from 'react';
 
 import { Alert } from '@navikt/ds-react';
 
@@ -21,12 +21,12 @@ export class ErrorBoundary extends Component<Props, State> {
     return { hasError: true };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  override componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // eslint-disable-next-line no-console
     console.error('Error caught by error boundary:', error, errorInfo);
   }
 
-  render() {
+  override render() {
     const { hasError } = this.state;
     const { children, errorMessage } = this.props;
     if (hasError) {

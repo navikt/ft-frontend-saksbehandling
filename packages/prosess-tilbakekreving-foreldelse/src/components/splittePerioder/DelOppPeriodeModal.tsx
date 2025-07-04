@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
 import { Alert, BodyShort, Button, Heading, Label, Modal, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';

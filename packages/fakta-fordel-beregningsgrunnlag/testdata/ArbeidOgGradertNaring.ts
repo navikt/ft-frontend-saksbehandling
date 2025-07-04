@@ -1,5 +1,5 @@
 import { AktivitetStatus, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
-import { Aksjonspunkt, Beregningsgrunnlag } from '@navikt/ft-types';
+import type { Aksjonspunkt, Beregningsgrunnlag } from '@navikt/ft-types';
 
 export const beregningsgrunnlag = {
   avklaringsbehov: [

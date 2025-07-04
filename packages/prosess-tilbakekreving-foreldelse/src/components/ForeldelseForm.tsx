@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { type ReactElement, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Box, Heading, HStack, VStack } from '@navikt/ds-react';
@@ -6,23 +6,23 @@ import dayjs from 'dayjs';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { AksjonspunktStatus, ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
-import { Aksjonspunkt } from '@navikt/ft-types';
+import type { Aksjonspunkt } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 
 import { ForeldelseAksjonspunktCodes } from '../ForeldelseAksjonspunktCodes';
-import { FeilutbetalingPeriode, FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
-import { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
-import { KodeverkMedNavn } from '../types/kodeverkMedNavn';
-import { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
-import { TidslinjePeriode } from '../types/TidslinjePeriode';
-import { VurderForeldelseAp } from '../types/VurderForeldelseAp';
-import { ForeldelsePeriodeForm, FormValues as PeriodeFormValues } from './ForeldelsePeriodeForm';
+import type { FeilutbetalingPeriode, FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
+import type { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
+import type { KodeverkMedNavn } from '../types/kodeverkMedNavn';
+import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
+import type { TidslinjePeriode } from '../types/TidslinjePeriode';
+import type { VurderForeldelseAp } from '../types/VurderForeldelseAp';
+import { ForeldelsePeriodeForm, type FormValues as PeriodeFormValues } from './ForeldelsePeriodeForm';
 import {
-  BeregnBeløpParams,
-  BeregnBeløpResultat,
+  type BeregnBeløpParams,
+  type BeregnBeløpResultat,
   PeriodeController,
-  PeriodeMedFeilutbetaling,
+  type PeriodeMedFeilutbetaling,
 } from './splittePerioder/PeriodeController';
 import { PeriodeInformasjon } from './splittePerioder/PeriodeInformasjon';
 import { TilbakekrevingTimeline } from './timeline/TilbakekrevingTimeline';

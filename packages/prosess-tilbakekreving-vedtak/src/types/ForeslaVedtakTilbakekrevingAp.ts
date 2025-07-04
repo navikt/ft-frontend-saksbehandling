@@ -1,4 +1,4 @@
-import { AksjonspunktTilBekreftelse } from '@navikt/ft-types';
+import type { AksjonspunktTilBekreftelse } from '@navikt/ft-types';
 
 import { VedtakAksjonspunktCode } from '../VedtakAksjonspunktCode';
 

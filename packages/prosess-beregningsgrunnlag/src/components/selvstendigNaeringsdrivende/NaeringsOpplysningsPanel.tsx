@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { BodyShort, Heading, Label, Table, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@navikt/ft-types';
 import { BeløpLabel, NoWrap, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { BTag, dateFormat, formaterArbeidsgiver } from '@navikt/ft-utils';
 

@@ -1,6 +1,6 @@
-import React, { ReactElement } from 'react';
-import { FieldArrayWithId, useFieldArray, useFormContext, useWatch } from 'react-hook-form';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import React, { type ReactElement } from 'react';
+import { type FieldArrayWithId, useFieldArray, useFormContext, useWatch } from 'react-hook-form';
+import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
 import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { Button, ErrorMessage, Table, VStack } from '@navikt/ds-react';
@@ -10,12 +10,12 @@ import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
-import { AndelFieldValue } from '../../../typer/FieldValues';
-import { KodeverkForPanel, KodeverkMedNavn } from '../../../typer/KodeverkForPanel';
-import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
+import type { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
+import type { AndelFieldValue } from '../../../typer/FieldValues';
+import type { KodeverkForPanel, KodeverkMedNavn } from '../../../typer/KodeverkForPanel';
+import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../../utils/BeregningFormUtils';
-import { SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
+import { type SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 import tableStyles from '../../felles/tableStyle.module.css';

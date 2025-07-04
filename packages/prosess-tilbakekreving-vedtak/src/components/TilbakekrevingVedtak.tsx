@@ -4,12 +4,12 @@ import { BodyShort, Heading, Label, VStack } from '@navikt/ds-react';
 
 import { VedtakResultatType } from '@navikt/ft-kodeverk';
 
-import { BeregningResultatPeriode } from '../types/BeregningsresultatTilbakekreving';
-import { ForeslaVedtakTilbakekrevingAp } from '../types/ForeslaVedtakTilbakekrevingAp';
+import type { BeregningResultatPeriode } from '../types/BeregningsresultatTilbakekreving';
+import type { ForeslaVedtakTilbakekrevingAp } from '../types/ForeslaVedtakTilbakekrevingAp';
 import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
-import { VedtaksbrevAvsnitt } from '../types/VedtaksbrevAvsnitt';
-import { FormValues } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
-import { ForhandsvisData, TilbakekrevingVedtakForm } from './TilbakekrevingVedtakForm';
+import type { VedtaksbrevAvsnitt } from '../types/VedtaksbrevAvsnitt';
+import { type FormValues } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
+import { type ForhandsvisData, TilbakekrevingVedtakForm } from './TilbakekrevingVedtakForm';
 import { TilbakekrevingVedtakPeriodeTabell } from './TilbakekrevingVedtakPeriodeTabell';
 
 export interface Props {

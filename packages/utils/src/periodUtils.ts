@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 import { createIntl } from './createIntl';
-import { dateFormat, DateFormatOptions } from './dateFormat';
+import { dateFormat, type DateFormatOptions } from './dateFormat';
 import { TIDENES_ENDE } from './dateUtils';
 
 import messages from '../i18n/nb_NO.json';

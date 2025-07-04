@@ -5,7 +5,7 @@ import {
   OpptjeningAktivitetType as OAType,
   Organisasjonstype as organisasjonstyper,
 } from '@navikt/ft-kodeverk';
-import {
+import type {
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,
   ATFLSammeOrgAndel,
@@ -16,14 +16,14 @@ import {
 } from '@navikt/ft-types';
 import { formatCurrencyNoKr, formaterArbeidsgiver } from '@navikt/ft-utils';
 
-import {
+import type {
   ArbeidstakerInntektValues,
   FaktaOmBeregningAksjonspunktValues,
   GenerellAndelInfo,
 } from '../../typer/FaktaBeregningTypes';
-import { AndelFieldIdentifikator, AndelFieldValue } from '../../typer/FieldValues';
+import type { AndelFieldIdentifikator, AndelFieldValue } from '../../typer/FieldValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse } from './vurderOgFastsettATFL/forms/AvsluttetArbeidsforhold';

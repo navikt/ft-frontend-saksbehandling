@@ -4,13 +4,13 @@ import { FormattedMessage } from 'react-intl';
 
 import { Table } from '@navikt/ds-react';
 
-import { Beregningsgrunnlag } from '@navikt/ft-types';
+import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
-import { AndelFieldValue } from '../../typer/FieldValues';
-import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
+import type { AndelFieldValue } from '../../typer/FieldValues';
+import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import {
   erArbeidstaker,
   erDagpenger,

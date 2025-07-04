@@ -32,5 +32,5 @@ export const useCustomValidation = (stateName: string, message?: string): string
 
   const errors = parts.reduce((prev, current) => prev[current] || {}, formState.errors);
 
-  return errors?.notRegisteredInput?.message;
+  return errors?.['notRegisteredInput']?.message;
 };

@@ -1,8 +1,8 @@
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import { KodeverkForPanel } from '../../types/kodeverkForPanel';
+import type { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import {
   setArbeidsforholdInitialValues,
   setGenerellAndelsinfo,

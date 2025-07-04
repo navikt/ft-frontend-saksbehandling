@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { AvklarBeregningAktiviteter, BeregningAktivitet } from '@navikt/ft-types';
+import type { AvklarBeregningAktiviteter, BeregningAktivitet } from '@navikt/ft-types';
 
 export const finnPlasseringIListe = (gjeldendeTomDatoMapping: AvklarBeregningAktiviteter[], dato: string): number => {
   let i = 0;

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { ArrowBox } from './ArrowBox';
 
 export default {

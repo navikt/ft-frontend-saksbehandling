@@ -4,23 +4,23 @@ import { RawIntlProvider } from 'react-intl';
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { Tabs, VStack } from '@navikt/ds-react';
 
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardFaktaPanelProps } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardFaktaPanelProps } from '@navikt/ft-types';
 import { DateLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { createIntl } from '@navikt/ft-utils';
 
 import { finnVilkårsperiode, vurderesIBehandlingen } from './components/felles/vilkårsperiodeUtils';
 import { FordelBeregningsgrunnlagPanel } from './components/FordelBeregningsgrunnlagPanel';
-import {
+import type {
   FordelBeregningsgrunnlagFormValues,
   TilkommetAktivitetFormValues,
   VurderRefusjonFormValues,
 } from './types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from './types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import { FordelBeregningsgrunnlagAP } from './types/interface/FordelBeregningsgrunnlagAP';
-import { VurderNyttInntektsforholdAP } from './types/interface/VurderNyttInntektsforholdAP';
-import { VurderRefusjonBeregningsgrunnlagAP } from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
-import { KodeverkForPanel } from './types/kodeverkForPanel';
-import { Vilkår, Vilkårperiode } from './types/Vilkår';
+import type { FordelBeregningsgrunnlagAP } from './types/interface/FordelBeregningsgrunnlagAP';
+import type { VurderNyttInntektsforholdAP } from './types/interface/VurderNyttInntektsforholdAP';
+import type { VurderRefusjonBeregningsgrunnlagAP } from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
+import type { KodeverkForPanel } from './types/kodeverkForPanel';
+import type { Vilkår, Vilkårperiode } from './types/Vilkår';
 
 import messages from '../i18n/nb_NO.json';
 

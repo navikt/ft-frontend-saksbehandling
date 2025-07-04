@@ -1,5 +1,5 @@
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -7,13 +7,13 @@ import {
   KortvarigAndel,
 } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues, FaktaOmBeregningValues } from '../../typer/FaktaBeregningTypes';
-import {
+import type { FaktaOmBeregningAksjonspunktValues, FaktaOmBeregningValues } from '../../typer/FaktaBeregningTypes';
+import type {
   BeregningFaktaTransformedValues,
   FaktaBeregningTransformedValues,
 } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { ArbeidsinntektInput } from '../felles/ArbeidsinntektInput';
 import { InntektInput } from '../felles/InntektInput';
 import { VurderBesteberegningForm } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
@@ -40,7 +40,7 @@ export const getKortvarigeArbeidsforhold = (beregningsgrunnlag: Beregningsgrunnl
   getFaktaOmBeregning(beregningsgrunnlag)?.kortvarigeArbeidsforhold ?? [];
 
 // TODO (TOR) om typane her er korrekt så kan ein ta vekk ?? undefined
-export const getKunYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>
+const getKunYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.kunYtelse ?? undefined;
 
 export const getVurderMottarYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>

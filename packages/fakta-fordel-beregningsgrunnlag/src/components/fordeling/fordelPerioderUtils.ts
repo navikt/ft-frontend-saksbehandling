@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 import { PeriodeAarsak } from '@navikt/ft-kodeverk';
-import {
+import type {
   BeregningsgrunnlagPeriodeProp,
   FordelBeregningsgrunnlagAndel,
   FordelBeregningsgrunnlagPeriode,
@@ -9,11 +9,11 @@ import {
 } from '@navikt/ft-types';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import {
+import type {
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import {
+import type {
   FordelBeregningsgrunnlagAndelTransformedValues,
   FordelBeregningsgrunnlagFastsatteVerdierTransformedValues,
   FordelBeregningsgrunnlagPeriodeTransformedValues,

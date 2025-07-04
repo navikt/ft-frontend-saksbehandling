@@ -3,12 +3,12 @@ import { FormattedMessage } from 'react-intl';
 import { Label, Table, VStack } from '@navikt/ds-react';
 
 import { OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { dateFormat } from '@navikt/ft-utils';
 
-import { AktiviteterValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
-import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import type { AktiviteterValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
+import type { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
+import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { VurderAktiviteterTabellRad } from './VurderAktiviteterRow';
 import { isSameOrBefore, lagAktivitetFieldId, mapToInitialValues } from './vurderAktiviteterTabellUtils';
 

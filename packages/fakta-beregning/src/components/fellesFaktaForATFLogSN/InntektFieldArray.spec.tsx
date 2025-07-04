@@ -1,6 +1,6 @@
 import { AktivitetStatus as aktivitetStatuser } from '@navikt/ft-kodeverk';
 
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { InntektFieldArray } from './InntektFieldArray';
 import { leggTilDagpengerOmBesteberegning } from './inntektFieldArrayUtils';
 

@@ -1,7 +1,7 @@
 import { Accordion } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
@@ -12,8 +12,8 @@ import {
 import { PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { KodeverkForPanel } from '../../types/kodeverkForPanel';
+import type { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import type { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import { VurdertIForrigeBehandlingIcon } from '../felles/VurdertIForrigeBehandlingIcon';
 import {
   finnFastsattPrAar,
@@ -95,7 +95,6 @@ export const FordelBeregningsgrunnlagPeriodePanel = ({
           sumIPeriode={finnSumIPeriode(beregningsgrunnlag.beregningsgrunnlagPeriode, fordelingsperiode.fom)}
           skalIkkeRedigereInntekt={!fordelingsperiode.skalRedigereInntekt}
           skalKunneEndreRefusjon={!!fordelingsperiode.skalKunneEndreRefusjon}
-          periodeFom={fordelingsperiode.fom}
           isAksjonspunktClosed={isAksjonspunktClosed}
           kodeverkSamling={kodeverkSamling}
           beregningsgrunnlag={beregningsgrunnlag}

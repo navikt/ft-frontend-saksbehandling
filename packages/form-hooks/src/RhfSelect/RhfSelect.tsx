@@ -1,9 +1,9 @@
-import React, { ReactNode, useMemo } from 'react';
-import { FieldValues, useController, UseControllerProps, useFormContext } from 'react-hook-form';
+import React, { type ReactNode, useMemo } from 'react';
+import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
 
 import { Select } from '@navikt/ds-react';
 
-import { getError, getValidationRules, ValidationReturnType } from '../formUtils';
+import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
 type Props<T extends FieldValues> = {

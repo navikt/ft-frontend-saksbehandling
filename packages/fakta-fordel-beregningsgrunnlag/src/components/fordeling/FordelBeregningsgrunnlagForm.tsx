@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Accordion } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
   BeregningsgrunnlagPeriodeProp,
@@ -11,12 +11,12 @@ import {
   ForlengelsePeriodeProp,
 } from '@navikt/ft-types';
 
-import { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import {
+import type { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import type {
   FordelBeregningsgrunnlagPerioderTransformedValues,
   FordelBeregningsgrunnlagPeriodeTransformedValues,
 } from '../../types/interface/FordelBeregningsgrunnlagAP';
-import { KodeverkForPanel } from '../../types/kodeverkForPanel';
+import type { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import { erPeriodeTilVurdering } from '../util/forlengelseUtils';
 import { FordelBeregningsgrunnlagPeriodePanel } from './FordelBeregningsgrunnlagPeriodePanel';
 import { fordelBGFieldArrayNamePrefix, lagPerioderForSubmit, slåSammenPerioder } from './fordelPerioderUtils';

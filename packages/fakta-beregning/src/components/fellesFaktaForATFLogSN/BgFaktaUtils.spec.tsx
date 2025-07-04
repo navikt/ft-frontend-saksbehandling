@@ -3,7 +3,7 @@ import {
   FaktaOmBeregningTilfelle,
   Organisasjonstype as organisasjonstyper,
 } from '@navikt/ft-kodeverk';
-import {
+import type {
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,
   ATFLSammeOrgAndel,
@@ -12,8 +12,8 @@ import {
   FaktaOmBeregning,
 } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../typer/FaktaBeregningTypes';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import type { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../typer/FaktaBeregningTypes';
+import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import {
   kanRedigereInntektForAndel,
   mapAndelToField,

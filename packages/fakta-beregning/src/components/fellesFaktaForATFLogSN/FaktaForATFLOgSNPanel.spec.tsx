@@ -1,12 +1,12 @@
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import {
+import type {
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagArbeidsforhold,
   FaktaOmBeregningAndel,
 } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { INNTEKT_FIELD_ARRAY_NAME } from './BgFaktaUtils';
 import { transformValues, transformValuesFaktaForATFLOgSN } from './faktaForATFLOgSNPanelUtils';

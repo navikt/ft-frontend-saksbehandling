@@ -1,5 +1,5 @@
-import { ReactNode, useEffect } from 'react';
-import { FieldValues, FormProvider, SubmitHandler, UseFormReturn } from 'react-hook-form';
+import { type ReactNode, useEffect } from 'react';
+import { type FieldValues, FormProvider, type SubmitHandler, type UseFormReturn } from 'react-hook-form';
 
 export interface Props<FormValues extends FieldValues> {
   formMethods: UseFormReturn<FormValues>;

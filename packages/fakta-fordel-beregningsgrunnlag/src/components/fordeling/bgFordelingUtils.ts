@@ -1,16 +1,16 @@
-import { UseFormGetValues } from 'react-hook-form';
+import { type UseFormGetValues } from 'react-hook-form';
 
 import { AktivitetStatus, Inntektskategori } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, FordelBeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, FordelBeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr, formaterArbeidsgiver, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import {
+import type {
   FordelBeregningsgrunnlagAndelValues,
   FordelBeregningsgrunnlagArbeidAndelValues,
   FordelBeregningsgrunnlagFormValues,
   FordelBeregningsgrunnlagGenerellAndelValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { KodeverkForPanel } from '../../types/kodeverkForPanel';
+import type { KodeverkForPanel } from '../../types/kodeverkForPanel';
 
 export const GRADERING_RANGE_DENOMINATOR = ' - ';
 

@@ -1,16 +1,16 @@
 import React from 'react';
-import { FieldErrors, useFormContext, UseFormGetValues } from 'react-hook-form';
+import { type FieldErrors, useFormContext, type UseFormGetValues } from 'react-hook-form';
 
 import { HStack, VStack } from '@navikt/ds-react';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
-import { Vilkårperiode } from '../../typer/Vilkår';
-import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
+import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import type { Vilkårperiode } from '../../typer/Vilkår';
+import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import { hasAksjonspunkt, isAksjonspunktClosed } from '../../utils/aksjonspunktUtils';
 import { formNameVurderFaktaBeregning } from '../../utils/BeregningFormUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';

@@ -1,4 +1,4 @@
-import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 
 import { createFordelArbeidsforholdString, textCase } from './fordelingHelpTextUtils';
 

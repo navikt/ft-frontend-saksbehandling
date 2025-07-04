@@ -7,12 +7,12 @@ import { List, ReadMore, VStack } from '@navikt/ds-react';
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
+import type { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues, NyoppstartetFLValues } from '../../../../typer/FaktaBeregningTypes';
-import { InntektTransformed } from '../../../../typer/FieldValues';
-import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
-import { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
+import type { FaktaOmBeregningAksjonspunktValues, NyoppstartetFLValues } from '../../../../typer/FaktaBeregningTypes';
+import type { InntektTransformed } from '../../../../typer/FieldValues';
+import type { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
+import type { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
 import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 

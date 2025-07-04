@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldArrayWithId, useFormContext } from 'react-hook-form';
+import { type FieldArrayWithId, useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { PersonPencilFillIcon, XMarkIcon } from '@navikt/aksel-icons';
@@ -7,14 +7,14 @@ import { Button, ErrorMessage, Table } from '@navikt/ds-react';
 
 import { RhfSelect, RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { Beregningsgrunnlag } from '@navikt/ft-types';
+import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { parseCurrencyInput } from '@navikt/ft-utils';
 
-import { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
-import { AndelFieldIdentifikator } from '../../typer/FieldValues';
-import { KodeverkForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanel';
-import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
+import type { VurderOgFastsettATFLValues } from '../../typer/FaktaBeregningTypes';
+import type { AndelFieldIdentifikator } from '../../typer/FieldValues';
+import type { KodeverkForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanel';
+import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import {
   erArbeidstaker,
   erDagpenger,

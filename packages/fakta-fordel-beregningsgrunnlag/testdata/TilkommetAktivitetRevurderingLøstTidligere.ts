@@ -1,5 +1,5 @@
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag } from '@navikt/ft-types';
+import type { Beregningsgrunnlag } from '@navikt/ft-types';
 
 export const beregningsgrunnlag = [
   {

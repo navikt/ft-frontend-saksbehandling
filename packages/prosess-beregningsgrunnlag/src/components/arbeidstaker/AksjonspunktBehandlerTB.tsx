@@ -1,5 +1,5 @@
-import { ReactElement } from 'react';
-import { Control, useFormContext, UseFormReturn } from 'react-hook-form';
+import { type ReactElement } from 'react';
+import { type Control, useFormContext, type UseFormReturn } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
 import { Label, Table } from '@navikt/ds-react';
@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, PeriodeAarsak } from '@navikt/ft-kodeverk';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagArbeidsforhold,
@@ -17,17 +17,17 @@ import {
 import { BeløpLabel, DateLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, formaterArbeidsgiver, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import {
+import type {
   TidsbegrenseArbeidsforholdTabellCelle,
   TidsbegrenseArbeidsforholdTabellData,
   TidsbegrenseArbeidsforholdValues,
 } from '../../types/ATFLAksjonspunkt';
-import { BeregningFormValues } from '../../types/BeregningFormValues';
-import {
+import type { BeregningFormValues } from '../../types/BeregningFormValues';
+import type {
   TidsbegrensetArbeidsforholdInntektResultat,
   TidsbegrensetArbeidsforholdPeriodeResultat,
 } from '../../types/interface/BeregningsgrunnlagAP';
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 import tableStyles from '../tableStyle.module.css';

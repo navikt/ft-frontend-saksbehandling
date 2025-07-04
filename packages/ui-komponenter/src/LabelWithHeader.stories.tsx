@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { LabelWithHeader } from './LabelWithHeader';
 
 export default {

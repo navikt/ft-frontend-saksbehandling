@@ -1,5 +1,5 @@
 import { HStack, Tag, VStack } from '@navikt/ds-react';
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { EmptyPersonCard } from './EmptyPersonCard';
 import { Gender } from './Gender';

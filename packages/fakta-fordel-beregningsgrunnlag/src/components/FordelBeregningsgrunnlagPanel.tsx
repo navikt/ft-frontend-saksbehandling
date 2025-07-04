@@ -2,19 +2,19 @@ import { useState } from 'react';
 
 import { VStack } from '@navikt/ds-react';
 
-import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
-import {
+import type {
   FordelBeregningsgrunnlagFormValues,
   TilkommetAktivitetFormValues,
   VurderRefusjonFormValues,
 } from '../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import { FordelBeregningsgrunnlagAP } from '../types/interface/FordelBeregningsgrunnlagAP';
-import { VurderNyttInntektsforholdAP } from '../types/interface/VurderNyttInntektsforholdAP';
-import { VurderRefusjonBeregningsgrunnlagAP } from '../types/interface/VurderRefusjonBeregningsgrunnlagAP';
-import { KodeverkForPanel } from '../types/kodeverkForPanel';
-import { Vilkårperiode } from '../types/Vilkår';
+import type { FordelBeregningsgrunnlagAP } from '../types/interface/FordelBeregningsgrunnlagAP';
+import type { VurderNyttInntektsforholdAP } from '../types/interface/VurderNyttInntektsforholdAP';
+import type { VurderRefusjonBeregningsgrunnlagAP } from '../types/interface/VurderRefusjonBeregningsgrunnlagAP';
+import type { KodeverkForPanel } from '../types/kodeverkForPanel';
+import type { Vilkårperiode } from '../types/Vilkår';
 import { FordelingForm } from './fordeling/FordelingForm';
 import { VurderEndringRefusjonForm } from './refusjon/VurderEndringRefusjonForm';
 import { TilkommetAktivitet } from './tilkommetAktivitet/TilkommetAktivitet';

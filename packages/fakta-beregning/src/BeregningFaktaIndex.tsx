@@ -4,7 +4,7 @@ import { FormattedMessage, RawIntlProvider } from 'react-intl';
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { BodyShort, Heading, Tabs, VStack } from '@navikt/ds-react';
 
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -14,12 +14,12 @@ import { createIntl, dateFormat, periodFormat } from '@navikt/ft-utils';
 
 import { AksjonspunktTekster } from './AksjonspunktTekster';
 import { BeregningInfoPanel } from './components/BeregningInfoPanel';
-import { AvklarAktiviteterFormValues } from './typer/AvklarAktiviteterFormValues';
+import type { AvklarAktiviteterFormValues } from './typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { SubmitBeregningType } from './typer/interface/SubmitBeregningTsType';
-import { KodeverkForPanel } from './typer/KodeverkForPanel';
-import { Vilkår, Vilkårperiode } from './typer/Vilkår';
-import { VurderFaktaBeregningFormValues } from './typer/VurderFaktaBeregningFormValues';
+import type { SubmitBeregningType } from './typer/interface/SubmitBeregningTsType';
+import type { KodeverkForPanel } from './typer/KodeverkForPanel';
+import type { Vilkår, Vilkårperiode } from './typer/Vilkår';
+import type { VurderFaktaBeregningFormValues } from './typer/VurderFaktaBeregningFormValues';
 import { hasAksjonspunkt, isAksjonspunktClosed } from './utils/aksjonspunktUtils';
 
 import styles from './beregningFaktaIndex.module.css';

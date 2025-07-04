@@ -1,6 +1,6 @@
 import { BehandlingStatus, BehandlingType } from '@navikt/ft-kodeverk';
 
-import { Behandlingsresultat } from './Behandlingsresultat';
+import type { Behandlingsresultat } from './Behandlingsresultat';
 
 export type BehandlingÅrsak = {
   behandlingArsakType: string;

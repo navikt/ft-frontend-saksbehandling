@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { Heading, Label, Table } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { BTag, dateFormat } from '@navikt/ft-utils';
 

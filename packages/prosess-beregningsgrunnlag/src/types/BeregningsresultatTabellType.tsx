@@ -1,4 +1,4 @@
-import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
 export type TabellRadData = {
   status: string;

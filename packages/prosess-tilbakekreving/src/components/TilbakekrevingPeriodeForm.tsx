@@ -13,17 +13,17 @@ import { BTag, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils
 import { Aktsomhet, AKTSOMHET_REKKEFØLGE } from '../kodeverk/aktsomhet';
 import { SærligGrunn } from '../kodeverk/særligGrunn';
 import { VilkårResultat } from '../kodeverk/vilkarResultat';
-import { DataForPeriode } from '../types/DataForPeriode';
-import { DetaljertFeilutbetalingPeriode } from '../types/DetaljerteFeilutbetalingsperioder';
-import { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
+import type { DataForPeriode } from '../types/DataForPeriode';
+import type { DetaljertFeilutbetalingPeriode } from '../types/DetaljerteFeilutbetalingsperioder';
+import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 import {
   AktsomhetFormPanel,
-  InitialValuesAktsomhetForm,
+  type InitialValuesAktsomhetForm,
 } from './tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetFormPanel';
 import { ForeldetFormPanel } from './tilbakekrevingPeriodePaneler/ForeldetFormPanel';
 import {
   BelopetMottattIGodTroFormPanel,
-  InitialValuesGodTroForm,
+  type InitialValuesGodTroForm,
 } from './tilbakekrevingPeriodePaneler/godTro/BelopetMottattIGodTroFormPanel';
 import { TilbakekrevingAktivitetTabell } from './tilbakekrevingPeriodePaneler/TilbakekrevingAktivitetTabell';
 import { TotalbelopetUnder4RettsgebyrModal } from './TotalbelopetUnder4RettsgebyrModal';

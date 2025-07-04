@@ -1,9 +1,9 @@
-import { FieldValues, UseControllerProps } from 'react-hook-form';
+import { type FieldValues, type UseControllerProps } from 'react-hook-form';
 import { RawIntlProvider } from 'react-intl';
 
 import { RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { BeregningAvklaringsbehov } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { createIntl, decodeHtmlEntity } from '@navikt/ft-utils';
 
 import styles from './faktaBegrunnelseTextField.module.css';

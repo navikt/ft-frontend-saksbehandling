@@ -1,4 +1,4 @@
-import { JSX } from 'react';
+import { type JSX } from 'react';
 
 /**
  * @deprecated Bruk heller ikona frå Aksel: https://aksel.nav.no/ikoner

@@ -7,10 +7,10 @@ import dayjs from 'dayjs';
 import { RhfTextarea } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 import { PeriodLabel } from '@navikt/ft-ui-komponenter';
 
-import {
+import type {
   TilkommetAktivitetFormValues,
   TilkommetAktivitetValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';

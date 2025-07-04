@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Table } from '@navikt/ds-react';
 
-import { SammenligningsgrunlagProp } from '@navikt/ft-types';
+import type { SammenligningsgrunlagProp } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';

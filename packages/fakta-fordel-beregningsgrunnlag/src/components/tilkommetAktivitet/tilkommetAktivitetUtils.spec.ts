@@ -1,4 +1,4 @@
-import { Inntektsforhold, VurderInntektsforholdPeriode } from '@navikt/ft-types';
+import type { Inntektsforhold, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 
 import { slaaSammenPerioder } from './tilkommetAktivitetUtils';
 

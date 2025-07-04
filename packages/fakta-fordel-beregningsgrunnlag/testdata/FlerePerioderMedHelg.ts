@@ -1,4 +1,4 @@
-import { BeregningAvklaringsbehov, Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehov, Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 
 export const beregningsgrunnlag = [
   {

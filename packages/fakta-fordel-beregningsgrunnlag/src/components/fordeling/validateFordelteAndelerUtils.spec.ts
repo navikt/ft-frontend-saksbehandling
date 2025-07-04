@@ -1,7 +1,7 @@
 import { getIntlMock } from '@navikt/ft-frontend-utils-test';
-import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 
-import { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import type { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import {
   validateSumFastsattBelop,
   validateTotalRefusjonPrArbeidsforhold,
@@ -497,7 +497,6 @@ describe('validateFordelteAndelerUtils', () => {
       getValues,
       fieldname,
       andeler as FordelBeregningsgrunnlagAndelValues[],
-      '2022-04-21',
       intlMock,
     );
     expect(verifiserGraderteAndeler).toBe(undefined);
@@ -545,7 +544,6 @@ describe('validateFordelteAndelerUtils', () => {
       getValues,
       fieldname,
       andeler as FordelBeregningsgrunnlagAndelValues[],
-      '2022-04-21',
       intlMock,
     );
     expect(verifiserGraderteAndeler).toBe(gradertAndelMåVæreFordeltMerEnn0Feilmelding);
@@ -593,7 +591,6 @@ describe('validateFordelteAndelerUtils', () => {
       getValues,
       fieldname,
       andeler as FordelBeregningsgrunnlagAndelValues[],
-      '2022-04-21',
       intlMock,
     );
     expect(verifiserGraderteAndeler).toBe(undefined);

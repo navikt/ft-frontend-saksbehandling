@@ -1,13 +1,13 @@
-import React, { ReactNode, useCallback, useMemo, useState } from 'react';
-import { FieldValues, useController, UseControllerProps, useFormContext } from 'react-hook-form';
+import React, { type ReactNode, useCallback, useMemo, useState } from 'react';
+import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
 
-import { DatePicker, DatePickerProps, useDatepicker } from '@navikt/ds-react';
+import { DatePicker, type DatePickerProps, useDatepicker } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
-import { getError, getValidationRules, ValidationReturnType } from '../formUtils';
+import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
 dayjs.extend(customParseFormat);

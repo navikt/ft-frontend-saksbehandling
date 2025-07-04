@@ -1,8 +1,8 @@
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { FaktaOmBeregning } from '@navikt/ft-types';
+import type { FaktaOmBeregning } from '@navikt/ft-types';
 
-import { InntektTransformed } from '../../../../typer/FieldValues';
-import {
+import type { InntektTransformed } from '../../../../typer/FieldValues';
+import type {
   FaktaBeregningTransformedValues,
   VurderATFLISammeOrAndelTransformedValues,
 } from '../../../../typer/interface/BeregningFaktaAP';

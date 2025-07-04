@@ -4,12 +4,12 @@ import { Heading, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { AktivitetStatus, isAksjonspunktOpen, PeriodeAarsak } from '@navikt/ft-kodeverk';
-import { BeregningAvklaringsbehov, Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehov, Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
-import { TabellData, TabellMap, TabellRadData } from '../../types/BeregningsresultatTabellType';
+import type { TabellData, TabellMap, TabellRadData } from '../../types/BeregningsresultatTabellType';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { Vilkårperiode } from '../../types/Vilkår';
+import type { Vilkårperiode } from '../../types/Vilkår';
 import { OppsummertGrunnlagPanel } from './OppsummertGrunnlagPanel';
 
 const ÅRSAKER_SOM_KAN_GI_NY_DAGSATS: string[] = [

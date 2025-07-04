@@ -1,4 +1,4 @@
-import { ArbeidstakerInntektValues } from '../../typer/FaktaBeregningTypes';
+import type { ArbeidstakerInntektValues } from '../../typer/FaktaBeregningTypes';
 
 export const getArbeidsgiverIndex = (
   arbeidstakerInntektValues: ArbeidstakerInntektValues[],

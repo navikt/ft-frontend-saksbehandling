@@ -6,7 +6,7 @@ import { ReadMore, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagArbeidsforhold,
   FaktaOmBeregning,
@@ -14,12 +14,12 @@ import {
 } from '@navikt/ft-types';
 import { dateFormat, formaterArbeidsgiver } from '@navikt/ft-utils';
 
-import { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '../../../typer/FaktaBeregningTypes';
-import {
+import type { FaktaOmBeregningAksjonspunktValues, TidsbegrensetandelValues } from '../../../typer/FaktaBeregningTypes';
+import type {
   FaktaBeregningTransformedValues,
   VurderteArbeidsforholdTransformedValues,
 } from '../../../typer/interface/BeregningFaktaAP';
-import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
+import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 

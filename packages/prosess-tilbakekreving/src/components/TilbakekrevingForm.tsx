@@ -6,30 +6,30 @@ import moment from 'moment';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
-import { Behandling } from '@navikt/ft-types';
+import type { Behandling } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 
 import { VilkårResultat } from '../kodeverk/vilkarResultat';
 import { TilbakekrevingAksjonspunktCodes } from '../TilbakekrevingAksjonspunktCodes';
-import { DataForPeriode } from '../types/DataForPeriode';
-import {
+import type { DataForPeriode } from '../types/DataForPeriode';
+import type {
   DetaljerteFeilutbetalingsperioder,
   DetaljertFeilutbetalingPeriode,
 } from '../types/DetaljerteFeilutbetalingsperioder';
-import { FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
-import { KodeverkMedNavn } from '../types/kodeverkMedNavn';
-import { KodeverkMedNavnTilbakekreving, KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
-import { TidslinjePeriode } from '../types/TidslinjePeriode';
-import { VilkårsvurderingAp } from '../types/VilkårsvurderingAp';
-import { VilkårsvurdertePerioderWrapper, VilkårsvurdertPeriode } from '../types/VilkårsvurdertePerioder';
-import { BeregnBeløpParams, PeriodeController, SplittetPeriode } from './splittePerioder/PeriodeController';
+import type { FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
+import type { KodeverkMedNavn } from '../types/kodeverkMedNavn';
+import type { KodeverkMedNavnTilbakekreving, KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
+import type { TidslinjePeriode } from '../types/TidslinjePeriode';
+import type { VilkårsvurderingAp } from '../types/VilkårsvurderingAp';
+import type { VilkårsvurdertePerioderWrapper, VilkårsvurdertPeriode } from '../types/VilkårsvurdertePerioder';
+import { type BeregnBeløpParams, PeriodeController, type SplittetPeriode } from './splittePerioder/PeriodeController';
 import { PeriodeInformasjon } from './splittePerioder/PeriodeInformasjon';
 import {
-  CustomPeriode,
-  CustomPerioder,
-  CustomVilkarsVurdertePeriode,
-  InitialValuesDetailForm,
+  type CustomPeriode,
+  type CustomPerioder,
+  type CustomVilkarsVurdertePeriode,
+  type InitialValuesDetailForm,
   TilbakekrevingPeriodeForm,
 } from './TilbakekrevingPeriodeForm';
 import { AktsomhetFormPanel } from './tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetFormPanel';

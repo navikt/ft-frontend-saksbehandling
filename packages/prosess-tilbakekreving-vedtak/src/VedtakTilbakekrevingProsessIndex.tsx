@@ -1,15 +1,15 @@
 import { RawIntlProvider } from 'react-intl';
 
-import { Behandling, StandardProsessPanelProps } from '@navikt/ft-types';
+import type { Behandling, StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
-import { FormValues } from './components/brev/TilbakekrevingEditerVedtaksbrevPanel';
+import { type FormValues } from './components/brev/TilbakekrevingEditerVedtaksbrevPanel';
 import { TilbakekrevingVedtak } from './components/TilbakekrevingVedtak';
-import { ForhandsvisData } from './components/TilbakekrevingVedtakForm';
-import { BeregningsresultatTilbakekreving } from './types/BeregningsresultatTilbakekreving';
-import { ForeslaVedtakTilbakekrevingAp } from './types/ForeslaVedtakTilbakekrevingAp';
-import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
-import { Vedtaksbrev } from './types/Vedtaksbrev';
+import { type ForhandsvisData } from './components/TilbakekrevingVedtakForm';
+import { type BeregningsresultatTilbakekreving } from './types/BeregningsresultatTilbakekreving';
+import { type ForeslaVedtakTilbakekrevingAp } from './types/ForeslaVedtakTilbakekrevingAp';
+import { type KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
+import { type Vedtaksbrev } from './types/Vedtaksbrev';
 
 import messages from '../i18n/nb_NO.json';
 

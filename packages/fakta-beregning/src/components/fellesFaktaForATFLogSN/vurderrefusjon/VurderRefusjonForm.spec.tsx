@@ -1,6 +1,6 @@
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 
-import { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
 import { erRefusjonskravGyldigFieldPrefix, VurderRefusjonForm } from './VurderRefusjonForm';
 
 const { VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT } = FaktaOmBeregningTilfelle;

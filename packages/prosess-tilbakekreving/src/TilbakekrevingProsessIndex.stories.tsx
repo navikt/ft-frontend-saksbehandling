@@ -1,15 +1,15 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
 import { alleTilbakekrevingKodeverk, getIntlDecorator } from '@navikt/ft-frontend-storybook-utils';
 import { BehandlingStatus, ForeldelseVurderingType, HendelseType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
-import { Behandling } from '@navikt/ft-types';
+import type { Behandling } from '@navikt/ft-types';
 
 import { TilbakekrevingProsessIndex } from './TilbakekrevingProsessIndex';
-import { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
-import { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
-import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
-import { VilkårsvurderingAp } from './types/VilkårsvurderingAp';
+import type { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
+import type { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
+import type { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
+import type { VilkårsvurderingAp } from './types/VilkårsvurderingAp';
 
 import messages from '../i18n/nb_NO.json';
 

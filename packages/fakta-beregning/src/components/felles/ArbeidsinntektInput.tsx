@@ -3,9 +3,9 @@ import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, ATFLSammeOrgAndel } from '@navikt/ft-types';
+import type { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, ATFLSammeOrgAndel } from '@navikt/ft-types';
 
-import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
+import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import { BeregningsgrunnlagIndexContext } from '../fellesFaktaForATFLogSN/VurderFaktaContext';
 import { getArbeidsgiverIndex } from './arbeidsinntektInputUtils';
 import { InntektInput } from './InntektInput';

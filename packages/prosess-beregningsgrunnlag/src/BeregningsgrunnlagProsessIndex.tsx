@@ -6,15 +6,15 @@ import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import classNames from 'classnames/bind';
 
 import { SideMenu } from '@navikt/ft-plattform-komponenter';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl, dateFormat } from '@navikt/ft-utils';
 
 import { BeregningFP } from './components/BeregningFP';
-import { BeregningFormValues } from './types/BeregningFormValues';
-import { BeregningAksjonspunktSubmitType } from './types/interface/BeregningsgrunnlagAP';
+import type { BeregningFormValues } from './types/BeregningFormValues';
+import type { BeregningAksjonspunktSubmitType } from './types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from './types/KodeverkForPanel';
-import { Vilkår } from './types/Vilkår';
+import type { KodeverkForPanel } from './types/KodeverkForPanel';
+import type { Vilkår } from './types/Vilkår';
 
 import styles from './beregningsgrunnlagProsessIndex.module.css';
 

@@ -1,5 +1,5 @@
 import { AktivitetStatus, FaktaOmBeregningTilfelle, Inntektskategori } from '@navikt/ft-kodeverk';
-import { BeregningsgrunnlagArbeidsforhold, FaktaOmBeregning, FaktaOmBeregningAndel } from '@navikt/ft-types';
+import type { BeregningsgrunnlagArbeidsforhold, FaktaOmBeregning, FaktaOmBeregningAndel } from '@navikt/ft-types';
 
 import { transformValuesForATFLISammeOrg } from './ATFLSammeOrg';
 

@@ -4,8 +4,8 @@ import { Table } from '@navikt/ds-react';
 
 import { BeløpLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
-import { BeregningResultatPeriode } from '../types/BeregningsresultatTilbakekreving';
-import { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
+import type { BeregningResultatPeriode } from '../types/BeregningsresultatTilbakekreving';
+import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 
 interface Props {
   perioder: BeregningResultatPeriode[];
