@@ -7,10 +7,10 @@ export {
 } from './src/currencyUtils';
 export {
   addDaysToDate,
+  createWeekAndDay,
   calcDays,
   calcDaysAndWeeks,
   calcDaysAndWeeksWithWeekends,
-  createWeekAndDay,
   findDifferenceInMonthsAndDays,
   TIDENES_ENDE,
   getRangeOfMonths,
