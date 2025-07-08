@@ -21,7 +21,7 @@ export const TIDENES_ENDE = '9999-12-31';
 
 type WeekAndDay = {
   /**
-   * @deprecated Når konsumenter er gått fra å bruke id til å bruke formattedString kan id fjernes
+   * @deprecated Når konsumenter er gått fra å bruke id til å bruke formattedString kan id fjernes.
    */
   id: string;
   formattedString: string;
