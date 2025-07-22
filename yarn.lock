@@ -1619,7 +1619,7 @@ __metadata:
     eslint: 9.30.1
     react: 19.1.0
     react-dom: 19.1.0
-    react-hook-form: 7.59.0
+    react-hook-form: 7.60.0
     react-intl: 7.1.11
     stylelint: 16.21.1
     typescript: 5.8.3
@@ -1671,7 +1671,7 @@ __metadata:
     dayjs: 1.11.13
     eslint: 9.30.1
     react: 19.1.0
-    react-hook-form: 7.59.0
+    react-hook-form: 7.60.0
     react-intl: 7.1.11
     stylelint: 16.21.1
     typescript: 5.8.3
@@ -1720,7 +1720,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 9.30.1
     react: 19.1.0
-    react-hook-form: 7.59.0
+    react-hook-form: 7.60.0
     react-intl: 7.1.11
     stylelint: 16.21.1
     typescript: 5.8.3
@@ -1765,7 +1765,7 @@ __metadata:
     lodash.throttle: 4.1.1
     react: 19.1.0
     react-dom: 19.1.0
-    react-hook-form: 7.59.0
+    react-hook-form: 7.60.0
     stylelint: 16.21.1
     typescript: 5.8.3
     vite: 7.0.1
@@ -1817,7 +1817,7 @@ __metadata:
     "@navikt/ft-form-hooks": "workspace:^"
     eslint: 9.30.1
     react: 19.1.0
-    react-hook-form: 7.59.0
+    react-hook-form: 7.60.0
     react-intl: 7.1.11
     typescript: 5.8.3
   languageName: unknown
@@ -1935,7 +1935,7 @@ __metadata:
     echarts: 5.6.0
     eslint: 9.30.1
     react: 19.1.0
-    react-hook-form: 7.59.0
+    react-hook-form: 7.60.0
     react-intl: 7.1.11
     stylelint: 16.21.1
     typescript: 5.8.3
@@ -1985,7 +1985,7 @@ __metadata:
     eslint: 9.30.1
     moment: 2.30.1
     react: 19.1.0
-    react-hook-form: 7.59.0
+    react-hook-form: 7.60.0
     react-intl: 7.1.11
     stylelint: 16.21.1
     typescript: 5.8.3
@@ -2030,7 +2030,7 @@ __metadata:
     cross-env: 7.0.3
     eslint: 9.30.1
     react: 19.1.0
-    react-hook-form: 7.59.0
+    react-hook-form: 7.60.0
     react-intl: 7.1.11
     stylelint: 16.21.1
     typescript: 5.8.3
@@ -2077,7 +2077,7 @@ __metadata:
     eslint: 9.30.1
     moment: 2.30.1
     react: 19.1.0
-    react-hook-form: 7.59.0
+    react-hook-form: 7.60.0
     react-intl: 7.1.11
     stylelint: 16.21.1
     typescript: 5.8.3
@@ -10966,12 +10966,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:7.59.0":
-  version: 7.59.0
-  resolution: "react-hook-form@npm:7.59.0"
+"react-hook-form@npm:7.60.0":
+  version: 7.60.0
+  resolution: "react-hook-form@npm:7.60.0"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18 || ^19
-  checksum: 24a0e54a76e9618d3a4808d2efa36821c7fe75de597a2fa0de341fdd98e1720af1b8901d4178987b0274ac1dbfabc28095cc4d1831ac13c785688c4b5a4fa49d
+  checksum: 8700c2932604fe2b3fbdd47a459bec58fb5a2003a336b418b98d8771d1a6ec472531c6758188e23329f86413f736cc5a1c1a84a59341f5b3b9dd4f9fd704fb18
   languageName: node
   linkType: hard
 
