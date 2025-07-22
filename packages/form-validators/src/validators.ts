@@ -118,8 +118,16 @@ const getNumberFromText = (number: string | number): number => {
   return typeof number === 'string' ? Number(number) : number;
 };
 
-export const hasValidOrgNumber = (number: string | number): FormValidationResult =>
-  number.toString().trim().length === 9 ? null : invalidOrgNumberMessage();
+export const hasValidOrgNumber = (number: string | number): FormValidationResult => {
+  // Beholder logikken med å fjerne whitespace før og etter, men det er vel egentlig ikke noe validatoren bør gjøre?
+  // Hvis man ikke fjerner de ved submit kan det være at backend ikke liker det
+  const trimmedNumber = number.toString().trim();
+  if (Number.isNaN(Number(trimmedNumber))) {
+    return invalidOrgNumberMessage();
+  }
+  return trimmedNumber.length === 9 ? null : invalidOrgNumberMessage();
+};
+
 export const hasValidOrgNumberOrFodselsnr = (number: string | number): FormValidationResult =>
   number.toString().trim().length === 9 || number.toString().trim().length === 11
     ? null

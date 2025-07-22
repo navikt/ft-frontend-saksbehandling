@@ -15,7 +15,7 @@
   "InvalidFodselsnr": "Ugyldig fødselsnummer",
   "InvalidFodselsnrFormat": "Feltet må være et fødselsnummer (11 siffer)",
 
-  "InvalidOrgnr": "Ugyldig organisasjonsnummer.",
+  "InvalidOrgnr": "Ugyldig organisasjonsnummer. Organisasjonsnummer må være 9 siffer.",
   "InvalidOrgnrOrFodselsnr": "Ugyldig organisasjonsnummer eller fødselsnummer",
 
   "InvalidPeriod": "Startdato må være før eller lik sluttdato",
