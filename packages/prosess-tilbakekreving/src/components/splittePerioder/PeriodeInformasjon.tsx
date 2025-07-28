@@ -7,7 +7,7 @@ import { calcDaysAndWeeks, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@nav
 
 import styles from './periodeInformasjon.module.css';
 
-export interface Props {
+interface Props {
   fom: string;
   tom: string;
   feilutbetaling: number;

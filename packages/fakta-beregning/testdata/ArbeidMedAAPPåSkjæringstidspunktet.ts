@@ -115,13 +115,3 @@ export const vilkar: Vilkår = {
     },
   ],
 };
-
-export const aksjonspunkt = [
-  {
-    definisjon: 'AVKLAR_AKTIVITETER',
-    status: 'OPPR',
-    toTrinnsBehandling: true,
-    aksjonspunktType: 'MANU',
-    kanLoses: true,
-  },
-];

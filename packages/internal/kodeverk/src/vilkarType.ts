@@ -15,6 +15,3 @@ export enum VilkarType {
   SOKERSOPPLYSNINGSPLIKT = 'FP_VK_34',
   BEREGNINGSGRUNNLAGVILKARET = 'FP_VK_41',
 }
-
-export const fodselsvilkarene = [VilkarType.FODSELSVILKARET_MOR, VilkarType.FODSELSVILKARET_FAR];
-export const adopsjonsvilkarene = [VilkarType.ADOPSJONSVILKARET, VilkarType.ADOPSJONSVILKARET_FORELDREPENGER];

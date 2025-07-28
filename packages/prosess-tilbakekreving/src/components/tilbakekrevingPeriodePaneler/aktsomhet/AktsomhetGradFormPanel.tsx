@@ -3,7 +3,7 @@ import type { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilba
 import { AktsomhetGradForsettFormPanel } from './AktsomhetGradForsettFormPanel';
 import { AktsomhetGradUaktsomhetFormPanel } from './AktsomhetGradUaktsomhetFormPanel';
 
-export interface Props {
+interface Props {
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
   handletUaktsomhetGrad?: Aktsomhet;

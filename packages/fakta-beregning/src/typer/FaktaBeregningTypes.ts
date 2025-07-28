@@ -98,7 +98,7 @@ export type ArbeidstakerInntektValues = {
   arbeidsgiverIdent?: string;
 };
 
-export type TilfellerValues = VurderMilitærValues &
+type TilfellerValues = VurderMilitærValues &
   NyIArbeidslivetValues &
   LønnsendringValues &
   NyoppstartetFLValues &

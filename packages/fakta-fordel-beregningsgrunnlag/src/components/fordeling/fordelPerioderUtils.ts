@@ -24,7 +24,7 @@ export const fordelBGFieldArrayNamePrefix = 'fordelBGPeriode';
 
 const getFieldNameKey = (index: number): string => fordelBGFieldArrayNamePrefix + index;
 
-export const mapTilFastsatteVerdier = (
+const mapTilFastsatteVerdier = (
   aktivitet: FordelBeregningsgrunnlagAndelValues,
 ): FordelBeregningsgrunnlagFastsatteVerdierTransformedValues => ({
   refusjonPrÅr:
@@ -254,9 +254,7 @@ const getAndelsnr = (aktivitet: FordelBeregningsgrunnlagAndelValues): number | s
   return aktivitet.andelsnr;
 };
 
-export const mapAndel = (
-  aktivitet: FordelBeregningsgrunnlagAndelValues,
-): FordelBeregningsgrunnlagAndelTransformedValues => ({
+const mapAndel = (aktivitet: FordelBeregningsgrunnlagAndelValues): FordelBeregningsgrunnlagAndelTransformedValues => ({
   andelsnr: getAndelsnr(aktivitet),
   aktivitetStatus: aktivitet.aktivitetStatus,
   arbeidsgiverId: aktivitet.arbeidsgiverId !== '' ? aktivitet.arbeidsgiverId : undefined,

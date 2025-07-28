@@ -53,7 +53,7 @@ const transformValues = (values: FormValues, periodeData: Periode): PerioderData
   };
 };
 
-export interface Props {
+interface Props {
   periodeData: Periode;
   cancelEvent: () => void;
   showModal: boolean;

@@ -219,5 +219,3 @@ export const vilkar: Vilkår = {
     },
   ],
 };
-
-export const aksjonspunkt = [];

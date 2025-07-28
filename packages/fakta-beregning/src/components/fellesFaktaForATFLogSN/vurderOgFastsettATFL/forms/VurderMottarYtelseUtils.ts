@@ -4,8 +4,8 @@ import type { ArbeidstakerUtenIMAndel, Beregningsgrunnlag, VurderMottarYtelse } 
 import type { AndelMottarYtelseMap } from '../../../../typer/AndelMottarYtelseMap';
 import type { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
 
-export const mottarYtelseFieldPrefix = 'mottarYtelseField';
-export const frilansSuffix = '_frilans';
+const mottarYtelseFieldPrefix = 'mottarYtelseField';
+const frilansSuffix = '_frilans';
 export const utledArbeidsforholdFieldName = (andel: ArbeidstakerUtenIMAndel): string =>
   mottarYtelseFieldPrefix + andel.andelsnr;
 export const frilansFieldName = mottarYtelseFieldPrefix + frilansSuffix;

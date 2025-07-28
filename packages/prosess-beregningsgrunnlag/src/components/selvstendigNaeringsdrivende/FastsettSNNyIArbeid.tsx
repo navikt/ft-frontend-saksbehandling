@@ -23,8 +23,8 @@ const MAX_LENGTH = 4000;
 const maxLength4000 = maxLength(MAX_LENGTH);
 
 const minLength3 = minLength(3);
-export const begrunnelseFieldname = 'fastsettBeregningsgrnunnlagSNBegrunnelse';
-export const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
+const begrunnelseFieldname = 'fastsettBeregningsgrnunnlagSNBegrunnelse';
+const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
 const { FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET } = ProsessBeregningsgrunnlagAvklaringsbehovCode;
 
 type Props = {

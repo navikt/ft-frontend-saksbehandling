@@ -83,7 +83,7 @@ export type BeregningsgrunnlagAndel = Readonly<{
   næringer?: Næring[];
 }>;
 
-export type ForeldrepengerGrunnlag = Readonly<{
+type ForeldrepengerGrunnlag = Readonly<{
   besteberegninggrunnlag?: Besteberegninggrunnlag;
 }>;
 

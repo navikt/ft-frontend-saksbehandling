@@ -5,7 +5,7 @@ import { BodyShort, Table, VStack } from '@navikt/ds-react';
 import type { BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp, Månedsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
-export interface Props {
+interface Props {
   periode: BeregningsgrunnlagPeriodeProp;
   besteMåneder?: Månedsgrunnlag[];
 }

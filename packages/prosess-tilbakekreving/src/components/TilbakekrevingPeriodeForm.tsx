@@ -67,7 +67,7 @@ export type CustomVilkarsVurdertePeriode = {
   feilutbetaling?: number;
 } & InitialValuesDetailForm;
 
-export interface Props {
+interface Props {
   data: DataForPeriode;
   periode?: CustomVilkarsVurdertePeriode;
   skjulPeriode: () => void;

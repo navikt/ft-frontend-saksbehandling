@@ -44,7 +44,7 @@ const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregn
 
 const BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME = 'begrunnelseAvklareAktiviteter';
 
-export interface Props {
+interface Props {
   avklarAktiviteter: AvklarBeregningAktiviteterMap;
   avklaringsbehovListe: BeregningAvklaringsbehov[];
   erOverstyrer: boolean;

@@ -31,7 +31,7 @@ export interface InitialValuesGodTroForm {
   tilbakekrevdBelop?: number;
 }
 
-export interface Props {
+interface Props {
   name: string;
   readOnly: boolean;
   erBelopetIBehold?: boolean;

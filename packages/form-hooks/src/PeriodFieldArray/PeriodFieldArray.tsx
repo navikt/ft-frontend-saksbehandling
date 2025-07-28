@@ -45,7 +45,7 @@ const getRemoveButton =
     return undefined;
   };
 
-export interface Props<PERIOD_TYPE> {
+interface Props<PERIOD_TYPE> {
   children: (id: any, index: number, removeButtonElmt?: (className?: string) => ReactNode) => ReactNode;
   fields: PERIOD_TYPE[];
   readOnly?: boolean;

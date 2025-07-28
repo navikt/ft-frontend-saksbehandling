@@ -22,7 +22,7 @@ type Refusjonsinfo = {
   totalRefusjon: number;
 };
 
-export const ulikeAndelerErrorMessage = (intl: IntlShape): string =>
+const ulikeAndelerErrorMessage = (intl: IntlShape): string =>
   intl.formatMessage({ id: 'BeregningInfoPanel.FordelBG.Validation.UlikeAndeler' });
 
 type Andelsnøkkel = {
@@ -163,7 +163,7 @@ const finnArbeidsforholdRefusjonsinfoListe = (
   return arbeidsforholdRefusjonsbelop;
 };
 
-export const skalIkkjeVereHoegereEnnRefusjonFraInntektsmelding = (arbeidsgiver: string, intl: IntlShape): string =>
+const skalIkkjeVereHoegereEnnRefusjonFraInntektsmelding = (arbeidsgiver: string, intl: IntlShape): string =>
   intl.formatMessage(
     { id: 'BeregningInfoPanel.FordelBG.Validation.IkkjeHogereRefusjonEnnInntektsmelding' },
     { arbeidsgiver },
@@ -206,15 +206,15 @@ export const validateTotalRefusjonPrArbeidsforhold = (
   return undefined;
 };
 
-export const skalVereLikFordelingMessage = (fordeling: string | undefined, intl: IntlShape): string | undefined =>
+const skalVereLikFordelingMessage = (fordeling: string | undefined, intl: IntlShape): string | undefined =>
   fordeling
     ? intl.formatMessage({ id: 'BeregningInfoPanel.FordelBG.Validation.LikFordeling' }, { fordeling })
     : undefined;
 
-export const kanIkkjeHaNullBeregningsgrunnlagError = (intl: IntlShape): string =>
+const kanIkkjeHaNullBeregningsgrunnlagError = (intl: IntlShape): string =>
   intl.formatMessage({ id: 'FordelBeregningsgrunnlag.Validation.KanIkkeHaNullIBeregningsgrunnlag' });
 
-export const totalRefusjonMåVereLavereEnn = (seksG: string | undefined, intl: IntlShape): string | undefined =>
+const totalRefusjonMåVereLavereEnn = (seksG: string | undefined, intl: IntlShape): string | undefined =>
   seksG
     ? intl.formatMessage({ id: 'BeregningInfoPanel.FordelBG.Validation.TotalRefusjonSkalIkkeOverstige' }, { seksG })
     : undefined;
@@ -222,7 +222,7 @@ export const totalRefusjonMåVereLavereEnn = (seksG: string | undefined, intl: I
 const totalRefusjonSkalVereLavereEnn = (value: number, seksG: number, intl: IntlShape): string | undefined =>
   value >= Math.round(seksG) ? totalRefusjonMåVereLavereEnn(formatCurrencyNoKr(seksG), intl) : undefined;
 
-export const totalFordelingForMåVæreLavereEnn = (seksG: string, andelsliste: string, intl: IntlShape): string =>
+const totalFordelingForMåVæreLavereEnn = (seksG: string, andelsliste: string, intl: IntlShape): string =>
   intl.formatMessage(
     { id: 'BeregningInfoPanel.FordelBG.Validation.TotalFordelingLavereEnn' },
     {
@@ -240,7 +240,7 @@ const totalFordelingSkalVereLavereEnn = (
 ): string | undefined =>
   value >= Math.round(seksG) ? errorMessage(formatCurrencyNoKr(seksG) as string, beskrivendeString, intl) : undefined;
 
-export const likFordeling = (value: number, fordeling: number, intl: IntlShape): string | undefined =>
+const likFordeling = (value: number, fordeling: number, intl: IntlShape): string | undefined =>
   value !== Math.round(fordeling)
     ? skalVereLikFordelingMessage(formatCurrencyNoKr(Math.round(fordeling)), intl)
     : undefined;

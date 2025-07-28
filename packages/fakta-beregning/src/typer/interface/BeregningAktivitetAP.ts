@@ -6,7 +6,7 @@ import {
 } from './BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from './FaktaBeregningAvklaringsbehovCode';
 
-export type OverstyrBeregningsaktiviteterAP = BeregningAktivitetTransformedValues &
+type OverstyrBeregningsaktiviteterAP = BeregningAktivitetTransformedValues &
   AksjonspunktTilBekreftelse<FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER>;
 
 export type AvklarBeregningsaktiviteterAP = BeregningAktiviteterTransformedValues &

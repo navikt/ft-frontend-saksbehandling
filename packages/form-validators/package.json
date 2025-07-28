@@ -11,7 +11,6 @@
   "scripts": {
     "test": "vitest --project=jsdom",
     "test:watch": "vitest --project=jsdom --watch=true",
-    "test:coverage": "vitest --project=jsdom --coverage",
     "test:browser": "vitest --project=browser",
     "test:browser:watch": "vitest --project=browser --watch=true",
     "tsc": "tsc --pretty",
@@ -34,7 +33,6 @@
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "@navikt/ft-config-vite": "workspace:^",
-    "cross-env": "10.0.0",
     "eslint": "9.32.0",
     "typescript": "5.8.3",
     "vite": "7.0.6",

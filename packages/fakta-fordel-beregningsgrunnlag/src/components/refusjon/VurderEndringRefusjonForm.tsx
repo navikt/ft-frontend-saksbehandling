@@ -24,7 +24,7 @@ import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårspe
 import { VurderEndringRefusjonField } from './VurderEndringRefusjonField';
 import { VurderEndringRefusjonRad } from './VurderEndringRefusjonRad';
 
-export const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
+const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 
 const { VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
 

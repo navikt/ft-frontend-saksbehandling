@@ -6,7 +6,7 @@ import { BodyShort, ReadMore } from '@navikt/ds-react';
 
 import styles from './blaBoksMedCheckmarkListe.module.css';
 
-export type Saksopplysning = {
+type Saksopplysning = {
   textId: string;
   readMoreContent: ReactNode | ReactNode[] | string;
 };

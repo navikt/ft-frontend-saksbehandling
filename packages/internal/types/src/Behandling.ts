@@ -2,7 +2,7 @@ import { BehandlingStatus, BehandlingType } from '@navikt/ft-kodeverk';
 
 import type { Behandlingsresultat } from './Behandlingsresultat';
 
-export type BehandlingÅrsak = {
+type BehandlingÅrsak = {
   behandlingArsakType: string;
   manueltOpprettet: boolean;
   erAutomatiskRevurdering: boolean;

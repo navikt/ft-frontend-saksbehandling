@@ -12,7 +12,7 @@ import { AktsomhetReduksjonAvBelopFormPanel } from './AktsomhetReduksjonAvBelopF
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
 
-export interface Props {
+interface Props {
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
   handletUaktsomhetGrad?: string;

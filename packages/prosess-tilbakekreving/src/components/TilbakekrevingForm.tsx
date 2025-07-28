@@ -301,7 +301,7 @@ const validerOm6LeddBrukesPåAllePerioder = (vilkarsVurdertePerioder: CustomVilk
   return undefined;
 };
 
-export interface Props {
+interface Props {
   perioderForeldelse: FeilutbetalingPerioderWrapper;
   kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   vilkarvurderingsperioder: DetaljerteFeilutbetalingsperioder;

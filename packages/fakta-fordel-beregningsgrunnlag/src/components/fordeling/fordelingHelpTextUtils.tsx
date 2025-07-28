@@ -14,7 +14,7 @@ import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/F
 
 const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAvklaringsbehovCode;
 
-export const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: BeregningAvklaringsbehov[]): boolean =>
+const hasAksjonspunkt = (aksjonspunktKode: string, aksjonspunkter: BeregningAvklaringsbehov[]): boolean =>
   aksjonspunkter.some(ap => ap.definisjon === aksjonspunktKode);
 
 export const textCase = {

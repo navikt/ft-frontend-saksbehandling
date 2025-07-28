@@ -25,7 +25,7 @@ interface Props<T extends FieldValues> {
   hasVurderingText?: boolean;
 }
 
-export type FormValues = {
+type FormValues = {
   [key: string]: string | undefined;
 };
 
