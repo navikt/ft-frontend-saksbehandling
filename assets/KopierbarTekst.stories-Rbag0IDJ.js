@@ -1,0 +1,10 @@
+import{j as t}from"./iframe-CEg6Ggk6.js";import{K as s}from"./KopierbarTekst-Ca3HiRol.js";import"./nb_NO-D4PbtzLx.js";const o={component:s},e={args:{tekst:"Dette er den kopierte teksten",children:t.jsx("span",{children:"Når du klikker på denne teksten blir en tekst kopiert til utklippstavlen"})}},r={args:{tekst:"Denne teksten kopieres når du klikker på den"}};e.parameters={...e.parameters,docs:{...e.parameters?.docs,source:{originalSource:`{
+  args: {
+    tekst: 'Dette er den kopierte teksten',
+    children: <span>Når du klikker på denne teksten blir en tekst kopiert til utklippstavlen</span>
+  }
+}`,...e.parameters?.docs?.source}}};r.parameters={...r.parameters,docs:{...r.parameters?.docs,source:{originalSource:`{
+  args: {
+    tekst: 'Denne teksten kopieres når du klikker på den'
+  }
+}`,...r.parameters?.docs?.source}}};const a=["MedUlikVisningFraKopierbarTekst","MedLikVisningSomKopierbarTekst"];export{r as MedLikVisningSomKopierbarTekst,e as MedUlikVisningFraKopierbarTekst,a as __namedExportsOrder,o as default};
