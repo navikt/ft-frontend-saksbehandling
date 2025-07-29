@@ -33,7 +33,7 @@ const validerAtMindreEnn =
     return undefined;
   };
 
-export interface Props {
+interface Props {
   name: string;
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;

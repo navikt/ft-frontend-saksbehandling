@@ -7,7 +7,7 @@ import type { Suggestion } from './types/Suggestion';
 
 import styles from './autocomplete.module.css';
 
-export interface AutocompleteProps {
+interface AutocompleteProps {
   onSelect: (value: Suggestion) => void;
   onChange: (value: string) => void;
   onBlur?: () => void;

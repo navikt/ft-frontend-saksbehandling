@@ -4,7 +4,7 @@ import { Label } from '@navikt/ds-react';
 
 import { BorderBox } from './BorderBox';
 
-export interface PropsWrapper {
+interface PropsWrapper {
   error: boolean;
   children: ReactNode;
   withoutBorder: boolean;
@@ -23,7 +23,7 @@ const Wrapper = ({ withoutBorder, error, children, className }: PropsWrapper) =>
   );
 };
 
-export interface Props {
+interface Props {
   merknaderFraBeslutter?: {
     notAccepted?: boolean;
   };

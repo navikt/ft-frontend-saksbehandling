@@ -8,7 +8,7 @@ import styles from './readOnlyField.module.css';
 
 const hasValue = (value: any): boolean => value !== undefined && value !== null && value !== '';
 
-export interface Props {
+interface Props {
   label?: string | ReactNode;
   isEdited?: boolean;
   value?: string | ReactNode;

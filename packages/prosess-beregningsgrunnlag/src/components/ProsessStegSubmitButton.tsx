@@ -22,7 +22,7 @@ const isDisabled = (
   }
   return (!isDirty && hasEmptyRequiredFields) || hasEmptyRequiredFields;
 };
-export interface Props {
+interface Props {
   isReadOnly: boolean;
   isSubmittable: boolean;
   isSubmitting: boolean;

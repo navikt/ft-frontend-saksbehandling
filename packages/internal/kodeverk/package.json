@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-kodeverk",
-  "version": "3.1.18",
+  "version": "3.2.0",
   "license": "MIT",
   "type": "module",
   "private": true,
@@ -21,9 +21,7 @@
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "@navikt/ft-config-vite": "workspace:^",
-    "cross-env": "10.0.0",
     "eslint": "9.32.0",
-    "stylelint": "16.22.0",
     "typescript": "5.8.3",
     "vite": "7.0.6",
     "vitest": "3.2.4"

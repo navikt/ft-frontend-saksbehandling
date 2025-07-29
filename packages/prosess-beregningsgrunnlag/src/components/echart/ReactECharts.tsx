@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import type { ECharts, EChartsOption } from 'echarts';
 import { getInstanceByDom, init } from 'echarts';
 
-export interface Props {
+interface Props {
   option: EChartsOption;
   style?: CSSProperties;
   height: number;

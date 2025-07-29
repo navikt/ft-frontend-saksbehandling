@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-plattform-komponenter",
   "description": "Pakke som tilbyr sammensatte komponenter som f.eks. menyer",
-  "version": "9.1.10",
+  "version": "9.2.0",
   "license": "MIT",
   "type": "module",
   "module": "./dist/index.es.js",
@@ -12,7 +12,6 @@
   "scripts": {
     "test": "vitest --project=jsdom",
     "test:watch": "vitest --project=jsdom --watch=true",
-    "test:coverage": "vitest --project=jsdom --coverage",
     "test:browser": "vitest --project=browser",
     "test:browser:watch": "vitest --project=browser --watch=true",
     "tsc": "tsc --pretty",
@@ -26,10 +25,10 @@
   },
   "dependencies": {
     "@navikt/aksel-icons": "7.25.1",
-    "@navikt/ds-css": "7.25.1",
     "@navikt/ds-react": "7.25.1",
     "@navikt/ft-utils": "workspace:^",
-    "classnames": "2.5.1"
+    "classnames": "2.5.1",
+    "dayjs": "1.11.13"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "7.x",
@@ -37,6 +36,7 @@
     "@navikt/ds-react": "7.x",
     "@popperjs/core": "2.11.8",
     "classnames": "2.5.1",
+    "dayjs": "1.11.x",
     "lodash.throttle": "4.1.1",
     "prop-types": "15.8.1",
     "react": "19.1.0",
@@ -46,15 +46,10 @@
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "@navikt/ft-config-vite": "workspace:^",
-    "@popperjs/core": "2.11.8",
     "@testing-library/dom": "10.4.1",
     "@testing-library/react": "16.3.0",
-    "@testing-library/user-event": "14.6.1",
     "classnames": "2.5.1",
-    "cross-env": "10.0.0",
     "eslint": "9.32.0",
-    "lodash.throttle": "4.1.1",
-    "prop-types": "15.8.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "stylelint": "16.22.0",

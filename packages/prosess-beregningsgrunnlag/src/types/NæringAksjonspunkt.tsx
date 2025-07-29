@@ -8,14 +8,3 @@ export type VurderOgFastsettValues = {
   varigEndringNyoppstartetBegrunnelse?: string;
   bruttoBeregningsgrunnlag?: string;
 };
-
-export type VurderVarigEndretTransformed = {
-  erVarigEndretNaering: boolean;
-  begrunnelse: string;
-  bruttoBeregningsgrunnlag?: number;
-};
-
-export type NyIArbeidslivetruttoNæringTransformed = {
-  begrunnelse: string;
-  bruttoBeregningsgrunnlag: number;
-};

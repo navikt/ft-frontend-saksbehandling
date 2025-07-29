@@ -1,8 +1,6 @@
 import type { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { TIDENES_ENDE } from '@navikt/ft-utils';
 
-import type { Vilkår } from '../src/typer/Vilkår';
-
 export const beregningsgrunnlag = [
   {
     skjaeringstidspunktBeregning: '2022-01-13',
@@ -130,37 +128,3 @@ export const beregningsgrunnlag = [
     erOverstyrtInntekt: false,
   },
 ] as Beregningsgrunnlag[];
-
-export const vilkar: Vilkår = {
-  vilkarType: '',
-  overstyrbar: true,
-  perioder: [
-    {
-      vurderesIBehandlingen: true,
-      merknadParametere: { name: '' },
-      periode: {
-        fom: '2022-01-13',
-        tom: '2022-01-20',
-      },
-      vilkarStatus: 'IKKE_VURDERT',
-    },
-  ],
-};
-
-export const aksjonspunkt = [
-  {
-    definisjon: 'AVKLAR_AKTIVITETER',
-    status: 'UTFO',
-    toTrinnsBehandling: true,
-    aksjonspunktType: 'MANU',
-    kanLoses: true,
-    begrunnelse: 'Denne begrunnelsen skal ikke vises.',
-  },
-  {
-    definisjon: 'VURDER_FAKTA_ATFL_SN',
-    status: 'OPPR',
-    toTrinnsBehandling: true,
-    aksjonspunktType: 'MANU',
-    kanLoses: true,
-  },
-];

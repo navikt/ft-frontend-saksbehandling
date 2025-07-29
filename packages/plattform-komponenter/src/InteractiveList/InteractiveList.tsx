@@ -7,7 +7,7 @@ import { ChevronIconGray } from '../icons/ChevronIconGray';
 
 import styles from './interactiveList.module.css';
 
-export interface InteractiveListElement {
+interface InteractiveListElement {
   content: React.ReactNode;
   onClick: () => void;
   active: boolean;

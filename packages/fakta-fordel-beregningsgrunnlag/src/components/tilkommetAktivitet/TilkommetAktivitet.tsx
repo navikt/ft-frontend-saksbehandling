@@ -35,7 +35,7 @@ import { erVurdertTidligere, slaaSammenPerioder } from './tilkommetAktivitetUtil
 
 dayjs.extend(isBetween);
 const { VURDER_NYTT_INNTKTSFRHLD } = FaktaFordelBeregningAvklaringsbehovCode;
-export const FORM_NAME = 'VURDER_TILKOMMET_AKTIVITET_FORM';
+const FORM_NAME = 'VURDER_TILKOMMET_AKTIVITET_FORM';
 
 const findAvklaringsbehov = (avklaringsbehov: BeregningAvklaringsbehov[]): BeregningAvklaringsbehov => {
   const ak = avklaringsbehov.find(ap => ap.definisjon === VURDER_NYTT_INNTKTSFRHLD);

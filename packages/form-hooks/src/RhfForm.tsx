@@ -1,7 +1,7 @@
 import { type ReactNode, useEffect } from 'react';
 import { type FieldValues, FormProvider, type SubmitHandler, type UseFormReturn } from 'react-hook-form';
 
-export interface Props<FormValues extends FieldValues> {
+interface Props<FormValues extends FieldValues> {
   formMethods: UseFormReturn<FormValues>;
   onSubmit?: SubmitHandler<FormValues>;
   children: ReactNode;

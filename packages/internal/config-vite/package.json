@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-config-vite",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "license": "MIT",
   "type": "module",
   "main": "vite.config.mjs",
@@ -8,7 +8,6 @@
   "dependencies": {
     "@storybook/react": "9.0.18",
     "@vitejs/plugin-react": "4.7.0",
-    "rollup-plugin-sourcemaps": "0.6.3",
     "vite": "7.0.6",
     "vitest": "3.2.4"
   }

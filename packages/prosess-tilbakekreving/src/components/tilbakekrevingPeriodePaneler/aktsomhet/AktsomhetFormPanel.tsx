@@ -37,7 +37,7 @@ export interface InitialValuesAktsomhetForm {
   [Aktsomhet.SIMPEL_UAKTSOM]?: AktsomhetData;
 }
 
-export interface Props {
+interface Props {
   readOnly: boolean;
   resetFields: () => void;
   harGrunnerTilReduksjon?: boolean;

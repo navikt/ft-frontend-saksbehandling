@@ -91,7 +91,7 @@ const lagForeldelsesresultatAktiviteter = (
     begrunnelse: decodeHtmlEntity(p.begrunnelse),
   }));
 
-export interface Props {
+interface Props {
   behandlingUuid: string;
   aksjonspunkt: Aksjonspunkt;
   perioderForeldelse: FeilutbetalingPerioderWrapper;

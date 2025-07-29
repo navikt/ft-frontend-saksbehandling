@@ -13,7 +13,7 @@ import styles from './tilbakekrevingEditerVedtaksbrevPanel.module.css';
 
 export type FormValues = Record<string, Record<string, string> | string>;
 
-export interface Props {
+interface Props {
   intl: IntlShape;
   vedtaksbrevAvsnitt: VedtaksbrevAvsnitt[];
   readOnly: boolean;

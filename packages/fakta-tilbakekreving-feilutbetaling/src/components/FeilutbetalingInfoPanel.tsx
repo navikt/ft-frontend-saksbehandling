@@ -109,7 +109,7 @@ const getSortedFeilutbetalingArsaker = (
   });
 };
 
-export interface Props {
+interface Props {
   feilutbetalingFakta: FeilutbetalingFakta;
   feilutbetalingAarsak: FeilutbetalingÅrsak;
   submitCallback: (aksjonspunktData: AvklartFaktaFeilutbetalingAp) => Promise<void>;

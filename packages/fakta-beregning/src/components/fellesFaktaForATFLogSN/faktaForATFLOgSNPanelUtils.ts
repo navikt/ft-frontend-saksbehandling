@@ -36,18 +36,18 @@ import { VurderRefusjonForm } from './vurderrefusjon/VurderRefusjonForm';
 
 const { VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
-export const getKortvarigeArbeidsforhold = (beregningsgrunnlag: Beregningsgrunnlag) =>
+const getKortvarigeArbeidsforhold = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.kortvarigeArbeidsforhold ?? [];
 
 // TODO (TOR) om typane her er korrekt så kan ein ta vekk ?? undefined
 const getKunYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.kunYtelse ?? undefined;
 
-export const getVurderMottarYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>
+const getVurderMottarYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.vurderMottarYtelse ?? undefined;
-export const getVurderBesteberegning = (beregningsgrunnlag: Beregningsgrunnlag) =>
+const getVurderBesteberegning = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.vurderBesteberegning ?? undefined;
-export const getArbeidsgiverInfoForRefusjonskravSomKommerForSent = (beregningsgrunnlag: Beregningsgrunnlag) =>
+const getArbeidsgiverInfoForRefusjonskravSomKommerForSent = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.refusjonskravSomKommerForSentListe ?? [];
 
 const kunYtelseTransform =
@@ -150,7 +150,7 @@ export const transformValues =
     return transformed;
   };
 
-export const setInntektValues =
+const setInntektValues =
   (
     aktivePaneler: string[],
     fatsettKunYtelseTransform: (values: FaktaOmBeregningAksjonspunktValues) => FaktaBeregningTransformedValues,

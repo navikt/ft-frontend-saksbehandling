@@ -9,7 +9,7 @@ import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-export interface Props {
+interface Props {
   onClick?: (overstyrt: boolean) => void;
   erOverstyrt?: boolean;
 }

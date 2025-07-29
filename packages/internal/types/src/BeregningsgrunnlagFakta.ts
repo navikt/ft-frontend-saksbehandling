@@ -52,7 +52,7 @@ export type AvklarBeregningAktiviteterMap = Readonly<{
   skjæringstidspunkt: string;
 }>;
 
-export interface KunYtelseAndel extends FaktaOmBeregningAndel {
+interface KunYtelseAndel extends FaktaOmBeregningAndel {
   fastsattBelopPrMnd: number | null;
 }
 
@@ -82,7 +82,7 @@ export interface ATFLSammeOrgAndel extends FaktaOmBeregningAndel {
   inntektPrMnd?: number;
 }
 
-export type SaksopplysningArbeidsforhold = Readonly<{
+type SaksopplysningArbeidsforhold = Readonly<{
   andelsnr: number;
   arbeidsgiverIdent: string;
   arbeidsforholdId?: string;

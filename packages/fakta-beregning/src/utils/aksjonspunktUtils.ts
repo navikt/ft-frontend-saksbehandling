@@ -14,6 +14,3 @@ export const isAksjonspunktClosed = (avklaringsbehov: BeregningAvklaringsbehov[]
   );
   return relevantAp.length === 0 ? false : relevantAp.some(ap => !isAksjonspunktOpen(ap.status));
 };
-
-export const hasOpenAksjonspunkt = (kode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
-  avklaringsbehov.some(ap => ap.definisjon === kode && isAksjonspunktOpen(ap.status));
