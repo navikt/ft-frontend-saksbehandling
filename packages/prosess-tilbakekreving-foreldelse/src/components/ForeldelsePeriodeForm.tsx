@@ -24,7 +24,7 @@ const maxLength1500 = maxLength(1500);
 
 export type FormValues = ForeldelsesresultatActivity;
 
-export interface Props {
+interface Props {
   periode: ForeldelsesresultatActivity;
   kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   oppdaterPeriode: (values: FormValues) => void;

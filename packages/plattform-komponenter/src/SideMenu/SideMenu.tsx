@@ -6,7 +6,7 @@ import { MenuLink } from './MenuLink';
 
 import styles from './sideMenu.module.css';
 
-export interface Link {
+interface Link {
   label: string;
   active?: boolean;
   icon?: React.ReactNode;

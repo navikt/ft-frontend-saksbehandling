@@ -20,10 +20,6 @@ export type ATFLTidsbegrensetValues = FrilansInntektValues &
     ATFLVurdering: string;
   };
 
-export type TidsbegrenseArbeidsforholdInntektMap = {
-  [key: string]: string;
-};
-
 export type TidsbegrenseArbeidsforholdTabellCelle = {
   erTidsbegrenset: boolean;
   isEditable: boolean;
@@ -33,10 +29,6 @@ export type TidsbegrenseArbeidsforholdTabellCelle = {
 
 export type TidsbegrenseArbeidsforholdTabellData = {
   [key: string]: TidsbegrenseArbeidsforholdTabellCelle[];
-};
-
-export type ArbeidstakerFrilansValues = FrilansInntektValues & {
-  ATFLVurdering?: string;
 };
 
 export type ATFLBegrunnelseValues = {

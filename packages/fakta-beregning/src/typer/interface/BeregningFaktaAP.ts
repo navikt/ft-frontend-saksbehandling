@@ -21,12 +21,7 @@ export type OverstyrBeregningsaktiviteterAP = BeregningAvklaringsbehovTilBekreft
   BeregningAktiviteterTransformedValues
 >;
 
-export type AvklarBeregningsaktiviteterAP = BeregningAvklaringsbehovTilBekreftelse<
-  FaktaBeregningAvklaringsbehovCode.AVKLAR_AKTIVITETER,
-  BeregningAktiviteterTransformedValues
->;
-
-export type NyoppstartetFLTransformedValues = {
+type NyoppstartetFLTransformedValues = {
   erNyoppstartetFL: boolean;
 };
 
@@ -36,19 +31,19 @@ export type VurderteArbeidsforholdTransformedValues = {
   opprinneligVerdi?: boolean;
 };
 
-export type TidsbegrensetArbeidsforholdTransformedValues = {
+type TidsbegrensetArbeidsforholdTransformedValues = {
   fastsatteArbeidsforhold: VurderteArbeidsforholdTransformedValues[];
 };
 
-export type NyIArbeidslivetTransformedValues = {
+type NyIArbeidslivetTransformedValues = {
   erNyIArbeidslivet: boolean;
 };
 
-export type FastsettMånedsinntektFLTransformedValues = {
+type FastsettMånedsinntektFLTransformedValues = {
   maanedsinntekt: number;
 };
 
-export type VurderLønnsendringTransformedValues = {
+type VurderLønnsendringTransformedValues = {
   erLønnsendringIBeregningsperioden: boolean;
 };
 
@@ -58,7 +53,7 @@ export type FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues = {
   inntektskategori?: string;
 };
 
-export type FastsettMånedsinntektUtenInntektsmeldingTransformedValues = {
+type FastsettMånedsinntektUtenInntektsmeldingTransformedValues = {
   andelListe: FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues[];
 };
 
@@ -67,11 +62,11 @@ export type VurderATFLISammeOrAndelTransformedValues = {
   arbeidsinntekt: number;
 };
 
-export type VurderATFLISammeOrgTransformedValues = {
+type VurderATFLISammeOrgTransformedValues = {
   vurderATogFLiSammeOrganisasjonAndelListe: VurderATFLISammeOrAndelTransformedValues[];
 };
 
-export type FastsatteVerdierForBesteberegningTransformedValues = {
+type FastsatteVerdierForBesteberegningTransformedValues = {
   fastsattBeløp: number;
   inntektskategori: string;
 };
@@ -83,16 +78,16 @@ export type BesteberegningFødendeKvinneAndelTransformedValues = {
   fastsatteVerdier: FastsatteVerdierForBesteberegningTransformedValues;
 };
 
-export type DagpengeAndelLagtTilBesteberegningTransformedValues = {
+type DagpengeAndelLagtTilBesteberegningTransformedValues = {
   fastsatteVerdier: FastsatteVerdierForBesteberegningTransformedValues;
 };
 
-export type BesteberegningFødendeKvinneTransformedValues = {
+type BesteberegningFødendeKvinneTransformedValues = {
   besteberegningAndelListe: BesteberegningFødendeKvinneAndelTransformedValues[];
   nyDagpengeAndel?: DagpengeAndelLagtTilBesteberegningTransformedValues;
 };
 
-export type FastsattBrukersAndelTransformedValues = {
+type FastsattBrukersAndelTransformedValues = {
   nyAndel: boolean;
   fastsattBeløp: number;
   inntektskategori: string;
@@ -100,34 +95,34 @@ export type FastsattBrukersAndelTransformedValues = {
   lagtTilAvSaksbehandler?: boolean;
 };
 
-export type FastsettBgKunYtelseTransformedValues = {
+type FastsettBgKunYtelseTransformedValues = {
   andeler: FastsattBrukersAndelTransformedValues[];
   skalBrukeBesteberegning: boolean | null;
 };
 
-export type VurderEtterlønnSluttpakkeTransformedValues = {
+type VurderEtterlønnSluttpakkeTransformedValues = {
   erEtterlønnSluttpakke: boolean;
 };
 
-export type FastsettEtterlønnSluttpakkeTransformedValues = {
+type FastsettEtterlønnSluttpakkeTransformedValues = {
   fastsattPrMnd: number;
 };
 
-export type ArbeidstakerandelUtenIMMottarYtelseTransformedValues = {
+type ArbeidstakerandelUtenIMMottarYtelseTransformedValues = {
   andelsnr: number;
   mottarYtelse: boolean;
 };
 
-export type MottarYtelseTransformedValues = {
+type MottarYtelseTransformedValues = {
   frilansMottarYtelse: boolean;
   arbeidstakerUtenIMMottarYtelse: ArbeidstakerandelUtenIMMottarYtelseTransformedValues[];
 };
 
-export type VurderMilitærTransformedValues = {
+type VurderMilitærTransformedValues = {
   harMilitaer: boolean;
 };
 
-export type RefusjonskravPrArbeidsgiverVurderingTransformedValues = {
+type RefusjonskravPrArbeidsgiverVurderingTransformedValues = {
   arbeidsgiverId: string;
   skalUtvideGyldighet: boolean;
 };
@@ -150,7 +145,7 @@ export type FaktaBeregningTransformedValues = {
   refusjonskravGyldighet?: RefusjonskravPrArbeidsgiverVurderingTransformedValues[];
 };
 
-export type FastsatteVerdierTransformedValues = {
+type FastsatteVerdierTransformedValues = {
   refusjon?: number;
   refusjonPrÅr?: number;
   fastsattBeløp?: number;

@@ -1,6 +1,6 @@
 import { periodFormat } from '@navikt/ft-utils';
 
-export interface Props {
+interface Props {
   dateStringFom: string;
   dateStringTom?: string;
   showTodayString?: boolean;

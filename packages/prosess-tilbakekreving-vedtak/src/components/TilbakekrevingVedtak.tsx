@@ -12,7 +12,7 @@ import { type FormValues } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
 import { type ForhandsvisData, TilbakekrevingVedtakForm } from './TilbakekrevingVedtakForm';
 import { TilbakekrevingVedtakPeriodeTabell } from './TilbakekrevingVedtakPeriodeTabell';
 
-export interface Props {
+interface Props {
   submitCallback: (aksjonspunktData: ForeslaVedtakTilbakekrevingAp) => Promise<void>;
   readOnly: boolean;
   resultat: VedtakResultatType;

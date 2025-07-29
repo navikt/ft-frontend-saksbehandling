@@ -11,7 +11,7 @@ export const erKunstigAndel = (arbeidsgiverIdent: string | undefined): boolean =
 const harAndelKunstigArbeidsforhold = (andel: BeregningsgrunnlagAndel) =>
   erKunstigAndel(andel.arbeidsforhold?.arbeidsgiverIdent);
 
-export const harKunstigArbeidsforhold = (tilfeller: string[], beregningsgrunnlag: Beregningsgrunnlag) => {
+const harKunstigArbeidsforhold = (tilfeller: string[], beregningsgrunnlag: Beregningsgrunnlag) => {
   if (tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING)) {
     return (
       beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel?.find(

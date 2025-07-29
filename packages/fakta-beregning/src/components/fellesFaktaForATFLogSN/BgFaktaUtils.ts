@@ -138,10 +138,8 @@ const erATUtenInntektsmeldingMedLonnsendring = (
 
 // AT og FL i samme organisasjon
 
-export const andelErStatusFLOgHarATISammeOrg = (
-  field: AndelFieldIdentifikator,
-  faktaOmBeregning: FaktaOmBeregning,
-): boolean => !!faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe && erFrilanser(field);
+const andelErStatusFLOgHarATISammeOrg = (field: AndelFieldIdentifikator, faktaOmBeregning: FaktaOmBeregning): boolean =>
+  !!faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe && erFrilanser(field);
 
 const andelErStatusATUtenInntektsmeldingOgHarFLISammeOrg = (
   field: AndelFieldIdentifikator,
@@ -177,7 +175,7 @@ const andelErEtterlønnSluttpakkeOgSkalFastsettes = (
 };
 
 // Manuelt registrert med handlingstype LAGT_TIL_AV_BRUKER
-export const erAndelKunstigArbeidsforhold = (
+const erAndelKunstigArbeidsforhold = (
   andel: AndelFieldIdentifikator,
   beregningsgrunnlag: Beregningsgrunnlag,
 ): boolean => {

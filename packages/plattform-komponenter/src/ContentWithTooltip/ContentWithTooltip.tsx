@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import styles from './contentWithTooltip.module.css';
 
-export interface ContentWithTooltipProps {
+interface ContentWithTooltipProps {
   tooltipText: string;
   tooltipDirectionRight?: boolean;
   tooltipClassName?: string;

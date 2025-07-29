@@ -58,7 +58,7 @@ export type FordelBeregningsgrunnlagAndelValues = FordelBeregningsgrunnlagGenere
     id?: string;
   };
 
-export type AksjonspunktValues = {
+type AksjonspunktValues = {
   begrunnelse?: string;
   periode: {
     fom: string;
@@ -77,13 +77,6 @@ export type FordelBeregningsgrunnlagMedAksjonspunktValues = AksjonspunktValues &
 
 export type FordelBeregningsgrunnlagFormValues = {
   FORDEL_BEREGNING_FORM: FordelBeregningsgrunnlagMedAksjonspunktValues[];
-};
-
-export type FordelingFieldError = {
-  refusjonskrav?: string;
-  fastsattBelop?: string;
-  andel?: string;
-  inntektskategori?: string;
 };
 
 export type VurderRefusjonValues = {
@@ -117,7 +110,7 @@ export type TilkommetAktivitetValues = {
   inntektsforhold: TilkommetInntektsforholdFieldValues[];
 };
 
-export type TilkommetAktivitetPeriodeValuesMedPerioder = {
+type TilkommetAktivitetPeriodeValuesMedPerioder = {
   perioder: TilkommetAktivitetValues[];
 };
 
@@ -129,5 +122,3 @@ export type TilkommetAktivitetFieldValues = AksjonspunktValues &
 export type TilkommetAktivitetFormValues = {
   [key: string]: TilkommetAktivitetFieldValues[];
 };
-
-export type FormValues = FordelBeregningsgrunnlagMedAksjonspunktValues | VurderRefusjonFormValues;

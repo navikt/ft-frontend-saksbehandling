@@ -29,7 +29,7 @@ export type BeregnBeløpParams = {
   }[];
 };
 
-export interface Props {
+interface Props {
   behandlingUuid: string;
   beregnBelop: (params: BeregnBeløpParams) => Promise<{ perioder: { belop: number }[] }>;
   oppdaterSplittedePerioder: (oppdatertePerioder: SplittetPeriode[]) => void;

@@ -8,7 +8,7 @@ type KodeverkEnumMap = {
   VedtakResultatType: VedtakResultatType;
 };
 
-export type KodeverkType = keyof KodeverkEnumMap;
+type KodeverkType = keyof KodeverkEnumMap;
 
 export type KodeverkTilbakeForPanel = {
   [K in KodeverkType]: KodeverkMedNavnTilbakekreving<K>[];
@@ -16,7 +16,7 @@ export type KodeverkTilbakeForPanel = {
 
 type EnumOrUnknown<T extends KodeverkType> = T extends keyof KodeverkEnumMap ? KodeverkEnumMap[T] : unknown;
 
-export type KodeverkMedNavnTilbakekreving<T extends KodeverkType> = Readonly<{
+type KodeverkMedNavnTilbakekreving<T extends KodeverkType> = Readonly<{
   kode: EnumOrUnknown<T>;
   navn: string;
   kodeverk: string;

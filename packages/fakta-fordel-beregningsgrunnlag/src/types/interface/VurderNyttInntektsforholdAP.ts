@@ -2,7 +2,7 @@ import type { BeregningAvklaringsbehovTilBekreftelse } from '@navikt/ft-types';
 
 import { FaktaFordelBeregningAvklaringsbehovCode } from './FaktaFordelBeregningAvklaringsbehovCode';
 
-export type VurderNyttInntektsforholdAndelTransformedValues = {
+type VurderNyttInntektsforholdAndelTransformedValues = {
   aktivitetStatus: string;
   skalRedusereUtbetaling: boolean;
   arbeidsgiverId?: string;
@@ -10,7 +10,7 @@ export type VurderNyttInntektsforholdAndelTransformedValues = {
   bruttoInntektPrÅr?: number;
 };
 
-export type TilkommetInntektPeriodeTransformedValues = {
+type TilkommetInntektPeriodeTransformedValues = {
   tilkomneInntektsforhold: VurderNyttInntektsforholdAndelTransformedValues[];
   fom: string;
   tom: string;

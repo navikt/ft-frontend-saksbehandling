@@ -6,7 +6,7 @@ import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import styles from './tilbakekrevingAktivitetTabell.module.css';
 
-export interface Props {
+interface Props {
   ytelser: {
     aktivitet: string;
     belop: number;

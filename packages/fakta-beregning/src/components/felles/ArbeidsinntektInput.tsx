@@ -18,7 +18,7 @@ interface Props {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 }
 
-export type FormValues = {
+type FormValues = {
   fastsattBelop: number | undefined;
   arbeidsgiverIdent: string | undefined;
 };

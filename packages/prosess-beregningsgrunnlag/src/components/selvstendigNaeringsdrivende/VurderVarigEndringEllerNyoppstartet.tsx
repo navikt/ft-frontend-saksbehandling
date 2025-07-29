@@ -21,9 +21,9 @@ import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 const MAX_LENGTH = 4000;
 const maxLength4000 = maxLength(MAX_LENGTH);
 const minLength3 = minLength(3);
-export const begrunnelseFieldname = 'varigEndringNyoppstartetBegrunnelse';
-export const varigEndringRadioname = 'erVarigEndret';
-export const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
+const begrunnelseFieldname = 'varigEndringNyoppstartetBegrunnelse';
+const varigEndringRadioname = 'erVarigEndret';
+const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
 const {
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
   VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,

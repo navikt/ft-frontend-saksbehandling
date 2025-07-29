@@ -15,7 +15,7 @@ export type KodeverkTilbakeForPanel = {
 
 type EnumOrUnknown<T extends KodeverkType> = T extends keyof KodeverkEnumMap ? KodeverkEnumMap[T] : unknown;
 
-export type KodeverkMedNavnTilbakekreving<T extends KodeverkType> = Readonly<{
+type KodeverkMedNavnTilbakekreving<T extends KodeverkType> = Readonly<{
   kode: EnumOrUnknown<T>;
   navn: string;
   kodeverk: string;

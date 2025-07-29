@@ -4,7 +4,7 @@ import { Alert, BodyShort, VStack } from '@navikt/ds-react';
 
 import { isObject } from '@navikt/ft-utils';
 
-export interface Props {
+interface Props {
   children: string[] | ReactNode | ReactNode[];
 }
 

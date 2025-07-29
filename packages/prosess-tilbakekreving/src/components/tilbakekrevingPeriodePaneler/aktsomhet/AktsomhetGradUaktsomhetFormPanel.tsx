@@ -40,7 +40,7 @@ const SærligGrunnerBegrunnelseDiv = ({ name, readOnly }: { name: string; readOn
   );
 };
 
-export interface Props {
+interface Props {
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
   handletUaktsomhetGrad?: string;

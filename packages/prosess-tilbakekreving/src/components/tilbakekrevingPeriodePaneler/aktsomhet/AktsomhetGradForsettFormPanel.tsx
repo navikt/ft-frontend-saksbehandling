@@ -8,7 +8,7 @@ import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
-export interface Props {
+interface Props {
   name: string;
   readOnly: boolean;
   erValgtResultatTypeForstoBurdeForstaatt?: boolean;

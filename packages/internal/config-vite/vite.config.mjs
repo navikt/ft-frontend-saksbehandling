@@ -1,10 +1,10 @@
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
 import circleDependency from 'vite-plugin-circular-dependency';
 import dts from 'vite-plugin-dts';
 import { defineConfig as defineVitestConfig } from 'vitest/config';
-import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
