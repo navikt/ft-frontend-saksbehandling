@@ -167,7 +167,6 @@ export const TilbakekrevingVedtakForm = ({
               perioderSomIkkeHarUtfyltObligatoriskVerdi.length === 0 && !fritekstOppsummeringPakrevdMenIkkeUtfylt
             }
             isSubmitting={formMethods.formState.isSubmitting}
-            isDirty={formMethods.formState.isDirty}
             hasErrors={harObligatoriskeFelterSomIkkeErUtfylt}
           />
           {perioderSomIkkeHarUtfyltObligatoriskVerdi.length === 0 && (
