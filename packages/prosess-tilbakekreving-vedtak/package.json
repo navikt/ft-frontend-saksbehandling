@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-prosess-tilbakekreving-vedtak",
   "description": "Vedtaksbilde hvor saksbehandler ferdigstiller vedtaksbrev, med mulighet for å legge til utdypende tekst. I noen tilfeller vil utdypende tekst være obligatorisk, for eksempel ved revurderingsbehandling.",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
