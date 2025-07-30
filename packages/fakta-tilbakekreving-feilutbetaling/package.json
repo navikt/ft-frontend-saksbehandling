@@ -29,7 +29,7 @@
     "@navikt/ft-form-validators": "workspace:^",
     "@navikt/ft-ui-komponenter": "workspace:^",
     "@navikt/ft-utils": "workspace:^",
-    "react": "19.1.0",
+    "react": "19.1.1",
     "react-hook-form": "7.61.1",
     "react-intl": "7.1.11"
   },
@@ -42,7 +42,7 @@
     "@navikt/ft-types": "3.x",
     "@navikt/ft-ui-komponenter": "2.x",
     "@navikt/ft-utils": "2.x",
-    "react": "19.1.0",
+    "react": "19.1.1",
     "react-hook-form": "7.x",
     "react-intl": "6.x"
   },
