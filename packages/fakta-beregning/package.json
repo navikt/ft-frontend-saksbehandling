@@ -32,8 +32,8 @@
     "@navikt/ft-utils": "workspace:^",
     "core-js": "3.44.0",
     "dayjs": "1.11.13",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
     "react-hook-form": "7.61.1",
     "react-intl": "7.1.11"
   },
@@ -51,8 +51,8 @@
     "core-js": "3.37.1",
     "dayjs": "1.11.x",
     "dayjs-plugin-utc": "0.1.2",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
     "react-hook-form": "7.x",
     "react-intl": "6.x"
   },
