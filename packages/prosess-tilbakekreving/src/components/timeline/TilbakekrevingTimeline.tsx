@@ -133,7 +133,7 @@ export const TilbakekrevingTimeline = ({
   };
 
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       <Timeline startDate={dayjs(fomDato).toDate()} endDate={dayjs(tomDato).add(1, 'days').toDate()}>
         <Timeline.Row
           label={relasjonsRolleTypeKodeverk.find(k => k.kode === relasjonsRolleType)?.navn || '-'}

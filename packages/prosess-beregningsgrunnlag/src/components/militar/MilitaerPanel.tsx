@@ -21,8 +21,8 @@ export const MilitaerPanel = ({ alleAndeler }: Props) => {
   const relevanteAndeler = alleAndeler.filter(andel => andel.aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL);
   const beregnetAarsinntekt = relevanteAndeler && relevanteAndeler.length > 0 ? relevanteAndeler[0].beregnetPrAar : '';
   return (
-    <VStack gap="2">
-      <Heading size="medium">
+    <VStack gap="space-8">
+      <Heading size="medium" level="4">
         <FormattedMessage id="MilitaerPanel.Tittel" />
       </Heading>
       <HorizontalBox>

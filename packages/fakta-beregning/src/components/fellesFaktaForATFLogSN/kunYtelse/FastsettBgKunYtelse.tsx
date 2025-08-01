@@ -35,7 +35,7 @@ export const FastsettBgKunYtelse = ({
   renderTextFieldAndSubmitButton,
 }: Props) => {
   return tilfeller.includes(FASTSETT_BG_KUN_YTELSE) ? (
-    <VStack gap="4" key="FASTSETT_BG_KUN_YTELSE">
+    <VStack gap="space-16" key="FASTSETT_BG_KUN_YTELSE">
       <KunYtelsePanel
         readOnly={readOnly}
         isAksjonspunktClosed={isAksjonspunktClosed}

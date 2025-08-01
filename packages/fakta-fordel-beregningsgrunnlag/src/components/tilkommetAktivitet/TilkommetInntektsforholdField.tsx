@@ -118,7 +118,7 @@ export const TilkommetInntektsforholdField = ({
   };
 
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       <RhfRadioGroup
         name={`${formName}.${formFieldIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.skalRedusereUtbetaling`}
         control={formMethods.control}

@@ -106,7 +106,7 @@ export const BeregningFP = ({
   }
 
   return (
-    <VStack gap="14">
+    <VStack gap="space-56">
       <BeregningForm
         readOnly={readOnly || !skalVurderes(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks])}
         valgtBeregningsgrunnlag={beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]}

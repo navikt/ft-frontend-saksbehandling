@@ -125,9 +125,9 @@ export const RhfRangepicker = ({
 
   return (
     <DatePicker {...dpProps}>
-      <VStack gap="2">
+      <VStack gap="space-8">
         <Label size="small">{label}</Label>
-        <HStack gap="4">
+        <HStack gap="space-16">
           <DatePicker.Input
             {...fromInputProps}
             onChange={onChangeInputFom}

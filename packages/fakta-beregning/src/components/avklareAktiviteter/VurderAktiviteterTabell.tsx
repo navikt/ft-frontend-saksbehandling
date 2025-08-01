@@ -60,7 +60,7 @@ export const VurderAktiviteterTabell = ({
   arbeidsgiverOpplysningerPerId,
   fieldId,
 }: Props) => (
-  <VStack gap="2">
+  <VStack gap="space-8">
     {finnHeading(aktiviteter, tomDatoForAktivitetGruppe)}
     <Table size="small" className={tableStyles.tableMedInput}>
       <Table.Header>

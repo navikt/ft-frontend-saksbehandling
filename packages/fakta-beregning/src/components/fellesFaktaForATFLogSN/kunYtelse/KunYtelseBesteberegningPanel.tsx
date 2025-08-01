@@ -67,8 +67,8 @@ export const KunYtelseBesteberegning = ({
       {erBesteberegning !== undefined && erBesteberegning !== null && (
         <div style={{ marginTop: '10px' }}>
           <ArrowBox alignOffset={erBesteberegning ? 0 : 60}>
-            <VStack gap="4">
-              <VStack gap="2" justify="space-between">
+            <VStack gap="space-16">
+              <VStack gap="space-8" justify="space-between">
                 <Label size="small">
                   <FormattedMessage id="KunYtelsePanel.OverskriftBesteberegning" />
                 </Label>

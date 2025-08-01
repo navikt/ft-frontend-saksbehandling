@@ -174,8 +174,8 @@ export const NaturalytelsePanel = ({ allePerioder, arbeidsgiverOpplysningerPerId
   }
 
   return (
-    <VStack gap="1">
-      <Heading size="medium">
+    <VStack gap="space-4">
+      <Heading size="medium" level="4">
         <FormattedMessage id="NaturalytelsePanel.Tittel" />
       </Heading>
 

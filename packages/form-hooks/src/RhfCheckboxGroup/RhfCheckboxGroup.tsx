@@ -54,7 +54,7 @@ export const RhfCheckboxGroup = <T extends FieldValues>({
   });
 
   const legend = (
-    <HStack justify="center" gap="2">
+    <HStack justify="center" gap="space-8">
       {label}
       {isReadOnly && isEdited && <EditedIcon />}
     </HStack>

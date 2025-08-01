@@ -146,7 +146,7 @@ export const AvklareAktiviteterField = ({
   }
 
   return (
-    <VStack gap="6">
+    <VStack gap="space-24">
       {hasAksjonspunkt(AVKLAR_AKTIVITETER, avklaringsbehovListe) && !isAvklaringsbehovClosed && (
         <Alert size="small" variant="warning">
           <Heading size="xsmall" level="3">
@@ -155,7 +155,7 @@ export const AvklareAktiviteterField = ({
               id="BeregningInfoPanel.AksjonspunktHelpText.VurderAktiviteter"
             />
           </Heading>
-          <VStack gap="2">
+          <VStack gap="space-8">
             <BodyShort size="small">
               <FormattedMessage id="VurderAktiviteterTabell.FullAAPKombinert.Overskrift" />
             </BodyShort>
@@ -175,7 +175,7 @@ export const AvklareAktiviteterField = ({
           </VStack>
         </Alert>
       )}
-      <HStack gap="4">
+      <HStack gap="space-16">
         <Label size="small" className={styles.avsnittOverskrift} data-testid="avklareAktiviteterHeading">
           <FormattedMessage id="AvklarAktivitetPanel.Overskrift" />
         </Label>
@@ -189,7 +189,7 @@ export const AvklareAktiviteterField = ({
         </Label>
       )}
       {avklarAktiviteter && avklarAktiviteter.aktiviteterTomDatoMapping && (
-        <VStack gap="4">
+        <VStack gap="space-16">
           <VurderAktiviteterPanel
             aktiviteterTomDatoMapping={avklarAktiviteter.aktiviteterTomDatoMapping}
             readOnly={readOnly}
@@ -215,7 +215,7 @@ export const AvklareAktiviteterField = ({
           />
           <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
           {(hasAksjonspunkt(AVKLAR_AKTIVITETER, avklaringsbehovListe) || erOverstyrtKnappTrykket) && (
-            <HStack gap="4">
+            <HStack gap="space-16">
               <SubmitButton
                 text={intl.formatMessage({
                   id: erOverstyrtKnappTrykket ? 'AvklarAktivitetPanel.OverstyrText' : 'AvklarAktivitetPanel.ButtonText',

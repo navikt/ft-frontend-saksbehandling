@@ -39,7 +39,7 @@ export const LonnsendringForm = ({ readOnly }: Props) => {
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.lonnsendringField`}
       control={control}
       label={
-        <VStack gap="2">
+        <VStack gap="space-8">
           <FormattedMessage id="BeregningInfoPanel.LonnsendringForm.HarSokerEndring" />
           <ReadMore size="small" header={<FormattedMessage id="BeregningInfoPanel.LonnsendringForm.HvaBetyrDette" />}>
             <List size="small">

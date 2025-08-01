@@ -184,8 +184,8 @@ export const TilbakekrevingPeriodeForm = ({
   );
   return (
     <RhfForm formMethods={formMethods} onSubmit={saveOrToggleModal}>
-      <VStack gap="4">
-        <VStack gap="2">
+      <VStack gap="space-16">
+        <VStack gap="space-8">
           {reduserteBelop &&
             reduserteBelop.map(belop => (
               <BodyShort size="small" key={belop.belop}>
@@ -221,12 +221,12 @@ export const TilbakekrevingPeriodeForm = ({
             label={<FormattedMessage id="TilbakekrevingPeriodeForm.KopierVilkårsvurdering" />}
           />
         )}
-        <HStack gap="4" wrap>
+        <HStack gap="space-16" wrap>
           <div className={styles.leftColumn}>
             {data.erForeldet && <ForeldetFormPanel />}
             {!data.erForeldet && (
-              <VStack gap="2">
-                <Heading size="small">
+              <VStack gap="space-8">
+                <Heading size="small" level="3">
                   <FormattedMessage id="TilbakekrevingPeriodeForm.VilkarForTilbakekreving" />
                 </Heading>
                 <RhfTextarea
@@ -256,8 +256,8 @@ export const TilbakekrevingPeriodeForm = ({
           </div>
           <div className={styles.rightColumn}>
             {valgtVilkarResultatType && (
-              <VStack gap="2">
-                <Heading size="small">
+              <VStack gap="space-8">
+                <Heading size="small" level="3">
                   <FormattedMessage
                     id={
                       valgtVilkarResultatType === VilkårResultat.GOD_TRO
@@ -312,7 +312,7 @@ export const TilbakekrevingPeriodeForm = ({
             )}
           </div>
         </HStack>
-        <HStack gap="4">
+        <HStack gap="space-16">
           <Button size="small" variant="primary" disabled={!formMethods.formState.isDirty || readOnly}>
             <FormattedMessage id="TilbakekrevingPeriodeForm.Oppdater" />
           </Button>

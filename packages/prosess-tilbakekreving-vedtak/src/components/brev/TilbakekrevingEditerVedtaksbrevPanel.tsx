@@ -30,8 +30,8 @@ export const TilbakekrevingEditerVedtaksbrevPanel = ({
   fritekstOppsummeringPakrevdMenIkkeUtfylt = false,
   erRevurderingTilbakekrevingFeilBeløpBortfalt,
 }: Props) => (
-  <VStack gap="4">
-    <Heading size="small">
+  <VStack gap="space-16">
+    <Heading size="small" level="2">
       <FormattedMessage id="TilbakekrevingVedtak.Vedtaksbrev" />
     </Heading>
     {vedtaksbrevAvsnitt.map(avsnitt => {
@@ -56,7 +56,7 @@ export const TilbakekrevingEditerVedtaksbrevPanel = ({
               </ExpansionCard.Title>
             </ExpansionCard.Header>
             <ExpansionCard.Content>
-              <VStack gap="2">
+              <VStack gap="space-8">
                 {underavsnitter.map(underavsnitt => (
                   <React.Fragment
                     key={(underavsnitt.underavsnittstype ?? '') + underavsnitt.overskrift + underavsnitt.brødtekst}

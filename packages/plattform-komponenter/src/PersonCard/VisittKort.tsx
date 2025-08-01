@@ -10,7 +10,7 @@ interface CardProps {
 
 export const VisittKort = ({ children, active, icon }: CardProps) => (
   <HStack
-    gap="4"
+    gap="space-16"
     align="center"
     wrap={false}
     padding="4"

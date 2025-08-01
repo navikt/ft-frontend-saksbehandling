@@ -93,7 +93,7 @@ export const FordelBeregningsgrunnlagPanel = ({
   const skalViseRefusjon = refusjonAP && harRefusjonInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
 
   return (
-    <VStack gap="2">
+    <VStack gap="space-8">
       {harNyttInntektsforholdAP && (
         <TilkommetAktivitet
           aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}

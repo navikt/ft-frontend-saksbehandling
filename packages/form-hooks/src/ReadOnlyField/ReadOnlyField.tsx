@@ -22,9 +22,9 @@ export const ReadOnlyField = ({ label, value, isEdited = false, type, hideLabel,
     return null;
   }
   return (
-    <VStack gap="1">
+    <VStack gap="space-4">
       {label && !hideLabel && <Label size={size}>{label}</Label>}
-      <HStack gap="2" align="center" wrap={false}>
+      <HStack gap="space-8" align="center" wrap={false}>
         <BodyLong className={type === 'textarea' ? styles.textarea : styles.readOnlyField} size={size}>
           {value}
         </BodyLong>

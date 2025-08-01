@@ -41,4 +41,3 @@ export { RedCrossIconFilled } from './src/icons/RedCrossIconFilled';
 export { TwoPersonsIcon } from './src/icons/TwoPersonsIcon';
 export { TwoPersonsWithOneHighlightedIconBlue } from './src/icons/TwoPersonsWithOneHighlightedIconBlue';
 export { TwoPersonsWithOneHighlightedIconGray } from './src/icons/TwoPersonsWithOneHighlightedIconGray';
-export { WarningIcon } from './src/icons/WarningIcon';

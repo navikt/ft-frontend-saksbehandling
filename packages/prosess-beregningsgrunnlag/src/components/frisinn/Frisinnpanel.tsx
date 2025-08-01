@@ -19,7 +19,7 @@ type Props = {
 };
 
 export const Frisinnpanel = ({ beregningsgrunnlag }: Props) => (
-  <VStack gap="4" className={styles.aksjonspunktBehandlerContainer}>
+  <VStack gap="space-16" className={styles.aksjonspunktBehandlerContainer}>
     <Detail>
       <FormattedMessage id="Frisinn.Tittel" />
     </Detail>

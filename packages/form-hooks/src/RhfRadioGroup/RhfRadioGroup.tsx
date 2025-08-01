@@ -68,7 +68,7 @@ export const RhfRadioGroup = <T extends FieldValues>({
   const parseValue = isTrueOrFalseSelection ? (value: string) => value === 'true' : parse;
 
   const legend = (
-    <HStack justify="center" gap="2">
+    <HStack justify="center" gap="space-8">
       {label}
       {isReadOnly && isEdited && <EditedIcon />}
     </HStack>
@@ -102,7 +102,7 @@ export const RhfRadioGroup = <T extends FieldValues>({
         ))}
       {isHorizontal && (
         <>
-          <HStack gap="4">
+          <HStack gap="space-16">
             {radios.map(radio => (
               <Radio
                 size={size}

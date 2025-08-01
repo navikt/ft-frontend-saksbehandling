@@ -190,7 +190,7 @@ export const TilkommetAktivitetPanel = ({
   };
 
   return (
-    <VStack gap="8">
+    <VStack gap="space-32">
       {getAksjonspunktText()}
       {!!vurderInntektsforholdPerioder && erAksjonspunktÅpent && (
         <>

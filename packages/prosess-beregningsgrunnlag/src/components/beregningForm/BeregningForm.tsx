@@ -95,16 +95,16 @@ export const BeregningForm = ({
   const aktivitetStatusList = getStatusList(beregningsgrunnlagPeriode);
   const harAksjonspunkter = gjeldendeAvklaringsbehov && gjeldendeAvklaringsbehov.length > 0;
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       {harAksjonspunkter && (
         <AksjonspunktTittel avklaringsbehov={gjeldendeAvklaringsbehov} beregningsgrunnlag={valgtBeregningsgrunnlag} />
       )}
-      <HGrid gap="12" columns={{ sm: 1, md: 2 }}>
-        <VStack gap="4">
-          <Heading size="medium">
+      <HGrid gap="space-48" columns={{ sm: 1, md: 2 }}>
+        <VStack gap="space-16">
+          <Heading size="medium" level="4">
             <FormattedMessage id="BeregningForm.Beregning.Tittel" />
           </Heading>
-          <VStack gap="10">
+          <VStack gap="space-40">
             <SkjeringspunktOgStatusPanel
               kodeverkSamling={kodeverkSamling}
               aktivitetStatusList={aktivitetStatusList}
@@ -135,8 +135,8 @@ export const BeregningForm = ({
             )}
           </VStack>
         </VStack>
-        <VStack gap="6">
-          <Heading size="medium">
+        <VStack gap="space-24">
+          <Heading size="medium" level="4">
             <FormattedMessage id="BeregningForm.Fastsettelse.Tittel" />
           </Heading>
           <SammenligningOgFastsettelsePanel

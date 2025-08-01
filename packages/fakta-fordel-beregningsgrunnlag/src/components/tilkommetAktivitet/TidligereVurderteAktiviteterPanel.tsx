@@ -77,13 +77,13 @@ export const TidligereVurderteAktiviteterPanel = ({
               {(harBruttoInntekt || harInntektsmelding) && (
                 <Table.DataCell textSize="small" align="right">
                   {harBruttoInntekt && (
-                    <HStack justify="end" gap="2">
+                    <HStack justify="end" gap="space-8">
                       <BeløpLabel beløp={inntektsforhold.bruttoInntektPrÅr ?? 0} kr />
                       <EditedIcon />
                     </HStack>
                   )}
                   {harInntektsmelding && !harBruttoInntekt && (
-                    <HStack justify="end" gap="2">
+                    <HStack justify="end" gap="space-8">
                       <BeløpLabel beløp={inntektsforhold.inntektFraInntektsmeldingPrÅr ?? 0} kr />
                       <Tag variant="neutral" size="xsmall">
                         IM

@@ -84,7 +84,7 @@ export const Beregningsgrunnlag = ({
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
 
   return (
-    <VStack gap="8">
+    <VStack gap="space-32">
       {relevanteStatuser.isArbeidstaker && (
         <>
           <GrunnlagForAarsinntektPanelAT

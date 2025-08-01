@@ -26,7 +26,7 @@ const statuserDetErSøktOmIPerioden = (
 };
 
 const BeskrivelseMedBeløpRad = ({ tekstId, beløp }: { tekstId: string; beløp: number }) => (
-  <HStack gap="2">
+  <HStack gap="space-8">
     <BodyShort className={beregningStyles.tabellAktivitet}>
       <FormattedMessage id={tekstId} />
     </BodyShort>
@@ -47,7 +47,7 @@ const lagRedusertBGRad = (
   const redusert = beløpÅRedusere * multiplikator;
   return (
     <>
-      <HStack gap="2">
+      <HStack gap="space-8">
         <BodyShort className={beregningStyles.tabellAktivitet}>
           <FormattedMessage id={tekstIdRedusert} values={{ grad: gjeldendeDekningsgrad }} />
         </BodyShort>
@@ -57,7 +57,7 @@ const lagRedusertBGRad = (
       </HStack>
       {!!løpendeBeløp ||
         (løpendeBeløp === 0 && (
-          <HStack gap="2">
+          <HStack gap="space-8">
             <BodyShort className={beregningStyles.tabellAktivitet}>
               <FormattedMessage id={tekstIdLøpende} />
             </BodyShort>
@@ -131,7 +131,7 @@ const lagPeriodeblokk = (
           gjeldendeDekningsgrad,
         )}
       <div className={beregningStyles.colDevider} />
-      <HStack gap="2">
+      <HStack gap="space-8">
         <Detail className={beregningStyles.tabellAktivitet}>
           <FormattedMessage id="Resultat.Dagsats" />
         </Detail>
@@ -158,7 +158,7 @@ export const BeregningsresultatPeriode = ({ bgperiode, ytelsegrunnlag, frilansGr
   const visningFrilans = frilansGrunnlag >= 0 ? frilansGrunnlag : 0;
   const visningNæring = næringGrunnlag >= 0 ? næringGrunnlag : 0;
   return (
-    <VStack gap="2">
+    <VStack gap="space-8">
       <Label size="small">
         <FormattedMessage
           id="BeregningsresultatPeriode.Label"

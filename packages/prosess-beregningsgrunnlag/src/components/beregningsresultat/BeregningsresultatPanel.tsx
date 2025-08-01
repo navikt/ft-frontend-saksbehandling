@@ -167,11 +167,11 @@ export const BeregningsresultatPanel = ({ beregningsgrunnlag, vilkårsperiode }:
   const tabellData = utledTabellData(beregningsgrunnlag);
 
   return (
-    <VStack gap="1">
-      <Heading size="xsmall">
+    <VStack gap="space-4">
+      <Heading size="xsmall" level="4">
         <FormattedMessage id="BeregningsresultatPanel.Tittel" />
       </Heading>
-      <VStack gap="8">
+      <VStack gap="space-32">
         {tabellData.map(tab => (
           <OppsummertGrunnlagPanel
             key={tab.fom}

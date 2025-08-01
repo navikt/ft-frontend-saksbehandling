@@ -25,7 +25,7 @@ export const KunYtelseUtenBesteberegningPanel = ({
   kodeverkSamling,
   isAksjonspunktClosed,
 }: Props) => (
-  <VStack gap="4">
+  <VStack gap="space-16">
     <Label size="medium">
       <FormattedMessage id="KunYtelsePanel.RapporterteInntekter" />
     </Label>
