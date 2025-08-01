@@ -19,6 +19,6 @@
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "eslint": "9.32.0",
-    "typescript": "5.8.3"
+    "typescript": "5.9.2"
   }
 }
