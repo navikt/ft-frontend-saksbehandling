@@ -65,7 +65,7 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
   }, []);
 
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       <RhfRadioGroup
         name={`${name}.harGrunnerTilReduksjon`}
         control={context.control}
@@ -87,13 +87,13 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
       />
       {harGrunnerTilReduksjon && (
         <ArrowBox alignOffset={24}>
-          <HStack gap="4">
+          <HStack gap="space-16">
             {!harMerEnnEnYtelse && andelSomTilbakekreves !== EGENDEFINERT && (
               <>
                 <Label size="small">
                   <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.AngiAndelSomTilbakekreves" />
                 </Label>
-                <HStack gap="2">
+                <HStack gap="space-8">
                   <RhfSelect
                     name={`${name}.andelSomTilbakekreves`}
                     control={context.control}
@@ -114,7 +114,7 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
                 <Label size="small">
                   <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.AngiAndelSomTilbakekreves" />
                 </Label>
-                <HStack gap="4">
+                <HStack gap="space-16">
                   <RhfTextField
                     name={`${name}.andelSomTilbakekrevesManuell`}
                     control={context.control}
@@ -173,7 +173,7 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
               }
             />
           </Detail>
-          <VStack gap="4">
+          <VStack gap="space-16">
             <BodyShort size="small" className={styles.labelPadding}>
               {harMerEnnEnYtelse ? formatCurrencyNoKr(feilutbetalingBelop) : '100%'}
             </BodyShort>

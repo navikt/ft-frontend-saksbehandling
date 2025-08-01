@@ -41,8 +41,8 @@ export const TilbakekrevingVedtak = ({
   formData,
   setFormData,
 }: Props) => (
-  <VStack gap="6" maxWidth="1200px">
-    <Heading size="small">
+  <VStack gap="space-24" maxWidth="1200px">
+    <Heading size="small" level="2">
       <FormattedMessage id="TilbakekrevingVedtak.Vedtak" />
     </Heading>
     <div>

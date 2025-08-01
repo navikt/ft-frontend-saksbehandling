@@ -24,14 +24,14 @@ interface Props {
 export const PeriodeInformasjon = ({ fom, tom, feilutbetaling, arsakHendelseNavn }: Props) => {
   const daysAndWeeks = calcDaysAndWeeks(fom, tom);
   return (
-    <VStack gap="2" className={styles.infoSummary}>
+    <VStack gap="space-8" className={styles.infoSummary}>
       <HStack justify="space-between">
         <Label size="small">
           {`${dayjs(fom).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(tom).format(DDMMYYYY_DATE_FORMAT)}`}
         </Label>
         <BodyShort size="small">{daysAndWeeks.formattedString}</BodyShort>
       </HStack>
-      <HStack gap="4">
+      <HStack gap="space-16">
         <BodyShort size="small" className={styles.resultName}>
           <FormattedMessage id="PeriodeInformasjon.Feilutbetaling" />:
           <span className={feilutbetaling ? styles.redNumber : styles.positivNumber}>

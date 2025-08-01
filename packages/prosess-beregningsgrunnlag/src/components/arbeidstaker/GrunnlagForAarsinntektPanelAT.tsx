@@ -127,8 +127,8 @@ export const GrunnlagForAarsinntektPanelAT = ({
   const relevanteAndeler = finnAndelerSomSkalVises(alleAndelerIFørstePeriode);
   if (!relevanteAndeler || relevanteAndeler.length === 0) return null;
   return (
-    <VStack gap="2">
-      <Heading size="medium">
+    <VStack gap="space-8">
+      <Heading size="medium" level="4">
         <FormattedMessage id="GrunnlagForAarsinntektPanelAT.Tittel" />
       </Heading>
       <Table size="small">

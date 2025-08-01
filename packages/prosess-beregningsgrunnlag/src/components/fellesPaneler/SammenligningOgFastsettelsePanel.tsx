@@ -254,10 +254,12 @@ export const SammenligningOgFastsettelsePanel = ({
         aktivtGrunnlagForLovparagraf?.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel ?? [];
       const formName = finnFormName(lovparagraf);
       return (
-        <VStack gap="10">
+        <VStack gap="space-40">
           {!!sg && (
-            <VStack gap="1">
-              <Heading size="xsmall">{finnTittel(sg, lovparagraf)}</Heading>
+            <VStack gap="space-4">
+              <Heading size="xsmall" level="4">
+                {finnTittel(sg, lovparagraf)}
+              </Heading>
               <SammenligningsgrunnlagPanel
                 sammenligningsgrunnlag={sg}
                 beregnetAarsinntekt={finnBeregnetInntekt(sg, andelerIFørstePeriode).inntekt}
@@ -291,9 +293,9 @@ export const SammenligningOgFastsettelsePanel = ({
   };
 
   return (
-    <VStack gap="5">
+    <VStack gap="space-20">
       {panelForklaring}
-      <VStack gap="8">
+      <VStack gap="space-32">
         {lagPanelForLovparagraf(LovParagraf.ÅTTE_TRETTI)}
         {lagPanelForLovparagraf(LovParagraf.ÅTTE_TRETTIFEM)}
       </VStack>

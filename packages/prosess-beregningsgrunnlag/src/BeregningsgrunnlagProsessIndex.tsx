@@ -39,8 +39,8 @@ const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkår | null) => {
   );
 
   return (
-    <VStack gap="2">
-      <Heading size="medium">
+    <VStack gap="space-8">
+      <Heading size="medium" level="2">
         <FormattedMessage id="BeregningsgrunnlagProsessIndex.Title" />
       </Heading>
       <BodyShort size="small">

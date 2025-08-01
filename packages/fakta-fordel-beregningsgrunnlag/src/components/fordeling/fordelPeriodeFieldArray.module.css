@@ -22,8 +22,8 @@
     }
   }
 
-  > tbody > tr:not(:last-child) {
-    --ac-table-row-border: none;
+  > tbody > tr:not(:last-child) td {
+    border: none;
   }
 }
 

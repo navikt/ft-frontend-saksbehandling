@@ -187,7 +187,7 @@ export const VurderOgFastsettATFL = ({
       }
       return (
         <AksjonspunktBox erAksjonspunktApent={true} erIkkeGodkjentAvBeslutter={false}>
-          <VStack gap="6">
+          <VStack gap="space-24">
             {forms}
             {!erOverstyringAvBeregningsgrunnlag(formValues) && (
               <InntektInputFields
@@ -211,7 +211,7 @@ export const VurderOgFastsettATFL = ({
   };
 
   return (
-    <VStack gap="8">
+    <VStack gap="space-32">
       <InntektstabellPanel
         key="inntektstabell"
         tabell={

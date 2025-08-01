@@ -21,7 +21,7 @@ export const GraderingUtenBGReadOnly = ({ avklaringsbehov }: Props) => {
     return null;
   }
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       <Label size="small">
         <FormattedMessage id="GraderingUtenBGReadOnly.Label" />
       </Label>

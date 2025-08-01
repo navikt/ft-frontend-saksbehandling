@@ -46,7 +46,7 @@ const lagRefusjonskravRadios = (
         )}`}
         control={control}
         label={
-          <VStack gap="2">
+          <VStack gap="space-8">
             <FormattedMessage
               id="VurderRefusjonForm.ErRefusjonskravGyldig"
               values={{

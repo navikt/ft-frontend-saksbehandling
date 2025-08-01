@@ -51,7 +51,7 @@ export const VurderBesteberegningForm = ({ readOnly, erOverstyrt }: Props) => {
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`}
       control={control}
       label={
-        <VStack gap="2" justify="space-between">
+        <VStack gap="space-8" justify="space-between">
           <Label size="small">
             <FormattedMessage id="BeregningInfoPanel.VurderBestebergning.HarBesteberegning" />
           </Label>

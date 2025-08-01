@@ -43,7 +43,7 @@ export const Søknadsopplysninger = ({ beregningsgrunnlag }: Props) => {
   const ytelsegrunnlag = beregningsgrunnlag.ytelsesspesifiktGrunnlag as FrisinnGrunnlag;
   const { frisinnPerioder } = ytelsegrunnlag;
   return (
-    <VStack gap="2">
+    <VStack gap="space-8">
       <Label size="small" className={beregningStyles.avsnittOverskrift}>
         <FormattedMessage id="Søknad.Tittel" />
       </Label>

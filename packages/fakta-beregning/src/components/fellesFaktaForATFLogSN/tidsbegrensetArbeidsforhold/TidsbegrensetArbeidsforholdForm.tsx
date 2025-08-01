@@ -73,7 +73,7 @@ export const TidsbegrensetArbeidsforholdForm = ({
   }
 
   return (
-    <VStack gap="6">
+    <VStack gap="space-24">
       {andelsliste.map(andel => {
         const arbeidsforhold = krevArbeidsforhold(andel.arbeidsforhold);
         const visningsNavn = lagVisningsnavn(arbeidsforhold, arbeidsgiverOpplysningerPerId);
@@ -86,7 +86,7 @@ export const TidsbegrensetArbeidsforholdForm = ({
             )}`}
             control={control}
             label={
-              <VStack gap="2">
+              <VStack gap="space-8">
                 <FormattedMessage
                   id="BeregningInfoPanel.TidsbegrensetArbFor.Arbeidsforhold"
                   values={{

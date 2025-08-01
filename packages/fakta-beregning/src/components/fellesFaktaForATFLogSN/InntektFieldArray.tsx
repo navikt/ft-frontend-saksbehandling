@@ -245,7 +245,7 @@ export const InntektFieldArray = ({
   }
 
   return (
-    <VStack gap="2">
+    <VStack gap="space-8">
       <Table size="small" className={tableStyles.tableMedInput}>
         <Table.Header>
           <Table.Row>

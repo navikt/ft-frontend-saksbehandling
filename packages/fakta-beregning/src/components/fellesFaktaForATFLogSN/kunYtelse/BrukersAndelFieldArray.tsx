@@ -119,7 +119,7 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
   const errorMessage = useCustomValidation(skjemaNavn, feilmelding);
 
   return (
-    <VStack gap="2">
+    <VStack gap="space-8">
       <Table size="small" className={tableStyles.tableMedInput}>
         <Table.Header>
           <Table.Row>

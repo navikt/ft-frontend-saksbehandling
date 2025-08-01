@@ -130,7 +130,7 @@ export const AksjonspunktTekster = ({ beregningsgrunnlag, arbeidsgiverOpplysning
   if (tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE)) {
     alerts.push(
       <Alert size="small" variant="warning" key={FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE}>
-        <VStack gap="1">
+        <VStack gap="space-4">
           <FormattedMessage
             id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelseHelpText"
             values={{
@@ -238,7 +238,7 @@ export const AksjonspunktTekster = ({ beregningsgrunnlag, arbeidsgiverOpplysning
   }
 
   if (alerts.length > 0) {
-    return <VStack gap="4">{alerts}</VStack>;
+    return <VStack gap="space-16">{alerts}</VStack>;
   }
 
   return (

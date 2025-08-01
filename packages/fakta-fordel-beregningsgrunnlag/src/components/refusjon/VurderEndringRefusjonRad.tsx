@@ -71,7 +71,7 @@ export const VurderEndringRefusjonRad = ({
   const skalKunneFastsetteDelvisRef =
     refusjonAndel.skalKunneFastsetteDelvisRefusjon && refusjonAndel.maksTillattDelvisRefusjonPrMnd;
   return (
-    <VStack gap="2">
+    <VStack gap="space-8">
       <BodyShort size="small">
         <FormattedMessage
           id={andelTekst}
@@ -82,7 +82,7 @@ export const VurderEndringRefusjonRad = ({
           }}
         />
       </BodyShort>
-      <HStack align="center" gap="6">
+      <HStack align="center" gap="space-24">
         <BodyShort as="span" size="small">
           <FormattedMessage id="BeregningInfoPanel.RefusjonBG.RefusjonFra" />
         </BodyShort>
@@ -100,7 +100,7 @@ export const VurderEndringRefusjonRad = ({
       </HStack>
 
       {skalKunneFastsetteDelvisRef && !harValgtRefusjonFraStart && !aksjonspunktErLøstUtenDelvisRef && (
-        <HStack align="center" gap="6">
+        <HStack align="center" gap="space-24">
           <BodyShort as="span" size="small">
             <FormattedMessage id="BeregningInfoPanel.RefusjonBG.DelvisPrMnd" />
           </BodyShort>

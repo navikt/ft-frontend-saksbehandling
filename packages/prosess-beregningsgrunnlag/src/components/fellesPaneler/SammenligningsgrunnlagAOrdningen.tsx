@@ -42,7 +42,7 @@ const lagSumRad = (månederMedInntekter: InntektsgrunnlagMåned[], relevanteStat
     .reduce((i1, i2) => i1 + i2, 0);
 
   return (
-    <VStack gap="2">
+    <VStack gap="space-8">
       <Label size="small">
         <FormattedMessage id="SammenligningsGrunnlaAOrdningen.SumTittel" />
       </Label>
@@ -168,7 +168,7 @@ export const SammenligningsgrunnlagAOrdningen = ({
   const ytelseTekst = intl.formatMessage({ id: 'SammenligningsGrunnlaAOrdningen.Ytelse' });
 
   return (
-    <VStack gap="10">
+    <VStack gap="space-40">
       <ExpansionCard
         defaultOpen
         size="small"

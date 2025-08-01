@@ -95,7 +95,7 @@ export const TilkommetAktivitetAccordion = ({
   }
 
   return (
-    <VStack gap="6">
+    <VStack gap="space-24">
       <Accordion headingSize="xsmall">
         {tidligereVurderte.map(tidligereVurdertPeriode => (
           <Accordion.Item
@@ -137,7 +137,7 @@ export const TilkommetAktivitetAccordion = ({
         ))}
       </Accordion>
       {fields.length > 1 && (
-        <VStack gap="4">
+        <VStack gap="space-16">
           <div>
             <RhfTextarea
               name={`${formName}.${formFieldIndex}.begrunnelse`}

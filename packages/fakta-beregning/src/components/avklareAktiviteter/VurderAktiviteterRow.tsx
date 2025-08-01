@@ -85,7 +85,7 @@ export const VurderAktiviteterTabellRad = ({
       <Table.DataCell textSize="small">
         {!erOverstyrt && <PeriodLabel dateStringFom={aktivitet.fom} dateStringTom={aktivitet.tom} />}
         {erOverstyrt && (
-          <HStack gap="2" align="center">
+          <HStack gap="space-8" align="center">
             <DateLabel dateString={aktivitet.fom} />
             <span>-</span>
             <RhfDatepicker

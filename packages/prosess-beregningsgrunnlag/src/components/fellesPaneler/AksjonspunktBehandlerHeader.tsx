@@ -95,7 +95,7 @@ export const AksjonspunktBehandlerHeader = ({ avklaringsbehov, beregningsgrunnla
   }
   return (
     <HStack
-      gap="6"
+      gap="space-24"
       align="center"
       wrap={false}
       className={readOnly ? styles.aksjonspunktBehandlerNoBorder : styles.aksjonspunktBehandlerHeader}
@@ -105,8 +105,8 @@ export const AksjonspunktBehandlerHeader = ({ avklaringsbehov, beregningsgrunnla
           <ExclamationmarkTriangleFillIcon className={styles.warningIcon} />
         </Hide>
       )}
-      <VStack gap="2">
-        <Heading size="xsmall">
+      <VStack gap="space-8">
+        <Heading size="xsmall" level="4">
           <FormattedMessage id={finnTittel(avklaringsbehov, beregningsgrunnlag)} />
         </Heading>
         <Detail>

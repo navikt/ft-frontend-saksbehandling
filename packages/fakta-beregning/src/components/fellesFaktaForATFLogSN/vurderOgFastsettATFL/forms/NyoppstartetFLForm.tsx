@@ -41,7 +41,7 @@ export const NyoppstartetFLForm = ({ readOnly }: Props) => {
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`}
       control={control}
       label={
-        <VStack gap="2">
+        <VStack gap="space-8">
           <FormattedMessage id="BeregningInfoPanel.NyoppstartetFLForm.ErSokerNyoppstartetFL" />
           <ReadMore
             size="small"

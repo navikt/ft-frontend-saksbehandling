@@ -149,7 +149,7 @@ export const FeilutbetalingInfoPanel = ({
   const årsaker = getSortedFeilutbetalingArsaker(feilutbetalingAarsak, kodeverkSamlingFpTilbake);
 
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       {hasOpenAksjonspunkter && (
         <AksjonspunktHelpTextHTML>
           <FormattedMessage id="FeilutbetalingInfoPanel.Aksjonspunkt" />
@@ -160,14 +160,14 @@ export const FeilutbetalingInfoPanel = ({
         onSubmit={(values: FormValues) => submitCallback(transformValues(values, årsaker))}
         setDataOnUnmount={setFormData}
       >
-        <VStack gap="4">
-          <HStack gap="10" wrap>
-            <VStack gap="4">
+        <VStack gap="space-16">
+          <HStack gap="space-40" wrap>
+            <VStack gap="space-16">
               <Label size="small">
                 <FormattedMessage id="FeilutbetalingInfoPanel.Feilutbetaling" />
               </Label>
               <HStack justify="space-between">
-                <VStack gap="1">
+                <VStack gap="space-4">
                   <Detail>
                     <FormattedMessage id="FeilutbetalingInfoPanel.PeriodeMedFeilutbetaling" />
                   </Detail>
@@ -178,7 +178,7 @@ export const FeilutbetalingInfoPanel = ({
                     />
                   </BodyShort>
                 </VStack>
-                <VStack gap="1">
+                <VStack gap="space-4">
                   <Detail>
                     <FormattedMessage id="FeilutbetalingInfoPanel.FeilutbetaltBeløp" />
                   </Detail>
@@ -186,7 +186,7 @@ export const FeilutbetalingInfoPanel = ({
                     <BeløpLabel rød beløp={feilutbetaling.aktuellFeilUtbetaltBeløp} />
                   </BodyShort>
                 </VStack>
-                <VStack gap="1">
+                <VStack gap="space-4">
                   <Detail>
                     <FormattedMessage id="FeilutbetalingInfoPanel.TidligereVarseltBeløp" />
                   </Detail>
@@ -220,12 +220,12 @@ export const FeilutbetalingInfoPanel = ({
                 />
               </FaktaGruppe>
             </VStack>
-            <VStack gap="4">
+            <VStack gap="space-16">
               <Label size="small">
                 <FormattedMessage id="FeilutbetalingInfoPanel.Revurdering" />
               </Label>
-              <HStack gap="4">
-                <VStack gap="1">
+              <HStack gap="space-16">
+                <VStack gap="space-4">
                   <Detail>
                     <FormattedMessage id="FeilutbetalingInfoPanel.Årsaker" />
                   </Detail>
@@ -242,7 +242,7 @@ export const FeilutbetalingInfoPanel = ({
                   )}
                 </VStack>
                 {feilutbetaling.datoForRevurderingsvedtak && (
-                  <VStack gap="1">
+                  <VStack gap="space-4">
                     <Detail>
                       <FormattedMessage id="FeilutbetalingInfoPanel.DatoForRevurdering" />
                     </Detail>
@@ -252,7 +252,7 @@ export const FeilutbetalingInfoPanel = ({
                   </VStack>
                 )}
               </HStack>
-              <VStack gap="1">
+              <VStack gap="space-4">
                 <Detail>
                   <FormattedMessage id="FeilutbetalingInfoPanel.Resultat" />
                 </Detail>
@@ -266,7 +266,7 @@ export const FeilutbetalingInfoPanel = ({
                   </BodyShort>
                 )}
               </VStack>
-              <VStack gap="1">
+              <VStack gap="space-4">
                 <Detail>
                   <FormattedMessage id="FeilutbetalingInfoPanel.Konsekvens" />
                 </Detail>
@@ -278,7 +278,7 @@ export const FeilutbetalingInfoPanel = ({
                   </BodyShort>
                 )}
               </VStack>
-              <VStack gap="1">
+              <VStack gap="space-4">
                 <Detail>
                   <FormattedMessage id="FeilutbetalingInfoPanel.Tilbakekrevingsvalg" />
                 </Detail>

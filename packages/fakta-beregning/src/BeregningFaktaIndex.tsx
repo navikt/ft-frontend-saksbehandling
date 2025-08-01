@@ -127,7 +127,7 @@ export const BeregningFaktaIndex = ({
   return (
     <RawIntlProvider value={intl}>
       <div className={styles.main}>
-        <VStack gap="6" className={styles.container}>
+        <VStack gap="space-24" className={styles.container}>
           <Heading size="small" level="2">
             <FormattedMessage id="BeregningFaktaIndex.SaksopplysningerBeregning" />
           </Heading>

@@ -88,7 +88,7 @@ const MottarYtelseArbeidsforholdRadioAndInputs = ({
       name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${key}`}
       control={control}
       label={
-        <VStack gap="2">
+        <VStack gap="space-8">
           {andel.arbeidsforhold &&
             utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
           <ReadMore
@@ -171,7 +171,7 @@ export const VurderMottarYtelseForm = ({
           name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${frilansFieldName}`}
           control={control}
           label={
-            <VStack gap="2">
+            <VStack gap="space-8">
               <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
               <ReadMore
                 size="small"
@@ -204,7 +204,7 @@ export const VurderMottarYtelseForm = ({
         />
       )}
       {arbeidsforholdUtenIM.length > 0 && (
-        <VStack gap="6">
+        <VStack gap="space-24">
           {arbeidsforholdUtenIM.map(andel => (
             <MottarYtelseArbeidsforholdRadioAndInputs
               key={andel.andelsnr}

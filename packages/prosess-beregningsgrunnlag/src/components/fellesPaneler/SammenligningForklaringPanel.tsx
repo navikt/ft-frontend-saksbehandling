@@ -56,7 +56,7 @@ export const SammenligningForklaringPanel = ({
   }
 
   return (
-    <VStack gap="2">
+    <VStack gap="space-8">
       {relevanteStatuser.isMilitaer && (
         <BodyShort size="small">
           <FormattedMessage id="SammenligningForklaringPanel.Miletar" />

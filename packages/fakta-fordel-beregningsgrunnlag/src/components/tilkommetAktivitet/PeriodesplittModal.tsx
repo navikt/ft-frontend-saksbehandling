@@ -70,7 +70,7 @@ export const PeriodesplittModal = ({
         <FormattedMessage id="TilkommetAktivitet.Modal.Tittel" />
       </Modal.Header>
       <Modal.Body>
-        <VStack gap="4">
+        <VStack gap="space-16">
           <Select
             label={intl.formatMessage({ id: 'TilkommetAktivitet.Modal.Select' })}
             onChange={endreValgtPeriode}

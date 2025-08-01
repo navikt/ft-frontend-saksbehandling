@@ -46,7 +46,7 @@ export const AktsomhetSarligeGrunnerFormPanel = ({
   );
 
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       <Label size="small">
         <FormattedMessage id="AktsomhetSarligeGrunnerFormPanel.GrunnerTilReduksjon" />
       </Label>

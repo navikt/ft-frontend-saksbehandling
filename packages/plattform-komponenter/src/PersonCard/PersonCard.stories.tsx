@@ -13,7 +13,7 @@ const meta = {
     gender: Gender.female,
   },
   render: args => (
-    <VStack gap="8">
+    <VStack gap="space-32">
       <div>
         <PersonCard
           name={args.name}

@@ -40,9 +40,9 @@ export const TilstotendeYtelser = ({ alleAndeler, relevanteStatuser, gjelderBest
   const harFlereYtelser = relevanteAndeler.length > 1;
 
   return (
-    <VStack gap="2">
+    <VStack gap="space-8">
       {relevanteStatuser.isKombinasjonsstatus && (
-        <Heading size="medium">
+        <Heading size="medium" level="4">
           <FormattedMessage id="TilstottendeYtelse.Tittel" />
         </Heading>
       )}

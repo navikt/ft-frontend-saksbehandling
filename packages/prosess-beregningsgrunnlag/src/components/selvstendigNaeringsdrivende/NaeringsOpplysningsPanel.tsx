@@ -87,8 +87,8 @@ export const NaeringsopplysningsPanel = ({ alleAndelerIForstePeriode, arbeidsgiv
   }
 
   return (
-    <VStack gap="1">
-      <Heading size="medium">
+    <VStack gap="space-4">
+      <Heading size="medium" level="4">
         <FormattedMessage id="NaeringsOpplysningsPanel.Overskrift" />
       </Heading>
       <Table size="small">
@@ -115,7 +115,7 @@ export const NaeringsopplysningsPanel = ({ alleAndelerIForstePeriode, arbeidsgiv
             </Table.Row>
             <Table.Row shadeOnHover={false}>
               <Table.DataCell textSize="small">
-                <VStack gap="2">
+                <VStack gap="space-8">
                   {naring.oppstartsdato && (
                     <BodyShort size="small">
                       <PeriodLabel dateStringFom={naring.oppstartsdato} dateStringTom={naring.opphørsdato} />

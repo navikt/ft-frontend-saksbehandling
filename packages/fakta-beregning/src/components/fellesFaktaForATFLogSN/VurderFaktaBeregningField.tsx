@@ -80,7 +80,7 @@ export const VurderFaktaBeregningField = ({
       {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehovListe) ||
         hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehovListe) ||
         erOverstyrt(beregningsgrunnlagIndeks, getValues)) && (
-        <VStack gap="6">
+        <VStack gap="space-24">
           {(hasAksjonspunkt(VURDER_FAKTA_FOR_ATFL_SN, avklaringsbehovListe) ||
             erOverstyrt(beregningsgrunnlagIndeks, getValues)) && (
             <>

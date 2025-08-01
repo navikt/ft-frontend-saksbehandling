@@ -125,7 +125,7 @@ export const TilbakekrevingTimeline = ({
   };
 
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       <Timeline startDate={fomDato.toDate()} endDate={tomDato.add(1, 'days').toDate()}>
         <Timeline.Row
           label={relasjonsRolleTypeKodeverk.find(k => k.kode === relasjonsRolleType)?.navn || '-'}

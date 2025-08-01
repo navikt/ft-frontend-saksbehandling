@@ -150,7 +150,7 @@ export const TilbakekrevingVedtakForm = ({
       onSubmit={(values: FormValues) => submitCallback(transformValues(values))}
       setDataOnUnmount={setFormData}
     >
-      <VStack gap="4">
+      <VStack gap="space-16">
         <TilbakekrevingEditerVedtaksbrevPanel
           intl={intl}
           vedtaksbrevAvsnitt={vedtaksbrevAvsnitt}
@@ -159,7 +159,7 @@ export const TilbakekrevingVedtakForm = ({
           fritekstOppsummeringPakrevdMenIkkeUtfylt={fritekstOppsummeringPakrevdMenIkkeUtfylt}
           erRevurderingTilbakekrevingFeilBeløpBortfalt={erRevurderingTilbakekrevingFeilBeløpBortfalt}
         />
-        <HStack gap="4" align="center">
+        <HStack gap="space-16" align="center">
           <SubmitButton
             text={intl.formatMessage({ id: 'TilbakekrevingVedtakForm.TilGodkjenning' })}
             isReadOnly={readOnly}

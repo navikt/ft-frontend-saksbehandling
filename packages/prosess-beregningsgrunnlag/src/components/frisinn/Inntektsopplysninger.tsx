@@ -32,11 +32,11 @@ export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
   const bruttoAT = finnBruttoForStatusIPeriode(AktivitetStatus.ARBEIDSTAKER, beregningsgrunnlag, gjeldendePeriode);
 
   return (
-    <VStack gap="2">
+    <VStack gap="space-8">
       <Label size="small" className={beregningStyles.avsnittOverskrift}>
         <FormattedMessage id="Søknad.Inntektsopplysninger" />
       </Label>
-      <HStack gap="2">
+      <HStack gap="space-8">
         <BodyShort size="small" className={beregningStyles.tabellAktivitet}>
           <FormattedMessage id="Frisinn.InntektAT" />
         </BodyShort>
@@ -44,7 +44,7 @@ export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
           <BeløpLabel beløp={bruttoAT} />
         </Label>
       </HStack>
-      <HStack gap="2">
+      <HStack gap="space-8">
         <BodyShort size="small" className={beregningStyles.tabellAktivitet}>
           <FormattedMessage id="Frisinn.InntektFL" />
         </BodyShort>
@@ -52,7 +52,7 @@ export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
           <BeløpLabel beløp={bruttoFL} />
         </Label>
       </HStack>
-      <HStack gap="2">
+      <HStack gap="space-8">
         <BodyShort size="small" className={beregningStyles.tabellAktivitet}>
           <FormattedMessage id="Frisinn.InntektSN" />
         </BodyShort>

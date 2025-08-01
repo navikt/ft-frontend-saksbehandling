@@ -44,7 +44,7 @@ export const BesteberegningResultatGrunnlagPanel = ({ periode, besteMåneder }: 
   const besteberegnet = finnBesteberegnet(besteMåneder);
   return (
     <div>
-      <VStack gap="4">
+      <VStack gap="space-16">
         <BodyShort size="small">
           <FormattedMessage id="BesteberegningResultatGrunnlagPanel.BrukerOmfattesAvBesteberegning" />
         </BodyShort>

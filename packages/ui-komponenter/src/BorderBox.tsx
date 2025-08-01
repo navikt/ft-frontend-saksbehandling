@@ -19,7 +19,7 @@ interface Props {
  * Valideringskomponent. Visar en box kring noe som skall fikses.
  */
 export const BorderBox = ({ error = false, className, children }: Props) => (
-  <Box padding="4" className={classNames('borderbox', { error }, className)}>
+  <Box.New padding="4" className={classNames('borderbox', { error }, className)}>
     {children}
-  </Box>
+  </Box.New>
 );

@@ -163,7 +163,7 @@ export const VurderAktiviteterPanel = ({
   const gjeldendeSkjæringstidspunkt = utledGjeldendeSkjæringstidspunkt(values, listeSomSkalVurderes);
 
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       <BodyShort size="small">
         <FormattedMessage
           id="AvklarAktivitetPanel.Overskrift.Skjaeringstidspunkt"

@@ -64,7 +64,7 @@ export const ForeldelsePeriodeForm = ({
 
   return (
     <RhfForm formMethods={formMethods} onSubmit={(values: FormValues) => oppdaterPeriode(values)}>
-      <VStack gap="4">
+      <VStack gap="space-16">
         <RhfTextarea
           name="begrunnelse"
           control={formMethods.control}
@@ -73,7 +73,7 @@ export const ForeldelsePeriodeForm = ({
           maxLength={1500}
           readOnly={readOnly}
         />
-        <HStack gap="10">
+        <HStack gap="space-40">
           <RhfRadioGroup
             name="foreldet"
             control={formMethods.control}
@@ -85,7 +85,7 @@ export const ForeldelsePeriodeForm = ({
             }))}
             isReadOnly={readOnly}
           />
-          <VStack gap="5">
+          <VStack gap="space-20">
             {(erForeldet || erMedTilleggsfrist) && (
               <RhfDatepicker
                 name="foreldelsesfrist"
@@ -108,7 +108,7 @@ export const ForeldelsePeriodeForm = ({
             )}
           </VStack>
         </HStack>
-        <HStack gap="4">
+        <HStack gap="space-16">
           <Button
             size="small"
             variant="primary"

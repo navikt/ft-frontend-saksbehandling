@@ -93,7 +93,7 @@ const finnDagsats = (tabellData: TabellData, ytelseGrunnlag?: YtelseGrunnlag): n
 };
 
 const lagIkkeOppfyltVisning = (grunnbeløp: number, erMidlertidigInaktiv: boolean): ReactElement => (
-  <HStack gap="2">
+  <HStack gap="space-8">
     <XMarkOctagonFillIcon className={styles.avslåttIkon} />
     <BodyShort size="small" className={styles.avslåttIkon}>
       <FormattedMessage
@@ -184,7 +184,7 @@ export const OppsummertGrunnlagPanel = ({ tabellData, skalVisePeriode, vilkårsp
   const alleAndelerErFastsatt = tabellData.andeler.every(andel => andel.erFerdigBeregnet);
 
   return (
-    <VStack gap="2">
+    <VStack gap="space-8">
       {skalVisePeriode && (
         <Label size="small">
           <FormattedMessage
@@ -195,7 +195,7 @@ export const OppsummertGrunnlagPanel = ({ tabellData, skalVisePeriode, vilkårsp
           />
         </Label>
       )}
-      <VStack gap="6">
+      <VStack gap="space-24">
         <div>
           {tabellData.andeler.map((rad, index) => (
             <React.Fragment key={rad.status}>

@@ -28,7 +28,7 @@ export const AktsomhetGradForsettFormPanel = ({ name, readOnly, erValgtResultatT
     <div>
       <ArrowBox alignOffset={erValgtResultatTypeForstoBurdeForstaatt ? 320 : 360}>
         {erValgtResultatTypeForstoBurdeForstaatt && (
-          <VStack gap="4">
+          <VStack gap="space-16">
             <Label size="small">
               <FormattedMessage id="AktsomhetGradForsettFormPanel.Andel" />
             </Label>
@@ -55,7 +55,7 @@ export const AktsomhetGradForsettFormPanel = ({ name, readOnly, erValgtResultatT
           </VStack>
         )}
         {!erValgtResultatTypeForstoBurdeForstaatt && (
-          <VStack gap="2">
+          <VStack gap="space-8">
             <div>
               <Detail>
                 <FormattedMessage id="AktsomhetGradForsettFormPanel.Andel" />

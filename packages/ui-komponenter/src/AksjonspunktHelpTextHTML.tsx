@@ -21,7 +21,7 @@ export const AksjonspunktHelpTextHTML = ({ children }: Props) => {
 
   return (
     <Alert variant="warning" size="small">
-      <VStack gap="2">
+      <VStack gap="space-8">
         {React.Children.map(children, child => (
           // @ts-expect-error Fiks
           <BodyShort key={isObject(child) ? child.key : child} size="small">

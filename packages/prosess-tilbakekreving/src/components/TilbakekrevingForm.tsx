@@ -441,8 +441,8 @@ export const TilbakekrevingForm = ({
 
   return (
     <FaktaGruppe merknaderFraBeslutter={merknaderFraBeslutter} withoutBorder>
-      <VStack gap="4">
-        <Heading size="small">
+      <VStack gap="space-16">
+        <Heading size="small" level="2">
           <FormattedMessage id="Behandlingspunkt.Tilbakekreving" />
         </Heading>
         {isApOpen && (
@@ -461,8 +461,8 @@ export const TilbakekrevingForm = ({
             />
             {valgtPeriode && valgtData && (
               <div id="panel-tilbakekreving" aria-controls={valgtPeriodeFormatertForTidslinje?.id.toString()}>
-                <Box borderWidth="1" padding="4">
-                  <VStack gap="4">
+                <Box.New borderWidth="1" padding="4">
+                  <VStack gap="space-16">
                     <PeriodeController
                       setNestePeriode={setNestePeriode}
                       setForrigePeriode={setForrigePeriode}
@@ -494,7 +494,7 @@ export const TilbakekrevingForm = ({
                       vilkarsVurdertePerioder={vilkårsvurdertePerioder}
                     />
                   </VStack>
-                </Box>
+                </Box.New>
               </div>
             )}
           </>

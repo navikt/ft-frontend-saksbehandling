@@ -101,7 +101,7 @@ export const VurderVarigEndringEllerNyoppstartet = ({
     },
   ];
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       <RhfRadioGroup
         name={`${formName}.${fieldIndex}.${varigEndringRadioname}`}
         control={formMethods.control}
@@ -114,7 +114,7 @@ export const VurderVarigEndringEllerNyoppstartet = ({
         isTrueOrFalseSelection
       />
       {varigEndringBekreftetVerdi && (
-        <HStack gap="4" align="center">
+        <HStack gap="space-16" align="center">
           <BodyShort size="small">{inntektFastsettesText(erVarigEndretArbeidssituasjon)}</BodyShort>
           <RhfTextField
             name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
