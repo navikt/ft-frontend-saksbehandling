@@ -22,7 +22,7 @@ interface Props {
 export const OkAvbrytModal = ({ text, okButtonText, showModal, cancel, submit }: Props) => (
   <Modal width="small" open={showModal} aria-label={text} onClose={cancel}>
     <Modal.Body>
-      <Heading size="small" level="1">
+      <Heading size="small" level="2">
         {text}
       </Heading>
     </Modal.Body>
