@@ -592,7 +592,7 @@ export const AksjonspunktBehandler = ({
               beregningsgrunnlag={bgSomSkalVurderes[index]}
             />
             <VStack
-              gap="4"
+              gap="space-16"
               className={`${readOnly ? styles.aksjonspunktBehandlerNoBorder : styles.aksjonspunktBehandlerBorder} ${styles.aksjonspunktWrapper}`}
             >
               {formKomponent(index, bgSomSkalVurderes[index].avklaringsbehov)}

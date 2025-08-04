@@ -63,13 +63,13 @@ export const VurderEndringRefusjonField = ({
   const formMethods = useFormContext<VurderRefusjonFormValues>();
   const begrunnelse = formMethods.watch(`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.begrunnelse`);
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       {erAksjonspunktÅpent && (
         <AksjonspunktHelpTextHTML>
           {[<FormattedMessage id="BeregningInfoPanel.RefusjonBG.Aksjonspunkt" key="aksjonspunktText" />]}
         </AksjonspunktHelpTextHTML>
       )}
-      <Heading size="small">
+      <Heading size="small" level="4">
         <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Tittel" />
       </Heading>
       <TidligereUtbetalinger

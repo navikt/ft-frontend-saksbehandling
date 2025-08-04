@@ -9,7 +9,7 @@ export const ForeldetFormPanel = () => {
   // TODO (TOR) Manglar type
   const { control } = useFormContext();
   return (
-    <HStack gap="4">
+    <HStack gap="space-16">
       <RhfTextarea
         name="foreldetBegrunnelse"
         control={control}

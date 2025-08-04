@@ -16,8 +16,8 @@ type Props = {
 export const YtelserFraInfotrygd = ({ bruttoPrAar }: Props) => {
   if (bruttoPrAar || bruttoPrAar === 0) {
     return (
-      <VStack gap="2">
-        <Heading size="medium">
+      <VStack gap="space-8">
+        <Heading size="medium" level="4">
           <FormattedMessage id="YtelserFraInfotrygd.Tittel" />
         </Heading>
         <Table>

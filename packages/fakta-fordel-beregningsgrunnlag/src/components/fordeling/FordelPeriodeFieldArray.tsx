@@ -315,7 +315,7 @@ export const FordelPeriodeFieldArray = ({
     }
   };
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       <Table className={styles.tableMedInput}>
         <Table.Header>
           <Table.Row>

@@ -46,7 +46,7 @@ export const VurderEtterlonnSluttpakkeForm = ({ readOnly }: Props) => {
         name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`}
         control={control}
         label={
-          <VStack gap="2">
+          <VStack gap="space-8">
             <FormattedMessage id="BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt" />
             <ReadMore
               size="small"

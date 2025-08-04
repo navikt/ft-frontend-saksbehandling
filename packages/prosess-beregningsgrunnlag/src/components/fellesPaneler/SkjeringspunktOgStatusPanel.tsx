@@ -51,7 +51,7 @@ const createStatusEtiketter = (
 
   statusList.sort((a, b) => (a.visningsNavn > b.visningsNavn ? 1 : -1));
   return (
-    <HStack gap="2">
+    <HStack gap="space-8">
       {statusList.map(status => (
         <Tag
           key={status.kode}
@@ -87,9 +87,9 @@ export const SkjeringspunktOgStatusPanel = ({
   saksopplysninger,
   arbeidsgiverOpplysningerPerId,
 }: Props) => (
-  <VStack gap="4">
+  <VStack gap="space-16">
     {createStatusEtiketter(aktivitetStatusList, kodeverkSamling)}
-    <HStack gap="2">
+    <HStack gap="space-8">
       <BodyShort size="small">
         <FormattedMessage id="SkjeringspunktOgStatusPanel.SkjeringForBeregning" />
       </BodyShort>

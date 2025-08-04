@@ -51,7 +51,7 @@ export const TilbakekrevingVedtakUtdypendeTekstPanel = ({ type, readOnly, fritek
           role="button"
           tabIndex={0}
         >
-          <HStack gap="2" align="center">
+          <HStack gap="space-8" align="center">
             <PlusCircleIcon
               className={styles.addCircleIcon}
               title={intl.formatMessage({ id: 'TilbakekrevingVedtakUtdypendeTekstPanel.LeggTilUtdypendeTekst' })}

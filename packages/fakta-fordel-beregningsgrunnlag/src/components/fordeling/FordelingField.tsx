@@ -49,7 +49,7 @@ export const FordelingField = ({
   const formMethods = useFormContext<FordelBeregningsgrunnlagFormValues>();
   const begrunnelse = formMethods.watch(`FORDEL_BEREGNING_FORM.${fieldIndex}.begrunnelse`);
   return (
-    <VStack gap="6">
+    <VStack gap="space-24">
       {!isAksjonspunktClosed && (
         <AksjonspunktHelpTextHTML>{getHelpTextsFordelBG(beregningsgrunnlag)}</AksjonspunktHelpTextHTML>
       )}

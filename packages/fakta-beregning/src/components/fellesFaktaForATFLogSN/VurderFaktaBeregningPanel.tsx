@@ -195,7 +195,7 @@ export const VurderFaktaBeregningPanel = ({
             const skalViseInntektabell = false;
             return (
               <BeregningsgrunnlagIndexContext.Provider key={field.id} value={index}>
-                <VStack gap="6">
+                <VStack gap="space-24">
                   {skalViseInntektabell && (
                     <RegisterinntektTabell
                       arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}

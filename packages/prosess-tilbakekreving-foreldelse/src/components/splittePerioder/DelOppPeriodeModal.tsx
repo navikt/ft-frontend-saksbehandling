@@ -83,12 +83,12 @@ export const DelOppPeriodeModal = ({
         onClose={cancelEvent}
       >
         <Modal.Header>
-          <Heading size="small">
+          <Heading size="small" level="2">
             <FormattedMessage id="DelOppPeriodeModalImpl.DelOppPerioden" />
           </Heading>
         </Modal.Header>
         <Modal.Body>
-          <VStack gap="4">
+          <VStack gap="space-16">
             <div>
               <Label size="small">
                 <FormattedMessage id="DelOppPeriodeModalImpl.Periode" />

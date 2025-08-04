@@ -31,7 +31,7 @@ export const GrunnlagForAarsinntektPanelFL = ({ alleAndeler }: Props) => {
   const startdato = relevantAndel.arbeidsforhold?.startdato;
   return (
     <div>
-      <Heading size="medium">
+      <Heading size="medium" level="4">
         <FormattedMessage id="GrunnlagForAarsinntektPanelFL.Tittel" />
       </Heading>
       {startdato && (

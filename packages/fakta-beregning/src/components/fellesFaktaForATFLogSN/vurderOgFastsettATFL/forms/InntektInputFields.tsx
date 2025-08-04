@@ -33,7 +33,7 @@ interface Props {
 }
 
 const KunstigAndelLabel = () => (
-  <VStack gap="2">
+  <VStack gap="space-8">
     <FormattedMessage id="BeregningInfoPanel.KunstigArbeidsforhold.FastsettKunstigArbeidsforhold" />
     <ReadMore size="small" header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}>
       <List size="small">
@@ -204,7 +204,7 @@ export const InntektInputFields = ({
       skalRedigereArbeidsinntektRadioValues.filter(value => value === true).length === 1
     ) {
       return (
-        <VStack gap="2">
+        <VStack gap="space-8">
           <FormattedMessage
             id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift"
             values={{
@@ -260,7 +260,7 @@ export const InntektInputFields = ({
       getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${frilansFieldName}`)
     ) {
       return (
-        <VStack gap="2">
+        <VStack gap="space-8">
           <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" />
           <ReadMore
             size="small"
@@ -283,7 +283,7 @@ export const InntektInputFields = ({
     }
     if (erNyoppstartetFrilanser) {
       return (
-        <VStack gap="2">
+        <VStack gap="space-8">
           <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" />
           <ReadMore
             size="small"
@@ -313,7 +313,7 @@ export const InntektInputFields = ({
     <>
       {erATFLSammeOrg(tilfeller) && (
         <>
-          <VStack gap="2" color="red">
+          <VStack gap="space-8" color="red">
             <Label>
               <FormattedMessage
                 id={

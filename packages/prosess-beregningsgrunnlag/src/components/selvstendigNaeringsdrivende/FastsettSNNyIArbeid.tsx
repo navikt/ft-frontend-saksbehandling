@@ -60,7 +60,7 @@ export const FastsettSNNyIArbeid = ({
   const { control } = useFormContext<BeregningFormValues>();
 
   return (
-    <VStack gap="10">
+    <VStack gap="space-40">
       {erNyArbLivet && (
         <HorizontalBox borderBottom borderTop>
           <BodyShort size="small">

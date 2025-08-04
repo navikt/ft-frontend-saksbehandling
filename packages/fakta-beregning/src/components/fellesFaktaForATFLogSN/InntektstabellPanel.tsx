@@ -54,8 +54,8 @@ export const InntektstabellPanel = ({
   return (
     <div className={styles.fadeinTabell}>
       {skalViseTabell && (
-        <VStack gap="4">
-          <HStack gap="4">
+        <VStack gap="space-16">
+          <HStack gap="space-16">
             <Heading level="3" size="xsmall">
               <FormattedMessage id="InntektstabellPanel.RapporterteInntekter" />
             </Heading>

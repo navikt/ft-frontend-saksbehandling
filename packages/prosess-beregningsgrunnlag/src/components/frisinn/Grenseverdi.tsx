@@ -25,7 +25,7 @@ const lagGrenseveriPeriode = (
   annenInntektIkkeSøktFor: number,
   utregnetInntektstak: number,
 ) => (
-  <HStack gap="2">
+  <HStack gap="space-8">
     <BodyShort className={beregningStyles.tabellAktivitet}>
       <FormattedMessage
         id="Frisinn.Inntektstak"
@@ -107,7 +107,7 @@ const lagGrenseverdirad = (bg: Beregningsgrunnlag, bgPeriode: Beregningsgrunnlag
   const fom = førstePeriodeISammeMåned ? førstePeriodeISammeMåned.fom : bgPeriode.beregningsgrunnlagPeriodeFom;
 
   return (
-    <VStack gap="2">
+    <VStack gap="space-8">
       <Label size="small" className={beregningStyles.avsnittOverskrift}>
         <FormattedMessage
           id="Frisinn.InntektstakOpplysningerPeriode"

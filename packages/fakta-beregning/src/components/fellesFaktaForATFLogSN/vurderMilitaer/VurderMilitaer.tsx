@@ -36,7 +36,7 @@ export const VurderMilitaer = ({ readOnly }: Props) => {
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${vurderMilitaerField}`}
       control={control}
       label={
-        <VStack gap="2">
+        <VStack gap="space-8">
           <FormattedMessage id="BeregningInfoPanel.VurderMilitaer.HarSøkerMilitærinntekt" />
           <ReadMore
             size="small"

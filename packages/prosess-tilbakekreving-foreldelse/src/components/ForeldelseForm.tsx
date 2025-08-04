@@ -216,8 +216,8 @@ export const ForeldelseForm = ({
 
   return (
     <FaktaGruppe merknaderFraBeslutter={merknaderFraBeslutter} withoutBorder>
-      <VStack gap="4">
-        <Heading size="small">
+      <VStack gap="space-16">
+        <Heading size="small" level="2">
           <FormattedMessage id="ForeldelseForm.Foreldelse" />
         </Heading>
         {!aksjonspunkt && (
@@ -231,7 +231,7 @@ export const ForeldelseForm = ({
           </>
         )}
         {foreldelseresultatAktiviteter && aksjonspunkt && (
-          <VStack gap="4">
+          <VStack gap="space-16">
             {isApOpen && <AksjonspunktHelpTextHTML>{getApTekst(aksjonspunkt)}</AksjonspunktHelpTextHTML>}
             <TilbakekrevingTimeline
               perioder={perioderFormatertForTidslinje}
@@ -245,8 +245,8 @@ export const ForeldelseForm = ({
                 id="panel-tilbakekreving-foreldelse"
                 aria-controls={valgtPeriodeFormatertForTidslinje?.id.toString()}
               >
-                <Box borderWidth="1" padding="4">
-                  <VStack gap="4">
+                <Box.New borderWidth="1" padding="4">
+                  <VStack gap="space-16">
                     <PeriodeController
                       setNestePeriode={setNestePeriode}
                       setForrigePeriode={setForrigePeriode}
@@ -271,7 +271,7 @@ export const ForeldelseForm = ({
                       kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
                     />
                   </VStack>
-                </Box>
+                </Box.New>
               </div>
             )}
             <HStack>

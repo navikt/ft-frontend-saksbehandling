@@ -62,7 +62,7 @@ export const TilkommetAktivitetField = ({
   );
 
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       <Table className={styles.table}>
         <Table.Header>
           <Table.Row>
@@ -93,13 +93,13 @@ export const TilkommetAktivitetField = ({
                 {harInntektsforholdMedÅrsinntekt && (
                   <Table.DataCell textSize="small" align="right">
                     {harBruttoInntekt && !harInntektsmelding && (
-                      <HStack gap="2" justify="end">
+                      <HStack gap="space-8" justify="end">
                         <BeløpLabel beløp={inntektsforhold.bruttoInntektPrÅr ?? 0} />
                         <EditedIcon />
                       </HStack>
                     )}
                     {harInntektsmelding && (
-                      <HStack gap="2" justify="end">
+                      <HStack gap="space-8" justify="end">
                         <BeløpLabel beløp={inntektsforhold.inntektFraInntektsmeldingPrÅr ?? 0} />
                         <Tag variant="neutral" size="xsmall">
                           IM
@@ -124,7 +124,7 @@ export const TilkommetAktivitetField = ({
         </Table.Body>
       </Table>
       <VStack
-        gap="4"
+        gap="space-16"
         className={erAksjonspunktÅpent ? styles.aksjonspunktContainer : styles.aksjonspunktContainerLukketAP}
       >
         {fields.map((field, index) => (
