@@ -19,7 +19,6 @@ import type { FeilutbetalingFakta } from './types/FeilutbetalingFakta';
 import type { KodeverkForPanel } from './types/KodeverkForPanel';
 import type { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 
-import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-ui-komponenter/dist/style.css';
 

@@ -39,7 +39,6 @@ import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregn
 import type { KodeverkForPanel } from './typer/KodeverkForPanel';
 import type { Vilkår, Vilkårperiode } from './typer/Vilkår';
 
-import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-ui-komponenter/dist/style.css';
 

@@ -11,7 +11,6 @@ import type { ForeslaVedtakTilbakekrevingAp } from './types/ForeslaVedtakTilbake
 import type { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 import { VedtakTilbakekrevingProsessIndex } from './VedtakTilbakekrevingProsessIndex';
 
-import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-ui-komponenter/dist/style.css';
 

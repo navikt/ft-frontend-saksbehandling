@@ -3,7 +3,7 @@
   position: relative;
 }
 .autocomplete ul {
-  background-color: #fff;
+  background-color: var(--ax-bg-default);
   border: 1px solid #068936;
   border-radius: 8px;
   margin: 0;
@@ -13,7 +13,7 @@
 }
 .autocomplete ul li {
   clear: both;
-  color: #333;
+  color: var(--ax-bg-input);
   cursor: pointer;
   display: block;
   font-size: initial;

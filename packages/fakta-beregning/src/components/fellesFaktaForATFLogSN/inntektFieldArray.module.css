@@ -89,12 +89,12 @@
 }
 
 .inntektOldStrikethrough p {
-  color: var(--text-subtle, rgba(0, 0, 0, 0.65));
+  color: var(--ax-bg-input);
   text-decoration: line-through;
 }
 
 .saksbehandlerIcon {
-  color: #c77300;
+  color: var(--ax-bg-warning-moderate);
   font-size: 1.5rem;
   margin-right: -1.75rem;
 }
