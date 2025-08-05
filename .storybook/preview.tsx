@@ -6,14 +6,13 @@ import { withThemeDecorator } from '@navikt/ft-frontend-storybook-utils';
 
 import './global.module.css';
 
-import '@navikt/ds-css';
-import '@navikt/ds-css/darkside';
+import './global.css';
 
 export const globalTypes = {
   theme: {
     name: 'Tema',
     description: 'Aksel tema',
-    defaultValue: 'none',
+    defaultValue: 'light',
     toolbar: {
       icon: 'circlehollow',
       items: [

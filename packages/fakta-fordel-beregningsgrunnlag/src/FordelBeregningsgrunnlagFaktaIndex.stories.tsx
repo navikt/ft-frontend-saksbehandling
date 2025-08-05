@@ -39,7 +39,6 @@ import type { VurderRefusjonBeregningsgrunnlagAP } from './types/interface/Vurde
 import type { KodeverkForPanel } from './types/kodeverkForPanel';
 import type { Vilkår } from './types/Vilkår';
 
-import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-ui-komponenter/dist/style.css';
 

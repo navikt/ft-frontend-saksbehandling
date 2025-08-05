@@ -35,7 +35,6 @@ import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from './types/interface/
 import type { KodeverkForPanel } from './types/KodeverkForPanel';
 import type { Vilkår } from './types/Vilkår';
 
-import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-plattform-komponenter/dist/style.css';
 import '@navikt/ft-ui-komponenter/dist/style.css';

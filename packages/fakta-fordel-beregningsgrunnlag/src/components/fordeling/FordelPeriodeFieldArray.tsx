@@ -447,7 +447,7 @@ export const FordelPeriodeFieldArray = ({
                   {skalViseSletteknapp(index, fields, skalIkkeEndres) && (
                     <Button
                       size="small"
-                      icon={<XMarkIcon aria-hidden color="var(--a-red-500)" />}
+                      icon={<XMarkIcon aria-hidden color="var(--ax-danger-600)" />}
                       onClick={() => remove(index)}
                       type="button"
                       variant="tertiary-neutral"

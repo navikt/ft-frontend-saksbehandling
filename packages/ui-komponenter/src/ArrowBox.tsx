@@ -1,13 +1,13 @@
 import { type ReactNode } from 'react';
 
-const navGra40 = '#B7B1A9';
+const navGra40 = 'var(--ax-bg-neutral-strong)';
 const borderRadius = 4;
 
 // Css er satt opp på en spesiell måte her fordi React ikke støtter psydo-element i inline css. Her er en avhengig av å dynamisk
 // endre enkelte variabler i after/before. Bedre løsninger finnes sikkert?
 const getArrowBoxTopCss = (alignOffset?: number, marginTop?: number, marginLeft?: number): string => `
   .arrowBoxTop${alignOffset} {
-    background: #ffffff;
+    background: var(--ax-bg-default);
     border: 1px solid ${navGra40};
     border-radius: ${borderRadius}px;
     padding: 15px;
@@ -18,7 +18,7 @@ const getArrowBoxTopCss = (alignOffset?: number, marginTop?: number, marginLeft?
 
   }
   .arrowBoxTop${alignOffset}:before {
-    background-color: #ffffff;
+    background-color: var(--ax-bg-default);
     border: 1px solid ${navGra40};
     border-bottom-width: 0;
     border-right-width: 0;
@@ -36,7 +36,7 @@ const getArrowBoxTopCss = (alignOffset?: number, marginTop?: number, marginLeft?
 
 const getArrowBoxLeftCss = (alignOffset?: number, marginTop?: number, marginLeft?: number): string => `
   .arrowBoxLeft${alignOffset} {
-    background: #ffffff;
+    background: var(--ax-bg-default);
     border: 1px solid ${navGra40};
     border-radius: ${borderRadius}px;
     padding: 15px;
@@ -47,7 +47,7 @@ const getArrowBoxLeftCss = (alignOffset?: number, marginTop?: number, marginLeft
   }
 
   .arrowBoxLeft${alignOffset}:before {
-    background-color: #ffffff;
+    background-color: var(--ax-bg-default);
     border: 1px solid ${navGra40};
     border-bottom-width: 0;
     border-right-width: 0;

@@ -40,7 +40,7 @@ export const OverstyringKnapp = ({ onClick = () => undefined, erOverstyrt = fals
         isOverstyrt ? (
           <KeyVerticalFillIcon
             aria-hidden
-            color="var(--a-gray-300)"
+            color="var(--ax-neutral-400)"
             height={25}
             width={25}
             title={intl.formatMessage({ id: 'OverstyringKnapp.HarOverstyrt' })}
@@ -48,7 +48,7 @@ export const OverstyringKnapp = ({ onClick = () => undefined, erOverstyrt = fals
         ) : (
           <KeyVerticalIcon
             aria-hidden
-            color="var(--a-blue-400)"
+            color="var(--ax-accent-500)"
             height={25}
             width={25}
             title={intl.formatMessage({ id: 'OverstyringKnapp.Overstyring' })}

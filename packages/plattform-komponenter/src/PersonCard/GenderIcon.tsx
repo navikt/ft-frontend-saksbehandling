@@ -16,15 +16,15 @@ interface Props {
 export const GenderIcon = ({ gender, isChild = false, size = 30 }: Props) => {
   let Icon = FigureCombinationFillIcon;
 
-  let backgroundColor = 'var(--a-gray-400)';
+  let backgroundColor = 'var(--ax-neutral-500)';
   if (isChild) {
     Icon = FigureChildFillIcon;
   } else if (gender === Gender.male) {
     Icon = SilhouetteFillIcon;
-    backgroundColor = 'var(--a-blue-400)';
+    backgroundColor = 'var(--ax-accent-500)';
   } else if (gender === Gender.female) {
     Icon = FigureOutwardFillIcon;
-    backgroundColor = 'var(--a-red-300)';
+    backgroundColor = 'var(--ax-danger-400)';
   }
 
   return <Icon height={size} width={size} color="white" style={{ backgroundColor, borderRadius: '50%' }} />;

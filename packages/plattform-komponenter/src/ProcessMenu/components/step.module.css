@@ -1,28 +1,28 @@
 .default {
-  --status-color: var(--a-gray-200);
-  --status-color-hover: var(--a-gray-300);
-  --status-color-active: var(--a-gray-400);
+  --status-color: var(--ax-neutral-300);
+  --status-color-hover: var(--ax-neutral-400);
+  --status-color-active: var(--ax-neutral-500);
 }
 
 .success {
-  --status-color: var(--a-green-200);
-  --status-color-hover: var(--a-green-300);
-  --status-color-active: var(--a-green-400);
-  --icon-color: var(--a-icon-success);
+  --status-color: var(--ax-success-300);
+  --status-color-hover: var(--ax-success-400);
+  --status-color-active: var(--ax-success-500);
+  --icon-color: var(--ax-text-success-decoration);
 }
 
 .warning {
-  --status-color: var(--a-orange-200);
-  --status-color-hover: var(--a-orange-300);
-  --status-color-active: var(--a-orange-400);
-  --icon-color: var(--a-icon-warning);
+  --status-color: var(--ax-warning-300);
+  --status-color-hover: var(--ax-warning-400);
+  --status-color-active: var(--ax-warning-500);
+  --icon-color: var(--ax-text-warning-decoration);
 }
 
 .danger {
-  --status-color: var(--a-red-200);
-  --status-color-hover: var(--a-red-300);
-  --status-color-active: var(--a-red-400);
-  --icon-color: var(--a-icon-danger);
+  --status-color: var(--ax-danger-300);
+  --status-color-hover: var(--ax-danger-400);
+  --status-color-active: var(--ax-danger-500);
+  --icon-color: var(--ax-text-danger-decoration);
 }
 
 .step {
@@ -48,7 +48,7 @@
   white-space: nowrap;
 
   &:hover {
-    background-color: var(--a-surface-hover);
+    background-color: var(--ax-bg-neutral-moderate-hoverA);
   }
 
   &.active {

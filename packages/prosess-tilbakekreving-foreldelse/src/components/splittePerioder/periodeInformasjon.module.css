@@ -1,5 +1,5 @@
 .infoSummary {
-  background-color: var(--a-gray-200);
+  background-color: var(--ax-neutral-300);
   max-width: 500px;
   padding: 10px 20px 10px;
 }
@@ -9,7 +9,7 @@
   margin-left: 8px;
 }
 .redNumber {
-  color: var(--a-nav-red);
+  color: var(--ax-text-logo);
   font-weight: bold;
   margin-left: 8px;
 }
