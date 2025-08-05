@@ -45,7 +45,7 @@ export const Default: Story = {
         label: 'Medlemskap',
       },
       {
-        icon: <ExclamationmarkTriangleFillIcon fontSize="1rem" color={'var(--a-icon-warning)'} />,
+        icon: <ExclamationmarkTriangleFillIcon fontSize="1rem" color={'var(--ax-text-warning-decoration)'} />,
         label: 'Opptjening',
         active: true,
       },

@@ -1,6 +1,6 @@
 .table {
   & tfoot > tr {
-    border-top: 2px solid var(--a-border-default);
+    border-top: 2px solid var(--ax-border-neutral);
   }
 }
 
@@ -9,6 +9,6 @@
     border: none;
   }
   & tr:not(:first-child) > td:first-child {
-    padding-left: var(--a-spacing-4);
+    padding-left: var(--ax-space-16);
   }
 }

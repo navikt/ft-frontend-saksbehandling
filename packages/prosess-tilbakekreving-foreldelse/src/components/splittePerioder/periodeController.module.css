@@ -6,7 +6,7 @@
   width: 26px;
 }
 .timeLineButton:focus {
-  box-shadow: 0 0 0 3px var(--a-orange-300);
+  box-shadow: 0 0 0 3px var(--ax-warning-400);
   outline: none;
 }
 .timeLineButton img:last-child {

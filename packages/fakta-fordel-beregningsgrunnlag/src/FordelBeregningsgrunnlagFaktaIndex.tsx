@@ -104,7 +104,7 @@ export const FordelBeregningsgrunnlagFaktaIndex = ({
                       beregningsgrunnlagVilkår.perioder,
                       skalHåndtereNyInntekt,
                     ) ? (
-                      <ExclamationmarkTriangleFillIcon color="var(--a-icon-warning)" />
+                      <ExclamationmarkTriangleFillIcon color="var(--ax-text-warning-decoration)" />
                     ) : undefined
                   }
                   key={currentBeregningsgrunnlag.skjaeringstidspunktBeregning}

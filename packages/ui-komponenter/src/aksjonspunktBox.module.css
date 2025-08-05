@@ -2,10 +2,10 @@
   padding: 20px;
 }
 .aksjonspunkt.erAksjonspunktApent {
-  border: 3px solid var(--a-orange-400);
+  border: 3px solid var(--ax-warning-500);
   border-radius: 4px;
 }
 .aksjonspunkt.erIkkeGodkjentAvBeslutter {
-  border: 3px solid var(--a-red-500);
+  border: 3px solid var(--ax-danger-600);
   border-radius: 4px;
 }

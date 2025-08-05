@@ -4,16 +4,16 @@
 }
 
 .borderTop {
-  border-top: 1px solid var(--a-border-default);
+  border-top: 1px solid var(--ax-border-neutral);
   padding: 4px 8px;
 }
 
 .borderBottom {
-  border-bottom: 1px solid var(--a-border-default);
+  border-bottom: 1px solid var(--ax-border-neutral);
   padding: 4px 8px;
 }
 
 .doubleBorder {
-  border-bottom: 3px double var(--a-border-default);
+  border-bottom: 3px double var(--ax-border-neutral);
   padding: 4px 8px;
 }

@@ -15,7 +15,7 @@ export const TotalbelopetUnder4RettsgebyrModal = ({
       <Modal.Body>
         <HStack gap="space-16" wrap={false}>
           <div>
-            <ExclamationmarkTriangleFillIcon height={35} width={35} color="var(--a-orange-600)" />
+            <ExclamationmarkTriangleFillIcon height={35} width={35} color="var(--ax-warning-700)" />
           </div>
           <BodyLong>
             <FormattedMessage id="TilbakekrevingPeriodeForm.TotalbelopetUnder4Rettsgebyr" />

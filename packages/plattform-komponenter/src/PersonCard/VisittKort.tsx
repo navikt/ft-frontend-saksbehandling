@@ -17,7 +17,7 @@ export const VisittKort = ({ children, active, icon }: CardProps) => (
     style={{
       zIndex: 2,
       overflow: 'hidden',
-      borderBottom: active ? '4px solid var(--a-border-action-selected)' : '0',
+      borderBottom: active ? '4px solid var(--ax-border-accent-strong)' : '0',
     }}
   >
     <div style={{ display: 'flex' }}>{icon}</div>
