@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-form-hooks",
   "description": "Overbygg over react-hook-form. Tilbyr form-komponenter som radioknapp og textarea",
-  "version": "8.1.2",
+  "version": "9.0.0",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -26,7 +26,7 @@
     "@navikt/aksel-icons": "7.25.2",
     "@navikt/ds-css": "7.25.2",
     "@navikt/ds-react": "7.25.2",
-    "@navikt/ft-ui-komponenter": "^5.0.0",
+    "@navikt/ft-ui-komponenter": "^6.0.0",
     "@navikt/ft-utils": "^3.7.0",
     "classnames": "2.5.1",
     "dayjs": "1.11.13",
