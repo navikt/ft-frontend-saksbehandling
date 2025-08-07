@@ -116,5 +116,8 @@
   "Timeline.IkkeAvklartPeriode": "Uavklart periode",
   "Timeline.TidspunktRevurdering": "Startpunkt for revurdering",
   "Timeline.GradertPeriode": "Gradert periode",
-  "Timeline.ManueltAvklart": "Manuelt avklart periode"
+  "Timeline.ManueltAvklart": "Manuelt avklart periode",
+
+  "ForeldetFormPanel.VurderOmPeriodenErForeldet": "Vurder om perioden er foreldet",
+  "ForeldetFormPanel.PeriodenErForeldet": "Perioden er foreldet"
 }

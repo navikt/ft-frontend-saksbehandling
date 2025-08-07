@@ -16,8 +16,6 @@ import type { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 
-import tableStyle from '../tableStyle.module.css';
-
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   // Andelen er fastsatt før og må kunne fastsettes igjen
   if (andel.overstyrtPrAar !== null && andel.overstyrtPrAar !== undefined) {
@@ -52,7 +50,7 @@ const createArbeidinntektRows = (
   return relevanteAndeler.map(andel => {
     const visningsNavn = createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling);
     return (
-      <Table.Body key={`ArbInntektWrapper${visningsNavn}`} className={tableStyle.tableGroup}>
+      <Table.Body key={`ArbInntektWrapper${visningsNavn}`}>
         <Table.Row shadeOnHover={false}>
           <Table.HeaderCell textSize="small" colSpan={3}>
             {visningsNavn}

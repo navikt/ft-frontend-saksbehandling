@@ -1,10 +1,10 @@
 import React, { type ReactElement } from 'react';
 import { type Control, useFormContext } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
-import { ReadMore, VStack } from '@navikt/ds-react';
+import { Radio, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroup } from '@navikt/ft-form-hooks';
+import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import type {
@@ -16,7 +16,6 @@ import { formaterArbeidsgiver } from '@navikt/ft-utils';
 
 import type { FaktaOmBeregningAksjonspunktValues, VurderRefusjonValues } from '../../../typer/FaktaBeregningTypes';
 import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
-import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 const { VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT } = FaktaOmBeregningTilfelle;
@@ -36,10 +35,9 @@ const lagRefusjonskravRadios = (
     const { arbeidsgiverIdent } = kravPerArbeidsgiver;
     const opplysninger = arbeidsgiverOpplysningerPerId[arbeidsgiverIdent];
     const arbeidsgiverVisningsnavn = opplysninger ? formaterArbeidsgiver(opplysninger) : arbeidsgiverIdent;
-    const intl = useIntl();
 
     return (
-      <RhfRadioGroup
+      <RhfRadioGroupNew
         key={arbeidsgiverIdent}
         name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderRefusjonValues.${lagFieldName(
           arbeidsgiverIdent,
@@ -63,12 +61,14 @@ const lagRefusjonskravRadios = (
         }
         validate={[required]}
         isReadOnly={readOnly}
-        radios={[
-          { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
-        ]}
-        parse={parseStringToBoolean}
-      />
+      >
+        <Radio value={true} size="small">
+          <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />
+        </Radio>
+        <Radio value={false} size="small">
+          <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />
+        </Radio>
+      </RhfRadioGroupNew>
     );
   });
 

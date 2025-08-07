@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
-import { BodyShort, Detail, HStack, Label, VStack } from '@navikt/ds-react';
+import { BodyShort, Detail, HStack, Label, Radio, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroup, RhfSelect, RhfTextField } from '@navikt/ft-form-hooks';
+import { RhfRadioGroupNew, RhfSelect, RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValue, minValue, required } from '@navikt/ft-form-validators';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
@@ -66,25 +66,22 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
 
   return (
     <VStack gap="space-16">
-      <RhfRadioGroup
+      <RhfRadioGroupNew
         name={`${name}.harGrunnerTilReduksjon`}
         control={context.control}
         label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalSarligeGrunnerGiReduksjon" />}
         validate={[required]}
-        radios={[
-          {
-            label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
-            value: 'true',
-          },
-          {
-            label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
-            value: 'false',
-          },
-        ]}
         isReadOnly={readOnly}
-        isTrueOrFalseSelection
-        isHorizontal
-      />
+      >
+        <HStack gap="space-20">
+          <Radio value={true} size="small">
+            <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />
+          </Radio>
+          <Radio value={false} size="small">
+            <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />
+          </Radio>
+        </HStack>
+      </RhfRadioGroupNew>
       {harGrunnerTilReduksjon && (
         <ArrowBox alignOffset={24}>
           <HStack gap="space-16">
@@ -178,25 +175,22 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
               {harMerEnnEnYtelse ? formatCurrencyNoKr(feilutbetalingBelop) : '100%'}
             </BodyShort>
             {handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM && (
-              <RhfRadioGroup
+              <RhfRadioGroupNew
                 name={tilleggesRenterFelt}
                 control={context.control}
                 label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
                 validate={[required]}
-                radios={[
-                  {
-                    label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
-                    value: 'true',
-                  },
-                  {
-                    label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
-                    value: 'false',
-                  },
-                ]}
                 isReadOnly={readOnly}
-                isTrueOrFalseSelection
-                isHorizontal
-              />
+              >
+                <HStack gap="space-20">
+                  <Radio value={true} size="small">
+                    <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />
+                  </Radio>
+                  <Radio value={false} size="small">
+                    <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />
+                  </Radio>
+                </HStack>
+              </RhfRadioGroupNew>
             )}
           </VStack>
         </ArrowBox>

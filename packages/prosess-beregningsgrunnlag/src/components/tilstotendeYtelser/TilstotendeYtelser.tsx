@@ -9,7 +9,6 @@ import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import type { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
-import tableStyle from '../tableStyle.module.css';
 
 const getTekstForAndelBruktIBeregning = (andel: BeregningsgrunnlagAndel): string => {
   if (andel.aktivitetStatus === AktivitetStatus.DAGPENGER) {
@@ -60,7 +59,7 @@ export const TilstotendeYtelser = ({ alleAndeler, relevanteStatuser, gjelderBest
         </Table.Header>
 
         {relevanteAndeler.map((andel: BeregningsgrunnlagAndel) => (
-          <Table.Body key={andel.aktivitetStatus} className={tableStyle.tableGroup}>
+          <Table.Body key={andel.aktivitetStatus}>
             <Table.Row>
               <Table.DataCell textSize="small">
                 <FormattedMessage id={getTekstForAndelBruktIBeregning(andel)} />

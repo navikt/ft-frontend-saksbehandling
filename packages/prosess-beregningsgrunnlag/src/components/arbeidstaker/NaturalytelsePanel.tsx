@@ -17,8 +17,6 @@ import type {
   NaturalytelseTabellRad,
 } from '../../types/NaturalytelseTable';
 
-import tableStyle from '../tableStyle.module.css';
-
 type Props = {
   allePerioder: BeregningsgrunnlagPeriodeProp[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
@@ -194,7 +192,7 @@ export const NaturalytelsePanel = ({ allePerioder, arbeidsgiverOpplysningerPerId
           </Table.Row>
         </Table.Header>
         {tableData.rader.map(rad => (
-          <Table.Body key={rad.nøkkel} className={tableStyle.tableGroup}>
+          <Table.Body key={rad.nøkkel}>
             <Table.Row shadeOnHover={false}>
               <Table.HeaderCell textSize="small" colSpan={3}>
                 {rad.visningsnavn}

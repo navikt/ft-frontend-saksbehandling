@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { BodyShort, Button, Heading, HStack, VStack } from '@navikt/ds-react';
+import { BodyShort, Button, Heading, HStack, Radio, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { RhfForm, RhfRadioGroup, RhfSelect, RhfTextarea } from '@navikt/ft-form-hooks';
+import { RhfForm, RhfRadioGroupNew, RhfSelect, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { usePrevious } from '@navikt/ft-ui-komponenter';
 import { BTag, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
@@ -239,18 +239,20 @@ export const TilbakekrevingPeriodeForm = ({
                   className={styles.explanationTextarea}
                   description={intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.Vurdering.Hjelpetekst' })}
                 />
-                <RhfRadioGroup
+                <RhfRadioGroupNew
                   name="valgtVilkarResultatType"
                   control={formMethods.control}
                   label={<FormattedMessage id="TilbakekrevingPeriodeForm.oppfylt" />}
                   validate={[required]}
-                  radios={vilkarResultatTyper.map(vrt => ({
-                    label: vrt.navn,
-                    value: vrt.kode as unknown as string,
-                  }))}
                   isReadOnly={readOnly}
                   onChange={resetVilkarresultatType}
-                />
+                >
+                  {vilkarResultatTyper.map(vrt => (
+                    <Radio key={vrt.kode as unknown as string} value={vrt.kode} size="small">
+                      {vrt.navn}
+                    </Radio>
+                  ))}
+                </RhfRadioGroupNew>
               </VStack>
             )}
           </div>

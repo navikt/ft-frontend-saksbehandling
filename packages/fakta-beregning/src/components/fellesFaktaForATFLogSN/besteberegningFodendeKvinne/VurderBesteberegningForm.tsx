@@ -1,10 +1,10 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Label, Link, VStack } from '@navikt/ds-react';
+import { BodyShort, Label, Link, Radio, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroup } from '@navikt/ft-form-hooks';
+import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import type { BeregningAvklaringsbehov, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
@@ -21,7 +21,6 @@ import type {
 import { FaktaBeregningAvklaringsbehovCode } from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '../eksterneLenker';
-import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 export const besteberegningField = 'vurderbesteberegningField';
@@ -42,12 +41,11 @@ interface Props {
 
 export const VurderBesteberegningForm = ({ readOnly, erOverstyrt }: Props) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const intl = useIntl();
   const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const isReadOnly = readOnly || erOverstyrt;
 
   return (
-    <RhfRadioGroup
+    <RhfRadioGroupNew
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`}
       control={control}
       label={
@@ -64,12 +62,14 @@ export const VurderBesteberegningForm = ({ readOnly, erOverstyrt }: Props) => {
       }
       isReadOnly={isReadOnly}
       validate={isReadOnly ? [] : [required]}
-      radios={[
-        { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-        { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
-      ]}
-      parse={parseStringToBoolean}
-    />
+    >
+      <Radio value={true} size="small">
+        <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />
+      </Radio>
+      <Radio value={false} size="small">
+        <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />
+      </Radio>
+    </RhfRadioGroupNew>
   );
 };
 

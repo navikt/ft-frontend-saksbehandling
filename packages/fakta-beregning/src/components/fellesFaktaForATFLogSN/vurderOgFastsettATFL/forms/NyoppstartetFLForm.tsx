@@ -1,10 +1,10 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
-import { List, ReadMore, VStack } from '@navikt/ds-react';
+import { List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroup } from '@navikt/ft-form-hooks';
+import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import type { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
@@ -13,7 +13,6 @@ import type { FaktaOmBeregningAksjonspunktValues, NyoppstartetFLValues } from '.
 import type { InntektTransformed } from '../../../../typer/FieldValues';
 import type { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import type { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
-import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 
 /**
@@ -34,10 +33,9 @@ interface Props {
 export const NyoppstartetFLForm = ({ readOnly }: Props) => {
   const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const intl = useIntl();
 
   return (
-    <RhfRadioGroup
+    <RhfRadioGroupNew
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`}
       control={control}
       label={
@@ -60,15 +58,14 @@ export const NyoppstartetFLForm = ({ readOnly }: Props) => {
       }
       validate={[required]}
       isReadOnly={readOnly}
-      radios={[
-        {
-          value: 'true',
-          label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes' }),
-        },
-        { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt' }) },
-      ]}
-      parse={parseStringToBoolean}
-    />
+    >
+      <Radio value={true} size="small">
+        <FormattedMessage id="BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes" />
+      </Radio>
+      <Radio value={false} size="small">
+        <FormattedMessage id="BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt" />
+      </Radio>
+    </RhfRadioGroupNew>
   );
 };
 NyoppstartetFLForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag): NyoppstartetFLValues => {

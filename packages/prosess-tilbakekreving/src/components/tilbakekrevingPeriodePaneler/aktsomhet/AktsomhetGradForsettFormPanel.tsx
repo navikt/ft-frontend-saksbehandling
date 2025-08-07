@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, Label, VStack } from '@navikt/ds-react';
+import { BodyShort, Detail, Label, Radio, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroup } from '@navikt/ft-form-hooks';
+import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
@@ -33,25 +33,20 @@ export const AktsomhetGradForsettFormPanel = ({ name, readOnly, erValgtResultatT
               <FormattedMessage id="AktsomhetGradForsettFormPanel.Andel" />
             </Label>
             <BodyShort size="small">100 %</BodyShort>
-            <RhfRadioGroup
+            <RhfRadioGroupNew
               name={`${name}.skalDetTilleggesRenter`}
               control={context.control}
               label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
               validate={[required]}
-              radios={[
-                {
-                  label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
-                  value: 'true',
-                },
-                {
-                  label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
-                  value: 'false',
-                },
-              ]}
               isReadOnly={readOnly}
-              parse={(value: string) => value === 'true'}
-              isHorizontal
-            />
+            >
+              <Radio value={true} size="small">
+                <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />
+              </Radio>
+              <Radio value={false} size="small">
+                <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />
+              </Radio>
+            </RhfRadioGroupNew>
           </VStack>
         )}
         {!erValgtResultatTypeForstoBurdeForstaatt && (

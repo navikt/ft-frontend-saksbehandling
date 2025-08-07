@@ -10,10 +10,6 @@
   text-align: right;
 }
 
-.rightAlignInput :global(.navds-form-field) {
-  margin-left: auto;
-}
-
 .rightAlignInput > div > div {
   justify-content: end;
 }
@@ -52,10 +48,6 @@
   margin-bottom: 16px;
   padding-bottom: 0.45rem;
   white-space: pre-wrap;
-}
-
-.tableMedInput .navds-table__data-cell--align-right > div > input {
-  text-align: right;
 }
 
 .storBredde {

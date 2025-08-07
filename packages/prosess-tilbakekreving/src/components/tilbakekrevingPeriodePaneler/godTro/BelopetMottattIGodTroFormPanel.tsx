@@ -1,9 +1,9 @@
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
-import { BodyShort, VStack } from '@navikt/ds-react';
+import { BodyShort, HStack, Radio, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroup, RhfTextField } from '@navikt/ft-form-hooks';
+import { RhfRadioGroupNew, RhfTextField } from '@navikt/ft-form-hooks';
 import { minValue, required } from '@navikt/ft-form-validators';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -46,25 +46,22 @@ export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehol
 
   return (
     <VStack gap="space-8">
-      <RhfRadioGroup
+      <RhfRadioGroupNew
         name={`${name}.erBelopetIBehold`}
         control={control}
         label={<FormattedMessage id="BelopetMottattIGodTroFormPanel.BelopetIBehold" />}
         validate={[required]}
-        radios={[
-          {
-            label: <FormattedMessage id="BelopetMottattIGodTroFormPanel.Ja" />,
-            value: 'true',
-          },
-          {
-            label: <FormattedMessage id="BelopetMottattIGodTroFormPanel.Nei" />,
-            value: 'false',
-          },
-        ]}
         isReadOnly={readOnly}
-        isTrueOrFalseSelection
-        isHorizontal
-      />
+      >
+        <HStack gap="space-20">
+          <Radio value={true} size="small">
+            <FormattedMessage id="BelopetMottattIGodTroFormPanel.Ja" />
+          </Radio>
+          <Radio value={false} size="small">
+            <FormattedMessage id="BelopetMottattIGodTroFormPanel.Nei" />
+          </Radio>
+        </HStack>
+      </RhfRadioGroupNew>
       <div className={styles.arrowbox}>
         {erBelopetIBehold === true && (
           <ArrowBox alignOffset={25}>

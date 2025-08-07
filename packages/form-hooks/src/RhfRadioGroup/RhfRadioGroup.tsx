@@ -7,10 +7,6 @@ import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 
-import styles from './rhfRadioGroup.module.css';
-
-// TODO (TOR) Denne bør skrivast om til å ta inn Radio-element som children
-
 export interface RadioProps {
   value: string;
   label: string | ReactElement;
@@ -29,12 +25,14 @@ type Props<T extends FieldValues> = {
   parse?: (value: string) => any;
   isTrueOrFalseSelection?: boolean;
   hideLegend?: boolean;
-  hideRadioLabels?: boolean;
   isEdited?: boolean;
   size?: 'medium' | 'small';
   control: UseControllerProps<T>['control'];
 } & Omit<UseControllerProps<T>, 'control'>;
 
+/**
+ * @deprecated Bruk heller RhfRadioGroupNew
+ */
 export const RhfRadioGroup = <T extends FieldValues>({
   label,
   description,
@@ -46,7 +44,6 @@ export const RhfRadioGroup = <T extends FieldValues>({
   parse = value => value,
   isTrueOrFalseSelection = false,
   hideLegend = false,
-  hideRadioLabels = false,
   isEdited = false,
   size = 'small',
   ...controllerProps
@@ -88,7 +85,6 @@ export const RhfRadioGroup = <T extends FieldValues>({
       legend={legend}
       description={description}
       error={getError(errors, name)}
-      className={hideRadioLabels ? styles.hideRadioLabels : ''}
       hideLegend={hideLegend}
     >
       {!isHorizontal &&

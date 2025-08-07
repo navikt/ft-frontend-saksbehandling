@@ -1,13 +1,19 @@
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { Detail, HStack } from '@navikt/ds-react';
+import { Detail, HStack, Radio } from '@navikt/ds-react';
 
-import { RhfRadioGroup, RhfTextarea } from '@navikt/ft-form-hooks';
+import { RhfRadioGroupNew, RhfTextarea } from '@navikt/ft-form-hooks';
+
+// TODO (TOR) Er denne i bruk? (Det mangla tekstar her utan at det har blitt rapportert som feil)
+
+type FormValues = {
+  periodenErForeldet?: boolean;
+  foreldetBegrunnelse?: string;
+};
 
 export const ForeldetFormPanel = () => {
-  // TODO (TOR) Manglar type
-  const { control } = useFormContext();
+  const { control } = useFormContext<FormValues>();
   return (
     <HStack gap="space-16">
       <RhfTextarea
@@ -16,22 +22,19 @@ export const ForeldetFormPanel = () => {
         label={<FormattedMessage id="ForeldetPanel.Vurdering" />}
         readOnly
       />
-      <RhfRadioGroup
+      <RhfRadioGroupNew
         name="periodenErForeldet"
         control={control}
         label={
           <Detail>
-            <FormattedMessage id="ForeldetPanel.VurderOmPeriodenErForeldet" />
+            <FormattedMessage id="ForeldetFormPanel.VurderOmPeriodenErForeldet" />
           </Detail>
         }
-        radios={[
-          {
-            label: <FormattedMessage id="ForeldetPanel.PeriodenErForeldet" />,
-            value: 'true',
-          },
-        ]}
-        isReadOnly
-      />
+      >
+        <Radio value="true" size="small">
+          <FormattedMessage id="ForeldetFormPanel.PeriodenErForeldet" />
+        </Radio>
+      </RhfRadioGroupNew>
     </HStack>
   );
 };

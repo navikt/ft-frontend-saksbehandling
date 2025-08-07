@@ -18,8 +18,6 @@ import { formNameVurderFaktaBeregning } from '../../../utils/BeregningFormUtils'
 import { type SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
-import tableStyles from '../../felles/tableStyle.module.css';
-
 const defaultBGFordeling = (aktivitetStatuser: string[], kodeverkSamling: KodeverkForPanel) => ({
   andel: kodeverkSamling['AktivitetStatus'].find(
     as => as.kode === aktivitetStatuser.filter(kode => kode === AktivitetStatus.BRUKERS_ANDEL)[0],
@@ -120,7 +118,7 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
 
   return (
     <VStack gap="space-8">
-      <Table size="small" className={tableStyles.tableMedInput}>
+      <Table size="small">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell scope="col" textSize="small">
