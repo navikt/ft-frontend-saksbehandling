@@ -207,6 +207,7 @@ export const SammenligningsgrunnlagAOrdningen = ({
               },
               legend: {
                 data: [arbeidTekst, frilansTekst, ytelseTekst],
+                top: 'top',
               },
               grid: {
                 left: '1%',
