@@ -52,9 +52,9 @@
     "eslint": "9.32.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "stylelint": "16.22.0",
-    "typescript": "5.8.3",
-    "vite": "7.0.6",
+    "stylelint": "16.23.1",
+    "typescript": "5.9.2",
+    "vite": "7.1.0",
     "vitest": "3.2.4"
   },
   "resolutions": {
