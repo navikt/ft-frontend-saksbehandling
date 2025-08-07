@@ -45,8 +45,6 @@ import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndeler
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 import { erKunstigAndel } from './vurderOgFastsettATFL/forms/KunstigArbeidsforhold';
 
-import tableStyles from '../felles/tableStyle.module.css';
-
 const lagNyMS = (aktivitetStatuser: KodeverkMedNavn<'AktivitetStatus'>[]): AndelFieldValue => ({
   andel: finnStatus(aktivitetStatuser, AktivitetStatus.MILITAER_ELLER_SIVIL),
   aktivitetStatus: AktivitetStatus.MILITAER_ELLER_SIVIL,
@@ -246,7 +244,7 @@ export const InntektFieldArray = ({
 
   return (
     <VStack gap="space-8">
-      <Table size="small" className={tableStyles.tableMedInput}>
+      <Table size="small">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell scope="col" textSize="small">

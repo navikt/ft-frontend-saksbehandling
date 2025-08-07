@@ -8,7 +8,6 @@ import type { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } 
 import { BeløpLabel, NoWrap, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { BTag, dateFormat, formaterArbeidsgiver } from '@navikt/ft-utils';
 
-import tableStyles from '../tableStyle.module.css';
 import styles from './naeringsOpplysningsPanel.module.css';
 
 const finnVirksomhetTypeTekst = (næring: Næring): string => {
@@ -104,7 +103,7 @@ export const NaeringsopplysningsPanel = ({ alleAndelerIForstePeriode, arbeidsgiv
         </Table.Header>
 
         {selvstendigNæringer.map(naring => (
-          <Table.Body key={`NaringsWrapper${naring.orgnr}`} className={tableStyles.tableGroup}>
+          <Table.Body key={`NaringsWrapper${naring.orgnr}`}>
             <Table.Row>
               <Table.HeaderCell textSize="small">
                 {lagVisningsnavn(naring, arbeidsgiverOpplysningerPerId)}

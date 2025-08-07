@@ -2,10 +2,10 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { Button, HStack, VStack } from '@navikt/ds-react';
+import { Button, HStack, Radio, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { RhfDatepicker, RhfForm, RhfRadioGroup, RhfTextarea } from '@navikt/ft-form-hooks';
+import { RhfDatepicker, RhfForm, RhfRadioGroupNew, RhfTextarea } from '@navikt/ft-form-hooks';
 import {
   dateBeforeOrEqualToToday,
   hasValidDate,
@@ -74,17 +74,19 @@ export const ForeldelsePeriodeForm = ({
           readOnly={readOnly}
         />
         <HStack gap="space-40">
-          <RhfRadioGroup
+          <RhfRadioGroupNew
             name="foreldet"
             control={formMethods.control}
             label={<FormattedMessage id="ForeldelsePeriodeForm.RadioGroup.Foreldet" />}
             validate={[required]}
-            radios={foreldelseVurderingTyper.map(type => ({
-              label: type.navn,
-              value: type.kode,
-            }))}
             isReadOnly={readOnly}
-          />
+          >
+            {foreldelseVurderingTyper.map(type => (
+              <Radio key={type.kode} value={type.kode} size="small">
+                {type.navn}
+              </Radio>
+            ))}
+          </RhfRadioGroupNew>
           <VStack gap="space-20">
             {(erForeldet || erMedTilleggsfrist) && (
               <RhfDatepicker

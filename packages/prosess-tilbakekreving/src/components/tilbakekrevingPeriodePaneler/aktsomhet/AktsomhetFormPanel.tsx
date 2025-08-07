@@ -1,7 +1,9 @@
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { RhfRadioGroup } from '@navikt/ft-form-hooks';
+import { HStack, Radio } from '@navikt/ds-react';
+
+import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { decodeHtmlEntity, removeSpacesFromNumber } from '@navikt/ft-utils';
 
@@ -72,23 +74,26 @@ export const AktsomhetFormPanel = ({
   const { control } = useFormContext();
   return (
     <>
-      <RhfRadioGroup
+      <RhfRadioGroupNew
         name={`${name}.handletUaktsomhetGrad`}
         control={control}
         label={<FormattedMessage id="AktsomhetFormPanel.HandletUaktsomhetGrad" />}
         validate={[required]}
-        radios={aktsomhetTyper.map(vrt => ({
-          label: erValgtResultatTypeForstoBurdeForstaatt ? (
-            <FormattedMessage id={forstoBurdeForstattTekster[vrt.kode]} />
-          ) : (
-            vrt.navn
-          ),
-          value: vrt.kode,
-        }))}
         isReadOnly={readOnly}
         onChange={resetFields}
-        isHorizontal
-      />
+      >
+        <HStack gap="space-20">
+          {aktsomhetTyper.map(vrt => (
+            <Radio key={vrt.kode} value={vrt.kode} size="small">
+              {erValgtResultatTypeForstoBurdeForstaatt ? (
+                <FormattedMessage id={forstoBurdeForstattTekster[vrt.kode]} />
+              ) : (
+                vrt.navn
+              )}
+            </Radio>
+          ))}
+        </HStack>
+      </RhfRadioGroupNew>
       {uaktsomhetCodes.some(uc => uc === handletUaktsomhetGrad) && (
         <AktsomhetGradFormPanel
           name={`${name}.${handletUaktsomhetGrad}`}

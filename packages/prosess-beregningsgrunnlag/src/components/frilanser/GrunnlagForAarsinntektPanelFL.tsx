@@ -7,8 +7,6 @@ import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { BTag, dateFormat } from '@navikt/ft-utils';
 
-import tableStyle from '../tableStyle.module.css';
-
 type Props = {
   alleAndeler: BeregningsgrunnlagAndel[];
 };
@@ -42,7 +40,7 @@ export const GrunnlagForAarsinntektPanelFL = ({ alleAndeler }: Props) => {
           />
         </Label>
       )}
-      <Table size="small" className={tableStyle.table}>
+      <Table size="small">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell />

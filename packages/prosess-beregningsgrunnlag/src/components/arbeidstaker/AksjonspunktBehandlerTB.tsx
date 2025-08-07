@@ -30,7 +30,6 @@ import type {
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
-import tableStyles from '../tableStyle.module.css';
 
 const formPrefix = 'inntektField';
 
@@ -318,7 +317,7 @@ export const AksjonspunktBehandlerTidsbegrenset = ({
   const formMethods = useFormContext<BeregningFormValues>();
   const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(allePerioder, formMethods, fieldIndex, formName);
   return (
-    <Table className={tableStyles.table}>
+    <Table>
       <Table.Header>{createPerioderRow(bruttoPrPeriodeList)}</Table.Header>
       <Table.Body>
         {createRows(

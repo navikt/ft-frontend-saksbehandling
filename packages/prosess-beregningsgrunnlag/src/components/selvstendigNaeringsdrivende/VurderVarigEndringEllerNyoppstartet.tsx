@@ -2,9 +2,9 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { BodyShort, HStack, VStack } from '@navikt/ds-react';
+import { BodyShort, HStack, Radio, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroup, RhfTextarea, RhfTextField } from '@navikt/ft-form-hooks';
+import { RhfRadioGroupNew, RhfTextarea, RhfTextField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
@@ -90,29 +90,24 @@ export const VurderVarigEndringEllerNyoppstartet = ({
   const formMethods = useFormContext<BeregningFormValues>();
   const varigEndringValues = formMethods.watch(formName)[fieldIndex] as VurderOgFastsettValues;
   const varigEndringBekreftetVerdi = varigEndringValues.erVarigEndret;
-  const radioknapper = [
-    {
-      value: 'false',
-      label: radioLabel1,
-    },
-    {
-      value: 'true',
-      label: radioLabel2,
-    },
-  ];
+
   return (
     <VStack gap="space-16">
-      <RhfRadioGroup
+      <RhfRadioGroupNew
         name={`${formName}.${fieldIndex}.${varigEndringRadioname}`}
         control={formMethods.control}
         validate={skalValideres ? [required] : []}
         label={intl.formatMessage({ id: radioLabel })}
-        isHorizontal={false}
         isReadOnly={readOnly}
         isEdited={readOnly && isAksjonspunktClosed}
-        radios={radioknapper}
-        isTrueOrFalseSelection
-      />
+      >
+        <Radio value={false} size="small">
+          {radioLabel1}
+        </Radio>
+        <Radio value={true} size="small">
+          {radioLabel2}
+        </Radio>
+      </RhfRadioGroupNew>
       {varigEndringBekreftetVerdi && (
         <HStack gap="space-16" align="center">
           <BodyShort size="small">{inntektFastsettesText(erVarigEndretArbeidssituasjon)}</BodyShort>

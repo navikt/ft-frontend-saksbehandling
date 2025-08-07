@@ -1,9 +1,9 @@
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { Label, VStack } from '@navikt/ds-react';
+import { HStack, Label, Radio, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroup, RhfTextarea } from '@navikt/ft-form-hooks';
+import { RhfRadioGroupNew, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
@@ -68,55 +68,56 @@ export const AktsomhetGradUaktsomhetFormPanel = ({
   name,
 }: Props) => {
   // TODO (TOR) Manglar type
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
+
+  const erUnder4Rettsgebyg = watch(`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`);
 
   const grovUaktsomOffset = erValgtResultatTypeForstoBurdeForstaatt ? 180 : 200;
   return (
     <ArrowBox alignOffset={handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM ? grovUaktsomOffset : 20}>
       <div className={styles.panelWidth}>
         {handletUaktsomhetGrad === Aktsomhet.SIMPEL_UAKTSOM && erTotalBelopUnder4Rettsgebyr && (
-          <RhfRadioGroup
-            name={`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`}
-            control={control}
-            label={<FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.Tilbakekrev" />}
-            validate={[required]}
-            isTrueOrFalseSelection
-            isHorizontal
-            isReadOnly={readOnly}
-            radios={[
-              {
-                label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />,
-                value: 'true',
-                element: (
-                  <div style={{ marginTop: '10px' }}>
-                    <SærligGrunnerBegrunnelseDiv name={name} readOnly={readOnly} />
-                    <AktsomhetSarligeGrunnerFormPanel
-                      name={name}
-                      harGrunnerTilReduksjon={harGrunnerTilReduksjon}
-                      erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
-                      sarligGrunnTyper={sarligGrunnTyper}
-                      harMerEnnEnYtelse={harMerEnnEnYtelse}
-                      feilutbetalingBelop={feilutbetalingBelop}
-                      readOnly={readOnly}
-                      handletUaktsomhetGrad={handletUaktsomhetGrad}
-                      andelSomTilbakekreves={andelSomTilbakekreves}
-                    />
-                  </div>
-                ),
-              },
-              {
-                label: <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />,
-                value: 'false',
-                element: (
-                  <div style={{ marginTop: '10px' }}>
-                    <ArrowBox alignOffset={55}>
-                      <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.AllePerioderBehandlesLikt" />
-                    </ArrowBox>
-                  </div>
-                ),
-              },
-            ]}
-          />
+          <>
+            <RhfRadioGroupNew
+              name={`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`}
+              control={control}
+              label={<FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.Tilbakekrev" />}
+              validate={[required]}
+              isReadOnly={readOnly}
+            >
+              <HStack gap="space-16">
+                <Radio value={true} size="small">
+                  <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />
+                </Radio>
+                <Radio value={false} size="small">
+                  <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />
+                </Radio>
+              </HStack>
+            </RhfRadioGroupNew>
+            {erUnder4Rettsgebyg && (
+              <div style={{ marginTop: '10px' }}>
+                <SærligGrunnerBegrunnelseDiv name={name} readOnly={readOnly} />
+                <AktsomhetSarligeGrunnerFormPanel
+                  name={name}
+                  harGrunnerTilReduksjon={harGrunnerTilReduksjon}
+                  erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
+                  sarligGrunnTyper={sarligGrunnTyper}
+                  harMerEnnEnYtelse={harMerEnnEnYtelse}
+                  feilutbetalingBelop={feilutbetalingBelop}
+                  readOnly={readOnly}
+                  handletUaktsomhetGrad={handletUaktsomhetGrad}
+                  andelSomTilbakekreves={andelSomTilbakekreves}
+                />
+              </div>
+            )}
+            {erUnder4Rettsgebyg === false && (
+              <div style={{ marginTop: '10px' }}>
+                <ArrowBox alignOffset={55}>
+                  <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.AllePerioderBehandlesLikt" />
+                </ArrowBox>
+              </div>
+            )}
+          </>
         )}
         {(handletUaktsomhetGrad !== Aktsomhet.SIMPEL_UAKTSOM || !erTotalBelopUnder4Rettsgebyr) && (
           <>

@@ -1,10 +1,10 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
-import { List, ReadMore, VStack } from '@navikt/ds-react';
+import { List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroup } from '@navikt/ft-form-hooks';
+import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import type {
@@ -28,7 +28,6 @@ import type {
 } from '../../../../typer/interface/BeregningFaktaAP';
 import type { KodeverkForPanel } from '../../../../typer/KodeverkForPanel';
 import type { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
-import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import {
   andelsnrMottarYtelseMap,
@@ -79,12 +78,11 @@ const MottarYtelseArbeidsforholdRadioAndInputs = ({
   arbeidsgiverOpplysningerPerId,
   aktivtBeregningsgrunnlagIndeks,
 }: MottarProps): React.ReactNode => {
-  const intl = useIntl();
   const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const key = utledArbeidsforholdFieldName(andel);
 
   return (
-    <RhfRadioGroup
+    <RhfRadioGroupNew
       name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${key}`}
       control={control}
       label={
@@ -106,14 +104,16 @@ const MottarYtelseArbeidsforholdRadioAndInputs = ({
           </ReadMore>
         </VStack>
       }
-      isReadOnly={readOnly}
-      radios={[
-        { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-        { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt' }) },
-      ]}
-      parse={parseStringToBoolean}
       validate={readOnly ? [] : [required]}
-    />
+      isReadOnly={readOnly}
+    >
+      <Radio value={true} size="small">
+        <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />
+      </Radio>
+      <Radio value={false} size="small">
+        <FormattedMessage id="BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt" />
+      </Radio>
+    </RhfRadioGroupNew>
   );
 };
 
@@ -162,12 +162,11 @@ export const VurderMottarYtelseForm = ({
     vurderMottarYtelse && vurderMottarYtelse.arbeidstakerAndelerUtenIM
       ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
       : [];
-  const intl = useIntl();
 
   return (
     <>
       {erFrilans && !erATFLSammeOrg(tilfeller) && (
-        <RhfRadioGroup
+        <RhfRadioGroupNew
           name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${frilansFieldName}`}
           control={control}
           label={
@@ -188,20 +187,16 @@ export const VurderMottarYtelseForm = ({
               </ReadMore>
             </VStack>
           }
-          isReadOnly={readOnly}
-          radios={[
-            {
-              value: 'true',
-              label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes' }),
-            },
-            {
-              value: 'false',
-              label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt' }),
-            },
-          ]}
-          parse={parseStringToBoolean}
           validate={readOnly ? [] : [required]}
-        />
+          isReadOnly={readOnly}
+        >
+          <Radio value={true} size="small">
+            <FormattedMessage id="BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes" />
+          </Radio>
+          <Radio value={false} size="small">
+            <FormattedMessage id="BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt" />
+          </Radio>
+        </RhfRadioGroupNew>
       )}
       {arbeidsforholdUtenIM.length > 0 && (
         <VStack gap="space-24">

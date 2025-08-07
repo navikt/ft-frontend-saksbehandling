@@ -2,9 +2,9 @@ import { type ReactElement } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { Alert, ReadMore, VStack } from '@navikt/ds-react';
+import { Alert, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroup, RhfTextField } from '@navikt/ft-form-hooks';
+import { RhfRadioGroupNew, RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
@@ -119,18 +119,20 @@ export const TilkommetInntektsforholdField = ({
 
   return (
     <VStack gap="space-16">
-      <RhfRadioGroup
+      <RhfRadioGroupNew
         name={`${formName}.${formFieldIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.skalRedusereUtbetaling`}
         control={formMethods.control}
         label={getRadioGroupLabel()}
-        radios={[
-          { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Ja' }) },
-          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Nei' }) },
-        ]}
         isReadOnly={readOnly}
         validate={[required]}
-        isTrueOrFalseSelection
-      />
+      >
+        <Radio value={true} size="small">
+          <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Ja" />
+        </Radio>
+        <Radio value={false} size="small">
+          <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Nei" />
+        </Radio>
+      </RhfRadioGroupNew>
       {skalRedusereValg === false && (
         <Alert size="small" variant="info">
           {intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Alert' })}

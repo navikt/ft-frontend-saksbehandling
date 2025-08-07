@@ -1,10 +1,10 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
-import { ReadMore, VStack } from '@navikt/ds-react';
+import { Radio, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroup } from '@navikt/ft-form-hooks';
+import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import type {
   ArbeidsgiverOpplysningerPerId,
@@ -20,7 +20,6 @@ import type {
   VurderteArbeidsforholdTransformedValues,
 } from '../../../typer/interface/BeregningFaktaAP';
 import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
-import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 const createArbeidsforholdRadioKey = (andel: KortvarigAndel): string =>
@@ -67,7 +66,6 @@ export const TidsbegrensetArbeidsforholdForm = ({
   const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const andelsliste = faktaOmBeregning.kortvarigeArbeidsforhold;
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const intl = useIntl();
   if (!andelsliste || andelsliste.length === 0) {
     return null;
   }
@@ -79,12 +77,13 @@ export const TidsbegrensetArbeidsforholdForm = ({
         const visningsNavn = lagVisningsnavn(arbeidsforhold, arbeidsgiverOpplysningerPerId);
 
         return (
-          <RhfRadioGroup
+          <RhfRadioGroupNew
             key={`fastsettTidsbegrensedeForhold_${visningsNavn}`}
             name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.tidsbegrensetValues.${createArbeidsforholdRadioKey(
               andel,
             )}`}
             control={control}
+            validate={[required]}
             label={
               <VStack gap="space-8">
                 <FormattedMessage
@@ -104,13 +103,14 @@ export const TidsbegrensetArbeidsforholdForm = ({
               </VStack>
             }
             isReadOnly={readOnly}
-            radios={[
-              { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-              { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
-            ]}
-            validate={[required]}
-            parse={parseStringToBoolean}
-          />
+          >
+            <Radio value={true} size="small">
+              <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />
+            </Radio>
+            <Radio value={false} size="small">
+              <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />
+            </Radio>
+          </RhfRadioGroupNew>
         );
       })}
     </VStack>

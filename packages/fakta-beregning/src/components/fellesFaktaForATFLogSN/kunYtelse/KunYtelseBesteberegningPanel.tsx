@@ -1,11 +1,11 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 // TODO (SAFIR) PFP-6021 Ta i bruk InntektFieldArray i staden for BrukersAndelFieldArray
-import { BodyShort, Label, Link, VStack } from '@navikt/ds-react';
+import { BodyShort, HStack, Label, Link, Radio, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroup } from '@navikt/ft-form-hooks';
+import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import type { KunYtelse } from '@navikt/ft-types';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
@@ -15,7 +15,6 @@ import type { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
 import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../../utils/BeregningFormUtils';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '../eksterneLenker';
-import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import { BrukersAndelFieldArray } from './BrukersAndelFieldArray';
 
@@ -47,22 +46,25 @@ export const KunYtelseBesteberegning = ({
   const formValues = getValues(`${formNameVurderFaktaBeregning}.${beregningsgrunnlagIndeks}`);
 
   const erBesteberegning = besteberegningField in formValues ? formValues[besteberegningField] : undefined;
-  const intl = useIntl();
+
   return (
     <div>
-      <RhfRadioGroup
+      <RhfRadioGroupNew
         name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.besteberegningField`}
         control={control}
         isReadOnly={readOnly}
         label={<FormattedMessage id="KunYtelsePanel.HarBesteberegning" />}
-        radios={[
-          { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
-        ]}
         validate={readOnly ? [] : [required]}
-        parse={parseStringToBoolean}
-        isHorizontal
-      />
+      >
+        <HStack gap="space-16">
+          <Radio value={true} size="small">
+            <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />
+          </Radio>
+          <Radio value={false} size="small">
+            <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />
+          </Radio>
+        </HStack>
+      </RhfRadioGroupNew>
 
       {erBesteberegning !== undefined && erBesteberegning !== null && (
         <div style={{ marginTop: '10px' }}>
