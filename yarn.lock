@@ -1306,49 +1306,56 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/aksel-icons@npm:7.25.2, @navikt/aksel-icons@npm:^7.25.2":
-  version: 7.25.2
-  resolution: "@navikt/aksel-icons@npm:7.25.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faksel-icons%2F7.25.2%2Fadad3140d8b5598ced14215e3762db22f9137adf"
-  checksum: 3724013903b3249d2386a61b500b4531afab4836f86545673fe8e086e8e387157562399886cbd650a722b209dc43efe4eab7141c2451bde9fcda7cde0edecd8f
+"@navikt/aksel-icons@npm:7.26.0, @navikt/aksel-icons@npm:^7.26.0":
+  version: 7.26.0
+  resolution: "@navikt/aksel-icons@npm:7.26.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faksel-icons%2F7.26.0%2Fe2f5bdc8e9ad03a6022ce385631cc1225b707881"
+  checksum: b305a5a1acdee9e21c57ac4e6faf49ee5fb2fa40928264f25a70b053e5117e0965666ad3ef4487336a7fe5bfd5c75dcc1198fcbcaac287a8725610637baadba9
   languageName: node
   linkType: hard
 
-"@navikt/aksel-stylelint@npm:7.25.2":
-  version: 7.25.2
-  resolution: "@navikt/aksel-stylelint@npm:7.25.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faksel-stylelint%2F7.25.2%2Fc23a728e8cbf9ea196f1c41862d9e794ca72e375"
-  checksum: aec9950d7ffbec094ab5515aa533cf95c4d8381020c35c9220c4a514145606ab8ec261201926a4572583edd18c4bba0abfcf4ef64cbc38b4cc0249ddc8755ce4
+"@navikt/aksel-stylelint@npm:7.26.0":
+  version: 7.26.0
+  resolution: "@navikt/aksel-stylelint@npm:7.26.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Faksel-stylelint%2F7.26.0%2Fcd2afd7ad955316ba394ae84cd28b1fcaacff0d4"
+  checksum: 6c4374dbad10c442196ff1e8aaa55c6193bd36ad4874f0790d2c93a88750d383fad3518066d4d40958f40f1cc3f522d1dbba35b7b0e9f9b7cdf8fe180df38412
   languageName: node
   linkType: hard
 
-"@navikt/ds-css@npm:7.25.2, @navikt/ds-css@npm:^7.25.2":
+"@navikt/ds-css@npm:7.26.0":
+  version: 7.26.0
+  resolution: "@navikt/ds-css@npm:7.26.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-css%2F7.26.0%2F08ce619d01b0642c11b03f6c6a33044e2af3950b"
+  checksum: 42e107aec024bd43ad95bb802a35a33dcaed0603b36ebabe48e98a4223fcae182ed2f17cd17ec622f7365816636438cd452d8dd2723c39a8fbe72c10509f1c98
+  languageName: node
+  linkType: hard
+
+"@navikt/ds-css@npm:^7.25.2":
   version: 7.25.2
   resolution: "@navikt/ds-css@npm:7.25.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-css%2F7.25.2%2Fca763fa9f75666ad85c1efdcc1858f6c6642ecea"
   checksum: d2020829b07d73ab90f347bb0b7bf9bc01b1ca04796137276d5e762918d173e347d86d8c6fc6663aea9325dae451620d2af884a489f1598e93f4f199eea5fce4
   languageName: node
   linkType: hard
 
-"@navikt/ds-react@npm:7.25.2":
-  version: 7.25.2
-  resolution: "@navikt/ds-react@npm:7.25.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-react%2F7.25.2%2Fa4a2cd7c5cd28f463d4dd54fd1ba3d3ebb687245"
+"@navikt/ds-react@npm:7.26.0":
+  version: 7.26.0
+  resolution: "@navikt/ds-react@npm:7.26.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-react%2F7.26.0%2F07f92564bf49776d9b53da470d28d638af35391b"
   dependencies:
     "@floating-ui/react": 0.27.8
     "@floating-ui/react-dom": ^2.0.9
-    "@navikt/aksel-icons": ^7.25.2
-    "@navikt/ds-tokens": ^7.25.2
+    "@navikt/aksel-icons": ^7.26.0
+    "@navikt/ds-tokens": ^7.26.0
     clsx: ^2.1.0
     date-fns: ^4.0.0
     react-day-picker: 9.7.0
   peerDependencies:
     "@types/react": ">=17.0.30"
     react: ">=17.0.0 || >19.0.0-rc"
-  checksum: 93c49e8aa9aab666fb93c3c8e6de67a04b6a23484201605e111960b6b971001a6360e36be12e15417cf8efbc4b53a6b1d784244d6435168bf5b83885fda9c93b
+  checksum: 5a135bd27dbccb9dbae4ea7817a14611033c5ea4007adfa4ab1f2547cc3336b7c5ac8a16a537fd175ead81d52329a1acea0fa8f0501223b336f8c0cdc8bee660
   languageName: node
   linkType: hard
 
-"@navikt/ds-tokens@npm:^7.25.2":
-  version: 7.25.2
-  resolution: "@navikt/ds-tokens@npm:7.25.2::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-tokens%2F7.25.2%2F25b2d855c55c7cab6100b9ddaa3b853e69c83ca6"
-  checksum: dd4a2ba42da5ab39c3e6f2e7502395ded0fc5af32f9a766882b12e96b90d18d2ad1980e5eea3c21375ce8ab9aeaf66ad71941decd23025237bf0f7b27df7c535
+"@navikt/ds-tokens@npm:^7.26.0":
+  version: 7.26.0
+  resolution: "@navikt/ds-tokens@npm:7.26.0::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40navikt%2Fds-tokens%2F7.26.0%2Fb1382b0c82cf8e2ad0cda7c348d4df6fbac233f3"
+  checksum: 2f856fd69cfafda796db3504bc33e6ffd979b26d3afaed9c9f5e6c90a903576aff3941b43c4976617a483f4d794c1919a9e48d9f5a36ae6e2f722e023fb97f3d
   languageName: node
   linkType: hard
 
@@ -1396,9 +1403,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-beregning@workspace:packages/fakta-beregning"
   dependencies:
-    "@navikt/aksel-icons": 7.25.2
-    "@navikt/ds-css": 7.25.2
-    "@navikt/ds-react": 7.25.2
+    "@navikt/aksel-icons": 7.26.0
+    "@navikt/ds-css": 7.26.0
+    "@navikt/ds-react": 7.26.0
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
@@ -1447,9 +1454,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-fordel-beregningsgrunnlag@workspace:packages/fakta-fordel-beregningsgrunnlag"
   dependencies:
-    "@navikt/aksel-icons": 7.25.2
-    "@navikt/ds-css": 7.25.2
-    "@navikt/ds-react": 7.25.2
+    "@navikt/aksel-icons": 7.26.0
+    "@navikt/ds-css": 7.26.0
+    "@navikt/ds-react": 7.26.0
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
@@ -1497,8 +1504,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-tilbakekreving-feilutbetaling@workspace:packages/fakta-tilbakekreving-feilutbetaling"
   dependencies:
-    "@navikt/ds-css": 7.25.2
-    "@navikt/ds-react": 7.25.2
+    "@navikt/ds-css": 7.26.0
+    "@navikt/ds-react": 7.26.0
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
@@ -1537,9 +1544,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-form-hooks@workspace:packages/form-hooks"
   dependencies:
-    "@navikt/aksel-icons": 7.25.2
-    "@navikt/ds-css": 7.25.2
-    "@navikt/ds-react": 7.25.2
+    "@navikt/aksel-icons": 7.26.0
+    "@navikt/ds-css": 7.26.0
+    "@navikt/ds-react": 7.26.0
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
@@ -1598,7 +1605,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-frontend-storybook-utils@workspace:packages/internal/storybook-utils"
   dependencies:
-    "@navikt/ds-react": 7.25.2
+    "@navikt/ds-react": 7.26.0
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-form-hooks": "workspace:^"
@@ -1658,8 +1665,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-plattform-komponenter@workspace:packages/plattform-komponenter"
   dependencies:
-    "@navikt/aksel-icons": 7.25.2
-    "@navikt/ds-react": 7.25.2
+    "@navikt/aksel-icons": 7.26.0
+    "@navikt/ds-react": 7.26.0
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
@@ -1693,9 +1700,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-beregningsgrunnlag@workspace:packages/prosess-beregningsgrunnlag"
   dependencies:
-    "@navikt/aksel-icons": 7.25.2
-    "@navikt/ds-css": 7.25.2
-    "@navikt/ds-react": 7.25.2
+    "@navikt/aksel-icons": 7.26.0
+    "@navikt/ds-css": 7.26.0
+    "@navikt/ds-react": 7.26.0
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
@@ -1742,9 +1749,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-tilbakekreving-foreldelse@workspace:packages/prosess-tilbakekreving-foreldelse"
   dependencies:
-    "@navikt/aksel-icons": 7.25.2
-    "@navikt/ds-css": 7.25.2
-    "@navikt/ds-react": 7.25.2
+    "@navikt/aksel-icons": 7.26.0
+    "@navikt/ds-css": 7.26.0
+    "@navikt/ds-react": 7.26.0
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
@@ -1785,9 +1792,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-tilbakekreving-vedtak@workspace:packages/prosess-tilbakekreving-vedtak"
   dependencies:
-    "@navikt/aksel-icons": 7.25.2
-    "@navikt/ds-css": 7.25.2
-    "@navikt/ds-react": 7.25.2
+    "@navikt/aksel-icons": 7.26.0
+    "@navikt/ds-css": 7.26.0
+    "@navikt/ds-react": 7.26.0
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
@@ -1829,9 +1836,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-tilbakekreving@workspace:packages/prosess-tilbakekreving"
   dependencies:
-    "@navikt/aksel-icons": 7.25.2
-    "@navikt/ds-css": 7.25.2
-    "@navikt/ds-react": 7.25.2
+    "@navikt/aksel-icons": 7.26.0
+    "@navikt/ds-css": 7.26.0
+    "@navikt/ds-react": 7.26.0
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
@@ -1892,8 +1899,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-ui-komponenter@workspace:packages/ui-komponenter"
   dependencies:
-    "@navikt/aksel-icons": 7.25.2
-    "@navikt/ds-react": 7.25.2
+    "@navikt/aksel-icons": 7.26.0
+    "@navikt/ds-react": 7.26.0
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
@@ -6491,7 +6498,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "ft-frontend-saksbehandling@workspace:."
   dependencies:
-    "@navikt/aksel-stylelint": 7.25.2
+    "@navikt/aksel-stylelint": 7.26.0
     "@navikt/ds-css": ^7.25.2
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
