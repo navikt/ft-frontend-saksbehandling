@@ -25,7 +25,7 @@ describe('BeregningFaktaIndex', () => {
   it('skal kunne løse aksjonspunkt for Arbeid og full AAP', async () => {
     render(<ArbeidOgAAPAp5052 />);
     // TODO: Valider på at AAP ikkje skal kunne endres
-    await userEvent.click(screen.getByLabelText('Benytt BEDRIFT AS (910909088) 03.02.2019 til 01.04.2020'));
+    await userEvent.click(screen.getAllByRole('radio')[0]);
     await userEvent.type(screen.getAllByLabelText('Begrunnelse')[0], 'Test');
     await userEvent.click(screen.getByRole('button', { name: 'Oppdater' }));
     const feltetMåFyllesUtfeilmelding = screen.queryByText('Feltet må fylles ut');
@@ -35,8 +35,8 @@ describe('BeregningFaktaIndex', () => {
   it('skal vise feilmelding dersom ingen benyttede aktiviteter', async () => {
     render(<ArbeidOgDagpengerAp5058 />);
     await userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
-    await userEvent.click(screen.getByLabelText('Ikke benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020'));
-    await userEvent.click(screen.getByLabelText('Ikke benytt Dagpenger 03.02.2019 til 11.11.2019'));
+    await userEvent.click(screen.getAllByRole('radio')[1]);
+    await userEvent.click(screen.getAllByRole('radio')[3]);
     await userEvent.click(screen.getByRole('button', { name: 'Overstyr' }));
 
     const måHaAktivitetFeilmelding = await screen.findByText(
@@ -51,8 +51,8 @@ describe('BeregningFaktaIndex', () => {
     render(<ArbeidOgDagpengerAp5058 />);
     // Trykk på overstyrknapp før vi endrer sidan vi ikkje har aksjonspunkt her
     await userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
-    await userEvent.click(screen.getByLabelText('Ikke benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020'));
-    await userEvent.click(screen.getByLabelText('Ikke benytt Dagpenger 03.02.2019 til 11.11.2019'));
+    await userEvent.click(screen.getAllByRole('radio')[1]);
+    await userEvent.click(screen.getAllByRole('radio')[3]);
     await userEvent.click(screen.getByRole('button', { name: 'Overstyr' }));
     const måHaAktivitetFeilmeldingFørBytteAvTab = await screen.findByText(
       'Må ha minst én aktivitet for å kunne fastsette beregningsgrunnlag',
@@ -63,7 +63,7 @@ describe('BeregningFaktaIndex', () => {
 
     // Bytter tab
     await userEvent.click(screen.getByRole('tab', { name: '13.02.2022 - 20.02.2022' }));
-    expect(screen.getByLabelText('Benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020')).toBeDisabled();
+    expect(screen.getAllByRole('radio')[0]).toBeDisabled();
     await userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
     await userEvent.type(screen.getAllByLabelText('Begrunnelse')[0], 'Test');
     await userEvent.click(screen.getByRole('button', { name: 'Overstyr' }));
@@ -92,7 +92,7 @@ describe('BeregningFaktaIndex', () => {
   it('skal vise read only dersom ikke overstyrer men har overstyringsaksjonspunkt', () => {
     render(<VisningAvOverstyrtAvklarAktiviteterUtenOverstyringsrettighet />);
     expect(screen.getAllByTestId('overstyringsknapp')[0]).toHaveAttribute('aria-disabled', 'true');
-    expect(screen.getByLabelText('Benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020')).toBeDisabled();
+    expect(screen.getAllByRole('radio')[0]).toBeDisabled();
   });
 
   it('skal ikke vise redigertikon dersom arbeid og AAP med utført aksjonspunkt', () => {
@@ -201,8 +201,8 @@ describe('BeregningFaktaIndex', () => {
   it('skal håndtere at aktiviteter i beregning er overstyrt og SB ikke er overstyrer', () => {
     render(<VisningAvOverstyrtAvklarAktiviteterUtenOverstyringsrettighet />);
     expect(screen.queryByTestId('overstyringsknapp')).toHaveAttribute('aria-disabled', 'true');
-    expect(screen.getByLabelText('Benytt BEDRIFT AS (910909088) 03.02.2019 til 14.02.2020')).toBeDisabled();
-    expect(screen.getByLabelText('Benytt Dagpenger 03.02.2019 til 11.11.2019')).toBeDisabled();
+    expect(screen.getAllByRole('radio')[0]).toBeDisabled();
+    expect(screen.getAllByRole('radio')[2]).toBeDisabled();
   });
 
   it('skal kunne fastsette inntekt for arbeidstaker og frilanser i samme organisasjon', async () => {
