@@ -35,8 +35,8 @@
     "storybook": "storybook dev --quiet -p 7001"
   },
   "devDependencies": {
-    "@navikt/aksel-stylelint": "7.26.0",
-    "@navikt/ds-css": "7.26.0",
+    "@navikt/aksel-stylelint": "7.27.0",
+    "@navikt/ds-css": "7.27.0",
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-frontend-storybook-utils": "workspace:^",
     "@storybook/addon-a11y": "9.1.1",
