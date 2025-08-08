@@ -1151,9 +1151,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lerna/create@npm:8.2.4":
-  version: 8.2.4
-  resolution: "@lerna/create@npm:8.2.4"
+"@lerna/create@npm:8.2.3":
+  version: 8.2.3
+  resolution: "@lerna/create@npm:8.2.3"
   dependencies:
     "@npmcli/arborist": 7.5.4
     "@npmcli/package-json": 5.2.0
@@ -1188,6 +1188,7 @@ __metadata:
     js-yaml: 4.1.0
     libnpmpublish: 9.0.9
     load-json-file: 6.2.0
+    lodash: ^4.17.21
     make-dir: 4.0.0
     minimatch: 3.0.5
     multimatch: 5.0.0
@@ -1224,7 +1225,7 @@ __metadata:
     write-pkg: 4.0.0
     yargs: 17.7.2
     yargs-parser: 21.1.1
-  checksum: 79ccd20fac694813728b6582f806f12b3549a3bc87a91d6df6260e0c623b669fa1f84815d985b1c5c9f6d717a57e7407b8e8c5e5e770d7ff39b3bdba9e91883f
+  checksum: 4e8d3f1955c021e7206ebdd0f35e64e11b4396cff5e0fe12611cb5a645166512bd9105dead00f97bee61400b8bbe07dffcaf39eba69d3984e91118d50a71484a
   languageName: node
   linkType: hard
 
@@ -1374,7 +1375,7 @@ __metadata:
   resolution: "@navikt/ft-config-typescript@workspace:packages/internal/config-typescript"
   dependencies:
     "@testing-library/jest-dom": 6.6.4
-    vite: 7.1.0
+    vite: 7.1.1
     vitest: 3.2.4
   languageName: unknown
   linkType: soft
@@ -1385,7 +1386,7 @@ __metadata:
   dependencies:
     "@storybook/react": 9.1.1
     "@vitejs/plugin-react": 5.0.0
-    vite: 7.1.0
+    vite: 7.1.1
     vitest: 3.2.4
   languageName: unknown
   linkType: soft
@@ -1416,9 +1417,9 @@ __metadata:
     react-dom: 19.1.1
     react-hook-form: 7.62.0
     react-intl: 7.1.11
-    stylelint: 16.23.0
+    stylelint: 16.23.1
     typescript: 5.9.2
-    vite: 7.1.0
+    vite: 7.1.1
     vitest: 3.2.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -1466,9 +1467,9 @@ __metadata:
     react: 19.1.1
     react-hook-form: 7.62.0
     react-intl: 7.1.11
-    stylelint: 16.23.0
+    stylelint: 16.23.1
     typescript: 5.9.2
-    vite: 7.1.0
+    vite: 7.1.1
     vitest: 3.2.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -1512,9 +1513,9 @@ __metadata:
     react: 19.1.1
     react-hook-form: 7.62.0
     react-intl: 7.1.11
-    stylelint: 16.23.0
+    stylelint: 16.23.1
     typescript: 5.9.2
-    vite: 7.1.0
+    vite: 7.1.1
     vitest: 3.2.4
   peerDependencies:
     "@navikt/ds-css": 7.x
@@ -1552,9 +1553,9 @@ __metadata:
     react: 19.1.1
     react-dom: 19.1.1
     react-hook-form: 7.62.0
-    stylelint: 16.23.0
+    stylelint: 16.23.1
     typescript: 5.9.2
-    vite: 7.1.0
+    vite: 7.1.1
     vitest: 3.2.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -1584,7 +1585,7 @@ __metadata:
     dayjs: 1.11.13
     eslint: 9.32.0
     typescript: 5.9.2
-    vite: 7.1.0
+    vite: 7.1.1
     vitest: 3.2.4
   peerDependencies:
     "@navikt/ft-utils": 2.x
@@ -1631,7 +1632,7 @@ __metadata:
     "@testing-library/react": 16.3.0
     eslint: 9.32.0
     typescript: 5.9.2
-    vite: 7.1.0
+    vite: 7.1.1
     vitest: 3.2.4
   peerDependencies:
     react: 19.1.0
@@ -1647,7 +1648,7 @@ __metadata:
     "@navikt/ft-config-vite": "workspace:^"
     eslint: 9.32.0
     typescript: 5.9.2
-    vite: 7.1.0
+    vite: 7.1.1
     vitest: 3.2.4
   languageName: unknown
   linkType: soft
@@ -1669,9 +1670,9 @@ __metadata:
     eslint: 9.32.0
     react: 19.1.1
     react-dom: 19.1.1
-    stylelint: 16.23.0
+    stylelint: 16.23.1
     typescript: 5.9.2
-    vite: 7.1.0
+    vite: 7.1.1
     vitest: 3.2.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -1712,9 +1713,9 @@ __metadata:
     react: 19.1.1
     react-hook-form: 7.62.0
     react-intl: 7.1.11
-    stylelint: 16.23.0
+    stylelint: 16.23.1
     typescript: 5.9.2
-    vite: 7.1.0
+    vite: 7.1.1
     vitest: 3.2.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -1758,9 +1759,9 @@ __metadata:
     react: 19.1.1
     react-hook-form: 7.62.0
     react-intl: 7.1.11
-    stylelint: 16.23.0
+    stylelint: 16.23.1
     typescript: 5.9.2
-    vite: 7.1.0
+    vite: 7.1.1
     vitest: 3.2.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -1802,9 +1803,9 @@ __metadata:
     react: 19.1.1
     react-hook-form: 7.62.0
     react-intl: 7.1.11
-    stylelint: 16.23.0
+    stylelint: 16.23.1
     typescript: 5.9.2
-    vite: 7.1.0
+    vite: 7.1.1
     vitest: 3.2.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -1847,9 +1848,9 @@ __metadata:
     react: 19.1.1
     react-hook-form: 7.62.0
     react-intl: 7.1.11
-    stylelint: 16.23.0
+    stylelint: 16.23.1
     typescript: 5.9.2
-    vite: 7.1.0
+    vite: 7.1.1
     vitest: 3.2.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -1879,7 +1880,7 @@ __metadata:
     "@navikt/ft-kodeverk": "workspace:^"
     eslint: 9.32.0
     typescript: 5.9.2
-    vite: 7.1.0
+    vite: 7.1.1
     vitest: 3.2.4
   peerDependencies:
     "@navikt/ft-kodeverk": 3.x
@@ -1904,9 +1905,9 @@ __metadata:
     react: 19.1.1
     react-dom: 19.1.1
     react-intl: 7.1.11
-    stylelint: 16.23.0
+    stylelint: 16.23.1
     typescript: 5.9.2
-    vite: 7.1.0
+    vite: 7.1.1
     vitest: 3.2.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -1932,7 +1933,7 @@ __metadata:
     eslint: 9.32.0
     react-intl: 7.1.11
     typescript: 5.9.2
-    vite: 7.1.0
+    vite: 7.1.1
     vitest: 3.2.4
   peerDependencies:
     dayjs: 1.11.x
@@ -6643,15 +6644,15 @@ __metadata:
     gh-pages: 6.3.0
     husky: 9.1.7
     jsdom: 26.1.0
-    lerna: 8.2.4
+    lerna: 8.2.3
     lint-staged: 16.1.4
     postcss-less: 6.0.0
     prettier: 3.6.2
     storybook: 9.1.1
-    stylelint: 16.23.0
+    stylelint: 16.23.1
     stylelint-order: 7.0.0
     typescript: 5.9.2
-    vite: 7.1.0
+    vite: 7.1.1
     vite-plugin-circular-dependency: 0.5.0
     vite-plugin-dts: 4.5.4
     vitest: 3.2.4
@@ -8149,11 +8150,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lerna@npm:8.2.4":
-  version: 8.2.4
-  resolution: "lerna@npm:8.2.4"
+"lerna@npm:8.2.3":
+  version: 8.2.3
+  resolution: "lerna@npm:8.2.3"
   dependencies:
-    "@lerna/create": 8.2.4
+    "@lerna/create": 8.2.3
     "@npmcli/arborist": 7.5.4
     "@npmcli/package-json": 5.2.0
     "@npmcli/run-script": 8.1.0
@@ -8193,6 +8194,7 @@ __metadata:
     libnpmaccess: 8.0.6
     libnpmpublish: 9.0.9
     load-json-file: 6.2.0
+    lodash: ^4.17.21
     make-dir: 4.0.0
     minimatch: 3.0.5
     multimatch: 5.0.0
@@ -8234,7 +8236,7 @@ __metadata:
     yargs-parser: 21.1.1
   bin:
     lerna: dist/cli.js
-  checksum: ab46ecdf65a35d5171caa1d34023219c444aba328287e8ba49d22310f43918c98feb50b074c3191fa2da4102dd71f1292a4226b68083057c55aa811486c58cd8
+  checksum: 450bbd422e4d4d8ae86389e03797b5330a4718614c70f5820b4dc3099869a98839a1b0bebaace049c7a65a0e31010c1d77c4892a21eedbe29e15035219ff6a17
   languageName: node
   linkType: hard
 
@@ -11563,9 +11565,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:16.23.0":
-  version: 16.23.0
-  resolution: "stylelint@npm:16.23.0"
+"stylelint@npm:16.23.1":
+  version: 16.23.1
+  resolution: "stylelint@npm:16.23.1"
   dependencies:
     "@csstools/css-parser-algorithms": ^3.0.5
     "@csstools/css-tokenizer": ^3.0.4
@@ -11607,7 +11609,7 @@ __metadata:
     write-file-atomic: ^5.0.1
   bin:
     stylelint: bin/stylelint.mjs
-  checksum: ce20fd99d184795a439f9a27223e71c9175749953bde2d2f4566e588d1ad166889ad4648a6871c240ec81991f0d9cb9e123b39262ff3ca20877fb3cb75693e69
+  checksum: e86bd662f3fa6b77c4fa6c72a8ba9fa0dcf46937dedd86a9fbc0e1193f55c4f26d4ae595990fa1e288d96f112859158094fa8566681ce6282e2bab33ec60c676
   languageName: node
   linkType: hard
 
@@ -12380,9 +12382,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:7.1.0":
-  version: 7.1.0
-  resolution: "vite@npm:7.1.0"
+"vite@npm:7.1.1":
+  version: 7.1.1
+  resolution: "vite@npm:7.1.1"
   dependencies:
     esbuild: ^0.25.0
     fdir: ^6.4.6
@@ -12431,7 +12433,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: cc99b8e9de6017d30a0a2a221470f86d96dd5c06bc947590776526bb13783f77e52fe20a5c4318d8d2b501ee5d469af239b4cefb940ca4d135d1f176ea39a51e
+  checksum: 608b953c9e3067f533874093b2fc7cf7bf47864904fd73dfbb3a6b36395ea710a14fbc76a2ae78661a565b7398a30110eca44837942ac585b9c9b59e6550d114
   languageName: node
   linkType: hard
 
