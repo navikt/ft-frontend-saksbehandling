@@ -11,16 +11,16 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ds-react": "7.25.2",
+    "@navikt/ds-react": "7.26.0",
     "@navikt/ft-form-hooks": "workspace:^",
-    "react": "19.1.0",
-    "react-hook-form": "7.61.1",
+    "react": "19.1.1",
+    "react-hook-form": "7.62.0",
     "react-intl": "7.1.11"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "eslint": "9.32.0",
-    "typescript": "5.8.3"
+    "typescript": "5.9.2"
   }
 }
