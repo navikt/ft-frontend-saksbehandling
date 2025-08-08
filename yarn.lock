@@ -1542,8 +1542,8 @@ __metadata:
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
-    "@navikt/ft-ui-komponenter": ^6.0.0
-    "@navikt/ft-utils": ^3.7.0
+    "@navikt/ft-ui-komponenter": ^6.0.1
+    "@navikt/ft-utils": ^3.7.1
     "@testing-library/dom": 10.4.1
     "@testing-library/react": 16.3.0
     "@testing-library/user-event": 14.6.1
@@ -1581,7 +1581,7 @@ __metadata:
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
-    "@navikt/ft-utils": ^3.7.0
+    "@navikt/ft-utils": ^3.7.1
     dayjs: 1.11.13
     eslint: 9.32.0
     typescript: 5.9.2
@@ -1887,7 +1887,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-ui-komponenter@^6.0.0, @navikt/ft-ui-komponenter@workspace:^, @navikt/ft-ui-komponenter@workspace:packages/ui-komponenter":
+"@navikt/ft-ui-komponenter@^6.0.1, @navikt/ft-ui-komponenter@workspace:^, @navikt/ft-ui-komponenter@workspace:packages/ui-komponenter":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-ui-komponenter@workspace:packages/ui-komponenter"
   dependencies:
@@ -1922,7 +1922,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-utils@^3.7.0, @navikt/ft-utils@workspace:^, @navikt/ft-utils@workspace:packages/utils":
+"@navikt/ft-utils@^3.7.1, @navikt/ft-utils@workspace:^, @navikt/ft-utils@workspace:packages/utils":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-utils@workspace:packages/utils"
   dependencies:
