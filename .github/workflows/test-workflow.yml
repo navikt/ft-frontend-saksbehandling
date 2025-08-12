@@ -11,29 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Restore Yarn cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            .yarn/cache
-            **/node_modules
-          key: yarn-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            yarn-${{ runner.os }}-
-
-      - name: Restore Nx/Lerna build cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            .nx/cache
-            .turbo
-            .lerna-cache
-          key: build-cache-${{ runner.os }}-${{ github.sha }}
-          restore-keys: |
-            build-cache-${{ runner.os }}-
-
-      - run: yarn install --frozen-lockfile
+      - uses: ./.github/actions/restore-caches
+      - run: yarn install --immutable
 
   test:
     name: Run Tests
@@ -41,28 +20,7 @@ jobs:
     needs: setup
     steps:
       - uses: actions/checkout@v4
-
-      - name: Restore Yarn cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            .yarn/cache
-            **/node_modules
-          key: yarn-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            yarn-${{ runner.os }}-
-
-      - name: Restore Nx/Lerna build cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            .nx/cache
-            .turbo
-            .lerna-cache
-          key: build-cache-${{ runner.os }}-${{ github.sha }}
-          restore-keys: |
-            build-cache-${{ runner.os }}-
-
+      - uses: ./.github/actions/restore-caches
       - run: yarn test
 
   eslint:
@@ -71,29 +29,26 @@ jobs:
     needs: setup
     steps:
       - uses: actions/checkout@v4
-
-      - name: Restore Yarn cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            .yarn/cache
-            **/node_modules
-          key: yarn-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            yarn-${{ runner.os }}-
-
-      - name: Restore Nx/Lerna build cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            .nx/cache
-            .turbo
-            .lerna-cache
-          key: build-cache-${{ runner.os }}-${{ github.sha }}
-          restore-keys: |
-            build-cache-${{ runner.os }}-
-
+      - uses: ./.github/actions/restore-caches
       - run: yarn eslint .
+
+  stylelint:
+    name: Run Stylelint
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/restore-caches
+      - run: yarn stylelint .
+
+  tsc:
+    name: Run Typescript
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/restore-caches
+      - run: yarn tsc
 
   prettier:
     name: Run Prettier
@@ -101,26 +56,14 @@ jobs:
     needs: setup
     steps:
       - uses: actions/checkout@v4
-
-      - name: Restore Yarn cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            .yarn/cache
-            **/node_modules
-          key: yarn-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            yarn-${{ runner.os }}-
-
-      - name: Restore Nx/Lerna build cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            .nx/cache
-            .turbo
-            .lerna-cache
-          key: build-cache-${{ runner.os }}-${{ github.sha }}
-          restore-keys: |
-            build-cache-${{ runner.os }}-
-
+      - uses: ./.github/actions/restore-caches
       - run: yarn prettier --check .
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/restore-caches
+      - run: yarn build

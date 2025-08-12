@@ -1,0 +1,24 @@
+name: "Restore Yarn + Nx/Lerna caches"
+description: "Restores Yarn Berry and Nx/Lerna caches"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Restore Yarn cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          .yarn/cache
+          **/node_modules
+        key: yarn-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          yarn-${{ runner.os }}-
+
+    - name: Restore Nx/Lerna build cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          .nx/cache
+        key: build-cache-${{ runner.os }}-${{ github.sha }}
+        restore-keys: |
+          build-cache-${{ runner.os }}-
