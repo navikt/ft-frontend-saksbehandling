@@ -39,6 +39,15 @@ jobs:
       - uses: ./.github/actions/restore-caches
       - run: yarn test
 
+  tsc:
+    name: Run Typescript
+    runs-on: ubuntu-latest
+    needs: [setup, build]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/restore-caches
+      - run: yarn tsc
+
   eslint:
     name: Run ESLint
     runs-on: ubuntu-latest
@@ -56,15 +65,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/restore-caches
       - run: yarn stylelint
-
-  tsc:
-    name: Run Typescript
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/restore-caches
-      - run: yarn tsc
 
   prettier:
     name: Run Prettier

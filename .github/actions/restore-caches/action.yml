@@ -1,8 +1,8 @@
-name: "Restore Yarn + Nx/Lerna caches"
-description: "Restores Yarn Berry and Nx/Lerna caches"
+name: 'Restore Yarn + Nx/Lerna caches'
+description: 'Restores Yarn Berry and Nx/Lerna caches'
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Restore Yarn cache
       uses: actions/cache@v4
