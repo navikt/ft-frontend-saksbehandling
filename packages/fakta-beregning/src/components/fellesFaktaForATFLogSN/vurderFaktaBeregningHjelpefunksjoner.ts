@@ -7,8 +7,6 @@ const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBer
 
 export const BEGRUNNELSE_FAKTA_TILFELLER_NAME = 'begrunnelseFaktaTilfeller';
 
-export const parseStringToBoolean = (value: string) => value === 'true';
-
 export const erSubmittable = (submittable: boolean, submitEnabled: boolean, hasErrors: boolean): boolean =>
   submittable && submitEnabled && !hasErrors;
 

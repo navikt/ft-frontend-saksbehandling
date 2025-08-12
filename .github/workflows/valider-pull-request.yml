@@ -1,29 +1,22 @@
 name: Valider pull request
-on: [pull_request]
+on: [ pull_request ]
 jobs:
   valid-pull-request:
     name: Valider pull request
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - name: Hente kode
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Sette yarn-config
-        run: |
-          yarn config set npmScopes.navikt.npmRegistryServer "https://npm.pkg.github.com"
-          yarn config set npmScopes.navikt.npmAlwaysAuth true
-          yarn config set npmScopes.navikt.npmAuthToken $NPM_AUTH_TOKEN
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-
-      - name: Sette opp Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18.8.0
+          node-version: 22.17.1
           cache: 'yarn'
+          registry-url: https://npm.pkg.github.com/
+          always-auth: true
+          token: ${{ secrets.READER_TOKEN }}
 
       - name: Installere dependencies
         run: yarn install --immutable
@@ -31,8 +24,57 @@ jobs:
       - name: Bygg
         run: yarn build
 
-      - name: Typescript and linting
-        run: yarn stylelint && yarn eslint:changed && yarn tsc
+      - name: Stylelint
+        run: yarn stylelint
+
+      - name: ESLint
+        run: yarn eslint:changed
+
+      - name: Typescript
+        run: yarn tsc
 
       - name: Run test
         run: yarn test
+
+  knip-it:
+    name: Kjør knip
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.17.1
+          registry-url: https://npm.pkg.github.com/
+          always-auth: true
+          token: ${{ secrets.READER_TOKEN }}
+          cache: 'yarn'
+
+      - name: Installere dependencies
+        run: yarn install --immutable
+
+      - name: Run knip
+        run: |
+          yarn knip --no-exit-code --reporter=markdown > knip-report.md
+          cat knip-report.md > $GITHUB_STEP_SUMMARY
+
+      - name: Delete previous comments from knip
+        continue-on-error: true
+        run: gh pr comment ${{ github.event.pull_request.number }} --delete-last --yes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Post knip report
+        run: |
+          number_of_words=$(wc -w < knip-report.md)
+          if [ $number_of_words -gt 3 ]; then        
+            gh pr comment ${{ github.event.pull_request.number }} --body-file knip-report.md
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
