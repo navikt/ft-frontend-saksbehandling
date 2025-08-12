@@ -2,47 +2,41 @@ name: CI
 
 on:
   push:
-    branches: [ci/effektiviser-workflow]
+    branches: [main]
   pull_request:
+
+# Reusable YAML anchors for cache restore
+x-restore-yarn-cache: &restore-yarn-cache
+  name: Restore Yarn cache
+  uses: actions/cache@v4
+  with:
+    path: |
+      .yarn/cache
+      **/node_modules
+    key: yarn-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+    restore-keys: |
+      yarn-${{ runner.os }}-
+
+x-restore-build-cache: &restore-build-cache
+  name: Restore Nx/Lerna build cache
+  uses: actions/cache@v4
+  with:
+    path: |
+      .nx/cache
+      .turbo
+      .lerna-cache
+    key: build-cache-${{ runner.os }}-${{ github.sha }}
+    restore-keys: |
+      build-cache-${{ runner.os }}-
 
 jobs:
   setup:
     name: Install & Cache
     runs-on: ubuntu-latest
-    outputs:
-      cache-key: ${{ steps.cache-deps.outputs.cache-hit }} # not needed for keying, but example
     steps:
       - uses: actions/checkout@v4
-
-      # Cache Yarn dependencies
-      - name: Get Yarn cache directory
-        id: yarn-cache-dir
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-
-      - name: Cache Yarn
-        id: cache-deps
-        uses: actions/cache@v4
-        with:
-          path: |
-            ${{ steps.yarn-cache-dir.outputs.dir }}
-            **/node_modules
-          key: yarn-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            yarn-${{ runner.os }}-
-
-      # Cache Nx/Lerna build artifacts
-      - name: Cache Nx (or Lerna) build cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            .nx/cache
-            .turbo
-            .lerna-cache
-          key: build-cache-${{ runner.os }}-${{ github.sha }}
-          restore-keys: |
-            build-cache-${{ runner.os }}-
-
-      # Install dependencies
+      - <<: *restore-yarn-cache
+      - <<: *restore-build-cache
       - run: yarn install --frozen-lockfile
 
   test:
@@ -51,29 +45,8 @@ jobs:
     needs: setup
     steps:
       - uses: actions/checkout@v4
-
-      # Restore caches from setup
-      - name: Get Yarn cache directory
-        id: yarn-cache-dir
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ${{ steps.yarn-cache-dir.outputs.dir }}
-            **/node_modules
-          key: yarn-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: yarn-${{ runner.os }}-
-
-      - uses: actions/cache@v4
-        with:
-          path: |
-            .nx/cache
-            .turbo
-            .lerna-cache
-          key: build-cache-${{ runner.os }}-${{ github.sha }}
-          restore-keys: build-cache-${{ runner.os }}-
-
+      - <<: *restore-yarn-cache
+      - <<: *restore-build-cache
       - run: yarn test
 
   eslint:
@@ -82,24 +55,8 @@ jobs:
     needs: setup
     steps:
       - uses: actions/checkout@v4
-      - name: Get Yarn cache directory
-        id: yarn-cache-dir
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ${{ steps.yarn-cache-dir.outputs.dir }}
-            **/node_modules
-          key: yarn-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: yarn-${{ runner.os }}-
-      - uses: actions/cache@v4
-        with:
-          path: |
-            .nx/cache
-            .turbo
-            .lerna-cache
-          key: build-cache-${{ runner.os }}-${{ github.sha }}
-          restore-keys: build-cache-${{ runner.os }}-
+      - <<: *restore-yarn-cache
+      - <<: *restore-build-cache
       - run: yarn eslint .
 
   prettier:
@@ -108,22 +65,6 @@ jobs:
     needs: setup
     steps:
       - uses: actions/checkout@v4
-      - name: Get Yarn cache directory
-        id: yarn-cache-dir
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ${{ steps.yarn-cache-dir.outputs.dir }}
-            **/node_modules
-          key: yarn-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: yarn-${{ runner.os }}-
-      - uses: actions/cache@v4
-        with:
-          path: |
-            .nx/cache
-            .turbo
-            .lerna-cache
-          key: build-cache-${{ runner.os }}-${{ github.sha }}
-          restore-keys: build-cache-${{ runner.os }}-
+      - <<: *restore-yarn-cache
+      - <<: *restore-build-cache
       - run: yarn prettier --check .
