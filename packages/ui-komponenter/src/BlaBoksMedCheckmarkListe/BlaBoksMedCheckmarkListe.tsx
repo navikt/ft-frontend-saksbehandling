@@ -11,7 +11,7 @@ type Saksopplysning = {
   readMoreContent: ReactNode | ReactNode[] | string;
 };
 
-interface Props {
+export interface Props {
   saksopplysninger: Saksopplysning[];
 }
 

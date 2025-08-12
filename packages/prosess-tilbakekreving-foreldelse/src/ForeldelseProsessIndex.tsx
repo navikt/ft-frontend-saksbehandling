@@ -16,7 +16,7 @@ import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-interface Props {
+export interface Props {
   behandling: Behandling;
   perioderForeldelse: FeilutbetalingPerioderWrapper;
   kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;

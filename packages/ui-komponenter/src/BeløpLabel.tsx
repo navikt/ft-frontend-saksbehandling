@@ -4,7 +4,7 @@ import { KopierbarTekst } from './KopierbarTekst';
 
 import styles from './beløpLabel.module.css';
 
-interface Props {
+export interface Props {
   beløp: string | number | undefined | null;
   kr?: boolean;
   rød?: boolean;

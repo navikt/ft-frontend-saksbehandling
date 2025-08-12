@@ -23,7 +23,7 @@ const Wrapper = ({ withoutBorder, error, children, className }: PropsWrapper) =>
   );
 };
 
-interface Props {
+export interface Props {
   merknaderFraBeslutter?: {
     notAccepted?: boolean;
   };

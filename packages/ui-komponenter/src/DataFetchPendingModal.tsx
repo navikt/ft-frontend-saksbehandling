@@ -13,7 +13,7 @@ const intl = createIntl(messages);
 // Vent to sekund med å vise melding
 const MESSAGE_DELAY_MILLIS = 2000;
 
-interface Props {
+export interface Props {
   pendingMessage: string;
 }
 

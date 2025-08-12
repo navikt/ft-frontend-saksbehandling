@@ -2,7 +2,7 @@ import { type ReactNode } from 'react';
 
 import styles from './fadingPanel.module.css';
 
-interface Props {
+export interface Props {
   withoutTopMargin?: boolean;
   children: ReactNode | ReactNode[];
 }

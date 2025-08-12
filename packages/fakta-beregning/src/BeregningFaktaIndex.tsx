@@ -28,7 +28,7 @@ import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-interface Props {
+export interface Props {
   beregningsgrunnlag?: Beregningsgrunnlag[];
   erOverstyrer: boolean;
   skalKunneOverstyreAktiviteter?: boolean;

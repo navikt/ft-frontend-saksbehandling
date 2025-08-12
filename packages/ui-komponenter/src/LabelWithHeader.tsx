@@ -4,7 +4,7 @@ import { BodyShort, Detail } from '@navikt/ds-react';
 
 import styles from './labelWithHeader.module.css';
 
-interface Props {
+export interface Props {
   header: string | ReactNode;
   texts: string[];
 }

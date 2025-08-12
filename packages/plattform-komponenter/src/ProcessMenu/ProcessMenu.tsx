@@ -2,7 +2,7 @@ import { HStack } from '@navikt/ds-react';
 
 import { Step, type StepProps } from './components/Step';
 
-interface ProcessMenuProps {
+export interface ProcessMenuProps {
   steps: StepProps[];
   onClick?: (index: number) => void;
   stepArrowContainerStyle?: string;

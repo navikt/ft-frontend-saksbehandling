@@ -12,7 +12,7 @@ interface Link {
   icon?: React.ReactNode;
 }
 
-interface SideMenuProps {
+export interface SideMenuProps {
   heading?: string;
   links: Link[];
   onClick: (index: number) => void;

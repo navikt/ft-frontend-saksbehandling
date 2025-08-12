@@ -12,7 +12,7 @@ import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
 dayjs.extend(customParseFormat);
 
-interface Props {
+export interface Props {
   fomName: string;
   tomName: string;
   label?: string | ReactNode;

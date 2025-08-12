@@ -10,12 +10,12 @@ import styles from './rhfTextarea.module.css';
 
 type BadgesType = 'success' | 'info' | 'error' | 'warning';
 
-interface Badges {
+export interface Badges {
   type: BadgesType;
   titleText: string;
 }
 
-type Props<T extends FieldValues> = {
+export type Props<T extends FieldValues> = {
   label: string | ReactNode;
   readOnly?: boolean;
   maxLength?: number;

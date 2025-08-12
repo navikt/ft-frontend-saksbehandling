@@ -11,7 +11,7 @@ import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-interface Props {
+export interface Props {
   tekst: string;
   maksLengde?: number;
 }

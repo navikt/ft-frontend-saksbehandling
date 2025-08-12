@@ -16,7 +16,7 @@ export interface StepProps {
   onClick?: (index: number) => void;
 }
 
-interface ComponentProps {
+export interface ComponentProps {
   index: number;
   stepArrowContainerStyle?: string;
 }

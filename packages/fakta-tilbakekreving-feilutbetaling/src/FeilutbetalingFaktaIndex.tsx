@@ -14,7 +14,7 @@ import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-interface Props {
+export interface Props {
   feilutbetalingFakta: FeilutbetalingFakta;
   feilutbetalingAarsak: FeilutbetalingÅrsak[];
   fagsakYtelseTypeKode: string;

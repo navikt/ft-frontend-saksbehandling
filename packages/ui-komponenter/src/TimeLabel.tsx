@@ -1,6 +1,6 @@
 import { FormattedTime } from 'react-intl';
 
-interface Props {
+export interface Props {
   dateTimeString: string;
 }
 

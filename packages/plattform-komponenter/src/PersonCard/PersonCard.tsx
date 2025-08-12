@@ -11,7 +11,7 @@ import { VisittKort } from './VisittKort';
 
 dayjs.extend(customParseFormat);
 
-interface Props {
+export interface Props {
   name: string;
   fodselsnummer: string;
   gender: Gender;
