@@ -1959,10 +1959,6 @@ __metadata:
     react: 19.1.x
     react-dom: 19.1.x
     react-intl: 7.x
-    react-modal: 3.16.1
-  peerDependenciesMeta:
-    react-modal:
-      optional: true
   languageName: unknown
   linkType: soft
 

@@ -36,13 +36,7 @@
     "classnames": "2.5.1",
     "react": "19.1.x",
     "react-dom": "19.1.x",
-    "react-intl": "7.x",
-    "react-modal": "3.16.1"
-  },
-  "peerDependenciesMeta": {
-    "react-modal": {
-      "optional": true
-    }
+    "react-intl": "7.x"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
