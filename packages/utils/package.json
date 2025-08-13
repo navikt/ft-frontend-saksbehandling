@@ -25,14 +25,6 @@
     "react": "19.1.x",
     "react-intl": "7.x"
   },
-  "peerDependenciesMeta": {
-    "react": {
-      "optional": true
-    },
-    "react-intl": {
-      "optional": true
-    }
-  },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
