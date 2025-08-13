@@ -27,24 +27,21 @@
     "@navikt/ds-react": "7.28.0",
     "@navikt/ft-form-hooks": "workspace:^",
     "@navikt/ft-form-validators": "workspace:^",
+    "@navikt/ft-kodeverk": "workspace:^",
+    "@navikt/ft-types": "workspace:^",
     "@navikt/ft-ui-komponenter": "workspace:^",
-    "@navikt/ft-utils": "workspace:^",
-    "react": "19.1.1",
-    "react-hook-form": "7.62.0",
-    "react-intl": "7.1.11"
+    "@navikt/ft-utils": "workspace:^"
   },
   "peerDependencies": {
     "@navikt/ds-css": "7.x",
     "@navikt/ds-react": "7.x",
     "@navikt/ft-form-hooks": "5.x",
     "@navikt/ft-form-validators": "2.x",
-    "@navikt/ft-kodeverk": "3.x",
-    "@navikt/ft-types": "3.x",
     "@navikt/ft-ui-komponenter": "2.x",
     "@navikt/ft-utils": "2.x",
-    "react": "19.1.0",
+    "react": "19.1.x",
     "react-hook-form": "7.x",
-    "react-intl": "6.x"
+    "react-intl": "7.x"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
@@ -55,6 +52,10 @@
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
     "eslint": "9.33.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "react-hook-form": "7.62.0",
+    "react-intl": "7.1.11",
     "stylelint": "16.23.1",
     "typescript": "5.9.2",
     "vite": "7.1.2",

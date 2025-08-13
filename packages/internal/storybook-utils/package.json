@@ -12,15 +12,15 @@
   },
   "dependencies": {
     "@navikt/ds-react": "7.28.0",
-    "@navikt/ft-form-hooks": "workspace:^",
-    "react": "19.1.1",
-    "react-hook-form": "7.62.0",
-    "react-intl": "7.1.11"
+    "@navikt/ft-form-hooks": "workspace:^"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "eslint": "9.33.0",
+    "react": "19.1.1",
+    "react-hook-form": "7.62.0",
+    "react-intl": "7.1.11",
     "typescript": "5.9.2"
   }
 }

@@ -20,20 +20,26 @@
     "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules"
   },
-  "dependencies": {
-    "dayjs": "1.11.13",
-    "react-intl": "7.1.11"
-  },
   "peerDependencies": {
     "dayjs": "1.11.x",
-    "react": "*",
-    "react-intl": "6.x"
+    "react": "19.1.x",
+    "react-intl": "7.x"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-intl": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "@navikt/ft-config-vite": "workspace:^",
+    "dayjs": "1.11.13",
     "eslint": "9.33.0",
+    "react-intl": "7.1.11",
     "typescript": "5.9.2",
     "vite": "7.1.2",
     "vitest": "3.2.4"

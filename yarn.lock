@@ -1413,6 +1413,7 @@ __metadata:
   resolution: "@navikt/ft-config-typescript@workspace:packages/internal/config-typescript"
   dependencies:
     "@testing-library/jest-dom": 6.6.4
+    typescript: 5.9.2
     vite: 7.1.2
     vitest: 3.2.4
   languageName: unknown
@@ -1473,10 +1474,10 @@ __metadata:
     core-js: 3.37.1
     dayjs: 1.11.x
     dayjs-plugin-utc: 0.1.2
-    react: 19.1.0
-    react-dom: 19.1.0
+    react: 19.1.x
+    react-dom: 19.1.x
     react-hook-form: 7.x
-    react-intl: 6.x
+    react-intl: 7.x
   languageName: unknown
   linkType: soft
 
@@ -1503,6 +1504,7 @@ __metadata:
     dayjs: 1.11.13
     eslint: 9.33.0
     react: 19.1.1
+    react-dom: 19.1.1
     react-hook-form: 7.62.0
     react-intl: 7.1.11
     stylelint: 16.23.1
@@ -1523,9 +1525,9 @@ __metadata:
     classnames: 2.5.1
     core-js: 3.37.1
     dayjs: 1.11.x
-    react: 19.1.0
+    react: 19.1.x
     react-hook-form: 7.x
-    react-intl: 6.x
+    react-intl: 7.x
     uuid: 9.0.1
   languageName: unknown
   linkType: soft
@@ -1542,6 +1544,8 @@ __metadata:
     "@navikt/ft-form-hooks": "workspace:^"
     "@navikt/ft-form-validators": "workspace:^"
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
+    "@navikt/ft-kodeverk": "workspace:^"
+    "@navikt/ft-types": "workspace:^"
     "@navikt/ft-ui-komponenter": "workspace:^"
     "@navikt/ft-utils": "workspace:^"
     "@testing-library/dom": 10.4.1
@@ -1549,6 +1553,7 @@ __metadata:
     "@testing-library/user-event": 14.6.1
     eslint: 9.33.0
     react: 19.1.1
+    react-dom: 19.1.1
     react-hook-form: 7.62.0
     react-intl: 7.1.11
     stylelint: 16.23.1
@@ -1560,13 +1565,11 @@ __metadata:
     "@navikt/ds-react": 7.x
     "@navikt/ft-form-hooks": 5.x
     "@navikt/ft-form-validators": 2.x
-    "@navikt/ft-kodeverk": 3.x
-    "@navikt/ft-types": 3.x
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
-    react: 19.1.0
+    react: 19.1.x
     react-hook-form: 7.x
-    react-intl: 6.x
+    react-intl: 7.x
   languageName: unknown
   linkType: soft
 
@@ -1580,8 +1583,9 @@ __metadata:
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
-    "@navikt/ft-ui-komponenter": ^6.0.2
-    "@navikt/ft-utils": ^3.7.2
+    "@navikt/ft-types": "workspace:^"
+    "@navikt/ft-ui-komponenter": "workspace:^"
+    "@navikt/ft-utils": "workspace:^"
     "@testing-library/dom": 10.4.1
     "@testing-library/react": 16.3.0
     "@testing-library/user-event": 14.6.1
@@ -1600,14 +1604,11 @@ __metadata:
     "@navikt/ds-css": 7.x
     "@navikt/ds-react": 7.x
     "@navikt/ft-form-validators": 2.x
-    "@navikt/ft-types": 3.x
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
     classnames: 2.5.1
     dayjs: 1.11.x
-    lodash.throttle: 4.1.1
-    react: 19.1.0
-    react-dom: 19.1.0
+    react: 19.1.x
     react-hook-form: 7.x
   languageName: unknown
   linkType: soft
@@ -1669,11 +1670,13 @@ __metadata:
     "@navikt/ft-config-vite": "workspace:^"
     "@testing-library/react": 16.3.0
     eslint: 9.33.0
+    react: 19.1.1
+    react-dom: 19.1.1
     typescript: 5.9.2
     vite: 7.1.2
     vitest: 3.2.4
   peerDependencies:
-    react: 19.1.0
+    react: 19.1.x
   languageName: unknown
   linkType: soft
 
@@ -1719,10 +1722,9 @@ __metadata:
     "@popperjs/core": 2.11.8
     classnames: 2.5.1
     dayjs: 1.11.x
-    lodash.throttle: 4.1.1
     prop-types: 15.8.1
-    react: 19.1.0
-    react-dom: 19.1.0
+    react: 19.1.x
+    react-dom: 19.1.x
   languageName: unknown
   linkType: soft
 
@@ -1769,9 +1771,9 @@ __metadata:
     classnames: 2.5.1
     dayjs: 1.11.x
     echarts: 5.5.1
-    react: 19.1.0
+    react: 19.1.x
     react-hook-form: 7.x
-    react-intl: 6.x
+    react-intl: 7.x
   languageName: unknown
   linkType: soft
 
@@ -1814,7 +1816,7 @@ __metadata:
     dayjs: 1.11.x
     react: 19.1.0
     react-hook-form: 7.x
-    react-intl: 6.x
+    react-intl: 7.x
   languageName: unknown
   linkType: soft
 
@@ -1856,9 +1858,9 @@ __metadata:
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
     classnames: 2.5.1
-    react: 19.1.0
+    react: 19.1.x
     react-hook-form: 7.x
-    react-intl: 6.x
+    react-intl: 7.x
   languageName: unknown
   linkType: soft
 
@@ -1900,13 +1902,13 @@ __metadata:
     "@navikt/ft-ui-komponenter": 2.x
     "@navikt/ft-utils": 2.x
     dayjs: 1.11.x
-    react: 19.1.0
-    react-hook-form: 7.53.0
-    react-intl: 6.x
+    react: 19.1.x
+    react-hook-form: 7.x
+    react-intl: 7.x
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-types@workspace:packages/internal/types":
+"@navikt/ft-types@workspace:^, @navikt/ft-types@workspace:packages/internal/types":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-types@workspace:packages/internal/types"
   dependencies:
@@ -1923,7 +1925,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-ui-komponenter@^6.0.2, @navikt/ft-ui-komponenter@workspace:^, @navikt/ft-ui-komponenter@workspace:packages/ui-komponenter":
+"@navikt/ft-ui-komponenter@workspace:^, @navikt/ft-ui-komponenter@workspace:packages/ui-komponenter":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-ui-komponenter@workspace:packages/ui-komponenter"
   dependencies:
@@ -1951,10 +1953,13 @@ __metadata:
     "@navikt/ds-react": 7.x
     "@navikt/ft-utils": 2.x
     classnames: 2.5.1
-    react: 19.1.0
-    react-dom: 19.1.0
-    react-intl: 6.x
+    react: 19.1.x
+    react-dom: 19.1.x
+    react-intl: 7.x
     react-modal: 3.16.1
+  peerDependenciesMeta:
+    react-modal:
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -1973,8 +1978,13 @@ __metadata:
     vitest: 3.2.4
   peerDependencies:
     dayjs: 1.11.x
-    react: "*"
-    react-intl: 6.x
+    react: 19.1.x
+    react-intl: 7.x
+  peerDependenciesMeta:
+    react:
+      optional: true
+    react-intl:
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -3448,12 +3458,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:19.0.3":
-  version: 19.0.3
-  resolution: "@types/react@npm:19.0.3"
+"@types/react@npm:19.1.9":
+  version: 19.1.9
+  resolution: "@types/react@npm:19.1.9"
   dependencies:
     csstype: ^3.0.2
-  checksum: a6c2bcd032522f5c041601a0df1c56288ad66c7973fa672b6c375334dd93295a4d1bfebf9c3498bafb86525f1fd8f4d58175267ed41ef5534b64ba28bd274bb6
+  checksum: 531b1f40e7f93aade4385a56b73e98846ec482ac695ccb0d4da1fc53fa398564f71383cd120cf8b8a9a1ea95f207c3e042d145fa8bc26e4fa57d863459e53b29
   languageName: node
   linkType: hard
 
@@ -10578,14 +10588,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:19.1.0":
-  version: 19.1.0
-  resolution: "react-dom@npm:19.1.0"
+"react-dom@npm:19.1.1":
+  version: 19.1.1
+  resolution: "react-dom@npm:19.1.1"
   dependencies:
     scheduler: ^0.26.0
   peerDependencies:
-    react: ^19.1.0
-  checksum: 1d154b6543467095ac269e61ca59db546f34ef76bcdeb90f2dad41d682cd210aae492e70c85010ed5d0a2caea225e9a55139ebc1a615ee85bf197d7f99678cdf
+    react: ^19.1.1
+  checksum: 71d63df955e99bb58470c6ae12ebb82fa80e2a73147c387b73a31c17bcff803ce8aded52ae0c4391c9b413be0aa449249d8be7d063136826d1f0caba9720a907
   languageName: node
   linkType: hard
 
@@ -10648,10 +10658,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:19.1.0":
-  version: 19.1.0
-  resolution: "react@npm:19.1.0"
-  checksum: c0905f8cfb878b0543a5522727e5ed79c67c8111dc16ceee135b7fe19dce77b2c1c19293513061a8934e721292bfc1517e0487e262d1906f306bdf95fa54d02f
+"react@npm:19.1.1":
+  version: 19.1.1
+  resolution: "react@npm:19.1.1"
+  checksum: f2f18fea5deac87b1167365bd5160bcba64d383c26a37afa905b714ca424f423ef97d8daf53f041ab9ac25a06357fafcf0b5d3b6b84c9d1eace0e621bfeae629
   languageName: node
   linkType: hard
 

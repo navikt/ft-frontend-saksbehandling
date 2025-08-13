@@ -48,7 +48,7 @@
     "dayjs": "1.11.x",
     "react": "19.1.0",
     "react-hook-form": "7.x",
-    "react-intl": "6.x"
+    "react-intl": "7.x"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",

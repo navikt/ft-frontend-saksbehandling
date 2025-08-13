@@ -31,11 +31,7 @@
     "@navikt/ft-ui-komponenter": "workspace:^",
     "@navikt/ft-utils": "workspace:^",
     "core-js": "3.45.0",
-    "dayjs": "1.11.13",
-    "react": "19.1.1",
-    "react-dom": "19.1.1",
-    "react-hook-form": "7.62.0",
-    "react-intl": "7.1.11"
+    "dayjs": "1.11.13"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "7.x",
@@ -51,10 +47,10 @@
     "core-js": "3.37.1",
     "dayjs": "1.11.x",
     "dayjs-plugin-utc": "0.1.2",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "react": "19.1.x",
+    "react-dom": "19.1.x",
     "react-hook-form": "7.x",
-    "react-intl": "6.x"
+    "react-intl": "7.x"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
@@ -66,6 +62,10 @@
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
     "eslint": "9.33.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "react-hook-form": "7.62.0",
+    "react-intl": "7.1.11",
     "stylelint": "16.23.1",
     "typescript": "5.9.2",
     "vite": "7.1.2",
