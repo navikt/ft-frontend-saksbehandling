@@ -20,7 +20,7 @@ jobs:
       - name: Configure GitHub Packages Auth
         run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" > ~/.npmrc
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.READER_TOKEN }}
           
       - name: Installere dependencies
         run: yarn install --immutable
@@ -62,7 +62,7 @@ jobs:
       - name: Configure GitHub Packages Auth
         run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" > ~/.npmrc
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Installere dependencies
         run: yarn install --immutable
