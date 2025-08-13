@@ -32,6 +32,7 @@
     "@navikt/ft-types": "workspace:^",
     "@navikt/ft-ui-komponenter": "workspace:^",
     "@navikt/ft-utils": "workspace:^",
+    "classnames": "2.5.1",
     "dayjs": "1.11.13",
     "echarts": "6.0.0"
   },
