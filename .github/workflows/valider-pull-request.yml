@@ -16,7 +16,11 @@ jobs:
           cache: 'yarn'
           registry-url: https://npm.pkg.github.com/
           always-auth: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure GitHub Packages Auth
+        run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" > ~/.npmrc
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Installere dependencies
         run: yarn install --immutable
@@ -53,9 +57,13 @@ jobs:
           node-version: 22.17.1
           registry-url: https://npm.pkg.github.com/
           always-auth: true
-          token: ${{ secrets.GITHUB_TOKEN }}
           cache: 'yarn'
 
+      - name: Configure GitHub Packages Auth
+        run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" > ~/.npmrc
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
       - name: Installere dependencies
         run: yarn install --immutable
 
