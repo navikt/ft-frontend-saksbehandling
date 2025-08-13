@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Alert, Box, Heading, VStack } from '@navikt/ds-react';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
@@ -36,8 +37,10 @@ import { AktsomhetFormPanel } from './tilbakekrevingPeriodePaneler/aktsomhet/Akt
 import { BelopetMottattIGodTroFormPanel } from './tilbakekrevingPeriodePaneler/godTro/BelopetMottattIGodTroFormPanel';
 import { TilbakekrevingTimeline } from './timeline/TilbakekrevingTimeline';
 
+dayjs.extend(isSameOrBefore);
+
 const sortPeriods = (periode1: CustomVilkarsVurdertePeriode, periode2: CustomVilkarsVurdertePeriode) =>
-  moment(periode1.fom).diff(moment(periode2.fom));
+  dayjs(periode1.fom).diff(dayjs(periode2.fom));
 
 const harApentAksjonspunkt = (periode: CustomVilkarsVurdertePeriode) =>
   !periode.erForeldet && (periode.begrunnelse === undefined || periode.erSplittet);
@@ -97,15 +100,14 @@ const finnOriginalPeriode = (
   perioder.find(
     // @ts-expect-error Fiks
     (periode: CustomPeriode) =>
-      !moment(lagretPeriode.fom).isBefore(moment(periode.fom)) &&
-      !moment(lagretPeriode.tom).isAfter(moment(periode.tom)),
+      !dayjs(lagretPeriode.fom).isBefore(dayjs(periode.fom)) && !dayjs(lagretPeriode.tom).isAfter(dayjs(periode.tom)),
   );
 
 const erIkkeLagret = (periode: DetaljertFeilutbetalingPeriode, lagredePerioder: { tom: string; fom: string }[]) =>
   lagredePerioder.every(lagretPeriode => {
     const isOverlapping =
-      moment(periode.fom).isSameOrBefore(moment(lagretPeriode.tom)) &&
-      moment(lagretPeriode.fom).isSameOrBefore(moment(periode.tom));
+      dayjs(periode.fom).isSameOrBefore(dayjs(lagretPeriode.tom)) &&
+      dayjs(lagretPeriode.fom).isSameOrBefore(dayjs(periode.tom));
     return !isOverlapping;
   });
 
