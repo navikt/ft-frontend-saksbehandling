@@ -33,7 +33,6 @@
     "@navikt/ds-css": "7.x",
     "@navikt/ds-react": "7.x",
     "@navikt/ft-utils": "3.x",
-    "classnames": "2.5.1",
     "react": "19.1.x",
     "react-dom": "19.1.x",
     "react-intl": "7.x"

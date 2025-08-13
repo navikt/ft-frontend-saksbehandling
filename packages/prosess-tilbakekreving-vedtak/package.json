@@ -31,8 +31,7 @@
     "@navikt/ft-kodeverk": "workspace:^",
     "@navikt/ft-types": "workspace:^",
     "@navikt/ft-ui-komponenter": "workspace:^",
-    "@navikt/ft-utils": "workspace:^",
-    "classnames": "2.5.1"
+    "@navikt/ft-utils": "workspace:^"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "7.x",
@@ -42,7 +41,6 @@
     "@navikt/ft-form-validators": "4.x",
     "@navikt/ft-ui-komponenter": "6.x",
     "@navikt/ft-utils": "3.x",
-    "classnames": "2.5.1",
     "react": "19.1.x",
     "react-hook-form": "7.x",
     "react-intl": "7.x"

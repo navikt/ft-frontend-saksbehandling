@@ -28,7 +28,6 @@
     "@navikt/ds-react": "7.28.0",
     "@navikt/ft-ui-komponenter": "workspace:^",
     "@navikt/ft-utils": "workspace:^",
-    "classnames": "2.5.1",
     "dayjs": "1.11.13"
   },
   "peerDependencies": {
@@ -38,7 +37,6 @@
     "@navikt/ft-form-validators": "4.x",
     "@navikt/ft-ui-komponenter": "6.x",
     "@navikt/ft-utils": "3.x",
-    "classnames": "2.5.1",
     "dayjs": "1.11.x",
     "react": "19.1.x",
     "react-hook-form": "7.x"

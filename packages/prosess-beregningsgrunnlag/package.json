@@ -32,7 +32,6 @@
     "@navikt/ft-types": "workspace:^",
     "@navikt/ft-ui-komponenter": "workspace:^",
     "@navikt/ft-utils": "workspace:^",
-    "classnames": "2.5.1",
     "dayjs": "1.11.13",
     "echarts": "6.0.0"
   },
@@ -45,7 +44,6 @@
     "@navikt/ft-plattform-komponenter": "10.x",
     "@navikt/ft-ui-komponenter": "6.x",
     "@navikt/ft-utils": "3.x",
-    "classnames": "2.5.1",
     "dayjs": "1.11.x",
     "echarts": "5.5.1",
     "react": "19.1.x",
