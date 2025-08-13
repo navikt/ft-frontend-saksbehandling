@@ -17,9 +17,9 @@ jobs:
           always-auth: true
 
       - name: Configure GitHub Packages Auth
-        run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" > ~/.npmrc
+        run: echo "//npm.pkg.github.com/:_authToken=${READER_TOKEN}" > ~/.npmrc
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          READER_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Installere dependencies
         run: yarn install --immutable
