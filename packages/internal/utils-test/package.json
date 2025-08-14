@@ -11,14 +11,12 @@
     "prettier": "prettier --write src",
     "clean": "rm -rf ./dist ./node_modules"
   },
-  "dependencies": {
-    "react": "19.1.1",
-    "react-intl": "7.1.11"
-  },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "eslint": "9.33.0",
+    "react": "19.1.1",
+    "react-intl": "7.1.11",
     "typescript": "5.9.2"
   }
 }

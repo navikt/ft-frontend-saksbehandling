@@ -17,9 +17,6 @@
   "dependencies": {
     "@navikt/ft-kodeverk": "workspace:^"
   },
-  "peerDependencies": {
-    "@navikt/ft-kodeverk": "3.x"
-  },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
