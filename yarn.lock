@@ -1616,7 +1616,7 @@ __metadata:
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
-    "@navikt/ft-utils": ^3.7.2
+    "@navikt/ft-utils": ^3.8.0
     dayjs: 1.11.13
     eslint: 9.33.0
     typescript: 5.9.2
@@ -1950,7 +1950,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-utils@^3.7.2, @navikt/ft-utils@workspace:^, @navikt/ft-utils@workspace:packages/utils":
+"@navikt/ft-utils@^3.8.0, @navikt/ft-utils@workspace:^, @navikt/ft-utils@workspace:packages/utils":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-utils@workspace:packages/utils"
   dependencies:
