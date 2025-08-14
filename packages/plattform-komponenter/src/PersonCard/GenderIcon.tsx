@@ -24,7 +24,7 @@ export const GenderIcon = ({ gender, isChild = false, size = 30 }: Props) => {
     backgroundColor = 'var(--ax-accent-500)';
   } else if (gender === Gender.female) {
     Icon = FigureOutwardFillIcon;
-    backgroundColor = 'var(--ax-danger-400)';
+    backgroundColor = 'var(--ax-danger-500)';
   }
 
   return <Icon height={size} width={size} color="white" style={{ backgroundColor, borderRadius: '50%' }} />;
