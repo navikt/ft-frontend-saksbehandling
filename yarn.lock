@@ -1914,8 +1914,6 @@ __metadata:
     typescript: 5.9.2
     vite: 7.1.2
     vitest: 3.2.4
-  peerDependencies:
-    "@navikt/ft-kodeverk": 3.x
   languageName: unknown
   linkType: soft
 
