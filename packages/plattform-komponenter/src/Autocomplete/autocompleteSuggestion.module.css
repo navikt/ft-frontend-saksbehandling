@@ -11,7 +11,7 @@
 }
 .autocompleteSuggestion--active {
   background-color: var(--ax-bg-accent-moderate);
-  color: var(--ax-bg-input);
+  color: white;
 }
 
 @media (max-width: 800px) {

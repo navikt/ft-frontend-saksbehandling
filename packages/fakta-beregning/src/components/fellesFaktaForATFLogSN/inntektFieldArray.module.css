@@ -81,7 +81,7 @@
 }
 
 .inntektOldStrikethrough p {
-  color: var(--ax-bg-input);
+  color: var(--ax-text-neutral);
   text-decoration: line-through;
 }
 
