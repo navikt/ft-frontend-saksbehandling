@@ -13,7 +13,7 @@
 }
 .autocomplete ul li {
   clear: both;
-  color: var(--ax-bg-input);
+  color: var(--ax-text-neutral);
   cursor: pointer;
   display: block;
   font-size: initial;

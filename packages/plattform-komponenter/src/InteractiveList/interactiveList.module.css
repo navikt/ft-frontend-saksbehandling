@@ -38,7 +38,7 @@
   width: 0.3125rem;
 }
 .interactiveListElement--active p {
-  color: var(--ax-bg-input);
+  color: var(--ax-text-neutral);
   font-weight: bold;
   text-decoration: none;
 }

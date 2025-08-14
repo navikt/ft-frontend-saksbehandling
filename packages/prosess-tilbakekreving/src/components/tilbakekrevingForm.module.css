@@ -3,7 +3,7 @@
   animation-name: fadein;
   border: 1px solid var(--ax-neutral-200);
   border-radius: 4px;
-  color: var(--ax-bg-input);
+  color: var(--ax-text-neutral);
   margin-top: 8px;
   padding: 20px;
 }
