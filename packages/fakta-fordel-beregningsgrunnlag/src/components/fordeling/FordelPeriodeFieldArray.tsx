@@ -101,11 +101,10 @@ const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn<'Inntektskateg
 
 const summerFordeling = (fields: FordelBeregningsgrunnlagAndelValues[]) => {
   const sum = fields.reduce((acc, { fastsattBelop, readOnlyBelop, skalRedigereInntekt }) => {
-    const parsedValue = removeSpacesFromNumber(fastsattBelop);
     if (skalRedigereInntekt) {
-      return acc + (parsedValue ?? 0);
+      return acc + (removeSpacesFromNumber(fastsattBelop) ?? 0);
     } else {
-      return acc + (readOnlyBelop ? parsedValue : 0);
+      return acc + (removeSpacesFromNumber(readOnlyBelop) ?? 0);
     }
   }, 0);
   return <BeløpLabel beløp={sum} />;
