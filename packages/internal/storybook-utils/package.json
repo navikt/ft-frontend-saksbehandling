@@ -10,15 +10,17 @@
     "eslint:fix": "eslint --fix \"decorators/**/*.ts*\" --color",
     "clean": "rm -rf ./dist ./node_modules"
   },
-  "devDependencies": {
+  "dependencies": {
     "@navikt/ds-react": "7.28.0",
-    "@navikt/ft-config-eslint": "workspace:^",
-    "@navikt/ft-config-typescript": "workspace:^",
     "@navikt/ft-form-hooks": "workspace:^",
-    "eslint": "9.33.0",
     "react": "19.1.1",
     "react-hook-form": "7.62.0",
-    "react-intl": "7.1.11",
+    "react-intl": "7.1.11"
+  },
+  "devDependencies": {
+    "@navikt/ft-config-eslint": "workspace:^",
+    "@navikt/ft-config-typescript": "workspace:^",
+    "eslint": "9.33.0",
     "typescript": "5.9.2"
   }
 }

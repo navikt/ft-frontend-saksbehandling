@@ -22,11 +22,11 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ft-utils": "^3.8.0",
+    "@navikt/ft-utils": "workspace:^",
     "dayjs": "1.11.13"
   },
   "peerDependencies": {
-    "@navikt/ft-utils": "3.x",
+    "@navikt/ft-utils": "2.x",
     "dayjs": "1.11.x"
   },
   "devDependencies": {
