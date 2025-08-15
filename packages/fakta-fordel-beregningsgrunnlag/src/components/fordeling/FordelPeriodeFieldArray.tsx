@@ -303,7 +303,6 @@ export const FordelPeriodeFieldArray = ({
   const skjemaNavn = `${fieldArrayName}.skjemagruppe`;
   const feilmeldinger = valideringsresultat.filter(fm => !!fm);
   const feilmeldingSomSkalVises = feilmeldinger.length > 0 ? feilmeldinger[0] : undefined;
-
   const errorMessage = useCustomValidation(skjemaNavn, feilmeldingSomSkalVises);
 
   const handleBenyttCheckbox = () => {
@@ -414,20 +413,27 @@ export const FordelPeriodeFieldArray = ({
                   />
                 </Table.DataCell>
 
-                <Table.DataCell align="right" textSize="small">
-                  <RhfTextField
-                    control={control}
-                    name={
-                      skalIkkeRedigereInntekt ? `${feltNavnForRad}.readOnlyBelop` : `${feltNavnForRad}.fastsattBelop`
-                    }
-                    size="small"
-                    hideLabel
-                    className={styles.litenBredde}
-                    validate={[required, maxValueFormatted(178956970)]}
-                    parse={parseCurrencyInput}
-                    readOnly={skalIkkeRedigereInntekt || readOnly}
-                    isEdited={skalIkkeRedigereInntekt ? false : isAksjonspunktClosed && !skalIkkeRedigereInntekt}
-                  />
+                <Table.DataCell>
+                  {skalIkkeRedigereInntekt ? (
+                    <RhfTextField
+                      control={control}
+                      name={`${feltNavnForRad}.readOnlyBelop`}
+                      hideLabel
+                      parse={parseCurrencyInput}
+                      readOnly
+                      isEdited={false}
+                    />
+                  ) : (
+                    <RhfTextField
+                      control={control}
+                      name={`${feltNavnForRad}.fastsattBelop`}
+                      hideLabel
+                      parse={parseCurrencyInput}
+                      readOnly={readOnly}
+                      validate={[required, maxValueFormatted(178956970)]}
+                      isEdited={isAksjonspunktClosed && !skalIkkeRedigereInntekt}
+                    />
+                  )}
                 </Table.DataCell>
                 <Table.DataCell textSize="small">
                   <RhfSelect
