@@ -26,7 +26,7 @@
     "dayjs": "1.11.13"
   },
   "peerDependencies": {
-    "@navikt/ft-utils": "3.x",
+    "@navikt/ft-utils": "2.x",
     "dayjs": "1.11.x"
   },
   "devDependencies": {
