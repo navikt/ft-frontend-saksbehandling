@@ -52,7 +52,7 @@
     "husky": "9.1.7",
     "jsdom": "26.1.0",
     "knip": "^5.62.0",
-    "lerna": "8.2.3",
+    "lerna": "8.2.4",
     "lint-staged": "16.1.5",
     "prettier": "3.6.2",
     "storybook": "9.1.2",
@@ -65,7 +65,7 @@
     "vitest": "3.2.4"
   },
   "resolutions": {
-    "tmp": "^0.2.4"
+    "tmp": "^0.2.5"
   },
   "workspaces": {
     "packages": [
