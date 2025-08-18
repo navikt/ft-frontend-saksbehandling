@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { HStack, Radio } from '@navikt/ds-react';
+import { HStack, Radio, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -73,7 +73,7 @@ export const AktsomhetFormPanel = ({
   // TODO (TOR) Manglar type
   const { control } = useFormContext();
   return (
-    <>
+    <VStack gap="space-12">
       <RhfRadioGroupNew
         name={`${name}.handletUaktsomhetGrad`}
         control={control}
@@ -109,7 +109,7 @@ export const AktsomhetFormPanel = ({
           andelSomTilbakekreves={andelSomTilbakekreves}
         />
       )}
-    </>
+    </VStack>
   );
 };
 

@@ -77,7 +77,7 @@ export const AktsomhetGradUaktsomhetFormPanel = ({
     <ArrowBox alignOffset={handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM ? grovUaktsomOffset : 20}>
       <div className={styles.panelWidth}>
         {handletUaktsomhetGrad === Aktsomhet.SIMPEL_UAKTSOM && erTotalBelopUnder4Rettsgebyr && (
-          <>
+          <VStack gap="space-12">
             <RhfRadioGroupNew
               name={`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`}
               control={control}
@@ -95,7 +95,7 @@ export const AktsomhetGradUaktsomhetFormPanel = ({
               </HStack>
             </RhfRadioGroupNew>
             {erUnder4Rettsgebyg && (
-              <div style={{ marginTop: '10px' }}>
+              <>
                 <SærligGrunnerBegrunnelseDiv name={name} readOnly={readOnly} />
                 <AktsomhetSarligeGrunnerFormPanel
                   name={name}
@@ -108,16 +108,14 @@ export const AktsomhetGradUaktsomhetFormPanel = ({
                   handletUaktsomhetGrad={handletUaktsomhetGrad}
                   andelSomTilbakekreves={andelSomTilbakekreves}
                 />
-              </div>
+              </>
             )}
             {erUnder4Rettsgebyg === false && (
-              <div style={{ marginTop: '10px' }}>
-                <ArrowBox alignOffset={55}>
-                  <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.AllePerioderBehandlesLikt" />
-                </ArrowBox>
-              </div>
+              <ArrowBox alignOffset={55}>
+                <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.AllePerioderBehandlesLikt" />
+              </ArrowBox>
             )}
-          </>
+          </VStack>
         )}
         {(handletUaktsomhetGrad !== Aktsomhet.SIMPEL_UAKTSOM || !erTotalBelopUnder4Rettsgebyr) && (
           <>

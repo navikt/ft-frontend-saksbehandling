@@ -65,7 +65,7 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
   }, []);
 
   return (
-    <VStack gap="space-16">
+    <VStack gap="space-12">
       <RhfRadioGroupNew
         name={`${name}.harGrunnerTilReduksjon`}
         control={context.control}

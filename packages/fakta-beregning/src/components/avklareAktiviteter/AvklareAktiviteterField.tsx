@@ -175,35 +175,37 @@ export const AvklareAktiviteterField = ({
           </VStack>
         </Alert>
       )}
-      <HStack gap="space-16">
-        <Label size="small" className={styles.avsnittOverskrift} data-testid="avklareAktiviteterHeading">
-          <FormattedMessage id="AvklarAktivitetPanel.Overskrift" />
-        </Label>
-        {(erOverstyrer || harOverstyrAvklaringsbehov) && (
-          <OverstyringKnapp onClick={() => initializeForm(true)} erOverstyrt={erOverstyrtKnappTrykket} />
+      <VStack gap="space-12">
+        <HStack gap="space-16" align="center">
+          <Label size="small" className={styles.avsnittOverskrift} data-testid="avklareAktiviteterHeading">
+            <FormattedMessage id="AvklarAktivitetPanel.Overskrift" />
+          </Label>
+          {(erOverstyrer || harOverstyrAvklaringsbehov) && (
+            <OverstyringKnapp onClick={() => initializeForm(true)} erOverstyrt={erOverstyrtKnappTrykket} />
+          )}
+        </HStack>
+        {erOverstyrtKnappTrykket && (
+          <Label size="small">
+            <FormattedMessage id="AvklareAktiviteter.OverstyrerAktivitetAdvarsel" />
+          </Label>
         )}
-      </HStack>
-      {erOverstyrtKnappTrykket && (
-        <Label size="small">
-          <FormattedMessage id="AvklareAktiviteter.OverstyrerAktivitetAdvarsel" />
-        </Label>
-      )}
-      {avklarAktiviteter && avklarAktiviteter.aktiviteterTomDatoMapping && (
-        <VStack gap="space-16">
-          <VurderAktiviteterPanel
-            aktiviteterTomDatoMapping={avklarAktiviteter.aktiviteterTomDatoMapping}
-            readOnly={readOnly}
-            isAvklaringsbehovClosed={isAvklaringsbehovClosed}
-            erOverstyrt={erOverstyrtKnappTrykket}
-            kodeverkSamling={kodeverkSamling}
-            values={watch(`avklarAktiviteterForm.${fieldId}`)}
-            harAvklaringsbehov={hasAksjonspunkt(AVKLAR_AKTIVITETER, avklaringsbehovListe)}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            fieldId={fieldId}
-          />
-          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-        </VStack>
-      )}
+        {avklarAktiviteter && avklarAktiviteter.aktiviteterTomDatoMapping && (
+          <VStack gap="space-16">
+            <VurderAktiviteterPanel
+              aktiviteterTomDatoMapping={avklarAktiviteter.aktiviteterTomDatoMapping}
+              readOnly={readOnly}
+              isAvklaringsbehovClosed={isAvklaringsbehovClosed}
+              erOverstyrt={erOverstyrtKnappTrykket}
+              kodeverkSamling={kodeverkSamling}
+              values={watch(`avklarAktiviteterForm.${fieldId}`)}
+              harAvklaringsbehov={hasAksjonspunkt(AVKLAR_AKTIVITETER, avklaringsbehovListe)}
+              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+              fieldId={fieldId}
+            />
+            {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+          </VStack>
+        )}
+      </VStack>
       {skalViseSubmitKnappEllerBegrunnelse(avklaringsbehovListe, erOverstyrtKnappTrykket) && (
         <>
           <FaktaBegrunnelseTextField

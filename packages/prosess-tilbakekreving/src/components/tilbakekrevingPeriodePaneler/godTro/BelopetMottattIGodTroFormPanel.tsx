@@ -45,7 +45,7 @@ export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehol
   const { control } = useFormContext();
 
   return (
-    <VStack gap="space-8">
+    <VStack gap="space-12">
       <RhfRadioGroupNew
         name={`${name}.erBelopetIBehold`}
         control={control}
