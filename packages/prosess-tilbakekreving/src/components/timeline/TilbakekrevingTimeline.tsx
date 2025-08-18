@@ -59,7 +59,7 @@ const formaterPerioder = (periodItems: TidslinjePeriode[] = []): Periode[] =>
 
 const finnIkonGittRelasjon = (relasjonsRolleType: string): ReactElement => {
   if (relasjonsRolleType === RelasjonsRolleType.MOR || relasjonsRolleType === RelasjonsRolleType.MEDMOR) {
-    return <FigureOutwardFillIcon width={20} height={20} color="var(--ax-danger-300)" />;
+    return <FigureOutwardFillIcon width={20} height={20} color="var(--ax-danger-500)" />;
   }
   if (relasjonsRolleType === RelasjonsRolleType.FAR) {
     return <SilhouetteFillIcon width={20} height={20} color="var(--ax-accent-700)" />;

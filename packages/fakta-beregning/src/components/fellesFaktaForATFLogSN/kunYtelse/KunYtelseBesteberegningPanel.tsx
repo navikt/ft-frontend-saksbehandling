@@ -48,7 +48,7 @@ export const KunYtelseBesteberegning = ({
   const erBesteberegning = besteberegningField in formValues ? formValues[besteberegningField] : undefined;
 
   return (
-    <div>
+    <VStack gap="space-12">
       <RhfRadioGroupNew
         name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.besteberegningField`}
         control={control}
@@ -65,36 +65,33 @@ export const KunYtelseBesteberegning = ({
           </Radio>
         </HStack>
       </RhfRadioGroupNew>
-
       {erBesteberegning !== undefined && erBesteberegning !== null && (
-        <div style={{ marginTop: '10px' }}>
-          <ArrowBox alignOffset={erBesteberegning ? 0 : 60}>
-            <VStack gap="space-16">
-              <VStack gap="space-8" justify="space-between">
-                <Label size="small">
-                  <FormattedMessage id="KunYtelsePanel.OverskriftBesteberegning" />
-                </Label>
-                {erBesteberegning && (
-                  <BodyShort>
-                    <Link href={LINK_TIL_BESTE_BEREGNING_REGNEARK} target="_blank" rel="noopener noreferrer">
-                      <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
-                    </Link>
-                  </BodyShort>
-                )}
-              </VStack>
-              {skalViseInntektstabell && (
-                <BrukersAndelFieldArray
-                  name={brukersAndelFieldArrayName}
-                  readOnly={readOnly}
-                  isAksjonspunktClosed={isAksjonspunktClosed}
-                  kodeverkSamling={kodeverkSamling}
-                />
+        <ArrowBox alignOffset={erBesteberegning ? 0 : 60}>
+          <VStack gap="space-16">
+            <VStack gap="space-8" justify="space-between">
+              <Label size="small">
+                <FormattedMessage id="KunYtelsePanel.OverskriftBesteberegning" />
+              </Label>
+              {erBesteberegning && (
+                <BodyShort>
+                  <Link href={LINK_TIL_BESTE_BEREGNING_REGNEARK} target="_blank" rel="noopener noreferrer">
+                    <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
+                  </Link>
+                </BodyShort>
               )}
             </VStack>
-          </ArrowBox>
-        </div>
+            {skalViseInntektstabell && (
+              <BrukersAndelFieldArray
+                name={brukersAndelFieldArrayName}
+                readOnly={readOnly}
+                isAksjonspunktClosed={isAksjonspunktClosed}
+                kodeverkSamling={kodeverkSamling}
+              />
+            )}
+          </VStack>
+        </ArrowBox>
       )}
-    </div>
+    </VStack>
   );
 };
 

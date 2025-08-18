@@ -152,7 +152,7 @@ export const BeregningFaktaIndex = ({
                     label={lagLabel(currentBeregningsgrunnlag, vilkårsperioder)}
                     icon={
                       skalVurderes(currentBeregningsgrunnlag, vilkårsperioder) && (
-                        <ExclamationmarkTriangleFillIcon aria-hidden color="Orange" />
+                        <ExclamationmarkTriangleFillIcon aria-hidden color="var(--ax-bg-warning-strong)" />
                       )
                     }
                   />

@@ -1,11 +1,11 @@
 .aksjonspunktContainer {
-  border: 2px solid #ff9100;
+  border: 2px solid var(--ax-bg-warning-strong);
   border-radius: 3px;
   padding: 1.75rem;
 }
 
 .aksjonspunktContainerLukketAP {
-  border: 2px solid #b0b0b0;
+  border: 2px solid var(--ax-bg-neutral-strong);
   border-radius: 3px;
   padding: 1.75rem;
 }

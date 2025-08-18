@@ -25,44 +25,42 @@ export const AktsomhetGradForsettFormPanel = ({ name, readOnly, erValgtResultatT
     }
   }, []);
   return (
-    <div>
-      <ArrowBox alignOffset={erValgtResultatTypeForstoBurdeForstaatt ? 320 : 360}>
-        {erValgtResultatTypeForstoBurdeForstaatt && (
-          <VStack gap="space-16">
-            <Label size="small">
+    <ArrowBox alignOffset={erValgtResultatTypeForstoBurdeForstaatt ? 320 : 360}>
+      {erValgtResultatTypeForstoBurdeForstaatt && (
+        <VStack gap="space-16">
+          <Label size="small">
+            <FormattedMessage id="AktsomhetGradForsettFormPanel.Andel" />
+          </Label>
+          <BodyShort size="small">100 %</BodyShort>
+          <RhfRadioGroupNew
+            name={`${name}.skalDetTilleggesRenter`}
+            control={context.control}
+            label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
+            validate={[required]}
+            isReadOnly={readOnly}
+          >
+            <Radio value={true} size="small">
+              <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />
+            </Radio>
+            <Radio value={false} size="small">
+              <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />
+            </Radio>
+          </RhfRadioGroupNew>
+        </VStack>
+      )}
+      {!erValgtResultatTypeForstoBurdeForstaatt && (
+        <VStack gap="space-8">
+          <div>
+            <Detail>
               <FormattedMessage id="AktsomhetGradForsettFormPanel.Andel" />
-            </Label>
+            </Detail>
             <BodyShort size="small">100 %</BodyShort>
-            <RhfRadioGroupNew
-              name={`${name}.skalDetTilleggesRenter`}
-              control={context.control}
-              label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
-              validate={[required]}
-              isReadOnly={readOnly}
-            >
-              <Radio value={true} size="small">
-                <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />
-              </Radio>
-              <Radio value={false} size="small">
-                <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />
-              </Radio>
-            </RhfRadioGroupNew>
-          </VStack>
-        )}
-        {!erValgtResultatTypeForstoBurdeForstaatt && (
-          <VStack gap="space-8">
-            <div>
-              <Detail>
-                <FormattedMessage id="AktsomhetGradForsettFormPanel.Andel" />
-              </Detail>
-              <BodyShort size="small">100 %</BodyShort>
-            </div>
-            <BodyShort size="small">
-              <FormattedMessage id="AktsomhetGradForsettFormPanel.Renter" />
-            </BodyShort>
-          </VStack>
-        )}
-      </ArrowBox>
-    </div>
+          </div>
+          <BodyShort size="small">
+            <FormattedMessage id="AktsomhetGradForsettFormPanel.Renter" />
+          </BodyShort>
+        </VStack>
+      )}
+    </ArrowBox>
   );
 };
