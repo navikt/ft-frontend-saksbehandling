@@ -70,7 +70,8 @@
     "axios": "1.11.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "react-test-renderer": "19.1.0"
+    "react-test-renderer": "19.1.0",
+    "tmp": "^0.2.4"
   },
   "workspaces": {
     "packages": [
