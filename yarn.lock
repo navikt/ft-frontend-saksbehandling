@@ -1722,8 +1722,8 @@ __metadata:
     dayjs: 1.11.x
     lodash.throttle: 4.1.1
     prop-types: 15.8.1
-    react: 19.1.0
-    react-dom: 19.1.0
+    react: 19.1.1
+    react-dom: 19.1.1
   languageName: unknown
   linkType: soft
 
@@ -1952,8 +1952,8 @@ __metadata:
     "@navikt/ds-react": 7.x
     "@navikt/ft-utils": 2.x
     classnames: 2.5.1
-    react: 19.1.0
-    react-dom: 19.1.0
+    react: 19.1.1
+    react-dom: 19.1.1
     react-intl: 6.x
     react-modal: 3.16.1
   languageName: unknown
