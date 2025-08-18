@@ -1,7 +1,6 @@
 export default {
   plugins: ['stylelint-order'],
   extends: ['@navikt/aksel-stylelint/recommended'],
-  customSyntax: 'postcss-less',
   rules: {
     'at-rule-empty-line-before': [
       'always',
