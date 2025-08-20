@@ -10,6 +10,7 @@ const TWO_DECIMALS_REGEXP = /^(\d+[,]?(\d{1,2})?)$/;
 const DECIMAL_REGEXP = /^(\d{1,20}[,.]?(\d{1,10})?)$/;
 
 type Props<T extends FieldValues> = {
+  size?: 'medium' | 'small';
   label?: string | ReactNode;
   hideLabel?: boolean;
   validate?: ((value: string) => ValidationReturnType)[] | ((value: number) => ValidationReturnType)[];
@@ -36,6 +37,7 @@ export const RhfNumericField = <T extends FieldValues>({
   className,
   returnAsNumber = false,
   onChange,
+  size = 'small',
   ...controllerProps
 }: Props<T>) => {
   const { name, control, disabled } = controllerProps;
@@ -65,7 +67,7 @@ export const RhfNumericField = <T extends FieldValues>({
 
   return (
     <TextField
-      size="small"
+      size={size}
       description={description}
       label={label}
       error={getError(errors, name)}

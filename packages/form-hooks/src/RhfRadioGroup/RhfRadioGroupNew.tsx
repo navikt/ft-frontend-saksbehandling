@@ -10,14 +10,14 @@ import { getError, getValidationRules, type ValidationReturnType } from '../form
 type Props<T extends FieldValues> = {
   description?: string | ReactNode;
   label?: string | ReactNode;
+  size?: 'medium' | 'small';
+  isReadOnly?: boolean;
+  isEdited?: boolean;
+  hideLegend?: boolean;
   validate?: Array<(value: string | number | boolean) => ValidationReturnType>;
   onChange?: (value: string | boolean | number) => void;
   children: ReactElement | ReactElement[];
   className?: string;
-  isReadOnly?: boolean;
-  size?: 'medium' | 'small';
-  isEdited?: boolean;
-  hideLegend?: boolean;
   control: UseControllerProps<T>['control'];
 } & Omit<UseControllerProps<T>, 'control'>;
 
