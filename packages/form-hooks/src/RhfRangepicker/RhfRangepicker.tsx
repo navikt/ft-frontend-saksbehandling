@@ -23,6 +23,7 @@ interface Props {
   fromDate?: Date;
   toDate?: Date;
   isEdited?: boolean;
+  size?: 'medium' | 'small';
 }
 
 // @deprecated brukes ikke(?)

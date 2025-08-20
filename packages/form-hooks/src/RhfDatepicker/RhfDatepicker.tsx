@@ -16,13 +16,13 @@ type Props<T extends FieldValues> = {
   label?: string | ReactNode;
   hideLabel?: boolean;
   description?: string | ReactNode;
-  validate?: ((value: string) => ValidationReturnType)[];
+  size?: 'medium' | 'small';
   isReadOnly?: boolean;
   onChange?: (value: any) => void;
   disabledDays?: DatePickerProps['disabled'];
   isEdited?: boolean;
+  validate?: ((value: string) => ValidationReturnType)[];
   defaultMonth?: Date;
-  size?: 'medium' | 'small';
   fromDate?: Date;
   toDate?: Date;
   control: UseControllerProps<T>['control'];
@@ -34,13 +34,13 @@ export const RhfDatepicker = <T extends FieldValues>({
   validate = [],
   hideLabel = false,
   isReadOnly = false,
+  size = 'small',
   onChange,
   disabledDays,
   isEdited,
   defaultMonth,
   fromDate,
   toDate,
-  size = 'small',
   ...controllerProps
 }: Props<T>) => {
   const { name, control, disabled } = controllerProps;

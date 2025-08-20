@@ -8,16 +8,16 @@ import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
 type Props<T extends FieldValues> = {
   label: string | ReactNode;
+  size?: 'medium' | 'small';
+  description?: ReactNode;
+  hideLabel?: boolean;
+  readOnly?: boolean;
+  isEdited?: boolean;
   onChange?: (event: any) => void;
   validate?: ((value: string) => ValidationReturnType)[];
-  readOnly?: boolean;
   selectValues: React.ReactElement<any>[];
-  description?: ReactNode;
   hideValueOnDisable?: boolean;
   className?: string;
-  hideLabel?: boolean;
-  isEdited?: boolean;
-  size?: 'medium' | 'small';
   control: UseControllerProps<T>['control'];
 } & Omit<UseControllerProps<T>, 'control'>;
 
@@ -32,7 +32,7 @@ export const RhfSelect = <T extends FieldValues>({
   className,
   hideLabel,
   isEdited,
-  size,
+  size = 'small',
   ...controllerProps
 }: Props<T>) => {
   const { name, control, disabled } = controllerProps;
@@ -64,7 +64,7 @@ export const RhfSelect = <T extends FieldValues>({
 
   return (
     <Select
-      size="small"
+      size={size}
       className={className}
       error={getError(errors, name)}
       label={label}

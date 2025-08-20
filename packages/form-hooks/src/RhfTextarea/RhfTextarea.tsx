@@ -18,14 +18,14 @@ interface Badges {
 type Props<T extends FieldValues> = {
   label: string | ReactNode;
   readOnly?: boolean;
+  size?: 'small' | 'medium';
+  description?: string;
   maxLength?: number;
   badges?: Badges[];
   validate?: ((value: string) => ValidationReturnType)[];
   parse?: (value: string | number) => string | number;
   className?: string;
-  description?: string;
   isEdited?: boolean;
-  size?: 'small' | 'medium';
   control: UseControllerProps<T>['control'];
 } & TextareaProps &
   Omit<UseControllerProps<T>, 'control'>;

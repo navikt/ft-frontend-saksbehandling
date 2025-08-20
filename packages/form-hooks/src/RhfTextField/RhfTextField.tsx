@@ -9,8 +9,15 @@ import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 type Props<T extends FieldValues> = {
   name: string;
   label?: string | ReactNode;
-  validate?: ((value: string) => ValidationReturnType)[] | ((value: number) => ValidationReturnType)[];
   readOnly?: boolean;
+  disabled?: boolean;
+  type?: 'email' | 'password' | 'tel' | 'text' | 'url';
+  isEdited?: boolean;
+  maxLength?: number;
+  autoComplete?: boolean;
+  className?: string;
+  hideLabel?: boolean;
+  validate?: ((value: string) => ValidationReturnType)[] | ((value: number) => ValidationReturnType)[];
   onBlur?: (value: any) => void;
   onChange?: (value: any) => void;
   shouldValidateOnBlur?: boolean;
@@ -18,13 +25,6 @@ type Props<T extends FieldValues> = {
   parse?: (value: string | number) => string | number;
   format?: (value: string) => string;
   normalizeOnBlur?: (value: string | number) => string | number;
-  isEdited?: boolean;
-  maxLength?: number;
-  autoComplete?: boolean;
-  disabled?: boolean;
-  type?: 'email' | 'password' | 'tel' | 'text' | 'url';
-  className?: string;
-  hideLabel?: boolean;
   control: UseControllerProps<T>['control'];
 } & Omit<TextFieldProps, 'label' | 'autoComplete'> &
   Omit<UseControllerProps<T>, 'control'>;
@@ -50,6 +50,7 @@ export const RhfTextField = <T extends FieldValues>({
   disabled,
   className,
   hideLabel,
+  size = 'small',
   ...props
 }: Props<T>) => {
   const {
@@ -66,14 +67,12 @@ export const RhfTextField = <T extends FieldValues>({
   });
 
   if (readOnly) {
-    return (
-      <ReadOnlyField label={label} value={field.value} isEdited={isEdited} hideLabel={hideLabel} size={props.size} />
-    );
+    return <ReadOnlyField label={label} value={field.value} isEdited={isEdited} hideLabel={hideLabel} size={size} />;
   }
 
   return (
     <TextField
-      size="small"
+      size={size}
       hideLabel={hideLabel}
       description={description}
       label={label}

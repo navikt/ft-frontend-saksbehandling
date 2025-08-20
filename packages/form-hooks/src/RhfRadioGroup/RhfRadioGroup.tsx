@@ -15,18 +15,18 @@ export interface RadioProps {
 }
 
 type Props<T extends FieldValues> = {
-  description?: string;
   label?: string | ReactNode;
+  description?: string;
+  hideLegend?: boolean;
+  isHorizontal?: boolean;
+  isTrueOrFalseSelection?: boolean;
+  isReadOnly?: boolean;
+  isEdited?: boolean;
+  size?: 'medium' | 'small';
   radios: RadioProps[];
   validate?: ((value: string | number) => ValidationReturnType)[];
   onChange?: (value: any) => void;
-  isReadOnly?: boolean;
-  isHorizontal?: boolean;
   parse?: (value: string) => any;
-  isTrueOrFalseSelection?: boolean;
-  hideLegend?: boolean;
-  isEdited?: boolean;
-  size?: 'medium' | 'small';
   control: UseControllerProps<T>['control'];
 } & Omit<UseControllerProps<T>, 'control'>;
 
