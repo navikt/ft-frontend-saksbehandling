@@ -1,4 +1,4 @@
-import { Children, type ReactNode } from 'react';
+import { Children, isValidElement, type ReactNode } from 'react';
 
 import { Alert, BodyShort, VStack } from '@navikt/ds-react';
 
@@ -22,9 +22,9 @@ export const AksjonspunktHelpTextHTML = ({ children }: Props) => {
   return (
     <Alert variant="warning" size="small">
       <VStack gap="space-8" data-testid="aksjonspunkt-text-container">
-        {normalizedChildren.map((child, index) => {
+        {normalizedChildren.map(child => {
           return (
-            <BodyShort key={index} size="small">
+            <BodyShort key={getKey(child)} size="small">
               {child}
             </BodyShort>
           );
@@ -32,4 +32,15 @@ export const AksjonspunktHelpTextHTML = ({ children }: Props) => {
       </VStack>
     </Alert>
   );
+};
+
+const getKey = (child: ReactNode) => {
+  if (isValidElement(child)) {
+    return child.key;
+  }
+  if (typeof child === 'string' || typeof child === 'number') {
+    return `tekst-${child}`;
+  }
+
+  return undefined;
 };
