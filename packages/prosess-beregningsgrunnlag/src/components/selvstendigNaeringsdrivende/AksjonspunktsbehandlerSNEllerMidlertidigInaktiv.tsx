@@ -49,7 +49,7 @@ export const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv = ({
   if (!skalFastsette(avklaringsbehov)) {
     return null;
   }
-  const isAksjonspunktClosed = avklaringsbehov ? !isAksjonspunktOpen(avklaringsbehov.status) : false;
+  const isAksjonspunktClosed = !isAksjonspunktOpen(avklaringsbehov);
   if (erNyArbLivet) {
     return (
       <FastsettSNNyIArbeid

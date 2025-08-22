@@ -45,7 +45,7 @@ export const FordelingField = ({
   fieldIndex,
 }: Props) => {
   const avklaringsbehovFordelBeregningsgrunnlag = findAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
-  const isAksjonspunktClosed = !isAksjonspunktOpen(avklaringsbehovFordelBeregningsgrunnlag.status);
+  const isAksjonspunktClosed = !isAksjonspunktOpen(avklaringsbehovFordelBeregningsgrunnlag);
   const formMethods = useFormContext<FordelBeregningsgrunnlagFormValues>();
   const begrunnelse = formMethods.watch(`FORDEL_BEREGNING_FORM.${fieldIndex}.begrunnelse`);
   return (

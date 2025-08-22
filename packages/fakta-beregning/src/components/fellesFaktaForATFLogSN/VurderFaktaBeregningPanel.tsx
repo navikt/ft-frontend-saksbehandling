@@ -40,7 +40,7 @@ const findAvklaringsbehovMedBegrunnelse = (
 };
 
 const hasOpenAksjonspunkt = (kode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
-  avklaringsbehov.some(ap => ap.definisjon === kode && isAksjonspunktOpen(ap.status));
+  avklaringsbehov.some(ap => ap.definisjon === kode && isAksjonspunktOpen(ap));
 
 interface Props {
   readOnly: boolean;

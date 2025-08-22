@@ -19,7 +19,7 @@ export const MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD = 'manuellOverstyringR
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
 const getSkalKunneOverstyre = (erOverstyrer: boolean, avklaringsbehov: BeregningAvklaringsbehov[]) =>
-  erOverstyrer && !avklaringsbehov.some(ap => ap.definisjon === AVKLAR_AKTIVITETER && isAksjonspunktOpen(ap.status));
+  erOverstyrer && !avklaringsbehov.some(ap => ap.definisjon === AVKLAR_AKTIVITETER && isAksjonspunktOpen(ap));
 
 interface Props {
   tabell: React.ReactNode;

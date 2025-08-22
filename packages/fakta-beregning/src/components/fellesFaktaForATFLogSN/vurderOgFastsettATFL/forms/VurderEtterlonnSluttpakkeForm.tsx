@@ -75,7 +75,7 @@ VurderEtterlonnSluttpakkeForm.buildInitialValues = (
   if (!beregningsgrunnlag || !beregningsgrunnlag.beregningsgrunnlagPeriode || !faktaAksjonspunkt) {
     return {};
   }
-  const apErTidligereLost = !isAksjonspunktOpen(faktaAksjonspunkt.status);
+  const apErTidligereLost = !isAksjonspunktOpen(faktaAksjonspunkt);
   const relevanteAndeler = beregningsgrunnlag.beregningsgrunnlagPeriode
     .flatMap(periode => periode.beregningsgrunnlagPrStatusOgAndel)
     .filter(andel => andel?.arbeidsforhold && andel?.arbeidsforhold.arbeidsforholdType === OAType.ETTERLONN_SLUTTPAKKE);

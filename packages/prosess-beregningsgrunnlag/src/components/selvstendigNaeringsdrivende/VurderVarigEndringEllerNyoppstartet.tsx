@@ -155,7 +155,7 @@ VurderVarigEndringEllerNyoppstartet.buildInitialValues = (
       ap.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
   );
   if (varigEndretNaeringAP) {
-    const erVarigEndringValgt = isAksjonspunktOpen(varigEndretNaeringAP.status)
+    const erVarigEndringValgt = isAksjonspunktOpen(varigEndretNaeringAP)
       ? undefined
       : relevanteAndeler[0].overstyrtPrAar !== null && relevanteAndeler[0].overstyrtPrAar !== undefined;
     return {

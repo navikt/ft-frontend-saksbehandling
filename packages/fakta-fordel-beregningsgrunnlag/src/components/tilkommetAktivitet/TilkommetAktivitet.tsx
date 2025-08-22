@@ -240,7 +240,6 @@ export const TilkommetAktivitet = ({
 
   const gjeldendeBeregningsgrunnlag = beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks];
   const ap = findAvklaringsbehov(gjeldendeBeregningsgrunnlag.avklaringsbehov);
-  const erAksjonspunktÅpent = ap ? isAksjonspunktOpen(ap.status) : false;
 
   return (
     <ErrorBoundary errorMessage="Noe gikk galt ved visning av tilkommet aktivitet">
@@ -275,7 +274,7 @@ export const TilkommetAktivitet = ({
                   )
                 }
                 submittable={submittable}
-                erAksjonspunktÅpent={erAksjonspunktÅpent}
+                erAksjonspunktÅpent={isAksjonspunktOpen(ap)}
                 arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
               />
             </div>
