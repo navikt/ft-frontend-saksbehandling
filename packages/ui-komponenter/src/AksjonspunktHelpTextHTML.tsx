@@ -1,11 +1,9 @@
-import React, { type ReactNode } from 'react';
+import { Children, isValidElement, type ReactNode } from 'react';
 
 import { Alert, BodyShort, VStack } from '@navikt/ds-react';
 
-import { isObject } from '@navikt/ft-utils';
-
 interface Props {
-  children: string[] | ReactNode | ReactNode[];
+  children: ReactNode | ReactNode[];
 }
 
 /**
@@ -15,20 +13,34 @@ interface Props {
  * å avklare en eller flere aksjonspunkter.
  */
 export const AksjonspunktHelpTextHTML = ({ children }: Props) => {
-  if (!children || (Array.isArray(children) && children.length === 0)) {
+  const normalizedChildren = Children.toArray(children);
+
+  if (normalizedChildren.length === 0) {
     return null;
   }
 
   return (
     <Alert variant="warning" size="small">
-      <VStack gap="space-8">
-        {React.Children.map(children, child => (
-          // @ts-expect-error Fiks
-          <BodyShort key={isObject(child) ? child.key : child} size="small">
-            {child}
-          </BodyShort>
-        ))}
+      <VStack gap="space-8" data-testid="aksjonspunkt-text-container">
+        {normalizedChildren.map(child => {
+          return (
+            <BodyShort key={getKey(child)} size="small">
+              {child}
+            </BodyShort>
+          );
+        })}
       </VStack>
     </Alert>
   );
+};
+
+const getKey = (child: ReactNode) => {
+  if (isValidElement(child)) {
+    return child.key;
+  }
+  if (typeof child === 'string' || typeof child === 'number') {
+    return `tekst-${child}`;
+  }
+
+  return undefined;
 };

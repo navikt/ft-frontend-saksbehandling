@@ -5,6 +5,7 @@ import { AksjonspunktHelpTextHTML } from './AksjonspunktHelpTextHTML';
 const meta = {
   component: AksjonspunktHelpTextHTML,
 } satisfies Meta<typeof AksjonspunktHelpTextHTML>;
+
 export default meta;
 
 type Story = StoryObj<typeof meta>;
@@ -18,5 +19,22 @@ export const Default: Story = {
 export const SkalIkkeVisesNårDetIkkeErAksjonspunkter: Story = {
   args: {
     children: [],
+  },
+};
+
+export const FlereSammensatteChildren: Story = {
+  args: {
+    children: [null, 'andre element', <span key="1">tredje element</span>],
+  },
+};
+export const EnStringTekst: Story = {
+  args: {
+    children: 'en tekst',
+  },
+};
+
+export const EnReactNodeTekst: Story = {
+  args: {
+    children: <span>en react node</span>,
   },
 };
