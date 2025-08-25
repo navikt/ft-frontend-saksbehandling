@@ -127,7 +127,7 @@ export const AksjonspunktTittel = ({ avklaringsbehov, beregningsgrunnlag }: Prop
     førstePeriode && førstePeriode.beregningsgrunnlagPrStatusOgAndel
       ? førstePeriode.beregningsgrunnlagPrStatusOgAndel
       : [];
-  const åpneAksjonspunkter = avklaringsbehov.filter(ap => isAksjonspunktOpen(ap.status));
+  const åpneAksjonspunkter = avklaringsbehov.filter(isAksjonspunktOpen);
   const harGrunnTilÅViseKomponent = definertOgIkkeTom(åpneAksjonspunkter) && definertOgIkkeTom(andelerIFørstePeriode);
   if (!harGrunnTilÅViseKomponent) {
     return null;

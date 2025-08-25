@@ -4,4 +4,5 @@ export enum AksjonspunktStatus {
   AVBRUTT = 'AVBR',
 }
 
-export const isAksjonspunktOpen = (statusKode: string): boolean => statusKode === AksjonspunktStatus.OPPRETTET;
+export const isAksjonspunktOpen = (ap: { status: string } | undefined): boolean =>
+  ap?.status === AksjonspunktStatus.OPPRETTET;

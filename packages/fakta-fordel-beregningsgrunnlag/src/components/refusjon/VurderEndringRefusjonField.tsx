@@ -59,14 +59,14 @@ export const VurderEndringRefusjonField = ({
   );
   const andeler = beregningsgrunnlag.refusjonTilVurdering?.andeler ?? [];
   const avklaringsbehovRefusjon = finnAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
-  const erAksjonspunktÅpent = avklaringsbehovRefusjon ? isAksjonspunktOpen(avklaringsbehovRefusjon.status) : false;
+  const erAksjonspunktÅpent = isAksjonspunktOpen(avklaringsbehovRefusjon);
   const formMethods = useFormContext<VurderRefusjonFormValues>();
   const begrunnelse = formMethods.watch(`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.begrunnelse`);
   return (
     <VStack gap="space-16">
       {erAksjonspunktÅpent && (
         <AksjonspunktHelpTextHTML>
-          {[<FormattedMessage id="BeregningInfoPanel.RefusjonBG.Aksjonspunkt" key="aksjonspunktText" />]}
+          <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Aksjonspunkt" />
         </AksjonspunktHelpTextHTML>
       )}
       <Heading size="small" level="4">

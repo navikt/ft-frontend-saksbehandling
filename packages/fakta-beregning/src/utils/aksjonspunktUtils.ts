@@ -1,16 +1,15 @@
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import type { BeregningAvklaringsbehov } from '@navikt/ft-types';
 
-import { FaktaBeregningAvklaringsbehovCode } from '../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import { FaktaBeregningAvklaringsbehovCode as AC } from '../typer/interface/FaktaBeregningAvklaringsbehovCode';
 
 export const hasAksjonspunkt = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
   avklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
 
 export const isAksjonspunktClosed = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean => {
-  const relevantAp = avklaringsbehov.filter(
-    ap =>
-      ap.definisjon === FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN ||
-      ap.definisjon === FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-  );
-  return relevantAp.length === 0 ? false : relevantAp.some(ap => !isAksjonspunktOpen(ap.status));
+  return avklaringsbehov
+    .filter(
+      ap => ap.definisjon === AC.VURDER_FAKTA_FOR_ATFL_SN || ap.definisjon === AC.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
+    )
+    .some(ap => !isAksjonspunktOpen(ap));
 };

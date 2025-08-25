@@ -125,11 +125,9 @@ export const AvklareAktiviteterField = ({
   const isAvklaringsbehovClosed =
     avklaringsbehovListe
       .filter(
-        ap =>
-          ap.definisjon === FaktaBeregningAvklaringsbehovCode.AVKLAR_AKTIVITETER ||
-          ap.definisjon === FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
+        ({ definisjon }) => definisjon === AVKLAR_AKTIVITETER || definisjon === OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
       )
-      .filter(ap => isAksjonspunktOpen(ap.status)).length === 0;
+      .filter(isAksjonspunktOpen).length === 0;
 
   const feilmelding = validate(
     watch,

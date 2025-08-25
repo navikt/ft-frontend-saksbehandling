@@ -100,8 +100,7 @@ const lagAndeler = (
     const inntekt = liste.reduce((sum, andel) => finnForeslåttBeløp(andel) + sum, 0);
     const bortfaltNaturalytelse = liste.reduce((sum, andel) => finnNaturalytelsebeløp(andel) + sum, 0);
     const inntektPlussNaturalytelse = (inntekt || 0) + (bortfaltNaturalytelse || 0);
-    const finnesÅpentAksjonspunkt = !!aksjonspunkt && isAksjonspunktOpen(aksjonspunkt.status);
-    const erFerdigBeregnet = alleAndelerErBeregnet && !finnesÅpentAksjonspunkt;
+    const erFerdigBeregnet = alleAndelerErBeregnet && !isAksjonspunktOpen(aksjonspunkt);
     radListe.push({
       inntekt,
       bortfaltNaturalytelse,
