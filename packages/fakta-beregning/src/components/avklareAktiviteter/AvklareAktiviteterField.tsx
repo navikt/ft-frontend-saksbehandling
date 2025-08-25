@@ -122,12 +122,11 @@ export const AvklareAktiviteterField = ({
     updateOverstyring(fieldId, skalOverstyre);
   };
 
-  const isAvklaringsbehovClosed =
-    avklaringsbehovListe
-      .filter(
-        ({ definisjon }) => definisjon === AVKLAR_AKTIVITETER || definisjon === OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-      )
-      .filter(isAksjonspunktOpen).length === 0;
+  const isAvklaringsbehovClosed = !avklaringsbehovListe
+    .filter(
+      ({ definisjon }) => definisjon === AVKLAR_AKTIVITETER || definisjon === OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
+    )
+    .some(isAksjonspunktOpen);
 
   const feilmelding = validate(
     watch,
