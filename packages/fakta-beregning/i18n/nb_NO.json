@@ -64,8 +64,6 @@
   "BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem": "Hvordan går jeg frem?",
   "BeregningInfoPanel.InntektInputFields.HvordanGarJegFremForFastsetteManedsinntekt": "Hvordan går jeg frem for å fastsette månedsinntekten for ytelsen?",
   "BeregningInfoPanel.InntektInputFields.HvaBetyrInntektskategori": "Hva betyr inntektskategori?",
-  "BeregningInfoPanel.AvklareAktiviteterField.HvordanGarJegFrem1": "Undersøk i Modia om søker har full AAP.",
-  "BeregningInfoPanel.AvklareAktiviteterField.HvordanGarJegFrem2": "Ved full AAP skal arbeidsinntekten ikke benyttes.",
 
   "BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrgUtenIM": "<h3>Søker er arbeidstaker og frilans i samme virksomhet.</h3>Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som er arbeidsinntekt og hva som er samlet frilansinntekt.",
   "BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrg": "<h3>Søker er arbeidstaker og frilans i samme virksomhet.</h3>Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som er samlet frilansinntekt.",
