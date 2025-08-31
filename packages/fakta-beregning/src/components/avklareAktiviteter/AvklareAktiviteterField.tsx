@@ -2,18 +2,7 @@ import { useState } from 'react';
 import { useFormContext, type UseFormGetValues } from 'react-hook-form';
 import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
-import {
-  Alert,
-  BodyShort,
-  Button,
-  ErrorMessage,
-  Heading,
-  HStack,
-  Label,
-  List,
-  ReadMore,
-  VStack,
-} from '@navikt/ds-react';
+import { Alert, BodyShort, Button, ErrorMessage, Heading, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { SubmitButton, useCustomValidation } from '@navikt/ft-form-hooks';
 import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
@@ -156,19 +145,6 @@ export const AvklareAktiviteterField = ({
             <BodyShort size="small">
               <FormattedMessage id="VurderAktiviteterTabell.FullAAPKombinert.Overskrift" />
             </BodyShort>
-            <ReadMore
-              size="small"
-              header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
-            >
-              <List size="small">
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.AvklareAktiviteterField.HvordanGarJegFrem1" />
-                </List.Item>
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.AvklareAktiviteterField.HvordanGarJegFrem2" />
-                </List.Item>
-              </List>
-            </ReadMore>
           </VStack>
         </Alert>
       )}
