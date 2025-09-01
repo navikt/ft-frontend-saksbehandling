@@ -7,23 +7,19 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
 
-      - name: Sette yarn-config
-        run: |
-          yarn config set npmScopes.navikt.npmRegistryServer "https://npm.pkg.github.com"
-          yarn config set npmScopes.navikt.npmAlwaysAuth true
-          yarn config set npmScopes.navikt.npmAuthToken $NPM_AUTH_TOKEN
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-          
-      - uses: actions/setup-node@v6
+      - uses: ./.github/actions/setup-yarnrc
+        with:
+          npmAuthToken: ${{ inputs.npmAuthToken }}
+
+      - name: Sette opp node
+        uses: actions/setup-node@v6
         with:
           node-version: 22.17.1
-          cache: 'yarn'
+          cache: yarn
 
       - name: Installere dependencies
+        shell: bash
         run: yarn install --immutable
 
       - name: Bygg
@@ -53,20 +49,18 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Sette yarn-config
-        run: |
-          yarn config set npmScopes.navikt.npmRegistryServer "https://npm.pkg.github.com"
-          yarn config set npmScopes.navikt.npmAlwaysAuth true
-          yarn config set npmScopes.navikt.npmAuthToken $NPM_AUTH_TOKEN
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-          
-      - uses: actions/setup-node@v6
+      - uses: ./.github/actions/setup-yarnrc
+        with:
+          npmAuthToken: ${{ inputs.npmAuthToken }}
+
+      - name: Sette opp node
+        uses: actions/setup-node@v6
         with:
           node-version: 22.17.1
-          cache: 'yarn'
-          
+          cache: yarn
+
       - name: Installere dependencies
+        shell: bash
         run: yarn install --immutable
 
       - name: Run knip
