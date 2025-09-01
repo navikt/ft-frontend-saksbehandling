@@ -14,9 +14,10 @@ jobs:
         with:
           node-version: 22.17.1
           cache: 'yarn'
+          registry-url: https://npm.pkg.github.com
           scope: '@navikt'
-          registry-url: https://npm.pkg.github.com/
-          token: ${{ secrets.READER_TOKEN }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Installere dependencies
         run: yarn install --immutable
