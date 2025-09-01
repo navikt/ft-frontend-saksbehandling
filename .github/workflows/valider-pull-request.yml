@@ -16,7 +16,6 @@ jobs:
           cache: 'yarn'
           scope: '@navikt'
           registry-url: https://npm.pkg.github.com/
-          always-auth: true
           token: ${{ secrets.READER_TOKEN }}
 
       - name: Installere dependencies
@@ -55,11 +54,9 @@ jobs:
           cache: 'yarn'
           scope: '@navikt'
           registry-url: https://npm.pkg.github.com/
-          always-auth: true
           token: ${{ secrets.READER_TOKEN }}
         env:
           NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-
 
       - name: Installere dependencies
         run: yarn install --immutable
