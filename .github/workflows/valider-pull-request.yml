@@ -22,6 +22,10 @@ jobs:
         with:
           node-version: 22.17.1
           cache: 'yarn'
+          scope: '@navikt'
+          registry-url: https://npm.pkg.github.com/
+          always-auth: true
+          token: ${{ secrets.READER_TOKEN }}
 
       - name: Installere dependencies
         run: yarn install --immutable
@@ -52,19 +56,15 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Sette yarn-config
-        run: |
-          yarn config set npmScopes.navikt.npmRegistryServer "https://npm.pkg.github.com"
-          yarn config set npmScopes.navikt.npmAlwaysAuth true
-          yarn config set npmScopes.navikt.npmAuthToken $NPM_AUTH_TOKEN
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
           
       - uses: actions/setup-node@v4
         with:
           node-version: 22.17.1
           cache: 'yarn'
+          scope: '@navikt'
+          registry-url: https://npm.pkg.github.com/
+          always-auth: true
+          token: ${{ secrets.READER_TOKEN }}
           
       - name: Installere dependencies
         run: yarn install --immutable
