@@ -8,9 +8,9 @@ inputs:
 runs:
   using: composite
   steps:
-    - shell: bash
+    - name: Setup yarn-config
+      shell: bash
       run: |
-        corepack enable
         yarn config set npmScopes.navikt.npmRegistryServer "https://npm.pkg.github.com"
         yarn config set npmScopes.navikt.npmAlwaysAuth true
         yarn config set npmScopes.navikt.npmAuthToken ${{ inputs.npmAuthToken }}
