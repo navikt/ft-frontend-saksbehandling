@@ -54,7 +54,6 @@ jobs:
         with:
           node-version: 22.17.1
           cache: 'yarn'
-          scope: '@navikt'
           registry-url: https://npm.pkg.github.com/
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
