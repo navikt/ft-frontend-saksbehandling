@@ -41,7 +41,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          
+
       - name: Setup + Install
         uses: ./.github/actions/setup-install
         with:
@@ -66,6 +66,3 @@ jobs:
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-22:
-  17:
-    1:
