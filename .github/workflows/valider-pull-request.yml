@@ -54,9 +54,6 @@ jobs:
         with:
           node-version: 22.17.1
           cache: 'yarn'
-          registry-url: https://npm.pkg.github.com/
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Installere dependencies
         run: yarn install --immutable
