@@ -59,7 +59,7 @@ export const ForeldelsePeriodeForm = ({
   const erForeldet = foreldet && foreldet === ForeldelseVurderingType.FORELDET;
   const erMedTilleggsfrist = foreldet && foreldet === ForeldelseVurderingType.TILLEGGSFRIST;
   const foreldelseVurderingTyper = kodeverkSamlingFpTilbake['ForeldelseVurderingType'].filter(
-    fv => fv.kode !== ForeldelseVurderingType.IKKE_VURDERT,
+    fv => fv.kode !== ForeldelseVurderingType.IKKE_VURDERT && fv.kode !== ForeldelseVurderingType.UDEFINERT,
   );
 
   return (
