@@ -1,13 +1,13 @@
 .default {
-  --status-color: var(--ax-neutral-300);
-  --status-color-hover: var(--ax-neutral-400);
-  --status-color-active: var(--ax-neutral-500);
+  --status-color: var(--ax-neutral-400);
+  --status-color-hover: var(--ax-neutral-500);
+  --status-color-active: var(--ax-neutral-600);
 }
 
 .success {
-  --status-color: var(--ax-success-300);
-  --status-color-hover: var(--ax-success-400);
-  --status-color-active: var(--ax-success-500);
+  --status-color: var(--ax-success-400);
+  --status-color-hover: var(--ax-success-500);
+  --status-color-active: var(--ax-success-600);
   --icon-color: var(--ax-text-success-decoration);
 }
 
@@ -19,9 +19,9 @@
 }
 
 .danger {
-  --status-color: var(--ax-danger-300);
-  --status-color-hover: var(--ax-danger-400);
-  --status-color-active: var(--ax-danger-500);
+  --status-color: var(--ax-danger-400);
+  --status-color-hover: var(--ax-danger-500);
+  --status-color-active: var(--ax-danger-600);
   --icon-color: var(--ax-text-danger-decoration);
 }
 
