@@ -1,6 +1,5 @@
 import { RawIntlProvider } from 'react-intl';
 
-import { RelasjonsRolleType } from '@navikt/ft-kodeverk';
 import type { Aksjonspunkt, Behandling, StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
@@ -10,6 +9,7 @@ import type { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPeriod
 import type { ForeldelsesresultatActivity } from './types/ForeldelsesresultatActivity';
 import type { KodeverkMedNavn } from './types/kodeverkMedNavn';
 import type { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
+import type { RelasjonsRolleType } from './types/RelasjonsRolleType';
 import type { VurderForeldelseAp } from './types/VurderForeldelseAp';
 
 import messages from '../i18n/nb_NO.json';

@@ -5,7 +5,7 @@ import { BodyShort, Box, Heading, HStack, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
-import { AksjonspunktStatus, ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
+import { AksjonspunktStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 import type { Aksjonspunkt } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
@@ -15,6 +15,7 @@ import type { FeilutbetalingPeriode, FeilutbetalingPerioderWrapper } from '../ty
 import type { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
 import type { KodeverkMedNavn } from '../types/kodeverkMedNavn';
 import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
+import type { RelasjonsRolleType } from '../types/RelasjonsRolleType';
 import type { TidslinjePeriode } from '../types/TidslinjePeriode';
 import type { VurderForeldelseAp } from '../types/VurderForeldelseAp';
 import { ForeldelsePeriodeForm, type FormValues as PeriodeFormValues } from './ForeldelsePeriodeForm';
