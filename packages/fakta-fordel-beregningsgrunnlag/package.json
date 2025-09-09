@@ -67,7 +67,7 @@
     "eslint": "9.33.0",
     "stylelint": "16.23.1",
     "typescript": "5.9.2",
-    "vite": "7.1.2",
+    "vite": "7.1.5",
     "vitest": "3.2.4"
   },
   "publishConfig": {
