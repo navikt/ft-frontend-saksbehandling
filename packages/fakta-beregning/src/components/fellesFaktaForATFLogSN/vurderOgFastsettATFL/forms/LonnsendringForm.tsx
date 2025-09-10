@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import type { Beregningsgrunnlag, BeregningsgrunnlagAndel, FaktaOmBeregning } from '@navikt/ft-types';
@@ -33,7 +33,7 @@ export const LonnsendringForm = ({ readOnly }: Props) => {
   const { control } = useFormContext<VurderFaktaBeregningFormValues>();
 
   return (
-    <RhfRadioGroupNew
+    <RhfRadioGroup
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.lonnsendringField`}
       control={control}
       validate={[required]}
@@ -63,7 +63,7 @@ export const LonnsendringForm = ({ readOnly }: Props) => {
       <Radio value={false} size="small">
         <FormattedMessage id="BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt" />
       </Radio>
-    </RhfRadioGroupNew>
+    </RhfRadioGroup>
   );
 };
 

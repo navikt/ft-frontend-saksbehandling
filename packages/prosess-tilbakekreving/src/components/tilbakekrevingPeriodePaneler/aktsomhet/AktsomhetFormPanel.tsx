@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { HStack, Radio, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { decodeHtmlEntity, removeSpacesFromNumber } from '@navikt/ft-utils';
 
@@ -74,7 +74,7 @@ export const AktsomhetFormPanel = ({
   const { control } = useFormContext();
   return (
     <VStack gap="space-12">
-      <RhfRadioGroupNew
+      <RhfRadioGroup
         name={`${name}.handletUaktsomhetGrad`}
         control={control}
         label={<FormattedMessage id="AktsomhetFormPanel.HandletUaktsomhetGrad" />}
@@ -93,7 +93,7 @@ export const AktsomhetFormPanel = ({
             </Radio>
           ))}
         </HStack>
-      </RhfRadioGroupNew>
+      </RhfRadioGroup>
       {uaktsomhetCodes.some(uc => uc === handletUaktsomhetGrad) && (
         <AktsomhetGradFormPanel
           name={`${name}.${handletUaktsomhetGrad}`}
