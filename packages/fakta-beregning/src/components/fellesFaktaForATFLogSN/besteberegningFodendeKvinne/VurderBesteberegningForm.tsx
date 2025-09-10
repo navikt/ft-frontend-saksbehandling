@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Label, Link, Radio, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import type { BeregningAvklaringsbehov, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
@@ -45,7 +45,7 @@ export const VurderBesteberegningForm = ({ readOnly, erOverstyrt }: Props) => {
   const isReadOnly = readOnly || erOverstyrt;
 
   return (
-    <RhfRadioGroupNew
+    <RhfRadioGroup
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`}
       control={control}
       label={
@@ -69,7 +69,7 @@ export const VurderBesteberegningForm = ({ readOnly, erOverstyrt }: Props) => {
       <Radio value={false} size="small">
         <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />
       </Radio>
-    </RhfRadioGroupNew>
+    </RhfRadioGroup>
   );
 };
 

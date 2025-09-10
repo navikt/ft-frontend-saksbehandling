@@ -5,7 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { Button, HStack, Radio, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { RhfDatepicker, RhfForm, RhfRadioGroupNew, RhfTextarea } from '@navikt/ft-form-hooks';
+import { RhfDatepicker, RhfForm, RhfRadioGroup, RhfTextarea } from '@navikt/ft-form-hooks';
 import {
   dateBeforeOrEqualToToday,
   hasValidDate,
@@ -74,7 +74,7 @@ export const ForeldelsePeriodeForm = ({
           readOnly={readOnly}
         />
         <HStack gap="space-40">
-          <RhfRadioGroupNew
+          <RhfRadioGroup
             name="foreldet"
             control={formMethods.control}
             label={<FormattedMessage id="ForeldelsePeriodeForm.RadioGroup.Foreldet" />}
@@ -86,7 +86,7 @@ export const ForeldelsePeriodeForm = ({
                 {type.navn}
               </Radio>
             ))}
-          </RhfRadioGroupNew>
+          </RhfRadioGroup>
           <VStack gap="space-20">
             {(erForeldet || erMedTilleggsfrist) && (
               <RhfDatepicker

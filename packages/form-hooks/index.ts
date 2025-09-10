@@ -5,8 +5,6 @@ export { RhfDatepicker } from './src/RhfDatepicker/RhfDatepicker';
 export { RhfTextField } from './src/RhfTextField/RhfTextField';
 export { RhfNumericField } from './src/RhfNumericField/RhfNumericField';
 export { RhfRadioGroup } from './src/RhfRadioGroup/RhfRadioGroup';
-export { RhfRadioGroupNew } from './src/RhfRadioGroup/RhfRadioGroupNew';
-export type { RadioProps } from './src/RhfRadioGroup/RhfRadioGroup';
 export { RhfSelect } from './src/RhfSelect/RhfSelect';
 export { SubmitButton } from './src/SubmitButton';
 export { RhfTextarea } from './src/RhfTextarea/RhfTextarea';

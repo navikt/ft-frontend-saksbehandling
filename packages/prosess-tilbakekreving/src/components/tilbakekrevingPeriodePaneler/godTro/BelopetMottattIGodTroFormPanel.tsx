@@ -3,7 +3,7 @@ import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
 import { BodyShort, HStack, Radio, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroupNew, RhfTextField } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup, RhfTextField } from '@navikt/ft-form-hooks';
 import { minValue, required } from '@navikt/ft-form-validators';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -46,7 +46,7 @@ export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehol
 
   return (
     <VStack gap="space-12">
-      <RhfRadioGroupNew
+      <RhfRadioGroup
         name={`${name}.erBelopetIBehold`}
         control={control}
         label={<FormattedMessage id="BelopetMottattIGodTroFormPanel.BelopetIBehold" />}
@@ -61,7 +61,7 @@ export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehol
             <FormattedMessage id="BelopetMottattIGodTroFormPanel.Nei" />
           </Radio>
         </HStack>
-      </RhfRadioGroupNew>
+      </RhfRadioGroup>
       <div className={styles.arrowbox}>
         {erBelopetIBehold === true && (
           <ArrowBox alignOffset={25}>

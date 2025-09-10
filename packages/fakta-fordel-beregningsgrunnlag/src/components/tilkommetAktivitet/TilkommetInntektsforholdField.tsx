@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Alert, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroupNew, RhfTextField } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup, RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
@@ -119,7 +119,7 @@ export const TilkommetInntektsforholdField = ({
 
   return (
     <VStack gap="space-16">
-      <RhfRadioGroupNew
+      <RhfRadioGroup
         name={`${formName}.${formFieldIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.skalRedusereUtbetaling`}
         control={formMethods.control}
         label={getRadioGroupLabel()}
@@ -132,7 +132,7 @@ export const TilkommetInntektsforholdField = ({
         <Radio value={false} size="small">
           <FormattedMessage id="BeregningInfoPanel.TilkommetAktivitet.Nei" />
         </Radio>
-      </RhfRadioGroupNew>
+      </RhfRadioGroup>
       {skalRedusereValg === false && (
         <Alert size="small" variant="info">
           {intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.Alert' })}

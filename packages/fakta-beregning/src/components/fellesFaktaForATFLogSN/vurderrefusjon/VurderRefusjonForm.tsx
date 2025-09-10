@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Radio, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import type {
@@ -37,7 +37,7 @@ const lagRefusjonskravRadios = (
     const arbeidsgiverVisningsnavn = opplysninger ? formaterArbeidsgiver(opplysninger) : arbeidsgiverIdent;
 
     return (
-      <RhfRadioGroupNew
+      <RhfRadioGroup
         key={arbeidsgiverIdent}
         name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderRefusjonValues.${lagFieldName(
           arbeidsgiverIdent,
@@ -68,7 +68,7 @@ const lagRefusjonskravRadios = (
         <Radio value={false} size="small">
           <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />
         </Radio>
-      </RhfRadioGroupNew>
+      </RhfRadioGroup>
     );
   });
 
