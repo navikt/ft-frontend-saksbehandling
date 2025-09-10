@@ -21,7 +21,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "dayjs": "1.11.13",
+    "dayjs": "1.11.18",
     "react-intl": "7.1.11"
   },
   "peerDependencies": {
@@ -33,9 +33,9 @@
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "@navikt/ft-config-vite": "workspace:^",
-    "eslint": "9.33.0",
+    "eslint": "9.35.0",
     "typescript": "5.9.2",
-    "vite": "7.1.2",
+    "vite": "7.1.5",
     "vitest": "3.2.4"
   },
   "publishConfig": {
