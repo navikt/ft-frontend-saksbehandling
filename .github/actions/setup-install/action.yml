@@ -1,0 +1,23 @@
+name: Setup + Install
+description: Run commands needed to setup yarn and install dependencies.
+inputs:
+  npmAuthToken:
+    description: Token that has packages:read permission for the navikt organization
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/setup-yarnrc
+      with:
+        npmAuthToken: ${{ inputs.npmAuthToken }}
+
+    - name: Sette opp node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22.17.1
+        cache: yarn
+
+    - name: Installere dependencies
+      shell: bash
+      run: yarn install --immutable
