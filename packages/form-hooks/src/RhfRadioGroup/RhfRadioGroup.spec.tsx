@@ -5,7 +5,7 @@ import { expect } from 'vitest';
 
 import * as stories from './RhfRadioGroup.stories';
 
-const { Default } = composeStories(stories);
+const { Default, ReadOnlyMedOverstyrtMarkering } = composeStories(stories);
 
 describe('RhfRadioGroup', () => {
   it('skal sette verdi', async () => {
@@ -21,5 +21,13 @@ describe('RhfRadioGroup', () => {
 
     await userEvent.click(screen.getByText('Ikke oppfylt'));
     expect(screen.getByLabelText('Ikke oppfylt')).toBeChecked();
+  });
+
+  it('skal vise readonly verdier', async () => {
+    await ReadOnlyMedOverstyrtMarkering.run();
+    expect(screen.getByRole('group')).toHaveAttribute('aria-readonly', 'true');
+    expect(screen.getByLabelText('Oppfylt')).not.toBeChecked();
+    await userEvent.click(screen.getByText('Oppfylt'));
+    expect(screen.getByLabelText('Oppfylt')).not.toBeChecked();
   });
 });
