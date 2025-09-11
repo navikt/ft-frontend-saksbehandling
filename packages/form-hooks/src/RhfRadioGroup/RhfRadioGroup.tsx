@@ -2,10 +2,13 @@ import { type ReactElement, type ReactNode } from 'react';
 import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
 
 import { HStack, RadioGroup } from '@navikt/ds-react';
+import classnames from 'classnames';
 
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
+
+import styles from './rhfRadioGroup.module.css';
 
 type Props<T extends FieldValues> = {
   description?: string | ReactNode;
@@ -58,7 +61,7 @@ export const RhfRadioGroup = <T extends FieldValues>({
         </HStack>
       }
       hideLegend={hideLegend}
-      disabled={isReadOnly}
+      readOnly={isReadOnly}
       description={description}
       size={size}
       error={getError(errors, name)}
@@ -68,7 +71,7 @@ export const RhfRadioGroup = <T extends FieldValues>({
         }
         field.onChange(value);
       }}
-      className={className}
+      className={classnames(className, styles.noReadOnlyIcon)}
     >
       {children}
     </RadioGroup>
