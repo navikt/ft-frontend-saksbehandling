@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import type {
@@ -82,7 +82,7 @@ const MottarYtelseArbeidsforholdRadioAndInputs = ({
   const key = utledArbeidsforholdFieldName(andel);
 
   return (
-    <RhfRadioGroupNew
+    <RhfRadioGroup
       name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${key}`}
       control={control}
       label={
@@ -113,7 +113,7 @@ const MottarYtelseArbeidsforholdRadioAndInputs = ({
       <Radio value={false} size="small">
         <FormattedMessage id="BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt" />
       </Radio>
-    </RhfRadioGroupNew>
+    </RhfRadioGroup>
   );
 };
 
@@ -166,7 +166,7 @@ export const VurderMottarYtelseForm = ({
   return (
     <>
       {erFrilans && !erATFLSammeOrg(tilfeller) && (
-        <RhfRadioGroupNew
+        <RhfRadioGroup
           name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${frilansFieldName}`}
           control={control}
           label={
@@ -196,7 +196,7 @@ export const VurderMottarYtelseForm = ({
           <Radio value={false} size="small">
             <FormattedMessage id="BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt" />
           </Radio>
-        </RhfRadioGroupNew>
+        </RhfRadioGroup>
       )}
       {arbeidsforholdUtenIM.length > 0 && (
         <VStack gap="space-24">

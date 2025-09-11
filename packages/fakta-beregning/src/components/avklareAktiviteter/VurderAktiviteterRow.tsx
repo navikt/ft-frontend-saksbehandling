@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 import { HStack, Radio, Table } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { RhfDatepicker, RhfRadioGroupNew } from '@navikt/ft-form-hooks';
+import { RhfDatepicker, RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
 import type { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { DateLabel, EditedIcon, PeriodLabel } from '@navikt/ft-ui-komponenter';
@@ -91,7 +91,7 @@ export const VurderAktiviteterTabellRad = ({
         )}
       </Table.DataCell>
       <Table.DataCell>
-        <RhfRadioGroupNew
+        <RhfRadioGroup
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
           control={control}
           label={intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.Benytt' })}
@@ -111,10 +111,10 @@ export const VurderAktiviteterTabellRad = ({
           <Radio value="true" size="small">
             {' '}
           </Radio>
-        </RhfRadioGroupNew>
+        </RhfRadioGroup>
       </Table.DataCell>
       <Table.DataCell>
-        <RhfRadioGroupNew
+        <RhfRadioGroup
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
           control={control}
           label={intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.IkkeBenytt' })}
@@ -134,7 +134,7 @@ export const VurderAktiviteterTabellRad = ({
           <Radio value="false" size="small">
             {' '}
           </Radio>
-        </RhfRadioGroupNew>
+        </RhfRadioGroup>
       </Table.DataCell>
       <Table.DataCell>
         {isAvklaringsbehovClosed &&

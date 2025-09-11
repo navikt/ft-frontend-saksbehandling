@@ -1,13 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
-import { AksjonspunktStatus, BehandlingStatus, ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
+import { AksjonspunktStatus, BehandlingStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 import type { Behandling } from '@navikt/ft-types';
 
 import { ForeldelseAksjonspunktCodes } from './ForeldelseAksjonspunktCodes';
 import { ForeldelseProsessIndex } from './ForeldelseProsessIndex';
 import type { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
 import type { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
+import { RelasjonsRolleType } from './types/RelasjonsRolleType';
 import type { VurderForeldelseAp } from './types/VurderForeldelseAp';
 
 import '@navikt/ft-form-hooks/dist/style.css';

@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Detail, Label, Radio, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
@@ -32,7 +32,7 @@ export const AktsomhetGradForsettFormPanel = ({ name, readOnly, erValgtResultatT
             <FormattedMessage id="AktsomhetGradForsettFormPanel.Andel" />
           </Label>
           <BodyShort size="small">100 %</BodyShort>
-          <RhfRadioGroupNew
+          <RhfRadioGroup
             name={`${name}.skalDetTilleggesRenter`}
             control={context.control}
             label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
@@ -45,7 +45,7 @@ export const AktsomhetGradForsettFormPanel = ({ name, readOnly, erValgtResultatT
             <Radio value={false} size="small">
               <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />
             </Radio>
-          </RhfRadioGroupNew>
+          </RhfRadioGroup>
         </VStack>
       )}
       {!erValgtResultatTypeForstoBurdeForstaatt && (

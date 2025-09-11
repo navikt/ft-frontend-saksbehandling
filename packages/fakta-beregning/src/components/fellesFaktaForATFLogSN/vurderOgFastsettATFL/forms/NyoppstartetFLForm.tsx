@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import type { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
@@ -35,7 +35,7 @@ export const NyoppstartetFLForm = ({ readOnly }: Props) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
 
   return (
-    <RhfRadioGroupNew
+    <RhfRadioGroup
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`}
       control={control}
       label={
@@ -65,7 +65,7 @@ export const NyoppstartetFLForm = ({ readOnly }: Props) => {
       <Radio value={false} size="small">
         <FormattedMessage id="BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt" />
       </Radio>
-    </RhfRadioGroupNew>
+    </RhfRadioGroup>
   );
 };
 NyoppstartetFLForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag): NyoppstartetFLValues => {

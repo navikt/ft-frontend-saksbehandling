@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Radio, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { FaktaOmBeregningTilfelle, isAksjonspunktOpen, OpptjeningAktivitetType as OAType } from '@navikt/ft-kodeverk';
 import type { Aksjonspunkt, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
@@ -40,7 +40,7 @@ export const VurderEtterlonnSluttpakkeForm = ({ readOnly }: Props) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   return (
     <div>
-      <RhfRadioGroupNew
+      <RhfRadioGroup
         name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`}
         control={control}
         label={
@@ -63,7 +63,7 @@ export const VurderEtterlonnSluttpakkeForm = ({ readOnly }: Props) => {
         <Radio value={false} size="small">
           <FormattedMessage id="BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt" />
         </Radio>
-      </RhfRadioGroupNew>
+      </RhfRadioGroup>
     </div>
   );
 };

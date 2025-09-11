@@ -1,122 +1,76 @@
-import { Fragment, type ReactElement, type ReactNode, useMemo } from 'react';
+import { type ReactElement, type ReactNode } from 'react';
 import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
 
-import { HStack, Radio, RadioGroup } from '@navikt/ds-react';
+import { HStack, RadioGroup } from '@navikt/ds-react';
 
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 
-export interface RadioProps {
-  value: string;
-  label: string | ReactElement;
-  disabled?: boolean;
-  element?: ReactElement;
-}
-
 type Props<T extends FieldValues> = {
+  description?: string | ReactNode;
   label?: string | ReactNode;
-  description?: string;
-  hideLegend?: boolean;
-  isHorizontal?: boolean;
-  isTrueOrFalseSelection?: boolean;
+  size?: 'medium' | 'small';
   isReadOnly?: boolean;
   isEdited?: boolean;
-  size?: 'medium' | 'small';
-  radios: RadioProps[];
-  validate?: ((value: string | number) => ValidationReturnType)[];
-  onChange?: (value: any) => void;
-  parse?: (value: string) => any;
+  hideLegend?: boolean;
+  validate?: Array<(value: string | number | boolean) => ValidationReturnType>;
+  onChange?: (value: string | boolean | number) => void;
+  children: ReactElement | ReactElement[];
+  className?: string;
   control: UseControllerProps<T>['control'];
 } & Omit<UseControllerProps<T>, 'control'>;
 
-/**
- * @deprecated Bruk heller RhfRadioGroupNew
- */
 export const RhfRadioGroup = <T extends FieldValues>({
   label,
   description,
   validate = [],
-  radios,
   onChange,
+  children,
+  className,
   isReadOnly = false,
-  isHorizontal = false,
-  parse = value => value,
-  isTrueOrFalseSelection = false,
-  hideLegend = false,
-  isEdited = false,
   size = 'small',
+  isEdited = false,
+  hideLegend = false,
   ...controllerProps
 }: Props<T>) => {
-  const { name, control, disabled } = controllerProps;
+  const { name, control } = controllerProps;
 
   const {
     formState: { errors },
   } = useFormContext();
-
   const { field } = useController({
     name,
     control,
     rules: {
-      validate: useMemo(() => getValidationRules(validate), [validate]),
+      validate: getValidationRules(validate),
     },
   });
-
-  const parseValue = isTrueOrFalseSelection ? (value: string) => value === 'true' : parse;
-
-  const legend = (
-    <HStack justify="center" gap="space-8">
-      {label}
-      {isReadOnly && isEdited && <EditedIcon />}
-    </HStack>
-  );
 
   return (
     <RadioGroup
       name={name}
       value={field.value !== undefined ? field.value : null}
+      legend={
+        <HStack justify="center" gap="space-8">
+          {label}
+          {isReadOnly && isEdited && <EditedIcon />}
+        </HStack>
+      }
+      hideLegend={hideLegend}
+      disabled={isReadOnly}
+      description={description}
+      size={size}
+      error={getError(errors, name)}
       onChange={value => {
         if (onChange) {
           onChange(value);
         }
         field.onChange(value);
       }}
-      size={size}
-      legend={legend}
-      description={description}
-      error={getError(errors, name)}
-      hideLegend={hideLegend}
+      className={className}
     >
-      {!isHorizontal &&
-        radios.map(radio => (
-          <Fragment key={radio.value}>
-            <Radio size={size} value={parseValue(radio.value)} disabled={radio.disabled || disabled || isReadOnly}>
-              {radio.label}
-            </Radio>
-            {field.value === parseValue(radio.value) && radio.element}
-          </Fragment>
-        ))}
-      {isHorizontal && (
-        <>
-          <HStack gap="space-16">
-            {radios.map(radio => (
-              <Radio
-                size={size}
-                key={radio.value}
-                value={parseValue(radio.value)}
-                disabled={radio.disabled || disabled || isReadOnly}
-              >
-                {radio.label}
-              </Radio>
-            ))}
-          </HStack>
-          {radios
-            .filter(radio => field.value === parseValue(radio.value))
-            .map(radio => (
-              <Fragment key={radio.value}>{radio.element}</Fragment>
-            ))}
-        </>
-      )}
+      {children}
     </RadioGroup>
   );
 };

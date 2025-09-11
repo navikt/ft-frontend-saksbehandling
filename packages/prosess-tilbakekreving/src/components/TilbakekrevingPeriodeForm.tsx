@@ -5,7 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { BodyShort, Button, Heading, HStack, Radio, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { RhfForm, RhfRadioGroupNew, RhfSelect, RhfTextarea } from '@navikt/ft-form-hooks';
+import { RhfForm, RhfRadioGroup, RhfSelect, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { usePrevious } from '@navikt/ft-ui-komponenter';
 import { BTag, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
@@ -239,7 +239,7 @@ export const TilbakekrevingPeriodeForm = ({
                   className={styles.explanationTextarea}
                   description={intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.Vurdering.Hjelpetekst' })}
                 />
-                <RhfRadioGroupNew
+                <RhfRadioGroup
                   name="valgtVilkarResultatType"
                   control={formMethods.control}
                   label={<FormattedMessage id="TilbakekrevingPeriodeForm.oppfylt" />}
@@ -252,7 +252,7 @@ export const TilbakekrevingPeriodeForm = ({
                       {vrt.navn}
                     </Radio>
                   ))}
-                </RhfRadioGroupNew>
+                </RhfRadioGroup>
               </VStack>
             )}
           </div>

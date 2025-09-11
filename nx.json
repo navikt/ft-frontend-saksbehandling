@@ -6,17 +6,17 @@
   },
   "targetDefaults": {
     "test": {
-      "inputs": ["default", "^prod", "{workspaceRoot}/jest-config/jest.config.ts"],
+      "inputs": ["default", "^production", "{workspaceRoot}/jest-config/jest.config.ts"],
       "dependsOn": ["build"],
       "cache": true
     },
     "tsc": {
-      "inputs": ["default", "{workspaceRoot}/tsconfig.json"],
+      "inputs": ["default", "^production", "{workspaceRoot}/tsconfig.json"],
       "dependsOn": ["build"],
       "cache": true
     },
     "eslint": {
-      "inputs": ["default", "{workspaceRoot}/eslint/*.js"],
+      "inputs": ["default", "^production", "{workspaceRoot}/eslint/*.js"],
       "dependsOn": ["build"],
       "cache": true
     },

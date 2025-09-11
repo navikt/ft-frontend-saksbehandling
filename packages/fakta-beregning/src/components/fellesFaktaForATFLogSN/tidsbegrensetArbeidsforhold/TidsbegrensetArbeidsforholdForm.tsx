@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Radio, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import type {
   ArbeidsgiverOpplysningerPerId,
@@ -77,7 +77,7 @@ export const TidsbegrensetArbeidsforholdForm = ({
         const visningsNavn = lagVisningsnavn(arbeidsforhold, arbeidsgiverOpplysningerPerId);
 
         return (
-          <RhfRadioGroupNew
+          <RhfRadioGroup
             key={`fastsettTidsbegrensedeForhold_${visningsNavn}`}
             name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.tidsbegrensetValues.${createArbeidsforholdRadioKey(
               andel,
@@ -110,7 +110,7 @@ export const TidsbegrensetArbeidsforholdForm = ({
             <Radio value={false} size="small">
               <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />
             </Radio>
-          </RhfRadioGroupNew>
+          </RhfRadioGroup>
         );
       })}
     </VStack>
