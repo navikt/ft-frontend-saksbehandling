@@ -6,7 +6,7 @@
   "main": "vite.config.mjs",
   "private": true,
   "dependencies": {
-    "@storybook/react": "9.1.5",
+    "@storybook/react": "9.1.6",
     "@vitejs/plugin-react": "5.0.2",
     "vite": "7.1.5",
     "vitest": "3.2.4"
