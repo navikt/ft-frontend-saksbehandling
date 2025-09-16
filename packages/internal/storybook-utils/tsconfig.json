@@ -3,9 +3,6 @@
   "include": ["./"],
   "exclude": [
     "*.config.{js,ts,cjs,mjs}",
-    "dist",
-    "i18n",
-    "testdata",
     "**/*.spec.{ts,tsx}",
     "**/*.stories.tsx"
   ]

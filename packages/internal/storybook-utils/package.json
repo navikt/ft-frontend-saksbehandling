@@ -7,7 +7,7 @@
   "scripts": {
     "tsc": "tsc --pretty",
     "eslint": "eslint \"decorators/**/*.ts*\" --color",
-    "eslint:fix": "eslint --fix \"decorators/**/*.ts*\" --color",
+    "eslint:fix": "eslint --fix {decorators,mocks}/**/*.ts* --color",
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
