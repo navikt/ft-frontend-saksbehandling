@@ -46,8 +46,8 @@ import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 import { erKunstigAndel } from './vurderOgFastsettATFL/forms/KunstigArbeidsforhold';
 
 const lagNyMS = (aktivitetStatuser: KodeverkMedNavn<'AktivitetStatus'>[]): AndelFieldValue => ({
-  andel: finnStatus(aktivitetStatuser, AktivitetStatus.MILITAER_ELLER_SIVIL),
-  aktivitetStatus: AktivitetStatus.MILITAER_ELLER_SIVIL,
+  andel: finnStatus(aktivitetStatuser, AktivitetStatus.MILITÆR_ELLER_SIVIL),
+  aktivitetStatus: AktivitetStatus.MILITÆR_ELLER_SIVIL,
   fastsattBelop: '',
   inntektskategori: Inntektskategori.ARBEIDSTAKER,
   nyAndel: true,
@@ -86,9 +86,9 @@ const erFrilanser = (aktivitetStatus: string): boolean => aktivitetStatus === Ak
 const erArbeidstaker = (aktivitetStatus: string): boolean => aktivitetStatus === AktivitetStatus.ARBEIDSTAKER;
 const erDagpenger = (aktivitetStatus: string): boolean => aktivitetStatus === AktivitetStatus.DAGPENGER;
 const erSelvstendigNæringsdrivende = (aktivitetStatus: string): boolean =>
-  aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE;
+  aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE;
 const erMilitærEllerSivil = (aktivitetStatus: string): boolean =>
-  aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL;
+  aktivitetStatus === AktivitetStatus.MILITÆR_ELLER_SIVIL;
 
 const fjernEllerLeggTilMilitær = (
   fields: AndelFieldValue[],
@@ -99,7 +99,7 @@ const fjernEllerLeggTilMilitær = (
 ) => {
   fjernEllerLeggTilAktivitetStatus(
     fields,
-    AktivitetStatus.MILITAER_ELLER_SIVIL,
+    AktivitetStatus.MILITÆR_ELLER_SIVIL,
     skalHaMilitær === true,
     () => skalHaMilitær === false,
     lagNyMS(aktivitetStatuser),

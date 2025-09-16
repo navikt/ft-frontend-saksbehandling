@@ -96,10 +96,10 @@ export const erDagpenger = (field: AndelFieldIdentifikator): boolean =>
   !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.DAGPENGER;
 
 export const erSelvstendigNæringsdrivende = (field: AndelFieldIdentifikator): boolean =>
-  !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE;
+  !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE;
 
 export const erMilitaerEllerSivil = (field: AndelFieldIdentifikator): boolean =>
-  !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL;
+  !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.MILITÆR_ELLER_SIVIL;
 
 // Nyoppstartet frilanser
 const erNyoppstartetFrilanser = (

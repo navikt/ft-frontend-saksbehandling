@@ -1,8 +1,8 @@
-import { isStatusSNOrKombinasjon } from '@navikt/ft-kodeverk';
 import type { BeregningAvklaringsbehov } from '@navikt/ft-types';
 
 import { SammenligningType } from '../../kodeverk/sammenligningType';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import { isStatusSNOrKombinasjon } from '../../util/aktivitetStatusUtils';
 
 const {
   FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,

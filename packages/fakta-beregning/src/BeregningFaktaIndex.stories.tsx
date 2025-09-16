@@ -207,7 +207,7 @@ const standardFaktaFrilansAndel = {
   lagtTilAvSaksbehandler: false,
 };
 const standardFaktaMilitærAndel = {
-  ...lagAndel(5, AktivitetStatus.MILITAER_ELLER_SIVIL, Inntektskategori.ARBEIDSTAKER),
+  ...lagAndel(5, AktivitetStatus.MILITÆR_ELLER_SIVIL, Inntektskategori.ARBEIDSTAKER),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
 };
@@ -217,7 +217,7 @@ const standardFaktaYtelseAndel = {
   lagtTilAvSaksbehandler: false,
 };
 const standardFaktaNæringAndel = {
-  ...lagAndel(9, AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE, Inntektskategori.SELVSTENDIG_NÆRINGSDRIVENDE),
+  ...lagAndel(9, AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE, Inntektskategori.SELVSTENDIG_NÆRINGSDRIVENDE),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
 };

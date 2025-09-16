@@ -21,7 +21,7 @@ enum TagType {
 
 const finnTagType = (status: string): TagType => {
   switch (status) {
-    case AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE:
+    case AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE:
       return TagType.GRØNN;
     case AktivitetStatus.FRILANSER:
       return TagType.LILLA;

@@ -33,7 +33,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
     const andel1 = { andelsnr: 1, aktivitetStatus: AktivitetStatus.ARBEIDSAVKLARINGSPENGER };
     const andel2 = {
       andelsnr: 2,
-      aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+      aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
     } as BeregningsgrunnlagAndel;
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
@@ -68,7 +68,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
         },
         {
           andel: 'Næring',
-          aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+          aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
           fastsattBelop: '20 000',
           inntektskategori: 'SELVSTENDIG_NÆRINGSDRIVENDE',
           andelsnr: andel2.andelsnr,

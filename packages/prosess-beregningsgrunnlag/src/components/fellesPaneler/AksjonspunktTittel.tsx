@@ -95,7 +95,7 @@ const lagAksjonspunktHelpText = (
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
 ): ReactElement => {
   const snAndel = alleAndelerIForstePeriode.find(
-    andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
   );
   const erVarigEndring = !!snAndel?.næringer?.some(naring => naring.erVarigEndret === true);
   return (

@@ -146,7 +146,7 @@ VurderVarigEndringEllerNyoppstartet.buildInitialValues = (
 ): VurderOgFastsettValues => {
   const varigEndretAndel = relevanteAndeler.find(
     andel =>
-      andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE ||
+      andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE ||
       andel.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL,
   );
   const varigEndretNaeringAP = avklaringsbehov.find(

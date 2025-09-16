@@ -100,7 +100,7 @@ const finnBeregnetInntekt = (
 ): BeregnetInntektProp => {
   const pgiAndel = alleAndelerIFørstePeriode.find(
     andel =>
-      (andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE ||
+      (andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE ||
         andel.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL) &&
       !andel.erTilkommetAndel,
   );

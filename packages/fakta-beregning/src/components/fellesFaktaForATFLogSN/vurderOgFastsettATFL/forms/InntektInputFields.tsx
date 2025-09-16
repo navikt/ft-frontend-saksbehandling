@@ -95,7 +95,7 @@ export const InntektInputFields = ({
 
   const skalRedigereSelvstendigNæringsgivendeInntekt = () => {
     const harSelvstendigNæringsgivendeAndel = beregningsgrunnlag.faktaOmBeregning?.andelerForFaktaOmBeregning.some(
-      andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+      andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
     );
 
     const erBesteberegning = getValues([
@@ -107,7 +107,7 @@ export const InntektInputFields = ({
 
   const skalRedigereMilitærEllerSivilInntekt = () => {
     const harMilitærEllerSivilAndel = beregningsgrunnlag.faktaOmBeregning?.andelerForFaktaOmBeregning.some(
-      andel => andel.aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL,
+      andel => andel.aktivitetStatus === AktivitetStatus.MILITÆR_ELLER_SIVIL,
     );
 
     const erBesteberegning = getValues([

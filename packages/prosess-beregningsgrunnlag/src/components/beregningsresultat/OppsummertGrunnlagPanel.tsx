@@ -4,11 +4,12 @@ import { FormattedMessage } from 'react-intl';
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
 import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus, Dekningsgrad, FagsakYtelseType } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, FagsakYtelseType } from '@navikt/ft-kodeverk';
 import type { Beregningsgrunnlag, YtelseGrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { BTag, formatCurrencyNoKr, periodFormat } from '@navikt/ft-utils';
 
+import { Dekningsgrad } from '../../kodeverk/dekningsgrad.ts';
 import { VilkårUtfallType } from '../../kodeverk/vilkårUtfallType';
 import type { TabellData, TabellRadData } from '../../types/BeregningsresultatTabellType';
 import type { Vilkårperiode } from '../../types/Vilkår';
@@ -57,7 +58,7 @@ const statusKonfigMap: StatusKonfig = {
     rekkefølgePri: 5,
     beskrivelseId: 'OppsummertGrunnlagPanel.Ytelse',
   },
-  [AktivitetStatus.MILITAER_ELLER_SIVIL]: {
+  [AktivitetStatus.MILITÆR_ELLER_SIVIL]: {
     rekkefølgePri: 6,
     beskrivelseId: 'OppsummertGrunnlagPanel.Militær',
   },
@@ -65,7 +66,7 @@ const statusKonfigMap: StatusKonfig = {
     rekkefølgePri: 7,
     beskrivelseId: 'OppsummertGrunnlagPanel.BrukersAndel',
   },
-  [AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE]: {
+  [AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE]: {
     rekkefølgePri: 8,
     beskrivelseId: 'OppsummertGrunnlagPanel.Næring',
   },

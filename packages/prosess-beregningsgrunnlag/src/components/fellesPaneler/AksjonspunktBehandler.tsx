@@ -6,7 +6,7 @@ import { VStack } from '@navikt/ds-react';
 
 import { RhfForm, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { AksjonspunktStatus, AktivitetStatus, PeriodeAarsak } from '@navikt/ft-kodeverk';
+import { AksjonspunktStatus, AktivitetStatus, PeriodeÅrsak } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type {
   ArbeidsgiverOpplysningerPerId,
@@ -86,7 +86,7 @@ const finnAlleAndelerIFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeP
 const harPerioderMedAvsluttedeArbeidsforhold = (allePerioder: BeregningsgrunnlagPeriodeProp[]): boolean =>
   allePerioder.some(
     ({ periodeAarsaker }) =>
-      periodeAarsaker && periodeAarsaker.some(kode => kode === PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET),
+      periodeAarsaker && periodeAarsaker.some(kode => kode === PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET),
   );
 
 const finnVilkårperiode = (vilkår: Vilkår, vilkårsperiodeFom: string): Vilkårperiode =>
@@ -111,7 +111,7 @@ const buildInitialValues = (
   );
   const snEllerMidlertidigInaktivAndeler = alleAndelerIForstePeriode.filter(
     andel =>
-      andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE ||
+      andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE ||
       andel.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL,
   );
   const valuesATFL = {
@@ -213,7 +213,7 @@ const SelvstendigNæringsdrivendeContainer = ({
 }): ReactElement | null => {
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
   const snAndel = alleAndelerIForstePeriode.find(
-    andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
   );
   const erNyArbLivet = snAndel && snAndel.erNyIArbeidslivet;
   const erVarigEndring =

@@ -1,9 +1,10 @@
 import { type IntlShape } from 'react-intl';
 
-import { aktivitetstatusTilAndeltypeMap, BeregningsgrunnlagAndelType } from '@navikt/ft-kodeverk';
+import { BeregningsgrunnlagAndelType } from '@navikt/ft-kodeverk';
 
 import type { BrukersAndelValues } from '../../typer/FaktaBeregningTypes';
 import type { AndelFieldValue } from '../../typer/FieldValues';
+import { aktivitetstatusTilAndeltypeMap } from '../../utils/aktivitetStatusUtils';
 
 export type SortedAndelInfo = {
   andelsinfo: string;

@@ -71,7 +71,7 @@ const kodeverkSamling = {
       navn: 'Frilans',
     },
     {
-      kode: aktivitetStatuser.SELVSTENDIG_NAERINGSDRIVENDE,
+      kode: aktivitetStatuser.SELVSTENDIG_NÆRINGSDRIVENDE,
       kodeverk: 'AKTIVITET_STATUS',
       navn: 'Selvstendig næringsdrivende',
     },
@@ -220,7 +220,7 @@ describe('bgFaktaUtils', () => {
 
   it('skal sette initial values for generell andelinfo uten arbeidsforhold', () => {
     const andelValueFromState = {
-      aktivitetStatus: aktivitetStatuser.SELVSTENDIG_NAERINGSDRIVENDE,
+      aktivitetStatus: aktivitetStatuser.SELVSTENDIG_NÆRINGSDRIVENDE,
       andelsnr: 2,
       lagtTilAvSaksbehandler: true,
       inntektskategori: 'SN',
@@ -236,7 +236,7 @@ describe('bgFaktaUtils', () => {
 
   it('skal ikkje sette arbeidsforhold initial values for andel uten arbeidsforhold', () => {
     const andelValueFromState = {
-      aktivitetStatus: aktivitetStatuser.SELVSTENDIG_NAERINGSDRIVENDE,
+      aktivitetStatus: aktivitetStatuser.SELVSTENDIG_NÆRINGSDRIVENDE,
       andelsnr: 2,
       lagtTilAvSaksbehandler: true,
       inntektskategori: 'SN',

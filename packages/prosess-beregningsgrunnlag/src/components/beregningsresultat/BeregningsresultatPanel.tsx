@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { Heading, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { AktivitetStatus, isAksjonspunktOpen, PeriodeAarsak } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, isAksjonspunktOpen, PeriodeÅrsak } from '@navikt/ft-kodeverk';
 import type { BeregningAvklaringsbehov, Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
@@ -13,9 +13,9 @@ import type { Vilkårperiode } from '../../types/Vilkår';
 import { OppsummertGrunnlagPanel } from './OppsummertGrunnlagPanel';
 
 const ÅRSAKER_SOM_KAN_GI_NY_DAGSATS: string[] = [
-  PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET,
-  PeriodeAarsak.NATURALYTELSE_TILKOMMER,
-  PeriodeAarsak.NATURALYTELSE_BORTFALT,
+  PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET,
+  PeriodeÅrsak.NATURALYTELSE_TILKOMMER,
+  PeriodeÅrsak.NATURALYTELSE_BORTFALT,
 ];
 
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean =>
@@ -45,7 +45,7 @@ const finnAksjonspunktForStatus = (
           ak.definisjon ===
             ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
       );
-    case AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE:
+    case AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE:
       return avklaringsbehov.find(
         ak =>
           ak.definisjon ===
