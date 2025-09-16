@@ -1,6 +1,6 @@
 import { RawIntlProvider } from 'react-intl';
 
-import type { Aksjonspunkt, Behandling, StandardProsessPanelProps } from '@navikt/ft-types';
+import type { Aksjonspunkt, StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
 import { ForeldelseForm } from './components/ForeldelseForm';
@@ -17,7 +17,7 @@ import messages from '../i18n/nb_NO.json';
 const intl = createIntl(messages);
 
 interface Props {
-  behandling: Behandling;
+  behandlingUuid: string;
   perioderForeldelse: FeilutbetalingPerioderWrapper;
   kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   beregnBelop: (params: BeregnBeløpParams) => Promise<BeregnBeløpResultat>;
@@ -31,7 +31,7 @@ export const ForeldelseProsessIndex = ({
   perioderForeldelse,
   relasjonsRolleType,
   beregnBelop,
-  behandling,
+  behandlingUuid,
   aksjonspunkter,
   isReadOnly,
   kodeverkSamlingFpTilbake,
@@ -43,7 +43,7 @@ export const ForeldelseProsessIndex = ({
 }: Props & StandardProsessPanelProps<VurderForeldelseAp, ForeldelsesresultatActivity[]>) => (
   <RawIntlProvider value={intl}>
     <ForeldelseForm
-      behandlingUuid={behandling.uuid}
+      behandlingUuid={behandlingUuid}
       perioderForeldelse={perioderForeldelse}
       submitCallback={submitCallback}
       readOnly={isReadOnly}

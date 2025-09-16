@@ -1,6 +1,6 @@
 import { RawIntlProvider } from 'react-intl';
 
-import type { Behandling, StandardProsessPanelProps } from '@navikt/ft-types';
+import type { StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
 import { type FormValues } from './components/brev/TilbakekrevingEditerVedtaksbrevPanel';
@@ -16,7 +16,7 @@ import messages from '../i18n/nb_NO.json';
 const intl = createIntl(messages);
 
 interface Props {
-  behandling: Behandling;
+  behandlingUuid: string;
   beregningsresultat: BeregningsresultatTilbakekreving;
   kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   vedtaksbrev: Vedtaksbrev;
@@ -26,7 +26,7 @@ interface Props {
 }
 
 export const VedtakTilbakekrevingProsessIndex = ({
-  behandling,
+  behandlingUuid,
   beregningsresultat,
   isReadOnly,
   submitCallback,
@@ -40,7 +40,7 @@ export const VedtakTilbakekrevingProsessIndex = ({
 }: Props & StandardProsessPanelProps<ForeslaVedtakTilbakekrevingAp, FormValues>) => (
   <RawIntlProvider value={intl}>
     <TilbakekrevingVedtak
-      behandlingUuid={behandling.uuid}
+      behandlingUuid={behandlingUuid}
       perioder={beregningsresultat.beregningResultatPerioder}
       resultat={beregningsresultat.vedtakResultatType}
       avsnittsliste={vedtaksbrev.avsnittsliste}

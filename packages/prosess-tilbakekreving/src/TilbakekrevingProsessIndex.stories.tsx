@@ -2,8 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
 import { alleTilbakekrevingKodeverk, getIntlDecorator } from '@navikt/ft-frontend-storybook-utils';
-import { BehandlingStatus, ForeldelseVurderingType, HendelseType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
-import type { Behandling } from '@navikt/ft-types';
+import { ForeldelseVurderingType, HendelseType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
 
 import { TilbakekrevingProsessIndex } from './TilbakekrevingProsessIndex';
 import type { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
@@ -62,11 +61,7 @@ const meta = {
   decorators: [withIntl],
   args: {
     submitCallback: action('button-click') as (data: VilkårsvurderingAp) => Promise<void>,
-    behandling: {
-      uuid: '1',
-      versjon: 1,
-      status: BehandlingStatus.BEHANDLING_UTREDES,
-    } as Behandling,
+    behandlingUuid: '1',
     kodeverkSamlingFpTilbake: alleTilbakekrevingKodeverk as unknown as KodeverkTilbakeForPanel,
     isReadOnly: false,
     setFormData: () => undefined,

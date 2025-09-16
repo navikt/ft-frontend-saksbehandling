@@ -1,7 +1,7 @@
 import { RawIntlProvider } from 'react-intl';
 
 import { RelasjonsRolleType } from '@navikt/ft-kodeverk';
-import type { Behandling, StandardProsessPanelProps } from '@navikt/ft-types';
+import type { StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
 import { type BeregnBeløpParams } from './components/splittePerioder/PeriodeController';
@@ -19,7 +19,7 @@ import messages from '../i18n/nb_NO.json';
 const intl = createIntl(messages);
 
 interface Props {
-  behandling: Behandling;
+  behandlingUuid: string;
   perioderForeldelse: FeilutbetalingPerioderWrapper;
   vilkarvurderingsperioder: DetaljerteFeilutbetalingsperioder;
   vilkarvurdering: VilkårsvurdertePerioderWrapper;

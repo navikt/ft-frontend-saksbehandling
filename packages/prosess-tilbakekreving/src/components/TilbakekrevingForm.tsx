@@ -7,7 +7,6 @@ import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
-import type { Behandling } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 
@@ -314,7 +313,7 @@ interface Props {
   relasjonsRolleType: RelasjonsRolleType;
   relasjonsRolleTypeKodeverk: KodeverkMedNavn<RelasjonsRolleType>[];
   beregnBelop: (params: BeregnBeløpParams) => Promise<{ perioder: { belop: number }[] }>;
-  behandling: Behandling;
+  behandlingUuid: string;
   formData?: CustomVilkarsVurdertePeriode[];
   setFormData: (data: CustomVilkarsVurdertePeriode[]) => void;
 }
@@ -335,7 +334,7 @@ export const TilbakekrevingForm = ({
   relasjonsRolleType,
   relasjonsRolleTypeKodeverk,
   beregnBelop,
-  behandling,
+  behandlingUuid,
   formData,
   setFormData,
 }: Props) => {
@@ -471,7 +470,7 @@ export const TilbakekrevingForm = ({
                       periode={valgtData}
                       readOnly={isReadOnly}
                       oppdaterSplittedePerioder={oppdaterSplittedePerioder}
-                      behandlingUuid={behandling.uuid}
+                      behandlingUuid={behandlingUuid}
                       beregnBelop={beregnBelop}
                       lukkPeriode={lukkPeriode}
                     />
