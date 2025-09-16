@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { FieldPath } from 'react-hook-form';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -7,6 +8,8 @@ import { Detail, HStack } from '@navikt/ds-react';
 
 import { RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
+
+import type { FormValues } from './TilbakekrevingEditerVedtaksbrevPanel';
 
 import styles from './tilbakekrevingVedtakUtdypendeTekstPanel.module.css';
 
@@ -17,19 +20,18 @@ const valideringsregler = [minLength3, hasValidText];
 const valideringsreglerPakrevet = [required, minLength3, hasValidText];
 
 interface Props {
-  type: string;
+  name: FieldPath<FormValues>;
   readOnly: boolean;
   fritekstPakrevet?: boolean;
   maximumLength?: number;
 }
 
-export const TilbakekrevingVedtakUtdypendeTekstPanel = ({ type, readOnly, fritekstPakrevet, maximumLength }: Props) => {
+export const TilbakekrevingVedtakUtdypendeTekstPanel = ({ name, readOnly, fritekstPakrevet, maximumLength }: Props) => {
   const intl = useIntl();
 
-  // TODO (TOR) Type manglar
-  const { watch, control } = useFormContext();
+  const { watch, control } = useFormContext<FormValues>();
 
-  const isEmpty = watch(type) === undefined;
+  const isEmpty = watch(name) === undefined;
 
   const [isTextfieldHidden, hideTextField] = useState(isEmpty && !fritekstPakrevet);
   const valideringsRegler = fritekstPakrevet ? valideringsreglerPakrevet : valideringsregler;
@@ -65,7 +67,7 @@ export const TilbakekrevingVedtakUtdypendeTekstPanel = ({ type, readOnly, fritek
       {!isTextfieldHidden && (
         <RhfTextarea
           className={styles.textfield}
-          name={type}
+          name={name}
           control={control}
           label={<FormattedMessage id="TilbakekrevingVedtakUtdypendeTekstPanel.UtdypendeTekst" />}
           validate={valideringsRegler}
