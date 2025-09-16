@@ -14,10 +14,8 @@
   border-bottom: 0;
 }
 .interactiveListElement__chevron {
-  align-self: center;
   margin-left: 1.125rem;
   margin-right: 1.875rem;
-  transform: rotate(-90deg);
 }
 .interactiveListElement--inactive:hover {
   background: #f2f7fc;

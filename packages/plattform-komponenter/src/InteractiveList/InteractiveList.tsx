@@ -1,9 +1,7 @@
 import React from 'react';
 
+import { ChevronRightIcon } from '@navikt/aksel-icons';
 import classnames from 'classnames';
-
-import { ChevronIconBlack } from '../icons/ChevronIconBlack';
-import { ChevronIconGray } from '../icons/ChevronIconGray';
 
 import styles from './interactiveList.module.css';
 
@@ -17,7 +15,7 @@ interface InteractiveListProps {
   elements: Array<InteractiveListElement & { key?: string }>;
 }
 
-// TODO (TOR) Kan denne erstattast med noko i Aksel? (Litt usikker på korleis denne funkar sidan det ikkje er storybook for den)
+// TODO (TOR) Kan denne erstattast med noko i Aksel?
 const InteractiveListElement = (props: InteractiveListElement) => {
   const { content, active, onClick } = props;
   const cls = classnames(styles.interactiveListElement, {
@@ -31,7 +29,11 @@ const InteractiveListElement = (props: InteractiveListElement) => {
         <span className={styles.interactiveListElement__button__contentContainer}>
           {content}
           <span className={styles.interactiveListElement__chevron}>
-            {active ? <ChevronIconBlack /> : <ChevronIconGray />}
+            {active ? (
+              <ChevronRightIcon aria-disabled fontSize="1.5rem" />
+            ) : (
+              <ChevronRightIcon aria-disabled fontSize="1.5rem" color="var(--ax-neutral-400)" />
+            )}
           </span>
         </span>
       </button>
