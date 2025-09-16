@@ -2,8 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
 import { alleTilbakekrevingKodeverk } from '@navikt/ft-frontend-storybook-utils';
-import { BehandlingStatus, VedtakResultatType } from '@navikt/ft-kodeverk';
-import type { Behandling } from '@navikt/ft-types';
+import { VedtakResultatType } from '@navikt/ft-kodeverk';
 
 import { Aktsomhet } from './kodeverk/aktsomhet';
 import type { BeregningsresultatTilbakekreving } from './types/BeregningsresultatTilbakekreving';
@@ -188,11 +187,7 @@ const meta = {
   component: VedtakTilbakekrevingProsessIndex,
   args: {
     submitCallback: action('button-click') as (data: ForeslaVedtakTilbakekrevingAp) => Promise<void>,
-    behandling: {
-      uuid: '1',
-      versjon: 1,
-      status: BehandlingStatus.BEHANDLING_UTREDES,
-    } as Behandling,
+    behandlingUuid: '1',
     vedtaksbrev,
     fetchPreviewVedtaksbrev: () => Promise.resolve(),
     kodeverkSamlingFpTilbake,
