@@ -30,9 +30,9 @@ const InteractiveListElement = (props: InteractiveListElement) => {
           {content}
           <span className={styles.interactiveListElement__chevron}>
             {active ? (
-              <ChevronRightIcon title="a11y-title" fontSize="1.5rem" />
+              <ChevronRightIcon aria-disabled fontSize="1.5rem" />
             ) : (
-              <ChevronRightIcon title="a11y-title" fontSize="1.5rem" color="var(--ax-neutral-400)" />
+              <ChevronRightIcon aria-disabled fontSize="1.5rem" color="var(--ax-neutral-400)" />
             )}
           </span>
         </span>
