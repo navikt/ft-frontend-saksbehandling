@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Heading, HGrid, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus, FagsakYtelseType, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, FagsakYtelseType } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
@@ -27,9 +27,7 @@ import { Frisinnpanel } from '../frisinn/Frisinnpanel';
 
 const gjelderBehandlingenBesteberegning = (faktaOmBeregning: FaktaOmBeregning | undefined): boolean =>
   faktaOmBeregning && faktaOmBeregning.faktaOmBeregningTilfeller
-    ? faktaOmBeregning.faktaOmBeregningTilfeller.some(
-        tilfelle => tilfelle === FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE,
-      )
+    ? faktaOmBeregning.faktaOmBeregningTilfeller.some(tilfelle => tilfelle === 'FASTSETT_BESTEBEREGNING_FØDENDE_KVINNE')
     : false;
 
 const erAutomatiskBesteberegnet = (ytelsesspesifiktGrunnlag: YtelseGrunnlag | undefined): boolean =>

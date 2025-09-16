@@ -7,9 +7,8 @@ import { Alert, HStack, Link, VStack } from '@navikt/ds-react';
 import { RhfForm, SubmitButton } from '@navikt/ft-form-hooks';
 import { omit } from '@navikt/ft-utils';
 
-import { UnderavsnittType } from '../kodeverk/avsnittType';
 import type { ForeslaVedtakTilbakekrevingAp } from '../types/ForeslaVedtakTilbakekrevingAp';
-import type { VedtaksbrevAvsnitt } from '../types/VedtaksbrevAvsnitt';
+import { AvsnittType, UnderavsnittType, type VedtaksbrevAvsnitt } from '../types/VedtaksbrevAvsnitt';
 import { VedtakAksjonspunktCode } from '../VedtakAksjonspunktCode';
 import { type FormValues, TilbakekrevingEditerVedtaksbrevPanel } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
 
@@ -27,17 +26,17 @@ type VedtakData = {
 };
 
 const formatVedtakData = (values: FormValues): VedtakData => {
-  const perioder = omit(values, UnderavsnittType.OPPSUMMERING);
+  const perioder = omit(values, AvsnittType.OPPSUMMERING);
   return {
-    oppsummeringstekst: values[UnderavsnittType.OPPSUMMERING] as string,
+    oppsummeringstekst: values[AvsnittType.OPPSUMMERING] as string,
     perioderMedTekst: Object.keys(perioder).map(key => ({
       fom: key.split('_')[0],
       tom: key.split('_')[1],
       faktaAvsnitt: perioder[key][UnderavsnittType.FAKTA],
       foreldelseAvsnitt: perioder[key][UnderavsnittType.FORELDELSE],
-      vilkaarAvsnitt: perioder[key][UnderavsnittType.VILKAR],
-      saerligeGrunnerAvsnitt: perioder[key][UnderavsnittType.SARLIGEGRUNNER],
-      saerligeGrunnerAnnetAvsnitt: perioder[key][UnderavsnittType.SARLIGEGRUNNER_ANNET],
+      vilkaarAvsnitt: perioder[key][UnderavsnittType.VILKÅR],
+      saerligeGrunnerAvsnitt: perioder[key][UnderavsnittType.SÆRLIGEGRUNNER],
+      saerligeGrunnerAnnetAvsnitt: perioder[key][UnderavsnittType.SÆRLIGEGRUNNER_ANNET],
     })),
   };
 };
@@ -48,9 +47,9 @@ const harFritekstOppsummeringPakrevdMenIkkeUtfylt = (
 ): boolean =>
   vedtaksbrevAvsnitt.some(
     avsnitt =>
-      avsnitt.avsnittstype === UnderavsnittType.OPPSUMMERING &&
+      avsnitt.avsnittstype === AvsnittType.OPPSUMMERING &&
       avsnitt.underavsnittsliste.some(ua => ua.fritekstPåkrevet) &&
-      !formVerdier[UnderavsnittType.OPPSUMMERING],
+      !formVerdier[AvsnittType.OPPSUMMERING],
   );
 
 const transformValues = (values: FormValues): ForeslaVedtakTilbakekrevingAp => ({
@@ -74,11 +73,11 @@ const finnPerioderSomIkkeHarVerdiForObligatoriskFelt = (
     }
 
     const harObligatoriskSarligeGrunnerAnnetTekst = va.underavsnittsliste.some(
-      ua => ua.fritekstPåkrevet && ua.underavsnittstype === UnderavsnittType.SARLIGEGRUNNER_ANNET,
+      ua => ua.fritekstPåkrevet && ua.underavsnittstype === UnderavsnittType.SÆRLIGEGRUNNER_ANNET,
     );
     if (
       harObligatoriskSarligeGrunnerAnnetTekst &&
-      (!friteksterForPeriode || !friteksterForPeriode[UnderavsnittType.SARLIGEGRUNNER_ANNET])
+      (!friteksterForPeriode || !friteksterForPeriode[UnderavsnittType.SÆRLIGEGRUNNER_ANNET])
     ) {
       return acc.concat(periode);
     }

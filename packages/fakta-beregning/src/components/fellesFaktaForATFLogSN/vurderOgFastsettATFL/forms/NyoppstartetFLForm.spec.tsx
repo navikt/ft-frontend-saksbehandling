@@ -1,6 +1,7 @@
-import { AktivitetStatus, FaktaOmBeregningTilfelle, Inntektskategori } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, Inntektskategori } from '@navikt/ft-kodeverk';
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
 
+import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
 import type { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
 import type { InntektTransformed } from '../../../../typer/FieldValues';
 import { erNyoppstartetFLField, NyoppstartetFLForm } from './NyoppstartetFLForm';

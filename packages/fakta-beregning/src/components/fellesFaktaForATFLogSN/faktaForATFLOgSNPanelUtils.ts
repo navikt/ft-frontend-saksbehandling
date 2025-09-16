@@ -1,4 +1,4 @@
-import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
@@ -7,6 +7,7 @@ import type {
   KortvarigAndel,
 } from '@navikt/ft-types';
 
+import { FaktaOmBeregningTilfelle } from '../../kodeverk/faktaOmBeregningTilfelle';
 import type { FaktaOmBeregningAksjonspunktValues, FaktaOmBeregningValues } from '../../typer/FaktaBeregningTypes';
 import type {
   BeregningFaktaTransformedValues,

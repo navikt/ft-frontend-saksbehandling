@@ -6,7 +6,7 @@ import { VStack } from '@navikt/ds-react';
 
 import { RhfForm, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { AksjonspunktStatus, AktivitetStatus, PeriodeAarsak, SammenligningType } from '@navikt/ft-kodeverk';
+import { AksjonspunktStatus, AktivitetStatus, PeriodeAarsak } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type {
   ArbeidsgiverOpplysningerPerId,
@@ -19,6 +19,7 @@ import type {
 } from '@navikt/ft-types';
 import { usePrevious } from '@navikt/ft-ui-komponenter';
 
+import { SammenligningType } from '../../kodeverk/sammenligningType';
 import type { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
 import type { BeregningFormValues } from '../../types/BeregningFormValues';
 import type { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunkt';

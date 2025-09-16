@@ -1,7 +1,7 @@
 import { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { AktivitetStatus, isAksjonspunktOpen, SammenligningType } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import type {
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -12,6 +12,7 @@ import type {
 import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
 import { BTag } from '@navikt/ft-utils';
 
+import { SammenligningType } from '../../kodeverk/sammenligningType';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
 const {

@@ -6,7 +6,7 @@ import { List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
   ArbeidstakerUtenIMAndel,
@@ -17,6 +17,7 @@ import type {
 } from '@navikt/ft-types';
 import { formaterArbeidsgiver, removeSpacesFromNumber } from '@navikt/ft-utils';
 
+import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
 import type {
   FaktaOmBeregningAksjonspunktValues,
   VurderMottarYtelseValues,
@@ -244,7 +245,7 @@ const transformValuesArbeidstakerUtenIM = (
       }
     });
     if (listeMedFastsatteMaanedsinntekter.length > 0) {
-      faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING);
+      faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_MÅNEDSLØNN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING);
       return {
         fastsattUtenInntektsmelding: { andelListe: listeMedFastsatteMaanedsinntekter },
       };

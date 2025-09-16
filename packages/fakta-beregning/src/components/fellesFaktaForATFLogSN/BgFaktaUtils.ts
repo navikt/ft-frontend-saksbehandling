@@ -1,10 +1,4 @@
-import {
-  AktivitetStatus,
-  FaktaOmBeregningTilfelle,
-  Inntektskategori,
-  OpptjeningAktivitetType as OAType,
-  Organisasjonstype as organisasjonstyper,
-} from '@navikt/ft-kodeverk';
+import { AktivitetStatus, Inntektskategori, OpptjeningAktivitetType as OAType } from '@navikt/ft-kodeverk';
 import type {
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,
@@ -16,6 +10,8 @@ import type {
 } from '@navikt/ft-types';
 import { formatCurrencyNoKr, formaterArbeidsgiver } from '@navikt/ft-utils';
 
+import { FaktaOmBeregningTilfelle } from '../../kodeverk/faktaOmBeregningTilfelle';
+import { Organisasjonstype } from '../../kodeverk/organisasjonstype';
 import type {
   ArbeidstakerInntektValues,
   FaktaOmBeregningAksjonspunktValues,
@@ -185,7 +181,7 @@ const erAndelKunstigArbeidsforhold = (
       a.arbeidsforhold &&
       a.arbeidsforhold.arbeidsgiverIdent === andel.arbeidsgiverId &&
       a.arbeidsforhold.organisasjonstype &&
-      a.arbeidsforhold.organisasjonstype === organisasjonstyper.KUNSTIG,
+      a.arbeidsforhold.organisasjonstype === Organisasjonstype.KUNSTIG,
   );
   return lagtTilAvBruker !== undefined;
 };

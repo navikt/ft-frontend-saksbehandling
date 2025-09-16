@@ -4,9 +4,10 @@ import { FormattedMessage } from 'react-intl';
 
 import { Label, List, ReadMore, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus, FaktaOmBeregningTilfelle, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import type { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 
+import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
 import type { KodeverkForPanel } from '../../../../typer/KodeverkForPanel';
 import type { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
 import { ArbeidsinntektInput } from '../../../felles/ArbeidsinntektInput';

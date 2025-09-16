@@ -1,8 +1,4 @@
-import {
-  AktivitetStatus as aktivitetStatuser,
-  FaktaOmBeregningTilfelle,
-  Organisasjonstype as organisasjonstyper,
-} from '@navikt/ft-kodeverk';
+import { AktivitetStatus as aktivitetStatuser } from '@navikt/ft-kodeverk';
 import type {
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,
@@ -12,6 +8,8 @@ import type {
   FaktaOmBeregning,
 } from '@navikt/ft-types';
 
+import { FaktaOmBeregningTilfelle } from '../../kodeverk/faktaOmBeregningTilfelle';
+import { Organisasjonstype } from '../../kodeverk/organisasjonstype';
 import type { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../typer/FaktaBeregningTypes';
 import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import {
@@ -257,7 +255,7 @@ describe('bgFaktaUtils', () => {
     opphoersdato: '2018-01-01',
     // @ts-expect-error Denne skal vel ikkje kunna vera ''? (Testar feilar om eg set den til noko anna)
     arbeidsforholdType: '',
-    organisasjonstype: organisasjonstyper.KUNSTIG,
+    organisasjonstype: Organisasjonstype.KUNSTIG,
   };
 
   const kunstigArbeidstakerAndel = {

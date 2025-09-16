@@ -4,11 +4,12 @@ import { FormattedMessage } from 'react-intl';
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
 import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus, Dekningsgrad, FagsakYtelseType, VilkarUtfallType } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, Dekningsgrad, FagsakYtelseType } from '@navikt/ft-kodeverk';
 import type { Beregningsgrunnlag, YtelseGrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { BTag, formatCurrencyNoKr, periodFormat } from '@navikt/ft-utils';
 
+import { VilkårUtfallType } from '../../kodeverk/vilkårUtfallType';
 import type { TabellData, TabellRadData } from '../../types/BeregningsresultatTabellType';
 import type { Vilkårperiode } from '../../types/Vilkår';
 import { HorizontalBox } from '../../util/HorizontalBox';
@@ -121,10 +122,10 @@ const lagResultatRader = (
   beregningsgrunnlag: Beregningsgrunnlag,
 ): ReactElement | null => {
   const sumBrutto = tabellData.andeler.reduce((sum, andel) => (andel.inntektPlussNaturalytelse || 0) + sum, 0);
-  if (vilkårPeriode.vilkarStatus === VilkarUtfallType.IKKE_VURDERT) {
+  if (vilkårPeriode.vilkarStatus === VilkårUtfallType.IKKE_VURDERT) {
     return null;
   }
-  if (vilkårPeriode.vilkarStatus === VilkarUtfallType.IKKE_OPPFYLT) {
+  if (vilkårPeriode.vilkarStatus === VilkårUtfallType.IKKE_OPPFYLT) {
     return lagIkkeOppfyltVisning(beregningsgrunnlag.grunnbeløp, sjekkErMidlertidigInaktiv(beregningsgrunnlag));
   }
   const seksG = beregningsgrunnlag.grunnbeløp * 6;

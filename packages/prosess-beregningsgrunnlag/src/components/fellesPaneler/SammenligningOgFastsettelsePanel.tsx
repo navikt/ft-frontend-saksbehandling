@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Heading, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus, SammenligningType } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
@@ -11,6 +11,7 @@ import type {
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
 
+import { SammenligningType } from '../../kodeverk/sammenligningType';
 import type { BeregningFormValues } from '../../types/BeregningFormValues';
 import type { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';

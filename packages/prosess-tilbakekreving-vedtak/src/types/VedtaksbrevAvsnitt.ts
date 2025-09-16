@@ -1,5 +1,5 @@
 export type VedtaksbrevAvsnitt = {
-  avsnittstype: string;
+  avsnittstype: `${AvsnittType}`;
   fom?: string;
   tom?: string;
   overskrift?: string;
@@ -8,7 +8,21 @@ export type VedtaksbrevAvsnitt = {
     fritekst?: string;
     fritekstTillatt: boolean;
     overskrift?: string;
-    underavsnittstype?: string;
+    underavsnittstype?: `${UnderavsnittType}`;
     fritekstPåkrevet?: boolean;
   }[];
 };
+
+export enum AvsnittType {
+  OPPSUMMERING = 'OPPSUMMERING',
+  PERIODE = 'PERIODE',
+  TILLEGGSINFORMASJON = 'TILLEGGSINFORMASJON',
+}
+
+export enum UnderavsnittType {
+  FAKTA = 'FAKTA',
+  FORELDELSE = 'FORELDELSE',
+  VILKÅR = 'VILKÅR',
+  SÆRLIGEGRUNNER = 'SÆRLIGEGRUNNER',
+  SÆRLIGEGRUNNER_ANNET = 'SÆRLIGEGRUNNER_ANNET',
+}
