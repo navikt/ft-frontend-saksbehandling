@@ -1,4 +1,6 @@
-import { BehandlingArsakType, BehandlingResultatType, KonsekvensForYtelsen } from '@navikt/ft-kodeverk';
+import { BehandlingArsakType, BehandlingResultatType } from '@navikt/ft-kodeverk';
+
+import type { KonsekvensForYtelsen } from './KonsekvensForYtelsen';
 
 //Mapping mellom KodeverkType og enums/union-types med verdier
 type KodeverkEnumMap = {

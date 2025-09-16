@@ -5,7 +5,6 @@ import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 import { Alert, BodyShort, Button, ErrorMessage, Heading, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { SubmitButton, useCustomValidation } from '@navikt/ft-form-hooks';
-import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type {
   ArbeidsgiverOpplysningerPerId,
@@ -14,6 +13,7 @@ import type {
   BeregningAvklaringsbehov,
 } from '@navikt/ft-types';
 import { OverstyringKnapp } from '@navikt/ft-ui-komponenter';
+import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
 import type { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';

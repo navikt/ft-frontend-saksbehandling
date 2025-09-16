@@ -5,10 +5,10 @@ import { BodyShort, Box, Heading, HStack, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
-import { AksjonspunktStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
+import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 import type { Aksjonspunkt } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
-import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
+import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, isAksjonspunktOpen, omitOne } from '@navikt/ft-utils';
 
 import { ForeldelseAksjonspunktCodes } from '../ForeldelseAksjonspunktCodes';
 import type { FeilutbetalingPeriode, FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
@@ -209,7 +209,7 @@ export const ForeldelseForm = ({
   const merknaderFraBeslutter = alleMerknaderFraBeslutter[ForeldelseAksjonspunktCodes.VURDER_FORELDELSE];
 
   const perioderFormatertForTidslinje = formaterPerioderForTidslinje(foreldelseresultatAktiviteter);
-  const isApOpen = aksjonspunkt && aksjonspunkt.status === AksjonspunktStatus.OPPRETTET;
+  const isApOpen = isAksjonspunktOpen(aksjonspunkt);
   const erAlleAksjonspunktLøst = perioderFormatertForTidslinje.every(p => !p.isAksjonspunktOpen);
   const valgtPeriodeFormatertForTidslinje = valgtPeriode
     ? perioderFormatertForTidslinje.find(p => p.fom === valgtPeriode.fom && p.tom === valgtPeriode.tom)

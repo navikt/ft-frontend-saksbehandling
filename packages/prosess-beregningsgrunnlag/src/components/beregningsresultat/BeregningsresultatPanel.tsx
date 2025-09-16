@@ -3,9 +3,9 @@ import { FormattedMessage } from 'react-intl';
 import { Heading, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { AktivitetStatus, isAksjonspunktOpen, PeriodeÅrsak } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, PeriodeÅrsak } from '@navikt/ft-kodeverk';
 import type { BeregningAvklaringsbehov, Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
+import { isAksjonspunktOpen, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import type { TabellData, TabellMap, TabellRadData } from '../../types/BeregningsresultatTabellType';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';

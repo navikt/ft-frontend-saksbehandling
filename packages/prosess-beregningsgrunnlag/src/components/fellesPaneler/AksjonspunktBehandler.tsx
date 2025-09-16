@@ -6,7 +6,7 @@ import { VStack } from '@navikt/ds-react';
 
 import { RhfForm, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { AksjonspunktStatus, AktivitetStatus, PeriodeÅrsak } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, PeriodeÅrsak } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type {
   ArbeidsgiverOpplysningerPerId,
@@ -18,6 +18,7 @@ import type {
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
 import { usePrevious } from '@navikt/ft-ui-komponenter';
+import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
 import { SammenligningType } from '../../kodeverk/sammenligningType';
 import type { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
@@ -527,11 +528,7 @@ export const AksjonspunktBehandler = ({
       trigger();
     }
     const aktivtBG = beregningsgrunnlagListe[aktivIndex];
-    if (
-      aktivtBG.avklaringsbehov.some(
-        ak => gjelderForParagraf(ak, lovparagraf) && ak.status === AksjonspunktStatus.OPPRETTET,
-      )
-    ) {
+    if (aktivtBG.avklaringsbehov.some(ak => gjelderForParagraf(ak, lovparagraf) && isAksjonspunktOpen(ak))) {
       panelRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
     }
   }, [aktivIndex]);
