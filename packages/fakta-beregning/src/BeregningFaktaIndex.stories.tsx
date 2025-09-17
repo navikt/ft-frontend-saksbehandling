@@ -29,7 +29,7 @@ import {
   vilkar as vilkarToArbeidsforholdIOpptjeningsperioden,
 } from '../testdata/ToArbeidsforholdIOpptjeningsperioden';
 import { BeregningFaktaIndex } from './BeregningFaktaIndex';
-import { FaktaOmBeregningTilfelle } from './kodeverk/faktaOmBeregningTilfelle.ts';
+import { FaktaOmBeregningTilfelle } from './kodeverk/faktaOmBeregningTilfelle';
 import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 import type { KodeverkForPanel } from './typer/KodeverkForPanel';
 import type { Vilkår, Vilkårperiode } from './typer/Vilkår';

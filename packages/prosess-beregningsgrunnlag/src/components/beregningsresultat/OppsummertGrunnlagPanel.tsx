@@ -9,7 +9,7 @@ import type { Beregningsgrunnlag, YtelseGrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { BTag, formatCurrencyNoKr, periodFormat } from '@navikt/ft-utils';
 
-import { Dekningsgrad } from '../../kodeverk/dekningsgrad.ts';
+import { Dekningsgrad } from '../../kodeverk/dekningsgrad';
 import { VilkårUtfallType } from '../../kodeverk/vilkårUtfallType';
 import type { TabellData, TabellRadData } from '../../types/BeregningsresultatTabellType';
 import type { Vilkårperiode } from '../../types/Vilkår';
