@@ -9,7 +9,6 @@ import type { Beregningsgrunnlag, YtelseGrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { BTag, formatCurrencyNoKr, periodFormat } from '@navikt/ft-utils';
 
-import { Dekningsgrad } from '../../kodeverk/dekningsgrad';
 import { VilkårUtfallType } from '../../kodeverk/vilkårUtfallType';
 import type { TabellData, TabellRadData } from '../../types/BeregningsresultatTabellType';
 import type { Vilkårperiode } from '../../types/Vilkår';
@@ -18,6 +17,7 @@ import { HorizontalBox } from '../../util/HorizontalBox';
 import styles from './oppsummertGrunnlagPanel.module.css';
 
 const VIRKEDAGER_PR_AAR = 260;
+const DEKNINGSGRAD_HUNDRE = 100;
 
 type StatusKonfigEntry = {
   rekkefølgePri: number;
@@ -131,7 +131,7 @@ const lagResultatRader = (
   }
   const seksG = beregningsgrunnlag.grunnbeløp * 6;
   const skalViseAvkortetRad = sumBrutto > seksG;
-  const skalViseRedusertRad = beregningsgrunnlag.dekningsgrad !== Dekningsgrad.HUNDRE;
+  const skalViseRedusertRad = beregningsgrunnlag.dekningsgrad !== DEKNINGSGRAD_HUNDRE;
   const dagsatsSomVises = finnDagsats(tabellData, beregningsgrunnlag.ytelsesspesifiktGrunnlag);
 
   return (
