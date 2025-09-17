@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 
 import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { AktivitetStatus, PeriodeAarsak } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, PeriodeÅrsak } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
@@ -35,7 +35,7 @@ const formPrefix = 'inntektField';
 
 const harPeriodeArbeidsforholdAvsluttet = (periode: BeregningsgrunnlagPeriodeProp): boolean =>
   !!periode.periodeAarsaker &&
-  periode.periodeAarsaker.map(kode => kode).includes(PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET);
+  periode.periodeAarsaker.map(kode => kode).includes(PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET);
 
 // Kombinerer perioder mellom avsluttede arbeidsforhold
 const finnPerioderMedAvsluttetArbeidsforhold = (

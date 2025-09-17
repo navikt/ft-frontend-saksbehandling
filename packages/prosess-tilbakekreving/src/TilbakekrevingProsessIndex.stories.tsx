@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
 import { alleTilbakekrevingKodeverk, getIntlDecorator } from '@navikt/ft-frontend-storybook-utils';
-import { ForeldelseVurderingType, HendelseType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
+import { ForeldelseVurderingType, HendelseType } from '@navikt/ft-kodeverk';
 
 import { TilbakekrevingProsessIndex } from './TilbakekrevingProsessIndex';
 import type { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
@@ -71,10 +71,10 @@ const meta = {
     },
     beregnBelop: () => Promise.resolve({ perioder: [{ belop: 10000 }, { belop: 12000 }] }),
     alleMerknaderFraBeslutter: {},
-    relasjonsRolleType: RelasjonsRolleType.MOR,
+    relasjonsRolleType: 'MORA',
     relasjonsRolleTypeKodeverk: [
       {
-        kode: RelasjonsRolleType.MOR,
+        kode: 'MORA',
         kodeverk: 'RELASJONSROLLE_TYPE',
         navn: 'Mor',
       },

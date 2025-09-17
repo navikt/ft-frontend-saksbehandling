@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl';
 
 import { Alert, Heading, List, ReadMore, VStack } from '@navikt/ds-react';
 
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
@@ -13,6 +12,7 @@ import type {
 import { formaterArbeidsgiver } from '@navikt/ft-utils';
 
 import { getFaktaOmBeregningTilfellerKoder } from './components/fellesFaktaForATFLogSN/BgFaktaUtils';
+import { FaktaOmBeregningTilfelle } from './kodeverk/faktaOmBeregningTilfelle';
 
 interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
@@ -42,9 +42,9 @@ export const AksjonspunktTekster = ({ beregningsgrunnlag, arbeidsgiverOpplysning
       </Alert>,
     );
   }
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
+  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING)) {
     alerts.push(
-      <Alert size="small" variant="warning" key={FaktaOmBeregningTilfelle.VURDER_LONNSENDRING}>
+      <Alert size="small" variant="warning" key={FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING}>
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderLonnsendringHelpText"
           values={{ h3: H3 }}
@@ -74,9 +74,9 @@ export const AksjonspunktTekster = ({ beregningsgrunnlag, arbeidsgiverOpplysning
     );
   }
 
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE)) {
+  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLØNN_SLUTTPAKKE)) {
     alerts.push(
-      <Alert size="small" variant="warning" key={FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE}>
+      <Alert size="small" variant="warning" key={FaktaOmBeregningTilfelle.VURDER_ETTERLØNN_SLUTTPAKKE}>
         <FormattedMessage
           id="BeregningInfoPanel.VurderFaktaBeregningField.VurderEtterlonnSluttpakkeHelpText"
           values={{ h3: H3 }}

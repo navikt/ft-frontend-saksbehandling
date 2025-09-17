@@ -1,10 +1,4 @@
-import {
-  AktivitetStatus,
-  FaktaOmBeregningTilfelle,
-  Inntektskategori,
-  OpptjeningAktivitetType as OAType,
-  Organisasjonstype as organisasjonstyper,
-} from '@navikt/ft-kodeverk';
+import { AktivitetStatus, Inntektskategori, OpptjeningAktivitetType as OAType } from '@navikt/ft-kodeverk';
 import type {
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,
@@ -16,6 +10,8 @@ import type {
 } from '@navikt/ft-types';
 import { formatCurrencyNoKr, formaterArbeidsgiver } from '@navikt/ft-utils';
 
+import { FaktaOmBeregningTilfelle } from '../../kodeverk/faktaOmBeregningTilfelle';
+import { Organisasjonstype } from '../../kodeverk/organisasjonstype';
 import type {
   ArbeidstakerInntektValues,
   FaktaOmBeregningAksjonspunktValues,
@@ -100,10 +96,10 @@ export const erDagpenger = (field: AndelFieldIdentifikator): boolean =>
   !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.DAGPENGER;
 
 export const erSelvstendigNæringsdrivende = (field: AndelFieldIdentifikator): boolean =>
-  !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE;
+  !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE;
 
 export const erMilitaerEllerSivil = (field: AndelFieldIdentifikator): boolean =>
-  !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL;
+  !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.MILITÆR_ELLER_SIVIL;
 
 // Nyoppstartet frilanser
 const erNyoppstartetFrilanser = (
@@ -185,7 +181,7 @@ const erAndelKunstigArbeidsforhold = (
       a.arbeidsforhold &&
       a.arbeidsforhold.arbeidsgiverIdent === andel.arbeidsgiverId &&
       a.arbeidsforhold.organisasjonstype &&
-      a.arbeidsforhold.organisasjonstype === organisasjonstyper.KUNSTIG,
+      a.arbeidsforhold.organisasjonstype === Organisasjonstype.KUNSTIG,
   );
   return lagtTilAvBruker !== undefined;
 };

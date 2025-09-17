@@ -3,9 +3,9 @@ import { FormattedMessage } from 'react-intl';
 
 import { Button, Heading, HStack, Label, VStack } from '@navikt/ds-react';
 
-import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import type { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { OverstyringKnapp } from '@navikt/ft-ui-komponenter';
+import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
 import type { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';

@@ -7,12 +7,7 @@ import { Button, Checkbox, ErrorMessage, HStack, Table, VStack } from '@navikt/d
 
 import { RhfSelect, RhfTextField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import {
-  AktivitetStatus,
-  BeregningsgrunnlagAndelType,
-  Inntektskategori,
-  isSelvstendigNæringsdrivende,
-} from '@navikt/ft-kodeverk';
+import { AktivitetStatus, BeregningsgrunnlagAndelType, Inntektskategori } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, formaterArbeidsgiver, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -502,3 +497,11 @@ export const FordelPeriodeFieldArray = ({
     </VStack>
   );
 };
+
+const isSelvstendigNæringsdrivende = (inntektskategori: string): boolean =>
+  [
+    Inntektskategori.SELVSTENDIG_NÆRINGSDRIVENDE,
+    Inntektskategori.JORDBRUKER,
+    Inntektskategori.DAGMAMMA,
+    Inntektskategori.FISKER,
+  ].some(s => s === inntektskategori);

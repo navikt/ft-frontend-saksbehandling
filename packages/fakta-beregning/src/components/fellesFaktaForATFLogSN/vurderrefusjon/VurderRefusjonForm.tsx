@@ -6,7 +6,6 @@ import { Radio, ReadMore, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
   FaktaOmBeregning,
@@ -14,6 +13,7 @@ import type {
 } from '@navikt/ft-types';
 import { formaterArbeidsgiver } from '@navikt/ft-utils';
 
+import { FaktaOmBeregningTilfelle } from '../../../kodeverk/faktaOmBeregningTilfelle';
 import type { FaktaOmBeregningAksjonspunktValues, VurderRefusjonValues } from '../../../typer/FaktaBeregningTypes';
 import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';

@@ -7,13 +7,11 @@ import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { decodeHtmlEntity, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { Aktsomhet } from '../../../kodeverk/aktsomhet';
+import { Aktsomhet, AKTSOMHET_REKKEFØLGE } from '../../../kodeverk/aktsomhet';
 import type { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
 import type { AktsomhetInfo } from '../../../types/VilkårsvurdertePerioder';
 import { AktsomhetGradFormPanel } from './AktsomhetGradFormPanel';
 import { ANDELER, EGENDEFINERT } from './aktsomhetUtils';
-
-const uaktsomhetCodes = [Aktsomhet.GROVT_UAKTSOM, Aktsomhet.SIMPEL_UAKTSOM, Aktsomhet.FORSETT];
 
 const forstoBurdeForstattTekster = {
   [Aktsomhet.FORSETT]: 'AktsomhetFormPanel.AktsomhetTyperLabel.Forsett',
@@ -94,7 +92,7 @@ export const AktsomhetFormPanel = ({
           ))}
         </HStack>
       </RhfRadioGroup>
-      {uaktsomhetCodes.some(uc => uc === handletUaktsomhetGrad) && (
+      {AKTSOMHET_REKKEFØLGE.some(uc => uc === handletUaktsomhetGrad) && (
         <AktsomhetGradFormPanel
           name={`${name}.${handletUaktsomhetGrad}`}
           harGrunnerTilReduksjon={harGrunnerTilReduksjon}

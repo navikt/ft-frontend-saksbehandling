@@ -4,8 +4,8 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { VStack } from '@navikt/ds-react';
 
 import { RhfForm } from '@navikt/ft-form-hooks';
-import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
+import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
 import type { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';

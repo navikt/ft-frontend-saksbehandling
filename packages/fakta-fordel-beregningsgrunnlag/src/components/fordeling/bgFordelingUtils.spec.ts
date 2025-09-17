@@ -38,7 +38,7 @@ const kodeverkSamling = {
       navn: 'Arbeidstaker',
     },
     {
-      kode: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+      kode: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
       kodeverk: 'AKTIVITET_STATUS',
       navn: 'Selvstendig næringsdrivende',
     },
@@ -103,7 +103,7 @@ describe('bgFordelingUtils', () => {
 
   it('skal sette initial values for generell andelinfo uten arbeidsforhold', () => {
     const andelValueFromState = {
-      aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+      aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
       andelsnr: 2,
       lagtTilAvSaksbehandler: true,
       inntektskategori: 'SN',
@@ -119,7 +119,7 @@ describe('bgFordelingUtils', () => {
 
   it('skal ikkje sette arbeidsforhold initial values for andel uten arbeidsforhold', () => {
     const andelValueFromState = {
-      aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+      aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
       andelsnr: 2,
       lagtTilAvSaksbehandler: true,
       inntektskategori: 'SN',

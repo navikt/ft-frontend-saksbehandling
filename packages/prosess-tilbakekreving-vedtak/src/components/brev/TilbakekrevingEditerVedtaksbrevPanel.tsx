@@ -5,8 +5,7 @@ import { BodyShort, ExpansionCard, Heading, Label, VStack } from '@navikt/ds-rea
 
 import { decodeHtmlEntity } from '@navikt/ft-utils';
 
-import { UnderavsnittType } from '../../kodeverk/avsnittType';
-import type { VedtaksbrevAvsnitt } from '../../types/VedtaksbrevAvsnitt';
+import { AvsnittType, type VedtaksbrevAvsnitt } from '../../types/VedtaksbrevAvsnitt';
 import { TilbakekrevingVedtakUtdypendeTekstPanel } from './TilbakekrevingVedtakUtdypendeTekstPanel';
 
 import styles from './tilbakekrevingEditerVedtaksbrevPanel.module.css';
@@ -38,8 +37,7 @@ export const TilbakekrevingEditerVedtaksbrevPanel = ({
       const underavsnitter = avsnitt.underavsnittsliste;
       const periode = `${avsnitt.fom}_${avsnitt.tom}`;
       const harPeriodeSomManglerObligatoriskVerdi = perioderSomIkkeHarUtfyltObligatoriskVerdi.some(p => p === periode);
-      const visApen =
-        avsnitt.avsnittstype === UnderavsnittType.OPPSUMMERING && fritekstOppsummeringPakrevdMenIkkeUtfylt;
+      const visApen = avsnitt.avsnittstype === AvsnittType.OPPSUMMERING && fritekstOppsummeringPakrevdMenIkkeUtfylt;
       return (
         <React.Fragment key={avsnitt.avsnittstype + avsnitt.fom}>
           <ExpansionCard

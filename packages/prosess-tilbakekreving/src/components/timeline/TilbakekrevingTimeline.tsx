@@ -16,9 +16,8 @@ import {
 import { Button, HStack, Timeline, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { RelasjonsRolleType } from '@navikt/ft-kodeverk';
-
 import type { KodeverkMedNavn } from '../../types/kodeverkMedNavn';
+import type { RelasjonsRolleType } from '../../types/RelasjonsRolleType';
 import type { TidslinjePeriode } from '../../types/TidslinjePeriode';
 
 import styles from './tilbakekrevingTimeline.module.css';
@@ -57,11 +56,11 @@ const formaterPerioder = (periodItems: TidslinjePeriode[] = []): Periode[] =>
     status: finnStatus(p),
   }));
 
-const finnIkonGittRelasjon = (relasjonsRolleType: string): ReactElement => {
-  if (relasjonsRolleType === RelasjonsRolleType.MOR || relasjonsRolleType === RelasjonsRolleType.MEDMOR) {
+const finnIkonGittRelasjon = (relasjonsRolleType: RelasjonsRolleType): ReactElement => {
+  if (relasjonsRolleType === 'MORA' || relasjonsRolleType === 'MMOR') {
     return <FigureOutwardFillIcon width={20} height={20} color="var(--ax-danger-500)" />;
   }
-  if (relasjonsRolleType === RelasjonsRolleType.FAR) {
+  if (relasjonsRolleType === 'FARA') {
     return <SilhouetteFillIcon width={20} height={20} color="var(--ax-accent-700)" />;
   }
   return <FigureCombinationIcon width={20} height={20} />;

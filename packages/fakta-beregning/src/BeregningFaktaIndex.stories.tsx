@@ -3,13 +3,7 @@ import dayjs from 'dayjs';
 import { action } from 'storybook/actions';
 
 import { alleKodeverk as alleKodeverkMock } from '@navikt/ft-frontend-storybook-utils';
-import {
-  AksjonspunktStatus,
-  AktivitetStatus as aktivitetStatuser,
-  FaktaOmBeregningTilfelle,
-  Inntektskategori,
-  OpptjeningAktivitetType,
-} from '@navikt/ft-kodeverk';
+import { AksjonspunktStatus, AktivitetStatus, Inntektskategori, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import type {
   AndelForFaktaOmBeregning,
   BeregningAvklaringsbehov,
@@ -35,6 +29,7 @@ import {
   vilkar as vilkarToArbeidsforholdIOpptjeningsperioden,
 } from '../testdata/ToArbeidsforholdIOpptjeningsperioden';
 import { BeregningFaktaIndex } from './BeregningFaktaIndex';
+import { FaktaOmBeregningTilfelle } from './kodeverk/faktaOmBeregningTilfelle';
 import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregningAvklaringsbehovCode';
 import type { KodeverkForPanel } from './typer/KodeverkForPanel';
 import type { Vilkår, Vilkårperiode } from './typer/Vilkår';
@@ -52,13 +47,13 @@ const opprettetVurderFakta = {
 const {
   VURDER_MOTTAR_YTELSE,
   VURDER_BESTEBEREGNING,
-  VURDER_LONNSENDRING,
+  VURDER_LØNNSENDRING,
   VURDER_NYOPPSTARTET_FL,
   VURDER_AT_OG_FL_I_SAMME_ORGANISASJON,
   VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT,
   VURDER_MILITÆR_SIVILTJENESTE,
   VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD,
-  VURDER_ETTERLONN_SLUTTPAKKE,
+  VURDER_ETTERLØNN_SLUTTPAKKE,
   FASTSETT_BG_KUN_YTELSE,
   VURDER_SN_NY_I_ARBEIDSLIVET,
 } = FaktaOmBeregningTilfelle;
@@ -160,7 +155,7 @@ const lagAndel = (andelsnr: number, aktivitetStatus: string, inntektskategori: s
 });
 
 const standardFaktaArbeidstakerAndel = {
-  ...lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
+  ...lagAndel(1, AktivitetStatus.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
@@ -170,7 +165,7 @@ const standardFaktaArbeidstakerAndel = {
   },
 };
 const standardFaktaArbeidstakerAndel2 = {
-  ...lagAndel(4, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
+  ...lagAndel(4, AktivitetStatus.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
@@ -181,7 +176,7 @@ const standardFaktaArbeidstakerAndel2 = {
   },
 };
 const tidsbegrensetFaktaArbeidstakerAndel = {
-  ...lagAndel(6, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
+  ...lagAndel(6, AktivitetStatus.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
@@ -192,7 +187,7 @@ const tidsbegrensetFaktaArbeidstakerAndel = {
   },
 };
 const etterlønnSluttpakkeFaktaArbeidstakerAndel = {
-  ...lagAndel(7, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
+  ...lagAndel(7, AktivitetStatus.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
@@ -202,32 +197,32 @@ const etterlønnSluttpakkeFaktaArbeidstakerAndel = {
   },
 };
 const standardFaktaDagpengerAndel = {
-  ...lagAndel(3, aktivitetStatuser.DAGPENGER, Inntektskategori.DAGPENGER),
+  ...lagAndel(3, AktivitetStatus.DAGPENGER, Inntektskategori.DAGPENGER),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
 };
 const standardFaktaFrilansAndel = {
-  ...lagAndel(2, aktivitetStatuser.FRILANSER, Inntektskategori.FRILANSER),
+  ...lagAndel(2, AktivitetStatus.FRILANSER, Inntektskategori.FRILANSER),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
 };
 const standardFaktaMilitærAndel = {
-  ...lagAndel(5, aktivitetStatuser.MILITAER_ELLER_SIVIL, Inntektskategori.ARBEIDSTAKER),
+  ...lagAndel(5, AktivitetStatus.MILITÆR_ELLER_SIVIL, Inntektskategori.ARBEIDSTAKER),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
 };
 const standardFaktaYtelseAndel = {
-  ...lagAndel(8, aktivitetStatuser.BRUKERS_ANDEL, Inntektskategori.UDEFINERT),
+  ...lagAndel(8, AktivitetStatus.BRUKERS_ANDEL, Inntektskategori.UDEFINERT),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
 };
 const standardFaktaNæringAndel = {
-  ...lagAndel(9, aktivitetStatuser.SELVSTENDIG_NAERINGSDRIVENDE, Inntektskategori.SELVSTENDIG_NÆRINGSDRIVENDE),
+  ...lagAndel(9, AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE, Inntektskategori.SELVSTENDIG_NÆRINGSDRIVENDE),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
 };
 const standardFaktaAAPAndel = {
-  ...lagAndel(10, aktivitetStatuser.ARBEIDSAVKLARINGSPENGER, Inntektskategori.ARBEIDSAVKLARINGSPENGER),
+  ...lagAndel(10, AktivitetStatus.ARBEIDSAVKLARINGSPENGER, Inntektskategori.ARBEIDSAVKLARINGSPENGER),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
 };
@@ -412,7 +407,7 @@ const lagBeregningsgrunnlag2 = () => {
     arbeidstakerAndelerUtenIM: [],
   };
   const faktaOmBeregning = {
-    faktaOmBeregningTilfeller: [VURDER_LONNSENDRING, VURDER_NYOPPSTARTET_FL, VURDER_MOTTAR_YTELSE],
+    faktaOmBeregningTilfeller: [VURDER_LØNNSENDRING, VURDER_NYOPPSTARTET_FL, VURDER_MOTTAR_YTELSE],
     arbeidsforholdMedLønnsendringUtenIM: [arbeidstakerBeregningsgrunnlagAndel],
     vurderMottarYtelse,
     andelerForFaktaOmBeregning,
@@ -491,7 +486,7 @@ const lagBeregningsgrunnlag4 = () => {
   const andelerForFaktaOmBeregning = [standardFaktaArbeidstakerAndel];
 
   const faktaOmBeregning = {
-    faktaOmBeregningTilfeller: [VURDER_LONNSENDRING],
+    faktaOmBeregningTilfeller: [VURDER_LØNNSENDRING],
     arbeidsforholdMedLønnsendringUtenIM: [arbeidstakerBeregningsgrunnlagAndel],
     andelerForFaktaOmBeregning,
   } as FaktaOmBeregning;
@@ -857,7 +852,7 @@ const lagBeregningsgrunnlag14 = () => {
   const andeler = [etterlønnSluttpakkeBeregningsgrunnlagAndel];
   const andelerForFaktaOmBeregning = [etterlønnSluttpakkeFaktaArbeidstakerAndel];
   const faktaOmBeregning = {
-    faktaOmBeregningTilfeller: [VURDER_ETTERLONN_SLUTTPAKKE],
+    faktaOmBeregningTilfeller: [VURDER_ETTERLØNN_SLUTTPAKKE],
     andelerForFaktaOmBeregning,
   };
   return [lagBeregningsgrunnlag(andeler, faktaOmBeregning, '2022-03-02', [opprettetVurderFakta])];
@@ -1043,7 +1038,7 @@ const lagBeregningsgrunnlag16 = () => {
       VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT,
       VURDER_SN_NY_I_ARBEIDSLIVET,
       VURDER_NYOPPSTARTET_FL,
-      VURDER_ETTERLONN_SLUTTPAKKE,
+      VURDER_ETTERLØNN_SLUTTPAKKE,
       VURDER_TIDSBEGRENSET_ARBEIDSFORHOLD,
       VURDER_BESTEBEREGNING,
       VURDER_AT_OG_FL_I_SAMME_ORGANISASJON,

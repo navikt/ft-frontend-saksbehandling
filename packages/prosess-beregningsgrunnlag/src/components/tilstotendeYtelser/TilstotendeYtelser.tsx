@@ -2,11 +2,12 @@ import { FormattedMessage } from 'react-intl';
 
 import { Heading, Table, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus, isStatusDagpengerOrAAP } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 import type { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
+import { isStatusDagpengerOrAAP } from '../../util/aktivitetStatusUtils';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 

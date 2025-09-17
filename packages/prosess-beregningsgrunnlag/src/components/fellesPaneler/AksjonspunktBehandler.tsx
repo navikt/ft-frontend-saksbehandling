@@ -6,7 +6,7 @@ import { VStack } from '@navikt/ds-react';
 
 import { RhfForm, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { AksjonspunktStatus, AktivitetStatus, PeriodeAarsak, SammenligningType } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, PeriodeÅrsak } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type {
   ArbeidsgiverOpplysningerPerId,
@@ -18,7 +18,9 @@ import type {
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
 import { usePrevious } from '@navikt/ft-ui-komponenter';
+import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
+import { SammenligningType } from '../../kodeverk/sammenligningType';
 import type { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
 import type { BeregningFormValues } from '../../types/BeregningFormValues';
 import type { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunkt';
@@ -85,7 +87,7 @@ const finnAlleAndelerIFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeP
 const harPerioderMedAvsluttedeArbeidsforhold = (allePerioder: BeregningsgrunnlagPeriodeProp[]): boolean =>
   allePerioder.some(
     ({ periodeAarsaker }) =>
-      periodeAarsaker && periodeAarsaker.some(kode => kode === PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET),
+      periodeAarsaker && periodeAarsaker.some(kode => kode === PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET),
   );
 
 const finnVilkårperiode = (vilkår: Vilkår, vilkårsperiodeFom: string): Vilkårperiode =>
@@ -110,7 +112,7 @@ const buildInitialValues = (
   );
   const snEllerMidlertidigInaktivAndeler = alleAndelerIForstePeriode.filter(
     andel =>
-      andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE ||
+      andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE ||
       andel.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL,
   );
   const valuesATFL = {
@@ -212,7 +214,7 @@ const SelvstendigNæringsdrivendeContainer = ({
 }): ReactElement | null => {
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
   const snAndel = alleAndelerIForstePeriode.find(
-    andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
   );
   const erNyArbLivet = snAndel && snAndel.erNyIArbeidslivet;
   const erVarigEndring =
@@ -526,11 +528,7 @@ export const AksjonspunktBehandler = ({
       trigger();
     }
     const aktivtBG = beregningsgrunnlagListe[aktivIndex];
-    if (
-      aktivtBG.avklaringsbehov.some(
-        ak => gjelderForParagraf(ak, lovparagraf) && ak.status === AksjonspunktStatus.OPPRETTET,
-      )
-    ) {
+    if (aktivtBG.avklaringsbehov.some(ak => gjelderForParagraf(ak, lovparagraf) && isAksjonspunktOpen(ak))) {
       panelRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
     }
   }, [aktivIndex]);

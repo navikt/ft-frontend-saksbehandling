@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
-import { ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
+import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 import { AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 
@@ -20,6 +20,7 @@ import type {
 import type { FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
 import type { KodeverkMedNavn } from '../types/kodeverkMedNavn';
 import type { KodeverkMedNavnTilbakekreving, KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
+import type { RelasjonsRolleType } from '../types/RelasjonsRolleType';
 import type { TidslinjePeriode } from '../types/TidslinjePeriode';
 import type { VilkårsvurderingAp } from '../types/VilkårsvurderingAp';
 import type { VilkårsvurdertePerioderWrapper, VilkårsvurdertPeriode } from '../types/VilkårsvurdertePerioder';

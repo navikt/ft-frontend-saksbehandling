@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { PeriodeAarsak } from '@navikt/ft-kodeverk';
+import { PeriodeÅrsak } from '@navikt/ft-kodeverk';
 import type {
   BeregningsgrunnlagPeriodeProp,
   FordelBeregningsgrunnlagAndel,
@@ -39,7 +39,7 @@ const harPeriodeÅrsak = (periode: BeregningsgrunnlagPeriodeProp, periodeÅrsak:
   !!periode.periodeAarsaker && periode.periodeAarsaker.includes(periodeÅrsak);
 
 const harPeriodeårsakerSomIkkeSlåsSammen = (periode: BeregningsgrunnlagPeriodeProp) =>
-  harPeriodeÅrsak(periode, PeriodeAarsak.GRADERING) || harPeriodeÅrsak(periode, PeriodeAarsak.GRADERING_OPPHOERER);
+  harPeriodeÅrsak(periode, PeriodeÅrsak.GRADERING) || harPeriodeÅrsak(periode, PeriodeÅrsak.GRADERING_OPPHØRER);
 
 const skalSlåSammenAvsluttetArbeidsforholdPerioder = (
   periode: BeregningsgrunnlagPeriodeProp,
@@ -188,10 +188,10 @@ const harPeriodeSomKanKombineresMedForrige = (
   ) {
     return false;
   }
-  if (harPeriodeÅrsak(periode, PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET)) {
+  if (harPeriodeÅrsak(periode, PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET)) {
     return skalSlåSammenAvsluttetArbeidsforholdPerioder(periode, bgPerioder);
   }
-  if (harPeriodeÅrsak(periode, PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR)) {
+  if (harPeriodeÅrsak(periode, PeriodeÅrsak.ENDRING_I_AKTIVITETER_SØKT_FOR)) {
     return harIngenRelevantEndringForFordeling(fordelPeriode, forrigeFordelPeriode, periode, bgPerioder);
   }
   return true;

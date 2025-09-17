@@ -18,7 +18,7 @@ type Props = {
  * Presentasjonskomponent. Viser beregningsgrunnlag for militær og sivilforsvarstjeneste.
  */
 export const MilitaerPanel = ({ alleAndeler }: Props) => {
-  const relevanteAndeler = alleAndeler.filter(andel => andel.aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL);
+  const relevanteAndeler = alleAndeler.filter(andel => andel.aktivitetStatus === AktivitetStatus.MILITÆR_ELLER_SIVIL);
   const beregnetAarsinntekt = relevanteAndeler && relevanteAndeler.length > 0 ? relevanteAndeler[0].beregnetPrAar : '';
   return (
     <VStack gap="space-8">

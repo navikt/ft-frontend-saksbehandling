@@ -6,9 +6,10 @@ import { List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 
+import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
 import type { FaktaOmBeregningAksjonspunktValues, NyoppstartetFLValues } from '../../../../typer/FaktaBeregningTypes';
 import type { InntektTransformed } from '../../../../typer/FieldValues';
 import type { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
