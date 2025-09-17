@@ -1938,9 +1938,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-types@workspace:packages/internal/types":
+"@navikt/ft-types@workspace:packages/types":
   version: 0.0.0-use.local
-  resolution: "@navikt/ft-types@workspace:packages/internal/types"
+  resolution: "@navikt/ft-types@workspace:packages/types"
   dependencies:
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"

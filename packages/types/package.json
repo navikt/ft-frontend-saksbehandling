@@ -1,10 +1,13 @@
 {
   "name": "@navikt/ft-types",
-  "version": "4.3.1",
+  "description": "Pakke som har typer som blir brukt på tvers av applikasjoner",
+  "version": "5.0.0",
   "license": "MIT",
   "type": "module",
-  "private": true,
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "tsc": "tsc --pretty",
     "eslint": "eslint \"src/**/*.ts*\" --color",
@@ -28,6 +31,13 @@
     "typescript": "5.9.2",
     "vite": "7.1.5",
     "vitest": "3.2.4"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/navikt/ft-frontend-saksbehandling"
   },
   "exports": {
     ".": {
