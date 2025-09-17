@@ -12,6 +12,8 @@ import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { VurderAktiviteterTabellRad } from './VurderAktiviteterRow';
 import { isSameOrBefore, lagAktivitetFieldId, mapToInitialValues } from './vurderAktiviteterTabellUtils';
 
+import styles from './vurderAktiviteterTabell.module.css';
+
 const finnHeading = (aktiviteter: BeregningAktivitet[], skjaeringstidspunkt: string) => {
   const harVentelonnVartpenger = aktiviteter.some(
     aktivitet =>
@@ -60,22 +62,22 @@ export const VurderAktiviteterTabell = ({
 }: Props) => (
   <VStack gap="space-8">
     {finnHeading(aktiviteter, tomDatoForAktivitetGruppe)}
-    <Table size="small">
+    <Table size="small" className={styles.table}>
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell textSize="small">
+          <Table.HeaderCell textSize="small" className={styles.colNavn}>
             <FormattedMessage id="VurderAktiviteterTabell.Header.Aktivitet" />
           </Table.HeaderCell>
-          <Table.HeaderCell textSize="small">
+          <Table.HeaderCell textSize="small" className={styles.colPeriode}>
             <FormattedMessage id="VurderAktiviteterTabell.Header.Periode" />
           </Table.HeaderCell>
-          <Table.HeaderCell textSize="small">
+          <Table.HeaderCell textSize="small" className={styles.colRadio}>
             <FormattedMessage id="VurderAktiviteterTabell.Header.Benytt" />
           </Table.HeaderCell>
-          <Table.HeaderCell textSize="small">
+          <Table.HeaderCell textSize="small" className={styles.colRadio}>
             <FormattedMessage id="VurderAktiviteterTabell.Header.IkkeBenytt" />
           </Table.HeaderCell>
-          <Table.HeaderCell />
+          <Table.HeaderCell className={styles.colRadio} />
         </Table.Row>
       </Table.Header>
       <Table.Body>
