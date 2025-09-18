@@ -94,14 +94,14 @@ const lagPeriodeblokk = (
     ? frilansGrunnlag
     : null;
   const beregningsgrunnlagSN = andelerDetErSøktOm.some(
-    p => p.statusSøktFor === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    p => p.statusSøktFor === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
   )
     ? næringGrunnlag
     : null;
 
   const løpendeInntektFL = finnOppgittInntektForAndelIPeriode(AktivitetStatus.FRILANSER, bgperiode, ytelsegrunnlag);
   const løpendeInntektSN = finnOppgittInntektForAndelIPeriode(
-    AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
     bgperiode,
     ytelsegrunnlag,
   );

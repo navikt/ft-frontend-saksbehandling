@@ -1,6 +1,6 @@
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import type { VurderBesteberegning } from '@navikt/ft-types';
 
+import { FaktaOmBeregningTilfelle } from '../../../kodeverk/faktaOmBeregningTilfelle';
 import type { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningAvklaringsbehovCode } from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { besteberegningField, VurderBesteberegningForm } from './VurderBesteberegningForm';

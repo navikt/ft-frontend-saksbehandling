@@ -2,9 +2,9 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, VStack } from '@navikt/ds-react';
 
-import { SammenligningType } from '@navikt/ft-kodeverk';
 import type { SammenligningsgrunlagProp } from '@navikt/ft-types';
 
+import { SammenligningType } from '../../kodeverk/sammenligningType';
 import type { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 
 type Props = {

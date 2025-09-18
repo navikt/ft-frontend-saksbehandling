@@ -71,7 +71,7 @@ export const TilkommetInntektsforholdField = ({
             Husk å begrunne fastsatt inntekt for alle periodene.
           </>
         );
-      case AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE:
+      case AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE:
         return (
           <>
             Her skal du fastsette den inntekten bruker ville hatt fremover ved fullt arbeid i sin «normalarbeidstid».
@@ -105,7 +105,7 @@ export const TilkommetInntektsforholdField = ({
   };
 
   const getRadioGroupLabel = (): string => {
-    if (field.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE) {
+    if (field.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE) {
       return intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.VurderTekstNæring' });
     }
     if (field.aktivitetStatus === AktivitetStatus.FRILANSER) {

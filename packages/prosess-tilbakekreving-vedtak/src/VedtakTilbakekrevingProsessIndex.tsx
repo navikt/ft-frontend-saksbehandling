@@ -5,9 +5,9 @@ import { createIntl } from '@navikt/ft-utils';
 
 import { type FormValues } from './components/brev/TilbakekrevingEditerVedtaksbrevPanel';
 import { TilbakekrevingVedtak } from './components/TilbakekrevingVedtak';
-import { type ForhandsvisData } from './components/TilbakekrevingVedtakForm';
 import { type BeregningsresultatTilbakekreving } from './types/BeregningsresultatTilbakekreving';
 import { type ForeslaVedtakTilbakekrevingAp } from './types/ForeslaVedtakTilbakekrevingAp';
+import type { ForhandsvisData } from './types/ForhandsvisData';
 import { type KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 import { type Vedtaksbrev } from './types/Vedtaksbrev';
 

@@ -3,7 +3,6 @@ import { useFormContext } from 'react-hook-form';
 
 import { VStack } from '@navikt/ds-react';
 
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
@@ -12,6 +11,7 @@ import type {
 } from '@navikt/ft-types';
 import { AksjonspunktBox } from '@navikt/ft-ui-komponenter';
 
+import { FaktaOmBeregningTilfelle } from '../../../kodeverk/faktaOmBeregningTilfelle';
 import type {
   FaktaOmBeregningAksjonspunktValues,
   VurderOgFastsettATFLValues,
@@ -122,16 +122,16 @@ export const VurderOgFastsettATFL = ({
       );
     }
 
-    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
-      forms.push(<LonnsendringForm readOnly={readOnly} key={FaktaOmBeregningTilfelle.VURDER_LONNSENDRING} />);
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING)) {
+      forms.push(<LonnsendringForm readOnly={readOnly} key={FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING} />);
     }
-    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE)) {
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLØNN_SLUTTPAKKE)) {
       forms.push(
         <VurderEtterlonnSluttpakkeForm
           beregningsgrunnlag={beregningsgrunnlag}
           isAksjonspunktClosed={isAksjonspunktClosed}
           readOnly={readOnly}
-          key={FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE}
+          key={FaktaOmBeregningTilfelle.VURDER_ETTERLØNN_SLUTTPAKKE}
         />,
       );
     }
@@ -153,7 +153,7 @@ export const VurderOgFastsettATFL = ({
 
     if (
       tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE) ||
-      tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING) ||
+      tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MÅNEDSLØNN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING) ||
       tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)
     ) {
       forms.push(

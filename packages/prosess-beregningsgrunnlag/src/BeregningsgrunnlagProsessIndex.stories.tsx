@@ -8,11 +8,8 @@ import {
   InntektAktivitetType,
   LønnsendringScenario,
   OpptjeningAktivitetType,
-  PeriodeAarsak,
+  PeriodeÅrsak,
   PgiType,
-  SammenligningType,
-  VilkarType,
-  VilkarUtfallType,
 } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
@@ -31,6 +28,9 @@ import type {
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { BeregningsgrunnlagProsessIndex } from './BeregningsgrunnlagProsessIndex';
+import { SammenligningType } from './kodeverk/sammenligningType';
+import { VilkarType } from './kodeverk/vilkarType';
+import { VilkårUtfallType } from './kodeverk/vilkårUtfallType';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import type { KodeverkForPanel } from './types/KodeverkForPanel';
 import type { Vilkår } from './types/Vilkår';
@@ -93,7 +93,7 @@ const lagSNUtenPGI = (
   erNyIArbeidslivet?: boolean,
   næring?: Næring,
 ): BeregningsgrunnlagAndel => ({
-  aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+  aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
   beregningsperiodeFom: '2019-01-01',
   beregningsperiodeTom: '2021-12-31',
   beregnetPrAar: beregnet,
@@ -117,7 +117,7 @@ const lagSNMedPGI = (
   erNyIArbeidslivet?: boolean,
   næring?: Næring,
 ): BeregningsgrunnlagAndel => ({
-  aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+  aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
   beregningsperiodeFom: '2019-01-01',
   beregningsperiodeTom: '2021-12-31',
   beregnetPrAar: beregnet,
@@ -164,7 +164,7 @@ const lagAPMedKode = (kode: string, begrunnelse?: string): DeepWriteable<Beregni
   kanLoses: true,
 });
 
-const vilkarMedUtfall = (kode: string, fom?: string, tom?: string): Vilkår => ({
+const vilkarMedUtfall = (kode: VilkårUtfallType, fom?: string, tom?: string): Vilkår => ({
   vilkarType: VilkarType.BEREGNINGSGRUNNLAGVILKARET,
   perioder: [
     {
@@ -531,7 +531,7 @@ export const MidlertidigInaktivOppfylt: Story = {
         [],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -547,7 +547,7 @@ export const MidlertidigInaktivAvslått: Story = {
         [],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_OPPFYLT),
   },
 };
 
@@ -574,7 +574,7 @@ export const AvvikMedSammenligningsgraf5038: Story = {
         },
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -601,7 +601,7 @@ export const ArbeidstakerUtenAvvik: Story = {
         },
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -642,7 +642,7 @@ export const ArbeidstakerUtenAvvikFlereArbeidsforholdMedLønnsendring: Story = {
         },
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -657,7 +657,7 @@ export const BrukersAndelUtenAvvik: Story = {
         [malSGGrunnlag(SammenligningType.AT_FL)],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -684,7 +684,7 @@ export const ArbeidstakerMedAvvikAp5038: Story = {
         },
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -803,7 +803,7 @@ export const ArbeidstakerFrilansMedAvvikAp5038: Story = {
         [lagAPMedKode(ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -811,9 +811,9 @@ export const Militær: Story = {
   args: {
     isReadOnly: false,
     beregningsgrunnlagListe: [
-      lagBG(malPerioder([lagGenerellAndel(1, AktivitetStatus.MILITAER_ELLER_SIVIL, 300000)]), ['MS']),
+      lagBG(malPerioder([lagGenerellAndel(1, AktivitetStatus.MILITÆR_ELLER_SIVIL, 300000)]), ['MS']),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -833,7 +833,7 @@ export const SelvstendigNæringsdrivendeMedAksjonspunktAp5039: Story = {
         ],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -892,7 +892,7 @@ export const MidlertidigInaktivOgATFLSNMedAksjonspunktAp5054Og5038Og5039: Story 
             tom: '2021-01-15',
           },
           vurderesIBehandlingen: true,
-          vilkarStatus: VilkarUtfallType.IKKE_VURDERT,
+          vilkarStatus: VilkårUtfallType.IKKE_VURDERT,
           erForlengelse: false,
           merknadParametere: {},
         },
@@ -902,7 +902,7 @@ export const MidlertidigInaktivOgATFLSNMedAksjonspunktAp5054Og5038Og5039: Story 
             tom: '2021-02-15',
           },
           vurderesIBehandlingen: true,
-          vilkarStatus: VilkarUtfallType.IKKE_VURDERT,
+          vilkarStatus: VilkårUtfallType.IKKE_VURDERT,
           erForlengelse: false,
           merknadParametere: {},
         },
@@ -912,7 +912,7 @@ export const MidlertidigInaktivOgATFLSNMedAksjonspunktAp5054Og5038Og5039: Story 
             tom: '2021-03-15',
           },
           vurderesIBehandlingen: true,
-          vilkarStatus: VilkarUtfallType.IKKE_VURDERT,
+          vilkarStatus: VilkårUtfallType.IKKE_VURDERT,
           erForlengelse: false,
           merknadParametere: {},
         },
@@ -933,7 +933,7 @@ export const MidlertidigInaktivMedAksjonspunktAp5054: Story = {
         [lagAPMedKode(ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON)],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -966,7 +966,7 @@ export const MangeTidsbegrensetArbeidsforholdMedAvvikAp5047: Story = {
               lagTBAndel(3, '999999997', 5000),
               lagFrilansandel(4, 4500, undefined, true),
             ],
-            [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET],
+            [PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET],
             etterSTP(21),
             etterSTP(35),
           ),
@@ -977,7 +977,7 @@ export const MangeTidsbegrensetArbeidsforholdMedAvvikAp5047: Story = {
               lagTBAndel(3, '999999997', 5000),
               lagFrilansandel(4, 4500, undefined, true),
             ],
-            [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET],
+            [PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET],
             etterSTP(36),
             etterSTP(40),
           ),
@@ -991,7 +991,7 @@ export const MangeTidsbegrensetArbeidsforholdMedAvvikAp5047: Story = {
         erOverstyrtInntekt: false,
       },
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -1026,7 +1026,7 @@ export const MangeTidsbegrensetArbeidsforholdMedAvvikFastsattAp5047: Story = {
               lagTBAndel(3, '999999997', 5000, 5000),
               lagFrilansandel(4, 4500, 4500, true),
             ],
-            [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET],
+            [PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET],
             etterSTP(16),
             etterSTP(20),
             800,
@@ -1038,7 +1038,7 @@ export const MangeTidsbegrensetArbeidsforholdMedAvvikFastsattAp5047: Story = {
               lagTBAndel(3, '999999997', 5000, 5000),
               lagFrilansandel(4, 4500, 4500, true),
             ],
-            [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET],
+            [PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET],
             etterSTP(21),
             undefined,
             0,
@@ -1053,7 +1053,7 @@ export const MangeTidsbegrensetArbeidsforholdMedAvvikFastsattAp5047: Story = {
         erOverstyrtInntekt: false,
       },
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1071,7 +1071,7 @@ export const TidsbegrensetArbeidsforholdMedAvvikAp5047: Story = {
           lagPeriode([lagTBAndel(1, '999999999', 100000)], [], STP, etterSTP(20)),
           lagPeriode(
             [lagTBAndel(1, '999999999', 100000)],
-            [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET],
+            [PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET],
             etterSTP(21),
             etterSTP(35),
           ),
@@ -1085,7 +1085,7 @@ export const TidsbegrensetArbeidsforholdMedAvvikAp5047: Story = {
         erOverstyrtInntekt: false,
       },
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -1109,7 +1109,7 @@ export const ArbeidstakerFrilanserOgSelvstendigNæringsdrivendeAp5039: Story = {
         ],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -1146,7 +1146,7 @@ export const NaturalYtelse: Story = {
                 false,
               ),
             ],
-            [PeriodeAarsak.NATURALYTELSE_BORTFALT],
+            [PeriodeÅrsak.NATURALYTELSE_BORTFALT],
             etterSTP(21),
             etterSTP(30),
           ),
@@ -1161,7 +1161,7 @@ export const NaturalYtelse: Story = {
                 false,
               ),
             ],
-            [PeriodeAarsak.NATURALYTELSE_BORTFALT],
+            [PeriodeÅrsak.NATURALYTELSE_BORTFALT],
             etterSTP(31),
             etterSTP(50),
           ),
@@ -1176,7 +1176,7 @@ export const NaturalYtelse: Story = {
                 false,
               ),
             ],
-            [PeriodeAarsak.NATURALYTELSE_BORTFALT],
+            [PeriodeÅrsak.NATURALYTELSE_BORTFALT],
             etterSTP(51),
             etterSTP(200),
           ),
@@ -1190,7 +1190,7 @@ export const NaturalYtelse: Story = {
         erOverstyrtInntekt: false,
       },
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT, STP, etterSTP(200)),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT, STP, etterSTP(200)),
   },
 };
 
@@ -1198,7 +1198,7 @@ export const Dagpenger: Story = {
   args: {
     isReadOnly: false,
     beregningsgrunnlagListe: [lagBG(malPerioder([lagGenerellAndel(1, AktivitetStatus.DAGPENGER, 300000)]), ['DP'])],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1208,7 +1208,7 @@ export const SykepengerAvDagpenger: Story = {
     beregningsgrunnlagListe: [
       lagBG(malPerioder([lagGenerellAndel(1, AktivitetStatus.SYKEPENGER_AV_DAGPENGER, 300000)]), ['SP_AV_DP']),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1231,7 +1231,7 @@ export const GraderingPåBeregningsgrunnlagUtenPenger: Story = {
         ],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1250,7 +1250,7 @@ export const ArbeidstakerDagpengerOgSelvstendigNæringsdrivendeUtenAksjonspunkt:
         [malSGGrunnlag(SammenligningType.SN)],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1290,7 +1290,7 @@ export const ArbeidstakerMed3Arbeidsforhold2ISammeOrganisasjon: Story = {
         [malSGGrunnlag(SammenligningType.AT_FL)],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1302,7 +1302,7 @@ export const ArbeidstakerAvslagHalvG: Story = {
         malSGGrunnlag(SammenligningType.AT_FL),
       ]),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_OPPFYLT),
   },
 };
 
@@ -1323,7 +1323,7 @@ export const ArbeidstakerMedAksjonspunktBehandlet: Story = {
         ],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1339,7 +1339,7 @@ export const FrilansMedAvvikAp5038: Story = {
         [lagAPMedKode(ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -1349,7 +1349,7 @@ export const SelvstendigNæringsdrivendeUtenAksjonspunkt: Story = {
     beregningsgrunnlagListe: [
       lagBG(malPerioder([lagSNMedPGI(1, 200000, undefined, false, false, lagNæring(false, false))]), ['SN']),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1369,7 +1369,7 @@ export const SelvstendigNæringsdrivendeNyoppstartetAksjonspunktAp5039: Story = 
         ],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -1385,7 +1385,7 @@ export const SelvstendigNæringsdrivendNyIArbeidslivetAp5049: Story = {
         [lagAPMedKode(ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET)],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -1403,7 +1403,7 @@ export const ArbeidstakerOgSelvstendigNæringsdrivendeSnStorreEnnAtOgStorreEnn6g
         ['AT_SN'],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1413,7 +1413,7 @@ export const YtelseFraNav: Story = {
     beregningsgrunnlagListe: [
       lagBG([malPeriode([lagGenerellAndel(1, AktivitetStatus.KUN_YTELSE, 325845)])], ['kun_YTELSE']),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1434,7 +1434,7 @@ export const ArbeidstakerOgAAPMedAksjonspunktAp5038: Story = {
         [lagAPMedKode(ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -1460,7 +1460,7 @@ export const FrilansDagpengerOgSelvstendigNæringsdrivendeAp5039: Story = {
         ],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -1489,7 +1489,7 @@ export const AvvikNæringEtterLøstAvvikArbeid5038Og5039: Story = {
         ],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -1497,6 +1497,6 @@ export const ManglerBeregningsgrunnlag: Story = {
   args: {
     isReadOnly: false,
     beregningsgrunnlagListe: [],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };

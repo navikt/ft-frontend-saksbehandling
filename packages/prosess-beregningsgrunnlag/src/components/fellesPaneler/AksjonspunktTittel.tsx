@@ -1,7 +1,7 @@
 import { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { AktivitetStatus, isAksjonspunktOpen, SammenligningType } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type {
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -10,8 +10,9 @@ import type {
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
-import { BTag } from '@navikt/ft-utils';
+import { BTag, isAksjonspunktOpen } from '@navikt/ft-utils';
 
+import { SammenligningType } from '../../kodeverk/sammenligningType';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
 const {
@@ -94,7 +95,7 @@ const lagAksjonspunktHelpText = (
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
 ): ReactElement => {
   const snAndel = alleAndelerIForstePeriode.find(
-    andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
   );
   const erVarigEndring = !!snAndel?.næringer?.some(naring => naring.erVarigEndret === true);
   return (

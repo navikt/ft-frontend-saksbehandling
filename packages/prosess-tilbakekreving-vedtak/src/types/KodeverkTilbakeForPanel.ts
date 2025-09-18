@@ -1,6 +1,5 @@
-import { VedtakResultatType } from '@navikt/ft-kodeverk';
-
-import { Aktsomhet } from '../kodeverk/aktsomhet';
+import type { Aktsomhet } from './Aktsomhet';
+import type { VedtakResultatType } from './VedtakResultatType';
 
 //Mapping mellom KodeverkType og enums/union-types med verdier
 type KodeverkEnumMap = {

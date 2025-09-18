@@ -5,13 +5,16 @@ import { BodyShort, ExpansionCard, Heading, Label, VStack } from '@navikt/ds-rea
 
 import { decodeHtmlEntity } from '@navikt/ft-utils';
 
-import { UnderavsnittType } from '../../kodeverk/avsnittType';
-import type { VedtaksbrevAvsnitt } from '../../types/VedtaksbrevAvsnitt';
+import type { AvsnittType, UnderavsnittType, VedtaksbrevAvsnitt } from '../../types/Vedtaksbrev';
 import { TilbakekrevingVedtakUtdypendeTekstPanel } from './TilbakekrevingVedtakUtdypendeTekstPanel';
 
 import styles from './tilbakekrevingEditerVedtaksbrevPanel.module.css';
 
-export type FormValues = Record<string, Record<string, string> | string>;
+export type FormValues = {
+  [key: string]: {
+    [key in UnderavsnittType]?: string;
+  };
+} & { [key in AvsnittType]?: string };
 
 interface Props {
   intl: IntlShape;
@@ -36,10 +39,9 @@ export const TilbakekrevingEditerVedtaksbrevPanel = ({
     </Heading>
     {vedtaksbrevAvsnitt.map(avsnitt => {
       const underavsnitter = avsnitt.underavsnittsliste;
-      const periode = `${avsnitt.fom}_${avsnitt.tom}`;
+      const periode = `${avsnitt.fom}_${avsnitt.tom}` as const;
       const harPeriodeSomManglerObligatoriskVerdi = perioderSomIkkeHarUtfyltObligatoriskVerdi.some(p => p === periode);
-      const visApen =
-        avsnitt.avsnittstype === UnderavsnittType.OPPSUMMERING && fritekstOppsummeringPakrevdMenIkkeUtfylt;
+      const visApen = avsnitt.avsnittstype === 'OPPSUMMERING' && fritekstOppsummeringPakrevdMenIkkeUtfylt;
       return (
         <React.Fragment key={avsnitt.avsnittstype + avsnitt.fom}>
           <ExpansionCard
@@ -65,7 +67,7 @@ export const TilbakekrevingEditerVedtaksbrevPanel = ({
                     {underavsnitt.brødtekst && <BodyShort>{underavsnitt.brødtekst}</BodyShort>}
                     {underavsnitt.fritekstTillatt && (
                       <TilbakekrevingVedtakUtdypendeTekstPanel
-                        type={
+                        name={
                           underavsnitt.underavsnittstype
                             ? `${periode}.${underavsnitt.underavsnittstype}`
                             : avsnitt.avsnittstype
@@ -103,7 +105,7 @@ TilbakekrevingEditerVedtaksbrevPanel.buildInitialValues = (vedtaksbrevAvsnitt: V
           {},
         );
 
-      const nyeFritekster = avsnitt.fom
+      const nyeFritekster: FormValues = avsnitt.fom
         ? { [`${avsnitt.fom}_${avsnitt.tom}`]: friteksterForUnderavsnitt }
         : friteksterForUnderavsnitt;
 

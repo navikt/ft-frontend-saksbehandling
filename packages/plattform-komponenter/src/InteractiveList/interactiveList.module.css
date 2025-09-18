@@ -24,7 +24,7 @@
   background: #cce4fd;
 }
 .interactiveListElement--active:before {
-  background-color: var(--ax-bg-accent-moderate);
+  background-color: var(--ax-border-strong);
   border-bottom-right-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
   content: '';

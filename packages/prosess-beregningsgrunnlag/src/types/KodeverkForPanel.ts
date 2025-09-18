@@ -1,10 +1,9 @@
-import { AktivitetStatus, OpptjeningAktivitetType, OverføringÅrsak } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 
 //Mapping mellom KodeverkType og enums/union-types med verdier
 type KodeverkEnumMap = {
   AktivitetStatus: AktivitetStatus;
   OpptjeningAktivitetType: OpptjeningAktivitetType;
-  OverføringÅrsak: OverføringÅrsak;
 };
 
 type KodeverkType = keyof KodeverkEnumMap;

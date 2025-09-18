@@ -67,7 +67,7 @@ type Props = {
 export const GrunnlagForAarsinntektPanelSN = ({ alleAndeler, inntektsgrunnlag }: Props) => {
   const andel = alleAndeler.find(
     a =>
-      a.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE ||
+      a.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE ||
       a.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL,
   );
   const pgiGrunlag = inntektsgrunnlag?.pgiGrunnlag || [];

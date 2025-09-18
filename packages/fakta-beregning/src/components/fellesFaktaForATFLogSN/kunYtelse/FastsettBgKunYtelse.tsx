@@ -2,7 +2,6 @@ import React from 'react';
 
 import { VStack } from '@navikt/ds-react';
 
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import type {
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,
@@ -10,6 +9,7 @@ import type {
   KunYtelse,
 } from '@navikt/ft-types';
 
+import { FaktaOmBeregningTilfelle } from '../../../kodeverk/faktaOmBeregningTilfelle';
 import type { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import type { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import type { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
