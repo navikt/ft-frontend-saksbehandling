@@ -1,0 +1,1 @@
+import{j as o}from"./iframe-DzXUO6GT.js";import{c as n,P as a,a as s}from"./index-DfaBx6Pe.js";const m=t=>{const r=n({locale:"nb-NO",messages:t},s());return e=>o.jsx(a,{value:r,children:e()})};export{m as g};

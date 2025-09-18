@@ -1,0 +1,3 @@
+import{j as e}from"./iframe-DzXUO6GT.js";import{L as a}from"./Loader-IncALmTQ.js";import"./preload-helper-PPVm8Dsz.js";import"./omit-B7stZg_p.js";import"./useId-BTmGetX7.js";import"./Provider-CLScYENo.js";const s="_container_dr0yo_1",t={container:s},r=()=>e.jsx("div",{className:t.container,children:e.jsx(a,{size:"2xlarge"})});r.__docgenInfo={description:`LoadingPanel
+
+Viser lasteikon.`,methods:[],displayName:"LoadingPanel"};const l={component:r},o={};o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:"{}",...o.parameters?.docs?.source}}};const u=["Default"];export{o as Default,u as __namedExportsOrder,l as default};
