@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { type SyntheticEvent, useState } from 'react';
 import type { FieldPath } from 'react-hook-form';
 import { useFormContext } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { PlusCircleIcon } from '@navikt/aksel-icons';
-import { Detail, HStack } from '@navikt/ds-react';
+import { Button } from '@navikt/ds-react';
 
 import { RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
@@ -27,8 +27,6 @@ interface Props {
 }
 
 export const TilbakekrevingVedtakUtdypendeTekstPanel = ({ name, readOnly, fritekstPakrevet, maximumLength }: Props) => {
-  const intl = useIntl();
-
   const { watch, control } = useFormContext<FormValues>();
 
   const isEmpty = watch(name) === undefined;
@@ -37,36 +35,29 @@ export const TilbakekrevingVedtakUtdypendeTekstPanel = ({ name, readOnly, fritek
   const valideringsRegler = fritekstPakrevet ? valideringsreglerPakrevet : valideringsregler;
   valideringsRegler.push(maximumLength ? maxLength(maximumLength) : maxLength4000);
 
+  const handleOnClick = (event: SyntheticEvent) => {
+    event.preventDefault();
+    hideTextField(false);
+  };
+
   return (
     <>
       {isTextfieldHidden && !readOnly && (
-        <div
-          onClick={event => {
-            event.preventDefault();
-            hideTextField(false);
-          }}
-          onKeyDown={event => {
-            event.preventDefault();
-            hideTextField(false);
-          }}
-          className={styles.addPeriode}
-          role="button"
-          tabIndex={0}
-        >
-          <HStack gap="space-8" align="center">
-            <PlusCircleIcon
-              className={styles.addCircleIcon}
-              title={intl.formatMessage({ id: 'TilbakekrevingVedtakUtdypendeTekstPanel.LeggTilUtdypendeTekst' })}
-            />
-            <Detail as="span">
-              <FormattedMessage id="TilbakekrevingVedtakUtdypendeTekstPanel.LeggTilUtdypendeTekst" />
-            </Detail>
-          </HStack>
+        <div>
+          <Button
+            icon={<PlusCircleIcon aria-hidden />}
+            variant="tertiary"
+            type="button"
+            size="xsmall"
+            onClick={handleOnClick}
+            className={styles.addPeriodeButton}
+          >
+            <FormattedMessage id="TilbakekrevingVedtakUtdypendeTekstPanel.LeggTilUtdypendeTekst" />
+          </Button>
         </div>
       )}
       {!isTextfieldHidden && (
         <RhfTextarea
-          className={styles.textfield}
           name={name}
           control={control}
           label={<FormattedMessage id="TilbakekrevingVedtakUtdypendeTekstPanel.UtdypendeTekst" />}
