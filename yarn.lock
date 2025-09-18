@@ -1708,7 +1708,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-kodeverk@workspace:^, @navikt/ft-kodeverk@workspace:packages/internal/kodeverk":
+"@navikt/ft-kodeverk@workspace:packages/internal/kodeverk":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-kodeverk@workspace:packages/internal/kodeverk"
   dependencies:
@@ -1944,7 +1944,6 @@ __metadata:
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
-    "@navikt/ft-kodeverk": "workspace:^"
     eslint: 9.35.0
     typescript: 5.9.2
     vite: 7.1.6
