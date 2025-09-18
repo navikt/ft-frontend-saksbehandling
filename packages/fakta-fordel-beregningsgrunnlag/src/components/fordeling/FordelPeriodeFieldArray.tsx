@@ -4,7 +4,7 @@ import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
 import { Checkbox, ErrorMessage, HStack, Table, VStack } from '@navikt/ds-react';
 
-import { FieldArray, RhfSelect, RhfTextField, useCustomValidation } from '@navikt/ft-form-hooks';
+import { RhfFieldArray, RhfSelect, RhfTextField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, BeregningsgrunnlagAndelType, Inntektskategori } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
@@ -444,7 +444,7 @@ export const FordelPeriodeFieldArray = ({
                   />
                 </Table.DataCell>
                 <Table.DataCell align="right" textSize="small">
-                  <FieldArray.RemoveButton
+                  <RhfFieldArray.RemoveButton
                     index={index}
                     remove={remove}
                     size="small"
@@ -475,13 +475,13 @@ export const FordelPeriodeFieldArray = ({
       </Table>
       {!readOnly && !skalIkkeRedigereInntekt && (
         <HStack justify="space-between">
-          <FieldArray.AppendButton
+          <RhfFieldArray.AppendButton
             size="small"
             append={append}
             emptyTemplate={defaultBGFordeling(skalIkkeRedigereInntekt)}
           >
             <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
-          </FieldArray.AppendButton>
+          </RhfFieldArray.AppendButton>
 
           <Checkbox size="small" checked={fieldArrayName === fieldArrayToRepeat} onChange={handleBenyttCheckbox}>
             Benytt for alle perioder

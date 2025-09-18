@@ -6,7 +6,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { rhfDecorator } from '../../.storybook/decorators';
 import { RhfDatepicker } from '../RhfDatepicker/RhfDatepicker';
 import { RhfTextField } from '../RhfTextField/RhfTextField';
-import { PeriodFieldArray } from './PeriodFieldArray';
+import { RhfFieldArray } from './RhfFieldArray.tsx';
 
 type StoryFormValues = {
   test: { periodeFom: string; periodeTom: string }[];
@@ -17,7 +17,7 @@ type StoryFormValues = {
   }[];
 };
 const meta = {
-  component: PeriodFieldArray,
+  component: RhfFieldArray,
   decorators: rhfDecorator({
     test: [{ periodeFom: '', periodeTom: '' }],
     personer: [
@@ -37,7 +37,7 @@ const meta = {
     remove: () => undefined,
     append: () => undefined,
   },
-} satisfies Meta<typeof PeriodFieldArray<StoryFormValues>>;
+} satisfies Meta<typeof RhfFieldArray<StoryFormValues>>;
 
 export default meta;
 
@@ -52,7 +52,7 @@ export const Default: Story = {
     });
 
     return (
-      <PeriodFieldArray
+      <RhfFieldArray
         {...rest}
         fields={fields}
         append={append}
@@ -82,7 +82,7 @@ export const Default: Story = {
             {removeButton}
           </HStack>
         )}
-      </PeriodFieldArray>
+      </RhfFieldArray>
     );
   },
 };
@@ -96,7 +96,7 @@ export const MedAnnenType: Story = {
     });
 
     return (
-      <PeriodFieldArray
+      <RhfFieldArray
         {...rest}
         fields={fields}
         append={append}
@@ -133,7 +133,7 @@ export const MedAnnenType: Story = {
             {removeButton}
           </HStack>
         )}
-      </PeriodFieldArray>
+      </RhfFieldArray>
     );
   },
 };

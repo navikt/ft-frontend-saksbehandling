@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect } from 'vitest';
 
-import * as stories from './PeriodFieldArray.stories';
+import * as stories from './RhfFieldArray.stories.tsx';
 
 const { MedAnnenType } = composeStories(stories);
 

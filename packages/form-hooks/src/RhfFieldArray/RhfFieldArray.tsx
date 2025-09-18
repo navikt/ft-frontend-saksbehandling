@@ -30,7 +30,7 @@ interface Props<
   size?: 'small' | 'medium';
 }
 
-export const PeriodFieldArray = <
+export const RhfFieldArray = <
   TFieldValues extends FieldValues,
   TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>,
 >({
@@ -109,5 +109,5 @@ const AppendButton = <
     </Button>
   ) : null;
 
-PeriodFieldArray.RemoveButton = RemoveButton;
-PeriodFieldArray.AppendButton = AppendButton;
+RhfFieldArray.RemoveButton = RemoveButton;
+RhfFieldArray.AppendButton = AppendButton;

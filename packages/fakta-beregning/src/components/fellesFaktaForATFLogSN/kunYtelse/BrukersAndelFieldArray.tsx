@@ -4,7 +4,7 @@ import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
 import { ErrorMessage, Table, VStack } from '@navikt/ds-react';
 
-import { FieldArray, RhfSelect, RhfTextField, useCustomValidation } from '@navikt/ft-form-hooks';
+import { RhfFieldArray, RhfSelect, RhfTextField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -176,7 +176,7 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
                 />
               </Table.DataCell>
               <Table.DataCell align="right">
-                <FieldArray.RemoveButton
+                <RhfFieldArray.RemoveButton
                   remove={remove}
                   index={index}
                   size="small"
@@ -189,7 +189,7 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
         </Table.Body>
       </Table>
       <div>
-        <FieldArray.AppendButton
+        <RhfFieldArray.AppendButton
           append={append}
           // @ts-expect-error Fiks
           emptyTemplate={defaultBGFordeling(aktivitetStatuser, kodeverkSamling)}
@@ -197,7 +197,7 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
           size="small"
         >
           <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
-        </FieldArray.AppendButton>
+        </RhfFieldArray.AppendButton>
       </div>
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </VStack>
