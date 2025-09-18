@@ -43,11 +43,7 @@ export type {
   Inntektsforhold,
   VurderInntektsforholdPeriode,
 } from './src/BeregningsgrunnlagFordeling';
-export type {
-  ArbeidsgiverOpplysningerPerId,
-  ArbeidsgiverOpplysningerWrapper,
-  ArbeidsgiverOpplysninger,
-} from './src/ArbeidsgiverOpplysninger';
+export type { ArbeidsgiverOpplysningerPerId, ArbeidsgiverOpplysninger } from './src/ArbeidsgiverOpplysninger';
 export type { StandardFaktaPanelProps } from './src/StandardFaktaPanelProps';
 export type { StandardProsessPanelProps } from './src/StandardProsessPanelProps';
 export type { AksjonspunktTilBekreftelse } from './src/AksjonspunktTilBekreftelse';
