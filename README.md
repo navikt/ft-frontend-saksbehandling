@@ -9,6 +9,7 @@ Kildekode og publisering av npm-moduler til frontend-moduler brukt i FP og K9
 
 Storybook hostes på [github pages](https://navikt.github.io/ft-frontend-saksbehandling/) og releases automatisk ved hver push til main.
 
+
 # Komme i gang
 
 Kjør `yarn install` på rot.
