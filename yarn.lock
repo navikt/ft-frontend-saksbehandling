@@ -6897,7 +6897,7 @@ __metadata:
     lerna: 8.2.4
     lint-staged: 16.1.6
     prettier: 3.6.2
-    storybook: 9.1.6
+    storybook: 9.1.7
     stylelint: 16.24.0
     stylelint-order: 7.0.0
     typescript: 5.9.2
@@ -11650,9 +11650,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storybook@npm:9.1.6":
-  version: 9.1.6
-  resolution: "storybook@npm:9.1.6"
+"storybook@npm:9.1.7":
+  version: 9.1.7
+  resolution: "storybook@npm:9.1.7"
   dependencies:
     "@storybook/global": ^5.0.0
     "@testing-library/jest-dom": ^6.6.3
@@ -11673,7 +11673,7 @@ __metadata:
       optional: true
   bin:
     storybook: ./bin/index.cjs
-  checksum: 84ad486a61566fa8ba9ecf6d6622c896d28504534110be64c6449cae007316ce05e3db5c9b899ae68f31c56cfe33ed04d2f7e12b5e14a40926cef425e31f4b35
+  checksum: 48539a47f6652a895f753bdb5113b9a6e2349c570a136a95b4ae26fff648daaa7f9675c6e7053d52df3f75208bbc7664ab863f6ba5c6c7ecff946f5cdbb9c10f
   languageName: node
   linkType: hard
 
