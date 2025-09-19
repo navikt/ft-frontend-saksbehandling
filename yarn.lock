@@ -3075,20 +3075,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-docs@npm:9.1.6":
-  version: 9.1.6
-  resolution: "@storybook/addon-docs@npm:9.1.6"
+"@storybook/addon-docs@npm:9.1.7":
+  version: 9.1.7
+  resolution: "@storybook/addon-docs@npm:9.1.7"
   dependencies:
     "@mdx-js/react": ^3.0.0
-    "@storybook/csf-plugin": 9.1.6
+    "@storybook/csf-plugin": 9.1.7
     "@storybook/icons": ^1.4.0
-    "@storybook/react-dom-shim": 9.1.6
+    "@storybook/react-dom-shim": 9.1.7
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     ts-dedent: ^2.0.0
   peerDependencies:
-    storybook: ^9.1.6
-  checksum: f11e2cc089ac53d1fce3c829b940ce77845e150adc223045898ee354050a9d7257f2caf35a17eb644921539e346ba449fd5a7391697d32c0caca88cc04099fae
+    storybook: ^9.1.7
+  checksum: 5e122aba99939fc244e05f21ecf2f0fcbd285947d04d6cbdba75fbc443622fd70fbb9a9db9af3e1c42f684afdcfad3c8a381a80e24ac68009040df5a63919e41
   languageName: node
   linkType: hard
 
@@ -3131,6 +3131,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/csf-plugin@npm:9.1.7":
+  version: 9.1.7
+  resolution: "@storybook/csf-plugin@npm:9.1.7"
+  dependencies:
+    unplugin: ^1.3.1
+  peerDependencies:
+    storybook: ^9.1.7
+  checksum: 7275a199854760dc8dbd55c09b6b0feddb3c2b8fe84f2737056f0dc1cf4c57d2afedb80ddf6bf0885b8496235bbadee51d76169d3e347ea3c077339e437df3b0
+  languageName: node
+  linkType: hard
+
 "@storybook/global@npm:^5.0.0":
   version: 5.0.0
   resolution: "@storybook/global@npm:5.0.0"
@@ -3156,6 +3167,17 @@ __metadata:
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
     storybook: ^9.1.6
   checksum: 516a3e38158b575114fa035ed8198df9f83ec3cf38bdc81cce138032cc78fa9ace62a6bfa765cadcb1bb48650491762243244a55facdb17581869b5e0b73eb09
+  languageName: node
+  linkType: hard
+
+"@storybook/react-dom-shim@npm:9.1.7":
+  version: 9.1.7
+  resolution: "@storybook/react-dom-shim@npm:9.1.7"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
+    storybook: ^9.1.7
+  checksum: a01f7ddad03c20130dc9f26ce29c759a2e98a0f58cd0b9d718b92c4901e13bcb925115867deb55955089c666b60e2bb353662fe77db195068bae870e9dc092a7
   languageName: node
   linkType: hard
 
@@ -6881,7 +6903,7 @@ __metadata:
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@storybook/addon-a11y": 9.1.6
-    "@storybook/addon-docs": 9.1.6
+    "@storybook/addon-docs": 9.1.7
     "@storybook/addon-links": 9.1.6
     "@storybook/react-vite": 9.1.6
     "@testing-library/jest-dom": 6.8.0
