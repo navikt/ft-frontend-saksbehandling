@@ -5,7 +5,7 @@ import { alleTilbakekrevingKodeverk } from '@navikt/ft-frontend-storybook-utils'
 
 import type { BeregningsresultatTilbakekreving } from './types/BeregningsresultatTilbakekreving';
 import type { ForeslaVedtakTilbakekrevingAp } from './types/ForeslaVedtakTilbakekrevingAp';
-import type { ForhandsvisData } from './types/ForhandsvisData.ts';
+import type { ForhandsvisData } from './types/ForhandsvisData';
 import type { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 import type { Vedtaksbrev } from './types/Vedtaksbrev';
 import { VedtakTilbakekrevingProsessIndex } from './VedtakTilbakekrevingProsessIndex';

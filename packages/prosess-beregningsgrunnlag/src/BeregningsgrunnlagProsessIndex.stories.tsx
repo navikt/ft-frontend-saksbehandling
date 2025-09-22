@@ -31,7 +31,7 @@ import { BeregningsgrunnlagProsessIndex } from './BeregningsgrunnlagProsessIndex
 import { SammenligningType } from './kodeverk/sammenligningType';
 import { VilkarType } from './kodeverk/vilkarType';
 import { VilkårUtfallType } from './kodeverk/vilkårUtfallType';
-import type { BeregningAksjonspunktSubmitType } from './types/interface/BeregningsgrunnlagAP.ts';
+import type { BeregningAksjonspunktSubmitType } from './types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import type { KodeverkForPanel } from './types/KodeverkForPanel';
 import type { Vilkår } from './types/Vilkår';

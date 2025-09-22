@@ -31,7 +31,7 @@ import {
 import { BeregningFaktaIndex } from './BeregningFaktaIndex';
 import { FaktaOmBeregningTilfelle } from './kodeverk/faktaOmBeregningTilfelle';
 import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregningAvklaringsbehovCode';
-import type { SubmitBeregningType } from './typer/interface/SubmitBeregningTsType.ts';
+import type { SubmitBeregningType } from './typer/interface/SubmitBeregningTsType';
 import type { KodeverkForPanel } from './typer/KodeverkForPanel';
 import type { Vilkår, Vilkårperiode } from './typer/Vilkår';
 
