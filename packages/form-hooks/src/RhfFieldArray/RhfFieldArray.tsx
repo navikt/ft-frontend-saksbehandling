@@ -46,11 +46,11 @@ export const RhfFieldArray = <
 }: Props<TFieldValues, TFieldArrayName>) => (
   <Fieldset legend={titleText} size={size}>
     {fields.map((field, index) =>
-      children(field, index, <RemoveButton index={index} remove={remove} size={size} skjul={readOnly} />),
+      children(field, index, <RhfFieldArrayRemoveButton index={index} remove={remove} size={size} skjul={readOnly} />),
     )}
-    <AppendButton append={append} emptyTemplate={emptyTemplate} size={size} skjul={readOnly}>
+    <RhfFieldArrayAppendButton append={append} emptyTemplate={emptyTemplate} size={size} skjul={readOnly}>
       {addButtonText}
-    </AppendButton>
+    </RhfFieldArrayAppendButton>
   </Fieldset>
 );
 
@@ -61,7 +61,7 @@ interface RemoveButtonProps {
   skjul?: boolean;
 }
 
-const RemoveButton = ({ index, remove, size, skjul }: RemoveButtonProps): ReactNode | null =>
+export const RhfFieldArrayRemoveButton = ({ index, remove, size, skjul }: RemoveButtonProps): ReactNode | null =>
   index > 0 && !skjul ? (
     <Button
       icon={<XMarkIcon aria-hidden />}
@@ -86,7 +86,7 @@ interface AppendButtonProps<
   skjul?: boolean;
 }
 
-const AppendButton = <
+export const RhfFieldArrayAppendButton = <
   TFieldValues extends FieldValues,
   TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>,
 >({
@@ -108,6 +108,3 @@ const AppendButton = <
       {children}
     </Button>
   ) : null;
-
-RhfFieldArray.RemoveButton = RemoveButton;
-RhfFieldArray.AppendButton = AppendButton;
