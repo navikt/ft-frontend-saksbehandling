@@ -96,7 +96,7 @@ export default [
     },
   },
   {
-    ignores: ['**/*.stories.tsx', 'eslint.config.mjs', '.storybook/**/*'],
+    ignores: ['**/*.stories.tsx', 'eslint.config.mjs', '.storybook/**/*', 'knip.ts'],
     rules: {
       'import/no-default-export': ERROR,
     },
