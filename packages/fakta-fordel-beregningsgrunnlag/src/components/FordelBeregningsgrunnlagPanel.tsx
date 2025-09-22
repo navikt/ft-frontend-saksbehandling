@@ -4,15 +4,13 @@ import { VStack } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
+import type { AksjonspunktSubmitType } from '../types/AksjonspunktSubmitType.ts';
 import type {
   FordelBeregningsgrunnlagFormValues,
   TilkommetAktivitetFormValues,
   VurderRefusjonFormValues,
 } from '../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import type { FordelBeregningsgrunnlagAP } from '../types/interface/FordelBeregningsgrunnlagAP';
-import type { VurderNyttInntektsforholdAP } from '../types/interface/VurderNyttInntektsforholdAP';
-import type { VurderRefusjonBeregningsgrunnlagAP } from '../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import type { KodeverkForPanel } from '../types/kodeverkForPanel';
 import type { Vilkårperiode } from '../types/Vilkår';
 import { FordelingForm } from './fordeling/FordelingForm';
@@ -39,9 +37,7 @@ const getAvklaringsbehov = (
 interface Props {
   aktivtBeregningsgrunnlagIndeks: number;
   readOnly: boolean;
-  submitCallback: (
-    aksjonspunktData: FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP | VurderNyttInntektsforholdAP,
-  ) => Promise<void>;
+  submitCallback: (aksjonspunktData: AksjonspunktSubmitType) => Promise<void>;
   submittable: boolean;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkarperioder: Vilkårperiode[];

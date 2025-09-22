@@ -13,11 +13,11 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     value: 'Verdi',
-    onChange: action('button-click'),
+    onChange: action('onChange'),
     ariaLabel: 'ariaLabel',
     id: 'autocompleteId',
     placeholder: '',
     suggestions: [{ key: 'testItem', value: 'Test Item' }],
-    onSelect: action('button-click'),
+    onSelect: action('onSelect'),
   },
 };
