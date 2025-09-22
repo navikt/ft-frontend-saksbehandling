@@ -111,7 +111,7 @@ const lagVilkår = (perioder: any[]): Vilkår => ({
 const meta = {
   component: FordelBeregningsgrunnlagFaktaIndex,
   args: {
-    submitCallback: action('submit', { depth: 20 }) as (data: AksjonspunktSubmitType) => Promise<void>,
+    submitCallback: action('submit') as (data: AksjonspunktSubmitType) => Promise<void>,
     kodeverkSamling: alleKodeverk as KodeverkForPanel,
     arbeidsgiverOpplysningerPerId: agOpplysninger,
     setFormData: () => undefined,

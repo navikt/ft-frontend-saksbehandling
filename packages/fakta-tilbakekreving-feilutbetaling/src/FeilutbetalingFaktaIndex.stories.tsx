@@ -86,7 +86,7 @@ const fpSakAlleKodeverk = alleKodeverk as KodeverkForPanel;
 const meta = {
   component: FeilutbetalingFaktaIndex,
   args: {
-    submitCallback: action('submit') as (data: AvklartFaktaFeilutbetalingAp) => Promise<any>,
+    submitCallback: action('submit') as (data: AvklartFaktaFeilutbetalingAp) => Promise<void>,
     isReadOnly: false,
     setFormData: () => undefined,
     feilutbetalingFakta,
