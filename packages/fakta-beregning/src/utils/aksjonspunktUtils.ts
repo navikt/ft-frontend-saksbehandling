@@ -1,5 +1,5 @@
-import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import type { BeregningAvklaringsbehov } from '@navikt/ft-types';
+import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
 import { FaktaBeregningAvklaringsbehovCode as AC } from '../typer/interface/FaktaBeregningAvklaringsbehovCode';
 

@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { HStack, Label, Radio, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroupNew, RhfTextarea } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
@@ -78,7 +78,7 @@ export const AktsomhetGradUaktsomhetFormPanel = ({
       <div className={styles.panelWidth}>
         {handletUaktsomhetGrad === Aktsomhet.SIMPEL_UAKTSOM && erTotalBelopUnder4Rettsgebyr && (
           <VStack gap="space-12">
-            <RhfRadioGroupNew
+            <RhfRadioGroup
               name={`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`}
               control={control}
               label={<FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.Tilbakekrev" />}
@@ -93,7 +93,7 @@ export const AktsomhetGradUaktsomhetFormPanel = ({
                   <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />
                 </Radio>
               </HStack>
-            </RhfRadioGroupNew>
+            </RhfRadioGroup>
             {erUnder4Rettsgebyg && (
               <>
                 <SærligGrunnerBegrunnelseDiv name={name} readOnly={readOnly} />

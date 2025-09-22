@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Detail, HStack, Radio } from '@navikt/ds-react';
 
-import { RhfRadioGroupNew, RhfTextarea } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup, RhfTextarea } from '@navikt/ft-form-hooks';
 
 // TODO (TOR) Er denne i bruk? (Det mangla tekstar her utan at det har blitt rapportert som feil)
 
@@ -22,7 +22,7 @@ export const ForeldetFormPanel = () => {
         label={<FormattedMessage id="ForeldetPanel.Vurdering" />}
         readOnly
       />
-      <RhfRadioGroupNew
+      <RhfRadioGroup
         name="periodenErForeldet"
         control={control}
         label={
@@ -34,7 +34,7 @@ export const ForeldetFormPanel = () => {
         <Radio value="true" size="small">
           <FormattedMessage id="ForeldetFormPanel.PeriodenErForeldet" />
         </Radio>
-      </RhfRadioGroupNew>
+      </RhfRadioGroup>
     </HStack>
   );
 };

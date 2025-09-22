@@ -42,7 +42,7 @@ export const beregningsgrunnlag = {
           skalFastsetteGrunnlag: false,
         },
         {
-          aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+          aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
           beregningsperiodeFom: '2015-01-01',
           beregningsperiodeTom: '2017-12-31',
           beregnetPrAar: 0.0,
@@ -115,7 +115,7 @@ export const beregningsgrunnlag = {
           skalFastsetteGrunnlag: false,
         },
         {
-          aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+          aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
           beregningsperiodeFom: '2015-01-01',
           beregningsperiodeTom: '2017-12-31',
           beregnetPrAar: 0.0,
@@ -188,7 +188,7 @@ export const beregningsgrunnlag = {
           skalFastsetteGrunnlag: false,
         },
         {
-          aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+          aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
           beregningsperiodeFom: '2015-01-01',
           beregningsperiodeTom: '2017-12-31',
           beregnetPrAar: 0.0,

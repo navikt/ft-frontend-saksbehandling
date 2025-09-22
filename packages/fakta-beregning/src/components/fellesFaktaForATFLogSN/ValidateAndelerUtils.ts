@@ -1,9 +1,15 @@
 import { type IntlShape } from 'react-intl';
 
-import { aktivitetstatusTilAndeltypeMap, BeregningsgrunnlagAndelType } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, BeregningsgrunnlagAndelType } from '@navikt/ft-kodeverk';
 
 import type { BrukersAndelValues } from '../../typer/FaktaBeregningTypes';
 import type { AndelFieldValue } from '../../typer/FieldValues';
+
+const aktivitetstatusTilAndeltypeMap: Record<string, string> = {
+  [AktivitetStatus.BRUKERS_ANDEL]: BeregningsgrunnlagAndelType.BRUKERS_ANDEL,
+  [AktivitetStatus.FRILANSER]: BeregningsgrunnlagAndelType.FRILANS,
+  [AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE]: BeregningsgrunnlagAndelType.EGEN_NÆRING,
+};
 
 export type SortedAndelInfo = {
   andelsinfo: string;
@@ -74,15 +80,12 @@ export const validateUlikeAndelerWithGroupingFunction = (
 export const validateUlikeAndeler = (andelList: AndelFieldValue[], intl: IntlShape): string | undefined =>
   validateUlikeAndelerWithGroupingFunction(andelList, mapAndelToSortedObject, intl);
 
-const minstEnFastsattErrorMessage = (intl: IntlShape): string =>
-  intl.formatMessage({ id: 'BeregningInfoPanel.Validation.MinstEnFastsatt' });
-
 export const validateMinstEnFastsatt = (andelList: AndelFieldValue[], intl: IntlShape): string | null => {
   const harAndelMedFastsattInntekt = andelList.some(
     ({ fastsattBelop }) => fastsattBelop !== null && fastsattBelop !== '' && fastsattBelop !== undefined,
   );
   if (!harAndelMedFastsattInntekt) {
-    return minstEnFastsattErrorMessage(intl);
+    return intl.formatMessage({ id: 'BeregningInfoPanel.Validation.MinstEnFastsatt' });
   }
   return null;
 };

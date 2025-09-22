@@ -162,7 +162,7 @@ export const getAktivitetNavnFraInnteksforhold = (
     return 'Frilanser';
   }
 
-  if (inntektsforhold.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE) {
+  if (inntektsforhold.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE) {
     return 'Selvstendig næringsdrivende';
   }
 
@@ -193,7 +193,7 @@ export const getAktivitetNavnFraField = (
     return 'Frilanser';
   }
 
-  if (field.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE) {
+  if (field.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE) {
     return 'Selvstendig næringsdrivende';
   }
   return '';

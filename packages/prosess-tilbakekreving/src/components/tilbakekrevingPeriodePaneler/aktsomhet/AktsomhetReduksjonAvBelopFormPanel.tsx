@@ -4,7 +4,7 @@ import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
 import { BodyShort, Detail, HStack, Label, Radio, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroupNew, RhfSelect, RhfTextField } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup, RhfSelect, RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValue, minValue, required } from '@navikt/ft-form-validators';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
@@ -66,7 +66,7 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
 
   return (
     <VStack gap="space-12">
-      <RhfRadioGroupNew
+      <RhfRadioGroup
         name={`${name}.harGrunnerTilReduksjon`}
         control={context.control}
         label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalSarligeGrunnerGiReduksjon" />}
@@ -81,7 +81,7 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
             <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />
           </Radio>
         </HStack>
-      </RhfRadioGroupNew>
+      </RhfRadioGroup>
       {harGrunnerTilReduksjon && (
         <ArrowBox alignOffset={24}>
           <HStack gap="space-16">
@@ -175,7 +175,7 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
               {harMerEnnEnYtelse ? formatCurrencyNoKr(feilutbetalingBelop) : '100%'}
             </BodyShort>
             {handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM && (
-              <RhfRadioGroupNew
+              <RhfRadioGroup
                 name={tilleggesRenterFelt}
                 control={context.control}
                 label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
@@ -190,7 +190,7 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
                     <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />
                   </Radio>
                 </HStack>
-              </RhfRadioGroupNew>
+              </RhfRadioGroup>
             )}
           </VStack>
         </ArrowBox>

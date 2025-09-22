@@ -1,14 +1,5 @@
-.addCircleIcon {
-  color: var(--ax-accent-600);
-  height: 18px;
-  width: 18px;
-}
 
-.addPeriode {
-  cursor: pointer;
-  padding-block: var(--ax-space-4);
-}
-
-.textfield {
-  padding-top: var(--ax-space-8);
+.addPeriodeButton {
+    background-color: transparent;
+    padding-inline: 0;
 }

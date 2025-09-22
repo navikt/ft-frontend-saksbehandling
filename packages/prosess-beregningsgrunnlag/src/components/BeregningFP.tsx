@@ -1,15 +1,6 @@
 import { VStack } from '@navikt/ds-react';
 
-import {
-  AktivitetStatus,
-  isStatusArbeidstakerOrKombinasjon,
-  isStatusDagpengerOrAAP,
-  isStatusFrilanserOrKombinasjon,
-  isStatusKombinasjon,
-  isStatusMilitaer,
-  isStatusSNOrKombinasjon,
-  isStatusTilstotendeYtelse,
-} from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import type { BeregningFormValues } from '../types/BeregningFormValues';
@@ -18,6 +9,15 @@ import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../types/interface
 import type { KodeverkForPanel } from '../types/KodeverkForPanel';
 import type { RelevanteStatuserProp } from '../types/RelevanteStatuser';
 import type { Vilkår, Vilkårperiode } from '../types/Vilkår';
+import {
+  isStatusArbeidstakerOrKombinasjon,
+  isStatusDagpengerOrAAP,
+  isStatusFrilanserOrKombinasjon,
+  isStatusKombinasjon,
+  isStatusMilitær,
+  isStatusSNOrKombinasjon,
+  isStatusTilstøtendeYtelse,
+} from '../util/aktivitetStatusUtils';
 import { BeregningForm } from './beregningForm/BeregningForm';
 import { GraderingUtenBGReadOnly } from './gradering/GraderingUtenBGReadOnly';
 
@@ -38,7 +38,7 @@ const getRelevanteStatuser = (statuser: string[]): RelevanteStatuserProp => ({
   isFrilanser: statuser.some(kode => isStatusFrilanserOrKombinasjon(kode)),
   isSelvstendigNaeringsdrivende: statuser.some(kode => isStatusSNOrKombinasjon(kode)),
   isMidlertidigInaktiv: statuser.some(kode => kode === AktivitetStatus.MIDLERTIDIG_INAKTIV),
-  harAndreTilstotendeYtelser: statuser.some(kode => isStatusTilstotendeYtelse(kode)),
+  harAndreTilstotendeYtelser: statuser.some(kode => isStatusTilstøtendeYtelse(kode)),
   harDagpengerEllerAAP: statuser.some(kode => isStatusDagpengerOrAAP(kode)),
   isAAP: statuser.some(kode => kode === AktivitetStatus.ARBEIDSAVKLARINGSPENGER),
   isDagpenger: statuser.some(
@@ -46,7 +46,7 @@ const getRelevanteStatuser = (statuser: string[]): RelevanteStatuserProp => ({
   ),
   skalViseBeregningsgrunnlag: statuser.length > 0,
   isKombinasjonsstatus: statuser.some(kode => isStatusKombinasjon(kode)) || statuser.length > 1,
-  isMilitaer: statuser.some(kode => isStatusMilitaer(kode)),
+  isMilitaer: statuser.some(kode => isStatusMilitær(kode)),
 });
 
 const getAvklaringsbehovForGraderingPaaAndelUtenBG = (

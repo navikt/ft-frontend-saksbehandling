@@ -24,7 +24,7 @@ const lagPerioderadMedTekst = (tekstId: string, fom: string, tom: string) => (
 
 const lagSøktYtelseRadPeriode = (periode: FrisinnPeriode) => {
   const snAndel = periode.frisinnAndeler.find(
-    andel => andel.statusSøktFor === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    andel => andel.statusSøktFor === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
   );
   const flAndel = periode.frisinnAndeler.find(andel => andel.statusSøktFor === AktivitetStatus.FRILANSER);
   return (

@@ -439,7 +439,7 @@ export const validateSumFastsattForUgraderteAktiviteter = (
     );
   }
   const skalGradereSN = !!fields.find(
-    v => v.andelIArbeid !== '0.00' && v.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    v => v.andelIArbeid !== '0.00' && v.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
   );
   if (skalGradereSN) {
     return validateSumFastsattArbeidstakerOgFrilanser(

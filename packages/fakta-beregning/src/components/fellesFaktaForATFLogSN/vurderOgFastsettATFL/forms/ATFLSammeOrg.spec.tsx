@@ -1,6 +1,7 @@
-import { AktivitetStatus, FaktaOmBeregningTilfelle, Inntektskategori } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, Inntektskategori } from '@navikt/ft-kodeverk';
 import type { BeregningsgrunnlagArbeidsforhold, FaktaOmBeregning, FaktaOmBeregningAndel } from '@navikt/ft-types';
 
+import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
 import { transformValuesForATFLISammeOrg } from './ATFLSammeOrg';
 
 describe('<ATFLSammeOrg>', () => {
@@ -51,7 +52,7 @@ describe('<ATFLSammeOrg>', () => {
   it('skal ikkje transform values uten tilfelle', () => {
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
-      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING],
+      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING],
       arbeidstakerOgFrilanserISammeOrganisasjonListe: [{ ...faktaOmBeregningATAndel, inntektPrMnd: 10000 }],
       frilansAndel: faktaOmBeregningFrilansAndel,
     } as FaktaOmBeregning;

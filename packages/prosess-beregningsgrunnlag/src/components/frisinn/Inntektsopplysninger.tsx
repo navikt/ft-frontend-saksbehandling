@@ -24,7 +24,7 @@ export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
   );
   const gjeldendePeriode = kronologiskePerioder[kronologiskePerioder.length - 2];
   const bruttoSN = finnBruttoForStatusIPeriode(
-    AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
     beregningsgrunnlag,
     gjeldendePeriode,
   );

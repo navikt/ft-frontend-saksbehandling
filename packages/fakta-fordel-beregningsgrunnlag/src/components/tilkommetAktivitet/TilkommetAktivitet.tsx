@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 
 import { RhfForm } from '@navikt/ft-form-hooks';
-import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
@@ -15,7 +14,7 @@ import type {
   VurderInntektsforholdPeriode,
 } from '@navikt/ft-types';
 import { ErrorBoundary } from '@navikt/ft-ui-komponenter';
-import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { formatCurrencyNoKr, isAksjonspunktOpen, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import type {
   TilkommetAktivitetFieldValues,

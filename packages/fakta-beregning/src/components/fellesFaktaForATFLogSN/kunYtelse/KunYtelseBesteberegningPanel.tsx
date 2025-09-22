@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 // TODO (SAFIR) PFP-6021 Ta i bruk InntektFieldArray i staden for BrukersAndelFieldArray
 import { BodyShort, HStack, Label, Link, Radio, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import type { KunYtelse } from '@navikt/ft-types';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
@@ -49,7 +49,7 @@ export const KunYtelseBesteberegning = ({
 
   return (
     <VStack gap="space-12">
-      <RhfRadioGroupNew
+      <RhfRadioGroup
         name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.besteberegningField`}
         control={control}
         isReadOnly={readOnly}
@@ -64,7 +64,7 @@ export const KunYtelseBesteberegning = ({
             <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />
           </Radio>
         </HStack>
-      </RhfRadioGroupNew>
+      </RhfRadioGroup>
       {erBesteberegning !== undefined && erBesteberegning !== null && (
         <ArrowBox alignOffset={erBesteberegning ? 0 : 60}>
           <VStack gap="space-16">

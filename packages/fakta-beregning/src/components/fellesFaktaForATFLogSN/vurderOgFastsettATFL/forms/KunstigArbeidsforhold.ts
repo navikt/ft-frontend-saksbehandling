@@ -1,6 +1,7 @@
-import { FaktaOmBeregningTilfelle, Organisasjonstype as organisasjonstyper } from '@navikt/ft-kodeverk';
 import type { AndelForFaktaOmBeregning, Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
+import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
+import { Organisasjonstype } from '../../../../kodeverk/organisasjonstype';
 import type { InntektTransformed } from '../../../../typer/FieldValues';
 
 export const kunstigAndelField = 'kunstigAndelInntektValues';
@@ -12,7 +13,7 @@ const harAndelKunstigArbeidsforhold = (andel: BeregningsgrunnlagAndel) =>
   erKunstigAndel(andel.arbeidsforhold?.arbeidsgiverIdent);
 
 const harKunstigArbeidsforhold = (tilfeller: string[], beregningsgrunnlag: Beregningsgrunnlag) => {
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING)) {
+  if (tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MÅNEDSLØNN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING)) {
     return (
       beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel?.find(
         harAndelKunstigArbeidsforhold,
@@ -45,5 +46,5 @@ export const harFieldKunstigArbeidsforhold = (field: InntektTransformed, bg: Ber
       andel.andelsnr === field.andelsnr &&
       andel.arbeidsforhold &&
       andel.arbeidsforhold.organisasjonstype &&
-      andel.arbeidsforhold.organisasjonstype === organisasjonstyper.KUNSTIG,
+      andel.arbeidsforhold.organisasjonstype === Organisasjonstype.KUNSTIG,
   ) !== undefined;

@@ -3,17 +3,15 @@ import { FormattedMessage } from 'react-intl';
 
 import { HStack, Radio, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { decodeHtmlEntity, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { Aktsomhet } from '../../../kodeverk/aktsomhet';
+import { Aktsomhet, AKTSOMHET_REKKEFØLGE } from '../../../kodeverk/aktsomhet';
 import type { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
 import type { AktsomhetInfo } from '../../../types/VilkårsvurdertePerioder';
 import { AktsomhetGradFormPanel } from './AktsomhetGradFormPanel';
 import { ANDELER, EGENDEFINERT } from './aktsomhetUtils';
-
-const uaktsomhetCodes = [Aktsomhet.GROVT_UAKTSOM, Aktsomhet.SIMPEL_UAKTSOM, Aktsomhet.FORSETT];
 
 const forstoBurdeForstattTekster = {
   [Aktsomhet.FORSETT]: 'AktsomhetFormPanel.AktsomhetTyperLabel.Forsett',
@@ -74,7 +72,7 @@ export const AktsomhetFormPanel = ({
   const { control } = useFormContext();
   return (
     <VStack gap="space-12">
-      <RhfRadioGroupNew
+      <RhfRadioGroup
         name={`${name}.handletUaktsomhetGrad`}
         control={control}
         label={<FormattedMessage id="AktsomhetFormPanel.HandletUaktsomhetGrad" />}
@@ -93,8 +91,8 @@ export const AktsomhetFormPanel = ({
             </Radio>
           ))}
         </HStack>
-      </RhfRadioGroupNew>
-      {uaktsomhetCodes.some(uc => uc === handletUaktsomhetGrad) && (
+      </RhfRadioGroup>
+      {AKTSOMHET_REKKEFØLGE.some(uc => uc === handletUaktsomhetGrad) && (
         <AktsomhetGradFormPanel
           name={`${name}.${handletUaktsomhetGrad}`}
           harGrunnerTilReduksjon={harGrunnerTilReduksjon}

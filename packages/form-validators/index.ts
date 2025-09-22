@@ -1,5 +1,4 @@
 export {
-  ariaCheck,
   isWithinOpptjeningsperiode,
   hasValidPeriod,
   validPeriodeFomTom,

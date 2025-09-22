@@ -4,11 +4,12 @@ import { FormattedMessage } from 'react-intl';
 
 import { List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { Beregningsgrunnlag, BeregningsgrunnlagAndel, FaktaOmBeregning } from '@navikt/ft-types';
 
+import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
 import type { FaktaOmBeregningAksjonspunktValues, LønnsendringValues } from '../../../../typer/FaktaBeregningTypes';
 import type { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import type { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
@@ -33,7 +34,7 @@ export const LonnsendringForm = ({ readOnly }: Props) => {
   const { control } = useFormContext<VurderFaktaBeregningFormValues>();
 
   return (
-    <RhfRadioGroupNew
+    <RhfRadioGroup
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.lonnsendringField`}
       control={control}
       validate={[required]}
@@ -63,7 +64,7 @@ export const LonnsendringForm = ({ readOnly }: Props) => {
       <Radio value={false} size="small">
         <FormattedMessage id="BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt" />
       </Radio>
-    </RhfRadioGroupNew>
+    </RhfRadioGroup>
   );
 };
 
@@ -97,11 +98,11 @@ LonnsendringForm.transformValues = (
   faktaOmBeregning: FaktaOmBeregning,
 ): FaktaBeregningTransformedValues => {
   const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ?? [];
-  if (!tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
+  if (!tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING)) {
     return {};
   }
   return {
-    faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING],
+    faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING],
     vurdertLonnsendring: { erLønnsendringIBeregningsperioden: !!values[lonnsendringField] },
   };
 };

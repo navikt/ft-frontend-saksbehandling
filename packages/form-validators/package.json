@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-form-validators",
   "description": "Valideringsregler for bruk i forms",
-  "version": "4.2.2",
+  "version": "4.2.8",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@navikt/ft-utils": "workspace:^",
-    "dayjs": "1.11.13"
+    "dayjs": "1.11.18"
   },
   "peerDependencies": {
     "@navikt/ft-utils": "2.x",
@@ -33,9 +33,9 @@
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "@navikt/ft-config-vite": "workspace:^",
-    "eslint": "9.33.0",
+    "eslint": "9.35.0",
     "typescript": "5.9.2",
-    "vite": "7.1.2",
+    "vite": "7.1.6",
     "vitest": "3.2.4"
   },
   "publishConfig": {
@@ -48,8 +48,7 @@
   "exports": {
     ".": {
       "import": "./dist/index.es.js",
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.umd.js"
+      "types": "./dist/index.d.ts"
     }
   }
 }

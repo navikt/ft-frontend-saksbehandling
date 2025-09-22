@@ -247,23 +247,3 @@ export const isWithinOpptjeningsperiode =
     const isAfter = dayjs(tom).isAfter(dayjs(tomDateLimit));
     return isBefore || isAfter ? invalidPeriodRangeMessage() : null;
   };
-
-export const ariaCheck = (): void => {
-  let errors: any;
-  setTimeout(() => {
-    if (document.getElementsByClassName('skjemaelement__feilmelding').length > 0) {
-      errors = document.getElementsByClassName('skjemaelement__feilmelding');
-    } else if (document.getElementsByClassName('alertstripe--advarsel')) {
-      errors = document.getElementsByClassName('alertstripe--advarsel');
-    }
-    if (errors && errors.length > 0) {
-      const ariaNavTab = document.createAttribute('tabindex');
-      ariaNavTab.value = '-1';
-      const firstError = errors[0];
-      firstError.setAttributeNode(ariaNavTab);
-      const element = document.activeElement as HTMLElement;
-      element.blur();
-      firstError.focus();
-    }
-  }, 300);
-};

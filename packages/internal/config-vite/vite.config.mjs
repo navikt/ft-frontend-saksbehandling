@@ -57,7 +57,7 @@ const viteConfig = defineViteConfig({
   build: {
     lib: {
       entry: 'index.ts',
-      formats: ['es', 'umd'],
+      formats: ['es'],
       fileName: format => `index.${format}.js`,
       cssFileName: 'style',
     },

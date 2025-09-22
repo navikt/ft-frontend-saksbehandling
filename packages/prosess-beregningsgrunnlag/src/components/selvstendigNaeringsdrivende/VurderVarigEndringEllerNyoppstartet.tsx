@@ -4,12 +4,12 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BodyShort, HStack, Radio, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroupNew, RhfTextarea, RhfTextField } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup, RhfTextarea, RhfTextField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
-import { AktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { formatCurrencyNoKr, isAksjonspunktOpen, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import type { BeregningFormValues } from '../../types/BeregningFormValues';
 import type { VurderVarigEndretNyoppstartetResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
@@ -93,7 +93,7 @@ export const VurderVarigEndringEllerNyoppstartet = ({
 
   return (
     <VStack gap="space-16">
-      <RhfRadioGroupNew
+      <RhfRadioGroup
         name={`${formName}.${fieldIndex}.${varigEndringRadioname}`}
         control={formMethods.control}
         validate={skalValideres ? [required] : []}
@@ -107,7 +107,7 @@ export const VurderVarigEndringEllerNyoppstartet = ({
         <Radio value={true} size="small">
           {radioLabel2}
         </Radio>
-      </RhfRadioGroupNew>
+      </RhfRadioGroup>
       {varigEndringBekreftetVerdi && (
         <HStack gap="space-16" align="center">
           <BodyShort size="small">{inntektFastsettesText(erVarigEndretArbeidssituasjon)}</BodyShort>
@@ -146,7 +146,7 @@ VurderVarigEndringEllerNyoppstartet.buildInitialValues = (
 ): VurderOgFastsettValues => {
   const varigEndretAndel = relevanteAndeler.find(
     andel =>
-      andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE ||
+      andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE ||
       andel.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL,
   );
   const varigEndretNaeringAP = avklaringsbehov.find(

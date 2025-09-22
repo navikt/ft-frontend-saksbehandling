@@ -4,11 +4,12 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Label, Link, Radio, VStack } from '@navikt/ds-react';
 
-import { RhfRadioGroupNew } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { BeregningAvklaringsbehov, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
 
+import { FaktaOmBeregningTilfelle } from '../../../kodeverk/faktaOmBeregningTilfelle';
 import type {
   FaktaOmBeregningAksjonspunktValues,
   VurderBesteberegningValues,
@@ -45,7 +46,7 @@ export const VurderBesteberegningForm = ({ readOnly, erOverstyrt }: Props) => {
   const isReadOnly = readOnly || erOverstyrt;
 
   return (
-    <RhfRadioGroupNew
+    <RhfRadioGroup
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`}
       control={control}
       label={
@@ -69,7 +70,7 @@ export const VurderBesteberegningForm = ({ readOnly, erOverstyrt }: Props) => {
       <Radio value={false} size="small">
         <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />
       </Radio>
-    </RhfRadioGroupNew>
+    </RhfRadioGroup>
   );
 };
 
@@ -82,7 +83,7 @@ VurderBesteberegningForm.buildInitialValues = (
   if (
     !(
       faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) ||
-      faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE)
+      faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FØDENDE_KVINNE)
     )
   ) {
     return {};

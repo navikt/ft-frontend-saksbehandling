@@ -74,7 +74,7 @@ export const TilkommetAktivitetPanel = ({
     }
 
     const harSNAktvitet = finnAktivitetStatus(
-      AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+      AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
       vurderInntektsforholdPerioder,
     );
     if (harSNAktvitet) {

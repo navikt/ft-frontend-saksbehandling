@@ -99,9 +99,7 @@ FastsettSNNyIArbeid.buildInitialValuesNyIArbeidslivet = (
   relevanteAndeler: BeregningsgrunnlagAndel[],
   avklaringsbehov: BeregningAvklaringsbehov[],
 ): NyIArbeidslivetValues => {
-  const snAndel = relevanteAndeler.find(
-    andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
-  );
+  const snAndel = relevanteAndeler.find(andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE);
   const nyIArbeidslivetAP = avklaringsbehov.find(
     ap => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   );

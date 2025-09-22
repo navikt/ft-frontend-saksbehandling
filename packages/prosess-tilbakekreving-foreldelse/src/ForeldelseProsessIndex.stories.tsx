@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
-import { AksjonspunktStatus, BehandlingStatus, ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
-import type { Behandling } from '@navikt/ft-types';
+import { AksjonspunktStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 
 import { ForeldelseAksjonspunktCodes } from './ForeldelseAksjonspunktCodes';
 import { ForeldelseProsessIndex } from './ForeldelseProsessIndex';
 import type { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
 import type { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
+import { RelasjonsRolleType } from './types/RelasjonsRolleType';
 import type { VurderForeldelseAp } from './types/VurderForeldelseAp';
 
 import '@navikt/ft-form-hooks/dist/style.css';
@@ -71,11 +71,7 @@ const meta = {
   component: ForeldelseProsessIndex,
   args: {
     submitCallback: action('button-click') as (data: VurderForeldelseAp) => Promise<void>,
-    behandling: {
-      uuid: '1',
-      versjon: 1,
-      status: BehandlingStatus.BEHANDLING_UTREDES,
-    } as Behandling,
+    behandlingUuid: '1',
     kodeverkSamlingFpTilbake,
     isReadOnly: false,
     setFormData: () => undefined,

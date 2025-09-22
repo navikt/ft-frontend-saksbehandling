@@ -1,4 +1,4 @@
-import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type {
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
@@ -6,6 +6,7 @@ import type {
   FaktaOmBeregningAndel,
 } from '@navikt/ft-types';
 
+import { FaktaOmBeregningTilfelle } from '../../kodeverk/faktaOmBeregningTilfelle';
 import type { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { INNTEKT_FIELD_ARRAY_NAME } from './BgFaktaUtils';
@@ -28,11 +29,11 @@ const lagBeregningsgrunnlag = (andeler: FaktaOmBeregningAndel[]): Beregningsgrun
 
 describe('<FaktaForATFLOgSNPanel>', () => {
   it('skal kunne transform values for kun besteberegning', () => {
-    const aktivePaneler = [FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE];
+    const aktivePaneler = [FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FØDENDE_KVINNE];
     const andel1 = { andelsnr: 1, aktivitetStatus: AktivitetStatus.ARBEIDSAVKLARINGSPENGER };
     const andel2 = {
       andelsnr: 2,
-      aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+      aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
     } as BeregningsgrunnlagAndel;
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
@@ -67,7 +68,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
         },
         {
           andel: 'Næring',
-          aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+          aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
           fastsattBelop: '20 000',
           inntektskategori: 'SELVSTENDIG_NÆRINGSDRIVENDE',
           andelsnr: andel2.andelsnr,
@@ -78,7 +79,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
     const transformedValues = transformValuesFaktaForATFLOgSN(values);
     const tilfeller = transformedValues.fakta.faktaOmBeregningTilfeller || [];
     expect(tilfeller).toHaveLength(2);
-    expect(tilfeller[1]).toEqual(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE);
+    expect(tilfeller[1]).toEqual(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FØDENDE_KVINNE);
     expect(tilfeller[0]).toEqual(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING);
     const bbAndeler = transformedValues.fakta.besteberegningAndeler?.besteberegningAndelListe || [];
     expect(bbAndeler).toHaveLength(2);
@@ -93,7 +94,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
   it('skal kunne transform values nyoppstartet fl og lønnsendring', () => {
     const aktivePaneler = [
       FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL,
-      FaktaOmBeregningTilfelle.VURDER_LONNSENDRING,
+      FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING,
     ];
     const forholdMedAtOgFl = {
       andelsnr: 2,
@@ -168,8 +169,8 @@ describe('<FaktaForATFLOgSNPanel>', () => {
     const transformedValues = transformValuesFaktaForATFLOgSN(values);
     const tilfeller = transformedValues.fakta.faktaOmBeregningTilfeller || [];
     expect(tilfeller).toHaveLength(4);
-    expect(tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)).toEqual(true);
-    expect(tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING)).toEqual(
+    expect(tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING)).toEqual(true);
+    expect(tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MÅNEDSLØNN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING)).toEqual(
       true,
     );
     expect(tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)).toEqual(true);

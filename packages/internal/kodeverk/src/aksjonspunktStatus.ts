@@ -3,6 +3,3 @@ export enum AksjonspunktStatus {
   UTFORT = 'UTFO',
   AVBRUTT = 'AVBR',
 }
-
-export const isAksjonspunktOpen = (ap: { status: string } | undefined): boolean =>
-  ap?.status === AksjonspunktStatus.OPPRETTET;

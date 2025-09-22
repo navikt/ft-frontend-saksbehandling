@@ -93,8 +93,8 @@ const lagGrenseverdirad = (bg: Beregningsgrunnlag, bgPeriode: Beregningsgrunnlag
     const bruttoFL = finnBruttoForStatusIPeriode(AktivitetStatus.FRILANSER, bg, bgPeriode);
     annenInntektIkkeSøktFor += bruttoFL;
   }
-  if (!erSøktForAndelISøknadsperiode(AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE, bgPeriode, frisinnGrunnlag)) {
-    const bruttoSN = finnBruttoForStatusIPeriode(AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE, bg, bgPeriode);
+  if (!erSøktForAndelISøknadsperiode(AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE, bgPeriode, frisinnGrunnlag)) {
+    const bruttoSN = finnBruttoForStatusIPeriode(AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE, bg, bgPeriode);
     annenInntektIkkeSøktFor += bruttoSN;
   }
   const utregnetInntektstak =

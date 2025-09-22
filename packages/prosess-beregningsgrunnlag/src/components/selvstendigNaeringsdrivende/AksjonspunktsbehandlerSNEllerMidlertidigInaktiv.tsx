@@ -1,5 +1,5 @@
-import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import type { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
 import type {
   NyIArbeidslivetruttoNæringResultatAP,

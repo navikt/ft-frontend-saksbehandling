@@ -86,7 +86,7 @@
 }
 
 .saksbehandlerIcon {
-  color: var(--ax-bg-warning-moderate);
+  color: var(--ax-warning-500);
   font-size: 1.5rem;
   margin-right: -1.75rem;
 }

@@ -78,7 +78,7 @@ type Props = {
 
 export const NaeringsopplysningsPanel = ({ alleAndelerIForstePeriode, arbeidsgiverOpplysningerPerId }: Props) => {
   const selvstendigNæringer = alleAndelerIForstePeriode.find(
-    andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
   )?.næringer;
 
   if (!selvstendigNæringer) {

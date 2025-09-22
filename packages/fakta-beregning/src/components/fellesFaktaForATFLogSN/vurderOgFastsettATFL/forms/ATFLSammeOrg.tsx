@@ -1,6 +1,6 @@
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
 import type { FaktaOmBeregning } from '@navikt/ft-types';
 
+import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
 import type { InntektTransformed } from '../../../../typer/FieldValues';
 import type {
   FaktaBeregningTransformedValues,

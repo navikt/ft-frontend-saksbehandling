@@ -1,4 +1,10 @@
 {
   "extends": "@navikt/ft-config-typescript",
-  "include": ["./", "../../@types/externals.d.ts"]
+  "include": ["./", "../../@types/externals.d.ts"],
+  "exclude": [
+    "*.config.{js,ts,cjs,mjs}",
+    "dist",
+    "**/*.spec.{ts,tsx}",
+    "**/*.stories.tsx"
+  ]
 }

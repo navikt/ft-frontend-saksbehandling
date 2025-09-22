@@ -1,4 +1,4 @@
-import { OpptjeningAktivitetType, PeriodeAarsak } from '@navikt/ft-kodeverk';
+import { OpptjeningAktivitetType, PeriodeÅrsak } from '@navikt/ft-kodeverk';
 import type {
   BeregningsgrunnlagArbeidsforhold,
   BeregningsgrunnlagPeriodeProp,
@@ -63,7 +63,7 @@ describe('fordelPerioderUtils', () => {
       {
         beregningsgrunnlagPeriodeFom: '2019-01-01',
         beregningsgrunnlagPeriodeTom: '9999-12-31',
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
+        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_REFUSJONSKRAV],
       },
     ];
     const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
@@ -91,12 +91,12 @@ describe('fordelPerioderUtils', () => {
       {
         beregningsgrunnlagPeriodeFom: '2019-01-01',
         beregningsgrunnlagPeriodeTom: '2019-02-01',
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
+        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_REFUSJONSKRAV],
       },
       {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
         beregningsgrunnlagPeriodeTom: '9999-12-31',
-        periodeAarsaker: [PeriodeAarsak.NATURALYTELSE_TILKOMMER],
+        periodeAarsaker: [PeriodeÅrsak.NATURALYTELSE_TILKOMMER],
       },
     ];
     const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
@@ -124,12 +124,12 @@ describe('fordelPerioderUtils', () => {
       {
         beregningsgrunnlagPeriodeFom: '2019-01-01',
         beregningsgrunnlagPeriodeTom: '2019-02-01',
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
+        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_REFUSJONSKRAV],
       },
       {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
         beregningsgrunnlagPeriodeTom: '9999-12-31',
-        periodeAarsaker: [PeriodeAarsak.NATURALYTELSE_BORTFALT],
+        periodeAarsaker: [PeriodeÅrsak.NATURALYTELSE_BORTFALT],
       },
     ];
     const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
@@ -158,13 +158,13 @@ describe('fordelPerioderUtils', () => {
         beregningsgrunnlagPeriodeFom: '2019-01-01',
         beregningsgrunnlagPeriodeTom: '2019-02-01',
         bruttoPrAar: 120000,
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
+        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_REFUSJONSKRAV],
       },
       {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
         beregningsgrunnlagPeriodeTom: '9999-12-31',
         bruttoPrAar: 120000,
-        periodeAarsaker: [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET],
+        periodeAarsaker: [PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET],
       },
     ];
     const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
@@ -193,13 +193,13 @@ describe('fordelPerioderUtils', () => {
         beregningsgrunnlagPeriodeFom: '2019-01-01',
         beregningsgrunnlagPeriodeTom: '2019-02-01',
         bruttoPrAar: 120000,
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
+        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_REFUSJONSKRAV],
       },
       {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
         beregningsgrunnlagPeriodeTom: '9999-12-31',
         bruttoPrAar: 130000,
-        periodeAarsaker: [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET],
+        periodeAarsaker: [PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET],
       },
     ];
     const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
@@ -230,13 +230,13 @@ describe('fordelPerioderUtils', () => {
         beregningsgrunnlagPeriodeFom: '2019-01-01',
         beregningsgrunnlagPeriodeTom: '2019-02-01',
         bruttoPrAar: 120000,
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
+        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_REFUSJONSKRAV],
       },
       {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
         beregningsgrunnlagPeriodeTom: '9999-12-31',
         bruttoPrAar: 120000,
-        periodeAarsaker: [PeriodeAarsak.REFUSJON_OPPHOERER],
+        periodeAarsaker: [PeriodeÅrsak.REFUSJON_OPPHØRER],
       },
     ];
     const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
@@ -273,7 +273,7 @@ describe('fordelPerioderUtils', () => {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
         beregningsgrunnlagPeriodeTom: '9999-12-31',
         bruttoPrAar: 120000,
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
+        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_REFUSJONSKRAV],
       },
     ];
     const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
@@ -309,7 +309,7 @@ describe('fordelPerioderUtils', () => {
       {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
         beregningsgrunnlagPeriodeTom: '9999-12-31',
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
+        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
         bruttoPrAar: 500_000,
       },
     ];
@@ -349,7 +349,7 @@ describe('fordelPerioderUtils', () => {
       {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
         beregningsgrunnlagPeriodeTom: '9999-12-31',
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
+        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
         bruttoPrAar: 500_000,
       },
     ];
@@ -392,7 +392,7 @@ describe('fordelPerioderUtils', () => {
       {
         beregningsgrunnlagPeriodeFom: '2022-12-01',
         beregningsgrunnlagPeriodeTom: '2022-11-30',
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
+        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
         bruttoPrAar: 500_000,
       },
     ];
@@ -438,7 +438,7 @@ describe('fordelPerioderUtils', () => {
       {
         beregningsgrunnlagPeriodeFom: '2022-08-13',
         beregningsgrunnlagPeriodeTom: '2022-08-14',
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
+        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
         bruttoPrAar: 500_000,
       },
     ];
@@ -479,7 +479,7 @@ describe('fordelPerioderUtils', () => {
       {
         beregningsgrunnlagPeriodeFom: '2022-08-15',
         beregningsgrunnlagPeriodeTom: '9999-12-31',
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR, PeriodeAarsak.ENDRING_I_REFUSJONSKRAV],
+        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_AKTIVITETER_SØKT_FOR, PeriodeÅrsak.ENDRING_I_REFUSJONSKRAV],
         bruttoPrAar: 500_000,
       },
     ];
@@ -525,7 +525,7 @@ describe('fordelPerioderUtils', () => {
       {
         beregningsgrunnlagPeriodeFom: '2022-08-17',
         beregningsgrunnlagPeriodeTom: '9999-12-31',
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
+        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
         bruttoPrAar: 500_000,
       },
     ];
@@ -588,7 +588,7 @@ describe('fordelPerioderUtils', () => {
       {
         beregningsgrunnlagPeriodeFom: '2022-08-15',
         beregningsgrunnlagPeriodeTom: '9999-12-31',
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
+        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
         bruttoPrAar: 500_000,
       },
     ];
@@ -635,13 +635,13 @@ describe('fordelPerioderUtils', () => {
       {
         beregningsgrunnlagPeriodeFom: '2022-08-16',
         beregningsgrunnlagPeriodeTom: '2022-08-17',
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
+        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
         bruttoPrAar: 500_000,
       },
       {
         beregningsgrunnlagPeriodeFom: '2022-08-18',
         beregningsgrunnlagPeriodeTom: '9999-12-31',
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
+        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
         bruttoPrAar: 500_000,
       },
     ];
@@ -676,7 +676,7 @@ describe('fordelPerioderUtils', () => {
       {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
         beregningsgrunnlagPeriodeTom: '9999-12-31',
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
+        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
         bruttoPrAar: 200_000,
       },
     ];
@@ -705,13 +705,13 @@ describe('fordelPerioderUtils', () => {
       {
         beregningsgrunnlagPeriodeFom: '2019-01-01',
         beregningsgrunnlagPeriodeTom: '2019-02-01',
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
+        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
         bruttoPrAar: 500_000,
       },
       {
         beregningsgrunnlagPeriodeFom: '2019-02-02',
         beregningsgrunnlagPeriodeTom: '9999-12-31',
-        periodeAarsaker: [PeriodeAarsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
+        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
         bruttoPrAar: 500_000,
       },
     ] satisfies BeregningsgrunnlagPeriodeProp[];

@@ -16,9 +16,8 @@ import {
 import { Button, HStack, Timeline, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { RelasjonsRolleType } from '@navikt/ft-kodeverk';
-
 import type { KodeverkMedNavn } from '../../types/kodeverkMedNavn';
+import { RelasjonsRolleType } from '../../types/RelasjonsRolleType';
 import type { TidslinjePeriode } from '../../types/TidslinjePeriode';
 
 import styles from './tilbakekrevingTimeline.module.css';

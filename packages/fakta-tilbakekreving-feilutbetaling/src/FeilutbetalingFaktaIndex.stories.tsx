@@ -8,7 +8,6 @@ import {
   FagsakYtelseType,
   HendelseType,
   HendelseUnderType,
-  KonsekvensForYtelsen,
   TilbakekrevingVidereBehandling,
 } from '@navikt/ft-kodeverk';
 
@@ -52,7 +51,7 @@ const feilutbetalingFakta: FeilutbetalingFakta = {
     ],
     behandlingsresultat: {
       type: BehandlingResultatType.INNVILGET,
-      konsekvenserForYtelsen: [KonsekvensForYtelsen.FORELDREPENGER_OPPHØRER, KonsekvensForYtelsen.ENDRING_I_BEREGNING],
+      konsekvenserForYtelsen: ['FORELDREPENGER_OPPHØRER', 'ENDRING_I_BEREGNING'],
     },
     tilbakekrevingValg: {
       videreBehandling: TilbakekrevingVidereBehandling.TILBAKEKR_INNTREKK,

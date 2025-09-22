@@ -15,7 +15,6 @@
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noPropertyAccessFromIndexSignature": true,
-    //"noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
@@ -27,6 +26,5 @@
     "sourceMap": true,
     "jsx": "react-jsx",
     "skipLibCheck": true
-  },
-  "exclude": ["node_modules", "**.spec.ts", "dist"]
+  }
 }

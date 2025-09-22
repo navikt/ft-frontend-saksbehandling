@@ -1,5 +1,4 @@
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-
+import { FaktaOmBeregningTilfelle } from '../../../kodeverk/faktaOmBeregningTilfelle';
 import type { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
 import { erRefusjonskravGyldigFieldPrefix, VurderRefusjonForm } from './VurderRefusjonForm';
 

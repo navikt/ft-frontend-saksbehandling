@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl';
 
 import { Heading, VStack } from '@navikt/ds-react';
 
-import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type {
   ArbeidsgiverOpplysningerPerId,
@@ -12,6 +11,7 @@ import type {
   RefusjonTilVurderingAndel,
 } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
+import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
 import type { VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';

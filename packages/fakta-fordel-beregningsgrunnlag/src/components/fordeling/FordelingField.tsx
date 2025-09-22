@@ -2,10 +2,10 @@ import { useFormContext } from 'react-hook-form';
 
 import { VStack } from '@navikt/ds-react';
 
-import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
+import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
 import type { FordelBeregningsgrunnlagFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
