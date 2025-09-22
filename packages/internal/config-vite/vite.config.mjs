@@ -24,18 +24,7 @@ const vitestConfig = defineVitestConfig({
           environment: 'jsdom',
           css: false,
         },
-      },
-      {
-        extends: true,
-        test: {
-          name: 'browser',
-          browser: {
-            enabled: true,
-            provider: 'playwright',
-            instances: [{ browser: 'chromium' }],
-          },
-        },
-      },
+      }
     ],
   },
 });

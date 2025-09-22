@@ -2,10 +2,9 @@ import React, { type ReactElement } from 'react';
 import { type FieldArrayWithId, useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
-import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
-import { Button, ErrorMessage, Table, VStack } from '@navikt/ds-react';
+import { ErrorMessage, Table, VStack } from '@navikt/ds-react';
 
-import { RhfSelect, RhfTextField, useCustomValidation } from '@navikt/ft-form-hooks';
+import { RhfFieldArrayAppendButton, RhfFieldArrayRemoveButton, RhfSelect, RhfTextField, useCustomValidation } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -177,35 +176,29 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
                 />
               </Table.DataCell>
               <Table.DataCell align="right">
-                {skalViseSletteknapp(index, fields, readOnly) && (
-                  <Button
-                    size="small"
-                    icon={<XMarkIcon aria-hidden />}
-                    onClick={() => remove(index)}
-                    type="button"
-                    variant="tertiary-neutral"
-                  />
-                )}
+                <RhfFieldArrayRemoveButton
+                  remove={remove}
+                  index={index}
+                  size="small"
+                  skjul={!skalViseSletteknapp(index, fields, readOnly)}
+                />
               </Table.DataCell>
             </Table.Row>
           ))}
           {createBruttoBGSummaryRow(sumFordeling)}
         </Table.Body>
       </Table>
-      {!readOnly && (
-        <div>
-          <Button
-            icon={<PlusCircleIcon aria-hidden />}
-            // @ts-expect-error Fiks
-            onClick={() => append(defaultBGFordeling(aktivitetStatuser, kodeverkSamling))}
-            type="button"
-            variant="tertiary"
-            size="small"
-          >
-            <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
-          </Button>
-        </div>
-      )}
+      <div>
+        <RhfFieldArrayAppendButton
+          append={append}
+          // @ts-expect-error Fiks
+          emptyTemplate={defaultBGFordeling(aktivitetStatuser, kodeverkSamling)}
+          skjul={readOnly}
+          size="small"
+        >
+          <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
+        </RhfFieldArrayAppendButton>
+      </div>
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </VStack>
   );
