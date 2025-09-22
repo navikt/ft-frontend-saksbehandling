@@ -31,6 +31,7 @@ import { BeregningsgrunnlagProsessIndex } from './BeregningsgrunnlagProsessIndex
 import { SammenligningType } from './kodeverk/sammenligningType';
 import { VilkarType } from './kodeverk/vilkarType';
 import { VilkårUtfallType } from './kodeverk/vilkårUtfallType';
+import type { BeregningAksjonspunktSubmitType } from './types/interface/BeregningsgrunnlagAP.ts';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import type { KodeverkForPanel } from './types/KodeverkForPanel';
 import type { Vilkår } from './types/Vilkår';
@@ -507,7 +508,7 @@ const lagBG = (
 const meta = {
   component: BeregningsgrunnlagProsessIndex,
   args: {
-    submitCallback: action('button-click') as (data: any) => Promise<void>,
+    submitCallback: action('submit') as (data: BeregningAksjonspunktSubmitType[]) => Promise<void>,
     readOnlySubmitButton: false,
     kodeverkSamling: alleKodeverk as KodeverkForPanel,
     arbeidsgiverOpplysningerPerId: arbeidsgiverOpplysninger,

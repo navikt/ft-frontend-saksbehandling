@@ -60,7 +60,7 @@ const meta = {
   component: TilbakekrevingProsessIndex,
   decorators: [withIntl],
   args: {
-    submitCallback: action('button-click') as (data: VilkårsvurderingAp) => Promise<void>,
+    submitCallback: action('submit') as (data: VilkårsvurderingAp) => Promise<void>,
     behandlingUuid: '1',
     kodeverkSamlingFpTilbake: alleTilbakekrevingKodeverk as unknown as KodeverkTilbakeForPanel,
     isReadOnly: false,

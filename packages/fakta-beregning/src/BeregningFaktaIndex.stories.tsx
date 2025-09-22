@@ -31,6 +31,7 @@ import {
 import { BeregningFaktaIndex } from './BeregningFaktaIndex';
 import { FaktaOmBeregningTilfelle } from './kodeverk/faktaOmBeregningTilfelle';
 import { FaktaBeregningAvklaringsbehovCode } from './typer/interface/FaktaBeregningAvklaringsbehovCode';
+import type { SubmitBeregningType } from './typer/interface/SubmitBeregningTsType.ts';
 import type { KodeverkForPanel } from './typer/KodeverkForPanel';
 import type { Vilkår, Vilkårperiode } from './typer/Vilkår';
 
@@ -262,7 +263,7 @@ const meta = {
   args: {
     erOverstyrer: true,
     kodeverkSamling: alleKodeverkMock as KodeverkForPanel,
-    submitCallback: action('button-click') as (data: any) => Promise<any>,
+    submitCallback: action('submit') as (data: SubmitBeregningType[]) => Promise<void>,
     readOnly: false,
     submittable: true,
     setFormData: () => undefined,

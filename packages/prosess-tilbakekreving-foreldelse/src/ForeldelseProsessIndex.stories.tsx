@@ -70,7 +70,7 @@ const kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel = {
 const meta = {
   component: ForeldelseProsessIndex,
   args: {
-    submitCallback: action('button-click') as (data: VurderForeldelseAp) => Promise<void>,
+    submitCallback: action('submit') as (data: VurderForeldelseAp) => Promise<void>,
     behandlingUuid: '1',
     kodeverkSamlingFpTilbake,
     isReadOnly: false,

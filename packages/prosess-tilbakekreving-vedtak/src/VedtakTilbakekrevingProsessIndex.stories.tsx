@@ -5,6 +5,7 @@ import { alleTilbakekrevingKodeverk } from '@navikt/ft-frontend-storybook-utils'
 
 import type { BeregningsresultatTilbakekreving } from './types/BeregningsresultatTilbakekreving';
 import type { ForeslaVedtakTilbakekrevingAp } from './types/ForeslaVedtakTilbakekrevingAp';
+import type { ForhandsvisData } from './types/ForhandsvisData.ts';
 import type { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 import type { Vedtaksbrev } from './types/Vedtaksbrev';
 import { VedtakTilbakekrevingProsessIndex } from './VedtakTilbakekrevingProsessIndex';
@@ -185,10 +186,10 @@ const kodeverkSamlingFpTilbake = alleTilbakekrevingKodeverk as KodeverkTilbakeFo
 const meta = {
   component: VedtakTilbakekrevingProsessIndex,
   args: {
-    submitCallback: action('button-click') as (data: ForeslaVedtakTilbakekrevingAp) => Promise<void>,
+    submitCallback: action('submit') as (data: ForeslaVedtakTilbakekrevingAp) => Promise<void>,
+    fetchPreviewVedtaksbrev: action('preview') as (data: ForhandsvisData) => Promise<void>,
     behandlingUuid: '1',
     vedtaksbrev,
-    fetchPreviewVedtaksbrev: () => Promise.resolve(),
     kodeverkSamlingFpTilbake,
     isReadOnly: false,
     setFormData: () => undefined,

@@ -15,7 +15,7 @@ export const Default: Story = {
   args: {
     text: 'Dette er ein test',
     showModal: true,
-    submit: action('button-click'),
-    cancel: action('button-click'),
+    submit: action('submit'),
+    cancel: action('cancel'),
   },
 };

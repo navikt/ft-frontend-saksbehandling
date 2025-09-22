@@ -10,15 +10,13 @@ import { createIntl } from '@navikt/ft-utils';
 
 import { finnVilkårsperiode, vurderesIBehandlingen } from './components/felles/vilkårsperiodeUtils';
 import { FordelBeregningsgrunnlagPanel } from './components/FordelBeregningsgrunnlagPanel';
+import type { AksjonspunktSubmitType } from './types/AksjonspunktSubmitType';
 import type {
   FordelBeregningsgrunnlagFormValues,
   TilkommetAktivitetFormValues,
   VurderRefusjonFormValues,
 } from './types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from './types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import type { FordelBeregningsgrunnlagAP } from './types/interface/FordelBeregningsgrunnlagAP';
-import type { VurderNyttInntektsforholdAP } from './types/interface/VurderNyttInntektsforholdAP';
-import type { VurderRefusjonBeregningsgrunnlagAP } from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import type { KodeverkForPanel } from './types/kodeverkForPanel';
 import type { Vilkår, Vilkårperiode } from './types/Vilkår';
 
@@ -60,7 +58,7 @@ type OwnProps = {
 
 type Props = OwnProps &
   StandardFaktaPanelProps<
-    FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP | VurderNyttInntektsforholdAP,
+    AksjonspunktSubmitType,
     FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues | TilkommetAktivitetFormValues
   >;
 
