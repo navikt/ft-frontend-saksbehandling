@@ -128,7 +128,7 @@ export type Beregningsgrunnlag = Readonly<{
   vilkårsperiodeFom: string;
   avklaringsbehov: BeregningAvklaringsbehov[];
   skjaeringstidspunktBeregning: string;
-  dekningsgrad: number;
+  dekningsgrad?: number;
   grunnbeløp: number;
   erOverstyrtInntekt: boolean;
   aktivitetStatus?: string[];
