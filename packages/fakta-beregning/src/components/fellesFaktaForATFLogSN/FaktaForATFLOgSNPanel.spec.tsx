@@ -27,7 +27,7 @@ const lagBeregningsgrunnlag = (andeler: FaktaOmBeregningAndel[]): Beregningsgrun
     ],
   }) as Beregningsgrunnlag;
 
-describe('<FaktaForATFLOgSNPanel>', () => {
+describe('FaktaForATFLOgSNPanel', () => {
   it('skal kunne transform values for kun besteberegning', () => {
     const aktivePaneler = [FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FØDENDE_KVINNE];
     const andel1 = { andelsnr: 1, aktivitetStatus: AktivitetStatus.ARBEIDSAVKLARINGSPENGER };
@@ -182,7 +182,7 @@ describe('<FaktaForATFLOgSNPanel>', () => {
     expect(transformedValues.fakta.fastsettMaanedsinntektFL?.maanedsinntekt).toEqual(20000);
   });
 
-  it.skip('skal transform values for nyIArbeidslivet om kun ny i arbeidslivet', () => {
+  it('skal transform values for nyIArbeidslivet om kun ny i arbeidslivet', () => {
     const nyIArbTransform = vi.fn();
     const kortvarigTransform = vi.fn();
     const lonnsendringTransform = vi.fn();
@@ -196,13 +196,13 @@ describe('<FaktaForATFLOgSNPanel>', () => {
       lonnsendringTransform,
       vurderRefusjonTransform,
     )({}, {} as FaktaOmBeregningAksjonspunktValues);
-    expect(nyIArbTransform).toHaveProperty('callCount', 1);
-    expect(kortvarigTransform).toHaveProperty('callCount', 0);
-    expect(lonnsendringTransform).toHaveProperty('callCount', 0);
-    expect(vurderRefusjonTransform).toHaveProperty('callCount', 0);
+    expect(nyIArbTransform).toHaveBeenCalled();
+    expect(kortvarigTransform).not.toHaveBeenCalled();
+    expect(lonnsendringTransform).not.toHaveBeenCalled();
+    expect(vurderRefusjonTransform).not.toHaveBeenCalled();
   });
 
-  it.skip('skal transform values for nyIArbeidslivet og kortvarig om kun ny i arbeidslivet og kortvarig', () => {
+  it('skal transform values for nyIArbeidslivet og kortvarig om kun ny i arbeidslivet og kortvarig', () => {
     const nyIArbTransform = vi.fn();
     const kortvarigTransform = vi.fn();
     const lonnsendringTransform = vi.fn();
@@ -219,9 +219,9 @@ describe('<FaktaForATFLOgSNPanel>', () => {
       lonnsendringTransform,
       vurderRefusjonTransform,
     )({}, {} as FaktaOmBeregningAksjonspunktValues);
-    expect(nyIArbTransform).toHaveProperty('callCount', 1);
-    expect(kortvarigTransform).toHaveProperty('callCount', 1);
-    expect(lonnsendringTransform).toHaveProperty('callCount', 0);
-    expect(vurderRefusjonTransform).toHaveProperty('callCount', 0);
+    expect(nyIArbTransform).toHaveBeenCalled();
+    expect(kortvarigTransform).toHaveBeenCalled();
+    expect(lonnsendringTransform).not.toHaveBeenCalled();
+    expect(vurderRefusjonTransform).not.toHaveBeenCalled();
   });
 });

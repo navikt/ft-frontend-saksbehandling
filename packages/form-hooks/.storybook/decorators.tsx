@@ -20,7 +20,7 @@ export const rhfDecorator =
     };
 
     return (
-      <RhfForm formMethods={formMethods} onSubmit={action('button-click') as (data: unknown) => Promise<unknown>}>
+      <RhfForm formMethods={formMethods} onSubmit={action('submit') as (data: unknown) => Promise<unknown>}>
         <VStack gap="space-16">
           <Story />
           <div>

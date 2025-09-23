@@ -2,10 +2,15 @@ import { type ReactElement, useEffect } from 'react';
 import { useFieldArray, type UseFieldArrayUpdate, useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
-import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
-import { Button, Checkbox, ErrorMessage, HStack, Table, VStack } from '@navikt/ds-react';
+import { Checkbox, ErrorMessage, HStack, Table, VStack } from '@navikt/ds-react';
 
-import { RhfSelect, RhfTextField, useCustomValidation } from '@navikt/ft-form-hooks';
+import {
+  RhfFieldArrayAppendButton,
+  RhfFieldArrayRemoveButton,
+  RhfSelect,
+  RhfTextField,
+  useCustomValidation,
+} from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus, BeregningsgrunnlagAndelType, Inntektskategori } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
@@ -445,15 +450,12 @@ export const FordelPeriodeFieldArray = ({
                   />
                 </Table.DataCell>
                 <Table.DataCell align="right" textSize="small">
-                  {skalViseSletteknapp(index, fields, skalIkkeEndres) && (
-                    <Button
-                      size="small"
-                      icon={<XMarkIcon aria-hidden color="var(--ax-danger-600)" />}
-                      onClick={() => remove(index)}
-                      type="button"
-                      variant="tertiary-neutral"
-                    />
-                  )}
+                  <RhfFieldArrayRemoveButton
+                    index={index}
+                    remove={remove}
+                    size="small"
+                    skjul={!skalViseSletteknapp(index, fields, skalIkkeEndres)}
+                  />
                 </Table.DataCell>
               </Table.Row>
             );
@@ -479,15 +481,14 @@ export const FordelPeriodeFieldArray = ({
       </Table>
       {!readOnly && !skalIkkeRedigereInntekt && (
         <HStack justify="space-between">
-          <Button
+          <RhfFieldArrayAppendButton
             size="small"
-            icon={<PlusCircleIcon aria-hidden />}
-            onClick={() => append(defaultBGFordeling(skalIkkeRedigereInntekt))}
-            type="button"
-            variant="tertiary"
+            append={append}
+            emptyTemplate={defaultBGFordeling(skalIkkeRedigereInntekt)}
           >
             <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
-          </Button>
+          </RhfFieldArrayAppendButton>
+
           <Checkbox size="small" checked={fieldArrayName === fieldArrayToRepeat} onChange={handleBenyttCheckbox}>
             Benytt for alle perioder
           </Checkbox>

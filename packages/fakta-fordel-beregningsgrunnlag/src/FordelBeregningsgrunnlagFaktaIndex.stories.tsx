@@ -33,9 +33,7 @@ import {
   bgUtenDelvisRefusjon as vurderRefusjonBG,
 } from '../testdata/VurderRefusjon';
 import { FordelBeregningsgrunnlagFaktaIndex } from './FordelBeregningsgrunnlagFaktaIndex';
-import type { FordelBeregningsgrunnlagAP } from './types/interface/FordelBeregningsgrunnlagAP';
-import type { VurderNyttInntektsforholdAP } from './types/interface/VurderNyttInntektsforholdAP';
-import type { VurderRefusjonBeregningsgrunnlagAP } from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
+import type { AksjonspunktSubmitType } from './types/AksjonspunktSubmitType';
 import type { KodeverkForPanel } from './types/kodeverkForPanel';
 import type { Vilkår } from './types/Vilkår';
 
@@ -113,9 +111,7 @@ const lagVilkår = (perioder: any[]): Vilkår => ({
 const meta = {
   component: FordelBeregningsgrunnlagFaktaIndex,
   args: {
-    submitCallback: action('button-click', { depth: 20 }) as (
-      data: FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP | VurderNyttInntektsforholdAP,
-    ) => Promise<void>,
+    submitCallback: action('submit') as (data: AksjonspunktSubmitType) => Promise<void>,
     kodeverkSamling: alleKodeverk as KodeverkForPanel,
     arbeidsgiverOpplysningerPerId: agOpplysninger,
     setFormData: () => undefined,
@@ -1121,7 +1117,6 @@ export const TilkommetAktivitetMedRevurdering: Story = {
   args: {
     readOnly: false,
     beregningsgrunnlagListe: bgTilkommetInntektsforholdMedRevurdering,
-    submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
     beregningsgrunnlagVilkår: lagVilkår([
       {
         fom: '2022-11-08',
@@ -1137,7 +1132,6 @@ export const TilkommetAktivitetMedRevurdering1MaiKryss: Story = {
   args: {
     readOnly: false,
     beregningsgrunnlagListe: bgTilkommetInntektsforholdMedRevurdering1MaiSplitt,
-    submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
     beregningsgrunnlagVilkår: lagVilkår([
       {
         fom: '2023-04-25',
@@ -1153,7 +1147,6 @@ export const TilkommetAktiviteTreLikePerioderHelgMellomAlle: Story = {
   args: {
     readOnly: false,
     beregningsgrunnlagListe: bgTilkommetAktivitetTrePerioderHelgMellom,
-    submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
     beregningsgrunnlagVilkår: lagVilkår([
       {
         fom: '2023-04-10',
@@ -1169,7 +1162,6 @@ export const VurderRefusjonOgTilkommetInntekt: Story = {
   args: {
     readOnly: false,
     beregningsgrunnlagListe: prodFeilBG,
-    submitCallback: action('button-click', { depth: 20 }) as (data: any) => Promise<any>,
     beregningsgrunnlagVilkår: lagVilkår([
       {
         fom: '2022-03-07',
