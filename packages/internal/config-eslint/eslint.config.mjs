@@ -4,7 +4,6 @@ import importPlugin from 'eslint-plugin-import';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import pluginReact from 'eslint-plugin-react';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import reactYouMightNotNeedAnEffect from 'eslint-plugin-react-you-might-not-need-an-effect';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import storybook from 'eslint-plugin-storybook';
 import vitest from 'eslint-plugin-vitest';
@@ -36,7 +35,6 @@ export default [
   jsxA11y.flatConfigs.recommended,
   importPlugin.flatConfigs.recommended,
   reactRefresh.configs.vite,
-  reactYouMightNotNeedAnEffect.configs.recommended,
   eslintConfigPrettier,
   {
     rules: {
