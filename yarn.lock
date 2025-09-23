@@ -3063,15 +3063,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-a11y@npm:9.1.6":
-  version: 9.1.6
-  resolution: "@storybook/addon-a11y@npm:9.1.6"
+"@storybook/addon-a11y@npm:9.1.8":
+  version: 9.1.8
+  resolution: "@storybook/addon-a11y@npm:9.1.8"
   dependencies:
     "@storybook/global": ^5.0.0
     axe-core: ^4.2.0
   peerDependencies:
-    storybook: ^9.1.6
-  checksum: 0b6f477dcdc7b1158919894e210f0a4cf1aafd241e032c0a9cd5b6241551fdfd740357106cb18ebebd408891c02d869b26da300d9e4525346fdceb11a44c6a1f
+    storybook: ^9.1.8
+  checksum: 2e8119eec986babf506009a0670cead34b8538fa7ee6be60ffcfe4e35be78495a50e0ed7fe3ec7956dfebc7d2fdf095fc7dbd7a6ff0f42abfddc920394938654
   languageName: node
   linkType: hard
 
@@ -6880,7 +6880,7 @@ __metadata:
     "@navikt/aksel-stylelint": 7.30.1
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
-    "@storybook/addon-a11y": 9.1.6
+    "@storybook/addon-a11y": 9.1.8
     "@storybook/addon-docs": 9.1.6
     "@storybook/addon-links": 9.1.6
     "@storybook/react-vite": 9.1.6
