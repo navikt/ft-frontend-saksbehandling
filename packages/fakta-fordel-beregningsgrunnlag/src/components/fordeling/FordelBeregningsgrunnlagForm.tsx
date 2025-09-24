@@ -119,7 +119,7 @@ export const FordelBeregningsgrunnlagForm = ({
   // dersom den ikke er tom, så skal kun forlengelsesperioder kunne redigeres
 
   return (
-    <Accordion headingSize="xsmall">
+    <Accordion size="medium">
       {slåSammenPerioder(perioder, bgPerioder, beregningsgrunnlag.forlengelseperioder).map((periode, index) => (
         <FordelBeregningsgrunnlagPeriodePanel
           key={fordelBGFieldArrayNamePrefix + periode.fom}
