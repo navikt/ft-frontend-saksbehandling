@@ -96,7 +96,7 @@ export const TilkommetAktivitetAccordion = ({
 
   return (
     <VStack gap="space-24">
-      <Accordion headingSize="xsmall">
+      <Accordion size="medium">
         {tidligereVurderte.map(tidligereVurdertPeriode => (
           <Accordion.Item
             open={openPanels.filter(panel => panel === tidligereVurdertPeriode.fom).length > 0}
