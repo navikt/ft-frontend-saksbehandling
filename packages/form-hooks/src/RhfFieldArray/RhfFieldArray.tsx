@@ -96,7 +96,7 @@ export const RhfFieldArrayAppendButton = <
   emptyTemplate,
   children,
 }: AppendButtonProps<TFieldValues, TFieldArrayName>) =>
-  !skjul ? (
+  skjul ? null : (
     <Button
       onClick={() => append(emptyTemplate)}
       type="button"
@@ -107,4 +107,4 @@ export const RhfFieldArrayAppendButton = <
     >
       {children}
     </Button>
-  ) : null;
+  );

@@ -40,5 +40,5 @@ export const isStatusArbeidstakerOrKombinasjon = (status: string): boolean =>
   statuserSomStotterArbeidstaker.some(s => s === status);
 export const isStatusSNOrKombinasjon = (status: string): boolean =>
   statuserSomStotterSelvstendigNaeringsdrivende.some(s => s === status);
-export const isStatusKombinasjon = (status: string): boolean => kombinasjonsstatuser.some(s => s === status);
+export const isStatusKombinasjon = (status: string): boolean => kombinasjonsstatuser.includes(status);
 export const isStatusMilitær = (status: string): boolean => AktivitetStatus.MILITÆR_ELLER_SIVIL === status;

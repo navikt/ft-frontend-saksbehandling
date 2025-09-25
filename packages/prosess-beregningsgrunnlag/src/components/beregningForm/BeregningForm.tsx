@@ -27,7 +27,7 @@ import { Frisinnpanel } from '../frisinn/Frisinnpanel';
 
 const gjelderBehandlingenBesteberegning = (faktaOmBeregning: FaktaOmBeregning | undefined): boolean =>
   faktaOmBeregning && faktaOmBeregning.faktaOmBeregningTilfeller
-    ? faktaOmBeregning.faktaOmBeregningTilfeller.some(tilfelle => tilfelle === 'FASTSETT_BESTEBEREGNING_FØDENDE_KVINNE')
+    ? faktaOmBeregning.faktaOmBeregningTilfeller.includes('FASTSETT_BESTEBEREGNING_FØDENDE_KVINNE')
     : false;
 
 const erAutomatiskBesteberegnet = (ytelsesspesifiktGrunnlag: YtelseGrunnlag | undefined): boolean =>

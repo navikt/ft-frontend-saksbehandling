@@ -1,6 +1,6 @@
 import react from '@vitejs/plugin-react';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
 import circleDependency from 'vite-plugin-circular-dependency';
 import dts from 'vite-plugin-dts';
@@ -24,7 +24,7 @@ const vitestConfig = defineVitestConfig({
           environment: 'jsdom',
           css: false,
         },
-      }
+      },
     ],
   },
 });

@@ -85,10 +85,7 @@ const finnAlleAndelerIFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeP
 };
 
 const harPerioderMedAvsluttedeArbeidsforhold = (allePerioder: BeregningsgrunnlagPeriodeProp[]): boolean =>
-  allePerioder.some(
-    ({ periodeAarsaker }) =>
-      periodeAarsaker && periodeAarsaker.some(kode => kode === PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET),
-  );
+  allePerioder.some(({ periodeAarsaker }) => periodeAarsaker?.includes(PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET));
 
 const finnVilkårperiode = (vilkår: Vilkår, vilkårsperiodeFom: string): Vilkårperiode =>
   // @ts-expect-error Fiks
