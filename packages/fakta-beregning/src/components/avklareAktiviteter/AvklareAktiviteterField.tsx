@@ -27,8 +27,6 @@ import {
 } from './avklareAktiviteterHjelpefunksjoner';
 import { VurderAktiviteterPanel } from './VurderAktiviteterPanel';
 
-import styles from './avklareAktiviteterPanel.module.css';
-
 const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
 const BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME = 'begrunnelseAvklareAktiviteter';
@@ -150,9 +148,9 @@ export const AvklareAktiviteterField = ({
       )}
       <VStack gap="space-12">
         <HStack gap="space-16" align="center">
-          <Label size="small" className={styles.avsnittOverskrift} data-testid="avklareAktiviteterHeading">
+          <Heading size="xsmall" level="3" data-testid="avklareAktiviteterHeading">
             <FormattedMessage id="AvklarAktivitetPanel.Overskrift" />
-          </Label>
+          </Heading>
           {(erOverstyrer || harOverstyrAvklaringsbehov) && (
             <OverstyringKnapp onClick={() => initializeForm(true)} erOverstyrt={erOverstyrtKnappTrykket} />
           )}

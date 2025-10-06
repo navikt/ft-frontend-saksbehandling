@@ -12,6 +12,8 @@ import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { VurderAktiviteterTabellRad } from './VurderAktiviteterRow';
 import { isSameOrBefore, lagAktivitetFieldId, mapToInitialValues } from './vurderAktiviteterTabellUtils';
 
+import styles from './vurderAktiviteterTabell.module.css';
+
 const finnHeading = (aktiviteter: BeregningAktivitet[], skjaeringstidspunkt: string) => {
   const harVentelonnVartpenger = aktiviteter.some(
     aktivitet =>
@@ -60,7 +62,7 @@ export const VurderAktiviteterTabell = ({
 }: Props) => (
   <VStack gap="space-8">
     {finnHeading(aktiviteter, tomDatoForAktivitetGruppe)}
-    <Table size="small">
+    <Table size="small" className={styles.table}>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell textSize="small">
