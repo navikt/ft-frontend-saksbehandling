@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "dayjs": "1.11.18",
-    "react-intl": "7.1.11"
+    "react-intl": "7.1.13"
   },
   "peerDependencies": {
     "dayjs": "1.11.x",
