@@ -65,19 +65,19 @@ export const VurderAktiviteterTabell = ({
     <Table size="small" className={styles.table}>
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell textSize="small" className={styles.colNavn}>
+          <Table.HeaderCell textSize="small">
             <FormattedMessage id="VurderAktiviteterTabell.Header.Aktivitet" />
           </Table.HeaderCell>
-          <Table.HeaderCell textSize="small" className={styles.colPeriode}>
+          <Table.HeaderCell textSize="small">
             <FormattedMessage id="VurderAktiviteterTabell.Header.Periode" />
           </Table.HeaderCell>
-          <Table.HeaderCell textSize="small" className={styles.colRadio}>
+          <Table.HeaderCell textSize="small">
             <FormattedMessage id="VurderAktiviteterTabell.Header.Benytt" />
           </Table.HeaderCell>
-          <Table.HeaderCell textSize="small" className={styles.colRadio}>
+          <Table.HeaderCell textSize="small">
             <FormattedMessage id="VurderAktiviteterTabell.Header.IkkeBenytt" />
           </Table.HeaderCell>
-          <Table.HeaderCell className={styles.colRadio} />
+          <Table.HeaderCell />
         </Table.Row>
       </Table.Header>
       <Table.Body>
