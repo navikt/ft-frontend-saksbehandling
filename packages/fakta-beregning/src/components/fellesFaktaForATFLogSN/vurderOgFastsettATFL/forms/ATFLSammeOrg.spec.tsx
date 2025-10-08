@@ -4,7 +4,7 @@ import type { BeregningsgrunnlagArbeidsforhold, FaktaOmBeregning, FaktaOmBeregni
 import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
 import { transformValuesForATFLISammeOrg } from './ATFLSammeOrg';
 
-describe('<ATFLSammeOrg>', () => {
+describe('ATFLSammeOrg', () => {
   const arbeidsforhold = {
     arbeidsgiverIdent: '123',
     arbeidsforholdId: 'abc',

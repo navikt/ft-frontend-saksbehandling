@@ -10,7 +10,7 @@ describe('VedtakTilbakekrevingProsessIndex', () => {
   it('skal fylle ut to obligatoriske felter for periode og så bekrefte', async () => {
     const lagre = vi.fn(() => Promise.resolve());
 
-    const utils = render(<Default submitCallback={lagre} />);
+    render(<Default submitCallback={lagre} />);
 
     expect(await screen.findByText('Vedtak')).toBeInTheDocument();
     expect(screen.getByText(/01.10.2018/)).toBeInTheDocument();
@@ -33,7 +33,7 @@ describe('VedtakTilbakekrevingProsessIndex', () => {
 
     expect(screen.getByText('Til godkjenning').closest('button')).toBeDisabled();
 
-    const tekstInput = utils.getAllByLabelText('Utdypende tekst');
+    const tekstInput = screen.getAllByLabelText('Utdypende tekst');
     await userEvent.type(tekstInput[0], 'Dette er en utdypende tekst');
     await userEvent.type(tekstInput[1], 'Dette er en annen utdypende tekst');
 

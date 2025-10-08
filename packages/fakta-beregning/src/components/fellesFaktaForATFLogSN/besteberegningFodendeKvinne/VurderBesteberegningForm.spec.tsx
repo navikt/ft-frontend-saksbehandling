@@ -12,7 +12,7 @@ const emptyValues: FaktaOmBeregningAksjonspunktValues = {
   periode: { fom: '2022-01-01', tom: '2022-02-01' },
 } as FaktaOmBeregningAksjonspunktValues;
 
-describe('<VurderBesteberegning>', () => {
+describe('VurderBesteberegningForm', () => {
   it('skal bygge initial values', () => {
     const vurderBesteberegning = {
       skalHaBesteberegning: false,

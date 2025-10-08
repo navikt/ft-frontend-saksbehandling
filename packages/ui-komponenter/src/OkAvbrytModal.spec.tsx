@@ -5,7 +5,7 @@ import * as stories from './OkAvbrytModal.stories';
 
 const { Default } = composeStories(stories);
 
-describe('<OkAvbrytModal>', () => {
+describe('OkAvbrytModal', () => {
   it('skal rendre modal', async () => {
     render(<Default />);
 
