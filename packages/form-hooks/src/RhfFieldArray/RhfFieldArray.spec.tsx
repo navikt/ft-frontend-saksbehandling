@@ -7,7 +7,7 @@ import * as stories from './RhfFieldArray.stories.tsx';
 
 const { MedAnnenType } = composeStories(stories);
 
-describe('PeriodFieldArray', () => {
+describe('RhfFieldArray', () => {
   it('skal rendre field array', async () => {
     render(<MedAnnenType />);
 

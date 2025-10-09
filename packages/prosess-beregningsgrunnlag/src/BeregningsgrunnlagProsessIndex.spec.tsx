@@ -86,7 +86,7 @@ describe('BeregningsgrunnlagProsessIndex', () => {
   it('skal bekrefte aksjonspunkt for avvik', async () => {
     const lagre = vi.fn();
 
-    const utils = render(<ArbeidstakerMedAvvikAp5038 submitCallback={lagre} />);
+    render(<ArbeidstakerMedAvvikAp5038 submitCallback={lagre} />);
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
@@ -100,7 +100,7 @@ describe('BeregningsgrunnlagProsessIndex', () => {
 
     // Aksjonspunkt avvik
     expect(screen.getByText('Fastsett årsinntekt skjønnsmessig for arbeidstaker')).toBeInTheDocument();
-    const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
+    const alleInputfelt = screen.getAllByRole('textbox', { hidden: true });
     const bruttoFelt = alleInputfelt[0];
     const begrunnelseFelt = alleInputfelt[1];
     await userEvent.type(bruttoFelt, '260 000');
@@ -137,7 +137,7 @@ describe('BeregningsgrunnlagProsessIndex', () => {
   it('skal bekrefte aksjonspunkt for vurder varig endring selvstendig næringsdrivende', async () => {
     const lagre = vi.fn();
 
-    const utils = render(<SelvstendigNæringsdrivendeMedAksjonspunktAp5039 submitCallback={lagre} />);
+    render(<SelvstendigNæringsdrivendeMedAksjonspunktAp5039 submitCallback={lagre} />);
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
@@ -169,7 +169,7 @@ describe('BeregningsgrunnlagProsessIndex', () => {
     await waitFor(() => expect(screen.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument());
     await userEvent.click(screen.getByLabelText('Varig endring - årsinntekt må fastsettes.'));
     expect(await screen.findByText('Næringsinntekt fastsettes til')).toBeInTheDocument();
-    const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
+    const alleInputfelt = screen.getAllByRole('textbox', { hidden: true });
     const bruttoFelt = alleInputfelt[0];
     const begrunnelseFelt = alleInputfelt[1];
     await userEvent.type(bruttoFelt, '260 000');
@@ -202,7 +202,7 @@ describe('BeregningsgrunnlagProsessIndex', () => {
   it('skal bekrefte aksjonspunkt for vurder varig endret arbeidssituasjon', async () => {
     const lagre = vi.fn();
 
-    const utils = render(<MidlertidigInaktivMedAksjonspunktAp5054 submitCallback={lagre} />);
+    render(<MidlertidigInaktivMedAksjonspunktAp5054 submitCallback={lagre} />);
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
@@ -222,7 +222,7 @@ describe('BeregningsgrunnlagProsessIndex', () => {
     await waitFor(() => expect(screen.queryByText('Varig endret årsinntekt fastsettes til')).not.toBeInTheDocument());
     await userEvent.click(screen.getByLabelText('Varig endring - årsinntekt må fastsettes.'));
     expect(await screen.findByText('Varig endret årsinntekt fastsettes til')).toBeInTheDocument();
-    const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
+    const alleInputfelt = screen.getAllByRole('textbox', { hidden: true });
     const bruttoFelt = alleInputfelt[0];
     const begrunnelseFelt = alleInputfelt[1];
     await userEvent.type(bruttoFelt, '260 000');
@@ -255,7 +255,7 @@ describe('BeregningsgrunnlagProsessIndex', () => {
   it('skal bekrefte aksjonspunkt for ny i arbeidslivet selvstendig næringsdrivende', async () => {
     const lagre = vi.fn();
 
-    const utils = render(<SelvstendigNæringsdrivendNyIArbeidslivetAp5049 submitCallback={lagre} />);
+    render(<SelvstendigNæringsdrivendNyIArbeidslivetAp5049 submitCallback={lagre} />);
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
@@ -273,7 +273,7 @@ describe('BeregningsgrunnlagProsessIndex', () => {
       screen.getByText('Søker har oppgitt å være ny i arbeidslivet (blitt yrkesaktiv siste tre år).'),
     ).toBeInTheDocument();
 
-    const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
+    const alleInputfelt = screen.getAllByRole('textbox', { hidden: true });
     const bruttoFelt = alleInputfelt[0];
     const begrunnelseFelt = alleInputfelt[1];
     await userEvent.type(bruttoFelt, '500 000');
@@ -326,7 +326,7 @@ describe('BeregningsgrunnlagProsessIndex', () => {
   it('skal bekrefte aksjonspunkt for avvik ved tidsbegrenset arbeidsforhold', async () => {
     const lagre = vi.fn();
 
-    const utils = render(<TidsbegrensetArbeidsforholdMedAvvikAp5047 submitCallback={lagre} />);
+    render(<TidsbegrensetArbeidsforholdMedAvvikAp5047 submitCallback={lagre} />);
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
@@ -335,7 +335,7 @@ describe('BeregningsgrunnlagProsessIndex', () => {
     expect(screen.getAllByText('Andeby bank (999999999)')).toHaveLength(2);
 
     // Aksjonspunkt
-    const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
+    const alleInputfelt = screen.getAllByRole('textbox', { hidden: true });
     const bruttoFeltAg1P1 = alleInputfelt[0];
     const bruttoFeltAg1P2 = alleInputfelt[1];
 
@@ -396,7 +396,7 @@ describe('BeregningsgrunnlagProsessIndex', () => {
   it('skal bekrefte akjonspunkt for varig endring når avik atfl er løst', async () => {
     const lagre = vi.fn();
 
-    const utils = render(<AvvikNæringEtterLøstAvvikArbeid5038Og5039 submitCallback={lagre} />);
+    render(<AvvikNæringEtterLøstAvvikArbeid5038Og5039 submitCallback={lagre} />);
 
     expect(await screen.getAllByText('Bekreft og fortsett')).toHaveLength(2);
     const knappATFL = screen.getAllByRole('button', { name: 'Bekreft og fortsett' })[0];
@@ -423,7 +423,7 @@ describe('BeregningsgrunnlagProsessIndex', () => {
     // Forklaring på manglende sammenligningsgrunnlag
     expect(screen.getByText('Det foretas ikke avviksvurdering på Dagpenger')).toBeInTheDocument();
 
-    const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
+    const alleInputfelt = screen.getAllByRole('textbox', { hidden: true });
 
     // Avvik arbeid og frilans
     expect(screen.getByText('Fastsett årsinntekt skjønnsmessig for arbeidstaker og frilans')).toBeInTheDocument();
@@ -444,7 +444,7 @@ describe('BeregningsgrunnlagProsessIndex', () => {
     await userEvent.click(screen.getByLabelText('Varig endring - årsinntekt må fastsettes.'));
     expect(await screen.findByText('Næringsinntekt fastsettes til')).toBeInTheDocument();
 
-    const alleInputfeltEtterKlikk = utils.getAllByRole('textbox', { hidden: true });
+    const alleInputfeltEtterKlikk = screen.getAllByRole('textbox', { hidden: true });
     const bruttoNæringFelt = alleInputfeltEtterKlikk[4];
     const begrunnelseNæringFelt = alleInputfeltEtterKlikk[5];
     await userEvent.type(bruttoNæringFelt, '260 000');

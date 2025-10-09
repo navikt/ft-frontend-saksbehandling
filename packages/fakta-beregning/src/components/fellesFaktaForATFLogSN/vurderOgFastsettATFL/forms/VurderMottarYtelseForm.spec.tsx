@@ -71,7 +71,7 @@ const arbeidstakerAndelerUtenIM = [
   { ...andel3, mottarYtelse: true } as ArbeidstakerUtenIMAndel,
 ];
 
-describe('<VurderMottarYtelseForm>', () => {
+describe('VurderMottarYtelseForm', () => {
   it('skal teste at initial values bygges korrekt uten dto til stede', () => {
     const tilfeller = [FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
     const initialValues = VurderMottarYtelseForm.buildInitialValues(undefined, tilfeller);

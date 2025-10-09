@@ -6,7 +6,7 @@ import type { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/Fakta
 import { LonnsendringForm } from './LonnsendringForm';
 import { lonnsendringField } from './lonnsendringFormUtils';
 
-describe('<LonnsendringForm>', () => {
+describe('LonnsendringForm', () => {
   const faktaOmBeregning = {
     faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING],
     arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1, aktivitetStatus: AktivitetStatus.ARBEIDSTAKER }],

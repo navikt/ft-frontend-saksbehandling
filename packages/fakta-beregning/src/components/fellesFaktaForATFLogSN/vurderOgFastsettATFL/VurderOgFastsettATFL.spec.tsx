@@ -80,7 +80,7 @@ const lagAndelValues = (
     kanRedigereInntekt,
   }) as AndelFieldValue;
 
-describe('<VurderOgFastsettATFL>', () => {
+describe('VurderOgFastsettATFL', () => {
   it('skal transform values om besteberegning', () => {
     const andelerFields: AndelFieldValue[] = [
       lagAndelValues(1, '10 000', Inntektskategori.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),

@@ -5,7 +5,7 @@ import * as stories from './LoadingPanel.stories';
 
 const { Default } = composeStories(stories);
 
-describe('<LoadingPanel>', () => {
+describe('LoadingPanel', () => {
   it('skal vise lasteikon', async () => {
     render(<Default />);
 

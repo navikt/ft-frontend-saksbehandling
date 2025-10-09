@@ -6,7 +6,7 @@ const { VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT } = FaktaOmBeregningTilfell
 
 const lagFieldName = (arbeidsgiverId: string): string => erRefusjonskravGyldigFieldPrefix + arbeidsgiverId;
 
-describe('<VurderRefusjonForm>', () => {
+describe('VurderRefusjonForm', () => {
   it('skal bygge initial values', () => {
     const senRefusjonkravListe = [
       { erRefusjonskravGyldig: true, arbeidsgiverIdent: '8279312213' },

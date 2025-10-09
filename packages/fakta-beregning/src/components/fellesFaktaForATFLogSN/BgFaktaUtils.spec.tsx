@@ -78,7 +78,7 @@ const kodeverkSamling = {
   ],
 } as KodeverkForPanel;
 
-describe('bgFaktaUtils', () => {
+describe('BgFaktaUtils', () => {
   const dagpengerAndel = {
     aktivitetStatus: aktivitetStatuser.DAGPENGER,
     andelsnr: 1,

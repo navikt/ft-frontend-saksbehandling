@@ -8,7 +8,7 @@ import { erNyoppstartetFLField, NyoppstartetFLForm } from './NyoppstartetFLForm'
 
 const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } };
 
-describe('<NyoppstartetFLForm>', () => {
+describe('NyoppstartetFLForm', () => {
   const faktaOmBeregning = {
     faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
     andelerForFaktaOmBeregning: [],
