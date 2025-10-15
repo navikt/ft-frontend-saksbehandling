@@ -6593,6 +6593,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-plugin-react-you-might-not-need-an-effect@npm:0.5.1":
+  version: 0.5.1
+  resolution: "eslint-plugin-react-you-might-not-need-an-effect@npm:0.5.1"
+  dependencies:
+    eslint-utils: ^3.0.0
+    globals: ^16.2.0
+  peerDependencies:
+    eslint: ">=8.40.0"
+  checksum: 8195fc74c5dd38fe94586053a57b6e686518f8ec9ce54a0b5cf30626af4afcf85b7907307d953a6ca51cf577a80a659e35c8a1631ccb6fadcc45bf2809114018
+  languageName: node
+  linkType: hard
+
 "eslint-plugin-react@npm:7.37.5":
   version: 7.37.5
   resolution: "eslint-plugin-react@npm:7.37.5"
@@ -6666,6 +6678,24 @@ __metadata:
     esrecurse: ^4.3.0
     estraverse: ^5.2.0
   checksum: cf88f42cd5e81490d549dc6d350fe01e6fe420f9d9ea34f134bb359b030e3c4ef888d36667632e448937fe52449f7181501df48c08200e3d3b0fee250d05364e
+  languageName: node
+  linkType: hard
+
+"eslint-utils@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "eslint-utils@npm:3.0.0"
+  dependencies:
+    eslint-visitor-keys: ^2.0.0
+  peerDependencies:
+    eslint: ">=5"
+  checksum: 0668fe02f5adab2e5a367eee5089f4c39033af20499df88fe4e6aba2015c20720404d8c3d6349b6f716b08fdf91b9da4e5d5481f265049278099c4c836ccb619
+  languageName: node
+  linkType: hard
+
+"eslint-visitor-keys@npm:^2.0.0":
+  version: 2.1.0
+  resolution: "eslint-visitor-keys@npm:2.1.0"
+  checksum: e3081d7dd2611a35f0388bbdc2f5da60b3a3c5b8b6e928daffff7391146b434d691577aa95064c8b7faad0b8a680266bcda0a42439c18c717b80e6718d7e267d
   languageName: node
   linkType: hard
 
@@ -7265,6 +7295,7 @@ __metadata:
     "@types/react-dom": 19.2.2
     "@vitest/browser": 3.2.4
     eslint: 9.37.0
+    eslint-plugin-react-you-might-not-need-an-effect: 0.5.1
     fast-glob: 3.3.3
     gh-pages: 6.3.0
     husky: 9.1.7
@@ -7577,7 +7608,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globals@npm:16.4.0":
+"globals@npm:16.4.0, globals@npm:^16.2.0":
   version: 16.4.0
   resolution: "globals@npm:16.4.0"
   checksum: 934180f5c6cbb26f8b2832caa255050fface970eee45bde8757fabba384807c85640a12716aa5bcc47d781807839fee470c8c1f6159c6b8dc877668c56103880
