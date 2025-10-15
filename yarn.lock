@@ -6589,7 +6589,7 @@ __metadata:
   resolution: "eslint-plugin-react-refresh@npm:0.4.24"
   peerDependencies:
     eslint: ">=8.40"
-  checksum: b0e946be32f10f0c8239e7ec958b1e095fc633da3f2e8f6bd5bd09188f348bee1bf17d0e175d47e02a8e22fcad24f8246a9f1f065a84968f819e4102f0953256
+  checksum: e8f58067b2adbc61559cb5bd5eb6feb3d5ad2559602b173675866480d98abf8a24fbce9f87f888de176c364f759214a845c14312ef2dcba29576544acda49eb5
   languageName: node
   linkType: hard
 
@@ -7294,7 +7294,7 @@ __metadata:
     "@types/react": 19.2.2
     "@types/react-dom": 19.2.2
     "@vitest/browser": 3.2.4
-    eslint: 9.35.0
+    eslint: 9.37.0
     eslint-plugin-react-you-might-not-need-an-effect: 0.5.1
     fast-glob: 3.3.3
     gh-pages: 6.3.0
