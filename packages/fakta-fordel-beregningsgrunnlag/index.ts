@@ -1,5 +1,5 @@
 export type { FordelBeregningsgrunnlagAP } from './src/types/interface/FordelBeregningsgrunnlagAP';
-export type { VurderRefusjonAksjonspunktSubmitType as VurderRefusjonBeregningsgrunnlagAP } from './src/types/interface/VurderRefusjonBeregningsgrunnlagAP';
+export type { VurderRefusjonBeregningsgrunnlagAP } from './src/types/interface/VurderRefusjonBeregningsgrunnlagAP';
 export type { VurderNyttInntektsforholdAP } from './src/types/interface/VurderNyttInntektsforholdAP';
 export { FaktaFordelBeregningAvklaringsbehovCode } from './src/types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 export { FordelBeregningsgrunnlagFaktaIndex } from './src/FordelBeregningsgrunnlagFaktaIndex';
