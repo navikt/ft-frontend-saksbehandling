@@ -16,5 +16,5 @@ export { FagsakStatus } from './src/fagsakStatus';
 export { Kommunikasjonsretning } from './src/kommunikasjonsretning';
 export { Inntektskategori } from './src/inntektskategori';
 export { LønnsendringScenario } from './src/lønnsendringScenario';
-export { HendelseType } from './src/hendelseType';
+export type { HendelseType } from './src/hendelseType';
 export { HendelseUnderType } from './src/hendelseUnderType';

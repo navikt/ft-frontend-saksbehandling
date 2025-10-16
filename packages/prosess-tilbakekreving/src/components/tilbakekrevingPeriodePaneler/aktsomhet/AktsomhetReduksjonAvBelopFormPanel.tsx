@@ -9,7 +9,7 @@ import { maxValue, minValue, required } from '@navikt/ft-form-validators';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import { Aktsomhet } from '../../../kodeverk/aktsomhet';
+import type { Aktsomhet } from '../../../kodeverk/aktsomhet';
 import { ANDELER, EGENDEFINERT } from './aktsomhetUtils';
 
 import styles from './aktsomhetReduksjonAvBelopFormPanel.module.css';
@@ -37,7 +37,7 @@ interface Props {
   name: string;
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
-  handletUaktsomhetGrad?: string;
+  handletUaktsomhetGrad?: Aktsomhet;
   harMerEnnEnYtelse: boolean;
   feilutbetalingBelop: number;
   andelSomTilbakekreves?: string;
@@ -124,11 +124,7 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
                     format={(value: string | number) => value.toString().replace('.', ',')}
                     parse={(value: string | number) => value.toString().replace(',', '.')}
                   />
-                  <div
-                    className={
-                      handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM ? styles.suffixGrovText : styles.suffix
-                    }
-                  >
+                  <div className={handletUaktsomhetGrad === 'GROVT_UAKTSOM' ? styles.suffixGrovText : styles.suffix}>
                     %
                   </div>
                 </HStack>
@@ -146,7 +142,7 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
                 parse={parseCurrencyInput}
               />
             )}
-            {handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM && (
+            {handletUaktsomhetGrad === 'GROVT_UAKTSOM' && (
               <div>
                 <Detail>
                   <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />
@@ -174,7 +170,7 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
             <BodyShort size="small" className={styles.labelPadding}>
               {harMerEnnEnYtelse ? formatCurrencyNoKr(feilutbetalingBelop) : '100%'}
             </BodyShort>
-            {handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM && (
+            {handletUaktsomhetGrad === 'GROVT_UAKTSOM' && (
               <RhfRadioGroup
                 name={tilleggesRenterFelt}
                 control={context.control}

@@ -10,7 +10,7 @@ import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 import { AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 
-import { VilkårResultat } from '../kodeverk/vilkarResultat';
+import type { VilkårResultat } from '../kodeverk/vilkarResultat';
 import { TilbakekrevingAksjonspunktCodes } from '../TilbakekrevingAksjonspunktCodes';
 import type { DataForPeriode } from '../types/DataForPeriode';
 import type {
@@ -46,11 +46,9 @@ const harApentAksjonspunkt = (periode: CustomVilkarsVurdertePeriode) =>
   !periode.erForeldet && (periode.begrunnelse === undefined || periode.erSplittet);
 
 const emptyFeltverdiOmFinnes = (periode: CustomVilkarsVurdertePeriode) => {
-  // @ts-expect-error Fiks
   const valgtVilkarResultatType = periode[periode.valgtVilkarResultatType];
-  const handletUaktsomhetGrad = valgtVilkarResultatType[valgtVilkarResultatType.handletUaktsomhetGrad];
 
-  if (valgtVilkarResultatType.tilbakekrevdBelop) {
+  if ('tilbakekrevdBelop' in valgtVilkarResultatType) {
     return {
       ...periode,
       [periode.valgtVilkarResultatType]: {
@@ -58,16 +56,20 @@ const emptyFeltverdiOmFinnes = (periode: CustomVilkarsVurdertePeriode) => {
       },
     };
   }
-  if (handletUaktsomhetGrad && handletUaktsomhetGrad.belopSomSkalTilbakekreves) {
-    return {
-      ...periode,
-      [periode.valgtVilkarResultatType]: {
-        ...valgtVilkarResultatType,
-        [valgtVilkarResultatType.handletUaktsomhetGrad]: {
-          ...omitOne(handletUaktsomhetGrad, 'belopSomSkalTilbakekreves'),
+
+  if ('handletUaktsomhetGrad' in valgtVilkarResultatType) {
+    const handletUaktsomhetGrad = valgtVilkarResultatType[valgtVilkarResultatType.handletUaktsomhetGrad];
+    if (handletUaktsomhetGrad && handletUaktsomhetGrad.belopSomSkalTilbakekreves) {
+      return {
+        ...periode,
+        [periode.valgtVilkarResultatType]: {
+          ...valgtVilkarResultatType,
+          [valgtVilkarResultatType.handletUaktsomhetGrad]: {
+            ...omitOne(handletUaktsomhetGrad, 'belopSomSkalTilbakekreves'),
+          },
         },
-      },
-    };
+      };
+    }
   }
   return periode;
 };
@@ -205,11 +207,11 @@ const periodeFormBuildInitialValues = (
   };
 
   const godTroData =
-    vilkarResultatKode === VilkårResultat.GOD_TRO
+    vilkarResultatKode === ('GOD_TRO' satisfies VilkårResultat)
       ? BelopetMottattIGodTroFormPanel.buildIntialValues(vilkarResultatInfo)
       : {};
   const annetData =
-    vilkarResultatKode !== undefined && vilkarResultatKode !== VilkårResultat.GOD_TRO
+    vilkarResultatKode !== undefined && vilkarResultatKode !== ('GOD_TRO' satisfies VilkårResultat)
       ? AktsomhetFormPanel.buildInitalValues(vilkarResultatInfo)
       : {};
   return {
@@ -228,15 +230,14 @@ const periodeFormTransformValues = (
   sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[],
 ) => {
   const { valgtVilkarResultatType, begrunnelse, vurderingBegrunnelse } = values;
-  // @ts-expect-error Fiks
   const info = values[valgtVilkarResultatType];
 
   const godTroData =
-    valgtVilkarResultatType === VilkårResultat.GOD_TRO
+    valgtVilkarResultatType === ('GOD_TRO' satisfies VilkårResultat) && 'erBelopetIBehold' in info
       ? BelopetMottattIGodTroFormPanel.transformValues(info, vurderingBegrunnelse)
       : {};
   const annetData =
-    valgtVilkarResultatType !== VilkårResultat.GOD_TRO
+    valgtVilkarResultatType !== ('GOD_TRO' satisfies VilkårResultat) && 'handletUaktsomhetGrad' in info
       ? AktsomhetFormPanel.transformValues(info, sarligGrunnTyper, vurderingBegrunnelse)
       : {};
 
@@ -288,12 +289,13 @@ const validerOm6LeddBrukesPåAllePerioder = (vilkarsVurdertePerioder: CustomVilk
 
   const antallValgt = vilkarsVurdertePerioder.reduce((sum: number, periode: CustomVilkarsVurdertePeriode) => {
     const { valgtVilkarResultatType } = periode;
-    // @ts-expect-error Fiks
     const vilkarResultatInfo = periode[valgtVilkarResultatType];
-    const { handletUaktsomhetGrad } = vilkarResultatInfo;
-    const info = vilkarResultatInfo[handletUaktsomhetGrad];
-    if (info) {
-      return info.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr === false ? sum + 1 : sum;
+    if ('handletUaktsomhetGrad' in vilkarResultatInfo) {
+      const { handletUaktsomhetGrad } = vilkarResultatInfo;
+      const info = vilkarResultatInfo[handletUaktsomhetGrad];
+      if (info) {
+        return info.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr === false ? sum + 1 : sum;
+      }
     }
     return sum;
   }, 0);

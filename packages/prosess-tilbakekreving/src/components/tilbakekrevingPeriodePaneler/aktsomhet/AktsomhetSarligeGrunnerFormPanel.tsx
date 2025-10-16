@@ -6,6 +6,7 @@ import { ErrorMessage, Label, VStack } from '@navikt/ds-react';
 import { RhfCheckbox, RhfTextarea, useCustomValidation } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 
+import type { Aktsomhet } from '../../../kodeverk/aktsomhet';
 import type { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
 import { AktsomhetReduksjonAvBelopFormPanel } from './AktsomhetReduksjonAvBelopFormPanel';
 
@@ -15,7 +16,7 @@ const maxLength1500 = maxLength(1500);
 interface Props {
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
-  handletUaktsomhetGrad?: string;
+  handletUaktsomhetGrad?: Aktsomhet;
   erSerligGrunnAnnetValgt?: boolean;
   harMerEnnEnYtelse: boolean;
   feilutbetalingBelop: number;

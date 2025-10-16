@@ -7,7 +7,7 @@ import { RhfRadioGroup, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
-import { Aktsomhet } from '../../../kodeverk/aktsomhet';
+import type { Aktsomhet } from '../../../kodeverk/aktsomhet';
 import type { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
 import { AktsomhetSarligeGrunnerFormPanel } from './AktsomhetSarligeGrunnerFormPanel';
 
@@ -43,7 +43,7 @@ const SærligGrunnerBegrunnelseDiv = ({ name, readOnly }: { name: string; readOn
 interface Props {
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
-  handletUaktsomhetGrad?: string;
+  handletUaktsomhetGrad?: Aktsomhet;
   erSerligGrunnAnnetValgt?: boolean;
   harMerEnnEnYtelse: boolean;
   feilutbetalingBelop: number;
@@ -74,9 +74,9 @@ export const AktsomhetGradUaktsomhetFormPanel = ({
 
   const grovUaktsomOffset = erValgtResultatTypeForstoBurdeForstaatt ? 180 : 200;
   return (
-    <ArrowBox alignOffset={handletUaktsomhetGrad === Aktsomhet.GROVT_UAKTSOM ? grovUaktsomOffset : 20}>
+    <ArrowBox alignOffset={handletUaktsomhetGrad === 'GROVT_UAKTSOM' ? grovUaktsomOffset : 20}>
       <div className={styles.panelWidth}>
-        {handletUaktsomhetGrad === Aktsomhet.SIMPEL_UAKTSOM && erTotalBelopUnder4Rettsgebyr && (
+        {handletUaktsomhetGrad === 'SIMPEL_UAKTSOM' && erTotalBelopUnder4Rettsgebyr && (
           <VStack gap="space-12">
             <RhfRadioGroup
               name={`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`}
@@ -117,7 +117,7 @@ export const AktsomhetGradUaktsomhetFormPanel = ({
             )}
           </VStack>
         )}
-        {(handletUaktsomhetGrad !== Aktsomhet.SIMPEL_UAKTSOM || !erTotalBelopUnder4Rettsgebyr) && (
+        {(handletUaktsomhetGrad !== 'SIMPEL_UAKTSOM' || !erTotalBelopUnder4Rettsgebyr) && (
           <>
             <SærligGrunnerBegrunnelseDiv name={name} readOnly={readOnly} />
             <AktsomhetSarligeGrunnerFormPanel

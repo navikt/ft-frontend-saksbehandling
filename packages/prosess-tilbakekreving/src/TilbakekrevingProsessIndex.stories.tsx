@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
 import { alleTilbakekrevingKodeverk, getIntlDecorator } from '@navikt/ft-frontend-storybook-utils';
-import { ForeldelseVurderingType, HendelseType } from '@navikt/ft-kodeverk';
+import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 
 import { TilbakekrevingProsessIndex } from './TilbakekrevingProsessIndex';
 import type { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
@@ -42,7 +42,7 @@ const defaultVilkarvurderingsperioder: DetaljerteFeilutbetalingsperioder = {
       foreldet: false,
       feilutbetaling: 10,
       årsak: {
-        hendelseType: HendelseType.MEDLEMSKAP,
+        hendelseType: 'MEDLEMSKAP',
       },
       redusertBeloper: [],
       ytelser: [
@@ -103,7 +103,7 @@ export const MedToPerioder: Story = {
           foreldet: false,
           feilutbetaling: 100,
           årsak: {
-            hendelseType: HendelseType.MEDLEMSKAP,
+            hendelseType: 'MEDLEMSKAP',
           },
           redusertBeloper: [],
           ytelser: [
