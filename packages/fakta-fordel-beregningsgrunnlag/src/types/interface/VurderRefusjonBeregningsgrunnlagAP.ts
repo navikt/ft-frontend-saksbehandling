@@ -14,7 +14,7 @@ export type VurderRefusjonTransformedValues = {
   fastsatteAndeler: VurderRefusjonAndelTransformedValues[];
 };
 
-export type VurderRefusjonBeregningsgrunnlagAP = VurderRefusjonTransformedValues & {
+export type VurderRefusjonAksjonspunktSubmitType = VurderRefusjonTransformedValues & {
   begrunnelse: string;
   periode: {
     fom: string;
@@ -22,7 +22,7 @@ export type VurderRefusjonBeregningsgrunnlagAP = VurderRefusjonTransformedValues
   };
 };
 
-export type VurderRefusjonAksjonspunktSubmitType = BeregningAvklaringsbehovTilBekreftelse<
+export type VurderRefusjonBeregningsgrunnlagAP = BeregningAvklaringsbehovTilBekreftelse<
   FaktaFordelBeregningAvklaringsbehovCode.VURDER_REFUSJON_BERGRUNN,
   VurderRefusjonTransformedValues
 >;

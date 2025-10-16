@@ -16,7 +16,7 @@ import type {
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import type {
-  VurderRefusjonAksjonspunktSubmitType,
+  VurderRefusjonBeregningsgrunnlagAP,
   VurderRefusjonTransformedValues,
 } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import type { Vilkårperiode } from '../../types/Vilkår';
@@ -96,7 +96,7 @@ const transformValues = (
   values: VurderRefusjonFormValues,
   beregninsgrunnlagListe: Beregningsgrunnlag[],
   vilkårsperioder: Vilkårperiode[],
-): VurderRefusjonAksjonspunktSubmitType => {
+): VurderRefusjonBeregningsgrunnlagAP => {
   const fields = values[FORM_NAME];
   const grunnlag = fields
     .filter(f => vurderesIBehandlingen(vilkårsperioder, f.periode.fom))
@@ -112,7 +112,7 @@ const transformValues = (
 
 interface Props {
   aktivtBeregningsgrunnlagIndeks: number;
-  submitCallback: (aksjonspunktData: VurderRefusjonAksjonspunktSubmitType) => Promise<void>;
+  submitCallback: (aksjonspunktData: VurderRefusjonBeregningsgrunnlagAP) => Promise<void>;
   readOnly: boolean;
   submittable: boolean;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
