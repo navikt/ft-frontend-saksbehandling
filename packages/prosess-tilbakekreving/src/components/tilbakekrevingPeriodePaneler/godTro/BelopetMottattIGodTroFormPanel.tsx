@@ -89,10 +89,7 @@ export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehol
   );
 };
 
-BelopetMottattIGodTroFormPanel.transformValues = (
-  info: { erBelopetIBehold: boolean; tilbakekrevdBelop: number },
-  vurderingBegrunnelse: string,
-) => ({
+BelopetMottattIGodTroFormPanel.transformValues = (info: InitialValuesGodTroForm, vurderingBegrunnelse: string) => ({
   '@type': 'godTro',
   begrunnelse: vurderingBegrunnelse,
   erBelopetIBehold: info.erBelopetIBehold,

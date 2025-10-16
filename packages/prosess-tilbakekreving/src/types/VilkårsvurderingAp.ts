@@ -1,7 +1,7 @@
 import type { AksjonspunktTilBekreftelse } from '@navikt/ft-types';
 
-import { Aktsomhet } from '../kodeverk/aktsomhet';
-import { SærligGrunn } from '../kodeverk/særligGrunn';
+import type { Aktsomhet } from '../kodeverk/aktsomhet';
+import type { SærligGrunn } from '../kodeverk/særligGrunn';
 import { TilbakekrevingAksjonspunktCodes } from '../TilbakekrevingAksjonspunktCodes';
 
 type VilkårResultatAktsomhet = {

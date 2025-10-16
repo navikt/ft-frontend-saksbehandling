@@ -10,9 +10,9 @@ import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-va
 import { usePrevious } from '@navikt/ft-ui-komponenter';
 import { BTag, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import { Aktsomhet, AKTSOMHET_REKKEFØLGE } from '../kodeverk/aktsomhet';
-import { SærligGrunn } from '../kodeverk/særligGrunn';
-import { VilkårResultat } from '../kodeverk/vilkarResultat';
+import { type Aktsomhet, AKTSOMHET_REKKEFØLGE } from '../kodeverk/aktsomhet';
+import { type SærligGrunn } from '../kodeverk/særligGrunn';
+import { type VilkårResultat } from '../kodeverk/vilkarResultat';
 import type { DataForPeriode } from '../types/DataForPeriode';
 import type { DetaljertFeilutbetalingPeriode } from '../types/DetaljerteFeilutbetalingsperioder';
 import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
@@ -46,19 +46,22 @@ export type CustomPerioder = {
   perioder: CustomPeriode[];
 };
 
-export interface InitialValuesDetailForm {
-  valgtVilkarResultatType: string;
+type VilkårResultatMap = {
+  FEIL_OPPLYSNINGER: InitialValuesAktsomhetForm;
+  FORSTO_BURDE_FORSTAATT: InitialValuesAktsomhetForm;
+  MANGELFULL_OPPLYSNING: InitialValuesAktsomhetForm;
+  GOD_TRO: InitialValuesGodTroForm;
+};
+
+export type InitialValuesDetailForm = {
+  valgtVilkarResultatType: VilkårResultat;
   begrunnelse: string;
   erForeldet?: boolean;
   periodenErForeldet?: boolean;
   foreldetBegrunnelse?: string;
   vurderingBegrunnelse: string;
   harMerEnnEnYtelse: boolean;
-  [VilkårResultat.FEIL_OPPLYSNINGER]?: InitialValuesAktsomhetForm;
-  [VilkårResultat.FORSTO_BURDE_FORSTAATT]?: InitialValuesAktsomhetForm;
-  [VilkårResultat.MANGELFULL_OPPLYSNING]?: InitialValuesAktsomhetForm;
-  [VilkårResultat.GOD_TRO]?: InitialValuesGodTroForm;
-}
+} & Pick<VilkårResultatMap, VilkårResultat>;
 
 export type CustomVilkarsVurdertePeriode = {
   fom: string;
@@ -96,7 +99,7 @@ export const TilbakekrevingPeriodeForm = ({
     defaultValues: periode,
   });
 
-  const valgtVilkarResultatType = formMethods.watch('valgtVilkarResultatType');
+  const valgtVilkarResultatType = formMethods.watch('valgtVilkarResultatType') as VilkårResultat;
   const handletUaktsomhetsgrad = formMethods.watch(`${valgtVilkarResultatType}.handletUaktsomhetGrad`);
   const harGrunnerTilReduksjon = formMethods.watch(
     `${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.harGrunnerTilReduksjon`,
@@ -108,7 +111,7 @@ export const TilbakekrevingPeriodeForm = ({
     `${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`,
   );
   const erSerligGrunnAnnetValgt = formMethods.watch(
-    `${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.${SærligGrunn.ANNET}`,
+    `${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.${'ANNET' satisfies SærligGrunn}`,
   );
   const erBelopetIBehold = formMethods.watch(`${valgtVilkarResultatType}.erBelopetIBehold`);
 
@@ -124,14 +127,13 @@ export const TilbakekrevingPeriodeForm = ({
     const fomTom = event.target.value.split('_');
     const kopierDenne = vurdertePerioder.find(per => per.fom === fomTom[0] && per.tom === fomTom[1]);
     const vilkårResultatType = kopierDenne?.valgtVilkarResultatType;
-    // @ts-expect-error Fiks
     const resultatType = kopierDenne && vilkårResultatType ? kopierDenne[vilkårResultatType] : undefined;
 
     const resultatTypeKopi = JSON.parse(JSON.stringify(resultatType));
-    if (vilkårResultatType !== VilkårResultat.GOD_TRO) {
+    if (vilkårResultatType !== 'GOD_TRO') {
       const { handletUaktsomhetGrad } = resultatTypeKopi;
       if (
-        handletUaktsomhetGrad !== Aktsomhet.FORSETT &&
+        handletUaktsomhetGrad !== ('FORSETT' satisfies Aktsomhet) &&
         periode?.harMerEnnEnYtelse !== kopierDenne?.harMerEnnEnYtelse
       ) {
         resultatTypeKopi[handletUaktsomhetGrad].andelSomTilbakekreves = null;
@@ -262,7 +264,7 @@ export const TilbakekrevingPeriodeForm = ({
                 <Heading size="small" level="3">
                   <FormattedMessage
                     id={
-                      valgtVilkarResultatType === VilkårResultat.GOD_TRO
+                      valgtVilkarResultatType === 'GOD_TRO'
                         ? 'TilbakekrevingPeriodeForm.BelopetMottattIGodTro'
                         : 'TilbakekrevingPeriodeForm.Aktsomhet'
                     }
@@ -273,7 +275,7 @@ export const TilbakekrevingPeriodeForm = ({
                   control={formMethods.control}
                   label={intl.formatMessage({
                     id:
-                      valgtVilkarResultatType === VilkårResultat.GOD_TRO
+                      valgtVilkarResultatType === 'GOD_TRO'
                         ? 'TilbakekrevingPeriodeForm.VurderingMottattIGodTro'
                         : 'TilbakekrevingPeriodeForm.VurderingAktsomhet',
                   })}
@@ -281,7 +283,7 @@ export const TilbakekrevingPeriodeForm = ({
                   maxLength={1500}
                   readOnly={readOnly}
                 />
-                {valgtVilkarResultatType === VilkårResultat.GOD_TRO && (
+                {valgtVilkarResultatType === 'GOD_TRO' && (
                   <BelopetMottattIGodTroFormPanel
                     name={valgtVilkarResultatType}
                     readOnly={readOnly}
@@ -289,7 +291,7 @@ export const TilbakekrevingPeriodeForm = ({
                     feilutbetalingBelop={data.feilutbetaling}
                   />
                 )}
-                {valgtVilkarResultatType !== VilkårResultat.GOD_TRO && (
+                {valgtVilkarResultatType !== 'GOD_TRO' && (
                   <AktsomhetFormPanel
                     key={valgtVilkarResultatType}
                     name={valgtVilkarResultatType}
@@ -298,9 +300,7 @@ export const TilbakekrevingPeriodeForm = ({
                     handletUaktsomhetGrad={handletUaktsomhetsgrad}
                     resetFields={resetUtaktsomhetsgrad}
                     erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
-                    erValgtResultatTypeForstoBurdeForstaatt={
-                      valgtVilkarResultatType === VilkårResultat.FORSTO_BURDE_FORSTAATT
-                    }
+                    erValgtResultatTypeForstoBurdeForstaatt={valgtVilkarResultatType === 'FORSTO_BURDE_FORSTAATT'}
                     // @ts-expect-error Fiks
                     aktsomhetTyper={aktsomhetTyper}
                     sarligGrunnTyper={sarligGrunnTyper}

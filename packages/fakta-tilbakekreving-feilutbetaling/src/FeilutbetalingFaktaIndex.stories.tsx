@@ -6,7 +6,6 @@ import {
   BehandlingArsakType,
   BehandlingResultatType,
   FagsakYtelseType,
-  HendelseType,
   HendelseUnderType,
   TilbakekrevingVidereBehandling,
 } from '@navikt/ft-kodeverk';
@@ -65,15 +64,15 @@ const feilutbetalingAarsak: FeilutbetalingÅrsak[] = [
     ytelseType: FagsakYtelseType.FORELDREPENGER,
     hendelseTyper: [
       {
-        hendelseType: HendelseType.MEDLEMSKAP,
+        hendelseType: 'MEDLEMSKAP',
         hendelseUndertyper: [],
       },
       {
-        hendelseType: HendelseType.OKONOMI_FEIL,
+        hendelseType: 'OKONOMI_FEIL',
         hendelseUndertyper: [HendelseUnderType.OKONOMI_FEIL_TREKK],
       },
       {
-        hendelseType: HendelseType.FP_BEREGNING_TYPE,
+        hendelseType: 'BEREGNING_TYPE',
         hendelseUndertyper: [HendelseUnderType.IKKE_BOSATT],
       },
     ],

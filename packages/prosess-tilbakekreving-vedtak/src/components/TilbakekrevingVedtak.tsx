@@ -20,7 +20,7 @@ interface Props {
   kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   behandlingUuid: string;
   avsnittsliste: VedtaksbrevAvsnitt[];
-  fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<void>;
+  fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<Blob>;
   erRevurderingTilbakekrevingKlage?: boolean;
   erRevurderingTilbakekrevingFeilBeløpBortfalt?: boolean;
   formData?: FormValues;

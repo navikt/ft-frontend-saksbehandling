@@ -1,4 +1,4 @@
-import { HendelseType, HendelseUnderType } from '@navikt/ft-kodeverk';
+import { type HendelseType, HendelseUnderType } from '@navikt/ft-kodeverk';
 
 export type DetaljertFeilutbetalingPeriode = {
   fom: string;

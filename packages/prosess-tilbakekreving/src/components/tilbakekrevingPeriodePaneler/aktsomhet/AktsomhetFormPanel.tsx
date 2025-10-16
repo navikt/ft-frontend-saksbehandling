@@ -7,17 +7,17 @@ import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { decodeHtmlEntity, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { Aktsomhet, AKTSOMHET_REKKEFØLGE } from '../../../kodeverk/aktsomhet';
+import { type Aktsomhet, AKTSOMHET_REKKEFØLGE } from '../../../kodeverk/aktsomhet';
 import type { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
 import type { AktsomhetInfo } from '../../../types/VilkårsvurdertePerioder';
 import { AktsomhetGradFormPanel } from './AktsomhetGradFormPanel';
 import { ANDELER, EGENDEFINERT } from './aktsomhetUtils';
 
 const forstoBurdeForstattTekster = {
-  [Aktsomhet.FORSETT]: 'AktsomhetFormPanel.AktsomhetTyperLabel.Forsett',
-  [Aktsomhet.GROVT_UAKTSOM]: 'AktsomhetFormPanel.AktsomhetTyperLabel.GrovtUaktsomt',
-  [Aktsomhet.SIMPEL_UAKTSOM]: 'AktsomhetFormPanel.AktsomhetTyperLabel.SimpelUaktsom',
-} as Record<string, string>;
+  FORSETT: 'AktsomhetFormPanel.AktsomhetTyperLabel.Forsett',
+  GROVT_UAKTSOM: 'AktsomhetFormPanel.AktsomhetTyperLabel.GrovtUaktsomt',
+  SIMPEL_UAKTSOM: 'AktsomhetFormPanel.AktsomhetTyperLabel.SimpelUaktsom',
+} as Record<Aktsomhet, string>;
 
 interface AktsomhetData {
   andelSomTilbakekreves: number | string;
@@ -30,12 +30,15 @@ interface AktsomhetData {
   tilbakekrevSelvOmBeloepErUnder4Rettsgebyr: boolean;
 }
 
-export interface InitialValuesAktsomhetForm {
+type AktomhetMap = {
+  FORSETT?: AktsomhetData;
+  GROVT_UAKTSOM?: AktsomhetData;
+  SIMPEL_UAKTSOM?: AktsomhetData;
+};
+
+export type InitialValuesAktsomhetForm = {
   handletUaktsomhetGrad: Aktsomhet;
-  [Aktsomhet.FORSETT]?: AktsomhetData;
-  [Aktsomhet.GROVT_UAKTSOM]?: AktsomhetData;
-  [Aktsomhet.SIMPEL_UAKTSOM]?: AktsomhetData;
-}
+} & Pick<AktomhetMap, Aktsomhet>;
 
 interface Props {
   readOnly: boolean;

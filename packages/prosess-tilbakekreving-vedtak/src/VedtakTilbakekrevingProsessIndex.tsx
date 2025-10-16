@@ -20,7 +20,7 @@ interface Props {
   beregningsresultat: BeregningsresultatTilbakekreving;
   kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   vedtaksbrev: Vedtaksbrev;
-  fetchPreviewVedtaksbrev: (param: ForhandsvisData) => Promise<void>;
+  fetchPreviewVedtaksbrev: (param: ForhandsvisData) => Promise<Blob>;
   erRevurderingTilbakekrevingKlage: boolean;
   erRevurderingTilbakekrevingFeilBeløpBortfalt: boolean;
 }

@@ -1,4 +1,4 @@
-import { Aktsomhet } from '../../../kodeverk/aktsomhet';
+import type { Aktsomhet } from '../../../kodeverk/aktsomhet';
 import type { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
 import { AktsomhetGradForsettFormPanel } from './AktsomhetGradForsettFormPanel';
 import { AktsomhetGradUaktsomhetFormPanel } from './AktsomhetGradUaktsomhetFormPanel';
@@ -31,14 +31,14 @@ export const AktsomhetGradFormPanel = ({
   name,
 }: Props) => (
   <>
-    {handletUaktsomhetGrad === Aktsomhet.FORSETT && (
+    {handletUaktsomhetGrad === 'FORSETT' && (
       <AktsomhetGradForsettFormPanel
         name={name}
         readOnly={readOnly}
         erValgtResultatTypeForstoBurdeForstaatt={erValgtResultatTypeForstoBurdeForstaatt}
       />
     )}
-    {handletUaktsomhetGrad !== Aktsomhet.FORSETT && (
+    {handletUaktsomhetGrad !== 'FORSETT' && (
       <AktsomhetGradUaktsomhetFormPanel
         name={name}
         harGrunnerTilReduksjon={harGrunnerTilReduksjon}

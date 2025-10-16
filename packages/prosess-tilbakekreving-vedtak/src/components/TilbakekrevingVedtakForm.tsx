@@ -70,7 +70,7 @@ const finnPerioderSomIkkeHarVerdiForObligatoriskFelt = (
   }, []);
 
 const fetchPreview =
-  (fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<void>, uuid: string, formVerdier: FormValues) =>
+  (fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<Blob>, uuid: string, formVerdier: FormValues) =>
   (e: React.KeyboardEvent | React.MouseEvent): void => {
     fetchPreviewVedtaksbrev({
       uuid,
@@ -83,7 +83,7 @@ interface Props {
   submitCallback: (aksjonspunktData: ForeslaVedtakTilbakekrevingAp) => Promise<void>;
   avsnittsliste: VedtaksbrevAvsnitt[];
   readOnly: boolean;
-  fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<void>;
+  fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<Blob>;
   behandlingUuid: string;
   erRevurderingTilbakekrevingKlage?: boolean;
   erRevurderingTilbakekrevingFeilBeløpBortfalt?: boolean;
