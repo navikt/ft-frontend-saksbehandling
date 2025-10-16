@@ -187,7 +187,7 @@ const meta = {
   component: VedtakTilbakekrevingProsessIndex,
   args: {
     submitCallback: action('submit') as (data: ForeslaVedtakTilbakekrevingAp) => Promise<void>,
-    fetchPreviewVedtaksbrev: action('preview') as (data: ForhandsvisData) => Promise<void>,
+    fetchPreviewVedtaksbrev: action('preview') as (data: ForhandsvisData) => Promise<Blob>,
     behandlingUuid: '1',
     vedtaksbrev,
     kodeverkSamlingFpTilbake,
