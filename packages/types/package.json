@@ -18,7 +18,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "peerDependencies": {
-    "@navikt/ft-kodeverk": "3.x"
+    "@navikt/ft-kodeverk": "4.x"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
