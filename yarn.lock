@@ -1722,7 +1722,7 @@ __metadata:
     eslint-plugin-react: 7.37.5
     eslint-plugin-react-refresh: 0.4.24
     eslint-plugin-simple-import-sort: 12.1.1
-    eslint-plugin-storybook: 9.1.10
+    eslint-plugin-storybook: 9.1.12
     eslint-plugin-vitest: 0.5.4
     globals: 16.4.0
     typescript-eslint: 8.46.1
@@ -6593,15 +6593,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-you-might-not-need-an-effect@npm:0.5.1":
-  version: 0.5.1
-  resolution: "eslint-plugin-react-you-might-not-need-an-effect@npm:0.5.1"
+"eslint-plugin-react-you-might-not-need-an-effect@npm:0.5.6":
+  version: 0.5.6
+  resolution: "eslint-plugin-react-you-might-not-need-an-effect@npm:0.5.6"
   dependencies:
     eslint-utils: ^3.0.0
     globals: ^16.2.0
   peerDependencies:
     eslint: ">=8.40.0"
-  checksum: 8195fc74c5dd38fe94586053a57b6e686518f8ec9ce54a0b5cf30626af4afcf85b7907307d953a6ca51cf577a80a659e35c8a1631ccb6fadcc45bf2809114018
+  checksum: d83258d58c5e32f4d7e9bc5ab28e78128031fcb6b1bc91ac066c1e6856efc78c119f0d89774565ca7f335f4043313d1254ef02633db0726f3e3c5cce27ffc266
   languageName: node
   linkType: hard
 
@@ -6642,15 +6642,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-storybook@npm:9.1.10":
-  version: 9.1.10
-  resolution: "eslint-plugin-storybook@npm:9.1.10"
+"eslint-plugin-storybook@npm:9.1.12":
+  version: 9.1.12
+  resolution: "eslint-plugin-storybook@npm:9.1.12"
   dependencies:
     "@typescript-eslint/utils": ^8.8.1
   peerDependencies:
     eslint: ">=8"
-    storybook: ^9.1.10
-  checksum: 0f092e943a5f1d4c256e77073466e1129a1ef8eb18b3049b42fd48013e207c8bc4cb03c31c06376abc4c107255b40a08dfb4b582f42b70d7340ccb83f5619c44
+    storybook: ^9.1.12
+  checksum: df5405fb60ade4c614efa28c945f1d776cc7fb11936770e79b8ed79e8325dd9762bee90bf9c572d1208bdc844988919fdb6f068ae78953a6b5160f2e4b559afb
   languageName: node
   linkType: hard
 
@@ -7295,12 +7295,12 @@ __metadata:
     "@types/react-dom": 19.2.2
     "@vitest/browser": 3.2.4
     eslint: 9.37.0
-    eslint-plugin-react-you-might-not-need-an-effect: 0.5.1
+    eslint-plugin-react-you-might-not-need-an-effect: 0.5.6
     fast-glob: 3.3.3
     gh-pages: 6.3.0
     husky: 9.1.7
     jsdom: 27.0.0
-    knip: 5.65.0
+    knip: 5.66.0
     lerna: 9.0.0
     lint-staged: 16.2.4
     prettier: 3.6.2
@@ -8786,9 +8786,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:5.65.0":
-  version: 5.65.0
-  resolution: "knip@npm:5.65.0"
+"knip@npm:5.66.0":
+  version: 5.66.0
+  resolution: "knip@npm:5.66.0"
   dependencies:
     "@nodelib/fs.walk": ^1.2.3
     fast-glob: ^3.3.3
@@ -8808,7 +8808,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: c0230e4581738b548418eb47c9a06e2cc79d6959d19e55d9fee50dfd7bacc17117370d0f9a8f137b14ed1f7fed1d6e8b8e5c049ffc8182b152b1c9dfa8f84e5a
+  checksum: ed68ceb8adc620d80a96d470642d2bb7aa93941cb7a6841676a3ce0243cbc500d9b96edb1103661ff7f92939248f95b6e1b4edbfbd67c5b35e29381b9ce35148
   languageName: node
   linkType: hard
 
