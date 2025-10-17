@@ -12,11 +12,11 @@ export type AndelForFaktaOmBeregning = Readonly<{
   andelsnr?: number;
   refusjonskrav?: number;
   inntektskategori?: string;
-  aktivitetStatus: string;
+  aktivitetStatus?: string;
   belopReadOnly?: number;
   fastsattBelop?: number;
   skalKunneEndreAktivitet?: boolean;
-  lagtTilAvSaksbehandler: boolean;
+  lagtTilAvSaksbehandler?: boolean;
 }>;
 
 export type RefusjonskravSomKommerForSentListe = Readonly<{
@@ -53,7 +53,7 @@ export type AvklarBeregningAktiviteterMap = Readonly<{
 }>;
 
 interface KunYtelseAndel extends FaktaOmBeregningAndel {
-  fastsattBelopPrMnd: number | null;
+  fastsattBelopPrMnd?: number;
 }
 
 export interface KortvarigAndel extends AndelForFaktaOmBeregning {
@@ -67,7 +67,7 @@ export interface ArbeidstakerUtenIMAndel extends AndelForFaktaOmBeregning {
 
 export type KunYtelse = Readonly<{
   andeler?: KunYtelseAndel[];
-  fodendeKvinneMedDP: boolean;
+  fodendeKvinneMedDP?: boolean;
   erBesteberegning?: boolean;
 }>;
 
@@ -83,8 +83,8 @@ export interface ATFLSammeOrgAndel extends FaktaOmBeregningAndel {
 }
 
 type SaksopplysningArbeidsforhold = Readonly<{
-  andelsnr: number;
-  arbeidsgiverIdent: string;
+  andelsnr?: number;
+  arbeidsgiverIdent?: string;
   arbeidsforholdId?: string;
 }>;
 
@@ -96,7 +96,7 @@ export type LønnsendringSaksopplysning = Readonly<{
 
 export type Saksopplysninger = Readonly<{
   lønnsendringSaksopplysning?: LønnsendringSaksopplysning[];
-  kortvarigeArbeidsforhold: SaksopplysningArbeidsforhold[];
+  kortvarigeArbeidsforhold?: SaksopplysningArbeidsforhold[];
 }>;
 
 export type FaktaOmBeregning = Readonly<{
@@ -110,7 +110,7 @@ export type FaktaOmBeregning = Readonly<{
   vurderBesteberegning?: VurderBesteberegning;
   refusjonskravSomKommerForSentListe?: RefusjonskravSomKommerForSentListe[];
   arbeidsforholdMedLønnsendringUtenIM?: FaktaOmBeregningAndel[];
-  andelerForFaktaOmBeregning: AndelForFaktaOmBeregning[];
+  andelerForFaktaOmBeregning?: AndelForFaktaOmBeregning[];
   kortvarigeArbeidsforhold?: KortvarigAndel[];
   kunYtelse?: KunYtelse;
   faktaOmBeregningTilfeller?: string[];

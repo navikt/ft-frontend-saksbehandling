@@ -9,16 +9,16 @@ export type TidligereUtbetalinger = Readonly<{
 export type RefusjonTilVurderingAndel = Readonly<{
   aktivitetStatus: string;
   tidligereUtbetalinger?: TidligereUtbetalinger[];
-  nyttRefusjonskravFom: string;
+  nyttRefusjonskravFom?: string;
   fastsattNyttRefusjonskravFom?: string;
-  tidligsteMuligeRefusjonsdato: string;
+  tidligsteMuligeRefusjonsdato?: string;
   arbeidsgiver?: {
     arbeidsgiverOrgnr?: string;
     arbeidsgiverAktørId?: string;
   };
   internArbeidsforholdRef?: string;
   eksternArbeidsforholdRef?: string;
-  skalKunneFastsetteDelvisRefusjon: boolean;
+  skalKunneFastsetteDelvisRefusjon?: boolean;
   fastsattDelvisRefusjonPrMnd?: number;
   maksTillattDelvisRefusjonPrMnd?: number;
 }>;
@@ -90,11 +90,11 @@ type FordelBeregningsgrunnlag = Readonly<{
 
 export type Inntektsforhold = Readonly<{
   aktivitetStatus: string;
-  arbeidsforholdId: string;
-  arbeidsgiverId: string;
+  arbeidsforholdId?: string;
+  arbeidsgiverId?: string;
   bruttoInntektPrÅr?: number;
   inntektFraInntektsmeldingPrÅr?: number;
-  skalRedusereUtbetaling: boolean;
+  skalRedusereUtbetaling?: boolean;
   periode?: {
     fom: string;
     tom: string;
