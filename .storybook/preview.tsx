@@ -6,7 +6,7 @@ import { withThemeDecorator } from '@navikt/ft-frontend-storybook-utils';
 
 import './global.module.css';
 
-import './global.css';
+import '@navikt/ds-css/darkside';
 
 export const globalTypes = {
   theme: {
@@ -16,7 +16,6 @@ export const globalTypes = {
     toolbar: {
       icon: 'circlehollow',
       items: [
-        { value: 'none', icon: 'close', title: 'Gammel' },
         { value: 'light', icon: 'circlehollow', title: 'Lys' },
         { value: 'dark', icon: 'circle', title: 'Mørk' },
       ],
