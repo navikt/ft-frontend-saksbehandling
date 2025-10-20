@@ -6,8 +6,8 @@ import { Button, HStack, Label, Spacer } from '@navikt/ds-react';
 
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
-import { ForeldelsesresultatActivity } from '../../types/ForeldelsesresultatActivity';
-import { DelOppPeriodeModal, PerioderData } from './DelOppPeriodeModal';
+import type { ForeldelsesresultatActivity } from '../../types/ForeldelsesresultatActivity';
+import { DelOppPeriodeModal, type PerioderData } from './DelOppPeriodeModal';
 
 import styles from './periodeController.module.css';
 

@@ -1,19 +1,22 @@
 import React from 'react';
-import { FormattedMessage, IntlShape } from 'react-intl';
+import { FormattedMessage, type IntlShape } from 'react-intl';
 
 import { BodyShort, ExpansionCard, Heading, Label, VStack } from '@navikt/ds-react';
 
 import { decodeHtmlEntity } from '@navikt/ft-utils';
 
-import { UnderavsnittType } from '../../kodeverk/avsnittType';
-import { VedtaksbrevAvsnitt } from '../../types/VedtaksbrevAvsnitt';
+import type { AvsnittType, UnderavsnittType, VedtaksbrevAvsnitt } from '../../types/Vedtaksbrev';
 import { TilbakekrevingVedtakUtdypendeTekstPanel } from './TilbakekrevingVedtakUtdypendeTekstPanel';
 
 import styles from './tilbakekrevingEditerVedtaksbrevPanel.module.css';
 
-export type FormValues = Record<string, Record<string, string> | string>;
+export type FormValues = {
+  [key: string]: {
+    [key in UnderavsnittType]?: string;
+  };
+} & { [key in AvsnittType]?: string };
 
-export interface Props {
+interface Props {
   intl: IntlShape;
   vedtaksbrevAvsnitt: VedtaksbrevAvsnitt[];
   readOnly: boolean;
@@ -30,20 +33,20 @@ export const TilbakekrevingEditerVedtaksbrevPanel = ({
   fritekstOppsummeringPakrevdMenIkkeUtfylt = false,
   erRevurderingTilbakekrevingFeilBeløpBortfalt,
 }: Props) => (
-  <VStack gap="2" className={styles.container}>
-    <Heading size="small">
+  <VStack gap="space-16">
+    <Heading size="small" level="2">
       <FormattedMessage id="TilbakekrevingVedtak.Vedtaksbrev" />
     </Heading>
     {vedtaksbrevAvsnitt.map(avsnitt => {
       const underavsnitter = avsnitt.underavsnittsliste;
-      const periode = `${avsnitt.fom}_${avsnitt.tom}`;
+      const periode = `${avsnitt.fom}_${avsnitt.tom}` as const;
       const harPeriodeSomManglerObligatoriskVerdi = perioderSomIkkeHarUtfyltObligatoriskVerdi.some(p => p === periode);
-      const visApen =
-        avsnitt.avsnittstype === UnderavsnittType.OPPSUMMERING && fritekstOppsummeringPakrevdMenIkkeUtfylt;
+      const visApen = avsnitt.avsnittstype === 'OPPSUMMERING' && fritekstOppsummeringPakrevdMenIkkeUtfylt;
       return (
         <React.Fragment key={avsnitt.avsnittstype + avsnitt.fom}>
           <ExpansionCard
-            aria-label="periode"
+            size="small"
+            aria-label={periode}
             defaultOpen={harPeriodeSomManglerObligatoriskVerdi || visApen}
             className={harPeriodeSomManglerObligatoriskVerdi || visApen ? styles.gulmarkering : ''}
           >
@@ -55,29 +58,26 @@ export const TilbakekrevingEditerVedtaksbrevPanel = ({
               </ExpansionCard.Title>
             </ExpansionCard.Header>
             <ExpansionCard.Content>
-              <VStack gap="2">
+              <VStack gap="space-8">
                 {underavsnitter.map(underavsnitt => (
-                  <VStack
-                    gap="2"
-                    key={(underavsnitt.underavsnittstype || '') + underavsnitt.overskrift + underavsnitt.brødtekst}
+                  <React.Fragment
+                    key={(underavsnitt.underavsnittstype ?? '') + underavsnitt.overskrift + underavsnitt.brødtekst}
                   >
-                    {underavsnitt.overskrift && <Label size="small">{underavsnitt.overskrift}</Label>}
-                    {underavsnitt.brødtekst && <BodyShort size="small">{underavsnitt.brødtekst}</BodyShort>}
+                    {underavsnitt.overskrift && <Label className={styles.paddingTop}>{underavsnitt.overskrift}</Label>}
+                    {underavsnitt.brødtekst && <BodyShort>{underavsnitt.brødtekst}</BodyShort>}
                     {underavsnitt.fritekstTillatt && (
-                      <>
-                        <TilbakekrevingVedtakUtdypendeTekstPanel
-                          type={
-                            underavsnitt.underavsnittstype
-                              ? `${periode}.${underavsnitt.underavsnittstype}`
-                              : avsnitt.avsnittstype
-                          }
-                          readOnly={readOnly}
-                          fritekstPakrevet={underavsnitt.fritekstPåkrevet}
-                          maximumLength={erRevurderingTilbakekrevingFeilBeløpBortfalt ? 10000 : undefined}
-                        />
-                      </>
+                      <TilbakekrevingVedtakUtdypendeTekstPanel
+                        name={
+                          underavsnitt.underavsnittstype
+                            ? `${periode}.${underavsnitt.underavsnittstype}`
+                            : avsnitt.avsnittstype
+                        }
+                        readOnly={readOnly}
+                        fritekstPakrevet={underavsnitt.fritekstPåkrevet}
+                        maximumLength={erRevurderingTilbakekrevingFeilBeløpBortfalt ? 10000 : undefined}
+                      />
                     )}
-                  </VStack>
+                  </React.Fragment>
                 ))}
               </VStack>
             </ExpansionCard.Content>
@@ -105,7 +105,7 @@ TilbakekrevingEditerVedtaksbrevPanel.buildInitialValues = (vedtaksbrevAvsnitt: V
           {},
         );
 
-      const nyeFritekster = avsnitt.fom
+      const nyeFritekster: FormValues = avsnitt.fom
         ? { [`${avsnitt.fom}_${avsnitt.tom}`]: friteksterForUnderavsnitt }
         : friteksterForUnderavsnitt;
 

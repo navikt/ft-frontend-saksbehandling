@@ -2,17 +2,16 @@ import { useState } from 'react';
 
 import { VStack } from '@navikt/ds-react';
 
-import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
-import {
+import type { AksjonspunktSubmitType } from '../types/AksjonspunktSubmitType.ts';
+import type {
   FordelBeregningsgrunnlagFormValues,
   VurderRefusjonFormValues,
 } from '../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import { FordelBeregningsgrunnlagAP } from '../types/interface/FordelBeregningsgrunnlagAP';
-import { VurderRefusjonBeregningsgrunnlagAP } from '../types/interface/VurderRefusjonBeregningsgrunnlagAP';
-import { KodeverkForPanel } from '../types/kodeverkForPanel';
-import { Vilkårperiode } from '../types/Vilkår';
+import type { KodeverkForPanel } from '../types/kodeverkForPanel';
+import type { Vilkårperiode } from '../types/Vilkår';
 import { FordelingForm } from './fordeling/FordelingForm';
 import { VurderEndringRefusjonForm } from './refusjon/VurderEndringRefusjonForm';
 
@@ -29,10 +28,10 @@ const getAvklaringsbehov = (
 ): BeregningAvklaringsbehov | undefined =>
   avklaringsbehov && def ? avklaringsbehov.find(ap => ap.definisjon === def) : undefined;
 
-export interface Props {
+interface Props {
   aktivtBeregningsgrunnlagIndeks: number;
   readOnly: boolean;
-  submitCallback: (aksjonspunktData: FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP) => Promise<void>;
+  submitCallback: (aksjonspunktData: AksjonspunktSubmitType) => Promise<void>;
   submittable: boolean;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkarperioder: Vilkårperiode[];
@@ -42,11 +41,6 @@ export interface Props {
   setFormData: (data: FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues) => void;
 }
 
-/**
- * FordelBeregningsgrunnlagPanel
- *
- * Har ansvar for å sette opp Formen for "avklar fakta om fordeling" panel.
- */
 export const FordelBeregningsgrunnlagPanel = ({
   aktivtBeregningsgrunnlagIndeks,
   readOnly,
@@ -75,13 +69,12 @@ export const FordelBeregningsgrunnlagPanel = ({
   const skalViseRefusjon = refusjonAP && harRefusjonInfo(beregningsgrunnlagListe[aktivtBeregningsgrunnlagIndeks]);
 
   return (
-    <VStack gap="2">
+    <VStack gap="space-8">
       {skalViseRefusjon && (
         <VurderEndringRefusjonForm
           aktivtBeregningsgrunnlagIndeks={aktivtBeregningsgrunnlagIndeks}
           submittable={submittable && !fordelingFormIsDirty}
           readOnly={readOnly}
-          //@ts-expect-error Fiks
           submitCallback={submitCallback}
           beregningsgrunnlagListe={beregningsgrunnlagListe}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}

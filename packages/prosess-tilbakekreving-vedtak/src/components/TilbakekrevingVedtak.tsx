@@ -1,18 +1,18 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Detail, Heading, VStack } from '@navikt/ds-react';
+import { BodyShort, Heading, Label, VStack } from '@navikt/ds-react';
 
-import { VedtakResultatType } from '@navikt/ft-kodeverk';
-
-import { BeregningResultatPeriode } from '../types/BeregningsresultatTilbakekreving';
-import { ForeslaVedtakTilbakekrevingAp } from '../types/ForeslaVedtakTilbakekrevingAp';
+import type { BeregningResultatPeriode } from '../types/BeregningsresultatTilbakekreving';
+import type { ForeslaVedtakTilbakekrevingAp } from '../types/ForeslaVedtakTilbakekrevingAp';
+import type { ForhandsvisData } from '../types/ForhandsvisData';
 import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
-import { VedtaksbrevAvsnitt } from '../types/VedtaksbrevAvsnitt';
-import { FormValues } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
-import { ForhandsvisData, TilbakekrevingVedtakForm } from './TilbakekrevingVedtakForm';
+import type { VedtakResultatType } from '../types/VedtakResultatType';
+import type { VedtaksbrevAvsnitt } from '../types/Vedtaksbrev';
+import { type FormValues } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
+import { TilbakekrevingVedtakForm } from './TilbakekrevingVedtakForm';
 import { TilbakekrevingVedtakPeriodeTabell } from './TilbakekrevingVedtakPeriodeTabell';
 
-export interface Props {
+interface Props {
   submitCallback: (aksjonspunktData: ForeslaVedtakTilbakekrevingAp) => Promise<void>;
   readOnly: boolean;
   resultat: VedtakResultatType;
@@ -20,7 +20,7 @@ export interface Props {
   kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   behandlingUuid: string;
   avsnittsliste: VedtaksbrevAvsnitt[];
-  fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<void>;
+  fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<Blob>;
   erRevurderingTilbakekrevingKlage?: boolean;
   erRevurderingTilbakekrevingFeilBeløpBortfalt?: boolean;
   formData?: FormValues;
@@ -41,17 +41,15 @@ export const TilbakekrevingVedtak = ({
   formData,
   setFormData,
 }: Props) => (
-  <VStack gap="4">
-    <Heading size="small">
+  <VStack gap="space-24" maxWidth="1200px">
+    <Heading size="small" level="2">
       <FormattedMessage id="TilbakekrevingVedtak.Vedtak" />
     </Heading>
     <div>
-      <Detail>
+      <Label>
         <FormattedMessage id="TilbakekrevingVedtak.Resultat" />
-      </Detail>
-      <BodyShort size="small">
-        {kodeverkSamlingFpTilbake['VedtakResultatType'].find(vrt => vrt.kode === resultat)?.navn}
-      </BodyShort>
+      </Label>
+      <BodyShort>{kodeverkSamlingFpTilbake['VedtakResultatType'].find(vrt => vrt.kode === resultat)?.navn}</BodyShort>
     </div>
     <TilbakekrevingVedtakPeriodeTabell perioder={perioder} kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake} />
     <TilbakekrevingVedtakForm

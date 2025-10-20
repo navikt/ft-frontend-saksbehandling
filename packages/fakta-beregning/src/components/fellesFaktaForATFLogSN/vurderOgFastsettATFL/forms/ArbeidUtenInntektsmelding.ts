@@ -1,10 +1,10 @@
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
+import type { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
-import { InntektTransformed } from '../../../../typer/FieldValues';
-import {
+import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
+import type { InntektTransformed } from '../../../../typer/FieldValues';
+import type {
   FaktaBeregningTransformedValues,
   FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues,
 } from '../../../../typer/interface/BeregningFaktaAP';
@@ -38,8 +38,8 @@ export const transformValuesArbeidUtenInntektsmelding = (
   if (
     !tilfeller
       .map(kode => kode)
-      .includes(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING) &&
-    !tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)
+      .includes(FaktaOmBeregningTilfelle.FASTSETT_MÅNEDSLØNN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING) &&
+    !tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING)
   ) {
     return {};
   }
@@ -64,7 +64,7 @@ export const transformValuesArbeidUtenInntektsmelding = (
     }));
   if (fastsattInntekt.length > 0) {
     return {
-      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING],
+      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.FASTSETT_MÅNEDSLØNN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING],
       fastsattUtenInntektsmelding: { andelListe: fastsattInntekt },
     };
   }

@@ -2,11 +2,10 @@ import { FormattedMessage } from 'react-intl';
 
 import { Table } from '@navikt/ds-react';
 
-import { SammenligningsgrunlagProp } from '@navikt/ft-types';
+import type { SammenligningsgrunlagProp } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
-import tableStyles from '../tableStyle.module.css';
 
 type Props = {
   beregnetAarsinntekt?: number;
@@ -25,7 +24,7 @@ export const SammenligningsgrunnlagPanel = ({ beregnetAarsinntekt, sammenligning
     : 'SammenligningsgrunnlagPanel.RapportertAarsinntekt';
 
   return (
-    <Table size="small" className={tableStyles.table}>
+    <Table size="small">
       <Table.Body>
         <Table.Row>
           <Table.DataCell textSize="small" colSpan={2}>

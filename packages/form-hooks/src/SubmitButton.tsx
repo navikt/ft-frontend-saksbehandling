@@ -12,17 +12,25 @@ const isDisabled = (isDirty: boolean, isSubmitting: boolean, isSubmittable: bool
   return !!hasErrors;
 };
 
-export interface Props {
+interface Props {
   isReadOnly: boolean;
   isSubmittable: boolean;
   isSubmitting: boolean;
-  isDirty: boolean;
+  isDirty?: boolean;
   text?: string;
   onClick?: (event: React.MouseEvent) => void;
   hasErrors?: boolean;
 }
 
-export const SubmitButton = ({ isReadOnly, isSubmittable, isSubmitting, isDirty, text, onClick, hasErrors }: Props) => {
+export const SubmitButton = ({
+  isReadOnly,
+  isSubmittable,
+  isSubmitting,
+  isDirty = true,
+  text,
+  onClick,
+  hasErrors,
+}: Props) => {
   if (!isReadOnly) {
     return (
       <Button

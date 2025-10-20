@@ -1,4 +1,3 @@
-import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ExpansionCard } from '@navikt/ds-react';
@@ -6,7 +5,7 @@ import dayjs from 'dayjs';
 import norskFormat from 'dayjs/locale/nb';
 
 import { LønnsendringScenario } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, LønnsendringSaksopplysning } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, LønnsendringSaksopplysning } from '@navikt/ft-types';
 import { dateFormat, formaterArbeidsgiver, YYYY_MM_FORMAT } from '@navikt/ft-utils';
 
 interface Props {

@@ -1,10 +1,10 @@
 .borderbox {
-  border: 1px solid var(--a-border-default);
+  border: 1px solid var(--ax-border-neutral);
   margin-top: 16px;
 }
 .error {
-  border: 2px solid var(--a-red-500);
+  border: 2px solid var(--ax-danger-600);
 }
 .warning {
-  border: 2px solid var(--a-orange-300);
+  border: 2px solid var(--ax-warning-400);
 }

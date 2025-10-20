@@ -1,0 +1,17 @@
+.tableMedInput {
+  > tbody > tr:not(:last-child) td {
+    border: none;
+  }
+}
+
+.wordwrap {
+  word-wrap: break-word;
+}
+
+.litenBredde {
+  width: 70px;
+}
+
+.storBredde {
+  width: 200px;
+}

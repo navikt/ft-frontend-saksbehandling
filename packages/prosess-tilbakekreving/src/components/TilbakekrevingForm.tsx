@@ -2,52 +2,53 @@ import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Alert, Box, Heading, VStack } from '@navikt/ds-react';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
-import { ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
-import { Behandling } from '@navikt/ft-types';
+import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 import { AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
 
-import { VilkårResultat } from '../kodeverk/vilkarResultat';
+import type { VilkårResultat } from '../kodeverk/vilkarResultat';
 import { TilbakekrevingAksjonspunktCodes } from '../TilbakekrevingAksjonspunktCodes';
-import { DataForPeriode } from '../types/DataForPeriode';
-import {
+import type { DataForPeriode } from '../types/DataForPeriode';
+import type {
   DetaljerteFeilutbetalingsperioder,
   DetaljertFeilutbetalingPeriode,
 } from '../types/DetaljerteFeilutbetalingsperioder';
-import { FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
-import { KodeverkMedNavn } from '../types/kodeverkMedNavn';
-import { KodeverkMedNavnTilbakekreving, KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
-import { TidslinjePeriode } from '../types/TidslinjePeriode';
-import { VilkårsvurderingAp } from '../types/VilkårsvurderingAp';
-import { VilkårsvurdertePerioderWrapper, VilkårsvurdertPeriode } from '../types/VilkårsvurdertePerioder';
-import { BeregnBeløpParams, PeriodeController, SplittetPeriode } from './splittePerioder/PeriodeController';
+import type { FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
+import type { KodeverkMedNavn } from '../types/kodeverkMedNavn';
+import type { KodeverkMedNavnTilbakekreving, KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
+import type { RelasjonsRolleType } from '../types/RelasjonsRolleType';
+import type { TidslinjePeriode } from '../types/TidslinjePeriode';
+import type { VilkårsvurderingAp } from '../types/VilkårsvurderingAp';
+import type { VilkårsvurdertePerioderWrapper, VilkårsvurdertPeriode } from '../types/VilkårsvurdertePerioder';
+import { type BeregnBeløpParams, PeriodeController, type SplittetPeriode } from './splittePerioder/PeriodeController';
 import { PeriodeInformasjon } from './splittePerioder/PeriodeInformasjon';
 import {
-  CustomPeriode,
-  CustomPerioder,
-  CustomVilkarsVurdertePeriode,
-  InitialValuesDetailForm,
+  type CustomPeriode,
+  type CustomPerioder,
+  type CustomVilkarsVurdertePeriode,
+  type InitialValuesDetailForm,
   TilbakekrevingPeriodeForm,
 } from './TilbakekrevingPeriodeForm';
 import { AktsomhetFormPanel } from './tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetFormPanel';
 import { BelopetMottattIGodTroFormPanel } from './tilbakekrevingPeriodePaneler/godTro/BelopetMottattIGodTroFormPanel';
 import { TilbakekrevingTimeline } from './timeline/TilbakekrevingTimeline';
 
+dayjs.extend(isSameOrBefore);
+
 const sortPeriods = (periode1: CustomVilkarsVurdertePeriode, periode2: CustomVilkarsVurdertePeriode) =>
-  moment(periode1.fom).diff(moment(periode2.fom));
+  dayjs(periode1.fom).diff(dayjs(periode2.fom));
 
 const harApentAksjonspunkt = (periode: CustomVilkarsVurdertePeriode) =>
   !periode.erForeldet && (periode.begrunnelse === undefined || periode.erSplittet);
 
 const emptyFeltverdiOmFinnes = (periode: CustomVilkarsVurdertePeriode) => {
-  // @ts-expect-error Fiks
   const valgtVilkarResultatType = periode[periode.valgtVilkarResultatType];
-  const handletUaktsomhetGrad = valgtVilkarResultatType[valgtVilkarResultatType.handletUaktsomhetGrad];
 
-  if (valgtVilkarResultatType.tilbakekrevdBelop) {
+  if ('tilbakekrevdBelop' in valgtVilkarResultatType) {
     return {
       ...periode,
       [periode.valgtVilkarResultatType]: {
@@ -55,16 +56,20 @@ const emptyFeltverdiOmFinnes = (periode: CustomVilkarsVurdertePeriode) => {
       },
     };
   }
-  if (handletUaktsomhetGrad && handletUaktsomhetGrad.belopSomSkalTilbakekreves) {
-    return {
-      ...periode,
-      [periode.valgtVilkarResultatType]: {
-        ...valgtVilkarResultatType,
-        [valgtVilkarResultatType.handletUaktsomhetGrad]: {
-          ...omitOne(handletUaktsomhetGrad, 'belopSomSkalTilbakekreves'),
+
+  if ('handletUaktsomhetGrad' in valgtVilkarResultatType) {
+    const handletUaktsomhetGrad = valgtVilkarResultatType[valgtVilkarResultatType.handletUaktsomhetGrad];
+    if (handletUaktsomhetGrad && handletUaktsomhetGrad.belopSomSkalTilbakekreves) {
+      return {
+        ...periode,
+        [periode.valgtVilkarResultatType]: {
+          ...valgtVilkarResultatType,
+          [valgtVilkarResultatType.handletUaktsomhetGrad]: {
+            ...omitOne(handletUaktsomhetGrad, 'belopSomSkalTilbakekreves'),
+          },
         },
-      },
-    };
+      };
+    }
   }
   return periode;
 };
@@ -97,15 +102,14 @@ const finnOriginalPeriode = (
   perioder.find(
     // @ts-expect-error Fiks
     (periode: CustomPeriode) =>
-      !moment(lagretPeriode.fom).isBefore(moment(periode.fom)) &&
-      !moment(lagretPeriode.tom).isAfter(moment(periode.tom)),
+      !dayjs(lagretPeriode.fom).isBefore(dayjs(periode.fom)) && !dayjs(lagretPeriode.tom).isAfter(dayjs(periode.tom)),
   );
 
 const erIkkeLagret = (periode: DetaljertFeilutbetalingPeriode, lagredePerioder: { tom: string; fom: string }[]) =>
   lagredePerioder.every(lagretPeriode => {
     const isOverlapping =
-      moment(periode.fom).isSameOrBefore(moment(lagretPeriode.tom)) &&
-      moment(lagretPeriode.fom).isSameOrBefore(moment(periode.tom));
+      dayjs(periode.fom).isSameOrBefore(dayjs(lagretPeriode.tom)) &&
+      dayjs(lagretPeriode.fom).isSameOrBefore(dayjs(periode.tom));
     return !isOverlapping;
   });
 
@@ -203,11 +207,11 @@ const periodeFormBuildInitialValues = (
   };
 
   const godTroData =
-    vilkarResultatKode === VilkårResultat.GOD_TRO
+    vilkarResultatKode === ('GOD_TRO' satisfies VilkårResultat)
       ? BelopetMottattIGodTroFormPanel.buildIntialValues(vilkarResultatInfo)
       : {};
   const annetData =
-    vilkarResultatKode !== undefined && vilkarResultatKode !== VilkårResultat.GOD_TRO
+    vilkarResultatKode !== undefined && vilkarResultatKode !== ('GOD_TRO' satisfies VilkårResultat)
       ? AktsomhetFormPanel.buildInitalValues(vilkarResultatInfo)
       : {};
   return {
@@ -226,15 +230,14 @@ const periodeFormTransformValues = (
   sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[],
 ) => {
   const { valgtVilkarResultatType, begrunnelse, vurderingBegrunnelse } = values;
-  // @ts-expect-error Fiks
   const info = values[valgtVilkarResultatType];
 
   const godTroData =
-    valgtVilkarResultatType === VilkårResultat.GOD_TRO
+    valgtVilkarResultatType === ('GOD_TRO' satisfies VilkårResultat) && 'erBelopetIBehold' in info
       ? BelopetMottattIGodTroFormPanel.transformValues(info, vurderingBegrunnelse)
       : {};
   const annetData =
-    valgtVilkarResultatType !== VilkårResultat.GOD_TRO
+    valgtVilkarResultatType !== ('GOD_TRO' satisfies VilkårResultat) && 'handletUaktsomhetGrad' in info
       ? AktsomhetFormPanel.transformValues(info, sarligGrunnTyper, vurderingBegrunnelse)
       : {};
 
@@ -286,12 +289,13 @@ const validerOm6LeddBrukesPåAllePerioder = (vilkarsVurdertePerioder: CustomVilk
 
   const antallValgt = vilkarsVurdertePerioder.reduce((sum: number, periode: CustomVilkarsVurdertePeriode) => {
     const { valgtVilkarResultatType } = periode;
-    // @ts-expect-error Fiks
     const vilkarResultatInfo = periode[valgtVilkarResultatType];
-    const { handletUaktsomhetGrad } = vilkarResultatInfo;
-    const info = vilkarResultatInfo[handletUaktsomhetGrad];
-    if (info) {
-      return info.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr === false ? sum + 1 : sum;
+    if ('handletUaktsomhetGrad' in vilkarResultatInfo) {
+      const { handletUaktsomhetGrad } = vilkarResultatInfo;
+      const info = vilkarResultatInfo[handletUaktsomhetGrad];
+      if (info) {
+        return info.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr === false ? sum + 1 : sum;
+      }
     }
     return sum;
   }, 0);
@@ -301,7 +305,7 @@ const validerOm6LeddBrukesPåAllePerioder = (vilkarsVurdertePerioder: CustomVilk
   return undefined;
 };
 
-export interface Props {
+interface Props {
   perioderForeldelse: FeilutbetalingPerioderWrapper;
   kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   vilkarvurderingsperioder: DetaljerteFeilutbetalingsperioder;
@@ -312,7 +316,7 @@ export interface Props {
   relasjonsRolleType: RelasjonsRolleType;
   relasjonsRolleTypeKodeverk: KodeverkMedNavn<RelasjonsRolleType>[];
   beregnBelop: (params: BeregnBeløpParams) => Promise<{ perioder: { belop: number }[] }>;
-  behandling: Behandling;
+  behandlingUuid: string;
   formData?: CustomVilkarsVurdertePeriode[];
   setFormData: (data: CustomVilkarsVurdertePeriode[]) => void;
 }
@@ -333,7 +337,7 @@ export const TilbakekrevingForm = ({
   relasjonsRolleType,
   relasjonsRolleTypeKodeverk,
   beregnBelop,
-  behandling,
+  behandlingUuid,
   formData,
   setFormData,
 }: Props) => {
@@ -441,8 +445,8 @@ export const TilbakekrevingForm = ({
 
   return (
     <FaktaGruppe merknaderFraBeslutter={merknaderFraBeslutter} withoutBorder>
-      <VStack gap="4">
-        <Heading size="small">
+      <VStack gap="space-16">
+        <Heading size="small" level="2">
           <FormattedMessage id="Behandlingspunkt.Tilbakekreving" />
         </Heading>
         {isApOpen && (
@@ -461,15 +465,15 @@ export const TilbakekrevingForm = ({
             />
             {valgtPeriode && valgtData && (
               <div id="panel-tilbakekreving" aria-controls={valgtPeriodeFormatertForTidslinje?.id.toString()}>
-                <Box borderWidth="1" padding="4">
-                  <VStack gap="4">
+                <Box.New borderWidth="1" padding="4">
+                  <VStack gap="space-16">
                     <PeriodeController
                       setNestePeriode={setNestePeriode}
                       setForrigePeriode={setForrigePeriode}
                       periode={valgtData}
                       readOnly={isReadOnly}
                       oppdaterSplittedePerioder={oppdaterSplittedePerioder}
-                      behandlingUuid={behandling.uuid}
+                      behandlingUuid={behandlingUuid}
                       beregnBelop={beregnBelop}
                       lukkPeriode={lukkPeriode}
                     />
@@ -494,7 +498,7 @@ export const TilbakekrevingForm = ({
                       vilkarsVurdertePerioder={vilkårsvurdertePerioder}
                     />
                   </VStack>
-                </Box>
+                </Box.New>
               </div>
             )}
           </>

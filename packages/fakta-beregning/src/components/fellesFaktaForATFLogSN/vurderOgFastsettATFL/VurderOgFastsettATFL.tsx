@@ -1,10 +1,9 @@
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { VStack } from '@navikt/ds-react';
 
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -12,15 +11,19 @@ import {
 } from '@navikt/ft-types';
 import { AksjonspunktBox } from '@navikt/ft-ui-komponenter';
 
-import { FaktaOmBeregningAksjonspunktValues, VurderOgFastsettATFLValues } from '../../../typer/FaktaBeregningTypes';
-import { InntektTransformed } from '../../../typer/FieldValues';
-import {
+import { FaktaOmBeregningTilfelle } from '../../../kodeverk/faktaOmBeregningTilfelle';
+import type {
+  FaktaOmBeregningAksjonspunktValues,
+  VurderOgFastsettATFLValues,
+} from '../../../typer/FaktaBeregningTypes';
+import type { InntektTransformed } from '../../../typer/FieldValues';
+import type {
   BeregningFaktaTransformedValues,
   FaktaBeregningTransformedValues,
   FastsettBeregningsgrunnlagAndelTransformedValues,
 } from '../../../typer/interface/BeregningFaktaAP';
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
-import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
+import type { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
+import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { besteberegningField, VurderBesteberegningForm } from '../besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { vurderBesteberegningTransform } from '../besteberegningFodendeKvinne/vurderBesteberegningFormUtils';
 import { erOverstyringAvBeregningsgrunnlag, INNTEKT_FIELD_ARRAY_NAME } from '../BgFaktaUtils';
@@ -31,7 +34,6 @@ import { TidsbegrensetArbeidsforholdForm } from '../tidsbegrensetArbeidsforhold/
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import { VurderMilitaer } from '../vurderMilitaer/VurderMilitaer';
 import { VurderRefusjonForm } from '../vurderrefusjon/VurderRefusjonForm';
-import { transformValuesArbeidUnderAap } from './forms/arbeidUnderAapFormUtils';
 import { transformValuesArbeidUtenInntektsmelding } from './forms/ArbeidUtenInntektsmelding';
 import { transformValuesForATFLISammeOrg } from './forms/ATFLSammeOrg';
 import { InntektInputFields } from './forms/InntektInputFields';
@@ -120,16 +122,16 @@ export const VurderOgFastsettATFL = ({
       );
     }
 
-    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LONNSENDRING)) {
-      forms.push(<LonnsendringForm readOnly={readOnly} key={FaktaOmBeregningTilfelle.VURDER_LONNSENDRING} />);
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING)) {
+      forms.push(<LonnsendringForm readOnly={readOnly} key={FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING} />);
     }
-    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE)) {
+    if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLØNN_SLUTTPAKKE)) {
       forms.push(
         <VurderEtterlonnSluttpakkeForm
           beregningsgrunnlag={beregningsgrunnlag}
           isAksjonspunktClosed={isAksjonspunktClosed}
           readOnly={readOnly}
-          key={FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE}
+          key={FaktaOmBeregningTilfelle.VURDER_ETTERLØNN_SLUTTPAKKE}
         />,
       );
     }
@@ -151,7 +153,7 @@ export const VurderOgFastsettATFL = ({
 
     if (
       tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE) ||
-      tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING) ||
+      tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MÅNEDSLØNN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING) ||
       tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON)
     ) {
       forms.push(
@@ -185,7 +187,7 @@ export const VurderOgFastsettATFL = ({
       }
       return (
         <AksjonspunktBox erAksjonspunktApent={true} erIkkeGodkjentAvBeslutter={false}>
-          <VStack gap="6">
+          <VStack gap="space-24">
             {forms}
             {!erOverstyringAvBeregningsgrunnlag(formValues) && (
               <InntektInputFields
@@ -209,7 +211,7 @@ export const VurderOgFastsettATFL = ({
   };
 
   return (
-    <VStack gap="8">
+    <VStack gap="space-32">
       <InntektstabellPanel
         key="inntektstabell"
         tabell={
@@ -328,9 +330,6 @@ const transformValuesForAksjonspunkt = (
         fastsatteAndelsnr,
       ),
     );
-
-    // Arbeid under AAP
-    transformed = concatTilfeller(transformed, transformValuesArbeidUnderAap(values, faktaOmBeregning));
 
     // Etterlønn / sluttpakke
     transformed = concatTilfeller(

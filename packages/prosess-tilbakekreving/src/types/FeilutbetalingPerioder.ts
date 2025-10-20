@@ -1,4 +1,4 @@
-export type FeilutbetalingPeriode = Readonly<{
+type FeilutbetalingPeriode = Readonly<{
   fom: string;
   tom: string;
   belop: number;

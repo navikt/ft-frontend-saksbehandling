@@ -1,21 +1,19 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
 import { alleTilbakekrevingKodeverk } from '@navikt/ft-frontend-storybook-utils';
-import { BehandlingStatus, VedtakResultatType } from '@navikt/ft-kodeverk';
-import { Behandling } from '@navikt/ft-types';
 
-import { Aktsomhet } from './kodeverk/aktsomhet';
-import { BeregningsresultatTilbakekreving } from './types/BeregningsresultatTilbakekreving';
-import { ForeslaVedtakTilbakekrevingAp } from './types/ForeslaVedtakTilbakekrevingAp';
-import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
+import type { BeregningsresultatTilbakekreving } from './types/BeregningsresultatTilbakekreving';
+import type { ForeslaVedtakTilbakekrevingAp } from './types/ForeslaVedtakTilbakekrevingAp';
+import type { ForhandsvisData } from './types/ForhandsvisData';
+import type { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
+import type { Vedtaksbrev } from './types/Vedtaksbrev';
 import { VedtakTilbakekrevingProsessIndex } from './VedtakTilbakekrevingProsessIndex';
 
-import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-ui-komponenter/dist/style.css';
 
-const vedtaksbrev = {
+const vedtaksbrev: Vedtaksbrev = {
   avsnittsliste: [
     {
       overskrift: 'Du må betale tilbake foreldrepenger',
@@ -153,7 +151,7 @@ const vedtaksbrev = {
   ],
 };
 
-const beregningsresultat = {
+const beregningsresultat: BeregningsresultatTilbakekreving = {
   beregningResultatPerioder: [
     {
       periode: {
@@ -161,7 +159,7 @@ const beregningsresultat = {
         tom: '2019-01-01',
       },
       feilutbetaltBeløp: 10000,
-      vurdering: Aktsomhet.FORSETT,
+      vurdering: 'FORSETT',
       andelAvBeløp: 50,
       renterProsent: 0,
       tilbakekrevingBeløp: 5000,
@@ -173,29 +171,25 @@ const beregningsresultat = {
         tom: '2019-01-01',
       },
       feilutbetaltBeløp: 1000,
-      vurdering: Aktsomhet.FORSETT,
+      vurdering: 'FORSETT',
       andelAvBeløp: 50,
       renterProsent: 80,
       tilbakekrevingBeløp: 500,
       tilbakekrevingBeløpEtterSkatt: 400,
     },
   ],
-  vedtakResultatType: VedtakResultatType.DELVIS_TILBAKEBETALING,
-} as BeregningsresultatTilbakekreving;
+  vedtakResultatType: 'DELVIS_TILBAKEBETALING',
+};
 
 const kodeverkSamlingFpTilbake = alleTilbakekrevingKodeverk as KodeverkTilbakeForPanel;
 
 const meta = {
   component: VedtakTilbakekrevingProsessIndex,
   args: {
-    submitCallback: action('button-click') as (data: ForeslaVedtakTilbakekrevingAp) => Promise<void>,
-    behandling: {
-      uuid: '1',
-      versjon: 1,
-      status: BehandlingStatus.BEHANDLING_UTREDES,
-    } as Behandling,
+    submitCallback: action('submit') as (data: ForeslaVedtakTilbakekrevingAp) => Promise<void>,
+    fetchPreviewVedtaksbrev: action('preview') as (data: ForhandsvisData) => Promise<Blob>,
+    behandlingUuid: '1',
     vedtaksbrev,
-    fetchPreviewVedtaksbrev: () => Promise.resolve(),
     kodeverkSamlingFpTilbake,
     isReadOnly: false,
     setFormData: () => undefined,

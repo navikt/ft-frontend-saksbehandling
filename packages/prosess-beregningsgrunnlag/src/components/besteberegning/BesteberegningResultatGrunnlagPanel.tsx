@@ -2,10 +2,10 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Table, VStack } from '@navikt/ds-react';
 
-import { BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp, Månedsgrunnlag } from '@navikt/ft-types';
+import type { BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp, Månedsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
-export interface Props {
+interface Props {
   periode: BeregningsgrunnlagPeriodeProp;
   besteMåneder?: Månedsgrunnlag[];
 }
@@ -44,7 +44,7 @@ export const BesteberegningResultatGrunnlagPanel = ({ periode, besteMåneder }: 
   const besteberegnet = finnBesteberegnet(besteMåneder);
   return (
     <div>
-      <VStack gap="4">
+      <VStack gap="space-16">
         <BodyShort size="small">
           <FormattedMessage id="BesteberegningResultatGrunnlagPanel.BrukerOmfattesAvBesteberegning" />
         </BodyShort>

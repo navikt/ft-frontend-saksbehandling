@@ -1,15 +1,17 @@
+import { useFormContext } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 
-import { HStack, Table } from '@navikt/ds-react';
+import { HStack, Radio, Table } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { Datepicker, RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { RhfDatepicker, RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
-import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { DateLabel, EditedIcon, PeriodLabel } from '@navikt/ft-ui-komponenter';
-import { formaterArbeidsgiver, periodFormat } from '@navikt/ft-utils';
+import { formaterArbeidsgiver } from '@navikt/ft-utils';
 
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import type { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
+import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { lagAktivitetFieldId, skalVurdereAktivitet } from './vurderAktiviteterTabellUtils';
 
 interface Props {
@@ -64,16 +66,9 @@ export const VurderAktiviteterTabellRad = ({
     tomDatoForAktivitetGruppe,
   );
 
-  const visningsnavn = lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, kodeverkSamling);
+  const { control } = useFormContext<AvklarAktiviteterFormValues>();
 
-  const lagLabel = (skalBrukes: boolean) => {
-    const dato = periodFormat(aktivitet.fom, aktivitet.tom, { separator: 'til' });
-    return `${
-      skalBrukes
-        ? intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.Benytt' })
-        : intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.IkkeBenytt' })
-    } ${visningsnavn} ${dato}`;
-  };
+  const visningsnavn = lagVisningsnavn(aktivitet, arbeidsgiverOpplysningerPerId, kodeverkSamling);
 
   return (
     <Table.Row key={lagAktivitetFieldId(aktivitet)}>
@@ -81,11 +76,12 @@ export const VurderAktiviteterTabellRad = ({
       <Table.DataCell textSize="small">
         {!erOverstyrt && <PeriodLabel dateStringFom={aktivitet.fom} dateStringTom={aktivitet.tom} />}
         {erOverstyrt && (
-          <HStack gap="2" align="center">
+          <HStack gap="space-8" align="center">
             <DateLabel dateString={aktivitet.fom} />
             <span>-</span>
-            <Datepicker
+            <RhfDatepicker
               name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.tom`}
+              control={control}
               validate={[required, hasValidDate, dateAfterOrEqual(aktivitet.fom)]}
               isReadOnly={readOnly}
               size="small"
@@ -95,11 +91,11 @@ export const VurderAktiviteterTabellRad = ({
         )}
       </Table.DataCell>
       <Table.DataCell>
-        <RadioGroupPanel
+        <RhfRadioGroup
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
+          control={control}
           label={intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.Benytt' })}
           validate={[required]}
-          isHorizontal
           isReadOnly={
             readOnly ||
             !skalVurdereAktivitet(
@@ -110,22 +106,19 @@ export const VurderAktiviteterTabellRad = ({
               ingenAktiviterErBrukt,
             )
           }
-          radios={[
-            {
-              value: 'true',
-              label: lagLabel(true),
-            },
-          ]}
           hideLegend
-          hideRadioLabels
-        />
+        >
+          <Radio value="true" size="small">
+            {' '}
+          </Radio>
+        </RhfRadioGroup>
       </Table.DataCell>
       <Table.DataCell>
-        <RadioGroupPanel
+        <RhfRadioGroup
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
+          control={control}
           label={intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.IkkeBenytt' })}
           validate={[required]}
-          isHorizontal
           isReadOnly={
             readOnly ||
             !skalVurdereAktivitet(
@@ -136,15 +129,12 @@ export const VurderAktiviteterTabellRad = ({
               ingenAktiviterErBrukt,
             )
           }
-          radios={[
-            {
-              value: 'false',
-              label: lagLabel(false),
-            },
-          ]}
           hideLegend
-          hideRadioLabels
-        />
+        >
+          <Radio value="false" size="small">
+            {' '}
+          </Radio>
+        </RhfRadioGroup>
       </Table.DataCell>
       <Table.DataCell>
         {isAvklaringsbehovClosed &&

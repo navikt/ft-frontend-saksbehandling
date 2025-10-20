@@ -1,10 +1,10 @@
-import React, { JSX } from 'react';
+import React, { type JSX } from 'react';
 
 import classnames from 'classnames';
 
 import styles from './contentWithTooltip.module.css';
 
-export interface ContentWithTooltipProps {
+interface ContentWithTooltipProps {
   tooltipText: string;
   tooltipDirectionRight?: boolean;
   tooltipClassName?: string;

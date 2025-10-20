@@ -1,4 +1,4 @@
-import { BeregningAvklaringsbehovTilBekreftelse } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehovTilBekreftelse } from '@navikt/ft-types';
 
 import { FaktaFordelBeregningAvklaringsbehovCode } from './FaktaFordelBeregningAvklaringsbehovCode';
 
@@ -14,15 +14,7 @@ export type VurderRefusjonTransformedValues = {
   fastsatteAndeler: VurderRefusjonAndelTransformedValues[];
 };
 
-export type VurderRefusjonBeregningsgrunnlagAP = VurderRefusjonTransformedValues & {
-  begrunnelse: string;
-  periode: {
-    fom: string;
-    tom: string;
-  };
-};
-
-export type VurderRefusjonAksjonspunktSubmitType = BeregningAvklaringsbehovTilBekreftelse<
+export type VurderRefusjonBeregningsgrunnlagAP = BeregningAvklaringsbehovTilBekreftelse<
   FaktaFordelBeregningAvklaringsbehovCode.VURDER_REFUSJON_BERGRUNN,
   VurderRefusjonTransformedValues
 >;

@@ -1,8 +1,11 @@
 {
-  "include": ["./", "../../@types/externals.d.ts"],
-  "exclude": ["node_modules", "**.spec.ts", "dist"],
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "strict": true
-  }
+  "extends": "@navikt/ft-config-typescript",
+  "include": ["./"],
+  "exclude": [
+    "*.config.{js,ts,cjs,mjs}",
+    "dist",
+    "i18n",
+    "**/*.spec.{ts,tsx}",
+    "**/*.stories.tsx"
+  ]
 }

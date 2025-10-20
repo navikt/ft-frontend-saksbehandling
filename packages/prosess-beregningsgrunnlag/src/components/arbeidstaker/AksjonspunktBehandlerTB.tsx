@@ -1,14 +1,14 @@
-import { ReactElement } from 'react';
-import { useFormContext, UseFormReturn } from 'react-hook-form';
+import { type ReactElement } from 'react';
+import { type Control, useFormContext, type UseFormReturn } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
 import { Label, Table } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { InputField } from '@navikt/ft-form-hooks';
+import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { AktivitetStatus, PeriodeAarsak } from '@navikt/ft-kodeverk';
-import {
+import { AktivitetStatus, PeriodeÅrsak } from '@navikt/ft-kodeverk';
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagArbeidsforhold,
@@ -17,26 +17,25 @@ import {
 import { BeløpLabel, DateLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, formaterArbeidsgiver, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import {
+import type {
   TidsbegrenseArbeidsforholdTabellCelle,
   TidsbegrenseArbeidsforholdTabellData,
   TidsbegrenseArbeidsforholdValues,
 } from '../../types/ATFLAksjonspunkt';
-import { BeregningFormValues } from '../../types/BeregningFormValues';
-import {
+import type { BeregningFormValues } from '../../types/BeregningFormValues';
+import type {
   TidsbegrensetArbeidsforholdInntektResultat,
   TidsbegrensetArbeidsforholdPeriodeResultat,
 } from '../../types/interface/BeregningsgrunnlagAP';
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
-import tableStyles from '../tableStyle.module.css';
 
 const formPrefix = 'inntektField';
 
 const harPeriodeArbeidsforholdAvsluttet = (periode: BeregningsgrunnlagPeriodeProp): boolean =>
   !!periode.periodeAarsaker &&
-  periode.periodeAarsaker.map(kode => kode).includes(PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET);
+  periode.periodeAarsaker.map(kode => kode).includes(PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET);
 
 // Kombinerer perioder mellom avsluttede arbeidsforhold
 const finnPerioderMedAvsluttetArbeidsforhold = (
@@ -223,6 +222,7 @@ const createRows = (
   fieldIndex: number,
   formName: string,
   skalValideres: boolean,
+  control: Control<BeregningFormValues, any, BeregningFormValues>,
 ): ReactElement[] => {
   return Object.entries(tableData).map(([key, val]) => (
     <Table.Row key={key} shadeOnHover={false}>
@@ -236,8 +236,9 @@ const createRows = (
         }
         return (
           <Table.DataCell key={`Col-${element.inputfieldKey}`} align="right">
-            <InputField
+            <RhfTextField
               name={`${formName}.${fieldIndex}.${element.inputfieldKey}`}
+              control={control}
               validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
               readOnly={readOnly}
               isEdited={readOnly && finnesAlleredeLøstPeriode}
@@ -316,10 +317,18 @@ export const AksjonspunktBehandlerTidsbegrenset = ({
   const formMethods = useFormContext<BeregningFormValues>();
   const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(allePerioder, formMethods, fieldIndex, formName);
   return (
-    <Table className={tableStyles.table}>
+    <Table>
       <Table.Header>{createPerioderRow(bruttoPrPeriodeList)}</Table.Header>
       <Table.Body>
-        {createRows(tabellData, readOnly, finnesAlleredeLøstPeriode, fieldIndex, formName, skalValideres)}
+        {createRows(
+          tabellData,
+          readOnly,
+          finnesAlleredeLøstPeriode,
+          fieldIndex,
+          formName,
+          skalValideres,
+          formMethods.control,
+        )}
       </Table.Body>
       <tfoot>{createSummaryTableRow(bruttoPrPeriodeList)}</tfoot>
     </Table>

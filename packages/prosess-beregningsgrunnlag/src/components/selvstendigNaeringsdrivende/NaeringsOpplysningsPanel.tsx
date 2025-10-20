@@ -4,11 +4,10 @@ import { FormattedMessage } from 'react-intl';
 import { BodyShort, Heading, Label, Table, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@navikt/ft-types';
 import { BeløpLabel, NoWrap, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { BTag, dateFormat, formaterArbeidsgiver } from '@navikt/ft-utils';
 
-import tableStyles from '../tableStyle.module.css';
 import styles from './naeringsOpplysningsPanel.module.css';
 
 const finnVirksomhetTypeTekst = (næring: Næring): string => {
@@ -79,7 +78,7 @@ type Props = {
 
 export const NaeringsopplysningsPanel = ({ alleAndelerIForstePeriode, arbeidsgiverOpplysningerPerId }: Props) => {
   const selvstendigNæringer = alleAndelerIForstePeriode.find(
-    andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
   )?.næringer;
 
   if (!selvstendigNæringer) {
@@ -87,8 +86,8 @@ export const NaeringsopplysningsPanel = ({ alleAndelerIForstePeriode, arbeidsgiv
   }
 
   return (
-    <VStack gap="1">
-      <Heading size="medium">
+    <VStack gap="space-4">
+      <Heading size="medium" level="4">
         <FormattedMessage id="NaeringsOpplysningsPanel.Overskrift" />
       </Heading>
       <Table size="small">
@@ -104,7 +103,7 @@ export const NaeringsopplysningsPanel = ({ alleAndelerIForstePeriode, arbeidsgiv
         </Table.Header>
 
         {selvstendigNæringer.map(naring => (
-          <Table.Body key={`NaringsWrapper${naring.orgnr}`} className={tableStyles.tableGroup}>
+          <Table.Body key={`NaringsWrapper${naring.orgnr}`}>
             <Table.Row>
               <Table.HeaderCell textSize="small">
                 {lagVisningsnavn(naring, arbeidsgiverOpplysningerPerId)}
@@ -115,7 +114,7 @@ export const NaeringsopplysningsPanel = ({ alleAndelerIForstePeriode, arbeidsgiv
             </Table.Row>
             <Table.Row shadeOnHover={false}>
               <Table.DataCell textSize="small">
-                <VStack gap="2">
+                <VStack gap="space-8">
                   {naring.oppstartsdato && (
                     <BodyShort size="small">
                       <PeriodLabel dateStringFom={naring.oppstartsdato} dateStringTom={naring.opphørsdato} />

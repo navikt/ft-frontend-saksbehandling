@@ -101,21 +101,37 @@ export const maxLength =
 
 export const minValue =
   (length: number) =>
-  (number: number): FormValidationResult =>
-    number >= length ? null : minValueMessage(length);
+  (number: number | string): FormValidationResult =>
+    getNumberFromText(number) >= length ? null : minValueMessage(length);
+
 export const maxValue =
   (length: number) =>
-  (number: number): FormValidationResult =>
-    number <= length ? null : maxValueMessage(length);
+  (number: number | string): FormValidationResult =>
+    getNumberFromText(number) <= length ? null : maxValueMessage(length);
 
 export const maxValueFormatted =
   (max: number) =>
-  (number: number): FormValidationResult =>
+  (number: number | string): FormValidationResult =>
     removeSpacesFromNumber(number) <= max ? null : maxValueMessage(max);
 
-export const hasValidOrgNumber = (number: number): FormValidationResult =>
-  number.toString().trim().length === 9 ? null : invalidOrgNumberMessage();
-export const hasValidOrgNumberOrFodselsnr = (number: number): FormValidationResult =>
+const getNumberFromText = (number: string | number): number => {
+  return typeof number === 'string' ? Number(number) : number;
+};
+
+export const hasValidOrgNumber = (number: string | number): FormValidationResult => {
+  // Beholder logikken med å fjerne whitespace før og etter, men det er vel egentlig ikke noe validatoren bør gjøre?
+  // Hvis man ikke fjerner de ved submit kan det være at backend ikke liker det
+  if (!number) {
+    return invalidOrgNumberMessage();
+  }
+  const trimmedNumber = number.toString().trim();
+  if (Number.isNaN(Number(trimmedNumber))) {
+    return invalidOrgNumberMessage();
+  }
+  return trimmedNumber.length === 9 ? null : invalidOrgNumberMessage();
+};
+
+export const hasValidOrgNumberOrFodselsnr = (number: string | number): FormValidationResult =>
   number.toString().trim().length === 9 || number.toString().trim().length === 11
     ? null
     : invalidOrgNumberOrFodselsnrMessage();
@@ -231,23 +247,3 @@ export const isWithinOpptjeningsperiode =
     const isAfter = dayjs(tom).isAfter(dayjs(tomDateLimit));
     return isBefore || isAfter ? invalidPeriodRangeMessage() : null;
   };
-
-export const ariaCheck = (): void => {
-  let errors: any;
-  setTimeout(() => {
-    if (document.getElementsByClassName('skjemaelement__feilmelding').length > 0) {
-      errors = document.getElementsByClassName('skjemaelement__feilmelding');
-    } else if (document.getElementsByClassName('alertstripe--advarsel')) {
-      errors = document.getElementsByClassName('alertstripe--advarsel');
-    }
-    if (errors && errors.length > 0) {
-      const ariaNavTab = document.createAttribute('tabindex');
-      ariaNavTab.value = '-1';
-      const firstError = errors[0];
-      firstError.setAttributeNode(ariaNavTab);
-      const element = document.activeElement as HTMLElement;
-      element.blur();
-      firstError.focus();
-    }
-  }, 300);
-};

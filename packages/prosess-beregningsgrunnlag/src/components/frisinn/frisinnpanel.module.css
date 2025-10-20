@@ -1,5 +1,5 @@
 .aksjonspunktBehandlerBorder {
-  border: 3px solid var(--a-orange-500);
+  border: 3px solid var(--ax-warning-600);
   border-radius: 3px;
   padding: 10px 20px 10px 20px;
 }
@@ -14,7 +14,7 @@
 }
 
 .verticalLine > div > p {
-  border-left: 4px solid var(--a-gray-300);
+  border-left: 4px solid var(--ax-neutral-400);
   padding-left: 16px;
 }
 .verticalLine > div > span > span {
@@ -48,14 +48,14 @@
 }
 .inntektTableTB > tbody > tr:last-child > td {
   border-right: 0;
-  border-top: 1px solid var(--a-gray-300);
+  border-top: 1px solid var(--ax-neutral-400);
 }
 .inntektTableTB > tbody > tr > td:first-child {
   text-align: left;
 }
 .inntektTableTB > tbody > tr > td {
   border-bottom: 0;
-  border-right: 1px solid var(--a-gray-300);
+  border-right: 1px solid var(--ax-neutral-400);
   padding-bottom: 0;
   position: relative;
   text-align: center;

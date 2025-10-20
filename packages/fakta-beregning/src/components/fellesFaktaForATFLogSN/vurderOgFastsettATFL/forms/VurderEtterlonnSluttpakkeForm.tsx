@@ -1,20 +1,23 @@
 import React from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useFormContext } from 'react-hook-form';
+import { FormattedMessage } from 'react-intl';
 
-import { ReadMore, VStack } from '@navikt/ds-react';
+import { Radio, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { FaktaOmBeregningTilfelle, isAksjonspunktOpen, OpptjeningAktivitetType as OAType } from '@navikt/ft-kodeverk';
-import { Aksjonspunkt, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
+import { OpptjeningAktivitetType as OAType } from '@navikt/ft-kodeverk';
+import type { Aksjonspunkt, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
+import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
-import {
+import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
+import type {
   FaktaOmBeregningAksjonspunktValues,
   VurderEtterlønnSluttpakkeValues,
 } from '../../../../typer/FaktaBeregningTypes';
-import { InntektTransformed } from '../../../../typer/FieldValues';
-import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
-import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
+import type { InntektTransformed } from '../../../../typer/FieldValues';
+import type { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
+import type { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 
 import 'core-js/features/array/flat-map';
@@ -34,13 +37,16 @@ interface Props {
 }
 
 export const VurderEtterlonnSluttpakkeForm = ({ readOnly }: Props) => {
+  const { control } = useFormContext<VurderFaktaBeregningFormValues>();
+
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const intl = useIntl();
   return (
     <div>
-      <RadioGroupPanel
+      <RhfRadioGroup
+        name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`}
+        control={control}
         label={
-          <VStack gap="2">
+          <VStack gap="space-8">
             <FormattedMessage id="BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt" />
             <ReadMore
               size="small"
@@ -50,18 +56,16 @@ export const VurderEtterlonnSluttpakkeForm = ({ readOnly }: Props) => {
             </ReadMore>
           </VStack>
         }
-        name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`}
         validate={[required]}
         isReadOnly={readOnly}
-        radios={[
-          {
-            value: 'true',
-            label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes' }),
-          },
-          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt' }) },
-        ]}
-        parse={parseStringToBoolean}
-      />
+      >
+        <Radio value={true} size="small">
+          <FormattedMessage id="BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes" />
+        </Radio>
+        <Radio value={false} size="small">
+          <FormattedMessage id="BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt" />
+        </Radio>
+      </RhfRadioGroup>
     </div>
   );
 };
@@ -73,7 +77,7 @@ VurderEtterlonnSluttpakkeForm.buildInitialValues = (
   if (!beregningsgrunnlag || !beregningsgrunnlag.beregningsgrunnlagPeriode || !faktaAksjonspunkt) {
     return {};
   }
-  const apErTidligereLost = !isAksjonspunktOpen(faktaAksjonspunkt.status);
+  const apErTidligereLost = !isAksjonspunktOpen(faktaAksjonspunkt);
   const relevanteAndeler = beregningsgrunnlag.beregningsgrunnlagPeriode
     .flatMap(periode => periode.beregningsgrunnlagPrStatusOgAndel)
     .filter(andel => andel?.arbeidsforhold && andel?.arbeidsforhold.arbeidsforholdType === OAType.ETTERLONN_SLUTTPAKKE);
@@ -107,12 +111,12 @@ VurderEtterlonnSluttpakkeForm.transformValues = (
   fastsatteAndelsnr: number[],
 ): FaktaBeregningTransformedValues => {
   const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
-  if (!tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE)) {
+  if (!tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLØNN_SLUTTPAKKE)) {
     return {};
   }
   if (!inntektPrMnd || inntektPrMnd.length === 0) {
     return {
-      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE],
+      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_ETTERLØNN_SLUTTPAKKE],
       vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: !!values[harEtterlonnSluttpakkeField] },
     };
   }
@@ -123,13 +127,13 @@ VurderEtterlonnSluttpakkeForm.transformValues = (
   const etterlonnSluttpakkeField = inntektPrMnd.find(field => field.andelsnr === etterlønnSluttpakkeAndelsnr);
   if (!etterlonnSluttpakkeField) {
     return {
-      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE],
+      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_ETTERLØNN_SLUTTPAKKE],
       vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: !!values[harEtterlonnSluttpakkeField] },
     };
   }
   if (etterlonnSluttpakkeField.andelsnr && fastsatteAndelsnr.includes(etterlonnSluttpakkeField.andelsnr)) {
     return {
-      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE],
+      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_ETTERLØNN_SLUTTPAKKE],
       vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: !!values[harEtterlonnSluttpakkeField] },
     };
   }
@@ -139,8 +143,8 @@ VurderEtterlonnSluttpakkeForm.transformValues = (
   };
   return {
     faktaOmBeregningTilfeller: [
-      FaktaOmBeregningTilfelle.VURDER_ETTERLONN_SLUTTPAKKE,
-      FaktaOmBeregningTilfelle.FASTSETT_ETTERLONN_SLUTTPAKKE,
+      FaktaOmBeregningTilfelle.VURDER_ETTERLØNN_SLUTTPAKKE,
+      FaktaOmBeregningTilfelle.FASTSETT_ETTERLØNN_SLUTTPAKKE,
     ],
     ...inntekt,
     vurderEtterlønnSluttpakke: { erEtterlønnSluttpakke: !!values[harEtterlonnSluttpakkeField] },

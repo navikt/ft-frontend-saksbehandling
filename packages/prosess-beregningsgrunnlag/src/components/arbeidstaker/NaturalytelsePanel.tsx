@@ -1,10 +1,9 @@
-import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Heading, Table, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
@@ -12,9 +11,11 @@ import {
 import { BeløpLabel, NoWrap, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { formaterArbeidsgiver, ISO_DATE_FORMAT, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
 
-import { NaturalytelseEndring, NaturalytelseTabellData, NaturalytelseTabellRad } from '../../types/NaturalytelseTable';
-
-import tableStyle from '../tableStyle.module.css';
+import type {
+  NaturalytelseEndring,
+  NaturalytelseTabellData,
+  NaturalytelseTabellRad,
+} from '../../types/NaturalytelseTable';
 
 type Props = {
   allePerioder: BeregningsgrunnlagPeriodeProp[];
@@ -171,8 +172,8 @@ export const NaturalytelsePanel = ({ allePerioder, arbeidsgiverOpplysningerPerId
   }
 
   return (
-    <VStack gap="1">
-      <Heading size="medium">
+    <VStack gap="space-4">
+      <Heading size="medium" level="4">
         <FormattedMessage id="NaturalytelsePanel.Tittel" />
       </Heading>
 
@@ -191,7 +192,7 @@ export const NaturalytelsePanel = ({ allePerioder, arbeidsgiverOpplysningerPerId
           </Table.Row>
         </Table.Header>
         {tableData.rader.map(rad => (
-          <Table.Body key={rad.nøkkel} className={tableStyle.tableGroup}>
+          <Table.Body key={rad.nøkkel}>
             <Table.Row shadeOnHover={false}>
               <Table.HeaderCell textSize="small" colSpan={3}>
                 {rad.visningsnavn}

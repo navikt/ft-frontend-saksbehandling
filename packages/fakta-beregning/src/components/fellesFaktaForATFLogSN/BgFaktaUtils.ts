@@ -1,11 +1,5 @@
-import {
-  AktivitetStatus,
-  FaktaOmBeregningTilfelle,
-  Inntektskategori,
-  OpptjeningAktivitetType as OAType,
-  Organisasjonstype as organisasjonstyper,
-} from '@navikt/ft-kodeverk';
-import {
+import { AktivitetStatus, Inntektskategori, OpptjeningAktivitetType as OAType } from '@navikt/ft-kodeverk';
+import type {
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,
   ATFLSammeOrgAndel,
@@ -16,14 +10,16 @@ import {
 } from '@navikt/ft-types';
 import { formatCurrencyNoKr, formaterArbeidsgiver } from '@navikt/ft-utils';
 
-import {
+import { FaktaOmBeregningTilfelle } from '../../kodeverk/faktaOmBeregningTilfelle';
+import { Organisasjonstype } from '../../kodeverk/organisasjonstype';
+import type {
   ArbeidstakerInntektValues,
   FaktaOmBeregningAksjonspunktValues,
   GenerellAndelInfo,
 } from '../../typer/FaktaBeregningTypes';
-import { AndelFieldIdentifikator, AndelFieldValue } from '../../typer/FieldValues';
+import type { AndelFieldIdentifikator, AndelFieldValue } from '../../typer/FieldValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { besteberegningField } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse } from './vurderOgFastsettATFL/forms/AvsluttetArbeidsforhold';
@@ -96,17 +92,14 @@ export const erArbeidstaker = (field: AndelFieldIdentifikator): boolean =>
 export const erFrilanser = (field: AndelFieldIdentifikator): boolean =>
   !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.FRILANSER;
 
-export const erArbeidUnderAap = (field: AndelFieldIdentifikator): boolean =>
-  field.arbeidsforholdType === OAType.ARBEID_UNDER_AAP;
-
 export const erDagpenger = (field: AndelFieldIdentifikator): boolean =>
   !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.DAGPENGER;
 
 export const erSelvstendigNæringsdrivende = (field: AndelFieldIdentifikator): boolean =>
-  !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE;
+  !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE;
 
 export const erMilitaerEllerSivil = (field: AndelFieldIdentifikator): boolean =>
-  !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL;
+  !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.MILITÆR_ELLER_SIVIL;
 
 // Nyoppstartet frilanser
 const erNyoppstartetFrilanser = (
@@ -141,10 +134,8 @@ const erATUtenInntektsmeldingMedLonnsendring = (
 
 // AT og FL i samme organisasjon
 
-export const andelErStatusFLOgHarATISammeOrg = (
-  field: AndelFieldIdentifikator,
-  faktaOmBeregning: FaktaOmBeregning,
-): boolean => !!faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe && erFrilanser(field);
+const andelErStatusFLOgHarATISammeOrg = (field: AndelFieldIdentifikator, faktaOmBeregning: FaktaOmBeregning): boolean =>
+  !!faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe && erFrilanser(field);
 
 const andelErStatusATUtenInntektsmeldingOgHarFLISammeOrg = (
   field: AndelFieldIdentifikator,
@@ -180,7 +171,7 @@ const andelErEtterlønnSluttpakkeOgSkalFastsettes = (
 };
 
 // Manuelt registrert med handlingstype LAGT_TIL_AV_BRUKER
-export const erAndelKunstigArbeidsforhold = (
+const erAndelKunstigArbeidsforhold = (
   andel: AndelFieldIdentifikator,
   beregningsgrunnlag: Beregningsgrunnlag,
 ): boolean => {
@@ -190,7 +181,7 @@ export const erAndelKunstigArbeidsforhold = (
       a.arbeidsforhold &&
       a.arbeidsforhold.arbeidsgiverIdent === andel.arbeidsgiverId &&
       a.arbeidsforhold.organisasjonstype &&
-      a.arbeidsforhold.organisasjonstype === organisasjonstyper.KUNSTIG,
+      a.arbeidsforhold.organisasjonstype === Organisasjonstype.KUNSTIG,
   );
   return lagtTilAvBruker !== undefined;
 };
@@ -236,9 +227,6 @@ const skalFastsettInntektForAndel =
       return true;
     }
     if (andelErEtterlønnSluttpakkeOgSkalFastsettes(andel, values)) {
-      return true;
-    }
-    if (erArbeidUnderAap(andel)) {
       return true;
     }
     return false;

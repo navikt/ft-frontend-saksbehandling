@@ -12,7 +12,7 @@ export const formatQueryString = (queryParams: Record<string, string | boolean> 
     // Add leading question mark
     Object.entries(queryParams)
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .filter(([key, value]) => value !== undefined && value !== null && value !== '') // Filter out empty/null/undef values
+      .filter(([_key, value]) => value !== undefined && value !== null && value !== '') // Filter out empty/null/undef values
       .map(([key, value]) => [key, encodeURIComponent(value)]) // URL-encode value
       .map(([key, encodedValue]) => `${key}=${encodedValue}`) // NOSONAR
       .join('&') // Join with delimiter '&'

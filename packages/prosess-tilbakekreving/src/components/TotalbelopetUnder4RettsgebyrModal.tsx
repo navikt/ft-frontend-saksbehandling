@@ -1,4 +1,3 @@
-import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
@@ -14,9 +13,9 @@ export const TotalbelopetUnder4RettsgebyrModal = ({
   return (
     <Modal open={showModal} onClose={submit} aria-label="Advarsel">
       <Modal.Body>
-        <HStack gap="4" wrap={false}>
+        <HStack gap="space-16" wrap={false}>
           <div>
-            <ExclamationmarkTriangleFillIcon height={35} width={35} color="var(--a-orange-600)" />
+            <ExclamationmarkTriangleFillIcon height={35} width={35} color="var(--ax-warning-700)" />
           </div>
           <BodyLong>
             <FormattedMessage id="TilbakekrevingPeriodeForm.TotalbelopetUnder4Rettsgebyr" />

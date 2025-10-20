@@ -1,4 +1,4 @@
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
   BeregningsgrunnlagPeriodeProp,
@@ -6,22 +6,22 @@ import {
   ForlengelsePeriodeProp,
 } from '@navikt/ft-types';
 
-import { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
-import { KodeverkForPanel } from '../../types/kodeverkForPanel';
+import type { FordelBeregningsgrunnlagValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import type { FordelBeregningsgrunnlagPerioderTransformedValues } from '../../types/interface/FordelBeregningsgrunnlagAP';
+import type { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import { FordelBeregningsgrunnlagForm } from './FordelBeregningsgrunnlagForm';
 
 const getFordelPerioder = (beregningsgrunnlag: Beregningsgrunnlag): FordelBeregningsgrunnlagPeriode[] =>
   beregningsgrunnlag.faktaOmFordeling?.fordelBeregningsgrunnlag?.fordelBeregningsgrunnlagPerioder || [];
 
-type Props = {
+interface Props {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
   kodeverkSamling: KodeverkForPanel;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   fieldIndex: number;
-};
+}
 
 export const FastsettFordeltBeregningsgrunnlag = ({
   isAksjonspunktClosed,

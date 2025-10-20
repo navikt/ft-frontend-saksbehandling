@@ -2,59 +2,42 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { HStack, VStack } from '@navikt/ds-react';
-import classNames from 'classnames';
+import { Alert, HStack, Link, VStack } from '@navikt/ds-react';
 
-import { Form, SubmitButton } from '@navikt/ft-form-hooks';
-import { omit } from '@navikt/ft-utils';
+import { RhfForm, SubmitButton } from '@navikt/ft-form-hooks';
+import { omitOne } from '@navikt/ft-utils';
 
-import { UnderavsnittType } from '../kodeverk/avsnittType';
-import { ForeslaVedtakTilbakekrevingAp } from '../types/ForeslaVedtakTilbakekrevingAp';
-import { VedtaksbrevAvsnitt } from '../types/VedtaksbrevAvsnitt';
+import type {
+  ForeslaVedtakTilbakekrevingAp,
+  HentForhåndvisningVedtaksbrevPdf,
+} from '../types/ForeslaVedtakTilbakekrevingAp';
+import type { ForhandsvisData } from '../types/ForhandsvisData';
+import type { VedtaksbrevAvsnitt } from '../types/Vedtaksbrev';
 import { VedtakAksjonspunktCode } from '../VedtakAksjonspunktCode';
-import { FormValues, TilbakekrevingEditerVedtaksbrevPanel } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
+import { type FormValues, TilbakekrevingEditerVedtaksbrevPanel } from './brev/TilbakekrevingEditerVedtaksbrevPanel';
 
-import styles from './tilbakekrevingVedtakForm.module.css';
-
-type VedtakData = {
-  oppsummeringstekst: string;
-  perioderMedTekst: {
-    fom: string;
-    tom: string;
-    faktaAvsnitt: string;
-    foreldelseAvsnitt: string;
-    vilkaarAvsnitt: string;
-    saerligeGrunnerAvsnitt: string;
-    saerligeGrunnerAnnetAvsnitt: string;
-  }[];
-};
-
-const formatVedtakData = (values: FormValues): VedtakData => {
-  const perioder = omit(values, UnderavsnittType.OPPSUMMERING);
-  return {
-    oppsummeringstekst: values[UnderavsnittType.OPPSUMMERING] as string,
-    perioderMedTekst: Object.keys(perioder).map(key => ({
-      fom: key.split('_')[0],
-      tom: key.split('_')[1],
-      faktaAvsnitt: perioder[key][UnderavsnittType.FAKTA],
-      foreldelseAvsnitt: perioder[key][UnderavsnittType.FORELDELSE],
-      vilkaarAvsnitt: perioder[key][UnderavsnittType.VILKAR],
-      saerligeGrunnerAvsnitt: perioder[key][UnderavsnittType.SARLIGEGRUNNER],
-      saerligeGrunnerAnnetAvsnitt: perioder[key][UnderavsnittType.SARLIGEGRUNNER_ANNET],
-    })),
-  };
-};
+const formatVedtakData = (values: FormValues): HentForhåndvisningVedtaksbrevPdf => ({
+  oppsummeringstekst: values.OPPSUMMERING,
+  perioderMedTekst: Object.entries(omitOne(values, 'OPPSUMMERING')).map(([key, periode]) => ({
+    fom: key.split('_')[0],
+    tom: key.split('_')[1],
+    faktaAvsnitt: periode.FAKTA,
+    foreldelseAvsnitt: periode.FORELDELSE,
+    vilkaarAvsnitt: periode.VILKÅR,
+    saerligeGrunnerAvsnitt: periode.SÆRLIGEGRUNNER,
+    saerligeGrunnerAnnetAvsnitt: periode.SÆRLIGEGRUNNER_ANNET,
+  })),
+});
 
 const harFritekstOppsummeringPakrevdMenIkkeUtfylt = (
   vedtaksbrevAvsnitt: VedtaksbrevAvsnitt[],
-  formVerdier: FormValues,
+  values: FormValues,
 ): boolean =>
   vedtaksbrevAvsnitt.some(
     avsnitt =>
-      avsnitt.avsnittstype === UnderavsnittType.OPPSUMMERING &&
+      avsnitt.avsnittstype === 'OPPSUMMERING' &&
       avsnitt.underavsnittsliste.some(ua => ua.fritekstPåkrevet) &&
-      !formVerdier[UnderavsnittType.OPPSUMMERING],
+      !values.OPPSUMMERING,
   );
 
 const transformValues = (values: FormValues): ForeslaVedtakTilbakekrevingAp => ({
@@ -64,37 +47,30 @@ const transformValues = (values: FormValues): ForeslaVedtakTilbakekrevingAp => (
 
 const finnPerioderSomIkkeHarVerdiForObligatoriskFelt = (
   vedtaksbrevAvsnitt: VedtaksbrevAvsnitt[],
-  formVerdier: FormValues,
+  values: FormValues,
 ): string[] =>
   vedtaksbrevAvsnitt.reduce((acc: string[], va) => {
     const periode = `${va.fom}_${va.tom}`;
-    const friteksterForPeriode = formVerdier[periode] as Record<string, string>;
+    const friteksterForPeriode = values[periode];
 
     const harObligatoriskFaktaTekst = va.underavsnittsliste.some(
-      ua => ua.fritekstPåkrevet && ua.underavsnittstype === UnderavsnittType.FAKTA,
+      ua => ua.fritekstPåkrevet && ua.underavsnittstype === 'FAKTA',
     );
-    if (harObligatoriskFaktaTekst && (!friteksterForPeriode || !friteksterForPeriode[UnderavsnittType.FAKTA])) {
+    if (harObligatoriskFaktaTekst && !friteksterForPeriode?.FAKTA) {
       return acc.concat(periode);
     }
 
     const harObligatoriskSarligeGrunnerAnnetTekst = va.underavsnittsliste.some(
-      ua => ua.fritekstPåkrevet && ua.underavsnittstype === UnderavsnittType.SARLIGEGRUNNER_ANNET,
+      ua => ua.fritekstPåkrevet && ua.underavsnittstype === 'SÆRLIGEGRUNNER_ANNET',
     );
-    if (
-      harObligatoriskSarligeGrunnerAnnetTekst &&
-      (!friteksterForPeriode || !friteksterForPeriode[UnderavsnittType.SARLIGEGRUNNER_ANNET])
-    ) {
+    if (harObligatoriskSarligeGrunnerAnnetTekst && !friteksterForPeriode?.SÆRLIGEGRUNNER_ANNET) {
       return acc.concat(periode);
     }
     return acc;
   }, []);
 
-export type ForhandsvisData = {
-  uuid: string;
-} & VedtakData;
-
 const fetchPreview =
-  (fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<void>, uuid: string, formVerdier: FormValues) =>
+  (fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<Blob>, uuid: string, formVerdier: FormValues) =>
   (e: React.KeyboardEvent | React.MouseEvent): void => {
     fetchPreviewVedtaksbrev({
       uuid,
@@ -103,11 +79,11 @@ const fetchPreview =
     e.preventDefault();
   };
 
-export interface Props {
+interface Props {
   submitCallback: (aksjonspunktData: ForeslaVedtakTilbakekrevingAp) => Promise<void>;
   avsnittsliste: VedtaksbrevAvsnitt[];
   readOnly: boolean;
-  fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<void>;
+  fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<Blob>;
   behandlingUuid: string;
   erRevurderingTilbakekrevingKlage?: boolean;
   erRevurderingTilbakekrevingFeilBeløpBortfalt?: boolean;
@@ -149,12 +125,12 @@ export const TilbakekrevingVedtakForm = ({
     fritekstOppsummeringPakrevdMenIkkeUtfylt || perioderSomIkkeHarUtfyltObligatoriskVerdi.length > 0;
 
   return (
-    <Form
+    <RhfForm
       formMethods={formMethods}
       onSubmit={(values: FormValues) => submitCallback(transformValues(values))}
       setDataOnUnmount={setFormData}
     >
-      <VStack gap="4">
+      <VStack gap="space-16">
         <TilbakekrevingEditerVedtaksbrevPanel
           intl={intl}
           vedtaksbrevAvsnitt={vedtaksbrevAvsnitt}
@@ -163,7 +139,7 @@ export const TilbakekrevingVedtakForm = ({
           fritekstOppsummeringPakrevdMenIkkeUtfylt={fritekstOppsummeringPakrevdMenIkkeUtfylt}
           erRevurderingTilbakekrevingFeilBeløpBortfalt={erRevurderingTilbakekrevingFeilBeløpBortfalt}
         />
-        <HStack gap="10">
+        <HStack gap="space-16" align="center">
           <SubmitButton
             text={intl.formatMessage({ id: 'TilbakekrevingVedtakForm.TilGodkjenning' })}
             isReadOnly={readOnly}
@@ -171,32 +147,26 @@ export const TilbakekrevingVedtakForm = ({
               perioderSomIkkeHarUtfyltObligatoriskVerdi.length === 0 && !fritekstOppsummeringPakrevdMenIkkeUtfylt
             }
             isSubmitting={formMethods.formState.isSubmitting}
-            isDirty={formMethods.formState.isDirty}
             hasErrors={harObligatoriskeFelterSomIkkeErUtfylt}
           />
           {perioderSomIkkeHarUtfyltObligatoriskVerdi.length === 0 && (
-            <div className={styles.padding}>
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a
-                href=""
-                onClick={fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)}
-                onKeyDown={e =>
-                  e.key === 'Enter' ? fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)(e) : null
-                }
-                className={classNames(styles.buttonLink, 'lenke lenke--frittstaende')}
-              >
-                <FormattedMessage id="TilbakekrevingVedtakForm.ForhandvisBrev" />
-              </a>
-            </div>
+            <Link
+              href=""
+              onClick={fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)}
+              onKeyDown={e =>
+                e.key === 'Enter' ? fetchPreview(fetchPreviewVedtaksbrev, behandlingUuid, formVerdier)(e) : null
+              }
+            >
+              <FormattedMessage id="TilbakekrevingVedtakForm.ForhandvisBrev" />
+            </Link>
           )}
         </HStack>
         {erRevurderingTilbakekrevingKlage && (
-          <HStack>
-            <ExclamationmarkTriangleFillIcon className={styles.infoTextIcon} />
+          <Alert inline variant="warning" contentMaxWidth={false}>
             <FormattedMessage id="TilbakekrevingVedtakForm.Infotekst.Klage" />
-          </HStack>
+          </Alert>
         )}
       </VStack>
-    </Form>
+    </RhfForm>
   );
 };

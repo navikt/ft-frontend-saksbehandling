@@ -1,9 +1,5 @@
-import {
-  AktivitetStatus as aktivitetStatuser,
-  FaktaOmBeregningTilfelle,
-  Organisasjonstype as organisasjonstyper,
-} from '@navikt/ft-kodeverk';
-import {
+import { AktivitetStatus as aktivitetStatuser } from '@navikt/ft-kodeverk';
+import type {
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,
   ATFLSammeOrgAndel,
@@ -12,8 +8,10 @@ import {
   FaktaOmBeregning,
 } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../typer/FaktaBeregningTypes';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import { FaktaOmBeregningTilfelle } from '../../kodeverk/faktaOmBeregningTilfelle';
+import { Organisasjonstype } from '../../kodeverk/organisasjonstype';
+import type { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../typer/FaktaBeregningTypes';
+import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import {
   kanRedigereInntektForAndel,
   mapAndelToField,
@@ -73,14 +71,14 @@ const kodeverkSamling = {
       navn: 'Frilans',
     },
     {
-      kode: aktivitetStatuser.SELVSTENDIG_NAERINGSDRIVENDE,
+      kode: aktivitetStatuser.SELVSTENDIG_NÆRINGSDRIVENDE,
       kodeverk: 'AKTIVITET_STATUS',
       navn: 'Selvstendig næringsdrivende',
     },
   ],
 } as KodeverkForPanel;
 
-describe('bgFaktaUtils', () => {
+describe('BgFaktaUtils', () => {
   const dagpengerAndel = {
     aktivitetStatus: aktivitetStatuser.DAGPENGER,
     andelsnr: 1,
@@ -222,7 +220,7 @@ describe('bgFaktaUtils', () => {
 
   it('skal sette initial values for generell andelinfo uten arbeidsforhold', () => {
     const andelValueFromState = {
-      aktivitetStatus: aktivitetStatuser.SELVSTENDIG_NAERINGSDRIVENDE,
+      aktivitetStatus: aktivitetStatuser.SELVSTENDIG_NÆRINGSDRIVENDE,
       andelsnr: 2,
       lagtTilAvSaksbehandler: true,
       inntektskategori: 'SN',
@@ -238,7 +236,7 @@ describe('bgFaktaUtils', () => {
 
   it('skal ikkje sette arbeidsforhold initial values for andel uten arbeidsforhold', () => {
     const andelValueFromState = {
-      aktivitetStatus: aktivitetStatuser.SELVSTENDIG_NAERINGSDRIVENDE,
+      aktivitetStatus: aktivitetStatuser.SELVSTENDIG_NÆRINGSDRIVENDE,
       andelsnr: 2,
       lagtTilAvSaksbehandler: true,
       inntektskategori: 'SN',
@@ -257,7 +255,7 @@ describe('bgFaktaUtils', () => {
     opphoersdato: '2018-01-01',
     // @ts-expect-error Denne skal vel ikkje kunna vera ''? (Testar feilar om eg set den til noko anna)
     arbeidsforholdType: '',
-    organisasjonstype: organisasjonstyper.KUNSTIG,
+    organisasjonstype: Organisasjonstype.KUNSTIG,
   };
 
   const kunstigArbeidstakerAndel = {

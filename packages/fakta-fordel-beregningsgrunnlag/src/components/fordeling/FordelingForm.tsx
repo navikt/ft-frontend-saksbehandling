@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
-import { Form } from '@navikt/ft-form-hooks';
-import {
+import { RhfForm } from '@navikt/ft-form-hooks';
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -11,17 +11,17 @@ import {
 } from '@navikt/ft-types';
 import { ErrorBoundary } from '@navikt/ft-ui-komponenter';
 
-import {
+import type {
   FordelBeregningsgrunnlagFormValues,
   FordelBeregningsgrunnlagMedAksjonspunktValues,
 } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import {
+import type {
   FordelBeregningsgrunnlagAP,
   FordelBeregningsgrunnlagPerioderTransformedValues,
 } from '../../types/interface/FordelBeregningsgrunnlagAP';
-import { KodeverkForPanel } from '../../types/kodeverkForPanel';
-import { Vilkårperiode } from '../../types/Vilkår';
+import type { KodeverkForPanel } from '../../types/kodeverkForPanel';
+import type { Vilkårperiode } from '../../types/Vilkår';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
 import { FastsettFordeltBeregningsgrunnlag } from './FastsettFordeltBeregningsgrunnlag';
@@ -29,7 +29,7 @@ import { BEGRUNNELSE_FORDELING_NAME, FordelingField } from './FordelingField';
 
 const { FORDEL_BEREGNINGSGRUNNLAG } = FaktaFordelBeregningAvklaringsbehovCode;
 
-export const FORM_NAME = 'FORDEL_BEREGNING_FORM';
+const FORM_NAME = 'FORDEL_BEREGNING_FORM';
 
 const finnFordelPerioder = (bg: Beregningsgrunnlag): FordelBeregningsgrunnlagPeriode[] =>
   bg.faktaOmFordeling?.fordelBeregningsgrunnlag?.fordelBeregningsgrunnlagPerioder ?? [];
@@ -118,11 +118,11 @@ const transformValues = (
   };
 };
 
-function fordelPredicate(bg: Beregningsgrunnlag) {
+const fordelPredicate = (bg: Beregningsgrunnlag) => {
   return bg.avklaringsbehov.some(
     v => v.definisjon === FaktaFordelBeregningAvklaringsbehovCode.FORDEL_BEREGNINGSGRUNNLAG,
   );
-}
+};
 
 const buildInitialValues = (
   beregningsgrunnlagListe: Beregningsgrunnlag[],
@@ -156,11 +156,6 @@ interface Props {
   setFordelingFormIsDirty: (isDirty: boolean) => void;
 }
 
-/**
- * FordelingForm
- *
- * Container komponent. Har ansvar for å sette opp Formen for å fordele beregningsgrunnlag.
- */
 export const FordelingForm = ({
   aktivtBeregningsgrunnlagIndeks,
   readOnly,
@@ -203,7 +198,7 @@ export const FordelingForm = ({
 
   return (
     <ErrorBoundary errorMessage="Noe gikk galt ved visning av fordeling">
-      <Form
+      <RhfForm
         formMethods={formMethods}
         onSubmit={values => {
           if (Object.keys(errors).length === 0) {
@@ -240,7 +235,7 @@ export const FordelingForm = ({
             </div>
           );
         })}
-      </Form>
+      </RhfForm>
     </ErrorBoundary>
   );
 };

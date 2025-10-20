@@ -1,22 +1,23 @@
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { HStack, Radio, VStack } from '@navikt/ds-react';
+
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { decodeHtmlEntity, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { Aktsomhet } from '../../../kodeverk/aktsomhet';
-import { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
-import { AktsomhetInfo } from '../../../types/VilkårsvurdertePerioder';
+import { type Aktsomhet, AKTSOMHET_REKKEFØLGE } from '../../../kodeverk/aktsomhet';
+import type { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
+import type { AktsomhetInfo } from '../../../types/VilkårsvurdertePerioder';
 import { AktsomhetGradFormPanel } from './AktsomhetGradFormPanel';
 import { ANDELER, EGENDEFINERT } from './aktsomhetUtils';
 
-const uaktsomhetCodes = [Aktsomhet.GROVT_UAKTSOM, Aktsomhet.SIMPEL_UAKTSOM, Aktsomhet.FORSETT];
-
 const forstoBurdeForstattTekster = {
-  [Aktsomhet.FORSETT]: 'AktsomhetFormPanel.AktsomhetTyperLabel.Forsett',
-  [Aktsomhet.GROVT_UAKTSOM]: 'AktsomhetFormPanel.AktsomhetTyperLabel.GrovtUaktsomt',
-  [Aktsomhet.SIMPEL_UAKTSOM]: 'AktsomhetFormPanel.AktsomhetTyperLabel.SimpelUaktsom',
-} as Record<string, string>;
+  FORSETT: 'AktsomhetFormPanel.AktsomhetTyperLabel.Forsett',
+  GROVT_UAKTSOM: 'AktsomhetFormPanel.AktsomhetTyperLabel.GrovtUaktsomt',
+  SIMPEL_UAKTSOM: 'AktsomhetFormPanel.AktsomhetTyperLabel.SimpelUaktsom',
+} as Record<Aktsomhet, string>;
 
 interface AktsomhetData {
   andelSomTilbakekreves: number | string;
@@ -29,14 +30,17 @@ interface AktsomhetData {
   tilbakekrevSelvOmBeloepErUnder4Rettsgebyr: boolean;
 }
 
-export interface InitialValuesAktsomhetForm {
-  handletUaktsomhetGrad: Aktsomhet;
-  [Aktsomhet.FORSETT]?: AktsomhetData;
-  [Aktsomhet.GROVT_UAKTSOM]?: AktsomhetData;
-  [Aktsomhet.SIMPEL_UAKTSOM]?: AktsomhetData;
-}
+type AktomhetMap = {
+  FORSETT?: AktsomhetData;
+  GROVT_UAKTSOM?: AktsomhetData;
+  SIMPEL_UAKTSOM?: AktsomhetData;
+};
 
-export interface Props {
+export type InitialValuesAktsomhetForm = {
+  handletUaktsomhetGrad: Aktsomhet;
+} & Pick<AktomhetMap, Aktsomhet>;
+
+interface Props {
   readOnly: boolean;
   resetFields: () => void;
   harGrunnerTilReduksjon?: boolean;
@@ -66,41 +70,49 @@ export const AktsomhetFormPanel = ({
   erTotalBelopUnder4Rettsgebyr,
   andelSomTilbakekreves,
   name,
-}: Props) => (
-  <>
-    <RadioGroupPanel
-      name={`${name}.handletUaktsomhetGrad`}
-      label={<FormattedMessage id="AktsomhetFormPanel.HandletUaktsomhetGrad" />}
-      validate={[required]}
-      radios={aktsomhetTyper.map(vrt => ({
-        label: erValgtResultatTypeForstoBurdeForstaatt ? (
-          <FormattedMessage id={forstoBurdeForstattTekster[vrt.kode]} />
-        ) : (
-          vrt.navn
-        ),
-        value: vrt.kode,
-      }))}
-      isReadOnly={readOnly}
-      onChange={resetFields}
-      isHorizontal
-    />
-    {uaktsomhetCodes.some(uc => uc === handletUaktsomhetGrad) && (
-      <AktsomhetGradFormPanel
-        name={`${name}.${handletUaktsomhetGrad}`}
-        harGrunnerTilReduksjon={harGrunnerTilReduksjon}
-        readOnly={readOnly}
-        handletUaktsomhetGrad={handletUaktsomhetGrad}
-        erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
-        erValgtResultatTypeForstoBurdeForstaatt={erValgtResultatTypeForstoBurdeForstaatt}
-        sarligGrunnTyper={sarligGrunnTyper}
-        harMerEnnEnYtelse={antallYtelser > 1}
-        feilutbetalingBelop={feilutbetalingBelop}
-        erTotalBelopUnder4Rettsgebyr={erTotalBelopUnder4Rettsgebyr}
-        andelSomTilbakekreves={andelSomTilbakekreves}
-      />
-    )}
-  </>
-);
+}: Props) => {
+  // TODO (TOR) Manglar type
+  const { control } = useFormContext();
+  return (
+    <VStack gap="space-12">
+      <RhfRadioGroup
+        name={`${name}.handletUaktsomhetGrad`}
+        control={control}
+        label={<FormattedMessage id="AktsomhetFormPanel.HandletUaktsomhetGrad" />}
+        validate={[required]}
+        isReadOnly={readOnly}
+        onChange={resetFields}
+      >
+        <HStack gap="space-20">
+          {aktsomhetTyper.map(vrt => (
+            <Radio key={vrt.kode} value={vrt.kode} size="small">
+              {erValgtResultatTypeForstoBurdeForstaatt ? (
+                <FormattedMessage id={forstoBurdeForstattTekster[vrt.kode]} />
+              ) : (
+                vrt.navn
+              )}
+            </Radio>
+          ))}
+        </HStack>
+      </RhfRadioGroup>
+      {AKTSOMHET_REKKEFØLGE.some(uc => uc === handletUaktsomhetGrad) && (
+        <AktsomhetGradFormPanel
+          name={`${name}.${handletUaktsomhetGrad}`}
+          harGrunnerTilReduksjon={harGrunnerTilReduksjon}
+          readOnly={readOnly}
+          handletUaktsomhetGrad={handletUaktsomhetGrad}
+          erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
+          erValgtResultatTypeForstoBurdeForstaatt={erValgtResultatTypeForstoBurdeForstaatt}
+          sarligGrunnTyper={sarligGrunnTyper}
+          harMerEnnEnYtelse={antallYtelser > 1}
+          feilutbetalingBelop={feilutbetalingBelop}
+          erTotalBelopUnder4Rettsgebyr={erTotalBelopUnder4Rettsgebyr}
+          andelSomTilbakekreves={andelSomTilbakekreves}
+        />
+      )}
+    </VStack>
+  );
+};
 
 const parseIntAndelSomTilbakekreves = (andelSomTilbakekreves: string, harGrunnerTilReduksjon: boolean) => {
   const parsedValue = parseInt(andelSomTilbakekreves, 10);

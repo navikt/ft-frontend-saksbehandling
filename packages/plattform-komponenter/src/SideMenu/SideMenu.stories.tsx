@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { HStack } from '@navikt/ds-react';
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { SideMenu } from './SideMenu';
 
@@ -45,7 +45,7 @@ export const Default: Story = {
         label: 'Medlemskap',
       },
       {
-        icon: <ExclamationmarkTriangleFillIcon fontSize="1rem" color={'var(--a-icon-warning)'} />,
+        icon: <ExclamationmarkTriangleFillIcon fontSize="1rem" color={'var(--ax-text-warning-decoration)'} />,
         label: 'Opptjening',
         active: true,
       },

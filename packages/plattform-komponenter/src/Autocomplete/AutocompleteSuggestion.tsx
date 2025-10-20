@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Suggestion } from './types/Suggestion';
+import type { Suggestion } from './types/Suggestion';
 
 import styles from './autocompleteSuggestion.module.css';
 
@@ -41,7 +41,7 @@ export class AutocompleteSuggestion extends React.Component<Props, State> {
     setSuggestionIndex(index);
   }
 
-  render() {
+  override render() {
     const { match, active, avoidBlur, id } = this.props;
     const { value } = this.state.value;
     const matchFound = value.toLowerCase().startsWith(match.toLowerCase());

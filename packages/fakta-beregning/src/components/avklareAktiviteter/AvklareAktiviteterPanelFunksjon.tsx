@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
-import { Form } from '@navikt/ft-form-hooks';
-import {
+import { RhfForm } from '@navikt/ft-form-hooks';
+import type {
   ArbeidsgiverOpplysningerPerId,
   AvklarBeregningAktiviteterMap,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
 } from '@navikt/ft-types';
 
-import { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
+import type { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { SubmitBeregningType } from '../../typer/interface/SubmitBeregningTsType';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
-import { Vilkår, Vilkårperiode } from '../../typer/Vilkår';
+import type { SubmitBeregningType } from '../../typer/interface/SubmitBeregningTsType';
+import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import type { Vilkår, Vilkårperiode } from '../../typer/Vilkår';
 import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { formNameAvklarAktiviteter } from '../../utils/BeregningFormUtils';
 import { AvklareAktiviteterField } from './AvklareAktiviteterField';
@@ -203,7 +203,7 @@ export const AvklareAktiviteterPanel = ({
   };
 
   return (
-    <Form<AvklarAktiviteterFormValues>
+    <RhfForm<AvklarAktiviteterFormValues>
       formMethods={formMethods}
       onSubmit={values => losAvklaringsbehov(values)}
       setDataOnUnmount={setFormData}
@@ -226,6 +226,6 @@ export const AvklareAktiviteterPanel = ({
             />
           ),
       )}
-    </Form>
+    </RhfForm>
   );
 };

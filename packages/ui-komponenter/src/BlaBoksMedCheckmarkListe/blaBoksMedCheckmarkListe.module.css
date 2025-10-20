@@ -1,9 +1,9 @@
 .checkBlaIkon {
-  color: var(--a-blue-400);
+  color: var(--ax-accent-500);
   padding-right: 0.5rem;
 }
 .container {
-  background-color: rgba(204, 225, 243, 0.26);
+  background-color: var(--ax-accent-100);
   border: 1px solid var(--a-lightblue-600);
   border-radius: 4px;
   padding: 1rem 1rem 0 1rem;

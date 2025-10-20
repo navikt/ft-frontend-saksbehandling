@@ -1,12 +1,13 @@
 import React from 'react';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { useFormContext } from 'react-hook-form';
+import { FormattedMessage } from 'react-intl';
 
-import { List, ReadMore, VStack } from '@navikt/ds-react';
+import { List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import {
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import type {
   ArbeidsgiverOpplysningerPerId,
   ArbeidstakerUtenIMAndel,
   Beregningsgrunnlag,
@@ -16,14 +17,18 @@ import {
 } from '@navikt/ft-types';
 import { formaterArbeidsgiver, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { FaktaOmBeregningAksjonspunktValues, VurderMottarYtelseValues } from '../../../../typer/FaktaBeregningTypes';
-import { InntektTransformed } from '../../../../typer/FieldValues';
-import {
+import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
+import type {
+  FaktaOmBeregningAksjonspunktValues,
+  VurderMottarYtelseValues,
+} from '../../../../typer/FaktaBeregningTypes';
+import type { InntektTransformed } from '../../../../typer/FieldValues';
+import type {
   FaktaBeregningTransformedValues,
   FastsettMånedsinntektUtenInntektsmeldingAndelTransformedValues,
 } from '../../../../typer/interface/BeregningFaktaAP';
-import { KodeverkForPanel } from '../../../../typer/KodeverkForPanel';
-import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
+import type { KodeverkForPanel } from '../../../../typer/KodeverkForPanel';
+import type { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 import {
   andelsnrMottarYtelseMap,
@@ -59,20 +64,30 @@ const utledArbeidsforholdUtenIMRadioTekst = (
   );
 };
 
-const mottarYtelseArbeidsforholdRadioAndInputs = (
-  andel: ArbeidstakerUtenIMAndel,
-  readOnly: boolean,
-  kodeverkSamling: KodeverkForPanel,
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  aktivtBeregningsgrunnlagIndeks: number,
-  intl: IntlShape,
-): React.ReactNode => {
+interface MottarProps {
+  andel: ArbeidstakerUtenIMAndel;
+  readOnly: boolean;
+  kodeverkSamling: KodeverkForPanel;
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  aktivtBeregningsgrunnlagIndeks: number;
+}
+
+const MottarYtelseArbeidsforholdRadioAndInputs = ({
+  andel,
+  readOnly,
+  kodeverkSamling,
+  arbeidsgiverOpplysningerPerId,
+  aktivtBeregningsgrunnlagIndeks,
+}: MottarProps): React.ReactNode => {
+  const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const key = utledArbeidsforholdFieldName(andel);
+
   return (
-    <RadioGroupPanel
-      key={key}
+    <RhfRadioGroup
+      name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${key}`}
+      control={control}
       label={
-        <VStack gap="2">
+        <VStack gap="space-8">
           {andel.arbeidsforhold &&
             utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
           <ReadMore
@@ -90,15 +105,16 @@ const mottarYtelseArbeidsforholdRadioAndInputs = (
           </ReadMore>
         </VStack>
       }
-      name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${key}`}
-      isReadOnly={readOnly}
-      radios={[
-        { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-        { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt' }) },
-      ]}
-      parse={parseStringToBoolean}
       validate={readOnly ? [] : [required]}
-    />
+      isReadOnly={readOnly}
+    >
+      <Radio value={true} size="small">
+        <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />
+      </Radio>
+      <Radio value={false} size="small">
+        <FormattedMessage id="BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt" />
+      </Radio>
+    </RhfRadioGroup>
   );
 };
 
@@ -136,6 +152,8 @@ export const VurderMottarYtelseForm = ({
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
 }: Props) => {
+  const { control } = useFormContext<VurderFaktaBeregningFormValues>();
+
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const vurderMottarYtelse = beregningsgrunnlag.faktaOmBeregning
     ? beregningsgrunnlag.faktaOmBeregning.vurderMottarYtelse
@@ -145,14 +163,15 @@ export const VurderMottarYtelseForm = ({
     vurderMottarYtelse && vurderMottarYtelse.arbeidstakerAndelerUtenIM
       ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
       : [];
-  const intl = useIntl();
 
   return (
     <>
       {erFrilans && !erATFLSammeOrg(tilfeller) && (
-        <RadioGroupPanel
+        <RhfRadioGroup
+          name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${frilansFieldName}`}
+          control={control}
           label={
-            <VStack gap="2">
+            <VStack gap="space-8">
               <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
               <ReadMore
                 size="small"
@@ -169,34 +188,29 @@ export const VurderMottarYtelseForm = ({
               </ReadMore>
             </VStack>
           }
-          name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${frilansFieldName}`}
-          isReadOnly={readOnly}
-          radios={[
-            {
-              value: 'true',
-              label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes' }),
-            },
-            {
-              value: 'false',
-              label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt' }),
-            },
-          ]}
-          parse={parseStringToBoolean}
           validate={readOnly ? [] : [required]}
-        />
+          isReadOnly={readOnly}
+        >
+          <Radio value={true} size="small">
+            <FormattedMessage id="BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes" />
+          </Radio>
+          <Radio value={false} size="small">
+            <FormattedMessage id="BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt" />
+          </Radio>
+        </RhfRadioGroup>
       )}
       {arbeidsforholdUtenIM.length > 0 && (
-        <VStack gap="6">
-          {arbeidsforholdUtenIM.map(andel =>
-            mottarYtelseArbeidsforholdRadioAndInputs(
-              andel,
-              readOnly,
-              kodeverkSamling,
-              arbeidsgiverOpplysningerPerId,
-              beregningsgrunnlagIndeks,
-              intl,
-            ),
-          )}
+        <VStack gap="space-24">
+          {arbeidsforholdUtenIM.map(andel => (
+            <MottarYtelseArbeidsforholdRadioAndInputs
+              key={andel.andelsnr}
+              andel={andel}
+              readOnly={readOnly}
+              kodeverkSamling={kodeverkSamling}
+              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+              aktivtBeregningsgrunnlagIndeks={beregningsgrunnlagIndeks}
+            />
+          ))}
         </VStack>
       )}
     </>
@@ -231,7 +245,7 @@ const transformValuesArbeidstakerUtenIM = (
       }
     });
     if (listeMedFastsatteMaanedsinntekter.length > 0) {
-      faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING);
+      faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_MÅNEDSLØNN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING);
       return {
         fastsattUtenInntektsmelding: { andelListe: listeMedFastsatteMaanedsinntekter },
       };

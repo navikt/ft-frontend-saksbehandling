@@ -1,34 +1,23 @@
 import { useState } from 'react';
-import { useFormContext, UseFormGetValues } from 'react-hook-form';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { useFormContext, type UseFormGetValues } from 'react-hook-form';
+import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
-import {
-  Alert,
-  BodyShort,
-  Button,
-  ErrorMessage,
-  Heading,
-  HStack,
-  Label,
-  List,
-  ReadMore,
-  VStack,
-} from '@navikt/ds-react';
+import { Alert, BodyShort, Button, ErrorMessage, Heading, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { SubmitButton, useCustomValidation } from '@navikt/ft-form-hooks';
-import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   AvklarBeregningAktiviteter,
   AvklarBeregningAktiviteterMap,
   BeregningAvklaringsbehov,
 } from '@navikt/ft-types';
 import { OverstyringKnapp } from '@navikt/ft-ui-komponenter';
+import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
-import { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
+import type { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import {
@@ -38,13 +27,11 @@ import {
 } from './avklareAktiviteterHjelpefunksjoner';
 import { VurderAktiviteterPanel } from './VurderAktiviteterPanel';
 
-import styles from './avklareAktiviteterPanel.module.css';
-
 const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
 const BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME = 'begrunnelseAvklareAktiviteter';
 
-export interface Props {
+interface Props {
   avklarAktiviteter: AvklarBeregningAktiviteterMap;
   avklaringsbehovListe: BeregningAvklaringsbehov[];
   erOverstyrer: boolean;
@@ -96,6 +83,7 @@ export const AvklareAktiviteterField = ({
     resetField,
     watch,
     getValues,
+    control,
     formState: { isSubmitting, errors, dirtyFields },
   } = useFormContext<AvklarAktiviteterFormValues>();
 
@@ -121,14 +109,11 @@ export const AvklareAktiviteterField = ({
     updateOverstyring(fieldId, skalOverstyre);
   };
 
-  const isAvklaringsbehovClosed =
-    avklaringsbehovListe
-      .filter(
-        ap =>
-          ap.definisjon === FaktaBeregningAvklaringsbehovCode.AVKLAR_AKTIVITETER ||
-          ap.definisjon === FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-      )
-      .filter(ap => isAksjonspunktOpen(ap.status)).length === 0;
+  const isAvklaringsbehovClosed = !avklaringsbehovListe
+    .filter(
+      ({ definisjon }) => definisjon === AVKLAR_AKTIVITETER || definisjon === OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
+    )
+    .some(isAksjonspunktOpen);
 
   const feilmelding = validate(
     watch,
@@ -145,7 +130,7 @@ export const AvklareAktiviteterField = ({
   }
 
   return (
-    <VStack gap="6">
+    <VStack gap="space-24">
       {hasAksjonspunkt(AVKLAR_AKTIVITETER, avklaringsbehovListe) && !isAvklaringsbehovClosed && (
         <Alert size="small" variant="warning">
           <Heading size="xsmall" level="3">
@@ -154,66 +139,56 @@ export const AvklareAktiviteterField = ({
               id="BeregningInfoPanel.AksjonspunktHelpText.VurderAktiviteter"
             />
           </Heading>
-          <VStack gap="2">
+          <VStack gap="space-8">
             <BodyShort size="small">
               <FormattedMessage id="VurderAktiviteterTabell.FullAAPKombinert.Overskrift" />
             </BodyShort>
-            <ReadMore
-              size="small"
-              header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
-            >
-              <List size="small">
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.AvklareAktiviteterField.HvordanGarJegFrem1" />
-                </List.Item>
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.AvklareAktiviteterField.HvordanGarJegFrem2" />
-                </List.Item>
-              </List>
-            </ReadMore>
           </VStack>
         </Alert>
       )}
-      <HStack gap="4">
-        <Label size="small" className={styles.avsnittOverskrift} data-testid="avklareAktiviteterHeading">
-          <FormattedMessage id="AvklarAktivitetPanel.Overskrift" />
-        </Label>
-        {(erOverstyrer || harOverstyrAvklaringsbehov) && (
-          <OverstyringKnapp onClick={() => initializeForm(true)} erOverstyrt={erOverstyrtKnappTrykket} />
+      <VStack gap="space-12">
+        <HStack gap="space-16" align="center">
+          <Heading size="xsmall" level="3" data-testid="avklareAktiviteterHeading">
+            <FormattedMessage id="AvklarAktivitetPanel.Overskrift" />
+          </Heading>
+          {(erOverstyrer || harOverstyrAvklaringsbehov) && (
+            <OverstyringKnapp onClick={() => initializeForm(true)} erOverstyrt={erOverstyrtKnappTrykket} />
+          )}
+        </HStack>
+        {erOverstyrtKnappTrykket && (
+          <Label size="small">
+            <FormattedMessage id="AvklareAktiviteter.OverstyrerAktivitetAdvarsel" />
+          </Label>
         )}
-      </HStack>
-      {erOverstyrtKnappTrykket && (
-        <Label size="small">
-          <FormattedMessage id="AvklareAktiviteter.OverstyrerAktivitetAdvarsel" />
-        </Label>
-      )}
-      {avklarAktiviteter && avklarAktiviteter.aktiviteterTomDatoMapping && (
-        <VStack gap="4">
-          <VurderAktiviteterPanel
-            aktiviteterTomDatoMapping={avklarAktiviteter.aktiviteterTomDatoMapping}
-            readOnly={readOnly}
-            isAvklaringsbehovClosed={isAvklaringsbehovClosed}
-            erOverstyrt={erOverstyrtKnappTrykket}
-            kodeverkSamling={kodeverkSamling}
-            values={watch(`avklarAktiviteterForm.${fieldId}`)}
-            harAvklaringsbehov={hasAksjonspunkt(AVKLAR_AKTIVITETER, avklaringsbehovListe)}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            fieldId={fieldId}
-          />
-          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-        </VStack>
-      )}
+        {avklarAktiviteter && avklarAktiviteter.aktiviteterTomDatoMapping && (
+          <VStack gap="space-16">
+            <VurderAktiviteterPanel
+              aktiviteterTomDatoMapping={avklarAktiviteter.aktiviteterTomDatoMapping}
+              readOnly={readOnly}
+              isAvklaringsbehovClosed={isAvklaringsbehovClosed}
+              erOverstyrt={erOverstyrtKnappTrykket}
+              kodeverkSamling={kodeverkSamling}
+              values={watch(`avklarAktiviteterForm.${fieldId}`)}
+              harAvklaringsbehov={hasAksjonspunkt(AVKLAR_AKTIVITETER, avklaringsbehovListe)}
+              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+              fieldId={fieldId}
+            />
+            {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+          </VStack>
+        )}
+      </VStack>
       {skalViseSubmitKnappEllerBegrunnelse(avklaringsbehovListe, erOverstyrtKnappTrykket) && (
         <>
           <FaktaBegrunnelseTextField
             name={`avklarAktiviteterForm.${fieldId}.${BEGRUNNELSE_AVKLARE_AKTIVITETER_NAME}`}
+            control={control}
             isSubmittable={submittable}
             isReadOnly={readOnly}
             hasBegrunnelse={!!avklaringsbehov?.begrunnelse}
           />
           <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
           {(hasAksjonspunkt(AVKLAR_AKTIVITETER, avklaringsbehovListe) || erOverstyrtKnappTrykket) && (
-            <HStack gap="4">
+            <HStack gap="space-16">
               <SubmitButton
                 text={intl.formatMessage({
                   id: erOverstyrtKnappTrykket ? 'AvklarAktivitetPanel.OverstyrText' : 'AvklarAktivitetPanel.ButtonText',

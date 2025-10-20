@@ -1,5 +1,5 @@
 .slettIkon {
-  color: var(--a-red-500);
+  color: var(--ax-danger-600);
 }
 
 .rightAlign {
@@ -8,10 +8,6 @@
 
 .rightAlignInput {
   text-align: right;
-}
-
-.rightAlignInput :global(.navds-form-field) {
-  margin-left: auto;
 }
 
 .rightAlignInput > div > div {
@@ -54,10 +50,6 @@
   white-space: pre-wrap;
 }
 
-.tableMedInput .navds-table__data-cell--align-right > div > input {
-  text-align: right;
-}
-
 .storBredde {
   width: 150px;
 }
@@ -89,12 +81,12 @@
 }
 
 .inntektOldStrikethrough p {
-  color: var(--text-subtle, rgba(0, 0, 0, 0.65));
+  color: var(--ax-text-neutral);
   text-decoration: line-through;
 }
 
 .saksbehandlerIcon {
-  color: #c77300;
+  color: var(--ax-warning-500);
   font-size: 1.5rem;
   margin-right: -1.75rem;
 }

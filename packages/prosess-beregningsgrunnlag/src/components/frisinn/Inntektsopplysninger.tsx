@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag } from '@navikt/ft-types';
+import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 import { finnBruttoForStatusIPeriode } from './FrisinnUtils';
@@ -24,7 +24,7 @@ export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
   );
   const gjeldendePeriode = kronologiskePerioder[kronologiskePerioder.length - 2];
   const bruttoSN = finnBruttoForStatusIPeriode(
-    AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
     beregningsgrunnlag,
     gjeldendePeriode,
   );
@@ -32,11 +32,11 @@ export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
   const bruttoAT = finnBruttoForStatusIPeriode(AktivitetStatus.ARBEIDSTAKER, beregningsgrunnlag, gjeldendePeriode);
 
   return (
-    <VStack gap="2">
+    <VStack gap="space-8">
       <Label size="small" className={beregningStyles.avsnittOverskrift}>
         <FormattedMessage id="Søknad.Inntektsopplysninger" />
       </Label>
-      <HStack gap="2">
+      <HStack gap="space-8">
         <BodyShort size="small" className={beregningStyles.tabellAktivitet}>
           <FormattedMessage id="Frisinn.InntektAT" />
         </BodyShort>
@@ -44,7 +44,7 @@ export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
           <BeløpLabel beløp={bruttoAT} />
         </Label>
       </HStack>
-      <HStack gap="2">
+      <HStack gap="space-8">
         <BodyShort size="small" className={beregningStyles.tabellAktivitet}>
           <FormattedMessage id="Frisinn.InntektFL" />
         </BodyShort>
@@ -52,7 +52,7 @@ export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
           <BeløpLabel beløp={bruttoFL} />
         </Label>
       </HStack>
-      <HStack gap="2">
+      <HStack gap="space-8">
         <BodyShort size="small" className={beregningStyles.tabellAktivitet}>
           <FormattedMessage id="Frisinn.InntektSN" />
         </BodyShort>

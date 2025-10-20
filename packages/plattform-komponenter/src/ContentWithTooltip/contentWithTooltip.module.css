@@ -10,10 +10,10 @@
 }
 .contentWithTooltip__tooltipText {
   align-items: center;
-  background: #fff5e8;
+  background: var(--ax-bg-default);
   border-radius: 4px;
-  box-shadow: 0 1px 2px #b7b1a9;
-  color: black;
+  box-shadow: 0 1px 2px var(--ax-bg-neutral-soft);
+  color: var(--ax-text-neutral);
   display: none;
   flex-direction: row;
   left: 0;

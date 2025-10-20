@@ -1,5 +1,5 @@
-import { AktivitetStatus, FaktaOmBeregningTilfelle, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
-import {
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -7,13 +7,14 @@ import {
   KortvarigAndel,
 } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues, FaktaOmBeregningValues } from '../../typer/FaktaBeregningTypes';
-import {
+import { FaktaOmBeregningTilfelle } from '../../kodeverk/faktaOmBeregningTilfelle';
+import type { FaktaOmBeregningAksjonspunktValues, FaktaOmBeregningValues } from '../../typer/FaktaBeregningTypes';
+import type {
   BeregningFaktaTransformedValues,
   FaktaBeregningTransformedValues,
 } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { ArbeidsinntektInput } from '../felles/ArbeidsinntektInput';
 import { InntektInput } from '../felles/InntektInput';
 import { VurderBesteberegningForm } from './besteberegningFodendeKvinne/VurderBesteberegningForm';
@@ -36,18 +37,18 @@ import { VurderRefusjonForm } from './vurderrefusjon/VurderRefusjonForm';
 
 const { VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 
-export const getKortvarigeArbeidsforhold = (beregningsgrunnlag: Beregningsgrunnlag) =>
+const getKortvarigeArbeidsforhold = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.kortvarigeArbeidsforhold ?? [];
 
 // TODO (TOR) om typane her er korrekt så kan ein ta vekk ?? undefined
-export const getKunYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>
+const getKunYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.kunYtelse ?? undefined;
 
-export const getVurderMottarYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>
+const getVurderMottarYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.vurderMottarYtelse ?? undefined;
-export const getVurderBesteberegning = (beregningsgrunnlag: Beregningsgrunnlag) =>
+const getVurderBesteberegning = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.vurderBesteberegning ?? undefined;
-export const getArbeidsgiverInfoForRefusjonskravSomKommerForSent = (beregningsgrunnlag: Beregningsgrunnlag) =>
+const getArbeidsgiverInfoForRefusjonskravSomKommerForSent = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.refusjonskravSomKommerForSentListe ?? [];
 
 const kunYtelseTransform =
@@ -150,7 +151,7 @@ export const transformValues =
     return transformed;
   };
 
-export const setInntektValues =
+const setInntektValues =
   (
     aktivePaneler: string[],
     fatsettKunYtelseTransform: (values: FaktaOmBeregningAksjonspunktValues) => FaktaBeregningTransformedValues,
@@ -228,22 +229,17 @@ export const getBuildInitialValuesFaktaForATFLOgSN = (
       faktaOmBeregning.andelerForFaktaOmBeregning,
       AktivitetStatus.FRILANSER,
     ),
-    arbeidUnderAAPInntektValues: InntektInput.buildInitialValues(
-      faktaOmBeregning.andelerForFaktaOmBeregning,
-      AktivitetStatus.ARBEIDSTAKER,
-      OpptjeningAktivitetType.ARBEID_UNDER_AAP,
-    ),
     dagpengerInntektValues: InntektInput.buildInitialValues(
       faktaOmBeregning.andelerForFaktaOmBeregning,
       AktivitetStatus.DAGPENGER,
     ),
     selvstendigNæringsdrivendeInntektValues: InntektInput.buildInitialValues(
       faktaOmBeregning.andelerForFaktaOmBeregning,
-      AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+      AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
     ),
     militærEllerSivilInntektValues: InntektInput.buildInitialValues(
       faktaOmBeregning.andelerForFaktaOmBeregning,
-      AktivitetStatus.MILITAER_ELLER_SIVIL,
+      AktivitetStatus.MILITÆR_ELLER_SIVIL,
     ),
     vurderRefusjonValues: VurderRefusjonForm.buildInitialValues(
       tilfeller,

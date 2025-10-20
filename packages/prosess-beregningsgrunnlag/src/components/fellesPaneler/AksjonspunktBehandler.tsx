@@ -1,14 +1,14 @@
-import { ReactElement, useEffect, useRef } from 'react';
-import { useFieldArray, useForm } from 'react-hook-form';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { type ReactElement, useEffect, useRef } from 'react';
+import { useFieldArray, useForm, useFormContext } from 'react-hook-form';
+import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
 import { VStack } from '@navikt/ds-react';
 
-import { Form, TextAreaField } from '@navikt/ft-form-hooks';
+import { RhfForm, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { AksjonspunktStatus, AktivitetStatus, PeriodeAarsak, SammenligningType } from '@navikt/ft-kodeverk';
+import { AktivitetStatus, PeriodeÅrsak } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -18,15 +18,20 @@ import {
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
 import { usePrevious } from '@navikt/ft-ui-komponenter';
+import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
-import { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
-import { BeregningFormValues } from '../../types/BeregningFormValues';
-import { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunkt';
-import { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/interface/BeregningsgrunnlagAP';
+import { SammenligningType } from '../../kodeverk/sammenligningType';
+import type { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
+import type { BeregningFormValues } from '../../types/BeregningFormValues';
+import type { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunkt';
+import type {
+  BeregningAksjonspunktSubmitType,
+  GruppertAksjonspunktData,
+} from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
-import { VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
-import { Vilkår, Vilkårperiode } from '../../types/Vilkår';
+import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import type { VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
+import type { Vilkår, Vilkårperiode } from '../../types/Vilkår';
 import { AksjonspunktBehandlerAT } from '../arbeidstaker/AksjonspunktBehandlerAT';
 import { AksjonspunktBehandlerTidsbegrenset as AksjonspunktBehandlerTB } from '../arbeidstaker/AksjonspunktBehandlerTB';
 import { GrunnlagForAarsinntektPanelAT } from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
@@ -80,10 +85,7 @@ const finnAlleAndelerIFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeP
 };
 
 const harPerioderMedAvsluttedeArbeidsforhold = (allePerioder: BeregningsgrunnlagPeriodeProp[]): boolean =>
-  allePerioder.some(
-    ({ periodeAarsaker }) =>
-      periodeAarsaker && periodeAarsaker.some(kode => kode === PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET),
-  );
+  allePerioder.some(({ periodeAarsaker }) => periodeAarsaker?.includes(PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET));
 
 const finnVilkårperiode = (vilkår: Vilkår, vilkårsperiodeFom: string): Vilkårperiode =>
   // @ts-expect-error Fiks
@@ -107,7 +109,7 @@ const buildInitialValues = (
   );
   const snEllerMidlertidigInaktivAndeler = alleAndelerIForstePeriode.filter(
     andel =>
-      andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE ||
+      andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE ||
       andel.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL,
   );
   const valuesATFL = {
@@ -209,7 +211,7 @@ const SelvstendigNæringsdrivendeContainer = ({
 }): ReactElement | null => {
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
   const snAndel = alleAndelerIForstePeriode.find(
-    andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
   );
   const erNyArbLivet = snAndel && snAndel.erNyIArbeidslivet;
   const erVarigEndring =
@@ -254,6 +256,8 @@ const ArbeidstakerEllerFrilansContainer = ({
   avklaringsbehov: BeregningAvklaringsbehov;
   skalValideres: boolean;
 }): ReactElement => {
+  const { control } = useFormContext<BeregningFormValues>();
+
   const erTidsbegrenset = harPerioderMedAvsluttedeArbeidsforhold(allePerioder);
   const visFL = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.FRILANSER);
   const visAT = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.ARBEIDSTAKER);
@@ -294,8 +298,9 @@ const ArbeidstakerEllerFrilansContainer = ({
         )}
       </div>
       <div>
-        <TextAreaField
+        <RhfTextarea
           name={`${formName}.${fieldIndex}.ATFLVurdering`}
+          control={control}
           label={<FormattedMessage id="Forms.Vurdering" />}
           validate={[required, maxLength4000, minLength3, hasValidText]}
           maxLength={MAX_LENGTH}
@@ -520,11 +525,7 @@ export const AksjonspunktBehandler = ({
       trigger();
     }
     const aktivtBG = beregningsgrunnlagListe[aktivIndex];
-    if (
-      aktivtBG.avklaringsbehov.some(
-        ak => gjelderForParagraf(ak, lovparagraf) && ak.status === AksjonspunktStatus.OPPRETTET,
-      )
-    ) {
+    if (aktivtBG.avklaringsbehov.some(ak => gjelderForParagraf(ak, lovparagraf) && isAksjonspunktOpen(ak))) {
       panelRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
     }
   }, [aktivIndex]);
@@ -570,7 +571,7 @@ export const AksjonspunktBehandler = ({
 
   return (
     <div ref={panelRef}>
-      <Form
+      <RhfForm
         formMethods={formMethods}
         onSubmit={values => losAvklaringsbehov(values, lovparagraf)}
         setDataOnUnmount={setFormData}
@@ -586,7 +587,7 @@ export const AksjonspunktBehandler = ({
               beregningsgrunnlag={bgSomSkalVurderes[index]}
             />
             <VStack
-              gap="4"
+              gap="space-16"
               className={`${readOnly ? styles.aksjonspunktBehandlerNoBorder : styles.aksjonspunktBehandlerBorder} ${styles.aksjonspunktWrapper}`}
             >
               {formKomponent(index, bgSomSkalVurderes[index].avklaringsbehov)}
@@ -601,7 +602,7 @@ export const AksjonspunktBehandler = ({
             </VStack>
           </div>
         ))}
-      </Form>
+      </RhfForm>
     </div>
   );
 };

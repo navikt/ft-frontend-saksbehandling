@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { composeStories } from '@storybook/react-vite';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -16,10 +14,10 @@ window.ResizeObserver =
     unobserve: vi.fn(),
   }));
 
-describe('<ForeldelseProsessIndex>', () => {
+describe('ForeldelseProsessIndex', () => {
   it('skal vurdere to perioder og så bekrefte', async () => {
     const lagre = vi.fn(() => Promise.resolve());
-    const utils = render(<Default submitCallback={lagre} />);
+    render(<Default submitCallback={lagre} />);
 
     expect(
       await screen.findByText(/kan være foreldet. Del opp perioden ved behov og fastsett foreldelse/),
@@ -31,11 +29,11 @@ describe('<ForeldelseProsessIndex>', () => {
     expect(screen.getByText('3 000')).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
-    await userEvent.type(utils.getByLabelText('Vurdering'), 'Dette er en vurdering');
+    await userEvent.type(screen.getByLabelText('Vurdering'), 'Dette er en vurdering');
 
     await userEvent.click(screen.getByText('Foreldet'));
 
-    const foreldelsesfristInput = utils.getByLabelText('Foreldelsesfrist');
+    const foreldelsesfristInput = screen.getByLabelText('Foreldelsesfrist');
     await userEvent.type(foreldelsesfristInput, '14.09.2021');
 
     await userEvent.click(screen.getByText('Oppdater'));
@@ -46,14 +44,14 @@ describe('<ForeldelseProsessIndex>', () => {
     expect(screen.getByText('4 000')).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
-    await userEvent.type(utils.getByLabelText('Vurdering'), 'Dette er en vurdering');
+    await userEvent.type(screen.getByLabelText('Vurdering'), 'Dette er en vurdering');
 
     await userEvent.click(screen.getByText('Ikke foreldet, med tilleggsfrist'));
 
-    const foreldelsesfristInputV2 = utils.getByLabelText('Foreldelsesfrist');
+    const foreldelsesfristInputV2 = screen.getByLabelText('Foreldelsesfrist');
     await userEvent.type(foreldelsesfristInputV2, '14.10.2021');
 
-    const datoNårOppdagetInput = utils.getByLabelText('Dato for når feilutbetaling ble oppdaget');
+    const datoNårOppdagetInput = screen.getByLabelText('Dato for når feilutbetaling ble oppdaget');
     await userEvent.type(datoNårOppdagetInput, '16.10.2021');
 
     await userEvent.click(screen.getByText('Oppdater'));
@@ -105,18 +103,18 @@ describe('<ForeldelseProsessIndex>', () => {
   it('skal splitte en periode i to og så bekrefte', async () => {
     const lagre = vi.fn(() => Promise.resolve());
 
-    const utils = render(<Default submitCallback={lagre} />);
+    render(<Default submitCallback={lagre} />);
 
     expect(
       await screen.findByText(/kan være foreldet. Del opp perioden ved behov og fastsett foreldelse/),
     ).toBeInTheDocument();
     expect(screen.getByText('01.03.2019 - 31.03.2019')).toBeInTheDocument();
 
-    await userEvent.type(utils.getByLabelText('Vurdering'), 'Dette er en vurdering');
+    await userEvent.type(screen.getByLabelText('Vurdering'), 'Dette er en vurdering');
 
     await userEvent.click(screen.getByText('Foreldet'));
 
-    const foreldelsesfristInput = utils.getByLabelText('Foreldelsesfrist');
+    const foreldelsesfristInput = screen.getByLabelText('Foreldelsesfrist');
     await userEvent.type(foreldelsesfristInput, '14.09.2021');
 
     await userEvent.click(screen.getByText('Oppdater'));
@@ -127,7 +125,7 @@ describe('<ForeldelseProsessIndex>', () => {
 
     expect(await screen.findAllByText('Del opp perioden')).toHaveLength(2);
 
-    const datoForFørstePeriodeInput = utils.getByLabelText('Angi t.o.m. dato for første periode');
+    const datoForFørstePeriodeInput = screen.getByLabelText('Angi t.o.m. dato for første periode');
     await userEvent.type(datoForFørstePeriodeInput, '11.04.2018');
 
     await userEvent.click(screen.getByText('Ok'));
@@ -152,7 +150,7 @@ describe('<ForeldelseProsessIndex>', () => {
 
     expect(await screen.findByText('01.04.2019 - 11.04.2019')).toBeInTheDocument();
 
-    await userEvent.type(utils.getByLabelText('Vurdering'), 'Dette er en vurdering på del 2');
+    await userEvent.type(screen.getByLabelText('Vurdering'), 'Dette er en vurdering på del 2');
 
     await userEvent.click(screen.getByText('Ikke foreldet'));
 
@@ -160,7 +158,7 @@ describe('<ForeldelseProsessIndex>', () => {
 
     expect(await screen.findByText('12.04.2019 - 30.04.2019')).toBeInTheDocument();
 
-    await userEvent.type(utils.getByLabelText('Vurdering'), 'Dette er en vurdering på del 2');
+    await userEvent.type(screen.getByLabelText('Vurdering'), 'Dette er en vurdering på del 2');
 
     await userEvent.click(screen.getByText('Ikke foreldet'));
 

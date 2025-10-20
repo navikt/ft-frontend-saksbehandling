@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-prosess-tilbakekreving-vedtak",
   "description": "Vedtaksbilde hvor saksbehandler ferdigstiller vedtaksbrev, med mulighet for å legge til utdypende tekst. I noen tilfeller vil utdypende tekst være obligatorisk, for eksempel ved revurderingsbehandling.",
-  "version": "3.2.27",
+  "version": "7.0.1",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -11,7 +11,6 @@
   "scripts": {
     "test": "vitest --project=jsdom",
     "test:watch": "vitest --project=jsdom --watch=true",
-    "test:coverage": "vitest --project=jsdom --coverage",
     "test:browser": "vitest --project=browser",
     "test:browser:watch": "vitest --project=browser --watch=true",
     "tsc": "tsc --pretty",
@@ -24,17 +23,17 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "7.22.0",
-    "@navikt/ds-css": "7.22.0",
-    "@navikt/ds-react": "7.22.0",
+    "@navikt/aksel-icons": "7.32.1",
+    "@navikt/ds-css": "7.32.1",
+    "@navikt/ds-react": "7.32.1",
     "@navikt/ft-form-hooks": "workspace:^",
     "@navikt/ft-form-validators": "workspace:^",
     "@navikt/ft-ui-komponenter": "workspace:^",
     "@navikt/ft-utils": "workspace:^",
     "classnames": "2.5.1",
-    "react": "19.1.0",
-    "react-hook-form": "7.57.0",
-    "react-intl": "7.1.11"
+    "react": "19.2.0",
+    "react-hook-form": "7.65.0",
+    "react-intl": "7.1.14"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "7.x",
@@ -42,7 +41,7 @@
     "@navikt/ds-react": "7.x",
     "@navikt/ft-form-hooks": "5.x",
     "@navikt/ft-form-validators": "2.x",
-    "@navikt/ft-kodeverk": "3.x",
+    "@navikt/ft-kodeverk": "4.x",
     "@navikt/ft-types": "3.x",
     "@navikt/ft-ui-komponenter": "2.x",
     "@navikt/ft-utils": "2.x",
@@ -52,16 +51,18 @@
     "react-intl": "6.x"
   },
   "devDependencies": {
+    "@navikt/ft-config-eslint": "workspace:^",
+    "@navikt/ft-config-typescript": "workspace:^",
+    "@navikt/ft-config-vite": "workspace:^",
     "@navikt/ft-frontend-storybook-utils": "workspace:^",
-    "@testing-library/dom": "10.4.0",
+    "@testing-library/dom": "10.4.1",
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
-    "cross-env": "7.0.3",
-    "eslint": "9.28.0",
-    "stylelint": "16.20.0",
-    "typescript": "5.8.3",
-    "vite": "6.3.5",
-    "vitest": "3.2.3"
+    "eslint": "9.37.0",
+    "stylelint": "16.25.0",
+    "typescript": "5.9.3",
+    "vite": "7.1.10",
+    "vitest": "3.2.4"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -69,8 +70,7 @@
   "exports": {
     ".": {
       "import": "./dist/index.es.js",
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.umd.js"
+      "types": "./dist/index.d.ts"
     },
     "./dist/style.css": "./dist/style.css"
   }

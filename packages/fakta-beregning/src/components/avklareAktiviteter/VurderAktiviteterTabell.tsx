@@ -3,16 +3,16 @@ import { FormattedMessage } from 'react-intl';
 import { Label, Table, VStack } from '@navikt/ds-react';
 
 import { OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { dateFormat } from '@navikt/ft-utils';
 
-import { AktiviteterValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
-import { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import type { AktiviteterValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
+import type { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
+import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { VurderAktiviteterTabellRad } from './VurderAktiviteterRow';
 import { isSameOrBefore, lagAktivitetFieldId, mapToInitialValues } from './vurderAktiviteterTabellUtils';
 
-import tableStyles from '../felles/tableStyle.module.css';
+import styles from './vurderAktiviteterTabell.module.css';
 
 const finnHeading = (aktiviteter: BeregningAktivitet[], skjaeringstidspunkt: string) => {
   const harVentelonnVartpenger = aktiviteter.some(
@@ -60,9 +60,9 @@ export const VurderAktiviteterTabell = ({
   arbeidsgiverOpplysningerPerId,
   fieldId,
 }: Props) => (
-  <VStack gap="2">
+  <VStack gap="space-8">
     {finnHeading(aktiviteter, tomDatoForAktivitetGruppe)}
-    <Table size="small" className={tableStyles.tableMedInput}>
+    <Table size="small" className={styles.table}>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell textSize="small">

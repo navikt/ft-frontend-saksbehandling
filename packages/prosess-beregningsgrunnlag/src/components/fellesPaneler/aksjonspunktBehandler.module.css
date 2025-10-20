@@ -1,17 +1,17 @@
 .aksjonspunktBehandlerBorder {
-  border-bottom: 1px solid var(--a-orange-500);
+  border-bottom: 1px solid var(--ax-warning-600);
   border-bottom-right-radius: 3px;
-  border-left: 8px solid var(--a-orange-500);
-  border-right: 1px solid var(--a-orange-500);
+  border-left: 8px solid var(--ax-warning-600);
+  border-right: 1px solid var(--ax-warning-600);
   border-top: none;
   border-top-left-radius: 0;
   padding: 10px 20px 10px 20px;
 }
 .aksjonspunktBehandlerHeader {
-  background-color: var(--a-orange-100);
-  border-left: 8px solid var(--a-orange-500);
-  border-right: 1px solid var(--a-orange-500);
-  border-top: 1px solid var(--a-orange-500);
+  background-color: var(--ax-warning-200);
+  border-left: 8px solid var(--ax-warning-600);
+  border-right: 1px solid var(--ax-warning-600);
+  border-top: 1px solid var(--ax-warning-600);
   border-top-right-radius: 3px;
   padding: 10px 20px 10px 20px;
 }
@@ -42,7 +42,7 @@
 }
 
 .warningIcon {
-  color: var(--a-surface-warning);
+  color: var(--ax-bg-warning-strong);
   height: 24px;
   width: 24px;
 }

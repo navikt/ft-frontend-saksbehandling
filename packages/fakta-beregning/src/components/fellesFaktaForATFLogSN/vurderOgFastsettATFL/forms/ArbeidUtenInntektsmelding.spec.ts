@@ -1,12 +1,10 @@
-import {
-  AktivitetStatus,
-  FaktaOmBeregningTilfelle,
-  Organisasjonstype as organisasjonstyper,
-} from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import type { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
-import { InntektTransformed } from '../../../../typer/FieldValues';
+import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
+import { Organisasjonstype } from '../../../../kodeverk/organisasjonstype';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
+import type { InntektTransformed } from '../../../../typer/FieldValues';
 import { transformValuesArbeidUtenInntektsmelding } from './ArbeidUtenInntektsmelding';
 import { lonnsendringField } from './lonnsendringFormUtils';
 
@@ -37,7 +35,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: [
         FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE,
-        FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
+        FaktaOmBeregningTilfelle.FASTSETT_MÅNEDSLØNN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
       ],
     };
     const transformed = transformValuesArbeidUtenInntektsmelding(
@@ -55,7 +53,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: [
         FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE,
-        FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
+        FaktaOmBeregningTilfelle.FASTSETT_MÅNEDSLØNN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
       ],
     };
     const inntektVerdier = [{ andelsnr: 1, fastsattBelop: 100000 }];
@@ -65,7 +63,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
           beregningsgrunnlagPrStatusOgAndel: [
             {
               andelsnr: 1,
-              arbeidsforhold: { organisasjonstype: organisasjonstyper.KUNSTIG },
+              arbeidsforhold: { organisasjonstype: Organisasjonstype.KUNSTIG },
             } as BeregningsgrunnlagAndel,
           ],
         },
@@ -87,7 +85,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: [
         FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE,
-        FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
+        FaktaOmBeregningTilfelle.FASTSETT_MÅNEDSLØNN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
       ],
     };
     const inntektVerdier = [{ andelsnr: 1, fastsattBelop: 10000, inntektskategori: 'ARBEIDSTAKER' }];
@@ -97,7 +95,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
           beregningsgrunnlagPrStatusOgAndel: [
             {
               andelsnr: 1,
-              arbeidsforhold: { organisasjonstype: organisasjonstyper.KUNSTIG },
+              arbeidsforhold: { organisasjonstype: Organisasjonstype.KUNSTIG },
             } as BeregningsgrunnlagAndel,
           ],
         },
@@ -112,7 +110,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
       fastsatteAndeler,
     );
     const tilfeller = transformed.faktaOmBeregningTilfeller || [];
-    expect(tilfeller[0]).toBe(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING);
+    expect(tilfeller[0]).toBe(FaktaOmBeregningTilfelle.FASTSETT_MÅNEDSLØNN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING);
     const andeler = transformed.fastsattUtenInntektsmelding?.andelListe || [];
     expect(andeler[0].andelsnr).toBe(1);
     expect(andeler[0].fastsattBeløp).toBe(10000);
@@ -129,7 +127,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
     const inntektVerdier = [{ fastsattBelop: 10000, andelsnr: 1, inntektskategori: 'ARBEIDSTAKER' }];
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
-      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING],
+      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING],
       arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1, aktivitetStatus: AktivitetStatus.ARBEIDSTAKER }],
     };
     const bg = {
@@ -167,7 +165,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
     const inntektVerdier: InntektTransformed[] = [{ andelsnr: 1 } as InntektTransformed];
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
-      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING],
+      faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING],
       arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1, aktivitetStatus: AktivitetStatus.ARBEIDSTAKER }],
     };
     const bg = {
@@ -203,7 +201,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
       ];
       const faktaOmBeregning = {
         andelerForFaktaOmBeregning: [],
-        faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING],
+        faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING],
         arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1, aktivitetStatus: AktivitetStatus.ARBEIDSTAKER }],
       };
       const bg = {

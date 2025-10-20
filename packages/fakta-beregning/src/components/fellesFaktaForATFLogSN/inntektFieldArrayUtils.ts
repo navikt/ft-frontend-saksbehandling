@@ -1,9 +1,9 @@
-import { UseFieldArrayAppend, UseFieldArrayRemove } from 'react-hook-form';
+import { type UseFieldArrayAppend, type UseFieldArrayRemove } from 'react-hook-form';
 
 import { AktivitetStatus, Inntektskategori } from '@navikt/ft-kodeverk';
 
-import { AndelFieldValue } from '../../typer/FieldValues';
-import { KodeverkForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanel';
+import type { AndelFieldValue } from '../../typer/FieldValues';
+import type { KodeverkForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanel';
 
 const findAktivitetStatusIndex = (fields: AndelFieldValue[], aktivitetStatusKode: string) => {
   let index = -1;

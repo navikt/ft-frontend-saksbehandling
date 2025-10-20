@@ -1,23 +1,23 @@
 import { useState } from 'react';
 import { RawIntlProvider } from 'react-intl';
 
+import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { Tabs, VStack } from '@navikt/ds-react';
 
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardFaktaPanelProps } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardFaktaPanelProps } from '@navikt/ft-types';
 import { DateLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { createIntl } from '@navikt/ft-utils';
 
 import { finnVilkårsperiode, vurderesIBehandlingen } from './components/felles/vilkårsperiodeUtils';
 import { FordelBeregningsgrunnlagPanel } from './components/FordelBeregningsgrunnlagPanel';
-import {
+import type { AksjonspunktSubmitType } from './types/AksjonspunktSubmitType';
+import type {
   FordelBeregningsgrunnlagFormValues,
   VurderRefusjonFormValues,
 } from './types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from './types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import { FordelBeregningsgrunnlagAP } from './types/interface/FordelBeregningsgrunnlagAP';
-import { VurderRefusjonBeregningsgrunnlagAP } from './types/interface/VurderRefusjonBeregningsgrunnlagAP';
-import { KodeverkForPanel } from './types/kodeverkForPanel';
-import { Vilkår, Vilkårperiode } from './types/Vilkår';
+import type { KodeverkForPanel } from './types/kodeverkForPanel';
+import type { Vilkår, Vilkårperiode } from './types/Vilkår';
 
 import messages from '../i18n/nb_NO.json';
 
@@ -46,14 +46,10 @@ type OwnProps = {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   kodeverkSamling: KodeverkForPanel;
   submittable: boolean;
-  skalHåndtereNyInntekt?: boolean;
 };
 
 type Props = OwnProps &
-  StandardFaktaPanelProps<
-    FordelBeregningsgrunnlagAP | VurderRefusjonBeregningsgrunnlagAP,
-    FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues
-  >;
+  StandardFaktaPanelProps<AksjonspunktSubmitType, FordelBeregningsgrunnlagFormValues | VurderRefusjonFormValues>;
 
 export const FordelBeregningsgrunnlagFaktaIndex = ({
   beregningsgrunnlagVilkår,
@@ -77,7 +73,7 @@ export const FordelBeregningsgrunnlagFaktaIndex = ({
 
   return (
     <RawIntlProvider value={intl}>
-      <VStack gap="2">
+      <VStack gap="space-8" maxWidth="800px">
         {skalBrukeTabs && (
           <Tabs
             value={aktivtBeregningsgrunnlagIndeks.toString()}
@@ -86,12 +82,14 @@ export const FordelBeregningsgrunnlagFaktaIndex = ({
             <Tabs.List>
               {bgMedAvklaringsbehov.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => (
                 <Tabs.Tab
+                  icon={
+                    skalVurderes(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder) ? (
+                      <ExclamationmarkTriangleFillIcon color="var(--ax-text-warning-decoration)" />
+                    ) : undefined
+                  }
                   key={currentBeregningsgrunnlag.skjaeringstidspunktBeregning}
                   value={currentBeregningsgrunnlagIndex.toString()}
                   label={lagLabel(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder)}
-                  className={
-                    skalVurderes(currentBeregningsgrunnlag, beregningsgrunnlagVilkår.perioder) ? 'harAksjonspunkt' : ''
-                  }
                 />
               ))}
             </Tabs.List>

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { CheckmarkIcon } from '@navikt/aksel-icons';
@@ -6,7 +6,7 @@ import { BodyShort, ReadMore } from '@navikt/ds-react';
 
 import styles from './blaBoksMedCheckmarkListe.module.css';
 
-export type Saksopplysning = {
+type Saksopplysning = {
   textId: string;
   readMoreContent: ReactNode | ReactNode[] | string;
 };

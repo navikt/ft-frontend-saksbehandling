@@ -4,15 +4,15 @@ import { Label } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
+import type { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 
 import { BeregningsresultatPeriode } from './BeregningsresultatPeriode';
 import {
   erSøktForAndelISøknadsperiode,
   finnBruttoForStatusIPeriode,
   finnFrisinnperioderSomSkalVises,
-  FrisinnGrunnlag,
-  FrisinnPeriode,
+  type FrisinnGrunnlag,
+  type FrisinnPeriode,
 } from './FrisinnUtils';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
@@ -30,12 +30,12 @@ const finnBGFrilans = (bg: Beregningsgrunnlag, periode: BeregningsgrunnlagPeriod
   inntektstak -= atBrutto;
   if (
     !erSøktForAndelISøknadsperiode(
-      AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+      AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
       periode,
       bg.ytelsesspesifiktGrunnlag as FrisinnGrunnlag,
     )
   ) {
-    const snBrutto = finnBruttoForStatusIPeriode(AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE, bg, periode);
+    const snBrutto = finnBruttoForStatusIPeriode(AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE, bg, periode);
     inntektstak -= snBrutto;
   }
   const frilansBrutto = finnBruttoForStatusIPeriode(AktivitetStatus.FRILANSER, bg, periode);
@@ -45,7 +45,7 @@ const finnBGFrilans = (bg: Beregningsgrunnlag, periode: BeregningsgrunnlagPeriod
 const finnBGNæring = (bg: Beregningsgrunnlag, periode: BeregningsgrunnlagPeriodeProp): number => {
   if (
     !erSøktForAndelISøknadsperiode(
-      AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+      AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
       periode,
       bg.ytelsesspesifiktGrunnlag as FrisinnGrunnlag,
     )
@@ -57,7 +57,7 @@ const finnBGNæring = (bg: Beregningsgrunnlag, periode: BeregningsgrunnlagPeriod
   inntektstak -= atBrutto;
   const flBrutto = finnBruttoForStatusIPeriode(AktivitetStatus.FRILANSER, bg, periode);
   inntektstak -= flBrutto;
-  const snBrutto = finnBruttoForStatusIPeriode(AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE, bg, periode);
+  const snBrutto = finnBruttoForStatusIPeriode(AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE, bg, periode);
   return snBrutto > inntektstak ? inntektstak : snBrutto;
 };
 

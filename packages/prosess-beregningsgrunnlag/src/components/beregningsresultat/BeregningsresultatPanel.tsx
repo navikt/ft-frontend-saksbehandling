@@ -3,19 +3,19 @@ import { FormattedMessage } from 'react-intl';
 import { Heading, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { AktivitetStatus, isAksjonspunktOpen, PeriodeAarsak } from '@navikt/ft-kodeverk';
-import { BeregningAvklaringsbehov, Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
+import { AktivitetStatus, PeriodeÅrsak } from '@navikt/ft-kodeverk';
+import type { BeregningAvklaringsbehov, Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { isAksjonspunktOpen, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
-import { TabellData, TabellMap, TabellRadData } from '../../types/BeregningsresultatTabellType';
+import type { TabellData, TabellMap, TabellRadData } from '../../types/BeregningsresultatTabellType';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { Vilkårperiode } from '../../types/Vilkår';
+import type { Vilkårperiode } from '../../types/Vilkår';
 import { OppsummertGrunnlagPanel } from './OppsummertGrunnlagPanel';
 
 const ÅRSAKER_SOM_KAN_GI_NY_DAGSATS: string[] = [
-  PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET,
-  PeriodeAarsak.NATURALYTELSE_TILKOMMER,
-  PeriodeAarsak.NATURALYTELSE_BORTFALT,
+  PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET,
+  PeriodeÅrsak.NATURALYTELSE_TILKOMMER,
+  PeriodeÅrsak.NATURALYTELSE_BORTFALT,
 ];
 
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean =>
@@ -45,7 +45,7 @@ const finnAksjonspunktForStatus = (
           ak.definisjon ===
             ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
       );
-    case AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE:
+    case AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE:
       return avklaringsbehov.find(
         ak =>
           ak.definisjon ===
@@ -100,8 +100,7 @@ const lagAndeler = (
     const inntekt = liste.reduce((sum, andel) => finnForeslåttBeløp(andel) + sum, 0);
     const bortfaltNaturalytelse = liste.reduce((sum, andel) => finnNaturalytelsebeløp(andel) + sum, 0);
     const inntektPlussNaturalytelse = (inntekt || 0) + (bortfaltNaturalytelse || 0);
-    const finnesÅpentAksjonspunkt = !!aksjonspunkt && isAksjonspunktOpen(aksjonspunkt.status);
-    const erFerdigBeregnet = alleAndelerErBeregnet && !finnesÅpentAksjonspunkt;
+    const erFerdigBeregnet = alleAndelerErBeregnet && !isAksjonspunktOpen(aksjonspunkt);
     radListe.push({
       inntekt,
       bortfaltNaturalytelse,
@@ -167,11 +166,11 @@ export const BeregningsresultatPanel = ({ beregningsgrunnlag, vilkårsperiode }:
   const tabellData = utledTabellData(beregningsgrunnlag);
 
   return (
-    <VStack gap="1">
-      <Heading size="xsmall">
+    <VStack gap="space-4">
+      <Heading size="xsmall" level="4">
         <FormattedMessage id="BeregningsresultatPanel.Tittel" />
       </Heading>
-      <VStack gap="8">
+      <VStack gap="space-32">
         {tabellData.map(tab => (
           <OppsummertGrunnlagPanel
             key={tab.fom}

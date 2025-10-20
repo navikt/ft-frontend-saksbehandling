@@ -1,13 +1,13 @@
-import { ReactElement } from 'react';
+import { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, HStack, Tag, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, Saksopplysninger } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, Saksopplysninger } from '@navikt/ft-types';
 import { DateLabel } from '@navikt/ft-ui-komponenter';
 
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { Lønnsendring } from './Lønnsendring';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
@@ -21,7 +21,7 @@ enum TagType {
 
 const finnTagType = (status: string): TagType => {
   switch (status) {
-    case AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE:
+    case AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE:
       return TagType.GRØNN;
     case AktivitetStatus.FRILANSER:
       return TagType.LILLA;
@@ -51,7 +51,7 @@ const createStatusEtiketter = (
 
   statusList.sort((a, b) => (a.visningsNavn > b.visningsNavn ? 1 : -1));
   return (
-    <HStack gap="2">
+    <HStack gap="space-8">
       {statusList.map(status => (
         <Tag
           key={status.kode}
@@ -87,9 +87,9 @@ export const SkjeringspunktOgStatusPanel = ({
   saksopplysninger,
   arbeidsgiverOpplysningerPerId,
 }: Props) => (
-  <VStack gap="4">
+  <VStack gap="space-16">
     {createStatusEtiketter(aktivitetStatusList, kodeverkSamling)}
-    <HStack gap="2">
+    <HStack gap="space-8">
       <BodyShort size="small">
         <FormattedMessage id="SkjeringspunktOgStatusPanel.SkjeringForBeregning" />
       </BodyShort>

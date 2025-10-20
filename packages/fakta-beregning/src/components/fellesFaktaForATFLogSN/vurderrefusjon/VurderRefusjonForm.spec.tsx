@@ -1,13 +1,12 @@
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-
-import { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
+import { FaktaOmBeregningTilfelle } from '../../../kodeverk/faktaOmBeregningTilfelle';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
 import { erRefusjonskravGyldigFieldPrefix, VurderRefusjonForm } from './VurderRefusjonForm';
 
 const { VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT } = FaktaOmBeregningTilfelle;
 
 const lagFieldName = (arbeidsgiverId: string): string => erRefusjonskravGyldigFieldPrefix + arbeidsgiverId;
 
-describe('<VurderRefusjonForm>', () => {
+describe('VurderRefusjonForm', () => {
   it('skal bygge initial values', () => {
     const senRefusjonkravListe = [
       { erRefusjonskravGyldig: true, arbeidsgiverIdent: '8279312213' },

@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Label, VStack } from '@navikt/ds-react';
 
-import { BeregningAvklaringsbehov } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import styles from './graderingUtenBGReadOnly.module.css';
@@ -21,7 +21,7 @@ export const GraderingUtenBGReadOnly = ({ avklaringsbehov }: Props) => {
     return null;
   }
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       <Label size="small">
         <FormattedMessage id="GraderingUtenBGReadOnly.Label" />
       </Label>

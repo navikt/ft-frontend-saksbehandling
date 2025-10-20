@@ -1,4 +1,4 @@
-import {
+import type {
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   FaktaOmBeregning,
@@ -7,7 +7,7 @@ import {
   VurderMottarYtelse,
 } from '@navikt/ft-types';
 
-import { AndelFieldValue } from './FieldValues';
+import type { AndelFieldValue } from './FieldValues';
 
 export type TidsbegrensetandelValues = {
   [key: string]: boolean;
@@ -77,10 +77,6 @@ export type FrilansinntektValues = {
   fastsattBelop: number;
 };
 
-export type ArbeidUnderAAPValues = {
-  fastsattBelop: number;
-};
-
 export type KunstigAndelValues = {
   fastsattBelop: number;
 };
@@ -102,7 +98,7 @@ export type ArbeidstakerInntektValues = {
   arbeidsgiverIdent?: string;
 };
 
-export type TilfellerValues = VurderMilitærValues &
+type TilfellerValues = VurderMilitærValues &
   NyIArbeidslivetValues &
   LønnsendringValues &
   NyoppstartetFLValues &
@@ -115,7 +111,6 @@ export type TilfellerValues = VurderMilitærValues &
     vurderRefusjonValues?: VurderRefusjonValues;
     kunstigAndelInntektValues?: KunstigAndelValues;
     frilansInntektValues?: FrilansinntektValues;
-    arbeidUnderAAPInntektValues?: ArbeidUnderAAPValues;
     arbeidstakerInntektValues?: ArbeidstakerInntektValues[];
     dagpengerInntektValues?: DagpengerinntektValues;
     selvstendigNæringsdrivendeInntektValues?: SelvstendigNæringsdrivendeInntektValues;

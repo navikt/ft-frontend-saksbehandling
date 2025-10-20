@@ -1,9 +1,9 @@
-import { BeregningAvklaringsbehov } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehov } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
-import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
+import type { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
+import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../utils/BeregningFormUtils';
 import { transformValuesFaktaForATFLOgSN } from './faktaForATFLOgSNPanelUtils';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';

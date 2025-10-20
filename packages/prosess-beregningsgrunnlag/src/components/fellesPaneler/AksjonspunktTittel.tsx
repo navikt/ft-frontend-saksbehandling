@@ -1,8 +1,8 @@
-import { ReactElement } from 'react';
+import { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { AktivitetStatus, isAksjonspunktOpen, SammenligningType } from '@navikt/ft-kodeverk';
-import {
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import type {
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   Beregningsgrunnlag as BeregningsgrunnlagProp,
@@ -10,8 +10,9 @@ import {
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
-import { BTag } from '@navikt/ft-utils';
+import { BTag, isAksjonspunktOpen } from '@navikt/ft-utils';
 
+import { SammenligningType } from '../../kodeverk/sammenligningType';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
 const {
@@ -94,7 +95,7 @@ const lagAksjonspunktHelpText = (
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
 ): ReactElement => {
   const snAndel = alleAndelerIForstePeriode.find(
-    andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
   );
   const erVarigEndring = !!snAndel?.næringer?.some(naring => naring.erVarigEndret === true);
   return (
@@ -127,7 +128,7 @@ export const AksjonspunktTittel = ({ avklaringsbehov, beregningsgrunnlag }: Prop
     førstePeriode && førstePeriode.beregningsgrunnlagPrStatusOgAndel
       ? førstePeriode.beregningsgrunnlagPrStatusOgAndel
       : [];
-  const åpneAksjonspunkter = avklaringsbehov.filter(ap => isAksjonspunktOpen(ap.status));
+  const åpneAksjonspunkter = avklaringsbehov.filter(isAksjonspunktOpen);
   const harGrunnTilÅViseKomponent = definertOgIkkeTom(åpneAksjonspunkter) && definertOgIkkeTom(andelerIFørstePeriode);
   if (!harGrunnTilÅViseKomponent) {
     return null;

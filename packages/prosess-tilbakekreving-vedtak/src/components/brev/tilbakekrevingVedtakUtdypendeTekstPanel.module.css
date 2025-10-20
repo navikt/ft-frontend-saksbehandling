@@ -1,14 +1,5 @@
-.addCircleIcon {
-  color: var(--a-blue-500);
-  display: inline-block;
-  margin-right: 1ex;
-  vertical-align: text-bottom;
-}
-.imageText {
-  display: inline-block;
-  margin-right: 1ex;
-  vertical-align: text-bottom;
-}
-.addPeriode {
-  cursor: pointer;
+
+.addPeriodeButton {
+    background-color: transparent;
+    padding-inline: 0;
 }

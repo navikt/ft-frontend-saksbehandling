@@ -6,7 +6,7 @@ export const EditedIcon = () => (
       title="Saksbehandler har endret feltets verdi"
       height={20}
       width={20}
-      color="var(--a-icon-warning)"
+      color="var(--ax-text-neutral)"
     />
   </span>
 );

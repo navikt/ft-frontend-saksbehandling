@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { InputField } from '@navikt/ft-form-hooks';
+import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { AndelForFaktaOmBeregning } from '@navikt/ft-types';
+import type { AndelForFaktaOmBeregning } from '@navikt/ft-types';
 import { parseCurrencyInput } from '@navikt/ft-utils';
 
-import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
+import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 
 interface Props {
   name: string;
@@ -16,12 +16,14 @@ interface Props {
 }
 
 export const InntektInput = ({ name, readOnly, isAksjonspunktClosed, label }: Props) => {
-  const { resetField } = useFormContext<VurderFaktaBeregningFormValues>();
+  const { resetField, control } = useFormContext<VurderFaktaBeregningFormValues>();
   useEffect(() => () => resetField(name as 'vurderFaktaBeregningForm.0.arbeidstakerInntektValues.0.fastsattBelop'), []);
 
   return (
-    <InputField
+    <RhfTextField
+      // @ts-expect-error fiks
       name={name}
+      control={control}
       htmlSize={8}
       parse={parseCurrencyInput}
       readOnly={readOnly}
@@ -35,12 +37,9 @@ export const InntektInput = ({ name, readOnly, isAksjonspunktClosed, label }: Pr
 InntektInput.buildInitialValues = (
   andelerForFaktaOmBeregning: AndelForFaktaOmBeregning[],
   aktivitetStatus: string,
-  opptjeningsaktivitetType?: string,
 ): { fastsattBelop: number } | undefined => {
   const fastsattBelop = andelerForFaktaOmBeregning?.find(
-    andel =>
-      andel.aktivitetStatus === aktivitetStatus &&
-      (!opptjeningsaktivitetType || andel.arbeidsforhold?.arbeidsforholdType === opptjeningsaktivitetType),
+    andel => andel.aktivitetStatus === aktivitetStatus,
   )?.fastsattBelop;
 
   if (!fastsattBelop) {

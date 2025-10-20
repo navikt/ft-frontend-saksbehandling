@@ -3,11 +3,9 @@ import { FormattedMessage } from 'react-intl';
 import { Heading, Label, Table } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { BTag, dateFormat } from '@navikt/ft-utils';
-
-import tableStyle from '../tableStyle.module.css';
 
 type Props = {
   alleAndeler: BeregningsgrunnlagAndel[];
@@ -31,7 +29,7 @@ export const GrunnlagForAarsinntektPanelFL = ({ alleAndeler }: Props) => {
   const startdato = relevantAndel.arbeidsforhold?.startdato;
   return (
     <div>
-      <Heading size="medium">
+      <Heading size="medium" level="4">
         <FormattedMessage id="GrunnlagForAarsinntektPanelFL.Tittel" />
       </Heading>
       {startdato && (
@@ -42,7 +40,7 @@ export const GrunnlagForAarsinntektPanelFL = ({ alleAndeler }: Props) => {
           />
         </Label>
       )}
-      <Table size="small" className={tableStyle.table}>
+      <Table size="small">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell />

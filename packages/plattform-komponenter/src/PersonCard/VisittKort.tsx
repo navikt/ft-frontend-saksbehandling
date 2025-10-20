@@ -10,14 +10,14 @@ interface CardProps {
 
 export const VisittKort = ({ children, active, icon }: CardProps) => (
   <HStack
-    gap="4"
+    gap="space-16"
     align="center"
     wrap={false}
     padding="4"
     style={{
       zIndex: 2,
       overflow: 'hidden',
-      borderBottom: active ? '4px solid var(--a-border-action-selected)' : '0',
+      borderBottom: active ? '4px solid var(--ax-border-accent-strong)' : '0',
     }}
   >
     <div style={{ display: 'flex' }}>{icon}</div>

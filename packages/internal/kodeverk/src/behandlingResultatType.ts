@@ -21,28 +21,3 @@ export enum BehandlingResultatType {
   MANGLER_BEREGNINGSREGLER = 'MANGLER_BEREGNINGSREGLER',
   HENLAGT_SOKNAD_MANGLER = 'HENLAGT_SØKNAD_MANGLER',
 }
-
-const innvilgetKlageResultatTyper = [
-  BehandlingResultatType.KLAGE_MEDHOLD,
-  BehandlingResultatType.KLAGE_YTELSESVEDTAK_STADFESTET,
-  BehandlingResultatType.DELVIS_MEDHOLD_I_KLAGE,
-  BehandlingResultatType.HJEMSENDE_UTEN_OPPHEVE,
-];
-
-const innvilgetRevurderingFPResultatTyper = [
-  BehandlingResultatType.FORELDREPENGER_ENDRET,
-  BehandlingResultatType.INGEN_ENDRING,
-];
-
-export const isInnvilget = (behandlingResultatTypeKode: string): boolean =>
-  innvilgetKlageResultatTyper.some(t => t === behandlingResultatTypeKode) ||
-  innvilgetRevurderingFPResultatTyper.some(t => t === behandlingResultatTypeKode) ||
-  behandlingResultatTypeKode === BehandlingResultatType.INNVILGET;
-
-export const isAvslag = (behandlingResultatTypeKode: string): boolean =>
-  behandlingResultatTypeKode === BehandlingResultatType.AVSLATT ||
-  behandlingResultatTypeKode === BehandlingResultatType.KLAGE_AVVIST ||
-  behandlingResultatTypeKode === BehandlingResultatType.KLAGE_YTELSESVEDTAK_OPPHEVET;
-
-export const isOpphor = (behandlingResultatTypeKode: string): boolean =>
-  behandlingResultatTypeKode === BehandlingResultatType.OPPHOR;

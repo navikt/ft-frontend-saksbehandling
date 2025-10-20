@@ -1,6 +1,6 @@
-import { FaktaOmBeregning } from '@navikt/ft-types';
+import type { FaktaOmBeregning } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
 import { VurderMilitaer, vurderMilitaerField } from './VurderMilitaer';
 
 const mockBGMedStatus = (mili: boolean) => ({

@@ -1,7 +1,7 @@
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { VurderBesteberegning } from '@navikt/ft-types';
+import type { VurderBesteberegning } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
+import { FaktaOmBeregningTilfelle } from '../../../kodeverk/faktaOmBeregningTilfelle';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
 import { FaktaBeregningAvklaringsbehovCode } from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { besteberegningField, VurderBesteberegningForm } from './VurderBesteberegningForm';
 
@@ -12,7 +12,7 @@ const emptyValues: FaktaOmBeregningAksjonspunktValues = {
   periode: { fom: '2022-01-01', tom: '2022-02-01' },
 } as FaktaOmBeregningAksjonspunktValues;
 
-describe('<VurderBesteberegning>', () => {
+describe('VurderBesteberegningForm', () => {
   it('skal bygge initial values', () => {
     const vurderBesteberegning = {
       skalHaBesteberegning: false,

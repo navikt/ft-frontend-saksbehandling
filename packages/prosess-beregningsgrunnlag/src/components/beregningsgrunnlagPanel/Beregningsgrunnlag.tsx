@@ -1,6 +1,6 @@
 import { VStack } from '@navikt/ds-react';
 
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   BeregningsgrunnlagAndel,
@@ -10,14 +10,14 @@ import {
 } from '@navikt/ft-types';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { ATFLBegrunnelseValues, ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
-import {
+import type { ATFLBegrunnelseValues, ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
+import type {
   FastsettAvvikATFLResultatAP,
   FastsettAvvikATFLTidsbegrensetResultatAP,
 } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
-import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
+import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import type { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 import { AksjonspunktBehandlerAT } from '../arbeidstaker/AksjonspunktBehandlerAT';
 import { AksjonspunktBehandlerTidsbegrenset } from '../arbeidstaker/AksjonspunktBehandlerTB';
 import { GrunnlagForAarsinntektPanelAT } from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
@@ -84,7 +84,7 @@ export const Beregningsgrunnlag = ({
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
 
   return (
-    <VStack gap="8">
+    <VStack gap="space-32">
       {relevanteStatuser.isArbeidstaker && (
         <>
           <GrunnlagForAarsinntektPanelAT

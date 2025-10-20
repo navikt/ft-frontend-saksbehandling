@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-utils",
-  "version": "3.6.2",
+  "version": "3.8.11",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -10,7 +10,6 @@
   "scripts": {
     "test": "vitest --project=jsdom",
     "test:watch": "vitest --project=jsdom --watch=true",
-    "test:coverage": "vitest --project=jsdom --coverage",
     "test:browser": "vitest --project=browser",
     "test:browser:watch": "vitest --project=browser --watch=true",
     "tsc": "tsc --pretty",
@@ -22,8 +21,8 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "dayjs": "1.11.13",
-    "react-intl": "7.1.11"
+    "dayjs": "1.11.18",
+    "react-intl": "7.1.14"
   },
   "peerDependencies": {
     "dayjs": "1.11.x",
@@ -31,10 +30,13 @@
     "react-intl": "6.x"
   },
   "devDependencies": {
-    "eslint": "9.28.0",
-    "typescript": "5.8.3",
-    "vite": "6.3.5",
-    "vitest": "3.2.3"
+    "@navikt/ft-config-eslint": "workspace:^",
+    "@navikt/ft-config-typescript": "workspace:^",
+    "@navikt/ft-config-vite": "workspace:^",
+    "eslint": "9.37.0",
+    "typescript": "5.9.3",
+    "vite": "7.1.10",
+    "vitest": "3.2.4"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -46,8 +48,7 @@
   "exports": {
     ".": {
       "import": "./dist/index.es.js",
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.umd.js"
+      "types": "./dist/index.d.ts"
     }
   }
 }

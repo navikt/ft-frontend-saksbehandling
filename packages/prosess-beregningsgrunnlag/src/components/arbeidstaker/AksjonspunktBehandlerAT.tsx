@@ -1,14 +1,17 @@
+import { useFormContext } from 'react-hook-form';
+
 import { BodyShort } from '@navikt/ds-react';
 
-import { InputField } from '@navikt/ft-form-hooks';
+import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
-import { ArbeidsinntektResultat } from '../../types/interface/BeregningsgrunnlagAP';
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import type { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
+import type { BeregningFormValues } from '../../types/BeregningFormValues';
+import type { ArbeidsinntektResultat } from '../../types/interface/BeregningsgrunnlagAP';
+import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 import { HorizontalBox } from '../../util/HorizontalBox';
 
@@ -51,6 +54,7 @@ export const AksjonspunktBehandlerAT = ({
   formName,
   skalValideres,
 }: Props) => {
+  const { control } = useFormContext<BeregningFormValues>();
   const relevanteAndelerAT = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode);
   return (
     <>
@@ -59,8 +63,9 @@ export const AksjonspunktBehandlerAT = ({
           <BodyShort size="small">
             {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling)}
           </BodyShort>
-          <InputField
+          <RhfTextField
             name={`${formName}.${fieldIndex}.inntekt${index}`}
+            control={control}
             validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
             readOnly={readOnly}
             parse={parseCurrencyInput}

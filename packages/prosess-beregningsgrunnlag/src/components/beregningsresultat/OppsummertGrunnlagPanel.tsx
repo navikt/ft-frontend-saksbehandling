@@ -1,21 +1,23 @@
-import React, { ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
 import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus, Dekningsgrad, FagsakYtelseType, VilkarUtfallType } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag, YtelseGrunnlag } from '@navikt/ft-types';
+import { AktivitetStatus, FagsakYtelseType } from '@navikt/ft-kodeverk';
+import type { Beregningsgrunnlag, YtelseGrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { BTag, formatCurrencyNoKr, periodFormat } from '@navikt/ft-utils';
 
-import { TabellData, TabellRadData } from '../../types/BeregningsresultatTabellType';
-import { Vilkårperiode } from '../../types/Vilkår';
+import { VilkårUtfallType } from '../../kodeverk/vilkårUtfallType';
+import type { TabellData, TabellRadData } from '../../types/BeregningsresultatTabellType';
+import type { Vilkårperiode } from '../../types/Vilkår';
 import { HorizontalBox } from '../../util/HorizontalBox';
 
 import styles from './oppsummertGrunnlagPanel.module.css';
 
 const VIRKEDAGER_PR_AAR = 260;
+const DEKNINGSGRAD_HUNDRE = 100;
 
 type StatusKonfigEntry = {
   rekkefølgePri: number;
@@ -56,7 +58,7 @@ const statusKonfigMap: StatusKonfig = {
     rekkefølgePri: 5,
     beskrivelseId: 'OppsummertGrunnlagPanel.Ytelse',
   },
-  [AktivitetStatus.MILITAER_ELLER_SIVIL]: {
+  [AktivitetStatus.MILITÆR_ELLER_SIVIL]: {
     rekkefølgePri: 6,
     beskrivelseId: 'OppsummertGrunnlagPanel.Militær',
   },
@@ -64,7 +66,7 @@ const statusKonfigMap: StatusKonfig = {
     rekkefølgePri: 7,
     beskrivelseId: 'OppsummertGrunnlagPanel.BrukersAndel',
   },
-  [AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE]: {
+  [AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE]: {
     rekkefølgePri: 8,
     beskrivelseId: 'OppsummertGrunnlagPanel.Næring',
   },
@@ -93,7 +95,7 @@ const finnDagsats = (tabellData: TabellData, ytelseGrunnlag?: YtelseGrunnlag): n
 };
 
 const lagIkkeOppfyltVisning = (grunnbeløp: number, erMidlertidigInaktiv: boolean): ReactElement => (
-  <HStack gap="2">
+  <HStack gap="space-8">
     <XMarkOctagonFillIcon className={styles.avslåttIkon} />
     <BodyShort size="small" className={styles.avslåttIkon}>
       <FormattedMessage
@@ -121,15 +123,15 @@ const lagResultatRader = (
   beregningsgrunnlag: Beregningsgrunnlag,
 ): ReactElement | null => {
   const sumBrutto = tabellData.andeler.reduce((sum, andel) => (andel.inntektPlussNaturalytelse || 0) + sum, 0);
-  if (vilkårPeriode.vilkarStatus === VilkarUtfallType.IKKE_VURDERT) {
+  if (vilkårPeriode.vilkarStatus === VilkårUtfallType.IKKE_VURDERT) {
     return null;
   }
-  if (vilkårPeriode.vilkarStatus === VilkarUtfallType.IKKE_OPPFYLT) {
+  if (vilkårPeriode.vilkarStatus === VilkårUtfallType.IKKE_OPPFYLT) {
     return lagIkkeOppfyltVisning(beregningsgrunnlag.grunnbeløp, sjekkErMidlertidigInaktiv(beregningsgrunnlag));
   }
   const seksG = beregningsgrunnlag.grunnbeløp * 6;
   const skalViseAvkortetRad = sumBrutto > seksG;
-  const skalViseRedusertRad = beregningsgrunnlag.dekningsgrad !== Dekningsgrad.HUNDRE;
+  const skalViseRedusertRad = beregningsgrunnlag.dekningsgrad !== DEKNINGSGRAD_HUNDRE;
   const dagsatsSomVises = finnDagsats(tabellData, beregningsgrunnlag.ytelsesspesifiktGrunnlag);
 
   return (
@@ -184,7 +186,7 @@ export const OppsummertGrunnlagPanel = ({ tabellData, skalVisePeriode, vilkårsp
   const alleAndelerErFastsatt = tabellData.andeler.every(andel => andel.erFerdigBeregnet);
 
   return (
-    <VStack gap="2">
+    <VStack gap="space-8">
       {skalVisePeriode && (
         <Label size="small">
           <FormattedMessage
@@ -195,7 +197,7 @@ export const OppsummertGrunnlagPanel = ({ tabellData, skalVisePeriode, vilkårsp
           />
         </Label>
       )}
-      <VStack gap="6">
+      <VStack gap="space-24">
         <div>
           {tabellData.andeler.map((rad, index) => (
             <React.Fragment key={rad.status}>

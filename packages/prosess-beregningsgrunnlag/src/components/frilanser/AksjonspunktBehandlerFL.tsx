@@ -1,14 +1,16 @@
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
 import { BodyShort } from '@navikt/ds-react';
 
-import { InputField } from '@navikt/ft-form-hooks';
+import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr, parseCurrencyInput } from '@navikt/ft-utils';
 
-import { FrilansInntektValues } from '../../types/ATFLAksjonspunkt';
+import type { FrilansInntektValues } from '../../types/ATFLAksjonspunkt';
+import type { BeregningFormValues } from '../../types/BeregningFormValues';
 import { HorizontalBox } from '../../util/HorizontalBox';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
@@ -38,22 +40,26 @@ export const AksjonspunktBehandlerFL = ({
   formName,
   alleAndelerIForstePeriode,
   skalValideres,
-}: Props) => (
-  <HorizontalBox>
-    <BodyShort size="small">
-      <FormattedMessage id="AksjonspunktBehandlerFL.Label" />
-    </BodyShort>
-    <InputField
-      name={`${formName}.${fieldIndex}.inntektFrilanser`}
-      validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
-      readOnly={readOnly}
-      hideLabel
-      parse={parseCurrencyInput}
-      className={styles.beløpInput}
-      isEdited={readOnly && erFrilansFastsatt(alleAndelerIForstePeriode)}
-    />
-  </HorizontalBox>
-);
+}: Props) => {
+  const { control } = useFormContext<BeregningFormValues>();
+  return (
+    <HorizontalBox>
+      <BodyShort size="small">
+        <FormattedMessage id="AksjonspunktBehandlerFL.Label" />
+      </BodyShort>
+      <RhfTextField
+        control={control}
+        name={`${formName}.${fieldIndex}.inntektFrilanser`}
+        validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
+        readOnly={readOnly}
+        hideLabel
+        parse={parseCurrencyInput}
+        className={styles.beløpInput}
+        isEdited={readOnly && erFrilansFastsatt(alleAndelerIForstePeriode)}
+      />
+    </HorizontalBox>
+  );
+};
 
 AksjonspunktBehandlerFL.buildInitialValues = (relevanteAndeler: BeregningsgrunnlagAndel[]): FrilansInntektValues => {
   const overstyrtBeløp =

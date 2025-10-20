@@ -1,14 +1,15 @@
-import {
-  AktivitetStatus,
-  AktivitetStatus as aktivitetStatuser,
-  FaktaOmBeregningTilfelle,
-  Inntektskategori,
-} from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag, BeregningsgrunnlagAndel, FaktaOmBeregning, FaktaOmBeregningAndel } from '@navikt/ft-types';
-import { ATFLSammeOrgAndel } from '@navikt/ft-types/src/BeregningsgrunnlagFakta';
+import { AktivitetStatus, AktivitetStatus as aktivitetStatuser, Inntektskategori } from '@navikt/ft-kodeverk';
+import type {
+  ATFLSammeOrgAndel,
+  Beregningsgrunnlag,
+  BeregningsgrunnlagAndel,
+  FaktaOmBeregning,
+  FaktaOmBeregningAndel,
+} from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
-import { AndelFieldValue } from '../../../typer/FieldValues';
+import { FaktaOmBeregningTilfelle } from '../../../kodeverk/faktaOmBeregningTilfelle';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
+import type { AndelFieldValue } from '../../../typer/FieldValues';
 import { besteberegningField } from '../besteberegningFodendeKvinne/VurderBesteberegningForm';
 import { INNTEKT_FIELD_ARRAY_NAME } from '../BgFaktaUtils';
 import { lonnsendringField } from './forms/lonnsendringFormUtils';
@@ -17,10 +18,10 @@ import { VurderOgFastsettATFL } from './VurderOgFastsettATFL';
 
 const {
   VURDER_BESTEBEREGNING,
-  VURDER_LONNSENDRING,
+  VURDER_LØNNSENDRING,
   VURDER_NYOPPSTARTET_FL,
   FASTSETT_MAANEDSINNTEKT_FL,
-  FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
+  FASTSETT_MÅNEDSLØNN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
 } = FaktaOmBeregningTilfelle;
 
 const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } };
@@ -79,7 +80,7 @@ const lagAndelValues = (
     kanRedigereInntekt,
   }) as AndelFieldValue;
 
-describe('<VurderOgFastsettATFL>', () => {
+describe('VurderOgFastsettATFL', () => {
   it('skal transform values om besteberegning', () => {
     const andelerFields: AndelFieldValue[] = [
       lagAndelValues(1, '10 000', Inntektskategori.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
@@ -128,7 +129,7 @@ describe('<VurderOgFastsettATFL>', () => {
     const andeler = [andelMedLonnsendring, lagAndel(2, aktivitetStatuser.FRILANSER, Inntektskategori.FRILANSER)];
     const beregningsgrunnlag = lagBeregningsgrunnlag(andeler);
     const faktaOmBeregning = lagFaktaOmBeregning(
-      [VURDER_BESTEBEREGNING, VURDER_NYOPPSTARTET_FL, VURDER_LONNSENDRING],
+      [VURDER_BESTEBEREGNING, VURDER_NYOPPSTARTET_FL, VURDER_LØNNSENDRING],
       [andelMedLonnsendring],
       undefined,
     );
@@ -163,7 +164,7 @@ describe('<VurderOgFastsettATFL>', () => {
     ];
     const beregningsgrunnlag = lagBeregningsgrunnlag(andeler);
     const faktaOmBeregning = lagFaktaOmBeregning(
-      [VURDER_LONNSENDRING, VURDER_NYOPPSTARTET_FL],
+      [VURDER_LØNNSENDRING, VURDER_NYOPPSTARTET_FL],
       [andelMedLonnsendring],
       undefined,
     );
@@ -177,10 +178,10 @@ describe('<VurderOgFastsettATFL>', () => {
     expect(transformed.fastsettMaanedsinntektFL?.maanedsinntekt).toBe(30000);
     expect(transformed.faktaOmBeregningTilfeller?.length).toBe(4);
     expect(transformed.faktaOmBeregningTilfeller?.includes(VURDER_NYOPPSTARTET_FL)).toBe(true);
-    expect(transformed.faktaOmBeregningTilfeller?.includes(VURDER_LONNSENDRING)).toBe(true);
+    expect(transformed.faktaOmBeregningTilfeller?.includes(VURDER_LØNNSENDRING)).toBe(true);
     expect(transformed.faktaOmBeregningTilfeller?.includes(FASTSETT_MAANEDSINNTEKT_FL)).toBe(true);
-    expect(
-      transformed.faktaOmBeregningTilfeller?.includes(FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING),
-    ).toBe(true);
+    expect(transformed.faktaOmBeregningTilfeller?.includes(FASTSETT_MÅNEDSLØNN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING)).toBe(
+      true,
+    );
   });
 });

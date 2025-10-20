@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { type ReactElement, useState } from 'react';
 import { useIntl } from 'react-intl';
 
 import {
@@ -16,10 +16,9 @@ import {
 import { Button, HStack, Timeline, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { RelasjonsRolleType } from '@navikt/ft-kodeverk';
-
-import { KodeverkMedNavn } from '../../types/kodeverkMedNavn';
-import { TidslinjePeriode } from '../../types/TidslinjePeriode';
+import type { KodeverkMedNavn } from '../../types/kodeverkMedNavn';
+import type { RelasjonsRolleType } from '../../types/RelasjonsRolleType';
+import type { TidslinjePeriode } from '../../types/TidslinjePeriode';
 
 import styles from './tilbakekrevingTimeline.module.css';
 
@@ -57,17 +56,17 @@ const formaterPerioder = (periodItems: TidslinjePeriode[] = []): Periode[] =>
     status: finnStatus(p),
   }));
 
-const finnIkonGittRelasjon = (relasjonsRolleType: string): ReactElement => {
-  if (relasjonsRolleType === RelasjonsRolleType.MOR || relasjonsRolleType === RelasjonsRolleType.MEDMOR) {
-    return <FigureOutwardFillIcon width={20} height={20} color="var(--a-red-200)" />;
+const finnIkonGittRelasjon = (relasjonsRolleType: RelasjonsRolleType): ReactElement => {
+  if (relasjonsRolleType === 'MORA' || relasjonsRolleType === 'MMOR') {
+    return <FigureOutwardFillIcon width={20} height={20} color="var(--ax-danger-500)" />;
   }
-  if (relasjonsRolleType === RelasjonsRolleType.FAR) {
-    return <SilhouetteFillIcon width={20} height={20} color="var(--a-blue-600)" />;
+  if (relasjonsRolleType === 'FARA') {
+    return <SilhouetteFillIcon width={20} height={20} color="var(--ax-accent-700)" />;
   }
   return <FigureCombinationIcon width={20} height={20} />;
 };
 
-export interface Props {
+interface Props {
   perioder: TidslinjePeriode[];
   valgtPeriode?: TidslinjePeriode;
   setPeriode: (periode?: TidslinjePeriode) => void;
@@ -133,7 +132,7 @@ export const TilbakekrevingTimeline = ({
   };
 
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       <Timeline startDate={dayjs(fomDato).toDate()} endDate={dayjs(tomDato).add(1, 'days').toDate()}>
         <Timeline.Row
           label={relasjonsRolleTypeKodeverk.find(k => k.kode === relasjonsRolleType)?.navn || '-'}

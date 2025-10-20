@@ -1,9 +1,9 @@
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { FaktaOmBeregning } from '@navikt/ft-types';
+import type { FaktaOmBeregning } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
-import { InntektTransformed } from '../../../typer/FieldValues';
-import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
+import { FaktaOmBeregningTilfelle } from '../../../kodeverk/faktaOmBeregningTilfelle';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
+import type { InntektTransformed } from '../../../typer/FieldValues';
+import type { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
 import { VurderBesteberegningForm } from './VurderBesteberegningForm';
 
 export const vurderBesteberegningTransform =
@@ -16,7 +16,7 @@ export const vurderBesteberegningTransform =
     if (
       !(
         tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) ||
-        tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE)
+        tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FØDENDE_KVINNE)
       )
     ) {
       return {};
@@ -27,7 +27,7 @@ export const vurderBesteberegningTransform =
       besteberegningValues.besteberegningAndeler?.besteberegningAndelListe &&
       besteberegningValues.besteberegningAndeler.besteberegningAndelListe.length > 0
     ) {
-      faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE);
+      faktaOmBeregningTilfeller.push(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FØDENDE_KVINNE);
     }
     return {
       faktaOmBeregningTilfeller,

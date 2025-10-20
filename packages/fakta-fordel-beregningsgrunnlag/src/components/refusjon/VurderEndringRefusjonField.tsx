@@ -3,17 +3,17 @@ import { FormattedMessage } from 'react-intl';
 
 import { Heading, VStack } from '@navikt/ds-react';
 
-import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   RefusjonTilVurderingAndel,
 } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
+import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
-import { VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import type { VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { SubmitButton } from '../felles/SubmitButton';
@@ -37,14 +37,14 @@ const lagRadNøkkel = (andel: RefusjonTilVurderingAndel): string => {
   return `${andel.arbeidsgiver.arbeidsgiverOrgnr}${andel.internArbeidsforholdRef})`;
 };
 
-type Props = {
+interface Props {
   readOnly: boolean;
   formSubmittes: boolean;
   submittable: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   vilkårperiodeFieldIndex: number;
-};
+}
 
 export const VurderEndringRefusjonField = ({
   submittable,
@@ -59,17 +59,17 @@ export const VurderEndringRefusjonField = ({
   );
   const andeler = beregningsgrunnlag.refusjonTilVurdering?.andeler ?? [];
   const avklaringsbehovRefusjon = finnAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
-  const erAksjonspunktÅpent = avklaringsbehovRefusjon ? isAksjonspunktOpen(avklaringsbehovRefusjon.status) : false;
+  const erAksjonspunktÅpent = isAksjonspunktOpen(avklaringsbehovRefusjon);
   const formMethods = useFormContext<VurderRefusjonFormValues>();
   const begrunnelse = formMethods.watch(`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.begrunnelse`);
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       {erAksjonspunktÅpent && (
         <AksjonspunktHelpTextHTML>
-          {[<FormattedMessage id="BeregningInfoPanel.RefusjonBG.Aksjonspunkt" key="aksjonspunktText" />]}
+          <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Aksjonspunkt" />
         </AksjonspunktHelpTextHTML>
       )}
-      <Heading size="small">
+      <Heading size="small" level="4">
         <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Tittel" />
       </Heading>
       <TidligereUtbetalinger
@@ -91,6 +91,7 @@ export const VurderEndringRefusjonField = ({
       <div>
         <FaktaBegrunnelseTextField
           name={`${FORM_NAME}.${vilkårperiodeFieldIndex}.begrunnelse`}
+          control={formMethods.control}
           isSubmittable={submittable}
           isReadOnly={manglerAksjonspunkt || readOnly}
           hasBegrunnelse={!!begrunnelse}

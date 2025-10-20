@@ -1,6 +1,7 @@
 import { composeStories } from '@storybook/react-vite';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { expect } from 'vitest';
 
 import * as stories from './FordelBeregningsgrunnlagFaktaIndex.stories';
 
@@ -20,14 +21,16 @@ window.ResizeObserver =
     unobserve: vi.fn(),
   }));
 
-describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
-  it.skip('skal kunne løse aksjonspunkt for nytt refusjonskrav', async () => {
+describe('FordelBeregningsgrunnlagFaktaIndex', () => {
+  it('skal kunne løse aksjonspunkt for nytt refusjonskrav', async () => {
     const lagre = vi.fn();
 
-    const utils = render(<AapOgRefusjonAp5046 submitCallback={lagre} />);
+    render(<AapOgRefusjonAp5046 submitCallback={lagre} />);
 
     expect(
-      await screen.findByText('Nytt refusjonskrav hos Nav Gokk (999999999)...-001 f.o.m. 27.11.2019.'),
+      screen.getByText(
+        'Vurder om beregningsgrunnlaget skal flyttes til ny aktivitet eller fordeles mellom aktivitetene.',
+      ),
     ).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
@@ -38,7 +41,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     expect(screen.getByText('27.11.2019 -')).toBeInTheDocument();
     expect(screen.getByText('Legg til aktivitet')).toBeEnabled();
 
-    const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
+    const alleInputfelt = screen.getAllByRole('textbox');
     expect(alleInputfelt).toHaveLength(3);
     const fordelingAAP = alleInputfelt[0];
     const fordelingAT = alleInputfelt[1];
@@ -56,7 +59,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     expect(await screen.findByText('Summen må være lik 400 000')).toBeInTheDocument();
     await userEvent.clear(fordelingAAP);
     await userEvent.type(fordelingAAP, '100 000');
-    expect(await screen.queryByText('Summen må være lik 400 000.')).not.toBeInTheDocument();
+    expect(screen.queryByText('Summen må være lik 400 000.')).not.toBeInTheDocument();
 
     await userEvent.click(screen.getByText('Bekreft og fortsett'));
 
@@ -77,15 +80,15 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
                 {
                   aktivitetStatus: 'AAP',
                   andelsnr: 2,
-                  arbeidsforholdId: null,
+                  arbeidsforholdId: undefined,
                   arbeidsforholdType: '-',
-                  arbeidsgiverId: null,
+                  arbeidsgiverId: undefined,
                   beregningsperiodeFom: '2019-06-01',
                   beregningsperiodeTom: '2019-08-31',
                   fastsatteVerdier: {
                     fastsattÅrsbeløpInklNaturalytelse: 100000,
                     inntektskategori: 'ARBEIDSAVKLARINGSPENGER',
-                    refusjonPrÅr: null,
+                    refusjonPrÅr: undefined,
                   },
                   forrigeArbeidsinntektPrÅr: 0,
                   forrigeInntektskategori: 'ARBEIDSAVKLARINGSPENGER',
@@ -105,7 +108,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
                   fastsatteVerdier: {
                     fastsattÅrsbeløpInklNaturalytelse: 300000,
                     inntektskategori: 'ARBEIDSTAKER',
-                    refusjonPrÅr: null,
+                    refusjonPrÅr: undefined,
                   },
                   forrigeArbeidsinntektPrÅr: 0,
                   forrigeInntektskategori: 'ARBEIDSTAKER',
@@ -127,7 +130,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
   it('skal kunne løse aksjonspunkt for nytt refusjonskrav med flere beregningsgrunnlag og kun en til vurdering', async () => {
     const lagre = vi.fn();
 
-    const utils = render(<AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046 submitCallback={lagre} />);
+    render(<AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046 submitCallback={lagre} />);
 
     // Første periode
     expect(screen.getByText('05.08.2019 - 26.11.2019')).toBeInTheDocument();
@@ -138,9 +141,8 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     // Andre skjæringstidspunkt
 
     expect(
-      await screen.getAllByText(
+      screen.getAllByText(
         'Vurder om beregningsgrunnlaget skal flyttes til ny aktivitet eller fordeles mellom aktivitetene.',
-        { exact: false },
       )[0],
     ).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
@@ -153,8 +155,8 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     // Andre periode - andre stp
     expect(screen.getByText('27.11.2019 -')).toBeInTheDocument();
 
-    const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
-    expect(alleInputfelt).toHaveLength(4);
+    const alleInputfelt = screen.getAllByRole('textbox');
+    expect(alleInputfelt).toHaveLength(3);
     const fordelingAAP = alleInputfelt[0];
     const fordelingAT = alleInputfelt[1];
     const begrunnelseFelt = alleInputfelt[2];
@@ -230,20 +232,13 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     });
   });
 
-  it.skip('skal kunne løse aksjonspunkt med fastsetting av fordeling og refusjonskrav for flere beregningsgrunnlag', async () => {
+  it('skal kunne løse aksjonspunkt med fastsetting av fordeling og refusjonskrav for flere beregningsgrunnlag', async () => {
     const lagre = vi.fn();
 
-    const utils = render(<FordelingFlereBeregningsgrunnlagKanEndreRefusjonskravAp5046 submitCallback={lagre} />);
-
-    expect(
-      await screen.findByText('Nytt refusjonskrav hos Nav Gokk (999999999)...-001 f.o.m. 27.11.2019.'),
-    ).toBeInTheDocument();
+    render(<FordelingFlereBeregningsgrunnlagKanEndreRefusjonskravAp5046 submitCallback={lagre} />);
 
     const knapp = screen.getAllByText('Bekreft og fortsett');
-
     expect(knapp).toHaveLength(2);
-    expect(knapp[0]).toBeDisabled();
-    expect(knapp[1]).toBeDisabled();
 
     // Første periode
     expect(screen.getByText('05.08.2019 - 26.11.2019')).toBeInTheDocument();
@@ -255,24 +250,21 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     expect(leggTilKnapper[0]).toBeEnabled();
     expect(leggTilKnapper[1]).toBeEnabled();
 
-    const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
-    expect(alleInputfelt).toHaveLength(8);
-    const fordelingAAP = alleInputfelt[0];
-    const refkravAT = alleInputfelt[1];
-    const fordelingAT = alleInputfelt[2];
-    const begrunnelseFelt = alleInputfelt[3];
+    const inputfeltITab1 = screen.getAllByRole('textbox');
+    expect(inputfeltITab1).toHaveLength(4);
+    const fordelingAAP = inputfeltITab1[0];
+    const refkravAT = inputfeltITab1[1];
+    const fordelingAT = inputfeltITab1[2];
+    const begrunnelseFelt = inputfeltITab1[3];
 
     await userEvent.type(fordelingAAP, '200 000');
     await userEvent.clear(refkravAT);
-    // @ts-expect-error Fiks
-    refkravAT.setSelectionRange(0, 6);
-    await userEvent.type(refkravAT, `{backspace}`);
     await userEvent.type(refkravAT, '200 000');
     await userEvent.type(fordelingAT, '300 000');
     await userEvent.type(begrunnelseFelt, 'Begrunnelse for fordeling');
     expect(screen.queryByText('Summen må være lik 400 000.')).not.toBeInTheDocument();
 
-    expect(await screen.getAllByText('Bekreft og fortsett')[0]).toBeEnabled();
+    expect(screen.getAllByText('Bekreft og fortsett')[0]).toBeEnabled();
     await userEvent.click(screen.getAllByText('Bekreft og fortsett')[0]);
 
     // Forventer at validering slår til
@@ -280,28 +272,28 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     expect(inntektValideringer).toHaveLength(2);
     await userEvent.clear(fordelingAAP);
     await userEvent.type(fordelingAAP, '100 000');
-    expect(await screen.queryByText('Summen må være lik 400 000.')).not.toBeInTheDocument();
+    expect(screen.queryByText('Summen må være lik 400 000.')).not.toBeInTheDocument();
 
     await userEvent.click(screen.getAllByText('Bekreft og fortsett')[0]);
 
     expect(lagre).toHaveBeenCalledTimes(0);
 
     // Bytter fane
-    await userEvent.click(screen.getByText('01.01.2020 - 31.12.9999'));
+    await userEvent.click(screen.getByRole('tab', { name: '01.01.2020 -' }));
 
     // Skal sjekke at valideringer vises fra submit i den andre fanen
     expect(await screen.findByText('Summen må være lik 400 000')).toBeInTheDocument();
     expect(screen.getByText('Feltet må fylles ut')).toBeInTheDocument();
 
-    const fordelingAAP2 = alleInputfelt[4];
-    const refkravAT2 = alleInputfelt[5];
-    const fordelingAT2 = alleInputfelt[6];
-    const begrunnelseFelt2 = alleInputfelt[7];
+    const inputfeltITab2 = screen.getAllByRole('textbox');
+    expect(inputfeltITab2).toHaveLength(4);
+    const fordelingAAP2 = inputfeltITab2[0];
+    const refkravAT2 = inputfeltITab2[1];
+    const fordelingAT2 = inputfeltITab2[2];
+    const begrunnelseFelt2 = inputfeltITab2[3];
 
     await userEvent.type(fordelingAAP2, '200 000');
-    // @ts-expect-error Fiks
-    refkravAT2.setSelectionRange(0, 6);
-    await userEvent.type(refkravAT2, `{backspace}`);
+    await userEvent.clear(refkravAT2);
     await userEvent.type(refkravAT2, '200 000');
     await userEvent.type(fordelingAT2, '200 000');
     await userEvent.type(begrunnelseFelt2, 'En helt annen begrunnelse for fordeling');
@@ -325,15 +317,15 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
                 {
                   aktivitetStatus: 'AAP',
                   andelsnr: 2,
-                  arbeidsforholdId: null,
+                  arbeidsforholdId: undefined,
                   arbeidsforholdType: '-',
-                  arbeidsgiverId: null,
+                  arbeidsgiverId: undefined,
                   beregningsperiodeFom: '2019-06-01',
                   beregningsperiodeTom: '2019-08-31',
                   fastsatteVerdier: {
                     fastsattÅrsbeløpInklNaturalytelse: 100000,
                     inntektskategori: 'ARBEIDSAVKLARINGSPENGER',
-                    refusjonPrÅr: null,
+                    refusjonPrÅr: undefined,
                   },
                   forrigeArbeidsinntektPrÅr: 0,
                   forrigeInntektskategori: 'ARBEIDSAVKLARINGSPENGER',
@@ -380,15 +372,15 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
                 {
                   aktivitetStatus: 'AAP',
                   andelsnr: 2,
-                  arbeidsforholdId: null,
+                  arbeidsforholdId: undefined,
                   arbeidsforholdType: '-',
-                  arbeidsgiverId: null,
+                  arbeidsgiverId: undefined,
                   beregningsperiodeFom: '2019-06-01',
                   beregningsperiodeTom: '2019-08-31',
                   fastsatteVerdier: {
                     fastsattÅrsbeløpInklNaturalytelse: 200000,
                     inntektskategori: 'ARBEIDSAVKLARINGSPENGER',
-                    refusjonPrÅr: null,
+                    refusjonPrÅr: undefined,
                   },
                   forrigeArbeidsinntektPrÅr: 0,
                   forrigeInntektskategori: 'ARBEIDSAVKLARINGSPENGER',
@@ -430,7 +422,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
   it('skal kunne løse aksjonspunkt for tilkommet refusjonskrav', async () => {
     const lagre = vi.fn();
 
-    const utils = render(<ViseVurderTilkommetRefusjonskravAp5059 submitCallback={lagre} />);
+    render(<ViseVurderTilkommetRefusjonskravAp5059 submitCallback={lagre} />);
 
     expect(
       await screen.findByText(
@@ -442,8 +434,8 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     expect(screen.getByText('krever refusjon fra og med 01.07.2020')).toBeInTheDocument();
     expect(screen.getByText('Refusjonsbeløpet skal gjelde fra og med')).toBeInTheDocument();
 
-    const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
-    expect(alleInputfelt).toHaveLength(3);
+    const alleInputfelt = screen.getAllByRole('textbox');
+    expect(alleInputfelt).toHaveLength(2);
     const datofelt = alleInputfelt[0];
     const begrunnelsefelt = alleInputfelt[1];
 
@@ -481,9 +473,7 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
   it('skal kunne løse aksjonspunkt for tilkommet refusjonskrav med delvis refusjon', async () => {
     const lagre = vi.fn();
 
-    const utils = render(
-      <SkalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjonAp5059 submitCallback={lagre} />,
-    );
+    render(<SkalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjonAp5059 submitCallback={lagre} />);
 
     expect(
       await screen.findByText(
@@ -498,8 +488,8 @@ describe('<FordelBeregningsgrunnlagFaktaIndex>', () => {
     expect(screen.getByText('Refusjonsbeløpet skal gjelde fra og med')).toBeInTheDocument();
     expect(screen.getByText('Før denne datoen skal refusjonsbeløpet per måned være')).toBeInTheDocument();
 
-    const alleInputfelt = utils.getAllByRole('textbox', { hidden: true });
-    expect(alleInputfelt).toHaveLength(4);
+    const alleInputfelt = screen.getAllByRole('textbox');
+    expect(alleInputfelt).toHaveLength(3);
     const datofelt = alleInputfelt[0];
     const delvisRefFelt = alleInputfelt[1];
     const begrunnelsefelt = alleInputfelt[2];

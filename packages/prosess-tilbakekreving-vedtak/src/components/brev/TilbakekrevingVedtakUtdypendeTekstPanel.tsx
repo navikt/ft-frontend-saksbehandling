@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { type SyntheticEvent, useState } from 'react';
+import type { FieldPath } from 'react-hook-form';
 import { useFormContext } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { PlusCircleIcon } from '@navikt/aksel-icons';
-import { Detail } from '@navikt/ds-react';
+import { Button } from '@navikt/ds-react';
 
-import { TextAreaField } from '@navikt/ft-form-hooks';
+import { RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
+
+import type { FormValues } from './TilbakekrevingEditerVedtaksbrevPanel';
 
 import styles from './tilbakekrevingVedtakUtdypendeTekstPanel.module.css';
 
@@ -16,53 +19,48 @@ const maxLength4000 = maxLength(4000);
 const valideringsregler = [minLength3, hasValidText];
 const valideringsreglerPakrevet = [required, minLength3, hasValidText];
 
-export interface Props {
-  type: string;
+interface Props {
+  name: FieldPath<FormValues>;
   readOnly: boolean;
   fritekstPakrevet?: boolean;
   maximumLength?: number;
 }
 
-export const TilbakekrevingVedtakUtdypendeTekstPanel = ({ type, readOnly, fritekstPakrevet, maximumLength }: Props) => {
-  const intl = useIntl();
-  const { watch } = useFormContext();
-  const isEmpty = watch(type) === undefined;
+export const TilbakekrevingVedtakUtdypendeTekstPanel = ({ name, readOnly, fritekstPakrevet, maximumLength }: Props) => {
+  const { watch, control } = useFormContext<FormValues>();
+
+  const isEmpty = watch(name) === undefined;
 
   const [isTextfieldHidden, hideTextField] = useState(isEmpty && !fritekstPakrevet);
   const valideringsRegler = fritekstPakrevet ? valideringsreglerPakrevet : valideringsregler;
   valideringsRegler.push(maximumLength ? maxLength(maximumLength) : maxLength4000);
 
+  const handleOnClick = (event: SyntheticEvent) => {
+    event.preventDefault();
+    hideTextField(false);
+  };
+
   return (
     <>
       {isTextfieldHidden && !readOnly && (
-        <>
-          <div
-            onClick={event => {
-              event.preventDefault();
-              hideTextField(false);
-            }}
-            onKeyDown={event => {
-              event.preventDefault();
-              hideTextField(false);
-            }}
-            className={styles.addPeriode}
-            role="button"
-            tabIndex={0}
+        <div>
+          <Button
+            icon={<PlusCircleIcon aria-hidden />}
+            variant="tertiary"
+            type="button"
+            size="xsmall"
+            onClick={handleOnClick}
+            className={styles.addPeriodeButton}
           >
-            <PlusCircleIcon
-              className={styles.addCircleIcon}
-              title={intl.formatMessage({ id: 'TilbakekrevingVedtakUtdypendeTekstPanel.LeggTilUtdypendeTekst' })}
-            />
-            <Detail size="small" className={styles.imageText}>
-              <FormattedMessage id="TilbakekrevingVedtakUtdypendeTekstPanel.LeggTilUtdypendeTekst" />
-            </Detail>
-          </div>
-        </>
+            <FormattedMessage id="TilbakekrevingVedtakUtdypendeTekstPanel.LeggTilUtdypendeTekst" />
+          </Button>
+        </div>
       )}
       {!isTextfieldHidden && (
-        <TextAreaField
-          name={type}
-          label={intl.formatMessage({ id: 'TilbakekrevingVedtakUtdypendeTekstPanel.UtdypendeTekst' })}
+        <RhfTextarea
+          name={name}
+          control={control}
+          label={<FormattedMessage id="TilbakekrevingVedtakUtdypendeTekstPanel.UtdypendeTekst" />}
           validate={valideringsRegler}
           maxLength={maximumLength || 4000}
           readOnly={readOnly}

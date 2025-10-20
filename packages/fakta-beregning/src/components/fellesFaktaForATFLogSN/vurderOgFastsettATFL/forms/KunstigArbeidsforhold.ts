@@ -1,7 +1,8 @@
-import { FaktaOmBeregningTilfelle, Organisasjonstype as organisasjonstyper } from '@navikt/ft-kodeverk';
-import { AndelForFaktaOmBeregning, Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { AndelForFaktaOmBeregning, Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
-import { InntektTransformed } from '../../../../typer/FieldValues';
+import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
+import { Organisasjonstype } from '../../../../kodeverk/organisasjonstype';
+import type { InntektTransformed } from '../../../../typer/FieldValues';
 
 export const kunstigAndelField = 'kunstigAndelInntektValues';
 
@@ -11,8 +12,8 @@ export const erKunstigAndel = (arbeidsgiverIdent: string | undefined): boolean =
 const harAndelKunstigArbeidsforhold = (andel: BeregningsgrunnlagAndel) =>
   erKunstigAndel(andel.arbeidsforhold?.arbeidsgiverIdent);
 
-export const harKunstigArbeidsforhold = (tilfeller: string[], beregningsgrunnlag: Beregningsgrunnlag) => {
-  if (tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING)) {
+const harKunstigArbeidsforhold = (tilfeller: string[], beregningsgrunnlag: Beregningsgrunnlag) => {
+  if (tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MÅNEDSLØNN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING)) {
     return (
       beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel?.find(
         harAndelKunstigArbeidsforhold,
@@ -45,5 +46,5 @@ export const harFieldKunstigArbeidsforhold = (field: InntektTransformed, bg: Ber
       andel.andelsnr === field.andelsnr &&
       andel.arbeidsforhold &&
       andel.arbeidsforhold.organisasjonstype &&
-      andel.arbeidsforhold.organisasjonstype === organisasjonstyper.KUNSTIG,
+      andel.arbeidsforhold.organisasjonstype === Organisasjonstype.KUNSTIG,
   ) !== undefined;

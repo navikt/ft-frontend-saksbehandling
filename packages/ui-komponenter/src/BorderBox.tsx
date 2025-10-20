@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import { Box } from '@navikt/ds-react';
 import classnames from 'classnames/bind';
@@ -7,7 +7,7 @@ import styles from './borderBox.module.css';
 
 const classNames = classnames.bind(styles);
 
-export interface Props {
+interface Props {
   error?: boolean;
   className?: string;
   children?: ReactNode | ReactNode[];
@@ -19,7 +19,7 @@ export interface Props {
  * Valideringskomponent. Visar en box kring noe som skall fikses.
  */
 export const BorderBox = ({ error = false, className, children }: Props) => (
-  <Box padding="4" className={classNames('borderbox', { error }, className)}>
+  <Box.New padding="4" className={classNames('borderbox', { error }, className)}>
     {children}
-  </Box>
+  </Box.New>
 );

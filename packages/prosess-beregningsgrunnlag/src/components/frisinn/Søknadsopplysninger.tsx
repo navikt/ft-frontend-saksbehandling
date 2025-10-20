@@ -3,10 +3,10 @@ import { FormattedMessage } from 'react-intl';
 import { BodyShort, Label, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag } from '@navikt/ft-types';
+import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { dateFormat } from '@navikt/ft-utils';
 
-import { FrisinnGrunnlag, FrisinnPeriode } from './FrisinnUtils';
+import { type FrisinnGrunnlag, type FrisinnPeriode } from './FrisinnUtils';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
@@ -24,7 +24,7 @@ const lagPerioderadMedTekst = (tekstId: string, fom: string, tom: string) => (
 
 const lagSøktYtelseRadPeriode = (periode: FrisinnPeriode) => {
   const snAndel = periode.frisinnAndeler.find(
-    andel => andel.statusSøktFor === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    andel => andel.statusSøktFor === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
   );
   const flAndel = periode.frisinnAndeler.find(andel => andel.statusSøktFor === AktivitetStatus.FRILANSER);
   return (
@@ -43,7 +43,7 @@ export const Søknadsopplysninger = ({ beregningsgrunnlag }: Props) => {
   const ytelsegrunnlag = beregningsgrunnlag.ytelsesspesifiktGrunnlag as FrisinnGrunnlag;
   const { frisinnPerioder } = ytelsegrunnlag;
   return (
-    <VStack gap="2">
+    <VStack gap="space-8">
       <Label size="small" className={beregningStyles.avsnittOverskrift}>
         <FormattedMessage id="Søknad.Tittel" />
       </Label>

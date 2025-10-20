@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
-import { Form } from '@navikt/ft-form-hooks';
-import {
+import { RhfForm } from '@navikt/ft-form-hooks';
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -10,18 +10,21 @@ import {
 } from '@navikt/ft-types';
 import { ErrorBoundary } from '@navikt/ft-ui-komponenter';
 
-import { VurderRefusjonFieldValues, VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import type {
+  VurderRefusjonFieldValues,
+  VurderRefusjonFormValues,
+} from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
-import {
-  VurderRefusjonAksjonspunktSubmitType,
+import type {
+  VurderRefusjonBeregningsgrunnlagAP,
   VurderRefusjonTransformedValues,
 } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
-import { Vilkårperiode } from '../../types/Vilkår';
+import type { Vilkårperiode } from '../../types/Vilkår';
 import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
 import { VurderEndringRefusjonField } from './VurderEndringRefusjonField';
 import { VurderEndringRefusjonRad } from './VurderEndringRefusjonRad';
 
-export const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
+const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 
 const { VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
 
@@ -93,7 +96,7 @@ const transformValues = (
   values: VurderRefusjonFormValues,
   beregninsgrunnlagListe: Beregningsgrunnlag[],
   vilkårsperioder: Vilkårperiode[],
-): VurderRefusjonAksjonspunktSubmitType => {
+): VurderRefusjonBeregningsgrunnlagAP => {
   const fields = values[FORM_NAME];
   const grunnlag = fields
     .filter(f => vurderesIBehandlingen(vilkårsperioder, f.periode.fom))
@@ -107,9 +110,9 @@ const transformValues = (
   };
 };
 
-type Props = {
+interface Props {
   aktivtBeregningsgrunnlagIndeks: number;
-  submitCallback: (aksjonspunktData: VurderRefusjonAksjonspunktSubmitType) => Promise<void>;
+  submitCallback: (aksjonspunktData: VurderRefusjonBeregningsgrunnlagAP) => Promise<void>;
   readOnly: boolean;
   submittable: boolean;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
@@ -118,7 +121,7 @@ type Props = {
   formData?: VurderRefusjonFormValues;
   setFormData: (data: VurderRefusjonFormValues) => void;
   setRefusjonFormIsDirty: (isDirty: boolean) => void;
-};
+}
 
 export const VurderEndringRefusjonForm = ({
   aktivtBeregningsgrunnlagIndeks,
@@ -161,7 +164,7 @@ export const VurderEndringRefusjonForm = ({
   });
   return (
     <ErrorBoundary errorMessage="Noe gikk galt ved visning av refusjon">
-      <Form
+      <RhfForm
         formMethods={formMethods}
         onSubmit={values => {
           if (Object.keys(errors).length === 0) {
@@ -199,7 +202,7 @@ export const VurderEndringRefusjonForm = ({
             </div>
           );
         })}
-      </Form>
+      </RhfForm>
     </ErrorBoundary>
   );
 };

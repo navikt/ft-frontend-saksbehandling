@@ -1,13 +1,14 @@
-import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag } from '@navikt/ft-types';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import type { Beregningsgrunnlag } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
+import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
 import { LonnsendringForm } from './LonnsendringForm';
 import { lonnsendringField } from './lonnsendringFormUtils';
 
-describe('<LonnsendringForm>', () => {
+describe('LonnsendringForm', () => {
   const faktaOmBeregning = {
-    faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LONNSENDRING],
+    faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING],
     arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1, aktivitetStatus: AktivitetStatus.ARBEIDSTAKER }],
     andelerForFaktaOmBeregning: [],
   };

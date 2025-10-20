@@ -1,17 +1,19 @@
 import React from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useFormContext } from 'react-hook-form';
+import { FormattedMessage } from 'react-intl';
 
-import { List, ReadMore, VStack } from '@navikt/ds-react';
+import { List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import type { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues, NyoppstartetFLValues } from '../../../../typer/FaktaBeregningTypes';
-import { InntektTransformed } from '../../../../typer/FieldValues';
-import { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
-import { parseStringToBoolean } from '../../vurderFaktaBeregningHjelpefunksjoner';
+import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
+import type { FaktaOmBeregningAksjonspunktValues, NyoppstartetFLValues } from '../../../../typer/FaktaBeregningTypes';
+import type { InntektTransformed } from '../../../../typer/FieldValues';
+import type { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
+import type { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
 
 /**
@@ -30,13 +32,15 @@ interface Props {
 }
 
 export const NyoppstartetFLForm = ({ readOnly }: Props) => {
+  const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const intl = useIntl();
 
   return (
-    <RadioGroupPanel
+    <RhfRadioGroup
+      name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`}
+      control={control}
       label={
-        <VStack gap="2">
+        <VStack gap="space-8">
           <FormattedMessage id="BeregningInfoPanel.NyoppstartetFLForm.ErSokerNyoppstartetFL" />
           <ReadMore
             size="small"
@@ -53,18 +57,16 @@ export const NyoppstartetFLForm = ({ readOnly }: Props) => {
           </ReadMore>
         </VStack>
       }
-      name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`}
       validate={[required]}
       isReadOnly={readOnly}
-      radios={[
-        {
-          value: 'true',
-          label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes' }),
-        },
-        { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt' }) },
-      ]}
-      parse={parseStringToBoolean}
-    />
+    >
+      <Radio value={true} size="small">
+        <FormattedMessage id="BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes" />
+      </Radio>
+      <Radio value={false} size="small">
+        <FormattedMessage id="BeregningInfoPanel.FormAlternativ.NeiBrukerAInntekt" />
+      </Radio>
+    </RhfRadioGroup>
   );
 };
 NyoppstartetFLForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag): NyoppstartetFLValues => {

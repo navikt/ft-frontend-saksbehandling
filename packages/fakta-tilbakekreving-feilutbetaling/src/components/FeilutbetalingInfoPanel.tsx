@@ -3,18 +3,21 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BodyShort, Button, Detail, HStack, Label, VStack } from '@navikt/ds-react';
 
-import { CheckboxField, Form, TextAreaField } from '@navikt/ft-form-hooks';
+import { RhfCheckbox, RhfForm, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { AksjonspunktHelpTextHTML, BeløpLabel, DateLabel, FaktaGruppe, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity, sortPeriodsByFom } from '@navikt/ft-utils';
 
 import { FeilutbetalingAksjonspunktCode } from '../FeilutbetalingAksjonspunktCode';
-import { AvklartFaktaFeilutbetalingAp } from '../types/AvklartFaktaFeilutbetalingAp';
-import { FeilutbetalingÅrsak } from '../types/FeilutbetalingÅrsak';
-import { FeilutbetalingFakta } from '../types/FeilutbetalingFakta';
-import { KodeverkForPanel } from '../types/KodeverkForPanel';
-import { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
-import { FeilutbetalingPerioderFieldArray, FormValues as PeriodeFormValues } from './FeilutbetalingPerioderFieldArray';
+import type { AvklartFaktaFeilutbetalingAp } from '../types/AvklartFaktaFeilutbetalingAp';
+import type { FeilutbetalingÅrsak } from '../types/FeilutbetalingÅrsak';
+import type { FeilutbetalingFakta } from '../types/FeilutbetalingFakta';
+import type { KodeverkForPanel } from '../types/KodeverkForPanel';
+import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
+import {
+  FeilutbetalingPerioderFieldArray,
+  type FormValues as PeriodeFormValues,
+} from './FeilutbetalingPerioderFieldArray';
 
 import styles from './feilutbetalingInfoPanel.module.css';
 
@@ -106,7 +109,7 @@ const getSortedFeilutbetalingArsaker = (
   });
 };
 
-export interface Props {
+interface Props {
   feilutbetalingFakta: FeilutbetalingFakta;
   feilutbetalingAarsak: FeilutbetalingÅrsak;
   submitCallback: (aksjonspunktData: AvklartFaktaFeilutbetalingAp) => Promise<void>;
@@ -146,25 +149,25 @@ export const FeilutbetalingInfoPanel = ({
   const årsaker = getSortedFeilutbetalingArsaker(feilutbetalingAarsak, kodeverkSamlingFpTilbake);
 
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       {hasOpenAksjonspunkter && (
         <AksjonspunktHelpTextHTML>
           <FormattedMessage id="FeilutbetalingInfoPanel.Aksjonspunkt" />
         </AksjonspunktHelpTextHTML>
       )}
-      <Form
+      <RhfForm
         formMethods={formMethods}
         onSubmit={(values: FormValues) => submitCallback(transformValues(values, årsaker))}
         setDataOnUnmount={setFormData}
       >
-        <VStack gap="4">
-          <HStack gap="10" wrap>
-            <VStack gap="4">
+        <VStack gap="space-16">
+          <HStack gap="space-40" wrap>
+            <VStack gap="space-16">
               <Label size="small">
                 <FormattedMessage id="FeilutbetalingInfoPanel.Feilutbetaling" />
               </Label>
               <HStack justify="space-between">
-                <VStack gap="1">
+                <VStack gap="space-4">
                   <Detail>
                     <FormattedMessage id="FeilutbetalingInfoPanel.PeriodeMedFeilutbetaling" />
                   </Detail>
@@ -175,7 +178,7 @@ export const FeilutbetalingInfoPanel = ({
                     />
                   </BodyShort>
                 </VStack>
-                <VStack gap="1">
+                <VStack gap="space-4">
                   <Detail>
                     <FormattedMessage id="FeilutbetalingInfoPanel.FeilutbetaltBeløp" />
                   </Detail>
@@ -183,7 +186,7 @@ export const FeilutbetalingInfoPanel = ({
                     <BeløpLabel rød beløp={feilutbetaling.aktuellFeilUtbetaltBeløp} />
                   </BodyShort>
                 </VStack>
-                <VStack gap="1">
+                <VStack gap="space-4">
                   <Detail>
                     <FormattedMessage id="FeilutbetalingInfoPanel.TidligereVarseltBeløp" />
                   </Detail>
@@ -196,8 +199,9 @@ export const FeilutbetalingInfoPanel = ({
                   </BodyShort>
                 </VStack>
               </HStack>
-              <CheckboxField
+              <RhfCheckbox
                 name="behandlePerioderSamlet"
+                control={formMethods.control}
                 label={intl.formatMessage({ id: 'FeilutbetalingInfoPanel.BehandlePerioderSamlet' })}
                 readOnly={readOnly}
               />
@@ -216,12 +220,12 @@ export const FeilutbetalingInfoPanel = ({
                 />
               </FaktaGruppe>
             </VStack>
-            <VStack gap="4">
+            <VStack gap="space-16">
               <Label size="small">
                 <FormattedMessage id="FeilutbetalingInfoPanel.Revurdering" />
               </Label>
-              <HStack gap="4">
-                <VStack gap="1">
+              <HStack gap="space-16">
+                <VStack gap="space-4">
                   <Detail>
                     <FormattedMessage id="FeilutbetalingInfoPanel.Årsaker" />
                   </Detail>
@@ -238,7 +242,7 @@ export const FeilutbetalingInfoPanel = ({
                   )}
                 </VStack>
                 {feilutbetaling.datoForRevurderingsvedtak && (
-                  <VStack gap="1">
+                  <VStack gap="space-4">
                     <Detail>
                       <FormattedMessage id="FeilutbetalingInfoPanel.DatoForRevurdering" />
                     </Detail>
@@ -248,7 +252,7 @@ export const FeilutbetalingInfoPanel = ({
                   </VStack>
                 )}
               </HStack>
-              <VStack gap="1">
+              <VStack gap="space-4">
                 <Detail>
                   <FormattedMessage id="FeilutbetalingInfoPanel.Resultat" />
                 </Detail>
@@ -262,7 +266,7 @@ export const FeilutbetalingInfoPanel = ({
                   </BodyShort>
                 )}
               </VStack>
-              <VStack gap="1">
+              <VStack gap="space-4">
                 <Detail>
                   <FormattedMessage id="FeilutbetalingInfoPanel.Konsekvens" />
                 </Detail>
@@ -274,7 +278,7 @@ export const FeilutbetalingInfoPanel = ({
                   </BodyShort>
                 )}
               </VStack>
-              <VStack gap="1">
+              <VStack gap="space-4">
                 <Detail>
                   <FormattedMessage id="FeilutbetalingInfoPanel.Tilbakekrevingsvalg" />
                 </Detail>
@@ -291,8 +295,9 @@ export const FeilutbetalingInfoPanel = ({
             </VStack>
           </HStack>
           <div className={styles.textarea}>
-            <TextAreaField
+            <RhfTextarea
               name="begrunnelse"
+              control={formMethods.control}
               label={intl.formatMessage({ id: 'FeilutbetalingInfoPanel.Begrunnelse' })}
               validate={[required, minLength3, maxLength4000, hasValidText]}
               maxLength={MAX_LENGTH}
@@ -310,7 +315,7 @@ export const FeilutbetalingInfoPanel = ({
             </Button>
           </div>
         </VStack>
-      </Form>
+      </RhfForm>
     </VStack>
   );
 };

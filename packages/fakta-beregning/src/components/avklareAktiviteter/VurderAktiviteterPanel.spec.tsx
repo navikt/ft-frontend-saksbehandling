@@ -1,7 +1,7 @@
-import { AvklarBeregningAktiviteter, BeregningAktivitet } from '@navikt/ft-types';
+import type { AvklarBeregningAktiviteter, BeregningAktivitet } from '@navikt/ft-types';
 import { TIDENES_ENDE } from '@navikt/ft-utils';
 
-import { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
+import type { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import { VurderAktiviteterPanel } from './VurderAktiviteterPanel';
 import { finnPlasseringIListe, leggTilAktivitet } from './vurderAktiviteterPanelUtils';
 import { lagAktivitetFieldId } from './vurderAktiviteterTabellUtils';
@@ -46,7 +46,7 @@ const id2: string = '334534623342efj8343f34f2019-01-01';
 const id3: string = '324234234234efj8343f34f2019-01-01';
 const idAAP: string = 'AAP2019-01-01';
 
-describe('<VurderAktiviteterPanel>', () => {
+describe('VurderAktiviteterPanel', () => {
   it('skal returnere true om ingen aktiviteter skal brukes og det ikkje finnes fleire aktiviteter i opptjeningsperioden', () => {
     const aktiviteterTomDatoMapping = [{ tom: '2019-02-02', aktiviteter }];
     const values = {

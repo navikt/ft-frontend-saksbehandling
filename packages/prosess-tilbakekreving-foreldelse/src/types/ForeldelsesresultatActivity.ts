@@ -1,4 +1,4 @@
-import { FeilutbetalingPeriode } from './FeilutbetalingPerioder';
+import type { FeilutbetalingPeriode } from './FeilutbetalingPerioder';
 
 export type ForeldelsesresultatActivity = Readonly<{
   feilutbetaling: number;

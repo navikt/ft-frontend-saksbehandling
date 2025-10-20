@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Button } from '@navikt/ds-react';
 
-import { ariaCheck } from '@navikt/ft-form-validators';
 import { createIntl } from '@navikt/ft-utils';
 
 import messages from '../../../i18n/nb_NO.json';
@@ -16,7 +15,7 @@ const isDisabled = (isDirty: boolean, isSubmitting: boolean, isSubmittable: bool
   return !isDirty;
 };
 
-export interface Props {
+interface Props {
   isReadOnly: boolean;
   isSubmittable: boolean;
   isSubmitting: boolean;
@@ -34,7 +33,7 @@ export const SubmitButton = ({ isReadOnly, isSubmittable, onClick, isSubmitting,
         size="small"
         loading={isSubmitting}
         disabled={isDisabled(isDirty, isSubmitting, isSubmittable)}
-        onClick={onClick || ariaCheck}
+        onClick={onClick}
         type={onClick ? 'button' : 'submit'}
       >
         {intl.formatMessage({ id: 'SubmitButton.ConfirmInformation' })}

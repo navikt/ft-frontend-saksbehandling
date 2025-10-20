@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Button } from '@navikt/ds-react';
 
-import { ariaCheck } from '@navikt/ft-form-validators';
 import { createIntl } from '@navikt/ft-utils';
 
 import messages from '../../i18n/nb_NO.json';
@@ -22,7 +21,7 @@ const isDisabled = (
   }
   return (!isDirty && hasEmptyRequiredFields) || hasEmptyRequiredFields;
 };
-export interface Props {
+interface Props {
   isReadOnly: boolean;
   isSubmittable: boolean;
   isSubmitting: boolean;
@@ -50,7 +49,7 @@ export const ProsessStegSubmitButton = ({
         size="small"
         loading={isSubmitting}
         disabled={isDisabled(isDirty, isSubmitting, isSubmittable, hasEmptyRequiredFields)}
-        onClick={onClick || ariaCheck}
+        onClick={onClick}
         type={onClick ? 'button' : 'submit'}
       >
         {text || intl.formatMessage({ id: 'ProsessStegSubmitButton.Label' })}

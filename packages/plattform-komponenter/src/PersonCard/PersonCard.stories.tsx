@@ -1,5 +1,5 @@
 import { HStack, Tag, VStack } from '@navikt/ds-react';
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { EmptyPersonCard } from './EmptyPersonCard';
 import { Gender } from './Gender';
@@ -13,7 +13,7 @@ const meta = {
     gender: Gender.female,
   },
   render: args => (
-    <VStack gap="8">
+    <VStack gap="space-32">
       <div>
         <PersonCard
           name={args.name}

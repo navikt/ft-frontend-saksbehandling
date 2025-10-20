@@ -1,14 +1,14 @@
 .sideMenu__container {
-  background-color: var(--a-bg-default);
-  border-right: 1px solid var(--a-border-subtle);
+  background-color: var(--ax-bg-default);
+  border-right: 1px solid var(--ax-border-neutral-subtle);
   display: flex;
   flex-direction: column;
   min-height: 100%;
-  padding-bottom: var(--a-spacing-8);
+  padding-bottom: var(--ax-space-32);
 }
 
 .sideMenu__heading {
-  padding: var(--a-spacing-4);
+  padding: var(--ax-space-16);
 }
 
 .sideMenu__linkList {

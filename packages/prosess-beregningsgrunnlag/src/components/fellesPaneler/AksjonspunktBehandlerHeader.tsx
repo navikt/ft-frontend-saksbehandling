@@ -3,14 +3,11 @@ import { FormattedMessage } from 'react-intl';
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { Detail, Heading, Hide, HStack, VStack } from '@navikt/ds-react';
 
-import {
-  AktivitetStatus,
-  isStatusArbeidstakerOrKombinasjon,
-  isStatusFrilanserOrKombinasjon,
-} from '@navikt/ft-kodeverk';
-import { BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import type { BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
+import { isStatusArbeidstakerOrKombinasjon, isStatusFrilanserOrKombinasjon } from '../../util/aktivitetStatusUtils';
 
 import styles from './aksjonspunktBehandler.module.css';
 
@@ -28,7 +25,7 @@ const finnDetaljerSN = (bg: Beregningsgrunnlag): string => {
       ? bg.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel || []
       : [];
   const snAndel = alleAndelerIForstePeriode.find(
-    andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
+    andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
   );
   const erNyoppstartet = !!snAndel?.næringer?.some(naring => naring.erNyoppstartet === true);
   if (erNyoppstartet) {
@@ -95,7 +92,7 @@ export const AksjonspunktBehandlerHeader = ({ avklaringsbehov, beregningsgrunnla
   }
   return (
     <HStack
-      gap="6"
+      gap="space-24"
       align="center"
       wrap={false}
       className={readOnly ? styles.aksjonspunktBehandlerNoBorder : styles.aksjonspunktBehandlerHeader}
@@ -105,8 +102,8 @@ export const AksjonspunktBehandlerHeader = ({ avklaringsbehov, beregningsgrunnla
           <ExclamationmarkTriangleFillIcon className={styles.warningIcon} />
         </Hide>
       )}
-      <VStack gap="2">
-        <Heading size="xsmall">
+      <VStack gap="space-8">
+        <Heading size="xsmall" level="4">
           <FormattedMessage id={finnTittel(avklaringsbehov, beregningsgrunnlag)} />
         </Heading>
         <Detail>

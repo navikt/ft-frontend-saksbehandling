@@ -1,22 +1,27 @@
 import React from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useFormContext } from 'react-hook-form';
+import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Label, Link, VStack } from '@navikt/ds-react';
+import { BodyShort, Label, Link, Radio, VStack } from '@navikt/ds-react';
 
-import { RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { AktivitetStatus, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { BeregningAvklaringsbehov, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import type { BeregningAvklaringsbehov, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues, VurderBesteberegningValues } from '../../../typer/FaktaBeregningTypes';
-import { InntektTransformed } from '../../../typer/FieldValues';
-import {
+import { FaktaOmBeregningTilfelle } from '../../../kodeverk/faktaOmBeregningTilfelle';
+import type {
+  FaktaOmBeregningAksjonspunktValues,
+  VurderBesteberegningValues,
+} from '../../../typer/FaktaBeregningTypes';
+import type { InntektTransformed } from '../../../typer/FieldValues';
+import type {
   BesteberegningFødendeKvinneAndelTransformedValues,
   FaktaBeregningTransformedValues,
 } from '../../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
+import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '../eksterneLenker';
-import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 export const besteberegningField = 'vurderbesteberegningField';
@@ -37,13 +42,15 @@ interface Props {
 
 export const VurderBesteberegningForm = ({ readOnly, erOverstyrt }: Props) => {
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const intl = useIntl();
+  const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const isReadOnly = readOnly || erOverstyrt;
 
   return (
-    <RadioGroupPanel
+    <RhfRadioGroup
+      name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`}
+      control={control}
       label={
-        <VStack gap="2" justify="space-between">
+        <VStack gap="space-8" justify="space-between">
           <Label size="small">
             <FormattedMessage id="BeregningInfoPanel.VurderBestebergning.HarBesteberegning" />
           </Label>
@@ -54,15 +61,16 @@ export const VurderBesteberegningForm = ({ readOnly, erOverstyrt }: Props) => {
           </BodyShort>
         </VStack>
       }
-      name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`}
       isReadOnly={isReadOnly}
       validate={isReadOnly ? [] : [required]}
-      radios={[
-        { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-        { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
-      ]}
-      parse={parseStringToBoolean}
-    />
+    >
+      <Radio value={true} size="small">
+        <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />
+      </Radio>
+      <Radio value={false} size="small">
+        <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />
+      </Radio>
+    </RhfRadioGroup>
   );
 };
 
@@ -75,7 +83,7 @@ VurderBesteberegningForm.buildInitialValues = (
   if (
     !(
       faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) ||
-      faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE)
+      faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FØDENDE_KVINNE)
     )
   ) {
     return {};

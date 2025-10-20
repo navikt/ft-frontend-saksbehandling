@@ -6,15 +6,15 @@ import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 import classNames from 'classnames/bind';
 
 import { SideMenu } from '@navikt/ft-plattform-komponenter';
-import { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl, dateFormat } from '@navikt/ft-utils';
 
 import { BeregningFP } from './components/BeregningFP';
-import { BeregningFormValues } from './types/BeregningFormValues';
-import { BeregningAksjonspunktSubmitType } from './types/interface/BeregningsgrunnlagAP';
+import type { BeregningFormValues } from './types/BeregningFormValues';
+import type { BeregningAksjonspunktSubmitType } from './types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from './types/KodeverkForPanel';
-import { Vilkår } from './types/Vilkår';
+import type { KodeverkForPanel } from './types/KodeverkForPanel';
+import type { Vilkår } from './types/Vilkår';
 
 import styles from './beregningsgrunnlagProsessIndex.module.css';
 
@@ -29,8 +29,6 @@ const beregningAksjonspunkter = [
   ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
 ];
 
-const TOM_ARRAY: Beregningsgrunnlag[] = [];
-
 const cx = classNames.bind(styles);
 
 const intl = createIntl(messages);
@@ -41,8 +39,8 @@ const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkår | null) => {
   );
 
   return (
-    <VStack gap="2">
-      <Heading size="medium">
+    <VStack gap="space-8">
+      <Heading size="medium" level="2">
         <FormattedMessage id="BeregningsgrunnlagProsessIndex.Title" />
       </Heading>
       <BodyShort size="small">
@@ -104,7 +102,7 @@ export const BeregningsgrunnlagProsessIndex = ({
   formData,
   setFormData,
 }: Props & StandardProsessPanelProps<BeregningAksjonspunktSubmitType[], BeregningFormValues>) => {
-  const listeMedGrunnlag = beregningsgrunnlagListe || TOM_ARRAY;
+  const listeMedGrunnlag = beregningsgrunnlagListe || [];
 
   const skalBrukeSidemeny = listeMedGrunnlag.length > 1;
   listeMedGrunnlag

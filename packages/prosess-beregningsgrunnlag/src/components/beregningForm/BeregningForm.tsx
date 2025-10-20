@@ -2,8 +2,8 @@ import { FormattedMessage } from 'react-intl';
 
 import { Heading, HGrid, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus, FagsakYtelseType, FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import {
+import { AktivitetStatus, FagsakYtelseType } from '@navikt/ft-kodeverk';
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag as BeregningsgrunnlagProp,
@@ -12,11 +12,11 @@ import {
   YtelseGrunnlag,
 } from '@navikt/ft-types';
 
-import { BeregningFormValues } from '../../types/BeregningFormValues';
-import { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
-import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
-import { Vilkår, Vilkårperiode } from '../../types/Vilkår';
+import type { BeregningFormValues } from '../../types/BeregningFormValues';
+import type { BeregningAksjonspunktSubmitType } from '../../types/interface/BeregningsgrunnlagAP';
+import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import type { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
+import type { Vilkår, Vilkårperiode } from '../../types/Vilkår';
 import { Beregningsgrunnlag } from '../beregningsgrunnlagPanel/Beregningsgrunnlag';
 import { BeregningsresultatPanel } from '../beregningsresultat/BeregningsresultatPanel';
 import { BesteberegningResultatGrunnlagPanel } from '../besteberegning/BesteberegningResultatGrunnlagPanel';
@@ -27,9 +27,7 @@ import { Frisinnpanel } from '../frisinn/Frisinnpanel';
 
 const gjelderBehandlingenBesteberegning = (faktaOmBeregning: FaktaOmBeregning | undefined): boolean =>
   faktaOmBeregning && faktaOmBeregning.faktaOmBeregningTilfeller
-    ? faktaOmBeregning.faktaOmBeregningTilfeller.some(
-        tilfelle => tilfelle === FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FODENDE_KVINNE,
-      )
+    ? faktaOmBeregning.faktaOmBeregningTilfeller.includes('FASTSETT_BESTEBEREGNING_FØDENDE_KVINNE')
     : false;
 
 const erAutomatiskBesteberegnet = (ytelsesspesifiktGrunnlag: YtelseGrunnlag | undefined): boolean =>
@@ -95,16 +93,16 @@ export const BeregningForm = ({
   const aktivitetStatusList = getStatusList(beregningsgrunnlagPeriode);
   const harAksjonspunkter = gjeldendeAvklaringsbehov && gjeldendeAvklaringsbehov.length > 0;
   return (
-    <VStack gap="4">
+    <VStack gap="space-16">
       {harAksjonspunkter && (
         <AksjonspunktTittel avklaringsbehov={gjeldendeAvklaringsbehov} beregningsgrunnlag={valgtBeregningsgrunnlag} />
       )}
-      <HGrid gap="12" columns={{ sm: 1, md: 2 }}>
-        <VStack gap="4">
-          <Heading size="medium">
+      <HGrid gap="space-48" columns={{ sm: 1, md: 2 }}>
+        <VStack gap="space-16">
+          <Heading size="medium" level="4">
             <FormattedMessage id="BeregningForm.Beregning.Tittel" />
           </Heading>
-          <VStack gap="10">
+          <VStack gap="space-40">
             <SkjeringspunktOgStatusPanel
               kodeverkSamling={kodeverkSamling}
               aktivitetStatusList={aktivitetStatusList}
@@ -135,8 +133,8 @@ export const BeregningForm = ({
             )}
           </VStack>
         </VStack>
-        <VStack gap="6">
-          <Heading size="medium">
+        <VStack gap="space-24">
+          <Heading size="medium" level="4">
             <FormattedMessage id="BeregningForm.Fastsettelse.Tittel" />
           </Heading>
           <SammenligningOgFastsettelsePanel

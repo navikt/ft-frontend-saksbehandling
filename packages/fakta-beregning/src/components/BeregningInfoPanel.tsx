@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
-import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
-import { AvklarAktiviteterFormValues } from '../typer/AvklarAktiviteterFormValues';
+import { type AvklarAktiviteterFormValues } from '../typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { SubmitBeregningType } from '../typer/interface/SubmitBeregningTsType';
-import { KodeverkForPanel } from '../typer/KodeverkForPanel';
-import { Vilkår } from '../typer/Vilkår';
-import { VurderFaktaBeregningFormValues } from '../typer/VurderFaktaBeregningFormValues';
+import type { SubmitBeregningType } from '../typer/interface/SubmitBeregningTsType';
+import type { KodeverkForPanel } from '../typer/KodeverkForPanel';
+import type { Vilkår } from '../typer/Vilkår';
+import type { VurderFaktaBeregningFormValues } from '../typer/VurderFaktaBeregningFormValues';
 import { formNameAvklarAktiviteter, formNameVurderFaktaBeregning } from '../utils/BeregningFormUtils';
 import { hasAksjonspunkt } from './../utils/aksjonspunktUtils';
 import { AvklareAktiviteterPanel } from './avklareAktiviteter/AvklareAktiviteterPanelFunksjon';

@@ -1,18 +1,20 @@
 import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BodyShort, VStack } from '@navikt/ds-react';
 
-import { InputField, TextAreaField } from '@navikt/ft-form-hooks';
+import { RhfTextarea, RhfTextField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
-import { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { NyIArbeidslivetruttoNæringResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
+import type { BeregningFormValues } from '../../types/BeregningFormValues';
+import type { NyIArbeidslivetruttoNæringResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { NyIArbeidslivetValues } from '../../types/NæringAksjonspunkt';
+import type { NyIArbeidslivetValues } from '../../types/NæringAksjonspunkt';
 import { HorizontalBox } from '../../util/HorizontalBox';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
@@ -21,8 +23,8 @@ const MAX_LENGTH = 4000;
 const maxLength4000 = maxLength(MAX_LENGTH);
 
 const minLength3 = minLength(3);
-export const begrunnelseFieldname = 'fastsettBeregningsgrnunnlagSNBegrunnelse';
-export const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
+const begrunnelseFieldname = 'fastsettBeregningsgrnunnlagSNBegrunnelse';
+const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
 const { FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET } = ProsessBeregningsgrunnlagAvklaringsbehovCode;
 
 type Props = {
@@ -55,15 +57,18 @@ export const FastsettSNNyIArbeid = ({
 }: Props) => {
   const intl = useIntl();
 
+  const { control } = useFormContext<BeregningFormValues>();
+
   return (
-    <VStack gap="10">
+    <VStack gap="space-40">
       {erNyArbLivet && (
         <HorizontalBox borderBottom borderTop>
           <BodyShort size="small">
             <FormattedMessage id="FastsettSNNyIArbeid.Tittel" />
           </BodyShort>
-          <InputField
+          <RhfTextField
             name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
+            control={control}
             validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
             parse={parseCurrencyInput}
             className={styles.beløpInput}
@@ -72,8 +77,9 @@ export const FastsettSNNyIArbeid = ({
           />
         </HorizontalBox>
       )}
-      <TextAreaField
+      <RhfTextarea
         name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
+        control={control}
         label={<FormattedMessage id="Forms.VurderingAvFastsattBeregningsgrunnlag" />}
         validate={skalValideres ? [required, maxLength4000, minLength3, hasValidText] : []}
         isEdited={readOnly && isAksjonspunktClosed}
@@ -93,9 +99,7 @@ FastsettSNNyIArbeid.buildInitialValuesNyIArbeidslivet = (
   relevanteAndeler: BeregningsgrunnlagAndel[],
   avklaringsbehov: BeregningAvklaringsbehov[],
 ): NyIArbeidslivetValues => {
-  const snAndel = relevanteAndeler.find(
-    andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
-  );
+  const snAndel = relevanteAndeler.find(andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE);
   const nyIArbeidslivetAP = avklaringsbehov.find(
     ap => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   );

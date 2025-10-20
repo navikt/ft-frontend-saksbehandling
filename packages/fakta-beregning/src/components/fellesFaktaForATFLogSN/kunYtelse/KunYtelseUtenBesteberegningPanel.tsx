@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Label, VStack } from '@navikt/ds-react';
 
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
+import type { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
 import { BrukersAndelFieldArray } from './BrukersAndelFieldArray';
 
 interface Props {
@@ -25,7 +25,7 @@ export const KunYtelseUtenBesteberegningPanel = ({
   kodeverkSamling,
   isAksjonspunktClosed,
 }: Props) => (
-  <VStack gap="4">
+  <VStack gap="space-16">
     <Label size="medium">
       <FormattedMessage id="KunYtelsePanel.RapporterteInntekter" />
     </Label>

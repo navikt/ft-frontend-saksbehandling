@@ -10,8 +10,8 @@
   width: 100%;
 }
 .autocompleteSuggestion--active {
-  background-color: #30688b;
-  color: white;
+  background-color: var(--ax-bg-accent-moderate);
+  color: var(--ax-text-neutral);
 }
 
 @media (max-width: 800px) {

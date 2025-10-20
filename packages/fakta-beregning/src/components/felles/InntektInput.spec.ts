@@ -1,5 +1,5 @@
 import { OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
-import { AndelForFaktaOmBeregning } from '@navikt/ft-types';
+import type { AndelForFaktaOmBeregning } from '@navikt/ft-types';
 
 import { InntektInput } from './InntektInput';
 

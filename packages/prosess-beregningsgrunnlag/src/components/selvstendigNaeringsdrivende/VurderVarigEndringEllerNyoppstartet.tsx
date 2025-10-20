@@ -2,28 +2,28 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { BodyShort, HStack, VStack } from '@navikt/ds-react';
+import { BodyShort, HStack, Radio, VStack } from '@navikt/ds-react';
 
-import { InputField, RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup, RhfTextarea, RhfTextField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
-import { AktivitetStatus, isAksjonspunktOpen } from '@navikt/ft-kodeverk';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
-import { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import type { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { formatCurrencyNoKr, isAksjonspunktOpen, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { BeregningFormValues } from '../../types/BeregningFormValues';
-import { VurderVarigEndretNyoppstartetResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
+import type { BeregningFormValues } from '../../types/BeregningFormValues';
+import type { VurderVarigEndretNyoppstartetResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
+import type { VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 
 const MAX_LENGTH = 4000;
 const maxLength4000 = maxLength(MAX_LENGTH);
 const minLength3 = minLength(3);
-export const begrunnelseFieldname = 'varigEndringNyoppstartetBegrunnelse';
-export const varigEndringRadioname = 'erVarigEndret';
-export const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
+const begrunnelseFieldname = 'varigEndringNyoppstartetBegrunnelse';
+const varigEndringRadioname = 'erVarigEndret';
+const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
 const {
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
   VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
@@ -90,33 +90,30 @@ export const VurderVarigEndringEllerNyoppstartet = ({
   const formMethods = useFormContext<BeregningFormValues>();
   const varigEndringValues = formMethods.watch(formName)[fieldIndex] as VurderOgFastsettValues;
   const varigEndringBekreftetVerdi = varigEndringValues.erVarigEndret;
-  const radioknapper = [
-    {
-      value: 'false',
-      label: radioLabel1,
-    },
-    {
-      value: 'true',
-      label: radioLabel2,
-    },
-  ];
+
   return (
-    <VStack gap="4">
-      <RadioGroupPanel
+    <VStack gap="space-16">
+      <RhfRadioGroup
         name={`${formName}.${fieldIndex}.${varigEndringRadioname}`}
+        control={formMethods.control}
         validate={skalValideres ? [required] : []}
         label={intl.formatMessage({ id: radioLabel })}
-        isHorizontal={false}
         isReadOnly={readOnly}
         isEdited={readOnly && isAksjonspunktClosed}
-        radios={radioknapper}
-        isTrueOrFalseSelection
-      />
+      >
+        <Radio value={false} size="small">
+          {radioLabel1}
+        </Radio>
+        <Radio value={true} size="small">
+          {radioLabel2}
+        </Radio>
+      </RhfRadioGroup>
       {varigEndringBekreftetVerdi && (
-        <HStack gap="4" align="center">
+        <HStack gap="space-16" align="center">
           <BodyShort size="small">{inntektFastsettesText(erVarigEndretArbeidssituasjon)}</BodyShort>
-          <InputField
+          <RhfTextField
             name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
+            control={formMethods.control}
             validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
             parse={parseCurrencyInput}
             hideLabel
@@ -126,8 +123,9 @@ export const VurderVarigEndringEllerNyoppstartet = ({
           />
         </HStack>
       )}
-      <TextAreaField
+      <RhfTextarea
         name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
+        control={formMethods.control}
         label={<FormattedMessage id="Forms.Vurdering" />}
         validate={skalValideres ? [required, maxLength4000, minLength3, hasValidText] : []}
         maxLength={MAX_LENGTH}
@@ -148,7 +146,7 @@ VurderVarigEndringEllerNyoppstartet.buildInitialValues = (
 ): VurderOgFastsettValues => {
   const varigEndretAndel = relevanteAndeler.find(
     andel =>
-      andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE ||
+      andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE ||
       andel.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL,
   );
   const varigEndretNaeringAP = avklaringsbehov.find(
@@ -157,7 +155,7 @@ VurderVarigEndringEllerNyoppstartet.buildInitialValues = (
       ap.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
   );
   if (varigEndretNaeringAP) {
-    const erVarigEndringValgt = isAksjonspunktOpen(varigEndretNaeringAP.status)
+    const erVarigEndringValgt = isAksjonspunktOpen(varigEndretNaeringAP)
       ? undefined
       : relevanteAndeler[0].overstyrtPrAar !== null && relevanteAndeler[0].overstyrtPrAar !== undefined;
     return {

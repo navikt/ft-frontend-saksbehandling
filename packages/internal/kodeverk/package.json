@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-kodeverk",
-  "version": "3.1.13",
+  "version": "4.0.0",
   "license": "MIT",
   "type": "module",
   "private": true,
@@ -18,12 +18,13 @@
     "prettier": "prettier --write src"
   },
   "devDependencies": {
-    "cross-env": "7.0.3",
-    "eslint": "9.28.0",
-    "stylelint": "16.20.0",
-    "typescript": "5.8.3",
-    "vite": "6.3.5",
-    "vitest": "3.2.3"
+    "@navikt/ft-config-eslint": "workspace:^",
+    "@navikt/ft-config-typescript": "workspace:^",
+    "@navikt/ft-config-vite": "workspace:^",
+    "eslint": "9.37.0",
+    "typescript": "5.9.3",
+    "vite": "7.1.10",
+    "vitest": "3.2.4"
   },
   "exports": {
     ".": {

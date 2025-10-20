@@ -2,12 +2,17 @@ import React from 'react';
 
 import { VStack } from '@navikt/ds-react';
 
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, KunYtelse } from '@navikt/ft-types';
+import type {
+  AndelForFaktaOmBeregning,
+  ArbeidsgiverOpplysningerPerId,
+  FaktaOmBeregning,
+  KunYtelse,
+} from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
-import { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
+import { FaktaOmBeregningTilfelle } from '../../../kodeverk/faktaOmBeregningTilfelle';
+import type { FaktaOmBeregningAksjonspunktValues, KunYtelseValues } from '../../../typer/FaktaBeregningTypes';
+import type { FaktaBeregningTransformedValues } from '../../../typer/interface/BeregningFaktaAP';
+import type { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
 import { KunYtelsePanel } from './KunYtelsePanel';
 
 const { FASTSETT_BG_KUN_YTELSE, VURDER_BESTEBEREGNING } = FaktaOmBeregningTilfelle;
@@ -30,7 +35,7 @@ export const FastsettBgKunYtelse = ({
   renderTextFieldAndSubmitButton,
 }: Props) => {
   return tilfeller.includes(FASTSETT_BG_KUN_YTELSE) ? (
-    <VStack gap="4" key="FASTSETT_BG_KUN_YTELSE">
+    <VStack gap="space-16" key="FASTSETT_BG_KUN_YTELSE">
       <KunYtelsePanel
         readOnly={readOnly}
         isAksjonspunktClosed={isAksjonspunktClosed}

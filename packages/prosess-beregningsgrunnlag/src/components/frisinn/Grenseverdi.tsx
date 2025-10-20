@@ -4,7 +4,7 @@ import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
+import type { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, periodFormat, TIDENES_ENDE } from '@navikt/ft-utils';
 
@@ -12,8 +12,8 @@ import {
   erSøktForAndelISøknadsperiode,
   finnBruttoForStatusIPeriode,
   finnFrisinnperioderSomSkalVises,
-  FrisinnGrunnlag,
-  FrisinnPeriode,
+  type FrisinnGrunnlag,
+  type FrisinnPeriode,
 } from './FrisinnUtils';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
@@ -25,7 +25,7 @@ const lagGrenseveriPeriode = (
   annenInntektIkkeSøktFor: number,
   utregnetInntektstak: number,
 ) => (
-  <HStack gap="2">
+  <HStack gap="space-8">
     <BodyShort className={beregningStyles.tabellAktivitet}>
       <FormattedMessage
         id="Frisinn.Inntektstak"
@@ -93,8 +93,8 @@ const lagGrenseverdirad = (bg: Beregningsgrunnlag, bgPeriode: Beregningsgrunnlag
     const bruttoFL = finnBruttoForStatusIPeriode(AktivitetStatus.FRILANSER, bg, bgPeriode);
     annenInntektIkkeSøktFor += bruttoFL;
   }
-  if (!erSøktForAndelISøknadsperiode(AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE, bgPeriode, frisinnGrunnlag)) {
-    const bruttoSN = finnBruttoForStatusIPeriode(AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE, bg, bgPeriode);
+  if (!erSøktForAndelISøknadsperiode(AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE, bgPeriode, frisinnGrunnlag)) {
+    const bruttoSN = finnBruttoForStatusIPeriode(AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE, bg, bgPeriode);
     annenInntektIkkeSøktFor += bruttoSN;
   }
   const utregnetInntektstak =
@@ -107,7 +107,7 @@ const lagGrenseverdirad = (bg: Beregningsgrunnlag, bgPeriode: Beregningsgrunnlag
   const fom = førstePeriodeISammeMåned ? førstePeriodeISammeMåned.fom : bgPeriode.beregningsgrunnlagPeriodeFom;
 
   return (
-    <VStack gap="2">
+    <VStack gap="space-8">
       <Label size="small" className={beregningStyles.avsnittOverskrift}>
         <FormattedMessage
           id="Frisinn.InntektstakOpplysningerPeriode"

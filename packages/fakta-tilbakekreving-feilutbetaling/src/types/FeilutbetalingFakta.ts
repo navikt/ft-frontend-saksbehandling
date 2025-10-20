@@ -1,5 +1,7 @@
 import { BehandlingArsakType, BehandlingResultatType, TilbakekrevingVidereBehandling } from '@navikt/ft-kodeverk';
 
+import type { KonsekvensForYtelsen } from './KonsekvensForYtelsen';
+
 export type FeilutbetalingFakta = {
   behandlingFakta: {
     perioder?: {
@@ -20,7 +22,7 @@ export type FeilutbetalingFakta = {
     }[];
     behandlingsresultat?: {
       type: BehandlingResultatType;
-      konsekvenserForYtelsen: string[];
+      konsekvenserForYtelsen: KonsekvensForYtelsen[];
     };
     tilbakekrevingValg?: {
       videreBehandling: TilbakekrevingVidereBehandling;

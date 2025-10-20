@@ -1,6 +1,5 @@
-import { VedtakResultatType } from '@navikt/ft-kodeverk';
-
-import { Aktsomhet } from '../kodeverk/aktsomhet';
+import type { Aktsomhet } from './Aktsomhet';
+import type { VedtakResultatType } from './VedtakResultatType';
 
 export type BeregningResultatPeriode = {
   periode: {
@@ -11,14 +10,8 @@ export type BeregningResultatPeriode = {
   feilutbetaltBeløp: number;
   andelAvBeløp: number;
   renterProsent: number;
-  manueltSattTilbakekrevingsbeløp: number;
-  tilbakekrevingBeløpUtenRenter: number;
-  renteBeløp: number;
   tilbakekrevingBeløp: number;
-  skattBeløp: number;
   tilbakekrevingBeløpEtterSkatt: number;
-  utbetaltYtelseBeløp: number;
-  riktigYtelseBeløp: number;
 };
 
 export type BeregningsresultatTilbakekreving = {

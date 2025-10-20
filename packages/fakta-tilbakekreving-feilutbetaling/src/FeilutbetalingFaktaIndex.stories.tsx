@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
 import { alleKodeverk, alleTilbakekrevingKodeverk } from '@navikt/ft-frontend-storybook-utils';
@@ -6,22 +6,21 @@ import {
   BehandlingArsakType,
   BehandlingResultatType,
   FagsakYtelseType,
-  KonsekvensForYtelsen,
+  HendelseUnderType,
   TilbakekrevingVidereBehandling,
 } from '@navikt/ft-kodeverk';
 
 import { FeilutbetalingFaktaIndex } from './FeilutbetalingFaktaIndex';
-import { AvklartFaktaFeilutbetalingAp } from './types/AvklartFaktaFeilutbetalingAp';
-import { FeilutbetalingÅrsak } from './types/FeilutbetalingÅrsak';
-import { FeilutbetalingFakta } from './types/FeilutbetalingFakta';
-import { KodeverkForPanel } from './types/KodeverkForPanel';
-import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
+import type { AvklartFaktaFeilutbetalingAp } from './types/AvklartFaktaFeilutbetalingAp';
+import type { FeilutbetalingÅrsak } from './types/FeilutbetalingÅrsak';
+import type { FeilutbetalingFakta } from './types/FeilutbetalingFakta';
+import type { KodeverkForPanel } from './types/KodeverkForPanel';
+import type { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 
-import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-ui-komponenter/dist/style.css';
 
-const feilutbetalingFakta = {
+const feilutbetalingFakta: FeilutbetalingFakta = {
   behandlingFakta: {
     perioder: [
       {
@@ -51,16 +50,16 @@ const feilutbetalingFakta = {
     ],
     behandlingsresultat: {
       type: BehandlingResultatType.INNVILGET,
-      konsekvenserForYtelsen: [KonsekvensForYtelsen.FORELDREPENGER_OPPHØRER, KonsekvensForYtelsen.ENDRING_I_BEREGNING],
+      konsekvenserForYtelsen: ['FORELDREPENGER_OPPHØRER', 'ENDRING_I_BEREGNING'],
     },
     tilbakekrevingValg: {
       videreBehandling: TilbakekrevingVidereBehandling.TILBAKEKR_INNTREKK,
     },
     datoForRevurderingsvedtak: '2019-01-01',
   },
-} satisfies FeilutbetalingFakta;
+};
 
-const feilutbetalingAarsak = [
+const feilutbetalingAarsak: FeilutbetalingÅrsak[] = [
   {
     ytelseType: FagsakYtelseType.FORELDREPENGER,
     hendelseTyper: [
@@ -70,15 +69,15 @@ const feilutbetalingAarsak = [
       },
       {
         hendelseType: 'OKONOMI_FEIL',
-        hendelseUndertyper: ['OKONOMI_FEIL_TREKK'],
+        hendelseUndertyper: [HendelseUnderType.OKONOMI_FEIL_TREKK],
       },
       {
         hendelseType: 'BEREGNING_TYPE',
-        hendelseUndertyper: ['IKKE_BOSATT'],
+        hendelseUndertyper: [HendelseUnderType.IKKE_BOSATT],
       },
     ],
   },
-] as FeilutbetalingÅrsak[];
+];
 
 const fpTilbakekrevingAlleKodeverk = alleTilbakekrevingKodeverk as KodeverkTilbakeForPanel;
 const fpSakAlleKodeverk = alleKodeverk as KodeverkForPanel;
@@ -86,7 +85,7 @@ const fpSakAlleKodeverk = alleKodeverk as KodeverkForPanel;
 const meta = {
   component: FeilutbetalingFaktaIndex,
   args: {
-    submitCallback: action('button-click') as (data: AvklartFaktaFeilutbetalingAp) => Promise<any>,
+    submitCallback: action('submit') as (data: AvklartFaktaFeilutbetalingAp) => Promise<void>,
     isReadOnly: false,
     setFormData: () => undefined,
     feilutbetalingFakta,

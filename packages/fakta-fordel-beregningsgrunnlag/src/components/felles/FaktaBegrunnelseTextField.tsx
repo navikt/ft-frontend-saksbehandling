@@ -1,8 +1,9 @@
+import { type FieldValues, type UseControllerProps } from 'react-hook-form';
 import { RawIntlProvider } from 'react-intl';
 
-import { TextAreaField } from '@navikt/ft-form-hooks';
+import { RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { BeregningAvklaringsbehov } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { createIntl, decodeHtmlEntity } from '@navikt/ft-utils';
 
 import styles from './faktaBegrunnelseTextField.module.css';
@@ -14,16 +15,17 @@ const intl = createIntl(messages);
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
 
-type Props = {
+interface Props<T extends FieldValues> {
+  name: UseControllerProps<T>['name'];
+  control: UseControllerProps<T>['control'];
   isReadOnly: boolean;
   isSubmittable: boolean;
   hasBegrunnelse: boolean;
   label?: string;
   hasVurderingText?: boolean;
-  name: string;
-};
+}
 
-export type FormValues = {
+type FormValues = {
   [key: string]: any;
 };
 
@@ -34,22 +36,24 @@ type TransformedValues = {
 /**
  * FaktaBegrunnelseTextField
  */
-export const FaktaBegrunnelseTextField = ({
+export const FaktaBegrunnelseTextField = <T extends FieldValues>({
+  name,
+  control,
   isReadOnly,
   isSubmittable,
   hasBegrunnelse,
   label,
   hasVurderingText = false,
-  name = 'begrunnelse',
-}: Props) => {
+}: Props<T>) => {
   const code = hasVurderingText ? 'FaktaBegrunnelseTextField.Vurdering' : 'FaktaBegrunnelseTextField.BegrunnEndringene';
   const textAreaLabel = label || intl.formatMessage({ id: code });
   return (
     <RawIntlProvider value={intl}>
       {(isSubmittable || hasBegrunnelse) && (
         <div className={styles.begrunnelseTextField}>
-          <TextAreaField
+          <RhfTextarea
             name={name}
+            control={control}
             label={isReadOnly ? '' : textAreaLabel}
             validate={isReadOnly ? [] : [required, minLength3, maxLength1500, hasValidText]}
             className={isReadOnly ? styles.explanationTextareaReadOnly : styles.explanationTextarea}

@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Detail, VStack } from '@navikt/ds-react';
 
-import { Beregningsgrunnlag } from '@navikt/ft-types';
+import type { Beregningsgrunnlag } from '@navikt/ft-types';
 
 import { Beregningsresultat } from './Beregningsresultat';
 import { Grenseverdi } from './Grenseverdi';
@@ -19,7 +19,7 @@ type Props = {
 };
 
 export const Frisinnpanel = ({ beregningsgrunnlag }: Props) => (
-  <VStack gap="4" className={styles.aksjonspunktBehandlerContainer}>
+  <VStack gap="space-16" className={styles.aksjonspunktBehandlerContainer}>
     <Detail>
       <FormattedMessage id="Frisinn.Tittel" />
     </Detail>

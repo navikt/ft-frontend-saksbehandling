@@ -4,10 +4,8 @@ import { FormattedMessage } from 'react-intl';
 import { Heading, Table, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus, PgiType } from '@navikt/ft-kodeverk';
-import { BeregningsgrunnlagAndel, Inntektsgrunnlag, PGIPrÅr, PgiVerdier } from '@navikt/ft-types';
+import type { BeregningsgrunnlagAndel, Inntektsgrunnlag, PGIPrÅr, PgiVerdier } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
-
-const TOM_ARRAY: PGIPrÅr[] = [];
 
 const lagTabellRad = (år: number, pgiVerdier: PgiVerdier[], pgiGrunnlag: PGIPrÅr[]): React.ReactNode => {
   const inntektsgrunnlag = pgiGrunnlag.find(gr => gr.år === år);
@@ -69,17 +67,17 @@ type Props = {
 export const GrunnlagForAarsinntektPanelSN = ({ alleAndeler, inntektsgrunnlag }: Props) => {
   const andel = alleAndeler.find(
     a =>
-      a.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE ||
+      a.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE ||
       a.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL,
   );
-  const pgiGrunlag = inntektsgrunnlag?.pgiGrunnlag || TOM_ARRAY;
+  const pgiGrunlag = inntektsgrunnlag?.pgiGrunnlag || [];
   if (!andel || !andel.pgiSnitt || !andel.pgiVerdier) {
     return null;
   }
   const { pgiVerdier, pgiSnitt } = andel;
   return (
-    <VStack gap="1">
-      <Heading size="medium">
+    <VStack gap="space-4">
+      <Heading size="medium" level="4">
         <FormattedMessage id="GrunnlagForAarsinntektPanelSN.Tittel" />
       </Heading>
       <Table size="small">

@@ -1,14 +1,14 @@
-import { ReactElement } from 'react';
+import { type ReactElement } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BodyShort, ExpansionCard, Label, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 import norskFormat from 'dayjs/locale/nb';
-import { CallbackDataParams } from 'echarts/types/dist/shared';
-import { OptionDataValue } from 'echarts/types/src/util/types';
+import { type CallbackDataParams } from 'echarts/types/dist/shared';
+import type { OptionDataValue } from 'echarts/types/src/util/types.js';
 
 import { InntektAktivitetType } from '@navikt/ft-kodeverk';
-import {
+import type {
   Inntektsgrunnlag,
   InntektsgrunnlagInntekt,
   InntektsgrunnlagMåned,
@@ -20,7 +20,6 @@ import { formatCurrencyNoKr, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 import { HorizontalBox } from '../../util/HorizontalBox';
 import { ReactECharts } from '../echart/ReactECharts';
 
-const TOM_ARRAY: InntektsgrunnlagMåned[] = [];
 const GRAF_FARGE_AT = '#99bdcd';
 const GRAF_FARGE_FL = '#c1b5d0';
 const GRAF_FARGE_YTELSE = '#C6C2BF';
@@ -43,7 +42,7 @@ const lagSumRad = (månederMedInntekter: InntektsgrunnlagMåned[], relevanteStat
     .reduce((i1, i2) => i1 + i2, 0);
 
   return (
-    <VStack gap="2">
+    <VStack gap="space-8">
       <Label size="small">
         <FormattedMessage id="SammenligningsGrunnlaAOrdningen.SumTittel" />
       </Label>
@@ -143,7 +142,7 @@ export const SammenligningsgrunnlagAOrdningen = ({
   sammenligningsgrunnlag,
 }: Props) => {
   const intl = useIntl();
-  const måneder = sammenligningsGrunnlagInntekter?.måneder || TOM_ARRAY;
+  const måneder = sammenligningsGrunnlagInntekter?.sammenligningsgrunnlagInntekter || [];
   const relevanteStatuser = utledRelevanteStatuser(måneder);
   const sgFom =
     sammenligningsgrunnlag && sammenligningsgrunnlag.length > 0
@@ -169,7 +168,7 @@ export const SammenligningsgrunnlagAOrdningen = ({
   const ytelseTekst = intl.formatMessage({ id: 'SammenligningsGrunnlaAOrdningen.Ytelse' });
 
   return (
-    <VStack gap="10">
+    <VStack gap="space-40">
       <ExpansionCard
         defaultOpen
         size="small"
@@ -208,6 +207,7 @@ export const SammenligningsgrunnlagAOrdningen = ({
               },
               legend: {
                 data: [arbeidTekst, frilansTekst, ytelseTekst],
+                top: 'top',
               },
               grid: {
                 left: '1%',

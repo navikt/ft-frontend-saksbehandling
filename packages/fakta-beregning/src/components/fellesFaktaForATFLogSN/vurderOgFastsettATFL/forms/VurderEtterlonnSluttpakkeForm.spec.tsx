@@ -1,8 +1,8 @@
-import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
 import { VurderEtterlonnSluttpakkeForm } from './VurderEtterlonnSluttpakkeForm';
 
-describe('<VurderEtterlonnSluttpakkeForm>', () => {
+describe('VurderEtterlonnSluttpakkeForm', () => {
   it('Skal teste at buildInitialvalues bygges korrekt når det er tidligere fastsatt etterlønn eller sluttpakke', () => {
     const ap = {
       status: 'OPPRETTET',

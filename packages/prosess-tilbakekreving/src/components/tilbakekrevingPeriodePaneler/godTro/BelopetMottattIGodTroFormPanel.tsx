@@ -1,8 +1,9 @@
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { useFormContext } from 'react-hook-form';
+import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
-import { BodyShort, VStack } from '@navikt/ds-react';
+import { BodyShort, HStack, Radio, VStack } from '@navikt/ds-react';
 
-import { InputField, RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup, RhfTextField } from '@navikt/ft-form-hooks';
 import { minValue, required } from '@navikt/ft-form-validators';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -17,8 +18,9 @@ const parseCurrencyInput = (input: string | number) => {
   return Number.isNaN(parsedValue) ? '' : parsedValue;
 };
 
-const validerAtMindreEnn = (intl: IntlShape, feilutbetalingBelop: number) => (tilbakekrevdBelop: number) => {
-  if (tilbakekrevdBelop > feilutbetalingBelop) {
+const validerAtMindreEnn = (intl: IntlShape, feilutbetalingBelop: number) => (tilbakekrevdBelop: number | string) => {
+  const numericValue = typeof tilbakekrevdBelop === 'string' ? Number(tilbakekrevdBelop) : tilbakekrevdBelop;
+  if (numericValue > feilutbetalingBelop) {
     return intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.BelopKanIkkeVereStorreEnnFeilutbetalingen' });
   }
   return undefined;
@@ -29,7 +31,7 @@ export interface InitialValuesGodTroForm {
   tilbakekrevdBelop?: number;
 }
 
-export interface Props {
+interface Props {
   name: string;
   readOnly: boolean;
   erBelopetIBehold?: boolean;
@@ -38,30 +40,32 @@ export interface Props {
 
 export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehold, feilutbetalingBelop }: Props) => {
   const intl = useIntl();
+
+  // TODO (TOR) Manglar type
+  const { control } = useFormContext();
+
   return (
-    <VStack gap="2">
-      <RadioGroupPanel
+    <VStack gap="space-12">
+      <RhfRadioGroup
         name={`${name}.erBelopetIBehold`}
+        control={control}
         label={<FormattedMessage id="BelopetMottattIGodTroFormPanel.BelopetIBehold" />}
         validate={[required]}
-        radios={[
-          {
-            label: <FormattedMessage id="BelopetMottattIGodTroFormPanel.Ja" />,
-            value: 'true',
-          },
-          {
-            label: <FormattedMessage id="BelopetMottattIGodTroFormPanel.Nei" />,
-            value: 'false',
-          },
-        ]}
         isReadOnly={readOnly}
-        isTrueOrFalseSelection
-        isHorizontal
-      />
+      >
+        <HStack gap="space-20">
+          <Radio value={true} size="small">
+            <FormattedMessage id="BelopetMottattIGodTroFormPanel.Ja" />
+          </Radio>
+          <Radio value={false} size="small">
+            <FormattedMessage id="BelopetMottattIGodTroFormPanel.Nei" />
+          </Radio>
+        </HStack>
+      </RhfRadioGroup>
       <div className={styles.arrowbox}>
         {erBelopetIBehold === true && (
           <ArrowBox alignOffset={25}>
-            <InputField
+            <RhfTextField
               name={`${name}.tilbakekrevdBelop`}
               label={<FormattedMessage id="BelopetMottattIGodTroFormPanel.AngiBelop" />}
               validate={[required, minValue1, validerAtMindreEnn(intl, feilutbetalingBelop)]}
@@ -85,10 +89,7 @@ export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehol
   );
 };
 
-BelopetMottattIGodTroFormPanel.transformValues = (
-  info: { erBelopetIBehold: boolean; tilbakekrevdBelop: number },
-  vurderingBegrunnelse: string,
-) => ({
+BelopetMottattIGodTroFormPanel.transformValues = (info: InitialValuesGodTroForm, vurderingBegrunnelse: string) => ({
   '@type': 'godTro',
   begrunnelse: vurderingBegrunnelse,
   erBelopetIBehold: info.erBelopetIBehold,

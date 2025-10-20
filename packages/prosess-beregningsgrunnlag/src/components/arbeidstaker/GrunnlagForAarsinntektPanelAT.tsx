@@ -1,10 +1,10 @@
-import { ReactElement } from 'react';
+import { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Heading, Table, VStack } from '@navikt/ds-react';
 
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagArbeidsforhold,
@@ -12,11 +12,9 @@ import {
 import { BeløpLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
-import { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import type { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
+import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
-
-import tableStyle from '../tableStyle.module.css';
 
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   // Andelen er fastsatt før og må kunne fastsettes igjen
@@ -52,7 +50,7 @@ const createArbeidinntektRows = (
   return relevanteAndeler.map(andel => {
     const visningsNavn = createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling);
     return (
-      <Table.Body key={`ArbInntektWrapper${visningsNavn}`} className={tableStyle.tableGroup}>
+      <Table.Body key={`ArbInntektWrapper${visningsNavn}`}>
         <Table.Row shadeOnHover={false}>
           <Table.HeaderCell textSize="small" colSpan={3}>
             {visningsNavn}
@@ -127,8 +125,8 @@ export const GrunnlagForAarsinntektPanelAT = ({
   const relevanteAndeler = finnAndelerSomSkalVises(alleAndelerIFørstePeriode);
   if (!relevanteAndeler || relevanteAndeler.length === 0) return null;
   return (
-    <VStack gap="2">
-      <Heading size="medium">
+    <VStack gap="space-8">
+      <Heading size="medium" level="4">
         <FormattedMessage id="GrunnlagForAarsinntektPanelAT.Tittel" />
       </Heading>
       <Table size="small">

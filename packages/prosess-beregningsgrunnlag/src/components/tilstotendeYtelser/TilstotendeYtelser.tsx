@@ -1,16 +1,15 @@
-import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Heading, Table, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus, isStatusDagpengerOrAAP } from '@navikt/ft-kodeverk';
-import { BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
-import { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
+import type { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
+import { isStatusDagpengerOrAAP } from '../../util/aktivitetStatusUtils';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
-import tableStyle from '../tableStyle.module.css';
 
 const getTekstForAndelBruktIBeregning = (andel: BeregningsgrunnlagAndel): string => {
   if (andel.aktivitetStatus === AktivitetStatus.DAGPENGER) {
@@ -41,9 +40,9 @@ export const TilstotendeYtelser = ({ alleAndeler, relevanteStatuser, gjelderBest
   const harFlereYtelser = relevanteAndeler.length > 1;
 
   return (
-    <VStack gap="2">
+    <VStack gap="space-8">
       {relevanteStatuser.isKombinasjonsstatus && (
-        <Heading size="medium">
+        <Heading size="medium" level="4">
           <FormattedMessage id="TilstottendeYtelse.Tittel" />
         </Heading>
       )}
@@ -61,7 +60,7 @@ export const TilstotendeYtelser = ({ alleAndeler, relevanteStatuser, gjelderBest
         </Table.Header>
 
         {relevanteAndeler.map((andel: BeregningsgrunnlagAndel) => (
-          <Table.Body key={andel.aktivitetStatus} className={tableStyle.tableGroup}>
+          <Table.Body key={andel.aktivitetStatus}>
             <Table.Row>
               <Table.DataCell textSize="small">
                 <FormattedMessage id={getTekstForAndelBruktIBeregning(andel)} />

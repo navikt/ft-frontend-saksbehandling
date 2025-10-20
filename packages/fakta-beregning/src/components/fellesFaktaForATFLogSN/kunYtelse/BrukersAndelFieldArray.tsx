@@ -1,24 +1,27 @@
-import React, { ReactElement } from 'react';
-import { FieldArrayWithId, useFieldArray, UseFieldArrayRemove, useFormContext, useWatch } from 'react-hook-form';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import React, { type ReactElement } from 'react';
+import { type FieldArrayWithId, useFieldArray, useFormContext, useWatch } from 'react-hook-form';
+import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
-import { PlusCircleIcon, XMarkIcon } from '@navikt/aksel-icons';
-import { Button, ErrorMessage, Table, VStack } from '@navikt/ds-react';
+import { ErrorMessage, Table, VStack } from '@navikt/ds-react';
 
-import { InputField, SelectField, useCustomValidation } from '@navikt/ft-form-hooks';
+import {
+  RhfFieldArrayAppendButton,
+  RhfFieldArrayRemoveButton,
+  RhfSelect,
+  RhfTextField,
+  useCustomValidation,
+} from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
-import { AndelFieldValue } from '../../../typer/FieldValues';
-import { KodeverkForPanel, KodeverkMedNavn } from '../../../typer/KodeverkForPanel';
-import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
+import type { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
+import type { AndelFieldValue } from '../../../typer/FieldValues';
+import type { KodeverkForPanel, KodeverkMedNavn } from '../../../typer/KodeverkForPanel';
+import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../../utils/BeregningFormUtils';
-import { SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
+import { type SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
-
-import tableStyles from '../../felles/tableStyle.module.css';
 
 const defaultBGFordeling = (aktivitetStatuser: string[], kodeverkSamling: KodeverkForPanel) => ({
   andel: kodeverkSamling['AktivitetStatus'].find(
@@ -52,67 +55,6 @@ function skalViseSletteknapp(
 ) {
   return (fields[index].nyAndel || fields[index].lagtTilAvSaksbehandler) && !readOnly;
 }
-
-const createAndelerTableRows = (
-  fields: FieldArrayWithId<VurderFaktaBeregningFormValues, 'vurderFaktaBeregningForm.0.brukersAndelBG', 'id'>[],
-  isAksjonspunktClosed: boolean,
-  readOnly: boolean,
-  inntektskategoriKoder: KodeverkMedNavn<'Inntektskategori'>[],
-  intl: IntlShape,
-  fieldArrayName: string,
-  remove: UseFieldArrayRemove,
-): ReactElement[] =>
-  fields.map((field, index) => (
-    <Table.Row key={field.id}>
-      <Table.DataCell textSize="small">
-        <FormattedMessage id="BeregningInfoPanel.FordelingBG.Ytelse" />
-      </Table.DataCell>
-      <Table.DataCell align="right">
-        <InputField
-          name={`${fieldArrayName}.${index}.fastsattBelop`}
-          parse={parseCurrencyInput}
-          readOnly={readOnly}
-          isEdited={isAksjonspunktClosed}
-          validate={readOnly ? [] : [required, maxValueFormatted(178956970)]}
-          label={intl.formatMessage(
-            {
-              id: 'BeregningInfoPanel.FordelingBG.FordelingMedAndelnavn',
-            },
-            { andel: `ytelse ${index + 1}` },
-          )}
-          hideLabel
-          size="small"
-        />
-      </Table.DataCell>
-      <Table.DataCell align="right">
-        <SelectField
-          label={intl.formatMessage(
-            {
-              id: 'BeregningInfoPanel.FordelingBG.InntektskategoriMedAndelnavn',
-            },
-            { andel: `ytelse ${index + 1}` },
-          )}
-          name={`${fieldArrayName}.${index}.inntektskategori`}
-          selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
-          readOnly={readOnly}
-          validate={readOnly ? [] : [required]}
-          hideLabel
-          size="small"
-        />
-      </Table.DataCell>
-      <Table.DataCell align="right">
-        {skalViseSletteknapp(index, fields, readOnly) && (
-          <Button
-            size="small"
-            icon={<XMarkIcon aria-hidden />}
-            onClick={() => remove(index)}
-            type="button"
-            variant="tertiary-neutral"
-          />
-        )}
-      </Table.DataCell>
-    </Table.Row>
-  ));
 
 const createBruttoBGSummaryRow = (sumFordeling: string | undefined): ReactElement => (
   <Table.Row>
@@ -174,22 +116,14 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
     control,
   });
   const sumFordeling = fieldArrayValues ? summerFordeling(fieldArrayValues) : '0';
-  const tableRows = createAndelerTableRows(
-    fields,
-    isAksjonspunktClosed,
-    readOnly,
-    inntektskategoriKoder,
-    intl,
-    fieldArrayName,
-    remove,
-  );
+
   const feilmelding = validate(fieldArrayValues, intl);
   const skjemaNavn = `${fieldArrayName}.skjemagruppe`;
   const errorMessage = useCustomValidation(skjemaNavn, feilmelding);
 
   return (
-    <VStack gap="2">
-      <Table size="small" className={tableStyles.tableMedInput}>
+    <VStack gap="space-8">
+      <Table size="small">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell scope="col" textSize="small">
@@ -205,24 +139,72 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {tableRows}
+          {fields.map((field, index) => (
+            <Table.Row key={field.id}>
+              <Table.DataCell textSize="small">
+                <FormattedMessage id="BeregningInfoPanel.FordelingBG.Ytelse" />
+              </Table.DataCell>
+              <Table.DataCell align="right">
+                <RhfTextField
+                  // @ts-expect-error fiks! Dynamisk navn
+                  name={`${fieldArrayName}.${index}.fastsattBelop`}
+                  control={control}
+                  parse={parseCurrencyInput}
+                  readOnly={readOnly}
+                  isEdited={isAksjonspunktClosed}
+                  validate={readOnly ? [] : [required, maxValueFormatted(178956970)]}
+                  label={intl.formatMessage(
+                    {
+                      id: 'BeregningInfoPanel.FordelingBG.FordelingMedAndelnavn',
+                    },
+                    { andel: `ytelse ${index + 1}` },
+                  )}
+                  hideLabel
+                  size="small"
+                />
+              </Table.DataCell>
+              <Table.DataCell align="right">
+                <RhfSelect
+                  // @ts-expect-error fiks! Dynamisk navn
+                  name={`${fieldArrayName}.${index}.inntektskategori`}
+                  control={control}
+                  label={intl.formatMessage(
+                    {
+                      id: 'BeregningInfoPanel.FordelingBG.InntektskategoriMedAndelnavn',
+                    },
+                    { andel: `ytelse ${index + 1}` },
+                  )}
+                  selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
+                  readOnly={readOnly}
+                  validate={readOnly ? [] : [required]}
+                  hideLabel
+                  size="small"
+                />
+              </Table.DataCell>
+              <Table.DataCell align="right">
+                <RhfFieldArrayRemoveButton
+                  remove={remove}
+                  index={index}
+                  size="small"
+                  skjul={!skalViseSletteknapp(index, fields, readOnly)}
+                />
+              </Table.DataCell>
+            </Table.Row>
+          ))}
           {createBruttoBGSummaryRow(sumFordeling)}
         </Table.Body>
       </Table>
-      {!readOnly && (
-        <div>
-          <Button
-            icon={<PlusCircleIcon aria-hidden />}
-            // @ts-expect-error Fiks
-            onClick={() => append(defaultBGFordeling(aktivitetStatuser, kodeverkSamling))}
-            type="button"
-            variant="tertiary"
-            size="small"
-          >
-            <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
-          </Button>
-        </div>
-      )}
+      <div>
+        <RhfFieldArrayAppendButton
+          append={append}
+          // @ts-expect-error Fiks
+          emptyTemplate={defaultBGFordeling(aktivitetStatuser, kodeverkSamling)}
+          skjul={readOnly}
+          size="small"
+        >
+          <FormattedMessage id="BeregningInfoPanel.FordelingBG.LeggTilAndel" />
+        </RhfFieldArrayAppendButton>
+      </div>
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </VStack>
   );

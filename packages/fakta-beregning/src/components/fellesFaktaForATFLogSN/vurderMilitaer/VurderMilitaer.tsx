@@ -1,14 +1,15 @@
 import React from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useFormContext } from 'react-hook-form';
+import { FormattedMessage } from 'react-intl';
 
-import { List, ReadMore, VStack } from '@navikt/ds-react';
+import { List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { FaktaOmBeregning } from '@navikt/ft-types';
+import type { FaktaOmBeregning } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues, VurderMilitærValues } from '../../../typer/FaktaBeregningTypes';
-import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
+import type { FaktaOmBeregningAksjonspunktValues, VurderMilitærValues } from '../../../typer/FaktaBeregningTypes';
+import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 /**
@@ -24,13 +25,17 @@ interface Props {
 }
 
 export const VurderMilitaer = ({ readOnly }: Props) => {
+  const { control } = useFormContext<VurderFaktaBeregningFormValues>();
+
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const intl = useIntl();
 
   return (
-    <RadioGroupPanel
+    <RhfRadioGroup
+      name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${vurderMilitaerField}`}
+      control={control}
+      validate={[required]}
       label={
-        <VStack gap="2">
+        <VStack gap="space-8">
           <FormattedMessage id="BeregningInfoPanel.VurderMilitaer.HarSøkerMilitærinntekt" />
           <ReadMore
             size="small"
@@ -47,15 +52,15 @@ export const VurderMilitaer = ({ readOnly }: Props) => {
           </ReadMore>
         </VStack>
       }
-      name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${vurderMilitaerField}`}
       isReadOnly={readOnly}
-      radios={[
-        { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-        { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
-      ]}
-      validate={[required]}
-      parse={parseStringToBoolean}
-    />
+    >
+      <Radio value={true} size="small">
+        <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />
+      </Radio>
+      <Radio value={false} size="small">
+        <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />
+      </Radio>
+    </RhfRadioGroup>
   );
 };
 

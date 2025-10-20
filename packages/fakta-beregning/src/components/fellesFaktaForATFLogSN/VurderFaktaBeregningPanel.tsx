@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
-import { Form } from '@navikt/ft-form-hooks';
-import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
+import { VStack } from '@navikt/ds-react';
 
-import { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
+import { RhfForm } from '@navikt/ft-form-hooks';
+import type { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
+import { isAksjonspunktOpen } from '@navikt/ft-utils';
+
+import type { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
-import { Vilkår, Vilkårperiode } from '../../typer/Vilkår';
-import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
+import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import type { Vilkår, Vilkårperiode } from '../../typer/Vilkår';
+import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { formNameVurderFaktaBeregning } from '../../utils/BeregningFormUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
+import { RegisterinntektTabell } from '../registerinntekt/RegisterinntektTabell';
 import { getBuildInitialValuesFaktaForATFLOgSN } from './faktaForATFLOgSNPanelUtils';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { transformValuesVurderFaktaBeregning } from './transformValuesHjelpefunksjoner';
@@ -37,7 +40,7 @@ const findAvklaringsbehovMedBegrunnelse = (
 };
 
 const hasOpenAksjonspunkt = (kode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
-  avklaringsbehov.some(ap => ap.definisjon === kode && isAksjonspunktOpen(ap.status));
+  avklaringsbehov.some(ap => ap.definisjon === kode && isAksjonspunktOpen(ap));
 
 interface Props {
   readOnly: boolean;
@@ -157,7 +160,7 @@ export const VurderFaktaBeregningPanel = ({
   ) {
     return (
       <VurderFaktaContext.Provider value={aktivtBeregningsgrunnlagIndeks}>
-        <Form
+        <RhfForm
           formMethods={formMethods}
           onSubmit={values => {
             losAvklaringsbehov(values);
@@ -174,39 +177,49 @@ export const VurderFaktaBeregningPanel = ({
               avklaringspunkt => harRelevantAksjonspunkt(avklaringspunkt) && kanLøses(avklaringspunkt),
             );
 
+            const valgtBeregningsgrunnlag = beregningsgrunnlag[index];
             const readOnlyAvAndreÅrsaker =
               readOnly ||
-              erForlengelse(beregningsgrunnlag[index], vilkar.perioder) ||
+              erForlengelse(valgtBeregningsgrunnlag, vilkar.perioder) ||
               (hasAksjonspunkt(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, avklaringsbehov) && !erOverstyrer);
 
             const isReadOnly = readOnlyAvAndreÅrsaker || (løsbareAksjonspunkter.length === 0 && !erOverstyrer);
 
             const vilkårsperiode = vilkar.perioder.find(
-              p => p.periode.fom === beregningsgrunnlag[index].vilkårsperiodeFom,
+              p => p.periode.fom === valgtBeregningsgrunnlag.vilkårsperiodeFom,
             );
             if (!vilkårsperiode) {
-              throw new Error(`Filler ikke vilkårsperiode med fom ${beregningsgrunnlag[index].vilkårsperiodeFom}`);
+              throw new Error(`Filler ikke vilkårsperiode med fom ${valgtBeregningsgrunnlag.vilkårsperiodeFom}`);
             }
-
+            // Må lage ny logikk for visning her
+            const skalViseInntektabell = false;
             return (
               <BeregningsgrunnlagIndexContext.Provider key={field.id} value={index}>
-                <VurderFaktaBeregningField
-                  key={field.id}
-                  vilkarsperiode={vilkårsperiode}
-                  beregningsgrunnlag={beregningsgrunnlag[index]}
-                  erOverstyrer={erOverstyrer}
-                  readOnly={isReadOnly}
-                  kodeverkSamling={kodeverkSamling}
-                  arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-                  submittable={submittable}
-                  updateOverstyring={updateOverstyring}
-                  submitDisabled={submitDisabled}
-                  verdiForAvklarAktivitetErEndret={verdiForAvklarAktivitetErEndret}
-                />
+                <VStack gap="space-24">
+                  {skalViseInntektabell && (
+                    <RegisterinntektTabell
+                      arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                      beregningsgrunnlag={valgtBeregningsgrunnlag}
+                    />
+                  )}
+                  <VurderFaktaBeregningField
+                    key={field.id}
+                    vilkarsperiode={vilkårsperiode}
+                    beregningsgrunnlag={valgtBeregningsgrunnlag}
+                    erOverstyrer={erOverstyrer}
+                    readOnly={isReadOnly}
+                    kodeverkSamling={kodeverkSamling}
+                    arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                    submittable={submittable}
+                    updateOverstyring={updateOverstyring}
+                    submitDisabled={submitDisabled}
+                    verdiForAvklarAktivitetErEndret={verdiForAvklarAktivitetErEndret}
+                  />
+                </VStack>
               </BeregningsgrunnlagIndexContext.Provider>
             );
           })}
-        </Form>
+        </RhfForm>
       </VurderFaktaContext.Provider>
     );
   }

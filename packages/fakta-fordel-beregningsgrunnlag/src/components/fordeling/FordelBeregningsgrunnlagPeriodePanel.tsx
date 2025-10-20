@@ -1,10 +1,7 @@
-import { ReactElement } from 'react';
-
-import { Accordion, Label } from '@navikt/ds-react';
-import classnames from 'classnames/bind';
+import { Accordion } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
@@ -15,8 +12,8 @@ import {
 import { PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { KodeverkForPanel } from '../../types/kodeverkForPanel';
+import type { FordelBeregningsgrunnlagAndelValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import type { KodeverkForPanel } from '../../types/kodeverkForPanel';
 import { VurdertIForrigeBehandlingIcon } from '../felles/VurdertIForrigeBehandlingIcon';
 import {
   finnFastsattPrAar,
@@ -24,20 +21,8 @@ import {
   setGenerellAndelsinfo,
   settAndelIArbeid,
   settFastsattBelop,
-} from './BgFordelingUtils';
+} from './bgFordelingUtils';
 import { FordelPeriodeFieldArray } from './FordelPeriodeFieldArray';
-
-import styles from './fordelBeregningsgrunnlagPeriodePanel.module.css';
-
-const classNames = classnames.bind(styles);
-
-const renderDateHeading = (fom: string, tom: string | undefined): ReactElement => {
-  return (
-    <Label size="small">
-      <PeriodLabel dateStringFom={fom} dateStringTom={tom} />
-    </Label>
-  );
-};
 
 const finnBortfaltNaturalytelse = (andel: BeregningsgrunnlagAndel): number =>
   andel.arbeidsforhold?.naturalytelseBortfaltPrÅr ? andel.arbeidsforhold?.naturalytelseBortfaltPrÅr : 0;
@@ -63,7 +48,7 @@ const finnSumIPeriode = (bgPerioder: BeregningsgrunnlagPeriodeProp[], fom: strin
     .reduce((sum, fastsattBelop) => sum + fastsattBelop, 0);
 };
 
-type Props = {
+interface Props {
   readOnly: boolean;
   fordelBGFieldArrayName: string;
   open?: boolean;
@@ -77,13 +62,7 @@ type Props = {
   setFieldArrayToRepeat: (fieldArrayName: string) => void;
   fieldArrayToRepeat: string;
   erVurdertTidligere: boolean;
-};
-
-/**
- * FordelBeregningsgrunnlagPeriodePanel
- *
- * Presentasjonskomponent. Viser ekspanderbart panel for perioder i nytt/endret beregningsgrunnlag
- */
+}
 
 export const FordelBeregningsgrunnlagPeriodePanel = ({
   readOnly,
@@ -104,33 +83,28 @@ export const FordelBeregningsgrunnlagPeriodePanel = ({
     return null;
   }
   return (
-    <Accordion
-      className={readOnly ? styles.statusOk : classNames(`fordelBeregningsgrunnlagPeriode--${fordelingsperiode.fom}`)}
-    >
-      <Accordion.Item open={open}>
-        <Accordion.Header onClick={() => showPanel(fordelingsperiode.fom)}>
-          {renderDateHeading(fordelingsperiode.fom, fordelingsperiode.tom)}{' '}
-          {erVurdertTidligere ? <VurdertIForrigeBehandlingIcon /> : ''}
-        </Accordion.Header>
-        <Accordion.Content>
-          <FordelPeriodeFieldArray
-            fieldName={fordelBGFieldArrayName}
-            readOnly={readOnly}
-            sumIPeriode={finnSumIPeriode(beregningsgrunnlag.beregningsgrunnlagPeriode, fordelingsperiode.fom)}
-            skalIkkeRedigereInntekt={!fordelingsperiode.skalRedigereInntekt}
-            skalKunneEndreRefusjon={!!fordelingsperiode.skalKunneEndreRefusjon}
-            periodeFom={fordelingsperiode.fom}
-            isAksjonspunktClosed={isAksjonspunktClosed}
-            kodeverkSamling={kodeverkSamling}
-            beregningsgrunnlag={beregningsgrunnlag}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            vilkårperiodeFieldIndex={fieldIndex}
-            setFieldArrayToRepeat={setFieldArrayToRepeat}
-            fieldArrayToRepeat={fieldArrayToRepeat}
-          />
-        </Accordion.Content>
-      </Accordion.Item>
-    </Accordion>
+    <Accordion.Item open={open}>
+      <Accordion.Header onClick={() => showPanel(fordelingsperiode.fom)}>
+        <PeriodLabel dateStringFom={fordelingsperiode.fom} dateStringTom={fordelingsperiode.tom} />
+        {erVurdertTidligere && <VurdertIForrigeBehandlingIcon />}
+      </Accordion.Header>
+      <Accordion.Content>
+        <FordelPeriodeFieldArray
+          fieldName={fordelBGFieldArrayName}
+          readOnly={readOnly}
+          sumIPeriode={finnSumIPeriode(beregningsgrunnlag.beregningsgrunnlagPeriode, fordelingsperiode.fom)}
+          skalIkkeRedigereInntekt={!fordelingsperiode.skalRedigereInntekt}
+          skalKunneEndreRefusjon={!!fordelingsperiode.skalKunneEndreRefusjon}
+          isAksjonspunktClosed={isAksjonspunktClosed}
+          kodeverkSamling={kodeverkSamling}
+          beregningsgrunnlag={beregningsgrunnlag}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          vilkårperiodeFieldIndex={fieldIndex}
+          setFieldArrayToRepeat={setFieldArrayToRepeat}
+          fieldArrayToRepeat={fieldArrayToRepeat}
+        />
+      </Accordion.Content>
+    </Accordion.Item>
   );
 };
 

@@ -1,10 +1,10 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import { BodyShort, Detail } from '@navikt/ds-react';
 
 import styles from './labelWithHeader.module.css';
 
-export interface Props {
+interface Props {
   header: string | ReactNode;
   texts: string[];
 }

@@ -1,16 +1,15 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
-import { AksjonspunktStatus, BehandlingStatus, ForeldelseVurderingType, RelasjonsRolleType } from '@navikt/ft-kodeverk';
-import { Behandling } from '@navikt/ft-types';
+import { AksjonspunktStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 
 import { ForeldelseAksjonspunktCodes } from './ForeldelseAksjonspunktCodes';
 import { ForeldelseProsessIndex } from './ForeldelseProsessIndex';
-import { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
-import { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
-import { VurderForeldelseAp } from './types/VurderForeldelseAp';
+import type { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
+import type { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
+import { RelasjonsRolleType } from './types/RelasjonsRolleType';
+import type { VurderForeldelseAp } from './types/VurderForeldelseAp';
 
-import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-ui-komponenter/dist/style.css';
 
@@ -48,7 +47,7 @@ const perioderForeldelse = {
   ],
 } as FeilutbetalingPerioderWrapper;
 
-const kodeverkSamling = {
+const kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel = {
   ForeldelseVurderingType: [
     {
       kode: ForeldelseVurderingType.FORELDET,
@@ -66,18 +65,14 @@ const kodeverkSamling = {
       kodeverk: 'FORELDELSE_VURDERING',
     },
   ],
-} as KodeverkTilbakeForPanel;
+};
 
 const meta = {
   component: ForeldelseProsessIndex,
   args: {
-    submitCallback: action('button-click') as (data: VurderForeldelseAp) => Promise<void>,
-    behandling: {
-      uuid: '1',
-      versjon: 1,
-      status: BehandlingStatus.BEHANDLING_UTREDES,
-    } as Behandling,
-    kodeverkSamlingFpTilbake: kodeverkSamling,
+    submitCallback: action('submit') as (data: VurderForeldelseAp) => Promise<void>,
+    behandlingUuid: '1',
+    kodeverkSamlingFpTilbake,
     isReadOnly: false,
     setFormData: () => undefined,
     perioderForeldelse,

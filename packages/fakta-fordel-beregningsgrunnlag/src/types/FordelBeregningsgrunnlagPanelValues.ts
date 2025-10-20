@@ -58,7 +58,7 @@ export type FordelBeregningsgrunnlagAndelValues = FordelBeregningsgrunnlagGenere
     id?: string;
   };
 
-export type AksjonspunktValues = {
+type AksjonspunktValues = {
   begrunnelse?: string;
   periode: {
     fom: string;

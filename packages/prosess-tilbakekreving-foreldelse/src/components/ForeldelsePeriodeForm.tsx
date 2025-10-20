@@ -2,10 +2,10 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { Button, HStack, VStack } from '@navikt/ds-react';
+import { Button, HStack, Radio, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { Datepicker, Form, RadioGroupPanel, TextAreaField } from '@navikt/ft-form-hooks';
+import { RhfDatepicker, RhfForm, RhfRadioGroup, RhfTextarea } from '@navikt/ft-form-hooks';
 import {
   dateBeforeOrEqualToToday,
   hasValidDate,
@@ -16,15 +16,15 @@ import {
 } from '@navikt/ft-form-validators';
 import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 
-import { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
-import { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
+import type { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
+import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
 
 export type FormValues = ForeldelsesresultatActivity;
 
-export interface Props {
+interface Props {
   periode: ForeldelsesresultatActivity;
   kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   oppdaterPeriode: (values: FormValues) => void;
@@ -59,42 +59,48 @@ export const ForeldelsePeriodeForm = ({
   const erForeldet = foreldet && foreldet === ForeldelseVurderingType.FORELDET;
   const erMedTilleggsfrist = foreldet && foreldet === ForeldelseVurderingType.TILLEGGSFRIST;
   const foreldelseVurderingTyper = kodeverkSamlingFpTilbake['ForeldelseVurderingType'].filter(
-    fv => fv.kode !== ForeldelseVurderingType.IKKE_VURDERT,
+    fv => fv.kode !== ForeldelseVurderingType.IKKE_VURDERT && fv.kode !== ForeldelseVurderingType.UDEFINERT,
   );
 
   return (
-    <Form formMethods={formMethods} onSubmit={(values: FormValues) => oppdaterPeriode(values)}>
-      <VStack gap="4">
-        <TextAreaField
+    <RhfForm formMethods={formMethods} onSubmit={(values: FormValues) => oppdaterPeriode(values)}>
+      <VStack gap="space-16">
+        <RhfTextarea
           name="begrunnelse"
+          control={formMethods.control}
           label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.Vurdering' })}
           validate={[required, minLength3, maxLength1500, hasValidText]}
           maxLength={1500}
           readOnly={readOnly}
         />
-        <HStack gap="10">
-          <RadioGroupPanel
+        <HStack gap="space-40">
+          <RhfRadioGroup
             name="foreldet"
+            control={formMethods.control}
             label={<FormattedMessage id="ForeldelsePeriodeForm.RadioGroup.Foreldet" />}
             validate={[required]}
-            radios={foreldelseVurderingTyper.map(type => ({
-              label: type.navn,
-              value: type.kode,
-            }))}
             isReadOnly={readOnly}
-          />
-          <VStack gap="5">
+          >
+            {foreldelseVurderingTyper.map(type => (
+              <Radio key={type.kode} value={type.kode} size="small">
+                {type.navn}
+              </Radio>
+            ))}
+          </RhfRadioGroup>
+          <VStack gap="space-20">
             {(erForeldet || erMedTilleggsfrist) && (
-              <Datepicker
+              <RhfDatepicker
                 name="foreldelsesfrist"
+                control={formMethods.control}
                 label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.Foreldelsesfrist' })}
                 validate={[required, hasValidDate]}
                 isReadOnly={readOnly}
               />
             )}
             {erMedTilleggsfrist && (
-              <Datepicker
+              <RhfDatepicker
                 name="oppdagelsesDato"
+                control={formMethods.control}
                 label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.OppdagelsesDato' })}
                 validate={[required, hasValidDate, dateBeforeOrEqualToToday]}
                 isReadOnly={readOnly}
@@ -104,7 +110,7 @@ export const ForeldelsePeriodeForm = ({
             )}
           </VStack>
         </HStack>
-        <HStack gap="4">
+        <HStack gap="space-16">
           <Button
             size="small"
             variant="primary"
@@ -118,6 +124,6 @@ export const ForeldelsePeriodeForm = ({
           </Button>
         </HStack>
       </VStack>
-    </Form>
+    </RhfForm>
   );
 };

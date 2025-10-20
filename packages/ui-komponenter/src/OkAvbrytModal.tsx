@@ -6,7 +6,7 @@ import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-export interface Props {
+interface Props {
   text: string;
   okButtonText?: string;
   showModal: boolean;
@@ -22,7 +22,9 @@ export interface Props {
 export const OkAvbrytModal = ({ text, okButtonText, showModal, cancel, submit }: Props) => (
   <Modal width="small" open={showModal} aria-label={text} onClose={cancel}>
     <Modal.Body>
-      <Heading size="small">{text}</Heading>
+      <Heading size="small" level="2">
+        {text}
+      </Heading>
     </Modal.Body>
     <Modal.Footer>
       <Button variant="primary" size="small" onClick={submit} autoFocus type="button">

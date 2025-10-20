@@ -1,16 +1,21 @@
-import React, { ReactElement } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import React, { type ReactElement } from 'react';
+import { type Control, useFormContext } from 'react-hook-form';
+import { FormattedMessage } from 'react-intl';
 
-import { ReadMore, VStack } from '@navikt/ds-react';
+import { Radio, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { FaktaOmBeregningTilfelle } from '@navikt/ft-kodeverk';
-import { ArbeidsgiverOpplysningerPerId, FaktaOmBeregning, RefusjonskravSomKommerForSentListe } from '@navikt/ft-types';
+import type {
+  ArbeidsgiverOpplysningerPerId,
+  FaktaOmBeregning,
+  RefusjonskravSomKommerForSentListe,
+} from '@navikt/ft-types';
 import { formaterArbeidsgiver } from '@navikt/ft-utils';
 
-import { FaktaOmBeregningAksjonspunktValues, VurderRefusjonValues } from '../../../typer/FaktaBeregningTypes';
-import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
+import { FaktaOmBeregningTilfelle } from '../../../kodeverk/faktaOmBeregningTilfelle';
+import type { FaktaOmBeregningAksjonspunktValues, VurderRefusjonValues } from '../../../typer/FaktaBeregningTypes';
+import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 const { VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT } = FaktaOmBeregningTilfelle;
@@ -24,18 +29,22 @@ const lagRefusjonskravRadios = (
   readOnly: boolean,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   aktivtBeregningsgrunnlagIndeks: number,
+  control: Control<VurderFaktaBeregningFormValues, any, VurderFaktaBeregningFormValues>,
 ): ReactElement[] =>
   senRefusjonkravListe.map((kravPerArbeidsgiver: RefusjonskravSomKommerForSentListe) => {
     const { arbeidsgiverIdent } = kravPerArbeidsgiver;
     const opplysninger = arbeidsgiverOpplysningerPerId[arbeidsgiverIdent];
     const arbeidsgiverVisningsnavn = opplysninger ? formaterArbeidsgiver(opplysninger) : arbeidsgiverIdent;
-    const intl = useIntl();
 
     return (
-      <RadioGroupPanel
+      <RhfRadioGroup
         key={arbeidsgiverIdent}
+        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderRefusjonValues.${lagFieldName(
+          arbeidsgiverIdent,
+        )}`}
+        control={control}
         label={
-          <VStack gap="2">
+          <VStack gap="space-8">
             <FormattedMessage
               id="VurderRefusjonForm.ErRefusjonskravGyldig"
               values={{
@@ -50,17 +59,16 @@ const lagRefusjonskravRadios = (
             </ReadMore>
           </VStack>
         }
-        name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderRefusjonValues.${lagFieldName(
-          arbeidsgiverIdent,
-        )}`}
         validate={[required]}
         isReadOnly={readOnly}
-        radios={[
-          { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
-        ]}
-        parse={parseStringToBoolean}
-      />
+      >
+        <Radio value={true} size="small">
+          <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />
+        </Radio>
+        <Radio value={false} size="small">
+          <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />
+        </Radio>
+      </RhfRadioGroup>
     );
   });
 
@@ -76,6 +84,7 @@ interface Props {
  * Container komponent. Har ansvar for å sette opp Formen for vurdering av refusjonskrav som har kommet for sent.
  */
 export const VurderRefusjonForm = ({ readOnly, faktaOmBeregning, arbeidsgiverOpplysningerPerId }: Props) => {
+  const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const senRefusjonkravListe = faktaOmBeregning?.refusjonskravSomKommerForSentListe;
   if (!senRefusjonkravListe) {
@@ -86,6 +95,7 @@ export const VurderRefusjonForm = ({ readOnly, faktaOmBeregning, arbeidsgiverOpp
     readOnly,
     arbeidsgiverOpplysningerPerId,
     beregningsgrunnlagIndeks,
+    control,
   );
 };
 

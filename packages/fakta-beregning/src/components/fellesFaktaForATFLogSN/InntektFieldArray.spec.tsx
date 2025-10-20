@@ -1,13 +1,13 @@
 import { AktivitetStatus as aktivitetStatuser } from '@navikt/ft-kodeverk';
 
-import { KodeverkForPanel } from '../../typer/KodeverkForPanel';
+import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { InntektFieldArray } from './InntektFieldArray';
 import { leggTilDagpengerOmBesteberegning } from './inntektFieldArrayUtils';
 
 const kodeverkSamling = {
   AktivitetStatus: [
     {
-      kode: aktivitetStatuser.MILITAER_ELLER_SIVIL,
+      kode: aktivitetStatuser.MILITÆR_ELLER_SIVIL,
       navn: 'Militær og siviltjeneste',
       kodeverk: 'test',
     },
@@ -27,7 +27,7 @@ const kodeverkSamling = {
       kodeverk: 'test',
     },
     {
-      kode: aktivitetStatuser.SELVSTENDIG_NAERINGSDRIVENDE,
+      kode: aktivitetStatuser.SELVSTENDIG_NÆRINGSDRIVENDE,
       navn: 'Selvstendig næringsdrivende',
       kodeverk: 'test',
     },

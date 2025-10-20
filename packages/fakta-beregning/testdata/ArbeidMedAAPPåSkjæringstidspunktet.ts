@@ -1,7 +1,7 @@
-import { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { TIDENES_ENDE } from '@navikt/ft-utils';
 
-import { Vilkår } from '../src/typer/Vilkår';
+import type { Vilkår } from '../src/typer/Vilkår';
 
 export const beregningsgrunnlag = [
   {
@@ -115,13 +115,3 @@ export const vilkar: Vilkår = {
     },
   ],
 };
-
-export const aksjonspunkt = [
-  {
-    definisjon: 'AVKLAR_AKTIVITETER',
-    status: 'OPPR',
-    toTrinnsBehandling: true,
-    aksjonspunktType: 'MANU',
-    kanLoses: true,
-  },
-];

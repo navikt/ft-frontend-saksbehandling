@@ -1,0 +1,45 @@
+{
+  "name": "@navikt/ft-types",
+  "description": "Pakke som har typer som blir brukt på tvers av applikasjoner",
+  "version": "5.0.8",
+  "license": "MIT",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "tsc": "tsc --pretty",
+    "eslint": "eslint \"src/**/*.ts*\" --color",
+    "eslint:fix": "eslint --fix \"src/**/*.ts*\" --color",
+    "prettier": "prettier --write src",
+    "dev": "vite build --watch --mode development",
+    "build": "vite build",
+    "clean": "rm -rf ./dist ./node_modules"
+  },
+  "peerDependencies": {
+    "@navikt/ft-kodeverk": "4.x"
+  },
+  "devDependencies": {
+    "@navikt/ft-config-eslint": "workspace:^",
+    "@navikt/ft-config-typescript": "workspace:^",
+    "@navikt/ft-config-vite": "workspace:^",
+    "eslint": "9.37.0",
+    "typescript": "5.9.3",
+    "vite": "7.1.10",
+    "vitest": "3.2.4"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/navikt/ft-frontend-saksbehandling"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "types": "./dist/index.d.ts"
+    }
+  }
+}

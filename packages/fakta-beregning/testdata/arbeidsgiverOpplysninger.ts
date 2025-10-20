@@ -1,4 +1,4 @@
-import { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 
 export const agOpplysninger: ArbeidsgiverOpplysningerPerId = {
   12345678: {
@@ -24,6 +24,11 @@ export const agOpplysninger: ArbeidsgiverOpplysningerPerId = {
   910909088: {
     navn: 'BEDRIFT AS',
     identifikator: '910909088',
+    erPrivatPerson: false,
+  },
+  342352362: {
+    navn: 'Kunstig',
+    identifikator: '342352362',
     erPrivatPerson: false,
   },
 };

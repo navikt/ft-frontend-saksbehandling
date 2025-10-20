@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import classnames from 'classnames/bind';
 
@@ -6,7 +6,7 @@ import styles from './aksjonspunktBox.module.css';
 
 const classNames = classnames.bind(styles);
 
-export interface Props {
+interface Props {
   children: ReactNode | ReactNode[];
   erAksjonspunktApent: boolean;
   erIkkeGodkjentAvBeslutter: boolean;

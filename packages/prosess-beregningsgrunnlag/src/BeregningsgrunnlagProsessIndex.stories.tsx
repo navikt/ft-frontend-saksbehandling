@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import dayjs from 'dayjs';
 import { action } from 'storybook/actions';
 
@@ -8,13 +8,10 @@ import {
   InntektAktivitetType,
   LønnsendringScenario,
   OpptjeningAktivitetType,
-  PeriodeAarsak,
+  PeriodeÅrsak,
   PgiType,
-  SammenligningType,
-  VilkarType,
-  VilkarUtfallType,
 } from '@navikt/ft-kodeverk';
-import {
+import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -22,6 +19,8 @@ import {
   BeregningsgrunnlagArbeidsforhold,
   BeregningsgrunnlagPeriodeProp,
   Inntektsgrunnlag,
+  InntektsgrunnlagInntekt,
+  InntektsgrunnlagMåned,
   Næring,
   Saksopplysninger,
   SammenligningsgrunlagProp,
@@ -29,11 +28,14 @@ import {
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import { BeregningsgrunnlagProsessIndex } from './BeregningsgrunnlagProsessIndex';
+import { SammenligningType } from './kodeverk/sammenligningType';
+import { VilkarType } from './kodeverk/vilkarType';
+import { VilkårUtfallType } from './kodeverk/vilkårUtfallType';
+import type { BeregningAksjonspunktSubmitType } from './types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from './types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
-import { KodeverkForPanel } from './types/KodeverkForPanel';
-import { Vilkår } from './types/Vilkår';
+import type { KodeverkForPanel } from './types/KodeverkForPanel';
+import type { Vilkår } from './types/Vilkår';
 
-import '@navikt/ds-css';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-plattform-komponenter/dist/style.css';
 import '@navikt/ft-ui-komponenter/dist/style.css';
@@ -91,23 +93,22 @@ const lagSNUtenPGI = (
   skalFastsettGrunnlag: boolean,
   erNyIArbeidslivet?: boolean,
   næring?: Næring,
-): BeregningsgrunnlagAndel =>
-  ({
-    aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
-    beregningsperiodeFom: '2019-01-01',
-    beregningsperiodeTom: '2021-12-31',
-    beregnetPrAar: beregnet,
-    overstyrtPrAar: overstyrt,
-    bruttoPrAar: overstyrt || beregnet,
-    avkortetPrAar: 360000,
-    redusertPrAar: 599000,
-    erNyIArbeidslivet,
-    skalFastsetteGrunnlag: skalFastsettGrunnlag,
-    andelsnr: andelnr,
-    lagtTilAvSaksbehandler: false,
-    erTilkommetAndel: false,
-    næringer: næring ? [næring] : [lagNæring(!!overstyrt, false)],
-  }) as BeregningsgrunnlagAndel;
+): BeregningsgrunnlagAndel => ({
+  aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
+  beregningsperiodeFom: '2019-01-01',
+  beregningsperiodeTom: '2021-12-31',
+  beregnetPrAar: beregnet,
+  overstyrtPrAar: overstyrt,
+  bruttoPrAar: overstyrt || beregnet,
+  avkortetPrAar: 360000,
+  redusertPrAar: 599000,
+  erNyIArbeidslivet,
+  skalFastsetteGrunnlag: skalFastsettGrunnlag,
+  andelsnr: andelnr,
+  lagtTilAvSaksbehandler: false,
+  erTilkommetAndel: false,
+  næringer: næring ? [næring] : [lagNæring(!!overstyrt, false)],
+});
 
 const lagSNMedPGI = (
   andelnr: number,
@@ -116,48 +117,46 @@ const lagSNMedPGI = (
   skalFastsettGrunnlag: boolean,
   erNyIArbeidslivet?: boolean,
   næring?: Næring,
-): BeregningsgrunnlagAndel =>
-  ({
-    aktivitetStatus: AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE,
-    beregningsperiodeFom: '2019-01-01',
-    beregningsperiodeTom: '2021-12-31',
-    beregnetPrAar: beregnet,
-    overstyrtPrAar: overstyrt,
-    bruttoPrAar: overstyrt || beregnet,
-    avkortetPrAar: 360000,
-    redusertPrAar: 599000,
-    erNyIArbeidslivet,
-    skalFastsetteGrunnlag: skalFastsettGrunnlag,
-    andelsnr: andelnr,
-    lagtTilAvSaksbehandler: false,
-    erTilkommetAndel: false,
-    pgiSnitt: lagPGISnitt(),
-    pgiVerdier: lagPGIVerdier(),
-    næringer: næring ? [næring] : [lagNæring(!!overstyrt, false)],
-  }) as BeregningsgrunnlagAndel;
+): BeregningsgrunnlagAndel => ({
+  aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
+  beregningsperiodeFom: '2019-01-01',
+  beregningsperiodeTom: '2021-12-31',
+  beregnetPrAar: beregnet,
+  overstyrtPrAar: overstyrt,
+  bruttoPrAar: overstyrt || beregnet,
+  avkortetPrAar: 360000,
+  redusertPrAar: 599000,
+  erNyIArbeidslivet,
+  skalFastsetteGrunnlag: skalFastsettGrunnlag,
+  andelsnr: andelnr,
+  lagtTilAvSaksbehandler: false,
+  erTilkommetAndel: false,
+  pgiSnitt: lagPGISnitt(),
+  pgiVerdier: lagPGIVerdier(),
+  næringer: næring ? [næring] : [lagNæring(!!overstyrt, false)],
+});
 
 const lagBrukersAndelMedPGI = (
   andelnr: number,
   beregnet: number,
   overstyrt: number | undefined,
   skalFastsettGrunnlag: boolean,
-): BeregningsgrunnlagAndel =>
-  ({
-    aktivitetStatus: AktivitetStatus.BRUKERS_ANDEL,
-    beregningsperiodeFom: '2019-01-01',
-    beregningsperiodeTom: '2021-12-31',
-    beregnetPrAar: beregnet,
-    overstyrtPrAar: overstyrt,
-    bruttoPrAar: overstyrt || beregnet,
-    avkortetPrAar: 360000,
-    redusertPrAar: 599000,
-    skalFastsetteGrunnlag: skalFastsettGrunnlag,
-    andelsnr: andelnr,
-    lagtTilAvSaksbehandler: false,
-    erTilkommetAndel: false,
-    pgiSnitt: lagPGISnitt(),
-    pgiVerdier: lagPGIVerdier(),
-  }) as BeregningsgrunnlagAndel;
+): BeregningsgrunnlagAndel => ({
+  aktivitetStatus: AktivitetStatus.BRUKERS_ANDEL,
+  beregningsperiodeFom: '2019-01-01',
+  beregningsperiodeTom: '2021-12-31',
+  beregnetPrAar: beregnet,
+  overstyrtPrAar: overstyrt,
+  bruttoPrAar: overstyrt || beregnet,
+  avkortetPrAar: 360000,
+  redusertPrAar: 599000,
+  skalFastsetteGrunnlag: skalFastsettGrunnlag,
+  andelsnr: andelnr,
+  lagtTilAvSaksbehandler: false,
+  erTilkommetAndel: false,
+  pgiSnitt: lagPGISnitt(),
+  pgiVerdier: lagPGIVerdier(),
+});
 
 const lagAPMedKode = (kode: string, begrunnelse?: string): DeepWriteable<BeregningAvklaringsbehov> => ({
   definisjon: kode,
@@ -166,21 +165,21 @@ const lagAPMedKode = (kode: string, begrunnelse?: string): DeepWriteable<Beregni
   kanLoses: true,
 });
 
-const vilkarMedUtfall = (kode: string, fom?: string, tom?: string): Vilkår =>
-  ({
-    vilkarType: VilkarType.BEREGNINGSGRUNNLAGVILKARET,
-    perioder: [
-      {
-        periode: {
-          fom: fom || STP,
-          tom: tom || etterSTP(20),
-        },
-        vurderesIBehandlingen: true,
-        vilkarStatus: kode,
-        merknadParametere: {},
+const vilkarMedUtfall = (kode: VilkårUtfallType, fom?: string, tom?: string): Vilkår => ({
+  vilkarType: VilkarType.BEREGNINGSGRUNNLAGVILKARET,
+  perioder: [
+    {
+      periode: {
+        fom: fom || STP,
+        tom: tom || etterSTP(20),
       },
-    ],
-  }) as Vilkår;
+      vurderesIBehandlingen: true,
+      vilkarStatus: kode,
+      merknadParametere: {},
+    },
+  ],
+  overstyrbar: true,
+});
 
 const arbeidsgiverOpplysninger: ArbeidsgiverOpplysningerPerId = {
   999999996: {
@@ -331,6 +330,9 @@ const lagPeriode = (
   bruttoInkludertBortfaltNaturalytelsePrAar: 360000,
   avkortetPrAar: 360000,
   redusertPrAar: 360000,
+  ledetekstBrutto: 'Brutto beregningsgrunnlag',
+  ledetekstAvkortet: 'Avkortet beregningsgrunnlag (6G=599148)',
+  ledetekstRedusert: 'Redusert beregningsgrunnlag (100%)',
   periodeAarsaker,
   dagsats,
   beregningsgrunnlagPrStatusOgAndel: andelsliste,
@@ -366,33 +368,22 @@ const lagSammenligningsGrunnlag = (
 const malSGGrunnlagAvvik = (kode: string) => lagSammenligningsGrunnlag(kode, 200000, 30, -150000);
 const malSGGrunnlag = (kode: string) => lagSammenligningsGrunnlag(kode, 200000, 0, 0);
 
-type Inntekt = {
-  inntektAktivitetType: string;
-  beløp: number;
-};
-
-type InntektOgPeriode = {
-  fom: string;
-  tom: string;
-  inntekter: Inntekt[];
-};
-
-const lagATInntektsgrunnlag = (inntekt: number): Inntekt => ({
+const lagATInntektsgrunnlag = (inntekt: number): InntektsgrunnlagInntekt => ({
   inntektAktivitetType: InntektAktivitetType.ARBEID,
   beløp: inntekt,
 });
 
-const lagYtelseInntektsgrunnlag = (inntekt: number): Inntekt => ({
+const lagYtelseInntektsgrunnlag = (inntekt: number): InntektsgrunnlagInntekt => ({
   inntektAktivitetType: InntektAktivitetType.YTELSE,
   beløp: inntekt,
 });
 
-const lagFLInntektsgrunnlag = (inntekt: number): Inntekt => ({
+const lagFLInntektsgrunnlag = (inntekt: number): InntektsgrunnlagInntekt => ({
   inntektAktivitetType: InntektAktivitetType.FRILANS,
   beløp: inntekt,
 });
 
-const lagMånedInntekt = (fom: string, tom: string, inntekter: Inntekt[]): InntektOgPeriode => ({
+const lagMånedInntekt = (fom: string, tom: string, inntekter: InntektsgrunnlagInntekt[]): InntektsgrunnlagMåned => ({
   fom,
   tom,
   inntekter,
@@ -403,8 +394,9 @@ const lagInntektPgi = (beløp: number, pgiType: string) => ({
   pgiType,
 });
 
-const inntektsgrunnlagSN = {
-  måneder: [],
+const inntektsgrunnlagSN: Inntektsgrunnlag = {
+  beregningsgrunnlagInntekter: [],
+  sammenligningsgrunnlagInntekter: [],
   pgiGrunnlag: [
     {
       år: 2015,
@@ -421,139 +413,102 @@ const inntektsgrunnlagSN = {
   ],
 };
 
-const lagInntektsgrunnlag = (): Inntektsgrunnlag => {
-  const måneder = [];
-  måneder.push(
+const lagInntektsgrunnlag = (): Inntektsgrunnlag => ({
+  sammenligningsgrunnlagInntekter: [
     lagMånedInntekt('2020-01-01', '2020-01-31', [
       lagATInntektsgrunnlag(35000),
       lagYtelseInntektsgrunnlag(4000),
       lagFLInntektsgrunnlag(0),
     ]),
-  );
-  måneder.push(
     lagMånedInntekt('2020-02-01', '2020-02-28', [
       lagATInntektsgrunnlag(70000),
       lagYtelseInntektsgrunnlag(6000),
       lagFLInntektsgrunnlag(5000),
     ]),
-  );
-  måneder.push(
     lagMånedInntekt('2020-03-01', '2020-03-31', [
       lagATInntektsgrunnlag(40000),
       lagYtelseInntektsgrunnlag(7000),
       lagFLInntektsgrunnlag(12000),
     ]),
-  );
-  måneder.push(
     lagMånedInntekt('2020-04-01', '2020-04-30', [
       lagATInntektsgrunnlag(50000),
       lagYtelseInntektsgrunnlag(20000),
       lagFLInntektsgrunnlag(45000),
     ]),
-  );
-  måneder.push(
     lagMånedInntekt('2020-05-01', '2020-05-31', [
       lagATInntektsgrunnlag(37000),
       lagYtelseInntektsgrunnlag(10000),
       lagFLInntektsgrunnlag(30000),
     ]),
-  );
-  måneder.push(
     lagMånedInntekt('2020-06-01', '2020-06-30', [
       lagATInntektsgrunnlag(45000),
       lagYtelseInntektsgrunnlag(5000),
       lagFLInntektsgrunnlag(20000),
     ]),
-  );
-  måneder.push(
     lagMånedInntekt('2020-07-01', '2020-07-31', [
       lagATInntektsgrunnlag(25000),
       lagYtelseInntektsgrunnlag(3000),
       lagFLInntektsgrunnlag(25000),
     ]),
-  );
-  måneder.push(
     lagMånedInntekt('2020-08-01', '2020-08-31', [
       lagATInntektsgrunnlag(33000),
       lagYtelseInntektsgrunnlag(7000),
       lagFLInntektsgrunnlag(0),
     ]),
-  );
-  måneder.push(
     lagMånedInntekt('2020-09-01', '2020-09-30', [
       lagATInntektsgrunnlag(25000),
       lagYtelseInntektsgrunnlag(6000),
       lagFLInntektsgrunnlag(33000),
     ]),
-  );
-  måneder.push(
     lagMånedInntekt('2020-10-01', '2020-10-31', [
       lagATInntektsgrunnlag(8000),
       lagYtelseInntektsgrunnlag(20000),
       lagFLInntektsgrunnlag(1000),
     ]),
-  );
-  måneder.push(
     lagMånedInntekt('2020-11-01', '2020-11-30', [
       lagATInntektsgrunnlag(54000),
       lagYtelseInntektsgrunnlag(1000),
       lagFLInntektsgrunnlag(25000),
     ]),
-  );
-  måneder.push(
     lagMånedInntekt('2020-12-01', '2020-12-31', [
       lagATInntektsgrunnlag(47000),
       lagYtelseInntektsgrunnlag(0),
       lagFLInntektsgrunnlag(10000),
     ]),
-  );
-  return {
-    måneder,
-  } as Inntektsgrunnlag;
-};
+  ],
+  beregningsgrunnlagInntekter: [],
+  pgiGrunnlag: [],
+});
 
 const lagBG = (
   perioder: BeregningsgrunnlagPeriodeProp[],
-  statuser: string[],
+  aktivitetStatus: string[],
   inntektsgrunnlag?: Inntektsgrunnlag,
   sammenligningsgrunnlagPrStatus?: SammenligningsgrunlagProp[],
   avklaringsbehov?: BeregningAvklaringsbehov[],
   skjæringstidspunkt: string = STP,
   saksopplysninger: Saksopplysninger = { lønnsendringSaksopplysning: [], kortvarigeArbeidsforhold: [] },
-): Beregningsgrunnlag => {
-  const beregningsgrunnlag = {
-    avklaringsbehov: avklaringsbehov || [],
-    skjaeringstidspunktBeregning: skjæringstidspunkt,
-    vilkårsperiodeFom: skjæringstidspunkt,
-    aktivitetStatus: statuser,
-    beregningsgrunnlagPeriode: perioder,
-    dekningsgrad: 80,
-    grunnbeløp: 99858,
-    sammenligningsgrunnlagPrStatus: sammenligningsgrunnlagPrStatus || null,
-    ledetekstBrutto: 'Brutto beregningsgrunnlag',
-    ledetekstAvkortet: 'Avkortet beregningsgrunnlag (6G=599148)',
-    ledetekstRedusert: 'Redusert beregningsgrunnlag (100%)',
-    halvG: 49929,
-    faktaOmBeregning: {
-      andelerForFaktaOmBeregning: [],
-      saksopplysninger,
-    },
-    hjemmel: {
-      kode: 'F_14_7_8_30',
-      kodeverk: 'BG_HJEMMEL',
-    },
-    årsinntektVisningstall: 360000,
-    erOverstyrtInntekt: false,
-    inntektsgrunnlag,
-  };
-  // @ts-expect-error Fiks
-  return beregningsgrunnlag;
-};
+): Beregningsgrunnlag => ({
+  avklaringsbehov: avklaringsbehov || [],
+  skjaeringstidspunktBeregning: skjæringstidspunkt,
+  vilkårsperiodeFom: skjæringstidspunkt,
+  aktivitetStatus,
+  beregningsgrunnlagPeriode: perioder,
+  dekningsgrad: 80,
+  grunnbeløp: 99858,
+  sammenligningsgrunnlagPrStatus,
+  faktaOmBeregning: {
+    andelerForFaktaOmBeregning: [],
+    saksopplysninger,
+  },
+  erOverstyrtInntekt: false,
+  inntektsgrunnlag,
+});
 
 const meta = {
   component: BeregningsgrunnlagProsessIndex,
   args: {
-    submitCallback: action('button-click') as (data: any) => Promise<void>,
+    submitCallback: action('submit') as (data: BeregningAksjonspunktSubmitType[]) => Promise<void>,
     readOnlySubmitButton: false,
     kodeverkSamling: alleKodeverk as KodeverkForPanel,
     arbeidsgiverOpplysningerPerId: arbeidsgiverOpplysninger,
@@ -577,7 +532,7 @@ export const MidlertidigInaktivOppfylt: Story = {
         [],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -593,7 +548,7 @@ export const MidlertidigInaktivAvslått: Story = {
         [],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_OPPFYLT),
   },
 };
 
@@ -620,7 +575,7 @@ export const AvvikMedSammenligningsgraf5038: Story = {
         },
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -647,7 +602,7 @@ export const ArbeidstakerUtenAvvik: Story = {
         },
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -688,7 +643,7 @@ export const ArbeidstakerUtenAvvikFlereArbeidsforholdMedLønnsendring: Story = {
         },
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -703,7 +658,7 @@ export const BrukersAndelUtenAvvik: Story = {
         [malSGGrunnlag(SammenligningType.AT_FL)],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -730,7 +685,7 @@ export const ArbeidstakerMedAvvikAp5038: Story = {
         },
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -778,7 +733,7 @@ export const ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagAp5038: Story = {
           merknadParametere: {},
         },
       ],
-    } as Vilkår,
+    },
   },
 };
 
@@ -830,7 +785,7 @@ export const ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp503
           merknadParametere: {},
         },
       ],
-    } as Vilkår,
+    },
   },
 };
 
@@ -849,7 +804,7 @@ export const ArbeidstakerFrilansMedAvvikAp5038: Story = {
         [lagAPMedKode(ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -857,9 +812,9 @@ export const Militær: Story = {
   args: {
     isReadOnly: false,
     beregningsgrunnlagListe: [
-      lagBG(malPerioder([lagGenerellAndel(1, AktivitetStatus.MILITAER_ELLER_SIVIL, 300000)]), ['MS']),
+      lagBG(malPerioder([lagGenerellAndel(1, AktivitetStatus.MILITÆR_ELLER_SIVIL, 300000)]), ['MS']),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -879,7 +834,7 @@ export const SelvstendigNæringsdrivendeMedAksjonspunktAp5039: Story = {
         ],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -938,7 +893,7 @@ export const MidlertidigInaktivOgATFLSNMedAksjonspunktAp5054Og5038Og5039: Story 
             tom: '2021-01-15',
           },
           vurderesIBehandlingen: true,
-          vilkarStatus: VilkarUtfallType.IKKE_VURDERT,
+          vilkarStatus: VilkårUtfallType.IKKE_VURDERT,
           erForlengelse: false,
           merknadParametere: {},
         },
@@ -948,7 +903,7 @@ export const MidlertidigInaktivOgATFLSNMedAksjonspunktAp5054Og5038Og5039: Story 
             tom: '2021-02-15',
           },
           vurderesIBehandlingen: true,
-          vilkarStatus: VilkarUtfallType.IKKE_VURDERT,
+          vilkarStatus: VilkårUtfallType.IKKE_VURDERT,
           erForlengelse: false,
           merknadParametere: {},
         },
@@ -958,7 +913,7 @@ export const MidlertidigInaktivOgATFLSNMedAksjonspunktAp5054Og5038Og5039: Story 
             tom: '2021-03-15',
           },
           vurderesIBehandlingen: true,
-          vilkarStatus: VilkarUtfallType.IKKE_VURDERT,
+          vilkarStatus: VilkårUtfallType.IKKE_VURDERT,
           erForlengelse: false,
           merknadParametere: {},
         },
@@ -979,7 +934,7 @@ export const MidlertidigInaktivMedAksjonspunktAp5054: Story = {
         [lagAPMedKode(ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON)],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -1012,7 +967,7 @@ export const MangeTidsbegrensetArbeidsforholdMedAvvikAp5047: Story = {
               lagTBAndel(3, '999999997', 5000),
               lagFrilansandel(4, 4500, undefined, true),
             ],
-            [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET],
+            [PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET],
             etterSTP(21),
             etterSTP(35),
           ),
@@ -1023,7 +978,7 @@ export const MangeTidsbegrensetArbeidsforholdMedAvvikAp5047: Story = {
               lagTBAndel(3, '999999997', 5000),
               lagFrilansandel(4, 4500, undefined, true),
             ],
-            [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET],
+            [PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET],
             etterSTP(36),
             etterSTP(40),
           ),
@@ -1033,9 +988,11 @@ export const MangeTidsbegrensetArbeidsforholdMedAvvikAp5047: Story = {
         vilkårsperiodeFom: STP,
         dekningsgrad: 100,
         aktivitetStatus: ['AT_FL'],
+        grunnbeløp: 124028,
+        erOverstyrtInntekt: false,
       },
-    ] as Beregningsgrunnlag[],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    ],
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -1070,7 +1027,7 @@ export const MangeTidsbegrensetArbeidsforholdMedAvvikFastsattAp5047: Story = {
               lagTBAndel(3, '999999997', 5000, 5000),
               lagFrilansandel(4, 4500, 4500, true),
             ],
-            [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET],
+            [PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET],
             etterSTP(16),
             etterSTP(20),
             800,
@@ -1082,7 +1039,7 @@ export const MangeTidsbegrensetArbeidsforholdMedAvvikFastsattAp5047: Story = {
               lagTBAndel(3, '999999997', 5000, 5000),
               lagFrilansandel(4, 4500, 4500, true),
             ],
-            [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET],
+            [PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET],
             etterSTP(21),
             undefined,
             0,
@@ -1093,9 +1050,11 @@ export const MangeTidsbegrensetArbeidsforholdMedAvvikFastsattAp5047: Story = {
         vilkårsperiodeFom: STP,
         dekningsgrad: 100,
         aktivitetStatus: ['AT_FL'],
+        grunnbeløp: 124028,
+        erOverstyrtInntekt: false,
       },
-    ] as Beregningsgrunnlag[],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    ],
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1113,7 +1072,7 @@ export const TidsbegrensetArbeidsforholdMedAvvikAp5047: Story = {
           lagPeriode([lagTBAndel(1, '999999999', 100000)], [], STP, etterSTP(20)),
           lagPeriode(
             [lagTBAndel(1, '999999999', 100000)],
-            [PeriodeAarsak.ARBEIDSFORHOLD_AVSLUTTET],
+            [PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET],
             etterSTP(21),
             etterSTP(35),
           ),
@@ -1123,9 +1082,11 @@ export const TidsbegrensetArbeidsforholdMedAvvikAp5047: Story = {
         vilkårsperiodeFom: STP,
         dekningsgrad: 100,
         aktivitetStatus: ['AT'],
+        grunnbeløp: 124028,
+        erOverstyrtInntekt: false,
       },
-    ] as Beregningsgrunnlag[],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    ],
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -1149,7 +1110,7 @@ export const ArbeidstakerFrilanserOgSelvstendigNæringsdrivendeAp5039: Story = {
         ],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -1158,7 +1119,7 @@ export const NaturalYtelse: Story = {
     isReadOnly: false,
     beregningsgrunnlagListe: [
       {
-        avklaringsbehov: [] as BeregningAvklaringsbehov[],
+        avklaringsbehov: [],
         beregningsgrunnlagPeriode: [
           lagPeriode(
             [
@@ -1186,7 +1147,7 @@ export const NaturalYtelse: Story = {
                 false,
               ),
             ],
-            [PeriodeAarsak.NATURALYTELSE_BORTFALT],
+            [PeriodeÅrsak.NATURALYTELSE_BORTFALT],
             etterSTP(21),
             etterSTP(30),
           ),
@@ -1201,7 +1162,7 @@ export const NaturalYtelse: Story = {
                 false,
               ),
             ],
-            [PeriodeAarsak.NATURALYTELSE_BORTFALT],
+            [PeriodeÅrsak.NATURALYTELSE_BORTFALT],
             etterSTP(31),
             etterSTP(50),
           ),
@@ -1216,7 +1177,7 @@ export const NaturalYtelse: Story = {
                 false,
               ),
             ],
-            [PeriodeAarsak.NATURALYTELSE_BORTFALT],
+            [PeriodeÅrsak.NATURALYTELSE_BORTFALT],
             etterSTP(51),
             etterSTP(200),
           ),
@@ -1226,9 +1187,11 @@ export const NaturalYtelse: Story = {
         vilkårsperiodeFom: STP,
         dekningsgrad: 100,
         aktivitetStatus: ['AT'],
+        grunnbeløp: 124028,
+        erOverstyrtInntekt: false,
       },
-    ] as Beregningsgrunnlag[],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT, STP, etterSTP(200)),
+    ],
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT, STP, etterSTP(200)),
   },
 };
 
@@ -1236,7 +1199,7 @@ export const Dagpenger: Story = {
   args: {
     isReadOnly: false,
     beregningsgrunnlagListe: [lagBG(malPerioder([lagGenerellAndel(1, AktivitetStatus.DAGPENGER, 300000)]), ['DP'])],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1246,7 +1209,7 @@ export const SykepengerAvDagpenger: Story = {
     beregningsgrunnlagListe: [
       lagBG(malPerioder([lagGenerellAndel(1, AktivitetStatus.SYKEPENGER_AV_DAGPENGER, 300000)]), ['SP_AV_DP']),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1269,7 +1232,7 @@ export const GraderingPåBeregningsgrunnlagUtenPenger: Story = {
         ],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1288,7 +1251,7 @@ export const ArbeidstakerDagpengerOgSelvstendigNæringsdrivendeUtenAksjonspunkt:
         [malSGGrunnlag(SammenligningType.SN)],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1328,7 +1291,7 @@ export const ArbeidstakerMed3Arbeidsforhold2ISammeOrganisasjon: Story = {
         [malSGGrunnlag(SammenligningType.AT_FL)],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1340,7 +1303,7 @@ export const ArbeidstakerAvslagHalvG: Story = {
         malSGGrunnlag(SammenligningType.AT_FL),
       ]),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_OPPFYLT),
   },
 };
 
@@ -1361,7 +1324,7 @@ export const ArbeidstakerMedAksjonspunktBehandlet: Story = {
         ],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1377,7 +1340,7 @@ export const FrilansMedAvvikAp5038: Story = {
         [lagAPMedKode(ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -1387,7 +1350,7 @@ export const SelvstendigNæringsdrivendeUtenAksjonspunkt: Story = {
     beregningsgrunnlagListe: [
       lagBG(malPerioder([lagSNMedPGI(1, 200000, undefined, false, false, lagNæring(false, false))]), ['SN']),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1407,7 +1370,7 @@ export const SelvstendigNæringsdrivendeNyoppstartetAksjonspunktAp5039: Story = 
         ],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -1423,7 +1386,7 @@ export const SelvstendigNæringsdrivendNyIArbeidslivetAp5049: Story = {
         [lagAPMedKode(ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET)],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -1441,7 +1404,7 @@ export const ArbeidstakerOgSelvstendigNæringsdrivendeSnStorreEnnAtOgStorreEnn6g
         ['AT_SN'],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1451,7 +1414,7 @@ export const YtelseFraNav: Story = {
     beregningsgrunnlagListe: [
       lagBG([malPeriode([lagGenerellAndel(1, AktivitetStatus.KUN_YTELSE, 325845)])], ['kun_YTELSE']),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.OPPFYLT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
 
@@ -1472,7 +1435,7 @@ export const ArbeidstakerOgAAPMedAksjonspunktAp5038: Story = {
         [lagAPMedKode(ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -1498,7 +1461,7 @@ export const FrilansDagpengerOgSelvstendigNæringsdrivendeAp5039: Story = {
         ],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -1527,7 +1490,7 @@ export const AvvikNæringEtterLøstAvvikArbeid5038Og5039: Story = {
         ],
       ),
     ],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };
 
@@ -1535,6 +1498,6 @@ export const ManglerBeregningsgrunnlag: Story = {
   args: {
     isReadOnly: false,
     beregningsgrunnlagListe: [],
-    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkarUtfallType.IKKE_VURDERT),
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
   },
 };

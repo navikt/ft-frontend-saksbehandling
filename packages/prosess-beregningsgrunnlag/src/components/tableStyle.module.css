@@ -1,16 +1,14 @@
 .table {
   & tfoot > tr {
-    --ac-table-row-border: var(--a-border-default);
-
-    border-top: 2px solid var(--a-border-default);
+    border-top: 2px solid var(--ax-border-neutral);
   }
 }
 
 .tableGroup {
-  & tr:not(:last-child) {
-    --ac-table-row-border: none;
+  & tr:not(:last-child) td {
+    border: none;
   }
   & tr:not(:first-child) > td:first-child {
-    padding-left: var(--a-spacing-4);
+    padding-left: var(--ax-space-16);
   }
 }

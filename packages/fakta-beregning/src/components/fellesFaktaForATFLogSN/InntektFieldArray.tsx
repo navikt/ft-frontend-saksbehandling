@@ -1,15 +1,21 @@
 import React, { useEffect } from 'react';
-import { useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useFormContext, useWatch } from 'react-hook-form';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import {
+  useFieldArray,
+  type UseFieldArrayAppend,
+  type UseFieldArrayRemove,
+  useFormContext,
+  useWatch,
+} from 'react-hook-form';
+import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
 import { ErrorMessage, Table, VStack } from '@navikt/ds-react';
 
 import { useCustomValidation } from '@navikt/ft-form-hooks';
 import { AktivitetStatus, Inntektskategori } from '@navikt/ft-kodeverk';
-import { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import type { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import {
+import type {
   ArbeidstakerInntektValues,
   DagpengerinntektValues,
   FaktaOmBeregningAksjonspunktValues,
@@ -18,9 +24,9 @@ import {
   MilitærEllerSivilInntektValues,
   SelvstendigNæringsdrivendeInntektValues,
 } from '../../typer/FaktaBeregningTypes';
-import { AndelFieldValue, InntektTransformed } from '../../typer/FieldValues';
-import { KodeverkForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanel';
-import { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
+import type { AndelFieldValue, InntektTransformed } from '../../typer/FieldValues';
+import type { KodeverkForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanel';
+import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import {
   erOverstyringAvBeregningsgrunnlag,
   getFastsattBelopFromArbeidstakerInntekt,
@@ -39,11 +45,9 @@ import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndeler
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 import { erKunstigAndel } from './vurderOgFastsettATFL/forms/KunstigArbeidsforhold';
 
-import tableStyles from '../felles/tableStyle.module.css';
-
 const lagNyMS = (aktivitetStatuser: KodeverkMedNavn<'AktivitetStatus'>[]): AndelFieldValue => ({
-  andel: finnStatus(aktivitetStatuser, AktivitetStatus.MILITAER_ELLER_SIVIL),
-  aktivitetStatus: AktivitetStatus.MILITAER_ELLER_SIVIL,
+  andel: finnStatus(aktivitetStatuser, AktivitetStatus.MILITÆR_ELLER_SIVIL),
+  aktivitetStatus: AktivitetStatus.MILITÆR_ELLER_SIVIL,
   fastsattBelop: '',
   inntektskategori: Inntektskategori.ARBEIDSTAKER,
   nyAndel: true,
@@ -82,9 +86,9 @@ const erFrilanser = (aktivitetStatus: string): boolean => aktivitetStatus === Ak
 const erArbeidstaker = (aktivitetStatus: string): boolean => aktivitetStatus === AktivitetStatus.ARBEIDSTAKER;
 const erDagpenger = (aktivitetStatus: string): boolean => aktivitetStatus === AktivitetStatus.DAGPENGER;
 const erSelvstendigNæringsdrivende = (aktivitetStatus: string): boolean =>
-  aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE;
+  aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE;
 const erMilitærEllerSivil = (aktivitetStatus: string): boolean =>
-  aktivitetStatus === AktivitetStatus.MILITAER_ELLER_SIVIL;
+  aktivitetStatus === AktivitetStatus.MILITÆR_ELLER_SIVIL;
 
 const fjernEllerLeggTilMilitær = (
   fields: AndelFieldValue[],
@@ -95,7 +99,7 @@ const fjernEllerLeggTilMilitær = (
 ) => {
   fjernEllerLeggTilAktivitetStatus(
     fields,
-    AktivitetStatus.MILITAER_ELLER_SIVIL,
+    AktivitetStatus.MILITÆR_ELLER_SIVIL,
     skalHaMilitær === true,
     () => skalHaMilitær === false,
     lagNyMS(aktivitetStatuser),
@@ -239,8 +243,8 @@ export const InntektFieldArray = ({
   }
 
   return (
-    <VStack gap="2">
-      <Table size="small" className={tableStyles.tableMedInput}>
+    <VStack gap="space-8">
+      <Table size="small">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell scope="col" textSize="small">

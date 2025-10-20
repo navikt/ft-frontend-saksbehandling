@@ -1,15 +1,16 @@
 import React from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useFormContext } from 'react-hook-form';
+import { FormattedMessage } from 'react-intl';
 
-import { List, ReadMore, VStack } from '@navikt/ds-react';
+import { List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
-import { RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag } from '@navikt/ft-types';
+import type { Beregningsgrunnlag } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues, NyIArbeidslivetValues } from '../../../typer/FaktaBeregningTypes';
-import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
+import type { FaktaOmBeregningAksjonspunktValues, NyIArbeidslivetValues } from '../../../typer/FaktaBeregningTypes';
+import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 /**
@@ -26,13 +27,15 @@ interface Props {
 }
 
 export const NyIArbeidslivetSNForm = ({ readOnly }: Props) => {
+  const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const intl = useIntl();
 
   return (
-    <RadioGroupPanel
+    <RhfRadioGroup
+      name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${radioGroupFieldName}`}
+      control={control}
       label={
-        <VStack gap="2">
+        <VStack gap="space-8">
           <FormattedMessage id="BeregningInfoPanel.NyIArbeidslivet.SelvstendigNaeringsdrivende" />
           <ReadMore
             size="small"
@@ -52,15 +55,16 @@ export const NyIArbeidslivetSNForm = ({ readOnly }: Props) => {
           </ReadMore>
         </VStack>
       }
-      name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${radioGroupFieldName}`}
       validate={[required]}
       isReadOnly={readOnly}
-      radios={[
-        { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-        { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
-      ]}
-      parse={parseStringToBoolean}
-    />
+    >
+      <Radio value={true} size="small">
+        <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />
+      </Radio>
+      <Radio value={false} size="small">
+        <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />
+      </Radio>
+    </RhfRadioGroup>
   );
 };
 
@@ -74,7 +78,7 @@ NyIArbeidslivetSNForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnl
   );
   const snAndeler = alleAndeler
     .flat()
-    .filter(andel => andel?.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NAERINGSDRIVENDE);
+    .filter(andel => andel?.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE);
   if (snAndeler.length > 0) {
     initialValues[radioGroupFieldName] = snAndeler[0]?.erNyIArbeidslivet;
   }

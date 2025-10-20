@@ -9,7 +9,7 @@ import { SaksbehandlernavnContext } from './SaksbehandlernavnContext';
 
 import styles from './assessedBy.module.css';
 
-export interface IAssessedByProps {
+interface IAssessedByProps {
   ident?: string;
   date?: string;
 }

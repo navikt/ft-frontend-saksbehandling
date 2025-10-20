@@ -1,13 +1,14 @@
-import { AktivitetStatus, FaktaOmBeregningTilfelle, Inntektskategori } from '@navikt/ft-kodeverk';
-import { Beregningsgrunnlag } from '@navikt/ft-types';
+import { AktivitetStatus, Inntektskategori } from '@navikt/ft-kodeverk';
+import type { Beregningsgrunnlag } from '@navikt/ft-types';
 
-import { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
-import { InntektTransformed } from '../../../../typer/FieldValues';
+import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
+import type { InntektTransformed } from '../../../../typer/FieldValues';
 import { erNyoppstartetFLField, NyoppstartetFLForm } from './NyoppstartetFLForm';
 
 const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '2022-02-01' } };
 
-describe('<NyoppstartetFLForm>', () => {
+describe('NyoppstartetFLForm', () => {
   const faktaOmBeregning = {
     faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],
     andelerForFaktaOmBeregning: [],

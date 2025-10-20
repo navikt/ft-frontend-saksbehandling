@@ -11,7 +11,7 @@ import { VisittKort } from './VisittKort';
 
 dayjs.extend(customParseFormat);
 
-export interface Props {
+interface Props {
   name: string;
   fodselsnummer: string;
   gender: Gender;
@@ -95,7 +95,7 @@ export const PersonCard = ({
         <>{childAge && <BodyShort>({childAge})</BodyShort>}</>
       ) : (
         <>
-          <HStack align="center" wrap={false} gap="2">
+          <HStack align="center" wrap={false} gap="space-8">
             <BodyShort textColor="subtle" style={{ whiteSpace: 'nowrap' }}>
               {formaterFnr(fodselsnummer)}
             </BodyShort>

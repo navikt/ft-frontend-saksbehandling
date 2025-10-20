@@ -1,9 +1,9 @@
 .container {
   animation-duration: 1s;
   animation-name: fadein;
-  border: 1px solid var(--a-gray-100);
+  border: 1px solid var(--ax-neutral-200);
   border-radius: 4px;
-  color: black;
+  color: var(--ax-text-neutral);
   margin-top: 8px;
   padding: 20px;
 }

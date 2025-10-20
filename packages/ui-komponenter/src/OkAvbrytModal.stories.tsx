@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
 import { OkAvbrytModal } from './OkAvbrytModal';
@@ -15,7 +15,7 @@ export const Default: Story = {
   args: {
     text: 'Dette er ein test',
     showModal: true,
-    submit: action('button-click'),
-    cancel: action('button-click'),
+    submit: action('submit'),
+    cancel: action('cancel'),
   },
 };

@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form';
-import { FormattedMessage, IntlShape, useIntl } from 'react-intl';
+import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
 import { Alert, BodyShort, Button, Heading, Label, Modal, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { Datepicker, Form } from '@navikt/ft-form-hooks';
+import { RhfDatepicker, RhfForm } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
@@ -53,7 +53,7 @@ const transformValues = (values: FormValues, periodeData: Periode): PerioderData
   };
 };
 
-export interface Props {
+interface Props {
   periodeData: Periode;
   cancelEvent: () => void;
   showModal: boolean;
@@ -72,7 +72,7 @@ export const DelOppPeriodeModal = ({
   const formMethods = useForm<FormValues>();
 
   return (
-    <Form
+    <RhfForm
       formMethods={formMethods}
       onSubmit={(values: FormValues) => splitPeriod(transformValues(values, periodeData))}
     >
@@ -83,12 +83,12 @@ export const DelOppPeriodeModal = ({
         width="medium"
       >
         <Modal.Header>
-          <Heading size="small">
+          <Heading size="small" level="2">
             <FormattedMessage id="DelOppPeriodeModalImpl.DelOppPerioden" />
           </Heading>
         </Modal.Header>
         <Modal.Body>
-          <VStack gap="4">
+          <VStack gap="space-16">
             <div>
               <Label size="small">
                 <FormattedMessage id="DelOppPeriodeModalImpl.Periode" />
@@ -99,8 +99,9 @@ export const DelOppPeriodeModal = ({
                 ).format(DDMMYYYY_DATE_FORMAT)}`}
               </BodyShort>
             </div>
-            <Datepicker
+            <RhfDatepicker
               name="forstePeriodeTomDato"
+              control={formMethods.control}
               label={<FormattedMessage id="DelOppPeriodeModalImpl.AngiTomDato" />}
               validate={[required, hasValidDate, validerMotPeriode(periodeData, intl)]}
               fromDate={dayjs(periodeData.fom).toDate()}
@@ -122,6 +123,6 @@ export const DelOppPeriodeModal = ({
           </Button>
         </Modal.Footer>
       </Modal>
-    </Form>
+    </RhfForm>
   );
 };

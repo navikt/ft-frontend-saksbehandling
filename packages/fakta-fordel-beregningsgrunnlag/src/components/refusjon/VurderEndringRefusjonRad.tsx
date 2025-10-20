@@ -3,13 +3,13 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, HStack, VStack } from '@navikt/ds-react';
 
-import { Datepicker, InputField } from '@navikt/ft-form-hooks';
+import { RhfDatepicker, RhfTextField } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, hasValidDate, maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, RefusjonTilVurderingAndel } from '@navikt/ft-types';
 import { BTag, dateFormat, formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { VurderRefusjonFormValues, VurderRefusjonValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
-import { VurderRefusjonAndelTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
+import type { VurderRefusjonFormValues, VurderRefusjonValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
+import type { VurderRefusjonAndelTransformedValues } from '../../types/interface/VurderRefusjonBeregningsgrunnlagAP';
 import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelper';
 
 import styles from './vurderEndringRefusjonRad.module.css';
@@ -37,7 +37,7 @@ const erValgtDatoLikSTP = (stp: string, verdiFraForm?: string): boolean => {
   return new Date(verdiFraForm).getTime() === new Date(stp).getTime();
 };
 
-type Props = {
+interface Props {
   refusjonAndel: RefusjonTilVurderingAndel;
   readOnly: boolean;
   erAksjonspunktÅpent: boolean;
@@ -45,7 +45,7 @@ type Props = {
   skjæringstidspunkt: string;
   formName: string;
   vilkårperiodeFieldIndex: number;
-};
+}
 
 export const VurderEndringRefusjonRad = ({
   refusjonAndel,
@@ -71,8 +71,8 @@ export const VurderEndringRefusjonRad = ({
   const skalKunneFastsetteDelvisRef =
     refusjonAndel.skalKunneFastsetteDelvisRefusjon && refusjonAndel.maksTillattDelvisRefusjonPrMnd;
   return (
-    <VStack>
-      <BodyShort>
+    <VStack gap="space-8">
+      <BodyShort size="small">
         <FormattedMessage
           id={andelTekst}
           values={{
@@ -82,31 +82,34 @@ export const VurderEndringRefusjonRad = ({
           }}
         />
       </BodyShort>
-      <HStack gap="6">
-        <div className={styles.tekstMidtstilt}>
-          <BodyShort>
-            <FormattedMessage id="BeregningInfoPanel.RefusjonBG.RefusjonFra" />
-          </BodyShort>
-        </div>
-        <Datepicker
+      <HStack align="center" gap="space-24">
+        <BodyShort as="span" size="small">
+          <FormattedMessage id="BeregningInfoPanel.RefusjonBG.RefusjonFra" />
+        </BodyShort>
+        <RhfDatepicker
           name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelRefusjonsstart(refusjonAndel)}`}
+          control={formMethods.control}
+          size="small"
           isReadOnly={readOnly}
+          hideLabel
           validate={
             readOnly ? [] : [required, hasValidDate, dateAfterOrEqual(refusjonAndel.tidligsteMuligeRefusjonsdato)]
           }
           isEdited={!!refusjonAndel.fastsattNyttRefusjonskravFom && !erAksjonspunktÅpent}
         />
       </HStack>
+
       {skalKunneFastsetteDelvisRef && !harValgtRefusjonFraStart && !aksjonspunktErLøstUtenDelvisRef && (
-        <HStack gap="6">
-          <div className={styles.tekstMidtstilt}>
-            <BodyShort>
-              <FormattedMessage id="BeregningInfoPanel.RefusjonBG.DelvisPrMnd" />
-            </BodyShort>
-          </div>
-          <InputField
+        <HStack align="center" gap="space-24">
+          <BodyShort as="span" size="small">
+            <FormattedMessage id="BeregningInfoPanel.RefusjonBG.DelvisPrMnd" />
+          </BodyShort>
+          <RhfTextField
             name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelDelvisRefusjon(refusjonAndel)}`}
+            control={formMethods.control}
             className={styles.bredde}
+            size="small"
+            hideLabel
             validate={readOnly ? [] : [required, maxValueFormatted(refusjonAndel.maksTillattDelvisRefusjonPrMnd)]}
             parse={parseCurrencyInput}
             readOnly={readOnly}

@@ -1,21 +1,20 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 // TODO (SAFIR) PFP-6021 Ta i bruk InntektFieldArray i staden for BrukersAndelFieldArray
-import { BodyShort, Label, Link, VStack } from '@navikt/ds-react';
+import { BodyShort, HStack, Label, Link, Radio, VStack } from '@navikt/ds-react';
 
-import { RadioGroupPanel } from '@navikt/ft-form-hooks';
+import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { KunYtelse } from '@navikt/ft-types';
+import type { KunYtelse } from '@navikt/ft-types';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
-import { VurderBesteberegningMedKunYtelseValues } from '../../../typer/FaktaBeregningTypes';
-import { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
-import { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
+import type { VurderBesteberegningMedKunYtelseValues } from '../../../typer/FaktaBeregningTypes';
+import type { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
+import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../../utils/BeregningFormUtils';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '../eksterneLenker';
-import { parseStringToBoolean } from '../vurderFaktaBeregningHjelpefunksjoner';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import { BrukersAndelFieldArray } from './BrukersAndelFieldArray';
 
@@ -42,56 +41,57 @@ export const KunYtelseBesteberegning = ({
   skalViseInntektstabell = true,
   kodeverkSamling,
 }: Props) => {
-  const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
+  const { getValues, control } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`${formNameVurderFaktaBeregning}.${beregningsgrunnlagIndeks}`);
 
   const erBesteberegning = besteberegningField in formValues ? formValues[besteberegningField] : undefined;
-  const intl = useIntl();
+
   return (
-    <div>
-      <RadioGroupPanel
+    <VStack gap="space-12">
+      <RhfRadioGroup
         name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.besteberegningField`}
+        control={control}
         isReadOnly={readOnly}
         label={<FormattedMessage id="KunYtelsePanel.HarBesteberegning" />}
-        radios={[
-          { value: 'true', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Ja' }) },
-          { value: 'false', label: intl.formatMessage({ id: 'BeregningInfoPanel.FormAlternativ.Nei' }) },
-        ]}
         validate={readOnly ? [] : [required]}
-        parse={parseStringToBoolean}
-        isHorizontal
-      />
-
+      >
+        <HStack gap="space-16">
+          <Radio value={true} size="small">
+            <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />
+          </Radio>
+          <Radio value={false} size="small">
+            <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />
+          </Radio>
+        </HStack>
+      </RhfRadioGroup>
       {erBesteberegning !== undefined && erBesteberegning !== null && (
-        <div style={{ marginTop: '10px' }}>
-          <ArrowBox alignOffset={erBesteberegning ? 0 : 60}>
-            <VStack gap="4">
-              <VStack gap="2" justify="space-between">
-                <Label size="small">
-                  <FormattedMessage id="KunYtelsePanel.OverskriftBesteberegning" />
-                </Label>
-                {erBesteberegning && (
-                  <BodyShort>
-                    <Link href={LINK_TIL_BESTE_BEREGNING_REGNEARK} target="_blank" rel="noopener noreferrer">
-                      <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
-                    </Link>
-                  </BodyShort>
-                )}
-              </VStack>
-              {skalViseInntektstabell && (
-                <BrukersAndelFieldArray
-                  name={brukersAndelFieldArrayName}
-                  readOnly={readOnly}
-                  isAksjonspunktClosed={isAksjonspunktClosed}
-                  kodeverkSamling={kodeverkSamling}
-                />
+        <ArrowBox alignOffset={erBesteberegning ? 0 : 60}>
+          <VStack gap="space-16">
+            <VStack gap="space-8" justify="space-between">
+              <Label size="small">
+                <FormattedMessage id="KunYtelsePanel.OverskriftBesteberegning" />
+              </Label>
+              {erBesteberegning && (
+                <BodyShort>
+                  <Link href={LINK_TIL_BESTE_BEREGNING_REGNEARK} target="_blank" rel="noopener noreferrer">
+                    <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
+                  </Link>
+                </BodyShort>
               )}
             </VStack>
-          </ArrowBox>
-        </div>
+            {skalViseInntektstabell && (
+              <BrukersAndelFieldArray
+                name={brukersAndelFieldArrayName}
+                readOnly={readOnly}
+                isAksjonspunktClosed={isAksjonspunktClosed}
+                kodeverkSamling={kodeverkSamling}
+              />
+            )}
+          </VStack>
+        </ArrowBox>
       )}
-    </div>
+    </VStack>
   );
 };
 

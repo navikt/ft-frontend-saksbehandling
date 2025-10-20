@@ -64,8 +64,6 @@
   "BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem": "Hvordan går jeg frem?",
   "BeregningInfoPanel.InntektInputFields.HvordanGarJegFremForFastsetteManedsinntekt": "Hvordan går jeg frem for å fastsette månedsinntekten for ytelsen?",
   "BeregningInfoPanel.InntektInputFields.HvaBetyrInntektskategori": "Hva betyr inntektskategori?",
-  "BeregningInfoPanel.AvklareAktiviteterField.HvordanGarJegFrem1": "Undersøk i Modia om søker har full AAP.",
-  "BeregningInfoPanel.AvklareAktiviteterField.HvordanGarJegFrem2": "Ved full AAP skal arbeidsinntekten ikke benyttes.",
 
   "BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrgUtenIM": "<h3>Søker er arbeidstaker og frilans i samme virksomhet.</h3>Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som er arbeidsinntekt og hva som er samlet frilansinntekt.",
   "BeregningInfoPanel.VurderFaktaBeregningField.ATFLSammeOrg": "<h3>Søker er arbeidstaker og frilans i samme virksomhet.</h3>Inntekter er rapportert inn på samme org. nummer, og inntektene kan ikke skilles fra hverandre. Fastsett hva som er samlet frilansinntekt.",
@@ -75,7 +73,6 @@
   "BeregningInfoPanel.VurderFaktaBeregningField.VurderEtterlonnSluttpakkeHelpText": "<h3>Vurder om søker har etterlønn eller sluttvederlag i beregningsperioden</h3>Søker har oppgitt etterlønn eller sluttvederlag i søknaden.",
   "BeregningInfoPanel.VurderFaktaBeregningField.VurderMilitaerSiviltjenesteHelpText": "<h3>Vurder om søker har vært i militær- eller siviljeneste i opptjeningsperioden</h3>Søker har oppgitt militær- eller siviltjeneste i søknaden.",
   "BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelseHelpText": "<h3>Søker har ytelse som eneste inntekt</h3>Det er funnet utbetaling av ytelse i beregningsperioden, men beløp og inntektskategori kan ikke hentes fra registrene.",
-  "BeregningInfoPanel.VurderFaktaBeregningField.FastsettArbeidUnderAap": "<h3>Fastsett arbeidsinntekt som sammenfaller med arbeidsavklaringspenger</h3>Søker har hatt arbeidsinntekt i beregningsperioden og går nå på arbeidsavklaringspenger, arbeidsinntekt må fastsettes.",
   "BeregningInfoPanel.VurderFaktaBeregningField.VurderNyoppstartetFLHelpText": "<h3>Vurder om frilanser er nyoppstartet</h3>Det er funnet frilansoppdrag med oppstartsdato i beregningsperioden. Vurder om frilansoppdrag er nyoppstartet, og om det skal benyttes en kortere periode for å fastsette inntekt.",
   "BeregningInfoPanel.VurderFaktaBeregningField.VurderSNNyIArbeidslivetHelpText": "<h3>Vurder om søker ble yrkesaktiv i løpet av de siste tre årene</h3>Søker har oppgitt i søknaden at de er selvstendig næringsdrivende og ny i arbeidslivet.",
   "BeregningInfoPanel.VurderFaktaBeregningField.VurderRefusjonskravKommetForSentHelpText": "<h3>Vurder refusjonskrav som har kommet for sent</h3>{arbeidsgiverVisningsnavn} har minst ett refusjonskrav som har kommet for sent.",
@@ -125,7 +122,7 @@
   "KunYtelsePanel.RapporterteInntekter": "Rapporterte inntekter",
   "BeregningInfoPanel.FordelBG.Validation.UlikeAndeler": "Andeler for samme aktivitet må ha ulik inntektskategori",
 
-  "InntektstabellPanel.RapporterteInntekter": "Rapporterte inntekter",
+  "InntektstabellPanel.RapporterteInntekter": "Fastsetting av inntekt",
 
   "BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt": "Har søker etterlønn eller sluttvederlag?",
   "BeregningInfoPanel.EtterlønnSluttpakke.HvordanGarJegFrem1": "Gå til A-inntekt og se om etterlønn eller sluttvederlag er rapportert. Hvis ikke, kontakt søker og be de dokumentere etterlønn/sluttvederlag med avtale el.",
@@ -136,9 +133,7 @@
   "BeregningInfoPanel.VurderMilitaer.HarSøkerMilitærinntekt": "Har søker vært i militær- eller sivilforsvarstjeneste i opptjeningsperioden?",
   "BeregningInfoPanel.VurderMilitaer.HvordanGarJegFrem1": "Kontakt søker og be om dokumentasjon på avtjent tjeneste i opptjeningsperioden. Vurder om tjenesten har vart eller var ment å vare mer enn 28 dager i henhold til §8-46. Denne informasjonen er ikke tilgjengelig i noen registre, og vi må derfor ha dokumentasjon fra søker.",
   "BeregningInfoPanel.VurderMilitaer.HvordanGarJegFrem2": "Svarer du ”ja” vil utbetalingen bli minst 2G (pleiepenger) / 3G (foreldrepenger). Svarer du ”nei” beregnes det etter vanlige regler.",
-  "BeregningInfoPanel.InntektInputFields.ArbeidUnderAap": "Fastsett arbeidsinntekt fra beregningsperioden som er bortfalt på skjæringstidspunktet.",
-  "BeregningInfoPanel.InntektInputFields.MånedsinntektAap": "Fastsett gjennomsnitt månedlig arbeidsinntekt under arbeidsavklaringspenger",
-  "VurderRefusjonForm.ErRefusjonskravGyldig": "Skal refusjonskrav som ikke har kommet innen fristen tas med i beregning?",
+  "VurderRefusjonForm.ErRefusjonskravGyldig": "Skal refusjonskravet for {arbeidsgiverVisningsnavn} som ikke har kommet innen fristen tas med i beregning?",
   "VurderRefusjonForm.ReadMore": "Undersøk om det har vært fristavbrytende kontakt med arbeidsgiver innen frist for refusjonskrav (3 måneder).",
 
   "BeregningInfoPanel.Validation.MinstEnFastsatt": "Må ha overstyrt inntekt for minst én aktivitet.",
@@ -147,5 +142,15 @@
   "FaktaBegrunnelseTextField.Begrunnelse": "Begrunnelse",
   "SubmitButton.ConfirmInformation": "Bekreft og fortsett",
 
-  "InntektFieldArrayRow.MåFastsettes": "Må fastsettes"
+  "InntektFieldArrayRow.MåFastsettes": "Må fastsettes",
+
+  "Registerinntekt.Overskrift": "Inntekter i beregningsperioden fra A-inntekt",
+  "Registerinntekt.Tabell.Måned": "Måned",
+  "Registerinntekt.Tabell.Aktivitet": "Aktivitet",
+  "Registerinntekt.Tabell.Beløp": "Beløp",
+  "Registerinntekt.Tabell.Aktivt": "Aktivt ved skjæringstidspunktet",
+  "Registerinntekt.Tabell.Ja": "Ja",
+  "Registerinntekt.Tabell.Nei": "Nei",
+  "Registerinntekt.Tabell.Frilans": "Frilans",
+  "Registerinntekt.Tabell.Annen": "Annen inntekt"
 }

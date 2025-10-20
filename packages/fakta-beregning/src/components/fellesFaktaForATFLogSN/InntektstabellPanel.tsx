@@ -3,11 +3,11 @@ import { FormattedMessage } from 'react-intl';
 
 import { Button, Heading, HStack, Label, VStack } from '@navikt/ds-react';
 
-import { isAksjonspunktOpen } from '@navikt/ft-kodeverk';
-import { BeregningAvklaringsbehov } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { OverstyringKnapp } from '@navikt/ft-ui-komponenter';
+import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
-import { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
+import type { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
@@ -19,7 +19,7 @@ export const MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD = 'manuellOverstyringR
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
 const getSkalKunneOverstyre = (erOverstyrer: boolean, avklaringsbehov: BeregningAvklaringsbehov[]) =>
-  erOverstyrer && !avklaringsbehov.some(ap => ap.definisjon === AVKLAR_AKTIVITETER && isAksjonspunktOpen(ap.status));
+  erOverstyrer && !avklaringsbehov.some(ap => ap.definisjon === AVKLAR_AKTIVITETER && isAksjonspunktOpen(ap));
 
 interface Props {
   tabell: React.ReactNode;
@@ -54,8 +54,8 @@ export const InntektstabellPanel = ({
   return (
     <div className={styles.fadeinTabell}>
       {skalViseTabell && (
-        <VStack gap="4">
-          <HStack gap="4">
+        <VStack gap="space-16">
+          <HStack gap="space-16">
             <Heading level="3" size="xsmall">
               <FormattedMessage id="InntektstabellPanel.RapporterteInntekter" />
             </Heading>

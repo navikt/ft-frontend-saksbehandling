@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import { BodyLong, HStack, Label, VStack } from '@navikt/ds-react';
 
@@ -8,7 +8,7 @@ import styles from './readOnlyField.module.css';
 
 const hasValue = (value: any): boolean => value !== undefined && value !== null && value !== '';
 
-export interface Props {
+interface Props {
   label?: string | ReactNode;
   isEdited?: boolean;
   value?: string | ReactNode;
@@ -22,9 +22,9 @@ export const ReadOnlyField = ({ label, value, isEdited = false, type, hideLabel,
     return null;
   }
   return (
-    <VStack gap="1">
+    <VStack gap="space-4">
       {label && !hideLabel && <Label size={size}>{label}</Label>}
-      <HStack gap="2" align="center" wrap={false}>
+      <HStack gap="space-8" align="center" wrap={false}>
         <BodyLong className={type === 'textarea' ? styles.textarea : styles.readOnlyField} size={size}>
           {value}
         </BodyLong>
