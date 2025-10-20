@@ -5,7 +5,7 @@ import { expect } from 'vitest';
 
 import * as stories from './RhfCheckboxGroup.stories';
 
-const { Default } = composeStories(stories);
+const { Default, MedValidering } = composeStories(stories);
 
 describe('RhfCheckboxGroup', () => {
   it('skal sette verdi', async () => {
@@ -22,5 +22,24 @@ describe('RhfCheckboxGroup', () => {
 
     await userEvent.click(screen.getByText('Verdi 1'));
     expect(screen.getByLabelText('Verdi 1')).toBeChecked();
+  });
+
+  it('skal gi feil ved ingen valgte elementer', async () => {
+    await MedValidering.run();
+    expect(screen.getByText('Dette er en checkboks med validering(minLength=1)')).toBeInTheDocument();
+
+    const checkboxes = screen.getAllByLabelText(/Verdi /);
+
+    await userEvent.click(checkboxes[0]);
+    await userEvent.click(checkboxes[2]);
+
+    await userEvent.click(screen.getByText('Submit'));
+
+    expect(await screen.findByText('Du må velge minst ett element')).toBeInTheDocument();
+
+    await userEvent.click(checkboxes[0]);
+    await userEvent.click(checkboxes[1]);
+
+    expect(screen.getByText('Verdi 1 og 2 kan ikke velges samtidig')).toBeInTheDocument();
   });
 });
