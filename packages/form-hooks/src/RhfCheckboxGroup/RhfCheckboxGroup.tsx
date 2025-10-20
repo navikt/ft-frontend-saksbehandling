@@ -17,7 +17,7 @@ export interface CheckboxProps {
 type Props<T extends FieldValues> = {
   label?: string | ReactNode;
   description?: string;
-  validate?: ((value: string | number) => ValidationReturnType)[];
+  validate?: ((values: (string | number)[]) => ValidationReturnType)[];
   onChange?: (value: any) => void;
   isReadOnly?: boolean;
   hideLegend?: boolean;
@@ -37,10 +37,9 @@ export const RhfCheckboxGroup = <T extends FieldValues>({
   isEdited = false,
   size = 'small',
   children,
-  ...controllerProps
+  name,
+  control,
 }: Props<T>) => {
-  const { name, control } = controllerProps;
-
   const {
     formState: { errors },
   } = useFormContext();
