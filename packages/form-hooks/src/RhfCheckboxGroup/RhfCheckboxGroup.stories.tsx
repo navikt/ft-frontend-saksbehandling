@@ -63,7 +63,7 @@ export const MedValidering: Story = {
           ? 'Verdi 1 og 2 kan ikke velges samtidig'
           : undefined,
     ],
-    label: 'Dette er en checkboks med validering(minLength=1)',
+    label: 'Dette er en checkboks med validering',
     name: 'checkboxpanelpre',
   },
 };

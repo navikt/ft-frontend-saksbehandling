@@ -26,7 +26,7 @@ describe('RhfCheckboxGroup', () => {
 
   it('skal gi feil ved ingen valgte elementer', async () => {
     await MedValidering.run();
-    expect(screen.getByText('Dette er en checkboks med validering(minLength=1)')).toBeInTheDocument();
+    expect(screen.getByText('Dette er en checkboks med validering')).toBeInTheDocument();
 
     const checkboxes = screen.getAllByLabelText(/Verdi /);
 
