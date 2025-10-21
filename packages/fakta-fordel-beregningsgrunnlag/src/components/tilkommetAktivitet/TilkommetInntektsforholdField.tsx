@@ -122,8 +122,8 @@ export const TilkommetInntektsforholdField = ({
       <RhfRadioGroup
         name={`${formName}.${formFieldIndex}.perioder.${periodeFieldIndex}.inntektsforhold.${inntektsforholdFieldIndex}.skalRedusereUtbetaling`}
         control={formMethods.control}
-        label={getRadioGroupLabel()}
-        isReadOnly={readOnly}
+        legend={getRadioGroupLabel()}
+        readOnly={readOnly}
         validate={[required]}
       >
         <Radio value={true} size="small">

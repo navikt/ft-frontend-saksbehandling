@@ -39,7 +39,7 @@ export const NyoppstartetFLForm = ({ readOnly }: Props) => {
     <RhfRadioGroup
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`}
       control={control}
-      label={
+      legend={
         <VStack gap="space-8">
           <FormattedMessage id="BeregningInfoPanel.NyoppstartetFLForm.ErSokerNyoppstartetFL" />
           <ReadMore
@@ -58,7 +58,7 @@ export const NyoppstartetFLForm = ({ readOnly }: Props) => {
         </VStack>
       }
       validate={[required]}
-      isReadOnly={readOnly}
+      readOnly={readOnly}
     >
       <Radio value={true} size="small">
         <FormattedMessage id="BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes" />

@@ -49,9 +49,9 @@ export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehol
       <RhfRadioGroup
         name={`${name}.erBelopetIBehold`}
         control={control}
-        label={<FormattedMessage id="BelopetMottattIGodTroFormPanel.BelopetIBehold" />}
+        legend={<FormattedMessage id="BelopetMottattIGodTroFormPanel.BelopetIBehold" />}
         validate={[required]}
-        isReadOnly={readOnly}
+        readOnly={readOnly}
       >
         <HStack gap="space-20">
           <Radio value={true} size="small">

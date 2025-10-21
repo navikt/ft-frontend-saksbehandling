@@ -13,11 +13,11 @@ import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 dayjs.extend(customParseFormat);
 
 type Props<T extends FieldValues> = {
-  label?: string | ReactNode;
+  label?: ReactNode;
   hideLabel?: boolean;
-  description?: string | ReactNode;
+  description?: ReactNode;
   size?: 'medium' | 'small';
-  isReadOnly?: boolean;
+  readOnly?: boolean;
   onChange?: (value: any) => void;
   disabledDays?: DatePickerProps['disabled'];
   isEdited?: boolean;
@@ -33,7 +33,7 @@ export const RhfDatepicker = <T extends FieldValues>({
   description,
   validate = [],
   hideLabel = false,
-  isReadOnly = false,
+  readOnly = false,
   size = 'small',
   onChange,
   disabledDays,
@@ -90,7 +90,7 @@ export const RhfDatepicker = <T extends FieldValues>({
     [setFieldValue, onChange, field],
   );
 
-  if (isReadOnly) {
+  if (readOnly) {
     return (
       <ReadOnlyField
         label={label}

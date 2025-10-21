@@ -1,7 +1,7 @@
 import { type ReactElement, type ReactNode, useMemo } from 'react';
 import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
 
-import { Checkbox, CheckboxGroup, HStack } from '@navikt/ds-react';
+import { Checkbox, CheckboxGroup, type CheckboxGroupProps, HStack } from '@navikt/ds-react';
 
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
@@ -15,30 +15,28 @@ export interface CheckboxProps {
 }
 
 type Props<T extends FieldValues> = {
-  label?: string | ReactNode;
-  description?: string;
   validate?: ((values: (string | number)[]) => ValidationReturnType)[];
   onChange?: (value: any) => void;
-  isReadOnly?: boolean;
   hideLegend?: boolean;
   isEdited?: boolean;
   size?: 'medium' | 'small';
   children?: ReactElement<typeof Checkbox>[];
   control: UseControllerProps<T>['control'];
-} & Omit<UseControllerProps<T>, 'control'>;
+} & Omit<UseControllerProps<T>, 'control'> &
+  Omit<CheckboxGroupProps, 'value' | 'defaultValue' | 'onChange'>;
 
 export const RhfCheckboxGroup = <T extends FieldValues>({
-  label,
-  description,
+  legend,
   validate = [],
   onChange,
-  isReadOnly = false,
+  readOnly = false,
   hideLegend = false,
   isEdited = false,
   size = 'small',
   children,
   name,
   control,
+  ...rest
 }: Props<T>) => {
   const {
     formState: { errors },
@@ -52,17 +50,9 @@ export const RhfCheckboxGroup = <T extends FieldValues>({
     },
   });
 
-  const legend = (
-    <HStack justify="center" gap="space-8">
-      {label}
-      {isReadOnly && isEdited && <EditedIcon />}
-    </HStack>
-  );
-
   return (
     <CheckboxGroup
       name={name}
-      description={description}
       value={field.value !== undefined ? field.value : []}
       onChange={value => {
         if (onChange) {
@@ -71,9 +61,15 @@ export const RhfCheckboxGroup = <T extends FieldValues>({
         field.onChange(value);
       }}
       size={size}
-      legend={legend}
+      legend={
+        <HStack justify="center" gap="space-8">
+          {legend}
+          {readOnly && isEdited && <EditedIcon />}
+        </HStack>
+      }
       error={getError(errors, name)}
       hideLegend={hideLegend}
+      {...rest}
     >
       {children}
     </CheckboxGroup>

@@ -29,6 +29,7 @@ const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '
 const lagBeregningsgrunnlag = (andeler: BeregningsgrunnlagAndel[]): Beregningsgrunnlag =>
   ({
     vilkårsperiodeFom: '2022-01-01',
+
     beregningsgrunnlagPeriode: [
       {
         beregningsgrunnlagPrStatusOgAndel: andeler.map(andel => ({

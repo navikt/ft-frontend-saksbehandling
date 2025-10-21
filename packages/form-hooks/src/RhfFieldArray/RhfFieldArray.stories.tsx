@@ -67,14 +67,14 @@ export const Default: Story = {
           <HStack gap="2" key={field.id} align="end">
             <RhfDatepicker
               size={size}
-              isReadOnly={readOnly}
+              readOnly={readOnly}
               name={`test.${index}.periodeFom`}
               label="Fra og med"
               control={control}
             />
             <RhfDatepicker
               size={size}
-              isReadOnly={readOnly}
+              readOnly={readOnly}
               name={`test.${index}.periodeTom`}
               label="Til og med"
               control={control}

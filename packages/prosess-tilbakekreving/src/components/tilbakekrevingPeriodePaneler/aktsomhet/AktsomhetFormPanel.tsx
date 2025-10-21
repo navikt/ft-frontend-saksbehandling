@@ -78,9 +78,9 @@ export const AktsomhetFormPanel = ({
       <RhfRadioGroup
         name={`${name}.handletUaktsomhetGrad`}
         control={control}
-        label={<FormattedMessage id="AktsomhetFormPanel.HandletUaktsomhetGrad" />}
+        legend={<FormattedMessage id="AktsomhetFormPanel.HandletUaktsomhetGrad" />}
         validate={[required]}
-        isReadOnly={readOnly}
+        readOnly={readOnly}
         onChange={resetFields}
       >
         <HStack gap="space-20">

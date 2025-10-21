@@ -83,7 +83,7 @@ export const VurderAktiviteterTabellRad = ({
               name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.tom`}
               control={control}
               validate={[required, hasValidDate, dateAfterOrEqual(aktivitet.fom)]}
-              isReadOnly={readOnly}
+              readOnly={readOnly}
               size="small"
               hideLabel
             />
@@ -94,9 +94,9 @@ export const VurderAktiviteterTabellRad = ({
         <RhfRadioGroup
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
           control={control}
-          label={intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.Benytt' })}
+          legend={intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.Benytt' })}
           validate={[required]}
-          isReadOnly={
+          readOnly={
             readOnly ||
             !skalVurdereAktivitet(
               aktivitet,
@@ -117,9 +117,9 @@ export const VurderAktiviteterTabellRad = ({
         <RhfRadioGroup
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
           control={control}
-          label={intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.IkkeBenytt' })}
+          legend={intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.IkkeBenytt' })}
           validate={[required]}
-          isReadOnly={
+          readOnly={
             readOnly ||
             !skalVurdereAktivitet(
               aktivitet,

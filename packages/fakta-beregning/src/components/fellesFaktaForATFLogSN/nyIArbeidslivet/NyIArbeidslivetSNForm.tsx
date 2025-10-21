@@ -34,7 +34,7 @@ export const NyIArbeidslivetSNForm = ({ readOnly }: Props) => {
     <RhfRadioGroup
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${radioGroupFieldName}`}
       control={control}
-      label={
+      legend={
         <VStack gap="space-8">
           <FormattedMessage id="BeregningInfoPanel.NyIArbeidslivet.SelvstendigNaeringsdrivende" />
           <ReadMore
@@ -56,7 +56,7 @@ export const NyIArbeidslivetSNForm = ({ readOnly }: Props) => {
         </VStack>
       }
       validate={[required]}
-      isReadOnly={readOnly}
+      readOnly={readOnly}
     >
       <Radio value={true} size="small">
         <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />

@@ -52,8 +52,8 @@ export const KunYtelseBesteberegning = ({
       <RhfRadioGroup
         name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.besteberegningField`}
         control={control}
-        isReadOnly={readOnly}
-        label={<FormattedMessage id="KunYtelsePanel.HarBesteberegning" />}
+        readOnly={readOnly}
+        legend={<FormattedMessage id="KunYtelsePanel.HarBesteberegning" />}
         validate={readOnly ? [] : [required]}
       >
         <HStack gap="space-16">

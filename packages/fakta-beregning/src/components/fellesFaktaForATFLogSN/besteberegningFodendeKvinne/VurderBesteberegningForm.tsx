@@ -49,7 +49,7 @@ export const VurderBesteberegningForm = ({ readOnly, erOverstyrt }: Props) => {
     <RhfRadioGroup
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`}
       control={control}
-      label={
+      legend={
         <VStack gap="space-8" justify="space-between">
           <Label size="small">
             <FormattedMessage id="BeregningInfoPanel.VurderBestebergning.HarBesteberegning" />
@@ -61,7 +61,7 @@ export const VurderBesteberegningForm = ({ readOnly, erOverstyrt }: Props) => {
           </BodyShort>
         </VStack>
       }
-      isReadOnly={isReadOnly}
+      readOnly={isReadOnly}
       validate={isReadOnly ? [] : [required]}
     >
       <Radio value={true} size="small">

@@ -25,7 +25,7 @@ export const ForeldetFormPanel = () => {
       <RhfRadioGroup
         name="periodenErForeldet"
         control={control}
-        label={
+        legend={
           <Detail>
             <FormattedMessage id="ForeldetFormPanel.VurderOmPeriodenErForeldet" />
           </Detail>
