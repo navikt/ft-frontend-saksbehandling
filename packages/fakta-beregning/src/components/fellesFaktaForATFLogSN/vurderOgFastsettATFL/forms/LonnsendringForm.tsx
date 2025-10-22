@@ -38,7 +38,7 @@ export const LonnsendringForm = ({ readOnly }: Props) => {
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.lonnsendringField`}
       control={control}
       validate={[required]}
-      label={
+      legend={
         <VStack gap="space-8">
           <FormattedMessage id="BeregningInfoPanel.LonnsendringForm.HarSokerEndring" />
           <ReadMore size="small" header={<FormattedMessage id="BeregningInfoPanel.LonnsendringForm.HvaBetyrDette" />}>
@@ -56,7 +56,7 @@ export const LonnsendringForm = ({ readOnly }: Props) => {
           </ReadMore>
         </VStack>
       }
-      isReadOnly={readOnly}
+      readOnly={readOnly}
     >
       <Radio value={true} size="small">
         <FormattedMessage id="BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes" />

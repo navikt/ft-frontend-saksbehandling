@@ -97,8 +97,8 @@ export const VurderVarigEndringEllerNyoppstartet = ({
         name={`${formName}.${fieldIndex}.${varigEndringRadioname}`}
         control={formMethods.control}
         validate={skalValideres ? [required] : []}
-        label={intl.formatMessage({ id: radioLabel })}
-        isReadOnly={readOnly}
+        legend={intl.formatMessage({ id: radioLabel })}
+        readOnly={readOnly}
         isEdited={readOnly && isAksjonspunktClosed}
       >
         <Radio value={false} size="small">

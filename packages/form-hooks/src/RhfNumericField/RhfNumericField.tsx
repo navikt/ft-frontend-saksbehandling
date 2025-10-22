@@ -1,7 +1,7 @@
-import { type ReactNode, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
 
-import { TextField } from '@navikt/ds-react';
+import { TextField, type TextFieldProps } from '@navikt/ds-react';
 
 import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
@@ -10,20 +10,15 @@ const TWO_DECIMALS_REGEXP = /^(\d+[,]?(\d{1,2})?)$/;
 const DECIMAL_REGEXP = /^(\d{1,20}[,.]?(\d{1,10})?)$/;
 
 type Props<T extends FieldValues> = {
-  size?: 'medium' | 'small';
-  label?: string | ReactNode;
-  hideLabel?: boolean;
   validate?: ((value: string) => ValidationReturnType)[] | ((value: number) => ValidationReturnType)[];
-  readOnly?: boolean;
-  description?: string;
   autoFocus?: boolean;
   isEdited?: boolean;
   forceTwoDecimalDigits?: boolean;
-  className?: string;
   returnAsNumber?: boolean;
   onChange?: (value: any) => void;
   control: UseControllerProps<T>['control'];
-} & Omit<UseControllerProps<T>, 'control'>;
+} & Omit<UseControllerProps<T>, 'control'> &
+  Omit<TextFieldProps, 'value' | 'defaultValue' | 'type' | 'inputMode' | 'onChange'>;
 
 export const RhfNumericField = <T extends FieldValues>({
   label,
@@ -31,17 +26,17 @@ export const RhfNumericField = <T extends FieldValues>({
   validate = [],
   readOnly = false,
   description,
-  autoFocus,
   isEdited,
   forceTwoDecimalDigits = false,
-  className,
   returnAsNumber = false,
   onChange,
+  autoComplete = 'off',
   size = 'small',
-  ...controllerProps
+  name,
+  control,
+  disabled,
+  ...rest
 }: Props<T>) => {
-  const { name, control, disabled } = controllerProps;
-
   const [hasFocus, setHasFocus] = useState(false);
 
   const {
@@ -73,13 +68,11 @@ export const RhfNumericField = <T extends FieldValues>({
       error={getError(errors, name)}
       {...field}
       value={formattedValue.replace('.', ',')}
-      autoFocus={autoFocus}
-      autoComplete="off"
+      autoComplete={autoComplete}
       disabled={disabled}
       type="text"
       hideLabel={hideLabel}
       inputMode="decimal"
-      className={className}
       onChange={event => {
         setHasFocus(true);
         const targetValue = event.currentTarget.value;
@@ -111,6 +104,7 @@ export const RhfNumericField = <T extends FieldValues>({
           field.onChange(value + 0);
         }
       }}
+      {...rest}
     />
   );
 };

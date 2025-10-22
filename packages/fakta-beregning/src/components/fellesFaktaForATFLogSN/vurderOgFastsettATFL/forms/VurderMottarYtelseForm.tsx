@@ -86,7 +86,7 @@ const MottarYtelseArbeidsforholdRadioAndInputs = ({
     <RhfRadioGroup
       name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${key}`}
       control={control}
-      label={
+      legend={
         <VStack gap="space-8">
           {andel.arbeidsforhold &&
             utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
@@ -106,7 +106,7 @@ const MottarYtelseArbeidsforholdRadioAndInputs = ({
         </VStack>
       }
       validate={readOnly ? [] : [required]}
-      isReadOnly={readOnly}
+      readOnly={readOnly}
     >
       <Radio value={true} size="small">
         <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />
@@ -170,7 +170,7 @@ export const VurderMottarYtelseForm = ({
         <RhfRadioGroup
           name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${frilansFieldName}`}
           control={control}
-          label={
+          legend={
             <VStack gap="space-8">
               <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
               <ReadMore
@@ -189,7 +189,7 @@ export const VurderMottarYtelseForm = ({
             </VStack>
           }
           validate={readOnly ? [] : [required]}
-          isReadOnly={readOnly}
+          readOnly={readOnly}
         >
           <Radio value={true} size="small">
             <FormattedMessage id="BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes" />

@@ -46,7 +46,7 @@ export const ReadOnly: Story = {
   args: {
     label: 'Dette er en datepicker som er readonly',
     name: 'datepickerFieldPre',
-    isReadOnly: true,
+    readOnly: true,
     isEdited: true,
   },
 };

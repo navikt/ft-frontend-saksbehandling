@@ -45,7 +45,7 @@ export const VurderEtterlonnSluttpakkeForm = ({ readOnly }: Props) => {
       <RhfRadioGroup
         name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`}
         control={control}
-        label={
+        legend={
           <VStack gap="space-8">
             <FormattedMessage id="BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt" />
             <ReadMore
@@ -57,7 +57,7 @@ export const VurderEtterlonnSluttpakkeForm = ({ readOnly }: Props) => {
           </VStack>
         }
         validate={[required]}
-        isReadOnly={readOnly}
+        readOnly={readOnly}
       >
         <Radio value={true} size="small">
           <FormattedMessage id="BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes" />

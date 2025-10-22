@@ -77,9 +77,9 @@ export const ForeldelsePeriodeForm = ({
           <RhfRadioGroup
             name="foreldet"
             control={formMethods.control}
-            label={<FormattedMessage id="ForeldelsePeriodeForm.RadioGroup.Foreldet" />}
+            legend={<FormattedMessage id="ForeldelsePeriodeForm.RadioGroup.Foreldet" />}
             validate={[required]}
-            isReadOnly={readOnly}
+            readOnly={readOnly}
           >
             {foreldelseVurderingTyper.map(type => (
               <Radio key={type.kode} value={type.kode} size="small">
@@ -94,7 +94,7 @@ export const ForeldelsePeriodeForm = ({
                 control={formMethods.control}
                 label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.Foreldelsesfrist' })}
                 validate={[required, hasValidDate]}
-                isReadOnly={readOnly}
+                readOnly={readOnly}
               />
             )}
             {erMedTilleggsfrist && (
@@ -103,7 +103,7 @@ export const ForeldelsePeriodeForm = ({
                 control={formMethods.control}
                 label={intl.formatMessage({ id: 'ForeldelsePeriodeForm.OppdagelsesDato' })}
                 validate={[required, hasValidDate, dateBeforeOrEqualToToday]}
-                isReadOnly={readOnly}
+                readOnly={readOnly}
                 fromDate={dayjs('1970-01-01').toDate()}
                 toDate={dayjs().toDate()}
               />
