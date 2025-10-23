@@ -27,8 +27,9 @@ export const RhfTextField = <T extends FieldValues>({
   name,
   control,
   label,
+  hideLabel,
   validate = [],
-  readOnly = false,
+  readOnly,
   type,
   shouldValidateOnBlur = false,
   onBlur,
@@ -38,7 +39,6 @@ export const RhfTextField = <T extends FieldValues>({
   normalizeOnBlur,
   isEdited,
   autoComplete = 'off',
-  hideLabel,
   size = 'small',
   ...props
 }: Props<T>) => {

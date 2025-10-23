@@ -8,8 +8,6 @@ const meta = {
   component: RhfRadioGroup,
   tags: ['autodocs'],
   args: {
-    readOnly: false,
-    isEdited: false,
     control: undefined, // This will be provided by the decorator
   },
   decorators: rhfDecorator({ radiopre: 'no' }),

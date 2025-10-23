@@ -28,11 +28,13 @@ export const RhfTextarea = <T extends FieldValues>({
   name,
   control,
   label,
+  hideLabel,
   readOnly,
   badges,
   validate = [],
   parse = value => value,
   isEdited,
+  autoComplete = 'off',
   size = 'small',
   ...props
 }: Props<T>) => {
@@ -56,7 +58,7 @@ export const RhfTextarea = <T extends FieldValues>({
         value={field.value}
         type="textarea"
         isEdited={isEdited}
-        hideLabel={props.hideLabel}
+        hideLabel={hideLabel}
       />
     );
   }
@@ -75,7 +77,8 @@ export const RhfTextarea = <T extends FieldValues>({
       <Textarea
         size={size}
         label={label}
-        autoComplete="off"
+        hideLabel={hideLabel}
+        autoComplete={autoComplete}
         {...field}
         onChange={event => field.onChange(event.currentTarget.value !== '' ? parse(event.currentTarget.value) : null)}
         value={field.value ? field.value : ''}
