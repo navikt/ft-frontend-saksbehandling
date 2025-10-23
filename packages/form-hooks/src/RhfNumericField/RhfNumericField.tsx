@@ -24,7 +24,7 @@ export const RhfNumericField = <T extends FieldValues>({
   label,
   hideLabel,
   validate = [],
-  readOnly = false,
+  readOnly,
   description,
   isEdited,
   forceTwoDecimalDigits = false,

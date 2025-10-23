@@ -29,7 +29,7 @@ export const RhfTextField = <T extends FieldValues>({
   label,
   hideLabel,
   validate = [],
-  readOnly = false,
+  readOnly,
   type,
   shouldValidateOnBlur = false,
   onBlur,
