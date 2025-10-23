@@ -1734,7 +1734,7 @@ __metadata:
   resolution: "@navikt/ft-config-typescript@workspace:packages/internal/config-typescript"
   dependencies:
     "@testing-library/jest-dom": 6.9.1
-    vite: 7.1.10
+    vite: 7.1.11
     vitest: 3.2.4
   languageName: unknown
   linkType: soft
@@ -1745,7 +1745,7 @@ __metadata:
   dependencies:
     "@storybook/react": 9.1.10
     "@vitejs/plugin-react": 5.0.4
-    vite: 7.1.10
+    vite: 7.1.11
     vitest: 3.2.4
   languageName: unknown
   linkType: soft
@@ -1778,7 +1778,7 @@ __metadata:
     react-intl: 7.1.14
     stylelint: 16.25.0
     typescript: 5.9.3
-    vite: 7.1.10
+    vite: 7.1.11
     vitest: 3.2.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -1828,7 +1828,7 @@ __metadata:
     react-intl: 7.1.14
     stylelint: 16.25.0
     typescript: 5.9.3
-    vite: 7.1.10
+    vite: 7.1.11
     vitest: 3.2.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -1874,7 +1874,7 @@ __metadata:
     react-intl: 7.1.14
     stylelint: 16.25.0
     typescript: 5.9.3
-    vite: 7.1.10
+    vite: 7.1.11
     vitest: 3.2.4
   peerDependencies:
     "@navikt/ds-css": 7.x
@@ -1914,7 +1914,7 @@ __metadata:
     react-hook-form: 7.65.0
     stylelint: 16.25.0
     typescript: 5.9.3
-    vite: 7.1.10
+    vite: 7.1.11
     vitest: 3.2.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -1944,7 +1944,7 @@ __metadata:
     dayjs: 1.11.18
     eslint: 9.37.0
     typescript: 5.9.3
-    vite: 7.1.10
+    vite: 7.1.11
     vitest: 3.2.4
   peerDependencies:
     "@navikt/ft-utils": 2.x
@@ -1991,7 +1991,7 @@ __metadata:
     "@testing-library/react": 16.3.0
     eslint: 9.37.0
     typescript: 5.9.3
-    vite: 7.1.10
+    vite: 7.1.11
     vitest: 3.2.4
   peerDependencies:
     react: 19.1.0
@@ -2007,7 +2007,7 @@ __metadata:
     "@navikt/ft-config-vite": "workspace:^"
     eslint: 9.37.0
     typescript: 5.9.3
-    vite: 7.1.10
+    vite: 7.1.11
     vitest: 3.2.4
   languageName: unknown
   linkType: soft
@@ -2031,7 +2031,7 @@ __metadata:
     react-dom: 19.2.0
     stylelint: 16.25.0
     typescript: 5.9.3
-    vite: 7.1.10
+    vite: 7.1.11
     vitest: 3.2.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -2074,7 +2074,7 @@ __metadata:
     react-intl: 7.1.14
     stylelint: 16.25.0
     typescript: 5.9.3
-    vite: 7.1.10
+    vite: 7.1.11
     vitest: 3.2.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -2120,7 +2120,7 @@ __metadata:
     react-intl: 7.1.14
     stylelint: 16.25.0
     typescript: 5.9.3
-    vite: 7.1.10
+    vite: 7.1.11
     vitest: 3.2.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -2164,7 +2164,7 @@ __metadata:
     react-intl: 7.1.14
     stylelint: 16.25.0
     typescript: 5.9.3
-    vite: 7.1.10
+    vite: 7.1.11
     vitest: 3.2.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -2208,7 +2208,7 @@ __metadata:
     react-intl: 7.1.14
     stylelint: 16.25.0
     typescript: 5.9.3
-    vite: 7.1.10
+    vite: 7.1.11
     vitest: 3.2.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -2236,7 +2236,7 @@ __metadata:
     "@navikt/ft-config-vite": "workspace:^"
     eslint: 9.37.0
     typescript: 5.9.3
-    vite: 7.1.10
+    vite: 7.1.11
     vitest: 3.2.4
   peerDependencies:
     "@navikt/ft-kodeverk": 4.x
@@ -2263,7 +2263,7 @@ __metadata:
     react-intl: 7.1.14
     stylelint: 16.25.0
     typescript: 5.9.3
-    vite: 7.1.10
+    vite: 7.1.11
     vitest: 3.2.4
   peerDependencies:
     "@navikt/aksel-icons": 7.x
@@ -2289,7 +2289,7 @@ __metadata:
     eslint: 9.37.0
     react-intl: 7.1.14
     typescript: 5.9.3
-    vite: 7.1.10
+    vite: 7.1.11
     vitest: 3.2.4
   peerDependencies:
     dayjs: 1.11.x
@@ -7308,7 +7308,7 @@ __metadata:
     stylelint: 16.25.0
     stylelint-order: 7.0.0
     typescript: 5.9.3
-    vite: 7.1.10
+    vite: 7.1.11
     vite-plugin-circular-dependency: 0.5.0
     vite-plugin-dts: 4.5.4
     vitest: 3.2.4
@@ -13122,9 +13122,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:7.1.10":
-  version: 7.1.10
-  resolution: "vite@npm:7.1.10"
+"vite@npm:7.1.11":
+  version: 7.1.11
+  resolution: "vite@npm:7.1.11"
   dependencies:
     esbuild: ^0.25.0
     fdir: ^6.5.0
@@ -13173,7 +13173,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 0157dfe5e0097b28042b83fa2d31061a05808be1bd0c0338d9690d78aa4690df3a34e8325496b66cb89b10afca1e4b318ef4a42833213eb7d20a98225596be42
+  checksum: 67855b760fc55228ef91b22bc6bf90c0e3500ea5f52174533bc475f33885fb2d1548d9f0d0533e11f351b752ab3c467c2d07076550cf65e96ed1462534609764
   languageName: node
   linkType: hard
 
