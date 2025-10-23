@@ -2,13 +2,15 @@ import { type ReactNode, useMemo } from 'react';
 import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
 
 import { Checkbox, type CheckboxProps, ErrorMessage } from '@navikt/ds-react';
+import classnames from 'classnames';
 
 import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
+
+import styles from '../readOnlyIcon.module.css';
 
 type Props<T extends FieldValues> = {
   label: ReactNode;
   validate?: Array<(value: string) => ValidationReturnType>;
-  readOnly?: boolean;
   onChange?: (isChecked: boolean) => void;
   onClick?: () => void;
   control: UseControllerProps<T>['control'];
@@ -19,13 +21,12 @@ type Props<T extends FieldValues> = {
 export const RhfCheckbox = <T extends FieldValues>({
   label,
   validate = [],
-  readOnly = false,
   onChange,
   onClick,
   size = 'small',
   name,
   control,
-  disabled,
+  className,
   ...rest
 }: Props<T>) => {
   const {
@@ -46,7 +47,6 @@ export const RhfCheckbox = <T extends FieldValues>({
     <>
       <Checkbox
         size={size}
-        disabled={disabled || readOnly}
         checked={field.value === true}
         error={!!error}
         {...field}
@@ -61,6 +61,7 @@ export const RhfCheckbox = <T extends FieldValues>({
             onClick();
           }
         }}
+        className={classnames(className, styles.noReadOnlyIcon)}
         {...rest}
       >
         {label}

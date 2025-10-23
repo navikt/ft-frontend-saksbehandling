@@ -8,7 +8,7 @@ import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
 import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 
-import styles from './rhfRadioGroup.module.css';
+import styles from '../readOnlyIcon.module.css';
 
 type Props<T extends FieldValues> = {
   isEdited?: boolean;
@@ -26,9 +26,9 @@ export const RhfRadioGroup = <T extends FieldValues>({
   onChange,
   children,
   className,
-  readOnly = false,
+  readOnly,
   size = 'small',
-  isEdited = false,
+  isEdited,
   name,
   control,
   ...rest
