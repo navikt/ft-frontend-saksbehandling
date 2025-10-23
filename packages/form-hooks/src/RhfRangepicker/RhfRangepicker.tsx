@@ -38,6 +38,7 @@ export const RhfRangepicker = ({
   fromDate,
   toDate,
   isEdited,
+  size = 'small',
 }: Props) => {
   const {
     formState: { errors },
@@ -115,7 +116,7 @@ export const RhfRangepicker = ({
   if (isReadOnly) {
     const fom = fomField.value ? dayjs(fomField.value, ISO_DATE_FORMAT, true).format(DDMMYYYY_DATE_FORMAT) : undefined;
     const tom = tomField.value ? dayjs(tomField.value, ISO_DATE_FORMAT, true).format(DDMMYYYY_DATE_FORMAT) : undefined;
-    return <ReadOnlyField label={label} value={`${fom} - ${tom || ''}`} isEdited={isEdited} />;
+    return <ReadOnlyField label={label} value={`${fom} - ${tom || ''}`} isEdited={isEdited} size={size} />;
   }
 
   const dpProps = {
@@ -133,7 +134,7 @@ export const RhfRangepicker = ({
             {...fromInputProps}
             onChange={onChangeInputFom}
             value={fieldValueFom}
-            size="small"
+            size={size}
             hideLabel
             label=""
             aria-label="Fra dato"
@@ -144,7 +145,7 @@ export const RhfRangepicker = ({
             {...toInputProps}
             onChange={onChangeInputTom}
             value={fieldValueTom}
-            size="small"
+            size={size}
             label=""
             aria-label="Til dato"
             hideLabel

@@ -51,7 +51,7 @@ export const RhfNumericField = <T extends FieldValues>({
   });
 
   if (readOnly) {
-    return <ReadOnlyField label={label} value={field.value} isEdited={isEdited} hideLabel={hideLabel} />;
+    return <ReadOnlyField label={label} value={field.value} isEdited={isEdited} hideLabel={hideLabel} size={size} />;
   }
 
   const regex = forceTwoDecimalDigits ? TWO_DECIMALS_REGEXP : DECIMAL_REGEXP;
