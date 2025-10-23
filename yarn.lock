@@ -3474,18 +3474,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-links@npm:9.1.10":
-  version: 9.1.10
-  resolution: "@storybook/addon-links@npm:9.1.10"
+"@storybook/addon-links@npm:9.1.13":
+  version: 9.1.13
+  resolution: "@storybook/addon-links@npm:9.1.13"
   dependencies:
     "@storybook/global": ^5.0.0
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
-    storybook: ^9.1.10
+    storybook: ^9.1.13
   peerDependenciesMeta:
     react:
       optional: true
-  checksum: ea89195b4af30f939672391a99b59d8b4c48eed846419610d499af34a84c7cbbba8485d28573b90d610455386c2a8ee0bcf2a1402018052900e305579d1bb1d7
+  checksum: 9ed0f57590a60db3396a190c28af1395e510933b68230d81efa848f5b10a52bce6c321b62b590dda917be36ed4fbedfa5fd10a58a2403f473e5648ad9a1e6a3b
   languageName: node
   linkType: hard
 
@@ -7288,7 +7288,7 @@ __metadata:
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
     "@storybook/addon-a11y": 9.1.10
     "@storybook/addon-docs": 9.1.10
-    "@storybook/addon-links": 9.1.10
+    "@storybook/addon-links": 9.1.13
     "@storybook/react-vite": 9.1.10
     "@testing-library/jest-dom": 6.9.1
     "@types/react": 19.2.2
