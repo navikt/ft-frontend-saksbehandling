@@ -38,7 +38,7 @@
     "@navikt/aksel-stylelint": "7.32.1",
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-frontend-storybook-utils": "workspace:^",
-    "@storybook/addon-a11y": "9.1.10",
+    "@storybook/addon-a11y": "9.1.14",
     "@storybook/addon-docs": "9.1.10",
     "@storybook/addon-links": "9.1.10",
     "@storybook/react-vite": "9.1.10",
