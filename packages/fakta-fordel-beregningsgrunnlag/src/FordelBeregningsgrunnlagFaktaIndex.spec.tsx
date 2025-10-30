@@ -9,6 +9,7 @@ const {
   AapOgRefusjonAp5046,
   AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046,
   ViseVurderTilkommetRefusjonskravAp5059,
+  ViseVurderTilkommetRefusjonskravOgRefusjonskravForSentAp5059,
   SkalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjonAp5059,
   FordelingFlereBeregningsgrunnlagKanEndreRefusjonskravAp5046,
   TilkommetAktivitet,
@@ -469,6 +470,75 @@ describe('FordelBeregningsgrunnlagFaktaIndex', () => {
               internArbeidsforholdRef: undefined,
             },
           ],
+          refusjonskravForSentListe: [],
+        },
+      ],
+    });
+  });
+
+  it('skal kunne løse aksjonspunkt for tilkommet refusjonskrav og refusjonskrav for sent', async () => {
+    const lagre = vi.fn();
+
+    render(<ViseVurderTilkommetRefusjonskravOgRefusjonskravForSentAp5059 submitCallback={lagre} />);
+
+    expect(
+      await screen.findByText(content =>
+        content.includes('Refusjonskrav er mottatt etter fristen. Vurder om krav skal tas med i beregningen.'),
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(content =>
+        content.includes('Nytt refusjonskrav overlapper tidligere utbetalinger. Sett endringsdato for ny refusjon.'),
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
+    expect(screen.getAllByText('TESTY TEST (01.01.2000)')).toHaveLength(3);
+    expect(screen.getByText('krever refusjon fra og med 01.07.2020')).toBeInTheDocument();
+    expect(screen.getByText('Refusjonsbeløpet skal gjelde fra og med')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        'Skal refusjonskravet for TESTY TEST (01.01.2000) som ikke har kommet innen fristen tas med i beregning?',
+      ),
+    ).toBeInTheDocument();
+
+    const alleInputfelt = screen.getAllByRole('textbox');
+    expect(alleInputfelt).toHaveLength(2);
+    const datofelt = alleInputfelt[0];
+    const begrunnelsefelt = alleInputfelt[1];
+
+    await userEvent.click(screen.getByText('Ja'));
+    await userEvent.type(datofelt, '01.07.2020');
+    await userEvent.type(begrunnelsefelt, 'Begrunnelse for refusjonsdato');
+
+    expect(await screen.findByText('Bekreft og fortsett')).toBeEnabled();
+    await userEvent.click(screen.getByText('Bekreft og fortsett'));
+
+    await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
+    expect(lagre).toHaveBeenNthCalledWith(1, {
+      begrunnelse: 'Begrunnelse for refusjonsdato',
+      kode: 'VURDER_REFUSJONSKRAV',
+      grunnlag: [
+        {
+          periode: {
+            fom: '2020-06-01',
+            tom: '9999-12-31',
+          },
+          begrunnelse: 'Begrunnelse for refusjonsdato',
+          fastsatteAndeler: [
+            {
+              arbeidsgiverAktoerId: '999999998',
+              arbeidsgiverOrgnr: undefined,
+              delvisRefusjonPrMndFørStart: undefined,
+              fastsattRefusjonFom: '2020-07-01',
+              internArbeidsforholdRef: undefined,
+            },
+          ],
+          refusjonskravForSentListe: [
+            {
+              arbeidsgiverIdent: '999999998',
+              erRefusjonskravGyldig: true,
+            },
+          ],
         },
       ],
     });
@@ -524,6 +594,7 @@ describe('FordelBeregningsgrunnlagFaktaIndex', () => {
               internArbeidsforholdRef: undefined,
             },
           ],
+          refusjonskravForSentListe: [],
         },
       ],
     });
@@ -577,6 +648,7 @@ describe('FordelBeregningsgrunnlagFaktaIndex', () => {
               internArbeidsforholdRef: undefined,
             },
           ],
+          refusjonskravForSentListe: [],
         },
       ],
     });
