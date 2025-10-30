@@ -23,6 +23,7 @@ import type { Vilkårperiode } from '../../types/Vilkår';
 import { finnVilkårsperiode, vurderesIBehandlingen } from '../felles/vilkårsperiodeUtils';
 import { VurderEndringRefusjonField } from './VurderEndringRefusjonField';
 import { VurderEndringRefusjonRad } from './VurderEndringRefusjonRad';
+import { VurderRefusjonKravForSentRad } from './VurderRefusjonKravForSentRad.tsx';
 
 const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 
@@ -32,19 +33,29 @@ const finnAvklaringsbehov = (avklaringsbehov: BeregningAvklaringsbehov[]): Bereg
   avklaringsbehov ? avklaringsbehov.find(ap => ap.definisjon === VURDER_REFUSJON_BERGRUNN) : undefined;
 
 const buildFieldInitialValues = (bg: Beregningsgrunnlag, vilkårsperiode: Vilkårperiode): VurderRefusjonFieldValues => {
-  const andeler = bg.refusjonTilVurdering?.andeler ?? [];
   const refusjonAP = finnAvklaringsbehov(bg.avklaringsbehov);
   let initialValues = {
     beregningsgrunnlagStp: bg.skjaeringstidspunktBeregning,
     periode: vilkårsperiode.periode,
     begrunnelse: refusjonAP?.begrunnelse,
   } as unknown as VurderRefusjonFieldValues;
-  andeler.forEach(andel => {
+
+  const andeler = bg.refusjonTilVurdering?.andeler ?? [];
+  for (const andel of andeler) {
     initialValues = {
       ...initialValues,
-      ...VurderEndringRefusjonRad.buildInitialValues(andel),
+      refusjon: { ...VurderEndringRefusjonRad.buildInitialValues(andel) },
     };
-  });
+  }
+
+  const refusjonskravListe = bg.refusjonTilVurdering?.refusjonskravForSentListe ?? [];
+  for (const krav of refusjonskravListe) {
+    initialValues = {
+      ...initialValues,
+      refusjonskrav: { ...VurderRefusjonKravForSentRad.buildInitialValues(krav) },
+    };
+  }
+
   return initialValues;
 };
 
@@ -54,12 +65,19 @@ const transformFieldValues = (
 ): BeregningsgrunnlagTilBekreftelse<VurderRefusjonTransformedValues> => {
   const andeler = bg.refusjonTilVurdering?.andeler ?? [];
   const transformedAndeler = andeler.map(andel =>
-    VurderEndringRefusjonRad.transformValues(values, andel, bg.skjaeringstidspunktBeregning),
+    VurderEndringRefusjonRad.transformValues(values.refusjon, andel, bg.skjaeringstidspunktBeregning),
   );
+
+  const refusjonskravForSentListe = bg.refusjonTilVurdering?.refusjonskravForSentListe ?? [];
+  const transformedRefusjonskrav = refusjonskravForSentListe.map(krav =>
+    VurderRefusjonKravForSentRad.transformValues(values.refusjonskrav, krav),
+  );
+
   return {
     periode: values.periode,
     begrunnelse: values.begrunnelse,
     fastsatteAndeler: transformedAndeler,
+    refusjonskravForSentListe: transformedRefusjonskrav,
   };
 };
 

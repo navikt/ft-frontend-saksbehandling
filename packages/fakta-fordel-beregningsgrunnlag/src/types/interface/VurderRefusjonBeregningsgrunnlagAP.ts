@@ -10,8 +10,14 @@ export type VurderRefusjonAndelTransformedValues = {
   delvisRefusjonPrMndFørStart?: number;
 };
 
+export type VurderRefusjonKravForSentTransformedValues = {
+  arbeidsgiverIdent: string;
+  erRefusjonskravGyldig?: boolean;
+};
+
 export type VurderRefusjonTransformedValues = {
-  fastsatteAndeler: VurderRefusjonAndelTransformedValues[];
+  fastsatteAndeler?: VurderRefusjonAndelTransformedValues[];
+  refusjonskravForSentListe?: VurderRefusjonKravForSentTransformedValues[];
 };
 
 export type VurderRefusjonBeregningsgrunnlagAP = BeregningAvklaringsbehovTilBekreftelse<

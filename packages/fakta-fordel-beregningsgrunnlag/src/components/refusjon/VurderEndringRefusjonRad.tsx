@@ -61,7 +61,7 @@ export const VurderEndringRefusjonRad = ({
     : 'BeregningInfoPanel.RefusjonBG.IngenTidligereRefusjon';
   const formMethods = useFormContext<VurderRefusjonFormValues>();
   const valgtStartdato = formMethods.watch(
-    `VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelRefusjonsstart(refusjonAndel)}`,
+    `VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.refusjon.${lagNøkkelRefusjonsstart(refusjonAndel)}`,
   );
   const aksjonspunktErLøstUtenDelvisRef =
     !erAksjonspunktÅpent &&
@@ -87,7 +87,7 @@ export const VurderEndringRefusjonRad = ({
           <FormattedMessage id="BeregningInfoPanel.RefusjonBG.RefusjonFra" />
         </BodyShort>
         <RhfDatepicker
-          name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelRefusjonsstart(refusjonAndel)}`}
+          name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.refusjon.${lagNøkkelRefusjonsstart(refusjonAndel)}`}
           control={formMethods.control}
           size="small"
           readOnly={readOnly}
@@ -104,7 +104,7 @@ export const VurderEndringRefusjonRad = ({
             <FormattedMessage id="BeregningInfoPanel.RefusjonBG.DelvisPrMnd" />
           </BodyShort>
           <RhfTextField
-            name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelDelvisRefusjon(refusjonAndel)}`}
+            name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.refusjon.${lagNøkkelDelvisRefusjon(refusjonAndel)}`}
             control={formMethods.control}
             className={styles.bredde}
             size="small"

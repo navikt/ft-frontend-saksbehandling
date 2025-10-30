@@ -83,13 +83,19 @@ export type VurderRefusjonValues = {
   [key: string]: string;
 };
 
-export type VurderRefusjonFieldValues = VurderRefusjonValues & {
+export type VurderRefusjonskravValues = {
+  [key: string]: boolean | undefined;
+};
+
+export type VurderRefusjonFieldValues = {
   beregningsgrunnlagStp: string;
   begrunnelse: string;
   periode: {
     fom: string;
     tom: string;
   };
+  refusjon: VurderRefusjonValues;
+  refusjonskrav: VurderRefusjonskravValues;
 };
 
 export type VurderRefusjonFormValues = {

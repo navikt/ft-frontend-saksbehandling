@@ -33,7 +33,9 @@
   "BeregningInfoPanel.RefusjonBG.IngenTidligereRefusjon": "<b>{ag}</b> krever refusjon fra og med {dato}",
   "BeregningInfoPanel.RefusjonBG.TidligereRefusjon": "<b>{ag}</b> krever refusjon fra og med {dato}. Det er tidligere innvilget et lavere refusjonsbeløp",
   "BeregningInfoPanel.RefusjonBG.RefusjonFra": "Refusjonsbeløpet skal gjelde fra og med",
-  "BeregningInfoPanel.RefusjonBG.Aksjonspunkt": "Nytt refusjonskrav overlapper tidligere utbetalinger. Sett endringsdato for ny refusjon.",
+  "BeregningInfoPanel.RefusjonBG.Aksjonspunkt": "<b>Vurder refusjonskrav</b> {br} {forSent} {br2} {overlapper}",
+  "BeregningInfoPanel.RefusjonBG.Aksjonspunkt.ForSent": "Refusjonskrav er mottatt etter fristen. Vurder om krav skal tas med i beregningen.",
+  "BeregningInfoPanel.RefusjonBG.Aksjonspunkt.Overlapper": "Nytt refusjonskrav overlapper tidligere utbetalinger. Sett endringsdato for ny refusjon.",
   "BeregningInfoPanel.RefusjonBG.DelvisPrMnd": "Før denne datoen skal refusjonsbeløpet per måned være",
 
   "BeregningInfoPanel.TilkommetAktivitet.Aktivitet": "Aktivitet",
@@ -71,5 +73,12 @@
   "TilkommetAktivitet.AlertHeading.Frilans": "Søker har en ny frilansaktivitet i AA-registeret.",
   "TilkommetAktivitet.AlertHeading.Arbeidsforhold": "Søker har et nytt arbeidsforhold i AA-registeret",
   "TilkommetAktivitet.AlertHeading.Dagpenger": "Søker har en ny periode med dagpenger",
-  "Fordeling.VurdertTidligere": "Vurdert i en tidligere behandling"
+  "Fordeling.VurdertTidligere": "Vurdert i en tidligere behandling",
+
+  "BeregningInfoPanel.RefusjonskravForSent.Tittel": "Refusjonskrav som har kommet for sent",
+  "BeregningInfoPanel.RefusjonskravForSent.ErRefusjonskravGyldig": "Skal refusjonskravet for {arbeidsgiverVisningsnavn} som ikke har kommet innen fristen tas med i beregning?",
+  "BeregningInfoPanel.RefusjonskravForSent.ReadMore": "Undersøk om det har vært fristavbrytende kontakt med arbeidsgiver innen frist for refusjonskrav (3 måneder).",
+  "BeregningInfoPanel.RefusjonskravForSent.HvordanGarJegFrem": "Hvordan går jeg frem?",
+  "BeregningInfoPanel.FormAlternativ.Ja": "Ja",
+  "BeregningInfoPanel.FormAlternativ.Nei": "Nei"
 }
