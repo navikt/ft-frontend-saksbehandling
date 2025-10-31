@@ -87,51 +87,10 @@ export const bgMedDelvisRefusjon = {
   },
 } as Beregningsgrunnlag;
 
-// @ts-expect-error Fiks
 export const bgUtenDelvisRefusjonMedRefusjonskravForSent = {
-  avklaringsbehov: [
-    {
-      definisjon: 'VURDER_REFUSJONSKRAV',
-      status: 'OPPR',
-      kanLoses: true,
-    },
-  ] as BeregningAvklaringsbehov[],
-  skjaeringstidspunktBeregning: '2020-05-15',
-  dekningsgrad: null,
-  grunnbeløp: null,
-  erOverstyrtInntekt: null,
-  skjæringstidspunkt: '2020-05-15',
-  vilkårsperiodeFom: '2020-06-01',
-  beregningsgrunnlagPeriode: [],
+  ...bgUtenDelvisRefusjon,
   refusjonTilVurdering: {
-    andeler: [
-      {
-        aktivitetStatus: 'AT',
-        tidligereUtbetalinger: [
-          {
-            fom: '2020-05-15',
-            tom: '2020-05-31',
-            erTildeltRefusjon: false,
-          },
-          {
-            fom: '2020-06-01',
-            tom: '2020-06-30',
-            erTildeltRefusjon: true,
-          },
-          {
-            fom: '2020-07-01',
-            tom: '9999-12-31',
-            erTildeltRefusjon: false,
-          },
-        ],
-        nyttRefusjonskravFom: '2020-07-01',
-        tidligsteMuligeRefusjonsdato: '2020-07-01',
-        skalKunneFastsetteDelvisRefusjon: false,
-        arbeidsgiver: {
-          arbeidsgiverAktørId: '999999998',
-        },
-      },
-    ],
+    ...bgUtenDelvisRefusjon.refusjonTilVurdering,
     refusjonskravForSentListe: [
       {
         arbeidsgiverIdent: '999999998',

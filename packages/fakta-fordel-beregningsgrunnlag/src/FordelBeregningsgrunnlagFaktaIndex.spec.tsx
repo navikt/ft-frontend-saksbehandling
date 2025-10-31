@@ -535,8 +535,8 @@ describe('FordelBeregningsgrunnlagFaktaIndex', () => {
           ],
           refusjonskravForSentListe: [
             {
-              arbeidsgiverIdent: '999999998',
-              erRefusjonskravGyldig: true,
+              arbeidsgiverId: '999999998',
+              skalUtvideGyldighet: true,
             },
           ],
         },
