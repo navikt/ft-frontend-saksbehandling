@@ -87,7 +87,7 @@ VurderRefusjonKravForSentRad.transformValues = (
 ): VurderRefusjonKravForSentTransformedValues => {
   const erRefusjonskravGyldig = values[index][lagFieldName(refusjonskravForSent.arbeidsgiverIdent)];
   return {
-    arbeidsgiverIdent: refusjonskravForSent.arbeidsgiverIdent,
-    erRefusjonskravGyldig,
+    arbeidsgiverId: refusjonskravForSent.arbeidsgiverIdent,
+    skalUtvideGyldighet: erRefusjonskravGyldig,
   };
 };

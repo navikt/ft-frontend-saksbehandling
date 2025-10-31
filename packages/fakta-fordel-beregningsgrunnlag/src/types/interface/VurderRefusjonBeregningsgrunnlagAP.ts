@@ -11,8 +11,8 @@ export type VurderRefusjonAndelTransformedValues = {
 };
 
 export type VurderRefusjonKravForSentTransformedValues = {
-  arbeidsgiverIdent: string;
-  erRefusjonskravGyldig?: boolean;
+  arbeidsgiverId: string;
+  skalUtvideGyldighet?: boolean;
 };
 
 export type VurderRefusjonTransformedValues = {
