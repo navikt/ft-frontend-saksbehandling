@@ -20,6 +20,7 @@ const lagFieldName = (arbeidsgiverId: string): string => erRefusjonskravGyldigFi
 
 interface Props {
   refusjonskrav: RefusjonTilVurderingKravForSent;
+  kravIndex: number;
   readOnly: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   beregningsgrunnlagIndeks: number;
@@ -27,6 +28,7 @@ interface Props {
 
 export const VurderRefusjonKravForSentRad = ({
   refusjonskrav,
+  kravIndex,
   readOnly,
   arbeidsgiverOpplysningerPerId,
   beregningsgrunnlagIndeks,
@@ -39,7 +41,7 @@ export const VurderRefusjonKravForSentRad = ({
   return (
     <RhfRadioGroup
       key={arbeidsgiverIdent}
-      name={`VURDER_REFUSJON_BERGRUNN_FORM.${beregningsgrunnlagIndeks}.refusjonskrav.${lagFieldName(arbeidsgiverIdent)}`}
+      name={`VURDER_REFUSJON_BERGRUNN_FORM.${beregningsgrunnlagIndeks}.refusjonskrav.${kravIndex}.${lagFieldName(arbeidsgiverIdent)}`}
       control={formMethods.control}
       legend={
         <VStack gap="space-8">
@@ -73,18 +75,19 @@ export const VurderRefusjonKravForSentRad = ({
 VurderRefusjonKravForSentRad.buildInitialValues = (
   refusjonskravForSent: RefusjonTilVurderingKravForSent,
 ): VurderRefusjonskravValues => {
-  const initialValues: VurderRefusjonskravValues = {};
-  initialValues[lagFieldName(refusjonskravForSent.arbeidsgiverIdent)] = refusjonskravForSent.erRefusjonskravGyldig;
-  return initialValues;
+  return {
+    [lagFieldName(refusjonskravForSent.arbeidsgiverIdent)]: refusjonskravForSent.erRefusjonskravGyldig,
+  };
 };
 
 VurderRefusjonKravForSentRad.transformValues = (
-  values: VurderRefusjonskravValues,
+  values: VurderRefusjonskravValues[],
   refusjonskravForSent: RefusjonTilVurderingKravForSent,
+  index: number,
 ): VurderRefusjonKravForSentTransformedValues => {
-  const erRefusjonskravGyldig = values[lagFieldName(refusjonskravForSent.arbeidsgiverIdent)];
+  const erRefusjonskravGyldig = values[index][lagFieldName(refusjonskravForSent.arbeidsgiverIdent)];
   return {
     arbeidsgiverIdent: refusjonskravForSent.arbeidsgiverIdent,
-    erRefusjonskravGyldig: erRefusjonskravGyldig,
+    erRefusjonskravGyldig,
   };
 };

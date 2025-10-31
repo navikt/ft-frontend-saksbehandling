@@ -94,8 +94,8 @@ export type VurderRefusjonFieldValues = {
     fom: string;
     tom: string;
   };
-  refusjon: VurderRefusjonValues;
-  refusjonskrav: VurderRefusjonskravValues;
+  refusjon: VurderRefusjonValues[];
+  refusjonskrav: VurderRefusjonskravValues[];
 };
 
 export type VurderRefusjonFormValues = {

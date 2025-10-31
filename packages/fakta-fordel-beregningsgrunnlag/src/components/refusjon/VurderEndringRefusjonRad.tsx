@@ -39,6 +39,7 @@ const erValgtDatoLikSTP = (stp: string, verdiFraForm?: string): boolean => {
 
 interface Props {
   refusjonAndel: RefusjonTilVurderingAndel;
+  andelIndex: number;
   readOnly: boolean;
   erAksjonspunktÅpent: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
@@ -49,6 +50,7 @@ interface Props {
 
 export const VurderEndringRefusjonRad = ({
   refusjonAndel,
+  andelIndex,
   readOnly,
   erAksjonspunktÅpent,
   arbeidsgiverOpplysningerPerId,
@@ -61,7 +63,7 @@ export const VurderEndringRefusjonRad = ({
     : 'BeregningInfoPanel.RefusjonBG.IngenTidligereRefusjon';
   const formMethods = useFormContext<VurderRefusjonFormValues>();
   const valgtStartdato = formMethods.watch(
-    `VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.refusjon.${lagNøkkelRefusjonsstart(refusjonAndel)}`,
+    `VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.refusjon.${andelIndex}.${lagNøkkelRefusjonsstart(refusjonAndel)}`,
   );
   const aksjonspunktErLøstUtenDelvisRef =
     !erAksjonspunktÅpent &&
@@ -87,7 +89,7 @@ export const VurderEndringRefusjonRad = ({
           <FormattedMessage id="BeregningInfoPanel.RefusjonBG.RefusjonFra" />
         </BodyShort>
         <RhfDatepicker
-          name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.refusjon.${lagNøkkelRefusjonsstart(refusjonAndel)}`}
+          name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.refusjon.${andelIndex}.${lagNøkkelRefusjonsstart(refusjonAndel)}`}
           control={formMethods.control}
           size="small"
           readOnly={readOnly}
@@ -104,7 +106,7 @@ export const VurderEndringRefusjonRad = ({
             <FormattedMessage id="BeregningInfoPanel.RefusjonBG.DelvisPrMnd" />
           </BodyShort>
           <RhfTextField
-            name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.refusjon.${lagNøkkelDelvisRefusjon(refusjonAndel)}`}
+            name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.refusjon.${andelIndex}.${lagNøkkelDelvisRefusjon(refusjonAndel)}`}
             control={formMethods.control}
             className={styles.bredde}
             size="small"
@@ -129,16 +131,17 @@ VurderEndringRefusjonRad.buildInitialValues = (refusjonAndel: RefusjonTilVurderi
 };
 
 VurderEndringRefusjonRad.transformValues = (
-  values: VurderRefusjonValues,
+  values: VurderRefusjonValues[],
   andel: RefusjonTilVurderingAndel,
   skjæringstidspunkt: string,
+  index: number,
 ): VurderRefusjonAndelTransformedValues => {
   const datoNøkkel = lagNøkkelRefusjonsstart(andel);
-  const fastsattDato = values[datoNøkkel];
+  const fastsattDato = values[index][datoNøkkel];
   let delvisRefusjonPrMnd;
   if (andel.skalKunneFastsetteDelvisRefusjon && fastsattDato !== skjæringstidspunkt) {
     const delvisNøkkel = lagNøkkelDelvisRefusjon(andel);
-    delvisRefusjonPrMnd = removeSpacesFromNumber(values[delvisNøkkel]);
+    delvisRefusjonPrMnd = removeSpacesFromNumber(values[index][delvisNøkkel]);
   }
   return {
     arbeidsgiverOrgnr: andel.arbeidsgiver?.arbeidsgiverOrgnr,

@@ -34,29 +34,15 @@ const finnAvklaringsbehov = (avklaringsbehov: BeregningAvklaringsbehov[]): Bereg
 
 const buildFieldInitialValues = (bg: Beregningsgrunnlag, vilkårsperiode: Vilkårperiode): VurderRefusjonFieldValues => {
   const refusjonAP = finnAvklaringsbehov(bg.avklaringsbehov);
-  let initialValues = {
+  const andeler = bg.refusjonTilVurdering?.andeler ?? [];
+  const refusjonskravListe = bg.refusjonTilVurdering?.refusjonskravForSentListe ?? [];
+  return {
     beregningsgrunnlagStp: bg.skjaeringstidspunktBeregning,
     periode: vilkårsperiode.periode,
-    begrunnelse: refusjonAP?.begrunnelse,
-  } as unknown as VurderRefusjonFieldValues;
-
-  const andeler = bg.refusjonTilVurdering?.andeler ?? [];
-  for (const andel of andeler) {
-    initialValues = {
-      ...initialValues,
-      refusjon: { ...VurderEndringRefusjonRad.buildInitialValues(andel) },
-    };
-  }
-
-  const refusjonskravListe = bg.refusjonTilVurdering?.refusjonskravForSentListe ?? [];
-  for (const krav of refusjonskravListe) {
-    initialValues = {
-      ...initialValues,
-      refusjonskrav: { ...VurderRefusjonKravForSentRad.buildInitialValues(krav) },
-    };
-  }
-
-  return initialValues;
+    begrunnelse: refusjonAP?.begrunnelse || '',
+    refusjon: andeler.map(andel => VurderEndringRefusjonRad.buildInitialValues(andel)),
+    refusjonskrav: refusjonskravListe.map(krav => VurderRefusjonKravForSentRad.buildInitialValues(krav)),
+  };
 };
 
 const transformFieldValues = (
@@ -64,13 +50,13 @@ const transformFieldValues = (
   bg: Beregningsgrunnlag,
 ): BeregningsgrunnlagTilBekreftelse<VurderRefusjonTransformedValues> => {
   const andeler = bg.refusjonTilVurdering?.andeler ?? [];
-  const transformedAndeler = andeler.map(andel =>
-    VurderEndringRefusjonRad.transformValues(values.refusjon, andel, bg.skjaeringstidspunktBeregning),
+  const transformedAndeler = andeler.map((andel, index) =>
+    VurderEndringRefusjonRad.transformValues(values.refusjon, andel, bg.skjaeringstidspunktBeregning, index),
   );
 
   const refusjonskravForSentListe = bg.refusjonTilVurdering?.refusjonskravForSentListe ?? [];
-  const transformedRefusjonskrav = refusjonskravForSentListe.map(krav =>
-    VurderRefusjonKravForSentRad.transformValues(values.refusjonskrav, krav),
+  const transformedRefusjonskrav = refusjonskravForSentListe.map((krav, index) =>
+    VurderRefusjonKravForSentRad.transformValues(values.refusjonskrav, krav, index),
   );
 
   return {

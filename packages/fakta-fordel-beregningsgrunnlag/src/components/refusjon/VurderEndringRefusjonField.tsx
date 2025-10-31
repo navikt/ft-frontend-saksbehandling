@@ -19,7 +19,7 @@ import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { SubmitButton } from '../felles/SubmitButton';
 import { TidligereUtbetalinger } from './TidligereUtbetalinger';
 import { VurderEndringRefusjonRad } from './VurderEndringRefusjonRad';
-import { VurderRefusjonKravForSentRad } from './VurderRefusjonKravForSentRad.tsx';
+import { VurderRefusjonKravForSentRad } from './VurderRefusjonKravForSentRad';
 
 const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 
@@ -37,14 +37,6 @@ const lagRadNøkkelAndel = (andel: RefusjonTilVurderingAndel): string => {
   }
   return `${andel.arbeidsgiver.arbeidsgiverOrgnr}${andel.internArbeidsforholdRef})`;
 };
-
-const lagValues = (harAndeler: boolean, harRefusjonskravForSent: boolean) => ({
-  b: BTag,
-  br: <br />,
-  forSent: harRefusjonskravForSent && <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Aksjonspunkt.ForSent" />,
-  br2: harRefusjonskravForSent && harAndeler && <br />,
-  overlapper: harAndeler && <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Aksjonspunkt.Overlapper" />,
-});
 
 interface Props {
   readOnly: boolean;
@@ -80,7 +72,13 @@ export const VurderEndringRefusjonField = ({
         <AksjonspunktHelpTextHTML>
           <FormattedMessage
             id="BeregningInfoPanel.RefusjonBG.Aksjonspunkt"
-            values={lagValues(harAndeler, harRefusjonskravForSent)}
+            values={{
+              b: BTag,
+              br: <br />,
+              harRefusjonskravForSent,
+              harAndeler,
+              skalHaBr: harRefusjonskravForSent && harAndeler,
+            }}
           />
         </AksjonspunktHelpTextHTML>
       )}
@@ -89,10 +87,11 @@ export const VurderEndringRefusjonField = ({
           <FormattedMessage id="BeregningInfoPanel.RefusjonskravForSent.Tittel" />
         </Heading>
       )}
-      {refusjonskravForSentListe.map(krav => (
+      {refusjonskravForSentListe.map((krav, index) => (
         <VurderRefusjonKravForSentRad
           key={`${krav.arbeidsgiverIdent}_${krav.erRefusjonskravGyldig}`}
           refusjonskrav={krav}
+          kravIndex={index}
           readOnly={manglerAksjonspunkt || readOnly}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           beregningsgrunnlagIndeks={vilkårperiodeFieldIndex}
@@ -109,9 +108,10 @@ export const VurderEndringRefusjonField = ({
           />
         </>
       )}
-      {andeler.map(andel => (
+      {andeler.map((andel, index) => (
         <VurderEndringRefusjonRad
           refusjonAndel={andel}
+          andelIndex={index}
           readOnly={manglerAksjonspunkt || readOnly}
           erAksjonspunktÅpent={erAksjonspunktÅpent}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}

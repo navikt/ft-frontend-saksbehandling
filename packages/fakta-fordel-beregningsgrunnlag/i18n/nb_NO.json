@@ -33,9 +33,7 @@
   "BeregningInfoPanel.RefusjonBG.IngenTidligereRefusjon": "<b>{ag}</b> krever refusjon fra og med {dato}",
   "BeregningInfoPanel.RefusjonBG.TidligereRefusjon": "<b>{ag}</b> krever refusjon fra og med {dato}. Det er tidligere innvilget et lavere refusjonsbeløp",
   "BeregningInfoPanel.RefusjonBG.RefusjonFra": "Refusjonsbeløpet skal gjelde fra og med",
-  "BeregningInfoPanel.RefusjonBG.Aksjonspunkt": "<b>Vurder refusjonskrav</b> {br} {forSent} {br2} {overlapper}",
-  "BeregningInfoPanel.RefusjonBG.Aksjonspunkt.ForSent": "Refusjonskrav er mottatt etter fristen. Vurder om krav skal tas med i beregningen.",
-  "BeregningInfoPanel.RefusjonBG.Aksjonspunkt.Overlapper": "Nytt refusjonskrav overlapper tidligere utbetalinger. Sett endringsdato for ny refusjon.",
+  "BeregningInfoPanel.RefusjonBG.Aksjonspunkt": "<b>Vurder refusjonskrav</b> {br} {harRefusjonskravForSent, select, true {Refusjonskrav er mottatt etter fristen. Vurder om krav skal tas med i beregningen.} other {}} {skalHaBr, select, true {{br}} other {}} {harAndeler, select, true {Nytt refusjonskrav overlapper tidligere utbetalinger. Sett endringsdato for ny refusjon.} other {}}",
   "BeregningInfoPanel.RefusjonBG.DelvisPrMnd": "Før denne datoen skal refusjonsbeløpet per måned være",
 
   "BeregningInfoPanel.TilkommetAktivitet.Aktivitet": "Aktivitet",
