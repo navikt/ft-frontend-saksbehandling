@@ -17,7 +17,6 @@ export const TilbakekrevingAktivitetTabell = ({ ytelser }: Props) => {
   if (ytelser.length === 0) {
     return null;
   }
-  let counter = 0;
   return (
     <Table className={styles.feilutbetalingTable}>
       <Table.Header>
@@ -32,9 +31,8 @@ export const TilbakekrevingAktivitetTabell = ({ ytelser }: Props) => {
       </Table.Header>
       <Table.Body>
         {ytelser.map(y => {
-          counter += 1;
           return (
-            <Table.Row key={y.aktivitet + y.belop + counter}>
+            <Table.Row key={y.aktivitet + y.belop}>
               <Table.DataCell>
                 <BodyShort size="small">{y.aktivitet}</BodyShort>
               </Table.DataCell>
