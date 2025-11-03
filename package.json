@@ -12,8 +12,7 @@
   "scripts": {
     "test": "lerna run test --stream",
     "test:changed": "lerna run test --stream --since origin/main",
-    "test:coverage": "lerna run test:coverage --stream",
-    "test:browser": "yarn vitest --project=browser",
+    "test:browser": "lerna run test:browser --stream",
     "tsc": "lerna run tsc --stream",
     "tsc:changed": "lerna run tsc --stream --since origin/main",
     "eslint": "lerna run eslint --stream",
@@ -47,7 +46,6 @@
     "@testing-library/jest-dom": "6.9.1",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
-    "@vitest/browser": "3.2.4",
     "eslint": "9.39.0",
     "eslint-plugin-react-you-might-not-need-an-effect": "0.7.0",
     "fast-glob": "3.3.3",
@@ -64,8 +62,7 @@
     "typescript": "5.9.3",
     "vite": "7.1.12",
     "vite-plugin-circular-dependency": "0.5.0",
-    "vite-plugin-dts": "4.5.4",
-    "vitest": "3.2.4"
+    "vite-plugin-dts": "4.5.4"
   },
   "resolutions": {
     "tmp": "^0.2.5"

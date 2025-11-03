@@ -31,9 +31,9 @@ export const useStorageToggle = ({ key = defaultStorageKey, storageArea = localS
     const handleStorageEvent = (event: StorageEvent) => {
       if (event.key === key) setToggleState(event.newValue === 'true');
     };
-    window.addEventListener('storage', handleStorageEvent);
+    globalThis.addEventListener('storage', handleStorageEvent);
     return () => {
-      window.removeEventListener('storage', handleStorageEvent);
+      globalThis.removeEventListener('storage', handleStorageEvent);
     };
   }, []);
 

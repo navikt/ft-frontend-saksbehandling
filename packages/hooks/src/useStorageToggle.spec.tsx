@@ -16,8 +16,8 @@ describe('useStorageToggle', () => {
   });
 
   describe.each([
-    ['localStorage', window.localStorage],
-    ['sessionStorage', window.sessionStorage],
+    ['localStorage', globalThis.localStorage],
+    ['sessionStorage', globalThis.sessionStorage],
   ])('med %s', (name, storageArea) => {
     beforeEach(() => {
       storageArea.clear();
