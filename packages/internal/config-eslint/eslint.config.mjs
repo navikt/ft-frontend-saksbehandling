@@ -3,6 +3,7 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import pluginReact from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import reactYouMightNotNeedAnEffect from 'eslint-plugin-react-you-might-not-need-an-effect';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
@@ -36,6 +37,7 @@ export default [
   jsxA11y.flatConfigs.recommended,
   importPlugin.flatConfigs.recommended,
   reactRefresh.configs.vite,
+  reactHooks.configs.flat.recommended,
   reactYouMightNotNeedAnEffect.configs.recommended,
   eslintConfigPrettier,
   {
@@ -77,6 +79,10 @@ export default [
         },
       ],
       '@typescript-eslint/ban-ts-comment': ERROR,
+      'import/no-default-export': ERROR,
+      'react-hooks/rules-of-hooks': ERROR,
+      'react-hooks/exhaustive-deps': OFF,
+      'react-hooks/incompatible-library': OFF,
 
       // Note: you must disable the base rule as it can report incorrect errors
       'no-use-before-define': OFF,
@@ -98,9 +104,10 @@ export default [
     },
   },
   {
-    ignores: ['**/*.stories.tsx', 'eslint.config.mjs', '.storybook/**/*', 'knip.ts'],
+    files: ['**/*.stories.tsx', 'eslint.config.mjs', '.storybook/**/*', 'knip.ts'],
     rules: {
-      'import/no-default-export': ERROR,
+      'import/no-default-export': OFF,
+      'react-hooks/rules-of-hooks': OFF,
     },
   },
 ];

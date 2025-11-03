@@ -120,6 +120,7 @@ export const BeregningsgrunnlagProsessIndex = ({
       menyProp => menyProp.skalVurderes && menyProp.harAvklaringsbehov,
     );
     if (førsteSkjæringstidspunktMedAksjonspunktIndex > -1) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- TODO (TOR) Denne kan vel settast som default i state?
       setAktivtBeregningsgrunnlagIndeks(førsteSkjæringstidspunktMedAksjonspunktIndex);
     }
   }, [beregningsgrunnlagListe]);

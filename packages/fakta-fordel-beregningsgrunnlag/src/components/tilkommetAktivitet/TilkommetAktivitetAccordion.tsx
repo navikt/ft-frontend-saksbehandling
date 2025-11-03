@@ -52,6 +52,7 @@ export const TilkommetAktivitetAccordion = ({
       beregningsgrunnlag.faktaOmFordeling?.vurderNyttInntektsforholdDto?.vurderInntektsforholdPerioder;
     if (vurderInntektsforholdPerioder) {
       const perioder = slaaSammenPerioder(vurderInntektsforholdPerioder, beregningsgrunnlag.forlengelseperioder);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- TODO (TOR) Dette bør skrivast om
       setSammenslåttePerioder(perioder);
       const åpnePanelerOppdatert = openPanels.map(d => d);
       const alleFomIFields = fields.map(field => field.fom);
