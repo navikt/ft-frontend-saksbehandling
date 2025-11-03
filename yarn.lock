@@ -7383,7 +7383,7 @@ __metadata:
     lerna: 9.0.0
     lint-staged: 16.2.6
     prettier: 3.6.2
-    storybook: 10.0.2
+    storybook: 10.0.3
     stylelint: 16.25.0
     stylelint-order: 7.0.0
     typescript: 5.9.3
@@ -12069,9 +12069,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storybook@npm:10.0.2":
-  version: 10.0.2
-  resolution: "storybook@npm:10.0.2"
+"storybook@npm:10.0.3":
+  version: 10.0.3
+  resolution: "storybook@npm:10.0.3"
   dependencies:
     "@storybook/global": ^5.0.0
     "@storybook/icons": ^1.6.0
@@ -12091,7 +12091,7 @@ __metadata:
       optional: true
   bin:
     storybook: ./dist/bin/dispatcher.js
-  checksum: c66ac8b5f830f4687fc9de5ef88acf730974cb90cffe7a74821dcb3f452e4821fe9ce285c3e1ec782fcd89a21b9d26f622da685f666b2ec05a86783d1bf703e4
+  checksum: d8e53c80273d167574edbadc49e6567b2aa0829f148e835a2f1435a5296ed873bf4c7a951b22abc3003fca548fb401e6b8f502b7f8858b6b1432d3105c8a27e8
   languageName: node
   linkType: hard
 
