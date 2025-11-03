@@ -23,7 +23,7 @@ class MockResizeObserver {
   unobserve = vi.fn();
 }
 
-window.ResizeObserver = window.ResizeObserver || MockResizeObserver;
+globalThis.ResizeObserver = globalThis.ResizeObserver || MockResizeObserver;
 
 describe('FordelBeregningsgrunnlagFaktaIndex', () => {
   it('skal kunne løse aksjonspunkt for nytt refusjonskrav', async () => {

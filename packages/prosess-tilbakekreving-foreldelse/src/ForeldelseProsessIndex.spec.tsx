@@ -12,7 +12,7 @@ class MockResizeObserver {
   unobserve = vi.fn();
 }
 
-window.ResizeObserver = window.ResizeObserver || MockResizeObserver;
+globalThis.ResizeObserver = globalThis.ResizeObserver || MockResizeObserver;
 
 describe('ForeldelseProsessIndex', () => {
   it('skal vurdere to perioder og så bekrefte', async () => {
