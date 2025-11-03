@@ -30,7 +30,6 @@ const vitestConfig = defineVitestConfig({
         extends: true,
         test: {
           name: 'browser',
-          enabled: false,
           browser: {
             enabled: true,
             provider: playwright({
