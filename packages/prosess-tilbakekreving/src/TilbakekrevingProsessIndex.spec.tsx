@@ -6,13 +6,13 @@ import * as stories from './TilbakekrevingProsessIndex.stories';
 
 const { Default, MedToPerioder } = composeStories(stories);
 
-window.ResizeObserver =
-  window.ResizeObserver ||
-  vi.fn().mockImplementation(() => ({
-    disconnect: vi.fn(),
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-  }));
+class MockResizeObserver {
+  disconnect = vi.fn();
+  observe = vi.fn();
+  unobserve = vi.fn();
+}
+
+window.ResizeObserver = window.ResizeObserver || MockResizeObserver;
 
 describe('TilbakekrevingProsessIndex', () => {
   it('skal vurdere perioden som God Tro og så bekrefte', async () => {

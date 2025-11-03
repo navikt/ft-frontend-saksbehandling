@@ -1,4 +1,5 @@
 import react from '@vitejs/plugin-react';
+import { playwright } from '@vitest/browser-playwright';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
@@ -23,6 +24,19 @@ const vitestConfig = defineVitestConfig({
           deps: { interopDefault: true },
           environment: 'jsdom',
           css: false,
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: 'browser',
+          browser: {
+            enabled: true,
+            provider: playwright({
+              // ...custom playwright options
+            }),
+            instances: [{ browser: 'chromium' }],
+          },
         },
       },
     ],

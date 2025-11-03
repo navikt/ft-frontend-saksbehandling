@@ -6,13 +6,13 @@ import * as stories from './ForeldelseProsessIndex.stories';
 
 const { Default, UtenAksjonspunkt } = composeStories(stories);
 
-window.ResizeObserver =
-  window.ResizeObserver ||
-  vi.fn().mockImplementation(() => ({
-    disconnect: vi.fn(),
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-  }));
+class MockResizeObserver {
+  disconnect = vi.fn();
+  observe = vi.fn();
+  unobserve = vi.fn();
+}
+
+window.ResizeObserver = window.ResizeObserver || MockResizeObserver;
 
 describe('ForeldelseProsessIndex', () => {
   it('skal vurdere to perioder og så bekrefte', async () => {
