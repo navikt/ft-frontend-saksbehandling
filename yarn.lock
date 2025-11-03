@@ -1851,7 +1851,9 @@ __metadata:
     eslint-plugin-import: 2.32.0
     eslint-plugin-jsx-a11y: 6.10.2
     eslint-plugin-react: 7.37.5
+    eslint-plugin-react-hooks: 7.0.1
     eslint-plugin-react-refresh: 0.4.24
+    eslint-plugin-react-you-might-not-need-an-effect: 0.5.1
     eslint-plugin-simple-import-sort: 12.1.1
     eslint-plugin-storybook: 10.0.2
     eslint-plugin-vitest: 0.5.4
