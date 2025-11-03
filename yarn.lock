@@ -6667,6 +6667,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-plugin-react-you-might-not-need-an-effect@npm:0.5.1":
+  version: 0.5.1
+  resolution: "eslint-plugin-react-you-might-not-need-an-effect@npm:0.5.1"
+  dependencies:
+    eslint-utils: ^3.0.0
+    globals: ^16.2.0
+  peerDependencies:
+    eslint: ">=8.40.0"
+  checksum: 8195fc74c5dd38fe94586053a57b6e686518f8ec9ce54a0b5cf30626af4afcf85b7907307d953a6ca51cf577a80a659e35c8a1631ccb6fadcc45bf2809114018
+  languageName: node
+  linkType: hard
+
 "eslint-plugin-react-you-might-not-need-an-effect@npm:0.7.0":
   version: 0.7.0
   resolution: "eslint-plugin-react-you-might-not-need-an-effect@npm:0.7.0"
