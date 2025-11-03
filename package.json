@@ -32,7 +32,9 @@
     "storybook-build": "storybook build -o .storybook-static-build",
     "storybook-deploy-to-github": "gh-pages -d .storybook-static-build -t",
     "deploy-storybook": "yarn storybook-build && yarn storybook-deploy-to-github",
-    "storybook": "storybook dev --quiet -p 7001"
+    "storybook": "storybook dev --quiet -p 7001",
+    "transform-to-semver": "node scripts/replace-workspace-deps.js",
+    "transform-to-workspace": "node scripts/restore-workspace-deps.js"
   },
   "devDependencies": {
     "@navikt/aksel-stylelint": "7.32.5",
