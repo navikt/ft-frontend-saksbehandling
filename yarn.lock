@@ -6679,18 +6679,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-you-might-not-need-an-effect@npm:0.7.0":
-  version: 0.7.0
-  resolution: "eslint-plugin-react-you-might-not-need-an-effect@npm:0.7.0"
-  dependencies:
-    eslint-utils: ^3.0.0
-    globals: ^16.2.0
-  peerDependencies:
-    eslint: ">=8.40.0"
-  checksum: d40228bbba2538af46ccf3a9e0413cd22f26c6521b0e6e964a7387b2b5554027562c2d57c4685d43967ce0ec229b2e876a380f53b46d5552a906bca45bcf0dd1
-  languageName: node
-  linkType: hard
-
 "eslint-plugin-react@npm:7.37.5":
   version: 7.37.5
   resolution: "eslint-plugin-react@npm:7.37.5"
@@ -7387,7 +7375,6 @@ __metadata:
     "@types/react": 19.2.2
     "@types/react-dom": 19.2.2
     eslint: 9.39.0
-    eslint-plugin-react-you-might-not-need-an-effect: 0.7.0
     fast-glob: 3.3.3
     gh-pages: 6.3.0
     husky: 9.1.7
