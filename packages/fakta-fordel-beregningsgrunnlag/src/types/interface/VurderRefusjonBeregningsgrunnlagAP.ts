@@ -16,8 +16,8 @@ export type VurderRefusjonKravForSentTransformedValues = {
 };
 
 export type VurderRefusjonTransformedValues = {
-  fastsatteAndeler?: VurderRefusjonAndelTransformedValues[];
-  refusjonskravForSentListe?: VurderRefusjonKravForSentTransformedValues[];
+  fastsatteAndeler: VurderRefusjonAndelTransformedValues[];
+  refusjonskravForSentListe: VurderRefusjonKravForSentTransformedValues[];
 };
 
 export type VurderRefusjonBeregningsgrunnlagAP = BeregningAvklaringsbehovTilBekreftelse<
