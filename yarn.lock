@@ -1853,9 +1853,9 @@ __metadata:
     eslint-plugin-react: 7.37.5
     eslint-plugin-react-hooks: 7.0.1
     eslint-plugin-react-refresh: 0.4.24
-    eslint-plugin-react-you-might-not-need-an-effect: 0.5.1
+    eslint-plugin-react-you-might-not-need-an-effect: 0.7.0
     eslint-plugin-simple-import-sort: 12.1.1
-    eslint-plugin-storybook: 10.0.2
+    eslint-plugin-storybook: 10.0.3
     eslint-plugin-vitest: 0.5.4
     globals: 16.5.0
     typescript-eslint: 8.46.2
@@ -6667,15 +6667,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-you-might-not-need-an-effect@npm:0.5.1":
-  version: 0.5.1
-  resolution: "eslint-plugin-react-you-might-not-need-an-effect@npm:0.5.1"
+"eslint-plugin-react-you-might-not-need-an-effect@npm:0.7.0":
+  version: 0.7.0
+  resolution: "eslint-plugin-react-you-might-not-need-an-effect@npm:0.7.0"
   dependencies:
     eslint-utils: ^3.0.0
     globals: ^16.2.0
   peerDependencies:
     eslint: ">=8.40.0"
-  checksum: 8195fc74c5dd38fe94586053a57b6e686518f8ec9ce54a0b5cf30626af4afcf85b7907307d953a6ca51cf577a80a659e35c8a1631ccb6fadcc45bf2809114018
+  checksum: d40228bbba2538af46ccf3a9e0413cd22f26c6521b0e6e964a7387b2b5554027562c2d57c4685d43967ce0ec229b2e876a380f53b46d5552a906bca45bcf0dd1
   languageName: node
   linkType: hard
 
@@ -6716,15 +6716,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-storybook@npm:10.0.2":
-  version: 10.0.2
-  resolution: "eslint-plugin-storybook@npm:10.0.2"
+"eslint-plugin-storybook@npm:10.0.3":
+  version: 10.0.3
+  resolution: "eslint-plugin-storybook@npm:10.0.3"
   dependencies:
     "@typescript-eslint/utils": ^8.8.1
   peerDependencies:
     eslint: ">=8"
-    storybook: ^10.0.2
-  checksum: b22e60854f800f8c9bfb6201fb7961bdff4e84c70ac3b605c3d7fa3ac110b6ca1ada3f999163c2173f38eef84fd10024ea367da039a15c98ef28b86f186d6acb
+    storybook: ^10.0.3
+  checksum: e6c9904ba0a0fa51d6a1f472677f6aacae0b3d3d0858b2c3deeaeb43641277ac74e050c24028d0d58ae756985f586a87465d580c5881f41c04449696831e05e0
   languageName: node
   linkType: hard
 
@@ -7379,7 +7379,7 @@ __metadata:
     gh-pages: 6.3.0
     husky: 9.1.7
     jsdom: 27.1.0
-    knip: 5.67.0
+    knip: 5.67.1
     lerna: 9.0.0
     lint-staged: 16.2.6
     prettier: 3.6.2
@@ -8880,9 +8880,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:5.67.0":
-  version: 5.67.0
-  resolution: "knip@npm:5.67.0"
+"knip@npm:5.67.1":
+  version: 5.67.1
+  resolution: "knip@npm:5.67.1"
   dependencies:
     "@nodelib/fs.walk": ^1.2.3
     fast-glob: ^3.3.3
@@ -8902,7 +8902,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: e46f082c27e86329e57308fa041ac678188895c07a77d9c3db2682a1b57c755af07f3d78da05e1b0c8dcf65c7b2bac096a27fc96e220ac52233260c2d0a2b4df
+  checksum: 73318fe1eb8859b37184b1458bcfa14d7cdffaebeaadec4de1d69fbeebab2946325bbd2e2b471d2e3665712ebab6dbc38b94b2b08ec60081791b1e085583b788
   languageName: node
   linkType: hard
 
