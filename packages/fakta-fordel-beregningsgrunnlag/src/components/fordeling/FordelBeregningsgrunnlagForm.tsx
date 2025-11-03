@@ -101,7 +101,7 @@ export const FordelBeregningsgrunnlagForm = ({
       .filter(periode => periode.skalKunneEndreRefusjon || periode.skalRedigereInntekt)
       .filter(periode => !!periode.fom)
       .map(periode => periode.fom);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- OK, trur denne er grei
     setOpenPanels(åpnePaneler);
   }, [perioder]);
 
