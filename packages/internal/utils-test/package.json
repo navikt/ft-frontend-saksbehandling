@@ -18,7 +18,7 @@
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
-    "eslint": "9.39.0",
+    "eslint": "9.39.1",
     "typescript": "5.9.3"
   }
 }
