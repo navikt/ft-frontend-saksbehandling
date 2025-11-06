@@ -1876,7 +1876,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-config-vite@workspace:packages/internal/config-vite"
   dependencies:
-    "@storybook/react": 10.0.3
+    "@storybook/react": 10.0.5
     "@vitejs/plugin-react": 5.1.0
     "@vitest/browser-playwright": 4.0.6
     playwright: 1.56.1
@@ -3556,6 +3556,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/react-dom-shim@npm:10.0.5":
+  version: 10.0.5
+  resolution: "@storybook/react-dom-shim@npm:10.0.5"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    storybook: ^10.0.5
+  checksum: 4b5978b83a40cc915aff11c43eee462fc5cc2c9fa9553e2bf617f6ea0f5f1c8e1d90cdc2ec5bcc8865c34004d140596e76496028eb67042333c56657a20f4c6f
+  languageName: node
+  linkType: hard
+
 "@storybook/react-vite@npm:10.0.3":
   version: 10.0.3
   resolution: "@storybook/react-vite@npm:10.0.3"
@@ -3593,6 +3604,24 @@ __metadata:
     typescript:
       optional: true
   checksum: 3a623809f2060d149f67ee6f749325a6e9ac17ebc32b8767eb9e05b69b78c37ad805cf146532fc9432df9a2dee055153516840cb65cd35d447b6ed8372b5a916
+  languageName: node
+  linkType: hard
+
+"@storybook/react@npm:10.0.5":
+  version: 10.0.5
+  resolution: "@storybook/react@npm:10.0.5"
+  dependencies:
+    "@storybook/global": ^5.0.0
+    "@storybook/react-dom-shim": 10.0.5
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    storybook: ^10.0.5
+    typescript: ">= 4.9.x"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 03372909e63a0af1a3af7c42e4b3c0695a220e210226f0ff3d728c96c5d2cdb3214df11ce983b5d63205bda0e7cfca351ac52bcc52234e6beceb06e53672bf41
   languageName: node
   linkType: hard
 
