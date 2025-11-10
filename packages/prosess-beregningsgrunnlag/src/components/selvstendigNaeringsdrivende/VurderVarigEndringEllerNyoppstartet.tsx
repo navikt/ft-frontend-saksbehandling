@@ -157,7 +157,7 @@ VurderVarigEndringEllerNyoppstartet.buildInitialValues = (
   if (varigEndretNaeringAP) {
     const erVarigEndringValgt = isAksjonspunktOpen(varigEndretNaeringAP)
       ? undefined
-      : relevanteAndeler[0].overstyrtPrAar !== null && relevanteAndeler[0].overstyrtPrAar !== undefined;
+      : relevanteAndeler?.[0]?.overstyrtPrAar != null;
     return {
       [varigEndringRadioname]: erVarigEndringValgt,
       [begrunnelseFieldname]: varigEndretNaeringAP.begrunnelse ? varigEndretNaeringAP.begrunnelse : '',
