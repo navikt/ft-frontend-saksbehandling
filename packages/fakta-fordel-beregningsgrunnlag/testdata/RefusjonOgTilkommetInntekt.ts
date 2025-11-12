@@ -744,4 +744,4 @@ const beregningsgrunnlag = [
   },
 ];
 
-export const bgRettKodeverk = beregningsgrunnlag;
+export const bgRettKodeverk = JSON.parse(JSON.stringify(beregningsgrunnlag));

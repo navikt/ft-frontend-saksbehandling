@@ -10498,5 +10498,5 @@ const vilkar = {
   ],
 };
 
-export const bgOverstyreUtenAvklaringsbehov = beregningsgrunnlag.beregningsgrunnlagListe.map(v => v.beregningsgrunnlag);
-export const vilkarOverstyreUtenAvklaringsbehov = vilkar;
+export const bgOverstyreUtenAvklaringsbehov = JSON.parse(JSON.stringify(beregningsgrunnlag.beregningsgrunnlagListe.map(v => v.beregningsgrunnlag)));
+export const vilkarOverstyreUtenAvklaringsbehov = JSON.parse(JSON.stringify(vilkar));
