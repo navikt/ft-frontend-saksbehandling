@@ -57,22 +57,18 @@ const kodeverkSamling = {
   AktivitetStatus: [
     {
       kode: aktivitetStatuser.ARBEIDSAVKLARINGSPENGER,
-      kodeverk: 'AKTIVITET_STATUS',
       navn: 'Arbeidsavklaringspenger',
     },
     {
       kode: aktivitetStatuser.DAGPENGER,
-      kodeverk: 'AKTIVITET_STATUS',
       navn: 'Dagpenger',
     },
     {
       kode: aktivitetStatuser.FRILANSER,
-      kodeverk: 'AKTIVITET_STATUS',
       navn: 'Frilans',
     },
     {
       kode: aktivitetStatuser.SELVSTENDIG_NÆRINGSDRIVENDE,
-      kodeverk: 'AKTIVITET_STATUS',
       navn: 'Selvstendig næringsdrivende',
     },
   ],

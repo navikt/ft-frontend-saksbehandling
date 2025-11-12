@@ -1,17 +1,9 @@
-import { konverterKodeverkTilKode } from '@navikt/ft-frontend-utils-test';
-
 const beregningsgrunnlag = [
   {
     avklaringsbehov: [
       {
-        definisjon: {
-          kode: 'VURDER_REFUSJONSKRAV',
-          kodeverk: 'AVKLARINGSBEHOV_DEF',
-        },
-        status: {
-          kode: 'OPPR',
-          kodeverk: 'AVKLARINGSBEHOVSTATUS',
-        },
+        definisjon: 'VURDER_REFUSJONSKRAV',
+        status: 'OPPR',
         kanLoses: true,
         erTrukket: false,
       },
@@ -19,10 +11,7 @@ const beregningsgrunnlag = [
     skjaeringstidspunktBeregning: '2022-03-07',
     skjæringstidspunkt: '2022-03-07',
     aktivitetStatus: [
-      {
-        kode: 'AT_FL',
-        kodeverk: 'AKTIVITETSTATUS',
-      },
+      'AT_FL',
     ],
     beregningsgrunnlagPeriode: {
       beregningsgrunnlagPeriodeFom: '2022-03-07',
@@ -31,34 +20,22 @@ const beregningsgrunnlag = [
       bruttoPrAar: 600000,
       bruttoInkludertBortfaltNaturalytelsePrAar: 600000,
       periodeAarsaker: [
-        {
-          kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-          kodeverk: 'PERIODEÅRSAK',
-        },
+        'ENDRING_I_AKTIVITETER_SØKT_FOR',
       ],
       beregningsgrunnlagPrStatusOgAndel: [
         {
           dtoType: 'GENERELL',
-          aktivitetStatus: {
-            kode: 'AT',
-            kodeverk: 'AKTIVITETSTATUS',
-          },
+          aktivitetStatus: 'AT',
           beregningsperiodeFom: '2021-12-01',
           beregningsperiodeTom: '2022-02-28',
           beregnetPrAar: 600000,
           bruttoPrAar: 600000,
           andelsnr: 2,
-          inntektskategori: {
-            kode: 'ARBEIDSTAKER',
-            kodeverk: 'INNTEKTSKATEGORI',
-          },
+          inntektskategori: 'ARBEIDSTAKER',
           arbeidsforhold: {
             arbeidsgiverIdent: '874652202',
             startdato: '2021-06-18',
-            arbeidsforholdType: {
-              kode: 'ARBEID',
-              kodeverk: 'OPPTJENINGAKTIVITETTYPE',
-            },
+            arbeidsforholdType: 'ARBEID',
             refusjonPrAar: 600000,
             belopFraInntektsmeldingPrMnd: 50000,
           },
@@ -69,24 +46,15 @@ const beregningsgrunnlag = [
         },
         {
           dtoType: 'FL',
-          aktivitetStatus: {
-            kode: 'FL',
-            kodeverk: 'AKTIVITETSTATUS',
-          },
+          aktivitetStatus: 'FL',
           beregningsperiodeFom: '2021-12-01',
           beregningsperiodeTom: '2022-02-28',
           beregnetPrAar: 0,
           bruttoPrAar: 0,
           andelsnr: 1,
-          inntektskategori: {
-            kode: 'FRILANSER',
-            kodeverk: 'INNTEKTSKATEGORI',
-          },
+          inntektskategori: 'FRILANSER',
           arbeidsforhold: {
-            arbeidsforholdType: {
-              kode: 'FRILANS',
-              kodeverk: 'OPPTJENINGAKTIVITETTYPE',
-            },
+            arbeidsforholdType: 'FRILANS',
           },
           fastsattAvSaksbehandler: false,
           lagtTilAvSaksbehandler: false,
@@ -102,28 +70,19 @@ const beregningsgrunnlag = [
         rapportertPrAar: 736939.96,
         avvikPromille: 185.8224108,
         avvikProsent: 18.58224108,
-        sammenligningsgrunnlagType: {
-          kode: 'SAMMENLIGNING_AT_FL',
-          kodeverk: 'SAMMENLIGNINGSGRUNNLAGTYPE',
-        },
+        sammenligningsgrunnlagType: 'SAMMENLIGNING_AT_FL',
         differanseBeregnet: -136939.96,
       },
     ],
     halvG: 53199.5,
     grunnbeløp: 106399,
     faktaOmBeregning: null,
-    hjemmel: {
-      kode: 'F_9_9_8_40',
-      kodeverk: 'HJEMMEL',
-    },
+    hjemmel: 'F_9_9_8_40',
     dekningsgrad: 100,
     refusjonTilVurdering: {
       andeler: [
         {
-          aktivitetStatus: {
-            kode: 'AT',
-            kodeverk: 'AKTIVITETSTATUS',
-          },
+          aktivitetStatus: 'AT',
           tidligereUtbetalinger: [
             {
               fom: '2022-03-07',
@@ -159,14 +118,8 @@ const beregningsgrunnlag = [
   {
     avklaringsbehov: [
       {
-        definisjon: {
-          kode: 'VURDER_NYTT_INNTKTSFRHLD',
-          kodeverk: 'AVKLARINGSBEHOV_DEF',
-        },
-        status: {
-          kode: 'UTFO',
-          kodeverk: 'AVKLARINGSBEHOVSTATUS',
-        },
+        definisjon: 'VURDER_NYTT_INNTKTSFRHLD',
+        status: 'UTFO',
         kanLoses: false,
         erTrukket: false,
         begrunnelse: 'Enda en begrunnelse',
@@ -177,10 +130,7 @@ const beregningsgrunnlag = [
     skjaeringstidspunktBeregning: '2023-06-22',
     skjæringstidspunkt: '2023-06-22',
     aktivitetStatus: [
-      {
-        kode: 'AT_FL',
-        kodeverk: 'AKTIVITETSTATUS',
-      },
+      'AT_FL',
     ],
     beregningsgrunnlagPeriode: [
       {
@@ -190,35 +140,23 @@ const beregningsgrunnlag = [
         bruttoPrAar: 780000,
         bruttoInkludertBortfaltNaturalytelsePrAar: 780000,
         periodeAarsaker: [
-          {
-            kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            kodeverk: 'PERIODEÅRSAK',
-          },
+          'ENDRING_I_AKTIVITETER_SØKT_FOR',
         ],
         beregningsgrunnlagPrStatusOgAndel: [
           {
             dtoType: 'GENERELL',
-            aktivitetStatus: {
-              kode: 'AT',
-              kodeverk: 'AKTIVITETSTATUS',
-            },
+            aktivitetStatus: 'AT',
             beregningsperiodeFom: '2023-03-01',
             beregningsperiodeTom: '2023-05-31',
             beregnetPrAar: 780000,
             overstyrtPrAar: 780000,
             bruttoPrAar: 780000,
             andelsnr: 2,
-            inntektskategori: {
-              kode: 'ARBEIDSTAKER',
-              kodeverk: 'INNTEKTSKATEGORI',
-            },
+            inntektskategori: 'ARBEIDSTAKER',
             arbeidsforhold: {
               arbeidsgiverIdent: '874652202',
               startdato: '2021-06-18',
-              arbeidsforholdType: {
-                kode: 'ARBEID',
-                kodeverk: 'OPPTJENINGAKTIVITETTYPE',
-              },
+              arbeidsforholdType: 'ARBEID',
               belopFraInntektsmeldingPrMnd: 65000,
             },
             fastsattAvSaksbehandler: false,
@@ -228,25 +166,16 @@ const beregningsgrunnlag = [
           },
           {
             dtoType: 'FL',
-            aktivitetStatus: {
-              kode: 'FL',
-              kodeverk: 'AKTIVITETSTATUS',
-            },
+            aktivitetStatus: 'FL',
             beregningsperiodeFom: '2023-03-01',
             beregningsperiodeTom: '2023-05-31',
             beregnetPrAar: 41600,
             overstyrtPrAar: 0,
             bruttoPrAar: 0,
             andelsnr: 1,
-            inntektskategori: {
-              kode: 'FRILANSER',
-              kodeverk: 'INNTEKTSKATEGORI',
-            },
+            inntektskategori: 'FRILANSER',
             arbeidsforhold: {
-              arbeidsforholdType: {
-                kode: 'FRILANS',
-                kodeverk: 'OPPTJENINGAKTIVITETTYPE',
-              },
+              arbeidsforholdType: 'FRILANS',
             },
             fastsattAvSaksbehandler: false,
             lagtTilAvSaksbehandler: false,
@@ -262,35 +191,23 @@ const beregningsgrunnlag = [
         bruttoPrAar: 780000,
         bruttoInkludertBortfaltNaturalytelsePrAar: 780000,
         periodeAarsaker: [
-          {
-            kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            kodeverk: 'PERIODEÅRSAK',
-          },
+          'ENDRING_I_AKTIVITETER_SØKT_FOR',
         ],
         beregningsgrunnlagPrStatusOgAndel: [
           {
             dtoType: 'GENERELL',
-            aktivitetStatus: {
-              kode: 'AT',
-              kodeverk: 'AKTIVITETSTATUS',
-            },
+            aktivitetStatus: 'AT',
             beregningsperiodeFom: '2023-03-01',
             beregningsperiodeTom: '2023-05-31',
             beregnetPrAar: 780000,
             overstyrtPrAar: 780000,
             bruttoPrAar: 780000,
             andelsnr: 2,
-            inntektskategori: {
-              kode: 'ARBEIDSTAKER',
-              kodeverk: 'INNTEKTSKATEGORI',
-            },
+            inntektskategori: 'ARBEIDSTAKER',
             arbeidsforhold: {
               arbeidsgiverIdent: '874652202',
               startdato: '2021-06-18',
-              arbeidsforholdType: {
-                kode: 'ARBEID',
-                kodeverk: 'OPPTJENINGAKTIVITETTYPE',
-              },
+              arbeidsforholdType: 'ARBEID',
               belopFraInntektsmeldingPrMnd: 65000,
             },
             fastsattAvSaksbehandler: false,
@@ -300,25 +217,16 @@ const beregningsgrunnlag = [
           },
           {
             dtoType: 'FL',
-            aktivitetStatus: {
-              kode: 'FL',
-              kodeverk: 'AKTIVITETSTATUS',
-            },
+            aktivitetStatus: 'FL',
             beregningsperiodeFom: '2023-03-01',
             beregningsperiodeTom: '2023-05-31',
             beregnetPrAar: 41600,
             overstyrtPrAar: 0,
             bruttoPrAar: 0,
             andelsnr: 1,
-            inntektskategori: {
-              kode: 'FRILANSER',
-              kodeverk: 'INNTEKTSKATEGORI',
-            },
+            inntektskategori: 'FRILANSER',
             arbeidsforhold: {
-              arbeidsforholdType: {
-                kode: 'FRILANS',
-                kodeverk: 'OPPTJENINGAKTIVITETTYPE',
-              },
+              arbeidsforholdType: 'FRILANS',
             },
             fastsattAvSaksbehandler: false,
             lagtTilAvSaksbehandler: false,
@@ -334,43 +242,25 @@ const beregningsgrunnlag = [
         bruttoPrAar: 780000,
         bruttoInkludertBortfaltNaturalytelsePrAar: 780000,
         periodeAarsaker: [
-          {
-            kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            kodeverk: 'PERIODEÅRSAK',
-          },
-          {
-            kode: 'TILKOMMET_INNTEKT_MANUELT',
-            kodeverk: 'PERIODEÅRSAK',
-          },
-          {
-            kode: 'TILKOMMET_INNTEKT',
-            kodeverk: 'PERIODEÅRSAK',
-          },
+          'ENDRING_I_AKTIVITETER_SØKT_FOR',
+          'TILKOMMET_INNTEKT_MANUELT',
+          'TILKOMMET_INNTEKT',
         ],
         beregningsgrunnlagPrStatusOgAndel: [
           {
             dtoType: 'GENERELL',
-            aktivitetStatus: {
-              kode: 'AT',
-              kodeverk: 'AKTIVITETSTATUS',
-            },
+            aktivitetStatus: 'AT',
             beregningsperiodeFom: '2023-03-01',
             beregningsperiodeTom: '2023-05-31',
             beregnetPrAar: 780000,
             overstyrtPrAar: 780000,
             bruttoPrAar: 780000,
             andelsnr: 2,
-            inntektskategori: {
-              kode: 'ARBEIDSTAKER',
-              kodeverk: 'INNTEKTSKATEGORI',
-            },
+            inntektskategori: 'ARBEIDSTAKER',
             arbeidsforhold: {
               arbeidsgiverIdent: '874652202',
               startdato: '2021-06-18',
-              arbeidsforholdType: {
-                kode: 'ARBEID',
-                kodeverk: 'OPPTJENINGAKTIVITETTYPE',
-              },
+              arbeidsforholdType: 'ARBEID',
               belopFraInntektsmeldingPrMnd: 65000,
             },
             fastsattAvSaksbehandler: false,
@@ -380,25 +270,16 @@ const beregningsgrunnlag = [
           },
           {
             dtoType: 'FL',
-            aktivitetStatus: {
-              kode: 'FL',
-              kodeverk: 'AKTIVITETSTATUS',
-            },
+            aktivitetStatus: 'FL',
             beregningsperiodeFom: '2023-03-01',
             beregningsperiodeTom: '2023-05-31',
             beregnetPrAar: 41600,
             overstyrtPrAar: 0,
             bruttoPrAar: 0,
             andelsnr: 1,
-            inntektskategori: {
-              kode: 'FRILANSER',
-              kodeverk: 'INNTEKTSKATEGORI',
-            },
+            inntektskategori: 'FRILANSER',
             arbeidsforhold: {
-              arbeidsforholdType: {
-                kode: 'FRILANS',
-                kodeverk: 'OPPTJENINGAKTIVITETTYPE',
-              },
+              arbeidsforholdType: 'FRILANS',
             },
             fastsattAvSaksbehandler: false,
             lagtTilAvSaksbehandler: false,
@@ -415,20 +296,14 @@ const beregningsgrunnlag = [
         rapportertPrAar: 644151,
         avvikPromille: 275.4773337,
         avvikProsent: 27.54773337,
-        sammenligningsgrunnlagType: {
-          kode: 'SAMMENLIGNING_AT_FL',
-          kodeverk: 'SAMMENLIGNINGSGRUNNLAGTYPE',
-        },
+        sammenligningsgrunnlagType: 'SAMMENLIGNING_AT_FL',
         differanseBeregnet: 177449,
       },
     ],
     halvG: 59310,
     grunnbeløp: 118620,
     faktaOmBeregning: null,
-    hjemmel: {
-      kode: 'F_9_9_8_40',
-      kodeverk: 'HJEMMEL',
-    },
+    hjemmel: 'F_9_9_8_40',
     faktaOmFordeling: {
       vurderNyttInntektsforholdDto: {
         vurderInntektsforholdPerioder: [
@@ -437,10 +312,7 @@ const beregningsgrunnlag = [
             tom: '2025-01-03',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -455,10 +327,7 @@ const beregningsgrunnlag = [
             tom: '2025-01-05',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -473,10 +342,7 @@ const beregningsgrunnlag = [
             tom: '2025-01-10',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -491,10 +357,7 @@ const beregningsgrunnlag = [
             tom: '2025-01-12',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -509,10 +372,7 @@ const beregningsgrunnlag = [
             tom: '2025-01-17',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -527,10 +387,7 @@ const beregningsgrunnlag = [
             tom: '2025-01-19',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -545,10 +402,7 @@ const beregningsgrunnlag = [
             tom: '2025-01-24',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -563,10 +417,7 @@ const beregningsgrunnlag = [
             tom: '2025-01-26',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -581,10 +432,7 @@ const beregningsgrunnlag = [
             tom: '2025-01-27',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -599,10 +447,7 @@ const beregningsgrunnlag = [
             tom: '2025-01-30',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -617,10 +462,7 @@ const beregningsgrunnlag = [
             tom: '2025-01-31',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -635,10 +477,7 @@ const beregningsgrunnlag = [
             tom: '2025-02-02',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -653,10 +492,7 @@ const beregningsgrunnlag = [
             tom: '2025-02-07',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -671,10 +507,7 @@ const beregningsgrunnlag = [
             tom: '2025-02-09',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -689,10 +522,7 @@ const beregningsgrunnlag = [
             tom: '2025-02-14',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -707,10 +537,7 @@ const beregningsgrunnlag = [
             tom: '2025-02-16',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -725,10 +552,7 @@ const beregningsgrunnlag = [
             tom: '2025-02-21',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -743,10 +567,7 @@ const beregningsgrunnlag = [
             tom: '2025-02-23',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -761,10 +582,7 @@ const beregningsgrunnlag = [
             tom: '2025-02-28',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -779,10 +597,7 @@ const beregningsgrunnlag = [
             tom: '2025-03-02',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -797,10 +612,7 @@ const beregningsgrunnlag = [
             tom: '2025-03-07',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -815,10 +627,7 @@ const beregningsgrunnlag = [
             tom: '2025-03-09',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -833,10 +642,7 @@ const beregningsgrunnlag = [
             tom: '2025-03-14',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -851,10 +657,7 @@ const beregningsgrunnlag = [
             tom: '2025-03-16',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -869,10 +672,7 @@ const beregningsgrunnlag = [
             tom: '2025-03-21',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -887,10 +687,7 @@ const beregningsgrunnlag = [
             tom: '2025-03-23',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -905,10 +702,7 @@ const beregningsgrunnlag = [
             tom: '2025-03-28',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -923,10 +717,7 @@ const beregningsgrunnlag = [
             tom: '2025-03-30',
             inntektsforholdListe: [
               {
-                aktivitetStatus: {
-                  kode: 'SN',
-                  kodeverk: 'AKTIVITETSTATUS',
-                },
+                aktivitetStatus: 'SN',
                 periode: {
                   fom: '2025-01-01',
                   tom: '2025-03-30',
@@ -953,4 +744,4 @@ const beregningsgrunnlag = [
   },
 ];
 
-export const bgRettKodeverk = konverterKodeverkTilKode(beregningsgrunnlag);
+export const bgRettKodeverk = beregningsgrunnlag;

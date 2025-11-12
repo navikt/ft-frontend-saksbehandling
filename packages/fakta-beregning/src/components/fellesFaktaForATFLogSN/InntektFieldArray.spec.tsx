@@ -9,32 +9,26 @@ const kodeverkSamling = {
     {
       kode: aktivitetStatuser.MILITÆR_ELLER_SIVIL,
       navn: 'Militær og siviltjeneste',
-      kodeverk: 'test',
     },
     {
       kode: aktivitetStatuser.ARBEIDSTAKER,
       navn: 'Arbeidstaker',
-      kodeverk: 'test',
     },
     {
       kode: aktivitetStatuser.FRILANSER,
       navn: 'Frilanser',
-      kodeverk: 'test',
     },
     {
       kode: aktivitetStatuser.DAGPENGER,
       navn: 'Dagpenger',
-      kodeverk: 'test',
     },
     {
       kode: aktivitetStatuser.SELVSTENDIG_NÆRINGSDRIVENDE,
       navn: 'Selvstendig næringsdrivende',
-      kodeverk: 'test',
     },
     {
       kode: aktivitetStatuser.BRUKERS_ANDEL,
       navn: 'Brukers andel',
-      kodeverk: 'test',
     },
   ],
 } as KodeverkForPanel;

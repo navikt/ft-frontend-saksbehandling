@@ -70,27 +70,22 @@ const kodeverkSamling = {
     {
       kode: OpptjeningAktivitetType.ARBEID,
       navn: 'Arbeid',
-      kodeverk: 'test',
     },
     {
       kode: OpptjeningAktivitetType.FRILANS,
       navn: 'Frilans',
-      kodeverk: 'test',
     },
     {
       kode: OpptjeningAktivitetType.DAGPENGER,
       navn: 'Dagpenger',
-      kodeverk: 'test',
     },
     {
       kode: OpptjeningAktivitetType.NARING,
       navn: 'Næring',
-      kodeverk: 'test',
     },
     {
       kode: OpptjeningAktivitetType.AAP,
       navn: 'Arbeidsavklaringspenger',
-      kodeverk: 'test',
     },
   ],
 } as KodeverkForPanel;

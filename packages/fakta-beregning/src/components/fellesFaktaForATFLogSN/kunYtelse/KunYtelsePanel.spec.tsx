@@ -9,14 +9,12 @@ const kodeverkSamling = {
     {
       kode: 'ARBEID',
       navn: 'Arbeid',
-      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
     },
   ],
   AktivitetStatus: [
     {
       kode: 'BA',
       navn: 'Brukers andel',
-      kodeverk: 'AKTIVITET_STATUS',
     },
   ],
 } as KodeverkForPanel;

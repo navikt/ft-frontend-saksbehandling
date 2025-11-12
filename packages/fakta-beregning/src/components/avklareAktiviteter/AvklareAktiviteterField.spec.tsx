@@ -14,22 +14,18 @@ const kodeverkSamling = {
   OpptjeningAktivitetType: [
     {
       kode: OpptjeningAktivitetType.ARBEID,
-      kodeverk: 'test',
       navn: 'Arbeid',
     },
     {
       kode: OpptjeningAktivitetType.FRILANS,
-      kodeverk: 'test',
       navn: 'Frilans',
     },
     {
       kode: OpptjeningAktivitetType.DAGPENGER,
-      kodeverk: 'test',
       navn: 'Dagpenger',
     },
     {
       kode: OpptjeningAktivitetType.NARING,
-      kodeverk: 'test',
       navn: 'Næring',
     },
   ],
