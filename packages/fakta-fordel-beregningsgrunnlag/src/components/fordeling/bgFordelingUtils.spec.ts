@@ -34,12 +34,10 @@ const kodeverkSamling = {
   AktivitetStatus: [
     {
       kode: AktivitetStatus.ARBEIDSTAKER,
-      kodeverk: 'AKTIVITET_STATUS',
       navn: 'Arbeidstaker',
     },
     {
       kode: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
-      kodeverk: 'AKTIVITET_STATUS',
       navn: 'Selvstendig næringsdrivende',
     },
   ],

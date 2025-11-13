@@ -52,17 +52,14 @@ const kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel = {
     {
       kode: ForeldelseVurderingType.FORELDET,
       navn: 'Foreldet',
-      kodeverk: 'FORELDELSE_VURDERING',
     },
     {
       kode: ForeldelseVurderingType.TILLEGGSFRIST,
       navn: 'Ikke foreldet, med tilleggsfrist',
-      kodeverk: 'FORELDELSE_VURDERING',
     },
     {
       kode: ForeldelseVurderingType.IKKE_FORELDET,
       navn: 'Ikke foreldet',
-      kodeverk: 'FORELDELSE_VURDERING',
     },
   ],
 };
@@ -82,7 +79,6 @@ const meta = {
     relasjonsRolleTypeKodeverk: [
       {
         kode: RelasjonsRolleType.MOR,
-        kodeverk: 'RELASJONSROLLE_TYPE',
         navn: 'Mor',
       },
     ],

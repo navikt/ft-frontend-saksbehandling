@@ -75,7 +75,6 @@ const meta = {
     relasjonsRolleTypeKodeverk: [
       {
         kode: 'MORA',
-        kodeverk: 'RELASJONSROLLE_TYPE',
         navn: 'Mor',
       },
     ],

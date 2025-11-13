@@ -83,10 +83,7 @@ export const beregningsgrunnlag = {
       bruttoPrAar: 456120.0,
       bruttoInkludertBortfaltNaturalytelsePrAar: 462120.0,
       periodeAarsaker: [
-        {
-          kodeverk: 'PERIODE_AARSAK',
-          kode: 'NATURALYTELSE_BORTFALT',
-        },
+        'NATURALYTELSE_BORTFALT',
       ],
       beregningsgrunnlagPrStatusOgAndel: [
         {
