@@ -5,7 +5,7 @@ export { BorderBox } from './src/BorderBox';
 export { AksjonspunktBox } from './src/AksjonspunktBox';
 export { DateLabel } from './src/DateLabel';
 export { DateTimeLabel } from './src/DateTimeLabel';
-export { LabeledValue } from './src/LabeledValue/LabeledValue.tsx';
+export { LabeledValue } from './src/LabeledValue/LabeledValue';
 export { TimeLabel } from './src/TimeLabel';
 export { FadingPanel } from './src/FadingPanel';
 export { LoadingPanel } from './src/LoadingPanel';
