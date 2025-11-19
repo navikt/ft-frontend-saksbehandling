@@ -31,6 +31,7 @@ import { beregningsgrunnlag as bgTilkommetAktivitetTrePerioderHelgMellom } from 
 import {
   bgMedDelvisRefusjon as vurderDelvisRefBG,
   bgUtenDelvisRefusjon as vurderRefusjonBG,
+  bgUtenDelvisRefusjonMedRefusjonskravForSent as vurderDelvisRefOgRefusjonskravForSentBG,
 } from '../testdata/VurderRefusjon';
 import { FordelBeregningsgrunnlagFaktaIndex } from './FordelBeregningsgrunnlagFaktaIndex';
 import type { AksjonspunktSubmitType } from './types/AksjonspunktSubmitType';
@@ -339,6 +340,20 @@ export const ViseVurderTilkommetRefusjonskravAp5059: Story = {
     beregningsgrunnlagListe: [vurderRefusjonBG],
     beregningsgrunnlagVilkår: lagVilkår(
       [vurderRefusjonBG].map(bg => ({
+        fom: bg.vilkårsperiodeFom,
+        tom: TIDENES_ENDE,
+        vurderesIBehandlingen: true,
+      })),
+    ),
+  },
+};
+
+export const ViseVurderTilkommetRefusjonskravOgRefusjonskravForSentAp5059: Story = {
+  args: {
+    readOnly: false,
+    beregningsgrunnlagListe: [vurderDelvisRefOgRefusjonskravForSentBG],
+    beregningsgrunnlagVilkår: lagVilkår(
+      [vurderDelvisRefOgRefusjonskravForSentBG].map(bg => ({
         fom: bg.vilkårsperiodeFom,
         tom: TIDENES_ENDE,
         vurderesIBehandlingen: true,

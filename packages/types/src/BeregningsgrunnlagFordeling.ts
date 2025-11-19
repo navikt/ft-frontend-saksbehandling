@@ -23,8 +23,14 @@ export type RefusjonTilVurderingAndel = Readonly<{
   maksTillattDelvisRefusjonPrMnd?: number;
 }>;
 
+export type RefusjonTilVurderingKravForSent = Readonly<{
+  arbeidsgiverIdent: string;
+  erRefusjonskravGyldig?: boolean;
+}>;
+
 export type RefusjonTilVurdering = Readonly<{
   andeler: RefusjonTilVurderingAndel[];
+  refusjonskravForSentListe: RefusjonTilVurderingKravForSent[];
 }>;
 
 export type PerioderMedGraderingEllerRefusjon = Readonly<{

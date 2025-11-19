@@ -34,6 +34,7 @@ export type {
 export type { BeregningsgrunnlagArbeidsforhold } from './src/BeregningsgrunnlagArbeidsforhold';
 export type {
   RefusjonTilVurderingAndel,
+  RefusjonTilVurderingKravForSent,
   TidligereUtbetalinger,
   FordelBeregningsgrunnlagPeriode,
   ArbeidsforholdTilFordeling,
