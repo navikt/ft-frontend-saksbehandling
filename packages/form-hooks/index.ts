@@ -10,5 +10,4 @@ export { SubmitButton } from './src/SubmitButton';
 export { RhfTextarea } from './src/RhfTextarea/RhfTextarea';
 export { RhfForm } from './src/RhfForm';
 export { RhfFieldArray, RhfFieldArrayAppendButton, RhfFieldArrayRemoveButton } from './src/RhfFieldArray/RhfFieldArray';
-export { ReadOnlyField } from './src/ReadOnlyField/ReadOnlyField';
 export { useCustomValidation } from './src/useCustomValidation';
