@@ -5,134 +5,254 @@ export const alleTilbakekrevingKodeverk = {
       navn: 'Fakta om feilutbetaling',
     },
     {
-      kode: 'TILBAKEKREVING',
-      navn: 'Tilbakekreving',
+      kode: 'FAKTA_OM_VERGE',
+      navn: 'Fakta om verge/fullmektig',
     },
     {
       kode: 'FORELDELSE',
       navn: 'Foreldelse',
     },
     {
+      kode: 'TILBAKEKREVING',
+      navn: 'Tilbakekreving',
+    },
+    {
       kode: 'VEDTAK',
       navn: 'Vedtak',
     },
+  ],
+  VurderÅrsak: [
     {
-      kode: 'FAKTA_OM_VERGE',
-      navn: 'Fakta om verge/fullmektig',
+      kode: 'ANNET',
+      navn: 'Annet',
+    },
+    {
+      kode: 'BEGRUNNELSE',
+      navn: 'Begrunnelse',
+    },
+    {
+      kode: 'FEIL_FAKTA',
+      navn: 'Fakta',
+    },
+    {
+      kode: 'FEIL_REGEL',
+      navn: 'Feil regelforståelse',
+    },
+    {
+      kode: 'FEIL_LOV',
+      navn: 'Regel-/lovanvendelse',
+    },
+    {
+      kode: 'SAKSFLYT',
+      navn: 'Saksflyt',
+    },
+    {
+      kode: 'SKJØNN',
+      navn: 'Skjønn',
+    },
+    {
+      kode: 'UTREDNING',
+      navn: 'Utredning',
+    },
+  ],
+  BehandlingResultatType: [
+    {
+      kode: 'DELVIS_TILBAKEBETALING',
+      navn: 'Delvis tilbakebetaling',
+    },
+    {
+      kode: 'HENLAGT_FEILOPPRETTET_MED_BREV',
+      navn: 'Feilaktig opprettet - med henleggelsesbrev',
+    },
+    {
+      kode: 'HENLAGT_FEILOPPRETTET_UTEN_BREV',
+      navn: 'Feilaktig opprettet - uten henleggelsesbrev',
+    },
+    {
+      kode: 'HENLAGT',
+      navn: 'Henlagt',
+    },
+    {
+      kode: 'HENLAGT_FEILOPPRETTET',
+      navn: 'Henlagt, søknaden er feilopprettet',
+    },
+    {
+      kode: 'IKKE_FASTSATT',
+      navn: 'Ikke fastsatt',
+    },
+    {
+      kode: 'INGEN_TILBAKEBETALING',
+      navn: 'Ingen tilbakebetaling',
+    },
+    {
+      kode: 'HENLAGT_KRAVGRUNNLAG_NULLSTILT',
+      navn: 'Kravgrunnlaget er nullstilt',
+    },
+    {
+      kode: 'FASTSATT',
+      navn: 'Resultatet er fastsatt',
+    },
+    {
+      kode: 'HENLAGT_TEKNISK_VEDLIKEHOLD',
+      navn: 'Teknisk vedlikehold',
+    },
+    {
+      kode: 'FULL_TILBAKEBETALING',
+      navn: 'Tilbakebetaling',
+    },
+  ],
+  AnnenVurdering: [
+    {
+      kode: 'FORELDET',
+      navn: 'Foreldet',
+    },
+    {
+      kode: 'GOD_TRO',
+      navn: 'Handlet i god tro',
+    },
+  ],
+  HistorikkAktør: [
+    {
+      kode: 'ARBEIDSGIVER',
+      navn: 'Arbeidsgiver',
+    },
+    {
+      kode: 'BESL',
+      navn: 'Beslutter',
+    },
+    {
+      kode: 'SBH',
+      navn: 'Saksbehandler',
+    },
+    {
+      kode: 'SOKER',
+      navn: 'Søker',
+    },
+    {
+      kode: 'VL',
+      navn: 'Vedtaksløsningen',
+    },
+  ],
+  VedtakResultatType: [
+    {
+      kode: 'DELVIS_TILBAKEBETALING',
+      navn: 'Delvis tilbakebetaling',
+    },
+    {
+      kode: 'INGEN_TILBAKEBETALING',
+      navn: 'Ingen tilbakebetaling',
+    },
+    {
+      kode: 'FULL_TILBAKEBETALING',
+      navn: 'Tilbakebetaling',
+    },
+  ],
+  VergeType: [
+    {
+      kode: 'ADVOKAT',
+      navn: 'Advokat/advokatfullmektig',
+    },
+    {
+      kode: 'ANNEN_F',
+      navn: 'Annen fullmektig',
+    },
+    {
+      kode: 'BARN',
+      navn: 'Verge for barn under 18 år',
+    },
+    {
+      kode: 'FBARN',
+      navn: 'Verge for foreldreløst barn under 18 år',
+    },
+    {
+      kode: 'VOKSEN',
+      navn: 'Verge for voksen',
+    },
+  ],
+  SærligGrunn: [
+    {
+      kode: 'ANNET',
+      navn: 'Annet',
+    },
+    {
+      kode: 'GRAD_UAKTSOMHET',
+      navn: 'Graden av uaktsomhet hos den kravet retter seg mot',
+    },
+    {
+      kode: 'TID_FRA_UTBETALING',
+      navn: 'Hvor lang tid siden utbetalingen fant sted',
+    },
+    {
+      kode: 'HELT_ELLER_DELVIS_NAVS_FEIL',
+      navn: 'Om feilen helt eller delvis kan tilskrives Nav',
+    },
+    {
+      kode: 'STOERRELSE_BELOEP',
+      navn: 'Størrelsen på feilutbetalt beløp',
+    },
+  ],
+  VilkårResultat: [
+    {
+      kode: 'FORSTO_BURDE_FORSTAATT',
+      navn: 'Ja, mottaker forsto eller burde forstått at utbetalingen skyldtes en feil (første ledd, første punkt)',
+    },
+    {
+      kode: 'FEIL_OPPLYSNINGER',
+      navn: 'Ja, mottaker har forårsaket feilutbetalingen ved forsett eller uaktsomt gitt feilaktige opplysninger (første ledd, andre punkt)',
+    },
+    {
+      kode: 'MANGELFULL_OPPLYSNING',
+      navn: 'Ja, mottaker har forårsaket feilutbetalingen ved forsett eller uaktsomt gitt mangelfulle opplysninger (første ledd, andre punkt)',
+    },
+    {
+      kode: 'GOD_TRO',
+      navn: 'Nei, mottaker har mottatt beløpet i god tro (første ledd)',
+    },
+  ],
+  VidereBehandling: [
+    {
+      kode: 'TILBAKEKR_OPPDATER',
+      navn: 'Endringer vil oppdatere eksisterende feilutbetalte perioder og beløp.',
+    },
+    {
+      kode: 'TILBAKEKR_INNTREKK',
+      navn: 'Feilutbetaling hvor inntrekk dekker hele beløpet',
+    },
+    {
+      kode: 'TILBAKEKR_OPPRETT',
+      navn: 'Feilutbetaling med tilbakekreving',
+    },
+    {
+      kode: 'TILBAKEKR_IGNORER',
+      navn: 'Feilutbetaling, avvent samordning',
+    },
+  ],
+  ForeldelseVurderingType: [
+    {
+      kode: 'FORELDET',
+      navn: 'Perioden er foreldet',
+    },
+    {
+      kode: 'IKKE_FORELDET',
+      navn: 'Perioden er ikke foreldet',
+    },
+    {
+      kode: 'TILLEGGSFRIST',
+      navn: 'Perioden er ikke foreldet, regel om tilleggsfrist (10 år) benyttes',
+    },
+    {
+      kode: 'IKKE_VURDERT',
+      navn: 'Perioden er ikke vurdert',
     },
   ],
   HendelseType: [
-    {
-      kode: 'MEDLEMSKAP',
-      navn: '§14-2 Medlemskap',
-    },
-    {
-      kode: 'OKONOMI_FEIL',
-      navn: 'Feil i økonomi',
-    },
-    {
-      kode: 'OPPTJENING_TYPE',
-      navn: '§14-6 Opptjening',
-    },
-    {
-      kode: 'BEREGNING_TYPE',
-      navn: '§14-7 Beregning',
-    },
-    {
-      kode: 'STONADSPERIODEN_TYPE',
-      navn: '§14-9 Stønadsperioden',
-    },
-    {
-      kode: 'UTTAK_GENERELT_TYPE',
-      navn: '§14-10 Generelt om uttak',
-    },
-    {
-      kode: 'UTTAK_UTSETTELSE_TYPE',
-      navn: '§14-11 Utsettelse av uttak',
-    },
-    {
-      kode: 'UTTAK_KVOTENE_TYPE',
-      navn: '§14-12 Uttak av kvotene',
-    },
-    {
-      kode: 'VILKAAR_GENERELLE_TYPE',
-      navn: '§14-13 Generelle vilkår for fars uttak',
-    },
-    {
-      kode: 'KUN_RETT_TYPE',
-      navn: '§14-14 Kun far/medmor rett',
-    },
-    {
-      kode: 'UTTAK_ALENEOMSORG_TYPE',
-      navn: '§14-15 Uttak ved aleneomsorg/samlivsbrudd',
-    },
-    {
-      kode: 'UTTAK_GRADERT_TYPE',
-      navn: '§14-16 Gradert uttak',
-    },
     {
       kode: 'FP_ANNET_HENDELSE_TYPE',
       navn: 'Annet',
     },
     {
-      kode: 'ES_MEDLEMSKAP',
-      navn: '§14-2 Medlemskap',
-    },
-    {
-      kode: 'ES_FODSELSVILKAARET_TYPE',
-      navn: '§14-17 1. ledd Fødselsvilkåret',
-    },
-    {
-      kode: 'ES_ADOPSJONSVILKAARET_TYPE',
-      navn: '§14-17 1. ledd Adopsjonsvilkåret',
-    },
-    {
-      kode: 'ES_FORELDREANSVAR_TYPE',
-      navn: '§14-17 2. ledd Foreldreansvar ',
-    },
-    {
-      kode: 'ES_OMSORGSVILKAAR_TYPE',
-      navn: '§14-17 3. ledd Omsorgsvilkår ved mors død',
-    },
-    {
-      kode: 'ES_FORELDREANSVAR_FAR_TYPE',
-      navn: '§14-17 4. ledd Foreldreansvar far',
-    },
-    {
-      kode: 'ES_RETT_PAA_FORELDREPENGER_TYPE',
-      navn: 'Rett på foreldrepenger etter klage',
-    },
-    {
-      kode: 'ES_FEIL_UTBETALING_TYPE',
-      navn: 'Feil i utbetaling',
-    },
-    {
       kode: 'ES_ANNET_TYPE',
       navn: 'Annet',
-    },
-    {
-      kode: 'SVP_FAKTA_TYPE',
-      navn: '§14-4 Fakta om svangerskap',
-    },
-    {
-      kode: 'SVP_ARBEIDSGIVERS_FORHOLD_TYPE',
-      navn: '§14-4 1. ledd Arbeidsgivers forhold',
-    },
-    {
-      kode: 'SVP_OPPTJENING_TYPE',
-      navn: '§14-4 3. ledd Opptjening/ inntekt',
-    },
-    {
-      kode: 'SVP_BEREGNING_TYPE',
-      navn: '§14-4 5. ledd Beregning ',
-    },
-    {
-      kode: 'SVP_UTTAK_TYPE',
-      navn: '§14-4 Uttak',
-    },
-    {
-      kode: 'OPPHØR',
-      navn: 'Opphør',
     },
     {
       kode: 'SVP_ANNET_TYPE',
@@ -158,11 +278,271 @@ export const alleTilbakekrevingKodeverk = {
       kode: 'OLP_ANNET_TYPE',
       navn: 'Annet',
     },
+    {
+      kode: 'ES_FEIL_UTBETALING_TYPE',
+      navn: 'Feil i utbetaling',
+    },
+    {
+      kode: 'OKONOMI_FEIL',
+      navn: 'Feil i økonomi',
+    },
+    {
+      kode: 'OPPHØR',
+      navn: 'Opphør',
+    },
+    {
+      kode: 'ES_RETT_PAA_FORELDREPENGER_TYPE',
+      navn: 'Rett på foreldrepenger etter klage',
+    },
+    {
+      kode: 'UTTAK_GENERELT_TYPE',
+      navn: '§ 14-10 Generelt om uttak',
+    },
+    {
+      kode: 'UTTAK_UTSETTELSE_TYPE',
+      navn: '§ 14-11 Utsettelse av uttak',
+    },
+    {
+      kode: 'UTTAK_KVOTENE_TYPE',
+      navn: '§ 14-12 Uttak av kvotene',
+    },
+    {
+      kode: 'VILKAAR_GENERELLE_TYPE',
+      navn: '§ 14-13 Generelle vilkår for fars uttak',
+    },
+    {
+      kode: 'KUN_RETT_TYPE',
+      navn: '§ 14-14 Kun far/medmor rett',
+    },
+    {
+      kode: 'UTTAK_ALENEOMSORG_TYPE',
+      navn: '§ 14-15 Uttak ved aleneomsorg/samlivsbrudd',
+    },
+    {
+      kode: 'UTTAK_GRADERT_TYPE',
+      navn: '§ 14-16 Gradert uttak',
+    },
+    {
+      kode: 'ES_FORELDREANSVAR_TYPE',
+      navn: '§ 14-17 andre ledd Foreldreansvar ',
+    },
+    {
+      kode: 'ES_FORELDREANSVAR_FAR_TYPE',
+      navn: '§ 14-17 fjerde ledd Foreldreansvar far',
+    },
+    {
+      kode: 'ES_ADOPSJONSVILKAARET_TYPE',
+      navn: '§ 14-17 første ledd Adopsjonsvilkåret',
+    },
+    {
+      kode: 'ES_FODSELSVILKAARET_TYPE',
+      navn: '§ 14-17 første ledd Fødselsvilkåret',
+    },
+    {
+      kode: 'ES_OMSORGSVILKAAR_TYPE',
+      navn: '§ 14-17 tredje ledd Omsorgsvilkår ved mors død',
+    },
+    {
+      kode: 'MEDLEMSKAP',
+      navn: '§ 14-2 Medlemskap',
+    },
+    {
+      kode: 'ES_MEDLEMSKAP',
+      navn: '§ 14-2 Medlemskap',
+    },
+    {
+      kode: 'SVP_OPPTJENING_TYPE',
+      navn: '§ 14-4 3. ledd Opptjening/ inntekt',
+    },
+    {
+      kode: 'SVP_BEREGNING_TYPE',
+      navn: '§ 14-4 5. ledd Beregning ',
+    },
+    {
+      kode: 'SVP_FAKTA_TYPE',
+      navn: '§ 14-4 Fakta om svangerskap',
+    },
+    {
+      kode: 'SVP_UTTAK_TYPE',
+      navn: '§ 14-4 Uttak',
+    },
+    {
+      kode: 'SVP_ARBEIDSGIVERS_FORHOLD_TYPE',
+      navn: '§ 14-4 første ledd Arbeidsgivers forhold',
+    },
+    {
+      kode: 'OPPTJENING_TYPE',
+      navn: '§ 14-6 Opptjening',
+    },
+    {
+      kode: 'BEREGNING_TYPE',
+      navn: '§ 14-7 Beregning',
+    },
+    {
+      kode: 'STONADSPERIODEN_TYPE',
+      navn: '§ 14-9 Stønadsperioden',
+    },
   ],
   HendelseUnderType: [
     {
+      kode: 'ES_IKKE_OPPFYLT',
+      navn: 'Adopsjonsvilkår er ikke oppfylt',
+    },
+    {
+      kode: 'ANNET_FRITEKST',
+      navn: 'Annet - fritekst',
+    },
+    {
+      kode: 'ARBEID_HELTID',
+      navn: 'Arbeid heltid',
+    },
+    {
+      kode: 'ES_BARN_IKKE_REGISTRERT',
+      navn: 'Barn er ikke registrert',
+    },
+    {
+      kode: 'BARN_INNLAGT',
+      navn: 'Barn er innlagt i helseinstitusjon',
+    },
+    {
+      kode: 'ES_BARN_OVER_15',
+      navn: 'Barn er over 15 år',
+    },
+    {
+      kode: 'ES_FORELDREANSVAR_BARN_OVER_15',
+      navn: 'Barn er over 15 år',
+    },
+    {
+      kode: 'ES_BRUKER_RETT_FORELDREPENGER',
+      navn: 'Bruker har likevel rett på foreldrepenger',
+    },
+    {
+      kode: 'SVP_TILRETTELEGGING_DELVIS_MULIG',
+      navn: 'Delvis tilrettelegging mulig',
+    },
+    {
+      kode: 'OKONOMI_DOBBELUTBETALING',
+      navn: 'Dobbeltutbetaling',
+    },
+    {
+      kode: 'ENDRET_DEKNINGSGRAD',
+      navn: 'Endret dekningsgrad',
+    },
+    {
+      kode: 'SVP_ENDRING_PERIODE',
+      navn: 'Endring av periode',
+    },
+    {
+      kode: 'ENDRING_GRUNNLAG',
+      navn: 'Endring i selve grunnlaget',
+    },
+    {
+      kode: 'SVP_ENDRING_GRUNNLAG',
+      navn: 'Endring i selve grunnlaget',
+    },
+    {
+      kode: 'SVP_ENDRING_TERMINDATO',
+      navn: 'Endring i termindato',
+    },
+    {
+      kode: 'SVP_ENDRING_PROSENT',
+      navn: 'Endring i uttaksprosent/gradering',
+    },
+    {
+      kode: 'ES_FAR_IKKE_OMSORG',
+      navn: 'Far har ikke omsorg for barnet',
+    },
+    {
+      kode: 'ES_FAR_IKKE_ALENE',
+      navn: 'Far overtar ikke foreldreansvar alene',
+    },
+    {
+      kode: 'ES_FAR_IKKE_INNEN_STONADSPERIODE',
+      navn: 'Far overtar ikke innen stønadsperioden',
+    },
+    {
+      kode: 'OKONOMI_FEIL_FERIEPENGER',
+      navn: 'Feil feriepengeutbetaling',
+    },
+    {
+      kode: 'FEIL_I_ANTALL_DAGER',
+      navn: 'Feil i antall dager',
+    },
+    {
+      kode: 'FEIL_FERIEPENGER_4G',
+      navn: 'Feil i feriepenger - under 4 G',
+    },
+    {
+      kode: 'FEIL_FLERBARNSDAGER',
+      navn: 'Feil i flerbarnsdager',
+    },
+    {
+      kode: 'ØKONOMI_UTBETALT_FOR_MYE',
+      navn: 'Feil i økonomi - utbetalt for mye',
+    },
+    {
+      kode: 'OKONOMI_FEIL_TREKK',
+      navn: 'Feil trekk',
+    },
+    {
+      kode: 'SVP_TILRETTELEGGING_FULLT_MULIG',
+      navn: 'Full tilrettelegging mulig',
+    },
+    {
+      kode: 'GRADERT_UTTAK',
+      navn: 'Gradert uttak',
+    },
+    {
+      kode: 'ES_ANDRE_FORELDRE_DODD',
+      navn: 'Har ikke foreldreansvar ved andre forelders død',
+    },
+    {
+      kode: 'IKKE_ALENEOMSORG',
+      navn: 'Ikke aleneomsorg',
+    },
+    {
+      kode: 'IKKE_BOSATT',
+      navn: 'Ikke bosatt',
+    },
+    {
+      kode: 'ES_IKKE_MINDRE_SAMVAER',
+      navn: 'Ikke hatt mindre samvær enn barneloven §43',
+    },
+    {
+      kode: 'SVP_IKKE_HELSEFARLIG',
+      navn: 'Ikke helsefarlig for ventet barn',
+    },
+    {
+      kode: 'SVP_IKKE_ARBEID',
+      navn: 'Ikke i arbeid siste 4 uker',
+    },
+    {
       kode: 'IKKE_INNTEKT',
       navn: 'Ikke inntekt 6 av siste 10 måneder',
+    },
+    {
+      kode: 'IKKE_LOVLIG_OPPHOLD',
+      navn: 'Ikke lovlig opphold',
+    },
+    {
+      kode: 'IKKE_OMSORG',
+      navn: 'Ikke omsorg for barnet',
+    },
+    {
+      kode: 'IKKE_OPPHOLDSRETT_EØS',
+      navn: 'Ikke oppholdsrett EØS',
+    },
+    {
+      kode: 'FORELDRES_UTTAK',
+      navn: 'Ikke rett til samtidig uttak',
+    },
+    {
+      kode: 'SVP_INNTEKT_IKKE_TAP',
+      navn: 'Ikke tap av pensjonsgivende inntekt',
+    },
+    {
+      kode: 'ES_IKKE_TILDELT',
+      navn: 'Ikke tildelt foreldreansvar etter barneloven',
     },
     {
       kode: 'IKKE_YRKESAKTIV',
@@ -173,16 +553,84 @@ export const alleTilbakekrevingKodeverk = {
       navn: 'Inntekt under 1/2 G',
     },
     {
-      kode: 'ENDRING_GRUNNLAG',
-      navn: 'Endring i selve grunnlaget',
+      kode: 'SVP_INNTEKT_UNDER',
+      navn: 'Inntekt under 1/2 G',
     },
     {
-      kode: 'ENDRET_DEKNINGSGRAD',
-      navn: 'Endret dekningsgrad',
+      kode: 'LOVBESTEMT_FERIE',
+      navn: 'Lovbestemt ferie',
     },
     {
-      kode: 'FEIL_FLERBARNSDAGER',
-      navn: 'Feil i flerbarnsdager',
+      kode: 'STONADSPERIODE_MANGEL',
+      navn: 'Manglende stønadsperiode',
+    },
+    {
+      kode: 'ES_MANN_IKKE_ALENE',
+      navn: 'Mann adopterer ikke alene',
+    },
+    {
+      kode: 'MOR_IKKE_HELT_AVHENGIG',
+      navn: 'Mor er ikke helt avhengig av hjelp til å ta seg av barnet',
+    },
+    {
+      kode: 'MOR_IKKE_ARBEID',
+      navn: 'Mor er ikke i arbeid heltid',
+    },
+    {
+      kode: 'MOR_IKKE_ARBEID_OG_STUDER',
+      navn: 'Mor er ikke i arbeid og student - heltid',
+    },
+    {
+      kode: 'MOR_IKKE_I_IP',
+      navn: 'Mor er ikke i introduksjonsprogram',
+    },
+    {
+      kode: 'MOR_IKKE_I_KP',
+      navn: 'Mor er ikke i kvalifiseringsprogram',
+    },
+    {
+      kode: 'MOR_IKKE_INNLAGT',
+      navn: 'Mor er ikke innlagt på helseinstitusjon',
+    },
+    {
+      kode: 'MOR_IKKE_STUDERT',
+      navn: 'Mor er ikke student på heltid',
+    },
+    {
+      kode: 'MOTTAKER_DØD',
+      navn: 'Mottaker er død',
+    },
+    {
+      kode: 'ES_MOTTAKER_FAR_MEDMOR',
+      navn: 'Mottaker er far eller medmor',
+    },
+    {
+      kode: 'MOTTAKER_HELT_AVHENGIG',
+      navn: 'Mottaker er helt avhengig av hjelp til å ta seg av barnet',
+    },
+    {
+      kode: 'KVO_MOTTAKER_HELT_AVHENGIG',
+      navn: 'Mottaker er helt avhengig av hjelp til å ta seg av barnet',
+    },
+    {
+      kode: 'MOTTAKER_I_ARBEID',
+      navn: 'Mottaker er i arbeid heltid',
+    },
+    {
+      kode: 'MOTTAKER_IKKE_GRAVID',
+      navn: 'Mottaker er ikke lenger gravid',
+    },
+    {
+      kode: 'MOTTAKER_INNLAGT',
+      navn: 'Mottaker er innlagt i helseinstitusjon',
+    },
+    {
+      kode: 'KVO_MOTTAKER_INNLAGT',
+      navn: 'Mottaker er innlagt i helseinstitusjon',
+    },
+    {
+      kode: 'NY_STONADSPERIODE',
+      navn: 'Ny stønadsperiode for nytt barn',
     },
     {
       kode: 'OPPHOR_BARN_DOD',
@@ -193,468 +641,60 @@ export const alleTilbakekrevingKodeverk = {
       navn: 'Opphør mottaker død',
     },
     {
-      kode: 'STONADSPERIODE_OVER_3',
-      navn: 'Stønadsperiode over 3 år',
-    },
-    {
-      kode: 'NY_STONADSPERIODE',
-      navn: 'Ny stønadsperiode for nytt barn',
-    },
-    {
-      kode: 'IKKE_OMSORG',
-      navn: 'Ikke omsorg for barnet',
-    },
-    {
-      kode: 'MOTTAKER_I_ARBEID',
-      navn: 'Mottaker i arbeid heltid',
-    },
-    {
-      kode: 'FORELDRES_UTTAK',
-      navn: 'Ikke rett til samtidig uttak',
-    },
-    {
-      kode: 'STONADSPERIODE_MANGEL',
-      navn: 'Manglende stønadsperiode',
-    },
-    {
-      kode: 'LOVBESTEMT_FERIE',
-      navn: 'Lovbestemt ferie',
-    },
-    {
-      kode: 'ARBEID_HELTID',
-      navn: 'Arbeid heltid',
-    },
-    {
-      kode: 'MOTTAKER_HELT_AVHENGIG',
-      navn: 'Mottaker helt avhenig av hjelp til å ta seg av barnet',
-    },
-    {
-      kode: 'MOTTAKER_INNLAGT',
-      navn: 'Mottaker innlagt i helseinstitusjon',
-    },
-    {
-      kode: 'BARN_INNLAGT',
-      navn: 'Barn innlagt i helseinstitusjon',
-    },
-    {
-      kode: 'KVO_MOTTAKER_HELT_AVHENGIG',
-      navn: 'Mottaker helt avhenig av hjelp til å ta seg av barnet',
-    },
-    {
-      kode: 'KVO_MOTTAKER_INNLAGT',
-      navn: 'Mottaker innlagt i helseinstitusjon',
+      kode: 'REFUSJON_ARBGIVER',
+      navn: 'Refusjon til arbeidsgiver',
     },
     {
       kode: 'KVO_SAMTIDIG_UTTAK',
       navn: 'Samtidig uttak',
     },
     {
-      kode: 'MOR_IKKE_ARBEID',
-      navn: 'Mor ikke arbeidet heltid',
-    },
-    {
-      kode: 'MOR_IKKE_STUDERT',
-      navn: 'Mor ikke studert heltid',
-    },
-    {
-      kode: 'MOR_IKKE_ARBEID_OG_STUDER',
-      navn: 'Mor ikke arbeid og studier - heltid',
-    },
-    {
-      kode: 'MOR_IKKE_HELT_AVHENGIG',
-      navn: 'Mor ikke helt avhengig av hjelp til å ta seg av barnet',
-    },
-    {
-      kode: 'MOR_IKKE_INNLAGT',
-      navn: 'Mor ikke innlagt helseinstitusjon',
-    },
-    {
-      kode: 'MOR_IKKE_I_IP',
-      navn: 'Mor ikke i introduksjonsprogram',
-    },
-    {
-      kode: 'MOR_IKKE_I_KP',
-      navn: 'Mor ikke i kvalifiseringsprogram',
-    },
-    {
-      kode: 'FEIL_I_ANTALL_DAGER',
-      navn: 'Feil i antall dager',
-    },
-    {
-      kode: 'IKKE_ALENEOMSORG',
-      navn: 'Ikke aleneomsorg',
-    },
-    {
-      kode: 'GRADERT_UTTAK',
-      navn: 'Gradert uttak',
-    },
-    {
-      kode: 'SVP_ENDRING_TERMINDATO',
-      navn: 'Endring i termindato',
-    },
-    {
-      kode: 'SVP_TIDLIG_FODSEL',
-      navn: 'Tidlig fødsel',
-    },
-    {
-      kode: 'SVP_IKKE_HELSEFARLIG',
-      navn: 'Ikke helsefarlig for ventende barn',
-    },
-    {
-      kode: 'SVP_TILRETTELEGGING_FULLT_MULIG',
-      navn: 'Tilrettelegging fullt mulig',
-    },
-    {
-      kode: 'SVP_TILRETTELEGGING_DELVIS_MULIG',
-      navn: 'Tilrettelegging delvis mulig',
-    },
-    {
-      kode: 'SVP_IKKE_ARBEID',
-      navn: 'Ikke i arbeid siste 4 uker',
-    },
-    {
-      kode: 'SVP_INNTEKT_UNDER',
-      navn: 'Inntekt under 1/2 G',
-    },
-    {
-      kode: 'SVP_ENDRING_GRUNNLAG',
-      navn: 'Endring i selve grunnlaget',
-    },
-    {
-      kode: 'SVP_ENDRING_PROSENT',
-      navn: 'Endring i uttaksprosent/gradering',
-    },
-    {
-      kode: 'SVP_ENDRING_PERIODE',
-      navn: 'Endring av periode',
-    },
-    {
-      kode: 'MOTTAKER_DØD',
-      navn: 'Mottaker død',
-    },
-    {
-      kode: 'MOTTAKER_IKKE_GRAVID',
-      navn: 'Mottaker ikke lenger gravid',
-    },
-    {
-      kode: 'SVP_INNTEKT_IKKE_TAP',
-      navn: 'Ikke tap av pensjonsgivende inntekt',
-    },
-    {
-      kode: 'ES_BARN_IKKE_REGISTRERT',
-      navn: 'Barn ikke registrert',
-    },
-    {
-      kode: 'ES_MOTTAKER_FAR_MEDMOR',
-      navn: 'Mottaker er far eller medmor',
-    },
-    {
-      kode: 'ES_IKKE_OPPFYLT',
-      navn: 'Adopsjonsvilkår ikke oppfylt',
-    },
-    {
-      kode: 'ES_BARN_OVER_15',
-      navn: 'Barn over 15 år',
-    },
-    {
-      kode: 'ES_MANN_IKKE_ALENE',
-      navn: 'Mann adopterer ikke alene',
-    },
-    {
       kode: 'ES_STEBARN',
       navn: 'Stebarnsadopsjon',
     },
     {
-      kode: 'ES_ANDRE_FORELDRE_DODD',
-      navn: 'Har ikke foreldreansvar ved andre foreldres død',
-    },
-    {
-      kode: 'ES_IKKE_TILDELT',
-      navn: 'Ikke tildelt foreldreansvar etter barneloven',
-    },
-    {
-      kode: 'ES_IKKE_MINDRE_SAMVAER',
-      navn: 'Ikke hatt mindre samvær enn barneloven §43',
-    },
-    {
-      kode: 'ES_FORELDREANSVAR_BARN_OVER_15',
-      navn: 'Barn over 15 år',
-    },
-    {
-      kode: 'ES_FAR_IKKE_OMSORG',
-      navn: 'Far ikke omsorg for barnet',
+      kode: 'ES_STONAD_FLERE_GANGER',
+      navn: 'Stønad er gitt for samme barn flere ganger',
     },
     {
       kode: 'ES_STONADEN_ALLEREDE_UTBETALT',
       navn: 'Stønaden allerede utbetalt til mor',
     },
     {
-      kode: 'ES_FAR_IKKE_ALENE',
-      navn: 'Far overtar ikke foreldreansvar alene',
+      kode: 'STONADSPERIODE_OVER_3',
+      navn: 'Stønadsperioden er over 3 år',
     },
     {
-      kode: 'ES_FAR_IKKE_INNEN_STONADSPERIODE',
-      navn: 'Far overtar ikke innen stønadsperioden',
-    },
-    {
-      kode: 'ES_BRUKER_RETT_FORELDREPENGER',
-      navn: 'Bruker har likevel rett på foreldrepenger',
-    },
-    {
-      kode: 'ES_STONAD_FLERE_GANGER',
-      navn: 'Stønad gitt for samme barn flere ganger',
-    },
-    {
-      kode: 'UTVANDRET',
-      navn: 'Utvandret',
-    },
-    {
-      kode: 'IKKE_LOVLIG_OPPHOLD',
-      navn: 'Ikke lovlig opphold',
+      kode: 'SVP_TIDLIG_FODSEL',
+      navn: 'Tidlig fødsel',
     },
     {
       kode: 'MEDLEM_I_ANNET_LAND',
       navn: 'Unntak medlemskap/medlem annet land',
     },
     {
-      kode: 'IKKE_OPPHOLDSRETT_EØS',
-      navn: 'Ikke oppholdsrett EØS',
-    },
-    {
-      kode: 'IKKE_BOSATT',
-      navn: 'Ikke bosatt',
-    },
-    {
-      kode: 'OKONOMI_DOBBELUTBETALING',
-      navn: 'Dobbeltutbetaling',
-    },
-    {
       kode: 'OKONOMI_UTBETALT',
       navn: 'Utbetalt for mye',
     },
     {
-      kode: 'OKONOMI_FEIL_TREKK',
-      navn: 'Feil trekk',
-    },
-    {
-      kode: 'OKONOMI_FEIL_FERIEPENGER',
-      navn: 'Feil feriepengeutbetaling',
-    },
-    {
-      kode: 'ØKONOMI_UTBETALT_FOR_MYE',
-      navn: 'Feil i økonomi - utbetalt for mye',
-    },
-    {
-      kode: 'REFUSJON_ARBGIVER',
-      navn: 'Refusjon til arbeidsgiver',
-    },
-    {
-      kode: 'ANNET_FRITEKST',
-      navn: 'Annet - fritekst',
-    },
-    {
-      kode: 'FEIL_FERIEPENGER_4G',
-      navn: 'Feil i feriepenger - under 4G',
+      kode: 'UTVANDRET',
+      navn: 'Utvandret',
     },
   ],
-  HistorikkinnslagType: [
+  BehandlingType: [
     {
-      kode: 'BEH_GJEN',
-      navn: 'Behandling gjenopptatt',
-    },
-    {
-      kode: 'BEH_MAN_GJEN',
-      navn: 'Gjenoppta behandling',
-    },
-    {
-      kode: 'BEH_STARTET',
-      navn: 'Behandling startet',
-    },
-    {
-      kode: 'BEH_STARTET_PÅ_NYTT',
-      navn: 'Behandling startet på nytt',
-    },
-    {
-      kode: 'BEH_STARTET_FORFRA',
-      navn: 'Behandling startet forfra',
-    },
-    {
-      kode: 'VEDLEGG_MOTTATT',
-      navn: 'Vedlegg mottatt',
-    },
-    {
-      kode: 'BREV_SENT',
-      navn: 'Brev sendt',
-    },
-    {
-      kode: 'BREV_BESTILT',
-      navn: 'Brev bestilt',
-    },
-    {
-      kode: 'REVURD_OPPR',
-      navn: 'Tilbakekreving Revurdering opprettet',
-    },
-    {
-      kode: 'REGISTRER_PAPIRSØK',
-      navn: 'Registrer papirsøknad',
-    },
-    {
-      kode: 'MANGELFULL_SØKNAD',
-      navn: 'Mangelfull søknad',
-    },
-    {
-      kode: 'INNSYN_OPPR',
-      navn: 'Innsynsbehandling opprettet',
-    },
-    {
-      kode: 'NYE_REGOPPLYSNINGER',
-      navn: 'Nye registeropplysninger',
-    },
-    {
-      kode: 'KLAGEBEH_STARTET',
-      navn: 'Klage mottatt',
-    },
-    {
-      kode: 'TILBAKEKREVING_OPPR',
-      navn: 'Tilbakekreving opprettet',
-    },
-    {
-      kode: 'FORSLAG_VEDTAK',
-      navn: 'Vedtak foreslått og sendt til beslutter',
-    },
-    {
-      kode: 'VEDTAK_FATTET',
-      navn: 'Vedtak fattet',
-    },
-    {
-      kode: 'VEDTAK_FATTET_AUTOMATISK',
-      navn: 'Vedtak automatisk fattet',
-    },
-    {
-      kode: 'REGISTRER_OM_VERGE',
-      navn: 'Registering av opplysninger om verge/fullmektig',
-    },
-    {
-      kode: 'SAK_RETUR',
-      navn: 'Sak retur',
-    },
-    {
-      kode: 'AVBRUTT_BEH',
-      navn: 'Behandling er henlagt',
-    },
-    {
-      kode: 'BEH_VENT',
-      navn: 'Behandling på vent',
-    },
-    {
-      kode: 'FJERNET_VERGE',
-      navn: 'Opplysninger om verge/fullmektig fjernet',
-    },
-    {
-      kode: 'FAKTA_ENDRET',
-      navn: 'Fakta endret',
-    },
-    {
-      kode: 'BYTT_ENHET',
-      navn: 'Bytt enhet',
-    },
-    {
-      kode: 'KLAGE_BEH_NFP',
-      navn: 'Klagebehandling NFP',
-    },
-    {
-      kode: 'KLAGE_BEH_NK',
-      navn: 'Klagebehandling KA',
-    },
-    {
-      kode: 'NY_GRUNNLAG_MOTTATT',
-      navn: 'Kravgrunnlag Mottatt',
-    },
-    {
-      kode: 'OVERSTYRT',
-      navn: 'Overstyrt',
-    },
-    {
-      kode: 'OPPTJENING',
-      navn: 'Behandlet opptjeningsperiode',
-    },
-    {
-      kode: 'FAKTA_OM_FEILUTBETALING',
-      navn: 'Fakta om feilutbetaling',
-    },
-    {
-      kode: 'TILBAKEKREVING',
+      kode: 'BT-007',
       navn: 'Tilbakekreving',
     },
     {
-      kode: 'FORELDELSE',
-      navn: 'Foreldelse',
-    },
-  ],
-  VilkårResultat: [
-    {
-      kode: 'FORSTO_BURDE_FORSTAATT',
-      navn: 'Ja, mottaker forsto eller burde forstått at utbetalingen skyldtes en feil (1. ledd, 1. punkt)',
-    },
-    {
-      kode: 'MANGELFULL_OPPLYSNING',
-      navn: 'Ja, mottaker har forårsaket feilutbetalingen ved forsett eller uaktsomt gitt mangelfulle opplysninger (1. ledd, 2 punkt)',
-    },
-    {
-      kode: 'FEIL_OPPLYSNINGER',
-      navn: 'Ja, mottaker har forårsaket feilutbetalingen ved forsett eller uaktsomt gitt feilaktige opplysninger (1. ledd, 2 punkt)',
-    },
-    {
-      kode: 'GOD_TRO',
-      navn: 'Nei, mottaker har mottatt beløpet i god tro (1. ledd)',
-    },
-  ],
-  HistorikkOpplysningType: [
-    {
-      kode: 'FODSELSDATO',
-      navn: null,
-    },
-    {
-      kode: 'PERIODE_FOM',
-      navn: null,
-    },
-    {
-      kode: 'PERIODE_TOM',
-      navn: null,
-    },
-    {
-      kode: 'TILBAKEKREVING_OPPFYLT_BEGRUNNELSE',
-      navn: null,
-    },
-    {
-      kode: 'SÆRLIG_GRUNNER_BEGRUNNELSE',
-      navn: null,
-    },
-    {
-      kode: 'KRAVGRUNNLAG_VEDTAK_ID',
-      navn: 'ID',
-    },
-    {
-      kode: 'KRAVGRUNNLAG_STATUS',
-      navn: 'Status',
+      kode: 'BT-009',
+      navn: 'Tilbakekreving revurdering',
     },
   ],
   Venteårsak: [
     {
-      kode: 'VENT_PÅ_BRUKERTILBAKEMELDING',
-      navn: 'Venter på tilbakemelding fra bruker',
-    },
-    {
-      kode: 'VENT_PÅ_TILBAKEKREVINGSGRUNNLAG',
-      navn: 'Venter på tilbakekrevingsgrunnlag fra økonomi',
-    },
-    {
       kode: 'AVV_DOK',
       navn: 'Avventer dokumentasjon',
-    },
-    {
-      kode: 'UTV_TIL_FRIST',
-      navn: 'Utvidet tilsvarsfrist',
     },
     {
       kode: 'ENDRE_TILKJENT_YTELSE',
@@ -664,33 +704,17 @@ export const alleTilbakekrevingKodeverk = {
       kode: 'VENT_PÅ_MULIG_MOTREGNING',
       navn: 'Mulig motregning med annen ytelse',
     },
-  ],
-  ForeldelseVurderingType: [
     {
-      kode: 'IKKE_VURDERT',
-      navn: 'Perioden er ikke vurdert',
+      kode: 'UTV_TIL_FRIST',
+      navn: 'Utvidet tilsvarsfrist',
     },
     {
-      kode: 'FORELDET',
-      navn: 'Perioden er foreldet',
+      kode: 'VENT_PÅ_TILBAKEKREVINGSGRUNNLAG',
+      navn: 'Venter på tilbakekrevingsgrunnlag fra økonomi',
     },
     {
-      kode: 'IKKE_FORELDET',
-      navn: 'Perioden er ikke foreldet',
-    },
-    {
-      kode: 'TILLEGGSFRIST',
-      navn: 'Perioden er ikke foreldet, regel om tilleggsfrist (10 år) benyttes',
-    },
-  ],
-  AnnenVurdering: [
-    {
-      kode: 'GOD_TRO',
-      navn: 'Handlet i god tro',
-    },
-    {
-      kode: 'FORELDET',
-      navn: 'Foreldet',
+      kode: 'VENT_PÅ_BRUKERTILBAKEMELDING',
+      navn: 'Venter på tilbakemelding fra bruker',
     },
   ],
   Aktsomhet: [
@@ -707,71 +731,19 @@ export const alleTilbakekrevingKodeverk = {
       navn: 'Simpel uaktsomhet',
     },
   ],
-  BehandlingResultatType: [
-    {
-      kode: 'IKKE_FASTSATT',
-      navn: 'Ikke fastsatt',
-    },
-    {
-      kode: 'FASTSATT',
-      navn: 'Resultatet er fastsatt',
-    },
-    {
-      kode: 'HENLAGT_FEILOPPRETTET',
-      navn: 'Henlagt, søknaden er feilopprettet',
-    },
-    {
-      kode: 'HENLAGT_FEILOPPRETTET_MED_BREV',
-      navn: 'Feilaktig opprettet - med henleggelsesbrev',
-    },
-    {
-      kode: 'HENLAGT_FEILOPPRETTET_UTEN_BREV',
-      navn: 'Feilaktig opprettet - uten henleggelsesbrev',
-    },
-    {
-      kode: 'HENLAGT_KRAVGRUNNLAG_NULLSTILT',
-      navn: 'Kravgrunnlaget er nullstilt',
-    },
-    {
-      kode: 'HENLAGT_TEKNISK_VEDLIKEHOLD',
-      navn: 'Teknisk vedlikehold',
-    },
-    {
-      kode: 'HENLAGT',
-      navn: 'Henlagt',
-    },
-    {
-      kode: 'INGEN_TILBAKEBETALING',
-      navn: 'Ingen tilbakebetaling',
-    },
-    {
-      kode: 'DELVIS_TILBAKEBETALING',
-      navn: 'Delvis tilbakebetaling',
-    },
-    {
-      kode: 'FULL_TILBAKEBETALING',
-      navn: 'Tilbakebetaling',
-    },
-  ],
-  VurderÅrsak: [
-    {
-      kode: 'FEIL_FAKTA',
-      navn: 'Feil fakta',
-    },
-    {
-      kode: 'FEIL_LOV',
-      navn: 'Feil lovanvendelse',
-    },
-    {
-      kode: 'FEIL_REGEL',
-      navn: 'Feil regelforståelse',
-    },
-    {
-      kode: 'ANNET',
-      navn: 'Annet',
-    },
-  ],
   BehandlingÅrsakType: [
+    {
+      kode: 'RE_FEILUTBETALT_BELØP_REDUSERT',
+      navn: 'Feilutbetalt beløp helt eller delvis bortfalt',
+    },
+    {
+      kode: 'RE_FORELDELSE',
+      navn: 'Nye opplysninger om foreldelse',
+    },
+    {
+      kode: 'RE_VILKÅR',
+      navn: 'Nye opplysninger om vilkårsvurdering',
+    },
     {
       kode: 'RE_KLAGE_NFP',
       navn: 'Revurdering NFP omgjør vedtak basert på klage',
@@ -781,240 +753,8 @@ export const alleTilbakekrevingKodeverk = {
       navn: 'Revurdering etter KA-behandlet klage',
     },
     {
-      kode: 'RE_VILKÅR',
-      navn: 'Nye opplysninger om vilkårsvurdering',
-    },
-    {
-      kode: 'RE_FORELDELSE',
-      navn: 'Nye opplysninger om foreldelse',
-    },
-    {
-      kode: 'RE_FEILUTBETALT_BELØP_REDUSERT',
-      navn: 'Feilutbetalt beløp helt eller delvis bortfalt',
-    },
-  ],
-  VergeType: [
-    {
-      kode: 'BARN',
-      navn: 'Verge for barn under 18 år',
-    },
-    {
-      kode: 'FBARN',
-      navn: 'Verge for foreldreløst barn under 18 år',
-    },
-    {
-      kode: 'VOKSEN',
-      navn: 'Verge for voksen',
-    },
-    {
-      kode: 'ADVOKAT',
-      navn: 'Advokat/advokatfullmektig',
-    },
-    {
-      kode: 'ANNEN_F',
-      navn: 'Annen fullmektig',
-    },
-  ],
-  VedtakResultatType: [
-    {
-      kode: 'FULL_TILBAKEBETALING',
-      navn: 'Tilbakebetaling',
-    },
-    {
-      kode: 'DELVIS_TILBAKEBETALING',
-      navn: 'Delvis tilbakebetaling',
-    },
-    {
-      kode: 'INGEN_TILBAKEBETALING',
-      navn: 'Ingen tilbakebetaling',
-    },
-  ],
-  BehandlingType: [
-    {
-      kode: 'BT-007',
-      navn: 'Tilbakekreving',
-    },
-    {
-      kode: 'BT-009',
-      navn: 'Tilbakekreving revurdering',
-    },
-  ],
-  HistorikkAktør: [
-    {
-      kode: 'BESL',
-      navn: 'Beslutter',
-    },
-    {
-      kode: 'SBH',
-      navn: 'Saksbehandler',
-    },
-    {
-      kode: 'SOKER',
-      navn: 'Søker',
-    },
-    {
-      kode: 'ARBEIDSGIVER',
-      navn: 'Arbeidsgiver',
-    },
-    {
-      kode: 'VL',
-      navn: 'Vedtaksløsningen',
-    },
-  ],
-  SærligGrunn: [
-    {
-      kode: 'GRAD_UAKTSOMHET',
-      navn: 'Graden av uaktsomhet hos den kravet retter seg mot',
-    },
-    {
-      kode: 'HELT_ELLER_DELVIS_NAVS_FEIL',
-      navn: 'Om feilen helt eller delvis kan tilskrives Nav',
-    },
-    {
-      kode: 'STOERRELSE_BELOEP',
-      navn: 'Størrelsen på feilutbetalt beløp',
-    },
-    {
-      kode: 'TID_FRA_UTBETALING',
-      navn: 'Hvor lang tid siden utbetalingen fant sted',
-    },
-    {
-      kode: 'ANNET',
-      navn: 'Annet',
-    },
-  ],
-  VidereBehandling: [
-    {
-      kode: 'TILBAKEKR_OPPRETT',
-      navn: 'Feilutbetaling med tilbakekreving',
-    },
-    {
-      kode: 'TILBAKEKR_IGNORER',
-      navn: 'Feilutbetaling, avvent samordning',
-    },
-    {
-      kode: 'TILBAKEKR_INNTREKK',
-      navn: 'Feilutbetaling hvor inntrekk dekker hele beløpet',
-    },
-    {
-      kode: 'TILBAKEKR_OPPDATER',
-      navn: 'Endringer vil oppdatere eksisterende feilutbetalte perioder og beløp.',
-    },
-  ],
-  HistorikkEndretFeltType: [
-    {
-      kode: 'BEHANDLENDE_ENHET',
-      navn: '',
-    },
-    {
-      kode: 'BEHANDLING',
-      navn: '',
-    },
-    {
-      kode: 'ER_VILKARENE_TILBAKEKREVING_OPPFYLT',
-      navn: 'Er vilkårene for tilbakekreving oppfylt?',
-    },
-    {
-      kode: 'ER_SARLIGE_GRUNNER_TIL_REDUKSJON',
-      navn: 'Er det særlige grunner til reduksjon?',
-    },
-    {
-      kode: 'HENDELSE_AARSAK',
-      navn: 'Hendelse',
-    },
-    {
-      kode: 'HENDELSE_UNDER_AARSAK',
-      navn: 'Hendelse Under Årsak',
-    },
-    {
-      kode: 'MOTTAKER_UAKTSOMHET_GRAD',
-      navn: 'I hvilken grad har mottaker handlet uaktsomhet?',
-    },
-    {
-      kode: 'ANDEL_TILBAKEKREVES',
-      navn: 'Andel som tilbakekreves',
-    },
-    {
-      kode: 'BELOEP_TILBAKEKREVES',
-      navn: 'Beløp som skal tilbakekreves',
-    },
-    {
-      kode: 'TILBAKEKREV_SMAABELOEP',
-      navn: 'Skal beløp under 4 rettsgebyr(6.ledd) tilbakekreves?',
-    },
-    {
-      kode: 'BELOEP_ER_I_BEHOLD',
-      navn: 'Er beløpet i behold?',
-    },
-    {
-      kode: 'ILEGG_RENTER',
-      navn: 'Skal det tilegges renter?',
-    },
-    {
-      kode: 'FORELDELSE',
-      navn: 'Foreldelse',
-    },
-    {
-      kode: 'FORELDELSESFRIST',
-      navn: 'Foreldelsesfrist',
-    },
-    {
-      kode: 'OPPDAGELSES_DATO',
-      navn: 'Dato for når feilutbetaling ble oppdaget',
-    },
-  ],
-  Fagsystem: [
-    {
-      kode: 'FPSAK',
-      navn: null,
-    },
-    {
-      kode: 'K9',
-      navn: null,
-    },
-    {
-      kode: 'TPS',
-      navn: null,
-    },
-    {
-      kode: 'JOARK',
-      navn: null,
-    },
-    {
-      kode: 'INFOTRYGD',
-      navn: null,
-    },
-    {
-      kode: 'ARENA',
-      navn: null,
-    },
-    {
-      kode: 'INNTEKT',
-      navn: null,
-    },
-    {
-      kode: 'MEDL',
-      navn: null,
-    },
-    {
-      kode: 'GOSYS',
-      navn: null,
-    },
-    {
-      kode: 'ENHETSREGISTERET',
-      navn: null,
-    },
-    {
-      kode: 'AAREGISTERET',
-      navn: null,
-    },
-    {
-      kode: 'FPTILBAKE',
-      navn: null,
-    },
-    {
-      kode: 'K9TILBAKE',
-      navn: null,
+      kode: 'FATTET_AV_ANNEN_INSTANS',
+      navn: 'Vedtak fattet av annen instans',
     },
   ],
 };
