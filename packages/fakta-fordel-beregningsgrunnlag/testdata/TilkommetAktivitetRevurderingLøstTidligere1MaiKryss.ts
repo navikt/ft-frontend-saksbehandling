@@ -1,4 +1,3 @@
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
 
 export const beregningsgrunnlag = [
@@ -237,7 +236,7 @@ export const beregningsgrunnlag = [
             tom: '2023-04-28',
             inntektsforholdListe: [
               {
-                aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+                aktivitetStatus: 'AT',
                 arbeidsgiverId: '999999997',
                 bruttoInntektPrÅr: undefined,
                 inntektFraInntektsmeldingPrÅr: 450000,
@@ -255,7 +254,7 @@ export const beregningsgrunnlag = [
             tom: '2023-04-30',
             inntektsforholdListe: [
               {
-                aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+                aktivitetStatus: 'AT',
                 arbeidsgiverId: '999999997',
                 bruttoInntektPrÅr: undefined,
                 inntektFraInntektsmeldingPrÅr: 450000,
@@ -273,7 +272,7 @@ export const beregningsgrunnlag = [
             tom: '2023-05-05',
             inntektsforholdListe: [
               {
-                aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+                aktivitetStatus: 'AT',
                 arbeidsgiverId: '999999997',
                 bruttoInntektPrÅr: undefined,
                 inntektFraInntektsmeldingPrÅr: 450000,
@@ -285,7 +284,7 @@ export const beregningsgrunnlag = [
                 },
               },
               {
-                aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+                aktivitetStatus: 'AT',
                 arbeidsgiverId: '974652293',
                 bruttoInntektPrÅr: 300000,
                 inntektFraInntektsmeldingPrÅr: null,
@@ -303,7 +302,7 @@ export const beregningsgrunnlag = [
             tom: '2023-05-20',
             inntektsforholdListe: [
               {
-                aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+                aktivitetStatus: 'AT',
                 arbeidsgiverId: '999999997',
                 bruttoInntektPrÅr: undefined,
                 inntektFraInntektsmeldingPrÅr: 450000,
@@ -315,7 +314,7 @@ export const beregningsgrunnlag = [
                 },
               },
               {
-                aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+                aktivitetStatus: 'AT',
                 arbeidsgiverId: '974652293',
                 bruttoInntektPrÅr: undefined,
                 inntektFraInntektsmeldingPrÅr: null,

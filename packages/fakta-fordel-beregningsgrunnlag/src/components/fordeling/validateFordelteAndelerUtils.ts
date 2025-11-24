@@ -1,8 +1,7 @@
 import { type UseFormGetValues } from 'react-hook-form';
 import { type IntlShape } from 'react-intl';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
+import type { AktivitetStatus, ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 import { formatCurrencyNoKr, formaterArbeidsgiver, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import type {
@@ -360,7 +359,7 @@ const validateSumFastsattArbeidstaker = (
   kodeverkSamling: KodeverkForPanel,
   intl: IntlShape,
 ): string | undefined => {
-  const statuserSomValideres = [AktivitetStatus.ARBEIDSTAKER];
+  const statuserSomValideres = ['AT'];
   const sumFastsattBelop = finnFastsattBeløpForStatus(
     vilkårperiodeFieldIndex,
     getValues,
@@ -378,6 +377,7 @@ const validateSumFastsattArbeidstaker = (
   );
 };
 
+const statuserSomPrioriteresOverSN = new Set<AktivitetStatus>(['AT', 'FL', 'DP', 'AAP']);
 const validateSumFastsattArbeidstakerOgFrilanser = (
   vilkårperiodeFieldIndex: number,
   getValues: UseFormGetValues<FordelBeregningsgrunnlagFormValues>,
@@ -387,15 +387,9 @@ const validateSumFastsattArbeidstakerOgFrilanser = (
   kodeverkSamling: KodeverkForPanel,
   intl: IntlShape,
 ): string | undefined => {
-  const statuserSomPrioriteresOverSN = [
-    AktivitetStatus.ARBEIDSTAKER,
-    AktivitetStatus.FRILANSER,
-    AktivitetStatus.DAGPENGER,
-    AktivitetStatus.ARBEIDSAVKLARINGSPENGER,
-  ] as string[];
   const statuserSomValideres = fields
     .map(field => field.aktivitetStatus)
-    .filter((item): item is string => !!item && statuserSomPrioriteresOverSN.includes(item));
+    .filter((item): item is AktivitetStatus => !!item && statuserSomPrioriteresOverSN.has(item));
 
   const sumFastsattBelop = finnFastsattBeløpForStatus(
     vilkårperiodeFieldIndex,
@@ -423,9 +417,7 @@ export const validateSumFastsattForUgraderteAktiviteter = (
   grunnbeløp: number,
   kodeverkSamling: KodeverkForPanel,
 ): string | undefined => {
-  const skalGradereFL = !!fields.find(
-    v => v.andelIArbeid !== '0.00' && v.aktivitetStatus === AktivitetStatus.FRILANSER,
-  );
+  const skalGradereFL = !!fields.find(v => v.andelIArbeid !== '0.00' && v.aktivitetStatus === 'FL');
   const seksG = 6 * grunnbeløp;
   if (skalGradereFL) {
     return validateSumFastsattArbeidstaker(
@@ -438,9 +430,7 @@ export const validateSumFastsattForUgraderteAktiviteter = (
       intl,
     );
   }
-  const skalGradereSN = !!fields.find(
-    v => v.andelIArbeid !== '0.00' && v.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
-  );
+  const skalGradereSN = !!fields.find(v => v.andelIArbeid !== '0.00' && v.aktivitetStatus === 'SN');
   if (skalGradereSN) {
     return validateSumFastsattArbeidstakerOgFrilanser(
       vilkårperiodeFieldIndex,

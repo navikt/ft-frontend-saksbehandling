@@ -6,7 +6,6 @@ import { Alert, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup, RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
@@ -52,7 +51,7 @@ export const TilkommetInntektsforholdField = ({
 
   const lagHjelpetekst = (): ReactElement => {
     switch (field.aktivitetStatus) {
-      case AktivitetStatus.FRILANSER:
+      case 'FL':
         return (
           <>
             Her skal du fastsette den inntekten bruker ville hatt fremover ved fullt arbeid i sin «normalarbeidstid».
@@ -71,7 +70,7 @@ export const TilkommetInntektsforholdField = ({
             Husk å begrunne fastsatt inntekt for alle periodene.
           </>
         );
-      case AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE:
+      case 'SN':
         return (
           <>
             Her skal du fastsette den inntekten bruker ville hatt fremover ved fullt arbeid i sin «normalarbeidstid».
@@ -105,10 +104,10 @@ export const TilkommetInntektsforholdField = ({
   };
 
   const getRadioGroupLabel = (): string => {
-    if (field.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE) {
+    if (field.aktivitetStatus === 'SN') {
       return intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.VurderTekstNæring' });
     }
-    if (field.aktivitetStatus === AktivitetStatus.FRILANSER) {
+    if (field.aktivitetStatus === 'FL') {
       return intl.formatMessage({ id: 'BeregningInfoPanel.TilkommetAktivitet.VurderTekstFrilans' });
     }
     return intl.formatMessage(

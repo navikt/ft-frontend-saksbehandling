@@ -1,7 +1,9 @@
 import type {
+  AktivitetStatus,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   FaktaOmBeregning,
+  Inntektskategori,
   KortvarigAndel,
   KunYtelse,
   VurderMottarYtelse,
@@ -50,10 +52,10 @@ export type VurderOgFastsettATFLValues = ErOverstyringValues & {
 
 export type GenerellAndelInfo = {
   andel: string;
-  aktivitetStatus: string;
+  aktivitetStatus: AktivitetStatus;
   andelsnr?: number;
   nyAndel: boolean;
-  inntektskategori: string;
+  inntektskategori?: Inntektskategori;
   lagtTilAvSaksbehandler: boolean;
 };
 

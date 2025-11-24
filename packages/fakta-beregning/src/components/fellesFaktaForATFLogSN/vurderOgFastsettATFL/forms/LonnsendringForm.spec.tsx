@@ -1,5 +1,4 @@
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import type { Beregningsgrunnlag } from '@navikt/ft-types';
+import type { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 
 import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
 import type { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
@@ -7,9 +6,9 @@ import { LonnsendringForm } from './LonnsendringForm';
 import { lonnsendringField } from './lonnsendringFormUtils';
 
 describe('LonnsendringForm', () => {
-  const faktaOmBeregning = {
+  const faktaOmBeregning: FaktaOmBeregning = {
     faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING],
-    arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1, aktivitetStatus: AktivitetStatus.ARBEIDSTAKER }],
+    arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1, aktivitetStatus: 'AT' }],
     andelerForFaktaOmBeregning: [],
   };
 
@@ -39,7 +38,7 @@ describe('LonnsendringForm', () => {
         {
           beregningsgrunnlagPrStatusOgAndel: [
             {
-              aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+              aktivitetStatus: 'AT',
               lonnsendringIBeregningsperioden: true,
             },
           ],

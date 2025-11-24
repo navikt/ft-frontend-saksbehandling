@@ -6,7 +6,6 @@ import { BodyShort, Label, Link, Radio, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { BeregningAvklaringsbehov, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
 
 import { FaktaOmBeregningTilfelle } from '../../../kodeverk/faktaOmBeregningTilfelle';
@@ -137,7 +136,7 @@ VurderBesteberegningForm.transformValues = (
         inntektskategori: krevVerdiEllerKastFeil(verdi.inntektskategori),
       },
     }));
-  const nyDagpengeAndel = inntektPrAndel.find(a => a.nyAndel && a.aktivitetStatus === AktivitetStatus.DAGPENGER);
+  const nyDagpengeAndel = inntektPrAndel.find(a => a.nyAndel && a.aktivitetStatus === 'DP');
   return {
     besteberegningAndeler: {
       besteberegningAndelListe: transformedValues,

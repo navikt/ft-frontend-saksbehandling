@@ -4,8 +4,8 @@ import { FormattedMessage } from 'react-intl';
 import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
 import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus, FagsakYtelseType } from '@navikt/ft-kodeverk';
-import type { Beregningsgrunnlag, YtelseGrunnlag } from '@navikt/ft-types';
+import { FagsakYtelseType } from '@navikt/ft-kodeverk';
+import type { AktivitetStatus, Beregningsgrunnlag, YtelseGrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { BTag, formatCurrencyNoKr, periodFormat } from '@navikt/ft-utils';
 
@@ -24,61 +24,59 @@ type StatusKonfigEntry = {
   beskrivelseId: string;
 };
 
-type StatusKonfig = {
-  [key: string]: StatusKonfigEntry;
-};
+type StatusKonfig = Partial<Record<AktivitetStatus, StatusKonfigEntry>>;
 
 // Visningsrekkefølge på statuser i tabellen. Lavere tall = høyere opp i tabellen
 const statusKonfigMap: StatusKonfig = {
-  [AktivitetStatus.ARBEIDSTAKER]: {
+  AT: {
     rekkefølgePri: 1,
     beskrivelseId: 'OppsummertGrunnlagPanel.Arbeid',
   },
-  [AktivitetStatus.FRILANSER]: {
+  FL: {
     rekkefølgePri: 2,
     beskrivelseId: 'OppsummertGrunnlagPanel.Frilans',
   },
-  [AktivitetStatus.DAGPENGER]: {
+  DP: {
     rekkefølgePri: 3,
     beskrivelseId: 'OppsummertGrunnlagPanel.Dagpenger',
   },
-  [AktivitetStatus.SYKEPENGER_AV_DAGPENGER]: {
+  SP_AV_DP: {
     rekkefølgePri: 3,
     beskrivelseId: 'OppsummertGrunnlagPanel.SykepengerAvDagpenger',
   },
-  [AktivitetStatus.PLEIEPENGER_AV_DAGPENGER]: {
+  PSB_AV_DP: {
     rekkefølgePri: 3,
     beskrivelseId: 'OppsummertGrunnlagPanel.PleiepengerAvDagpenger',
   },
-  [AktivitetStatus.ARBEIDSAVKLARINGSPENGER]: {
+  AAP: {
     rekkefølgePri: 4,
     beskrivelseId: 'OppsummertGrunnlagPanel.Arbeidsavklaringspenger',
   },
-  [AktivitetStatus.KUN_YTELSE]: {
+  KUN_YTELSE: {
     rekkefølgePri: 5,
     beskrivelseId: 'OppsummertGrunnlagPanel.Ytelse',
   },
-  [AktivitetStatus.MILITÆR_ELLER_SIVIL]: {
+  MS: {
     rekkefølgePri: 6,
     beskrivelseId: 'OppsummertGrunnlagPanel.Militær',
   },
-  [AktivitetStatus.BRUKERS_ANDEL]: {
+  BA: {
     rekkefølgePri: 7,
     beskrivelseId: 'OppsummertGrunnlagPanel.BrukersAndel',
   },
-  [AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE]: {
+  SN: {
     rekkefølgePri: 8,
     beskrivelseId: 'OppsummertGrunnlagPanel.Næring',
   },
 };
 
 const finnRekkefølgePrioritet = (andel: TabellRadData): number => {
-  const pri = statusKonfigMap[andel.status]?.rekkefølgePri;
+  const pri = statusKonfigMap[andel.aktivitetStatus]?.rekkefølgePri;
   return pri || 100; // Default settes veldig høyt så den havner nederst i tabellen
 };
 
 const finnStatusBeskrivelse = (andel: TabellRadData): string => {
-  const beskrivelseId = statusKonfigMap[andel.status]?.beskrivelseId;
+  const beskrivelseId = statusKonfigMap[andel.aktivitetStatus]?.beskrivelseId;
   return beskrivelseId || 'Ukjent andel';
 };
 
@@ -114,8 +112,7 @@ const lagIkkeOppfyltVisning = (grunnbeløp: number, erMidlertidigInaktiv: boolea
 );
 
 const sjekkErMidlertidigInaktiv = (beregningsgrunnlag: Beregningsgrunnlag): boolean =>
-  !!beregningsgrunnlag.aktivitetStatus &&
-  beregningsgrunnlag.aktivitetStatus.some(a => a === AktivitetStatus.MIDLERTIDIG_INAKTIV);
+  !!beregningsgrunnlag.aktivitetStatus && beregningsgrunnlag.aktivitetStatus.some(a => a === 'MIDL_INAKTIV');
 
 const lagResultatRader = (
   tabellData: TabellData,
@@ -200,7 +197,7 @@ export const OppsummertGrunnlagPanel = ({ tabellData, skalVisePeriode, vilkårsp
       <VStack gap="space-24">
         <div>
           {tabellData.andeler.map((rad, index) => (
-            <React.Fragment key={rad.status}>
+            <React.Fragment key={rad.aktivitetStatus}>
               <HorizontalBox borderBottom borderTop={index === 0}>
                 <BodyShort size="small">
                   <FormattedMessage id={finnStatusBeskrivelse(rad)} />

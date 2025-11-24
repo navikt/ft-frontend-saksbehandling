@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl';
 import { Label } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 
 import { BeregningsresultatPeriode } from './BeregningsresultatPeriode';
@@ -20,44 +19,30 @@ import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.modul
 const finnInntektstak = (bg: Beregningsgrunnlag) => (bg.grunnbeløp ? bg.grunnbeløp * 6 : 0);
 
 const finnBGFrilans = (bg: Beregningsgrunnlag, periode: BeregningsgrunnlagPeriodeProp): number => {
-  if (
-    !erSøktForAndelISøknadsperiode(AktivitetStatus.FRILANSER, periode, bg.ytelsesspesifiktGrunnlag as FrisinnGrunnlag)
-  ) {
+  if (!erSøktForAndelISøknadsperiode('FL', periode, bg.ytelsesspesifiktGrunnlag as FrisinnGrunnlag)) {
     return 0;
   }
   let inntektstak = finnInntektstak(bg);
-  const atBrutto = finnBruttoForStatusIPeriode(AktivitetStatus.ARBEIDSTAKER, bg, periode);
+  const atBrutto = finnBruttoForStatusIPeriode('AT', bg, periode);
   inntektstak -= atBrutto;
-  if (
-    !erSøktForAndelISøknadsperiode(
-      AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
-      periode,
-      bg.ytelsesspesifiktGrunnlag as FrisinnGrunnlag,
-    )
-  ) {
-    const snBrutto = finnBruttoForStatusIPeriode(AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE, bg, periode);
+  if (!erSøktForAndelISøknadsperiode('SN', periode, bg.ytelsesspesifiktGrunnlag as FrisinnGrunnlag)) {
+    const snBrutto = finnBruttoForStatusIPeriode('SN', bg, periode);
     inntektstak -= snBrutto;
   }
-  const frilansBrutto = finnBruttoForStatusIPeriode(AktivitetStatus.FRILANSER, bg, periode);
+  const frilansBrutto = finnBruttoForStatusIPeriode('FL', bg, periode);
   return frilansBrutto > inntektstak ? inntektstak : frilansBrutto;
 };
 
 const finnBGNæring = (bg: Beregningsgrunnlag, periode: BeregningsgrunnlagPeriodeProp): number => {
-  if (
-    !erSøktForAndelISøknadsperiode(
-      AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
-      periode,
-      bg.ytelsesspesifiktGrunnlag as FrisinnGrunnlag,
-    )
-  ) {
+  if (!erSøktForAndelISøknadsperiode('SN', periode, bg.ytelsesspesifiktGrunnlag as FrisinnGrunnlag)) {
     return 0;
   }
   let inntektstak = finnInntektstak(bg);
-  const atBrutto = finnBruttoForStatusIPeriode(AktivitetStatus.ARBEIDSTAKER, bg, periode);
+  const atBrutto = finnBruttoForStatusIPeriode('AT', bg, periode);
   inntektstak -= atBrutto;
-  const flBrutto = finnBruttoForStatusIPeriode(AktivitetStatus.FRILANSER, bg, periode);
+  const flBrutto = finnBruttoForStatusIPeriode('FL', bg, periode);
   inntektstak -= flBrutto;
-  const snBrutto = finnBruttoForStatusIPeriode(AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE, bg, periode);
+  const snBrutto = finnBruttoForStatusIPeriode('SN', bg, periode);
   return snBrutto > inntektstak ? inntektstak : snBrutto;
 };
 

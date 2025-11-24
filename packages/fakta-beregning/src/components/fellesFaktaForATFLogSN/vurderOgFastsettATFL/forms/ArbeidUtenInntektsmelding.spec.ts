@@ -1,5 +1,4 @@
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import type { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { Beregningsgrunnlag, BeregningsgrunnlagAndel, FaktaOmBeregning } from '@navikt/ft-types';
 
 import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
 import { Organisasjonstype } from '../../../../kodeverk/organisasjonstype';
@@ -125,10 +124,10 @@ describe('<ArbeidUtenInntektsmelding>', () => {
       [lonnsendringField]: true,
     } as FaktaOmBeregningAksjonspunktValues;
     const inntektVerdier = [{ fastsattBelop: 10000, andelsnr: 1, inntektskategori: 'ARBEIDSTAKER' }];
-    const faktaOmBeregning = {
+    const faktaOmBeregning: FaktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING],
-      arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1, aktivitetStatus: AktivitetStatus.ARBEIDSTAKER }],
+      arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1, aktivitetStatus: 'AT' }],
     };
     const bg = {
       beregningsgrunnlagPeriode: [
@@ -137,7 +136,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
             {
               andelsnr: 1,
               arbeidsforhold: {},
-              aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+              aktivitetStatus: 'AT',
             } as BeregningsgrunnlagAndel,
           ],
         },
@@ -163,10 +162,10 @@ describe('<ArbeidUtenInntektsmelding>', () => {
       [lonnsendringField]: false,
     } as FaktaOmBeregningAksjonspunktValues;
     const inntektVerdier: InntektTransformed[] = [{ andelsnr: 1 } as InntektTransformed];
-    const faktaOmBeregning = {
+    const faktaOmBeregning: FaktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING],
-      arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1, aktivitetStatus: AktivitetStatus.ARBEIDSTAKER }],
+      arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1, aktivitetStatus: 'AT' }],
     };
     const bg = {
       beregningsgrunnlagPeriode: [
@@ -199,10 +198,10 @@ describe('<ArbeidUtenInntektsmelding>', () => {
           inntektskategori: 'ARBEIDSTAKER',
         },
       ];
-      const faktaOmBeregning = {
+      const faktaOmBeregning: FaktaOmBeregning = {
         andelerForFaktaOmBeregning: [],
         faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING],
-        arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1, aktivitetStatus: AktivitetStatus.ARBEIDSTAKER }],
+        arbeidsforholdMedLønnsendringUtenIM: [{ andelsnr: 1, aktivitetStatus: 'AT' }],
       };
       const bg = {
         beregningsgrunnlagPeriode: [

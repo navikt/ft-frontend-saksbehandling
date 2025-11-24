@@ -1,4 +1,3 @@
-import { AktivitetStatus, Inntektskategori } from '@navikt/ft-kodeverk';
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
 
 import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
@@ -23,22 +22,22 @@ describe('NyoppstartetFLForm', () => {
     expect(transformedObject.vurderNyoppstartetFL?.erNyoppstartetFL).toBe(true);
   });
 
-  const frilansAndelInntekt = {
+  const frilansAndelInntekt: InntektTransformed = {
     andelsnr: 1,
     fastsattBelop: 10000,
-    inntektskategori: Inntektskategori.FRILANSER,
+    inntektskategori: 'FRILANSER',
     nyAndel: false,
     lagtTilAvSaksbehandler: false,
-    aktivitetStatus: AktivitetStatus.FRILANSER,
+    aktivitetStatus: 'FL',
   };
 
-  const arbeidstakerInntekt = {
+  const arbeidstakerInntekt: InntektTransformed = {
     andelsnr: 2,
     fastsattBelop: 20000,
-    inntektskategori: Inntektskategori.ARBEIDSTAKER,
+    inntektskategori: 'ARBEIDSTAKER',
     nyAndel: false,
     lagtTilAvSaksbehandler: false,
-    aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+    aktivitetStatus: 'AT',
   };
 
   it('skal teste transform values med inntekter', () => {
@@ -46,7 +45,7 @@ describe('NyoppstartetFLForm', () => {
       ...emptyValues,
       [erNyoppstartetFLField]: true,
     } as FaktaOmBeregningAksjonspunktValues;
-    const inntekterPrMnd = [frilansAndelInntekt as InntektTransformed, arbeidstakerInntekt as InntektTransformed];
+    const inntekterPrMnd = [frilansAndelInntekt, arbeidstakerInntekt];
     const fastsatteAndeler: number[] = [];
     const transformedObject = NyoppstartetFLForm.transformValues(
       values,
@@ -72,7 +71,7 @@ describe('NyoppstartetFLForm', () => {
         {
           beregningsgrunnlagPrStatusOgAndel: [
             {
-              aktivitetStatus: AktivitetStatus.FRILANSER,
+              aktivitetStatus: 'FL',
               erNyoppstartet: true,
             },
           ],

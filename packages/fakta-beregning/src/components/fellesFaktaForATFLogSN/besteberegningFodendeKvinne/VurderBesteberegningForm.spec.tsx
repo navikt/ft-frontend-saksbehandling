@@ -1,7 +1,8 @@
-import type { VurderBesteberegning } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehov, VurderBesteberegning } from '@navikt/ft-types';
 
 import { FaktaOmBeregningTilfelle } from '../../../kodeverk/faktaOmBeregningTilfelle';
 import type { FaktaOmBeregningAksjonspunktValues } from '../../../typer/FaktaBeregningTypes';
+import type { InntektTransformed } from '../../../typer/FieldValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { besteberegningField, VurderBesteberegningForm } from './VurderBesteberegningForm';
 
@@ -31,7 +32,7 @@ describe('VurderBesteberegningForm', () => {
     const vurderBesteberegning: VurderBesteberegning = {
       skalHaBesteberegning: undefined,
     };
-    const ap = {
+    const ap: BeregningAvklaringsbehov = {
       definisjon: OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
       status: 'OPPR',
       kanLoses: true,
@@ -72,7 +73,7 @@ describe('VurderBesteberegningForm', () => {
   it('skal transform values om besteberegning', () => {
     const values = { ...emptyValues };
     values[besteberegningField] = true;
-    const inntektPrMnd = [
+    const inntektPrMnd: InntektTransformed[] = [
       { andelsnr: 1, fastsattBelop: 10000, inntektskategori: 'ARBEIDSTAKER' },
       {
         nyAndel: true,

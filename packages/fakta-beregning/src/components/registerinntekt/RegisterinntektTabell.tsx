@@ -4,7 +4,7 @@ import { Heading, Table } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 import norskFormat from 'dayjs/locale/nb';
 
-import { AktivitetStatus, InntektAktivitetType } from '@navikt/ft-kodeverk';
+import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
@@ -92,7 +92,7 @@ const erAktivVedStp = (
     return andelerVedSkjæringstidspunkt.some(a => a.arbeidsforhold?.arbeidsgiverIdent === inntekt.arbeidsgiverIdent);
   }
   if (inntekt.inntektAktivitetType === InntektAktivitetType.FRILANS) {
-    return andelerVedSkjæringstidspunkt.some(a => a.aktivitetStatus === AktivitetStatus.FRILANSER);
+    return andelerVedSkjæringstidspunkt.some(a => a.aktivitetStatus === 'FL');
   }
   return false;
 };

@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl';
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { Detail, Heading, Hide, HStack, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
@@ -24,9 +23,7 @@ const finnDetaljerSN = (bg: Beregningsgrunnlag): string => {
     bg.beregningsgrunnlagPeriode && bg.beregningsgrunnlagPeriode.length > 0
       ? bg.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel || []
       : [];
-  const snAndel = alleAndelerIForstePeriode.find(
-    andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
-  );
+  const snAndel = alleAndelerIForstePeriode.find(andel => andel.aktivitetStatus && andel.aktivitetStatus === 'SN');
   const erNyoppstartet = !!snAndel?.næringer?.some(naring => naring.erNyoppstartet === true);
   if (erNyoppstartet) {
     return 'AksjonspunktBehandlerHeader.Detaljer.Nyoppstartet';

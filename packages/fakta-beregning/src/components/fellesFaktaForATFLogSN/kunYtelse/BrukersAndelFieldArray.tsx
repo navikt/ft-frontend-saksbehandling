@@ -12,7 +12,6 @@ import {
   useCustomValidation,
 } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import type { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
@@ -24,9 +23,8 @@ import { type SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 const defaultBGFordeling = (aktivitetStatuser: string[], kodeverkSamling: KodeverkForPanel) => ({
-  andel: kodeverkSamling['AktivitetStatus'].find(
-    as => as.kode === aktivitetStatuser.filter(kode => kode === AktivitetStatus.BRUKERS_ANDEL)[0],
-  )?.navn,
+  andel: kodeverkSamling['AktivitetStatus'].find(as => as.kode === aktivitetStatuser.filter(kode => kode === 'BA')[0])
+    ?.navn,
   fastsattBelop: '',
   inntektskategori: '',
   nyAndel: true,

@@ -1,6 +1,6 @@
 import { type UseFieldArrayAppend, type UseFieldArrayRemove } from 'react-hook-form';
 
-import { AktivitetStatus, Inntektskategori } from '@navikt/ft-kodeverk';
+import type { AktivitetStatus } from '@navikt/ft-types';
 
 import type { AndelFieldValue } from '../../typer/FieldValues';
 import type { KodeverkForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanel';
@@ -17,7 +17,7 @@ const findAktivitetStatusIndex = (fields: AndelFieldValue[], aktivitetStatusKode
 
 export const fjernEllerLeggTilAktivitetStatus = (
   fields: AndelFieldValue[],
-  aktivitetStatusKode: string,
+  aktivitetStatusKode: AktivitetStatus,
   skalHaAndelMedAktivitetstatus: boolean,
   skalFjerne: (field: AndelFieldValue) => boolean,
   nyStatusAndel: AndelFieldValue,
@@ -41,7 +41,10 @@ export const fjernEllerLeggTilAktivitetStatus = (
   }
 };
 
-export const finnStatus = (aktivitetStatuser: KodeverkMedNavn<'AktivitetStatus'>[], status: string): string => {
+export const finnStatus = (
+  aktivitetStatuser: KodeverkMedNavn<'AktivitetStatus'>[],
+  status: AktivitetStatus,
+): string => {
   const navn = aktivitetStatuser.find(({ kode }) => kode === status)?.navn;
   if (!navn) {
     throw new Error('Fant ikke aktivitetstatus med navn' + status);
@@ -50,10 +53,10 @@ export const finnStatus = (aktivitetStatuser: KodeverkMedNavn<'AktivitetStatus'>
 };
 
 const dagpenger = (aktivitetStatuser: KodeverkMedNavn<'AktivitetStatus'>[]): AndelFieldValue => ({
-  andel: finnStatus(aktivitetStatuser, AktivitetStatus.DAGPENGER),
-  aktivitetStatus: AktivitetStatus.DAGPENGER,
+  andel: finnStatus(aktivitetStatuser, 'DP'),
+  aktivitetStatus: 'DP',
   fastsattBelop: '',
-  inntektskategori: Inntektskategori.DAGPENGER,
+  inntektskategori: 'DAGPENGER',
   nyAndel: true,
   skalKunneEndreAktivitet: false,
   lagtTilAvSaksbehandler: true,
@@ -69,7 +72,7 @@ export const leggTilDagpengerOmBesteberegning = (
 ) => {
   fjernEllerLeggTilAktivitetStatus(
     fields,
-    AktivitetStatus.DAGPENGER,
+    'DP',
     skalHaBesteberegning,
     (andel: AndelFieldValue) => !skalHaBesteberegning && !skalKunneLeggeTilDagpenger && !!andel.lagtTilAvSaksbehandler,
     dagpenger(aktivitetStatuser),

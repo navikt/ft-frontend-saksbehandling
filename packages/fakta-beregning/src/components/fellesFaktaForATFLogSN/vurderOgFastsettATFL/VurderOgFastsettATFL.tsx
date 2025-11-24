@@ -128,8 +128,6 @@ export const VurderOgFastsettATFL = ({
     if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLØNN_SLUTTPAKKE)) {
       forms.push(
         <VurderEtterlonnSluttpakkeForm
-          beregningsgrunnlag={beregningsgrunnlag}
-          isAksjonspunktClosed={isAksjonspunktClosed}
           readOnly={readOnly}
           key={FaktaOmBeregningTilfelle.VURDER_ETTERLØNN_SLUTTPAKKE}
         />,

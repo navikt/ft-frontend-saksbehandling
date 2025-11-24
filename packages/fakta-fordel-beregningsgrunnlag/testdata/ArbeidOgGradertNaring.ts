@@ -1,4 +1,3 @@
-import { AktivitetStatus, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
 
 export const beregningsgrunnlag = {
@@ -23,7 +22,7 @@ export const beregningsgrunnlag = {
       dagsats: 0,
       beregningsgrunnlagPrStatusOgAndel: [
         {
-          aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+          aktivitetStatus: 'AT',
           beregningsperiodeFom: '2018-12-01',
           beregningsperiodeTom: '2019-02-28',
           beregnetPrAar: 500000.0,
@@ -33,7 +32,7 @@ export const beregningsgrunnlag = {
           arbeidsforhold: {
             arbeidsgiverIdent: '123456789',
             startdato: '2017-03-01',
-            arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
+            arbeidsforholdType: 'ARBEID',
             refusjonPrAar: 0.0,
             belopFraInntektsmeldingPrMnd: 55296,
           },
@@ -42,7 +41,7 @@ export const beregningsgrunnlag = {
           skalFastsetteGrunnlag: false,
         },
         {
-          aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
+          aktivitetStatus: 'SN',
           beregningsperiodeFom: '2015-01-01',
           beregningsperiodeTom: '2017-12-31',
           beregnetPrAar: 0.0,
@@ -51,7 +50,7 @@ export const beregningsgrunnlag = {
           andelsnr: 2,
           inntektskategori: 'SELVSTENDIG_NÆRINGSDRIVENDE',
           arbeidsforhold: {
-            arbeidsforholdType: OpptjeningAktivitetType.NARING,
+            arbeidsforholdType: 'NÆRING',
           },
           lagtTilAvSaksbehandler: false,
           erTilkommetAndel: false,
@@ -96,7 +95,7 @@ export const beregningsgrunnlag = {
       dagsats: 0,
       beregningsgrunnlagPrStatusOgAndel: [
         {
-          aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+          aktivitetStatus: 'AT',
           beregningsperiodeFom: '2018-12-01',
           beregningsperiodeTom: '2019-02-28',
           beregnetPrAar: 500000.0,
@@ -106,7 +105,7 @@ export const beregningsgrunnlag = {
           arbeidsforhold: {
             arbeidsgiverIdent: '123456789',
             startdato: '2017-03-01',
-            arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
+            arbeidsforholdType: 'ARBEID',
             refusjonPrAar: 0.0,
             belopFraInntektsmeldingPrMnd: 55296,
           },
@@ -115,7 +114,7 @@ export const beregningsgrunnlag = {
           skalFastsetteGrunnlag: false,
         },
         {
-          aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
+          aktivitetStatus: 'SN',
           beregningsperiodeFom: '2015-01-01',
           beregningsperiodeTom: '2017-12-31',
           beregnetPrAar: 0.0,
@@ -124,7 +123,7 @@ export const beregningsgrunnlag = {
           andelsnr: 2,
           inntektskategori: 'SELVSTENDIG_NÆRINGSDRIVENDE',
           arbeidsforhold: {
-            arbeidsforholdType: OpptjeningAktivitetType.NARING,
+            arbeidsforholdType: 'NÆRING',
           },
           lagtTilAvSaksbehandler: false,
           erTilkommetAndel: false,
@@ -169,7 +168,7 @@ export const beregningsgrunnlag = {
       dagsats: 0,
       beregningsgrunnlagPrStatusOgAndel: [
         {
-          aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+          aktivitetStatus: 'AT',
           beregningsperiodeFom: '2018-12-01',
           beregningsperiodeTom: '2019-02-28',
           beregnetPrAar: 500000.0,
@@ -179,7 +178,7 @@ export const beregningsgrunnlag = {
           arbeidsforhold: {
             arbeidsgiverIdent: '123456789',
             startdato: '2017-03-01',
-            arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
+            arbeidsforholdType: 'ARBEID',
             refusjonPrAar: 0.0,
             belopFraInntektsmeldingPrMnd: 55296,
           },
@@ -188,7 +187,7 @@ export const beregningsgrunnlag = {
           skalFastsetteGrunnlag: false,
         },
         {
-          aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
+          aktivitetStatus: 'SN',
           beregningsperiodeFom: '2015-01-01',
           beregningsperiodeTom: '2017-12-31',
           beregnetPrAar: 0.0,
@@ -197,7 +196,7 @@ export const beregningsgrunnlag = {
           andelsnr: 2,
           inntektskategori: 'SELVSTENDIG_NÆRINGSDRIVENDE',
           arbeidsforhold: {
-            arbeidsforholdType: OpptjeningAktivitetType.NARING,
+            arbeidsforholdType: 'NÆRING',
           },
           lagtTilAvSaksbehandler: false,
           erTilkommetAndel: false,
@@ -292,7 +291,7 @@ export const beregningsgrunnlag = {
         arbeidsforhold: {
           arbeidsgiverIdent: '123456789',
           startdato: '2017-03-01',
-          arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
+          arbeidsforholdType: 'ARBEID',
           refusjonPrAar: 0.0,
           belopFraInntektsmeldingPrMnd: 55296,
         },
@@ -305,7 +304,7 @@ export const beregningsgrunnlag = {
         inntektskategori: 'SELVSTENDIG_NÆRINGSDRIVENDE',
         aktivitetStatus: 'SN',
         arbeidsforhold: {
-          arbeidsforholdType: OpptjeningAktivitetType.NARING,
+          arbeidsforholdType: 'NÆRING',
         },
         andelsnr: 2,
         skalKunneEndreAktivitet: false,
@@ -325,7 +324,7 @@ export const beregningsgrunnlag = {
               arbeidsforhold: {
                 arbeidsgiverIdent: '123456789',
                 startdato: '2017-03-01',
-                arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
+                arbeidsforholdType: 'ARBEID',
                 refusjonPrAar: 0.0,
               },
               inntektskategori: 'ARBEIDSTAKER',
@@ -341,7 +340,7 @@ export const beregningsgrunnlag = {
             {
               andelsnr: 2,
               arbeidsforhold: {
-                arbeidsforholdType: OpptjeningAktivitetType.NARING,
+                arbeidsforholdType: 'NÆRING',
               },
               inntektskategori: 'SELVSTENDIG_NÆRINGSDRIVENDE',
               aktivitetStatus: 'SN',
@@ -365,7 +364,7 @@ export const beregningsgrunnlag = {
               arbeidsforhold: {
                 arbeidsgiverIdent: '123456789',
                 startdato: '2017-03-01',
-                arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
+                arbeidsforholdType: 'ARBEID',
                 refusjonPrAar: 0.0,
               },
               inntektskategori: 'ARBEIDSTAKER',
@@ -381,7 +380,7 @@ export const beregningsgrunnlag = {
             {
               andelsnr: 2,
               arbeidsforhold: {
-                arbeidsforholdType: OpptjeningAktivitetType.NARING,
+                arbeidsforholdType: 'NÆRING',
               },
               inntektskategori: 'SELVSTENDIG_NÆRINGSDRIVENDE',
               aktivitetStatus: 'SN',
@@ -405,7 +404,7 @@ export const beregningsgrunnlag = {
               arbeidsforhold: {
                 arbeidsgiverIdent: '123456789',
                 startdato: '2017-03-01',
-                arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
+                arbeidsforholdType: 'ARBEID',
                 refusjonPrAar: 0.0,
               },
               inntektskategori: 'ARBEIDSTAKER',
@@ -421,7 +420,7 @@ export const beregningsgrunnlag = {
             {
               andelsnr: 2,
               arbeidsforhold: {
-                arbeidsforholdType: OpptjeningAktivitetType.NARING,
+                arbeidsforholdType: 'NÆRING',
               },
               inntektskategori: 'SELVSTENDIG_NÆRINGSDRIVENDE',
               aktivitetStatus: 'SN',

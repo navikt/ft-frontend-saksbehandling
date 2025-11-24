@@ -1,11 +1,10 @@
-import { OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import type { AndelForFaktaOmBeregning } from '@navikt/ft-types';
 
 import { InntektInput } from './InntektInput';
 
 describe('<InntektInput>', () => {
   it('skal sette initial values for typen aktivitetsstatus som er angitt', () => {
-    const andelerForFaktaOmBeregning = [
+    const andelerForFaktaOmBeregning: AndelForFaktaOmBeregning[] = [
       {
         fastsattBelop: 40000,
         inntektskategori: 'ARBEIDSTAKER',
@@ -13,7 +12,7 @@ describe('<InntektInput>', () => {
         arbeidsforhold: {
           arbeidsgiverIdent: '947064649',
           startdato: '2002-04-20',
-          arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
+          arbeidsforholdType: 'ARBEID',
         },
         andelsnr: 1,
         skalKunneEndreAktivitet: false,
@@ -24,13 +23,13 @@ describe('<InntektInput>', () => {
         inntektskategori: 'FRILANSER',
         aktivitetStatus: 'FL',
         arbeidsforhold: {
-          arbeidsforholdType: OpptjeningAktivitetType.FRILANS,
+          arbeidsforholdType: 'FRILANS',
         },
         andelsnr: 2,
         skalKunneEndreAktivitet: false,
         lagtTilAvSaksbehandler: false,
       },
-    ] satisfies AndelForFaktaOmBeregning[];
+    ];
     const initialValues = InntektInput.buildInitialValues(andelerForFaktaOmBeregning, 'FL');
     expect(initialValues).toEqual({
       fastsattBelop: 3000,
@@ -38,13 +37,13 @@ describe('<InntektInput>', () => {
   });
 
   it('skal håndtere at det ikke blir satt initial values med andre andeler enn angitt', () => {
-    const andelerForFaktaOmBeregning = [
+    const andelerForFaktaOmBeregning: AndelForFaktaOmBeregning[] = [
       {
         fastsattBelop: 3000,
         inntektskategori: 'FRILANSER',
         aktivitetStatus: 'FL',
         arbeidsforhold: {
-          arbeidsforholdType: OpptjeningAktivitetType.FRILANS,
+          arbeidsforholdType: 'FRILANS',
         },
         andelsnr: 2,
         skalKunneEndreAktivitet: false,

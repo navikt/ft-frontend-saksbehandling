@@ -3,13 +3,16 @@ import dayjs from 'dayjs';
 import { action } from 'storybook/actions';
 
 import { alleKodeverk as alleKodeverkMock } from '@navikt/ft-frontend-storybook-utils';
-import { AksjonspunktStatus, AktivitetStatus, Inntektskategori, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import type {
+  AktivitetStatus,
   AndelForFaktaOmBeregning,
+  BeregningAktivitet,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   FaktaOmBeregning,
   FaktaOmBeregningAndel,
+  Inntektskategori,
+  KortvarigAndel,
 } from '@navikt/ft-types';
 import { TIDENES_ENDE } from '@navikt/ft-utils';
 
@@ -38,9 +41,9 @@ import type { Vilkår, Vilkårperiode } from './typer/Vilkår';
 import '@navikt/ft-form-hooks/dist/style.css';
 import '@navikt/ft-ui-komponenter/dist/style.css';
 
-const opprettetVurderFakta = {
+const opprettetVurderFakta: BeregningAvklaringsbehov = {
   definisjon: FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN,
-  status: AksjonspunktStatus.OPPRETTET,
+  status: 'OPPR',
   begrunnelse: undefined,
   kanLoses: true,
 };
@@ -149,84 +152,88 @@ const lagBeregningsgrunnlag = (
     faktaOmBeregning,
   }) as Beregningsgrunnlag;
 
-const lagAndel = (andelsnr: number, aktivitetStatus: string, inntektskategori: string): FaktaOmBeregningAndel => ({
+const lagAndel = (
+  andelsnr: number,
+  aktivitetStatus: AktivitetStatus,
+  inntektskategori: Inntektskategori,
+): FaktaOmBeregningAndel => ({
   andelsnr,
   aktivitetStatus,
   inntektskategori,
 });
 
 const standardFaktaArbeidstakerAndel = {
-  ...lagAndel(1, AktivitetStatus.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
+  ...lagAndel(1, 'AT', 'ARBEIDSTAKER'),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
     arbeidsgiverIdent: '12345678',
     startdato: '2019-01-01',
-    arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
+    arbeidsforholdType: 'ARBEID',
   },
-};
+} satisfies AndelForFaktaOmBeregning;
 const standardFaktaArbeidstakerAndel2 = {
-  ...lagAndel(4, AktivitetStatus.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
+  ...lagAndel(4, 'AT', 'ARBEIDSTAKER'),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
     arbeidsgiverIdent: '12345679',
     startdato: '2019-01-01',
     opphoersdato: '2020-01-01',
-    arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
+    arbeidsforholdType: 'ARBEID',
   },
-};
+} satisfies AndelForFaktaOmBeregning;
 const tidsbegrensetFaktaArbeidstakerAndel = {
-  ...lagAndel(6, AktivitetStatus.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
+  ...lagAndel(6, 'AT', 'ARBEIDSTAKER'),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
     arbeidsgiverIdent: '12345671',
     startdato: '2019-09-01',
     opphoersdato: '2020-01-01',
-    arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
+    arbeidsforholdType: 'ARBEID',
   },
-};
+} satisfies AndelForFaktaOmBeregning;
 const etterlønnSluttpakkeFaktaArbeidstakerAndel = {
-  ...lagAndel(7, AktivitetStatus.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER),
+  ...lagAndel(7, 'AT', 'ARBEIDSTAKER'),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: {
     arbeidsgiverIdent: '795349533',
     startdato: '2019-09-01',
-    arbeidsforholdType: OpptjeningAktivitetType.ETTERLONN_SLUTTPAKKE,
+    arbeidsforholdType: 'ETTERLØNN_SLUTTPAKKE',
   },
-};
-const standardFaktaDagpengerAndel = {
-  ...lagAndel(3, AktivitetStatus.DAGPENGER, Inntektskategori.DAGPENGER),
+} satisfies AndelForFaktaOmBeregning;
+const standardFaktaDagpengerAndel: AndelForFaktaOmBeregning = {
+  ...lagAndel(3, 'DP', 'DAGPENGER'),
   belopReadOnly: 30000,
   lagtTilAvSaksbehandler: false,
-};
+} satisfies AndelForFaktaOmBeregning;
 const standardFaktaFrilansAndel = {
-  ...lagAndel(2, AktivitetStatus.FRILANSER, Inntektskategori.FRILANSER),
+  ...lagAndel(2, 'FL', 'FRILANSER'),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
-};
+} satisfies AndelForFaktaOmBeregning;
 const standardFaktaMilitærAndel = {
-  ...lagAndel(5, AktivitetStatus.MILITÆR_ELLER_SIVIL, Inntektskategori.ARBEIDSTAKER),
+  ...lagAndel(5, 'MS', 'ARBEIDSTAKER'),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
-};
+} satisfies AndelForFaktaOmBeregning;
 const standardFaktaYtelseAndel = {
-  ...lagAndel(8, AktivitetStatus.BRUKERS_ANDEL, Inntektskategori.UDEFINERT),
+  ...lagAndel(8, 'BA', '-'),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
 };
 const standardFaktaNæringAndel = {
-  ...lagAndel(9, AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE, Inntektskategori.SELVSTENDIG_NÆRINGSDRIVENDE),
+  ...lagAndel(9, 'SN', 'SELVSTENDIG_NÆRINGSDRIVENDE'),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
-};
+} satisfies AndelForFaktaOmBeregning;
 const standardFaktaAAPAndel = {
-  ...lagAndel(10, AktivitetStatus.ARBEIDSAVKLARINGSPENGER, Inntektskategori.ARBEIDSAVKLARINGSPENGER),
+  ...lagAndel(10, 'AAP', 'ARBEIDSAVKLARINGSPENGER'),
   belopReadOnly: 10000,
   lagtTilAvSaksbehandler: false,
-};
+} satisfies AndelForFaktaOmBeregning;
 
 const vilkar: Vilkår = {
   vilkarType: '',
@@ -294,19 +301,17 @@ export const ArbeidOgDagpengerAp5058EnPeriode: Story = {
   },
 };
 
-const lagBeregningsgrunnlag1 = () => {
-  const overstyringAPBeregningsaktiviteter = {
-    id: 1,
+const lagBeregningsgrunnlag1 = (): Beregningsgrunnlag => {
+  const overstyringAPBeregningsaktiviteter: BeregningAvklaringsbehov = {
     definisjon: FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
-    status: AksjonspunktStatus.OPPRETTET,
+    status: 'OPPR',
     kanLoses: true,
     begrunnelse: undefined,
   };
 
-  const overstyringAPBeregningsgrunnlag = {
-    id: 1,
+  const overstyringAPBeregningsgrunnlag: BeregningAvklaringsbehov = {
     definisjon: FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-    status: AksjonspunktStatus.OPPRETTET,
+    status: 'OPPR',
     kanLoses: true,
     begrunnelse: undefined,
   };
@@ -505,15 +510,15 @@ export const ArbeidsforholdMedLønnsendringAp5058: Story = {
 };
 
 const lagBeregningsgrunnlag5 = () => {
-  const arbeidstakerBeregningsgrunnlagAndel = {
+  const arbeidstakerBeregningsgrunnlagAndel: FaktaOmBeregningAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
     inntektskategori: standardFaktaArbeidstakerAndel.inntektskategori,
   };
-  const dagpengerBeregningsgrunnlagAndel = {
+  const dagpengerBeregningsgrunnlagAndel: FaktaOmBeregningAndel = {
     andelsnr: standardFaktaDagpengerAndel.andelsnr,
-    aktivitetStatus: standardFaktaDagpengerAndel.aktivitetStatus ? standardFaktaDagpengerAndel.aktivitetStatus : '',
-    inntektskategori: standardFaktaDagpengerAndel.inntektskategori ? standardFaktaDagpengerAndel.inntektskategori : '',
+    aktivitetStatus: standardFaktaDagpengerAndel.aktivitetStatus,
+    inntektskategori: standardFaktaDagpengerAndel.inntektskategori,
   };
   const andeler = [arbeidstakerBeregningsgrunnlagAndel, dagpengerBeregningsgrunnlagAndel];
   const andelerForFaktaOmBeregning = [standardFaktaArbeidstakerAndel, standardFaktaDagpengerAndel];
@@ -604,23 +609,22 @@ export const FastsettingAvBeregningsgrunnlagForKunYtelseAp5058: Story = {
 };
 
 const lagBeregningsgrunnlag8 = () => {
-  const arbeidstakerBeregningsgrunnlagAndel = {
+  const arbeidstakerBeregningsgrunnlagAndel: FaktaOmBeregningAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
     inntektskategori: standardFaktaArbeidstakerAndel.inntektskategori,
     arbeidsforhold: standardFaktaArbeidstakerAndel.arbeidsforhold,
   };
-  const arbeidstakerBeregningsgrunnlagAndel2 = {
+  const arbeidstakerBeregningsgrunnlagAndel2: FaktaOmBeregningAndel = {
     andelsnr: standardFaktaArbeidstakerAndel2.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel2.aktivitetStatus,
     inntektskategori: standardFaktaArbeidstakerAndel2.inntektskategori,
     arbeidsforhold: standardFaktaArbeidstakerAndel2.arbeidsforhold,
   };
-  const frilansBeregningsgrunnlagAndel = {
+  const frilansBeregningsgrunnlagAndel: FaktaOmBeregningAndel = {
     andelsnr: standardFaktaFrilansAndel.andelsnr,
     aktivitetStatus: standardFaktaFrilansAndel.aktivitetStatus,
     inntektskategori: standardFaktaFrilansAndel.inntektskategori,
-    erNyoppstartet: null,
   };
   const andeler = [
     arbeidstakerBeregningsgrunnlagAndel,
@@ -721,10 +725,10 @@ const lagBeregningsgrunnlag10 = () => {
     andelerForFaktaOmBeregning,
     vurderMottarYtelse,
   } as FaktaOmBeregning;
-  const avklaringsbehov = [
+  const avklaringsbehov: BeregningAvklaringsbehov[] = [
     {
       definisjon: FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN,
-      status: AksjonspunktStatus.OPPRETTET,
+      status: 'OPPR',
       begrunnelse: undefined,
       kanLoses: true,
     },
@@ -816,7 +820,7 @@ export const FrilansOgTidsbegrensetArbeidsforholdISammeOrganisasjonAp5058: Story
 };
 
 const lagBeregningsgrunnlag13 = () => {
-  const arbeidstakerBeregningsgrunnlagAndel = {
+  const arbeidstakerBeregningsgrunnlagAndel: FaktaOmBeregningAndel = {
     andelsnr: tidsbegrensetFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: tidsbegrensetFaktaArbeidstakerAndel.aktivitetStatus,
     inntektskategori: tidsbegrensetFaktaArbeidstakerAndel.inntektskategori,
@@ -898,54 +902,54 @@ export const SelvstendigNæringNyIArbeidslivetAp5058: Story = {
 };
 
 const lagBeregningsgrunnlag16 = () => {
-  const aapAktivitet = {
-    arbeidsforholdType: OpptjeningAktivitetType.AAP,
+  const aapAktivitet: BeregningAktivitet = {
+    arbeidsforholdType: 'AAP',
     fom: '2019-01-01',
     tom: '2020-04-01',
   };
-  const arbeidsAktivitet = {
+  const arbeidsAktivitet: BeregningAktivitet = {
     ...standardFaktaArbeidstakerAndel.arbeidsforhold,
     fom: '2019-01-01',
     tom: '2020-04-01',
     skalBrukes: true,
   };
-  const arbeidsAktivitet2 = {
+  const arbeidsAktivitet2: BeregningAktivitet = {
     ...standardFaktaArbeidstakerAndel2.arbeidsforhold,
     fom: '2019-01-01',
     tom: '2020-04-01',
     skalBrukes: true,
   };
-  const tidsbegrensetarbeidsAktivitet = {
+  const tidsbegrensetarbeidsAktivitet: BeregningAktivitet = {
     ...tidsbegrensetFaktaArbeidstakerAndel.arbeidsforhold,
     fom: '2019-01-01',
     tom: '2020-04-01',
     skalBrukes: true,
   };
-  const næringAktivitet = {
-    arbeidsforholdType: OpptjeningAktivitetType.NARING,
+  const næringAktivitet: BeregningAktivitet = {
+    arbeidsforholdType: 'NÆRING',
     fom: '2019-01-01',
     tom: '2020-04-01',
     skalBrukes: true,
   };
-  const etterlonnSluttpakkeAktivitet = {
-    ...etterlønnSluttpakkeFaktaArbeidstakerAndel.arbeidsforhold,
+  const etterlonnSluttpakkeAktivitet: BeregningAktivitet = {
+    ...etterlønnSluttpakkeFaktaArbeidstakerAndel.arbeidsforhold!,
     fom: '2019-01-01',
     tom: '2020-04-01',
     skalBrukes: true,
   };
-  const frilansAktivitet = {
-    arbeidsforholdType: OpptjeningAktivitetType.FRILANS,
+  const frilansAktivitet: BeregningAktivitet = {
+    arbeidsforholdType: 'FRILANS',
     fom: '2019-01-01',
     tom: '2020-04-01',
     skalBrukes: true,
   };
-  const militærAktivitet = {
-    arbeidsforholdType: OpptjeningAktivitetType.MILITAR_ELLER_SIVILTJENESTE,
+  const militærAktivitet: BeregningAktivitet = {
+    arbeidsforholdType: 'MILITÆR_ELLER_SIVILTJENESTE',
     fom: '2019-01-01',
     tom: '2020-04-01',
     skalBrukes: true,
   };
-  const aktiviteter = [
+  const aktiviteter: BeregningAktivitet[] = [
     aapAktivitet,
     arbeidsAktivitet,
     arbeidsAktivitet2,
@@ -955,45 +959,44 @@ const lagBeregningsgrunnlag16 = () => {
     frilansAktivitet,
     militærAktivitet,
   ];
-  const arbeidstakerBeregningsgrunnlagAndel = {
+  const arbeidstakerBeregningsgrunnlagAndel: FaktaOmBeregningAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
     inntektskategori: standardFaktaArbeidstakerAndel.inntektskategori,
   };
-  const arbeidstakerBeregningsgrunnlagAndel2 = {
+  const arbeidstakerBeregningsgrunnlagAndel2: FaktaOmBeregningAndel = {
     andelsnr: standardFaktaArbeidstakerAndel2.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel2.aktivitetStatus,
     inntektskategori: standardFaktaArbeidstakerAndel2.inntektskategori,
     arbeidsforhold: standardFaktaArbeidstakerAndel2.arbeidsforhold,
   };
-  const tidsbegrensetarbeidstakerBeregningsgrunnlagAndel = {
+  const tidsbegrensetarbeidstakerBeregningsgrunnlagAndel: KortvarigAndel = {
     andelsnr: tidsbegrensetFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: tidsbegrensetFaktaArbeidstakerAndel.aktivitetStatus,
     inntektskategori: tidsbegrensetFaktaArbeidstakerAndel.inntektskategori,
     arbeidsforhold: tidsbegrensetFaktaArbeidstakerAndel.arbeidsforhold,
     lagtTilAvSaksbehandler: false,
   };
-  const beregningsgrunnlagNæringAndel = {
+  const beregningsgrunnlagNæringAndel: FaktaOmBeregningAndel = {
     andelsnr: standardFaktaNæringAndel.andelsnr,
     aktivitetStatus: standardFaktaNæringAndel.aktivitetStatus,
     inntektskategori: standardFaktaNæringAndel.inntektskategori,
   };
-  const aapBeregningsgrunnlagAndel = {
+  const aapBeregningsgrunnlagAndel: FaktaOmBeregningAndel = {
     andelsnr: standardFaktaAAPAndel.andelsnr,
     aktivitetStatus: standardFaktaAAPAndel.aktivitetStatus,
     inntektskategori: standardFaktaAAPAndel.inntektskategori,
   };
-  const etterlønnSluttpakkeBeregningsgrunnlagAndel = {
+  const etterlønnSluttpakkeBeregningsgrunnlagAndel: FaktaOmBeregningAndel = {
     andelsnr: etterlønnSluttpakkeFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: etterlønnSluttpakkeFaktaArbeidstakerAndel.aktivitetStatus,
     inntektskategori: etterlønnSluttpakkeFaktaArbeidstakerAndel.inntektskategori,
     arbeidsforhold: etterlønnSluttpakkeFaktaArbeidstakerAndel.arbeidsforhold,
   };
-  const frilansBeregningsgrunnlagAndel = {
+  const frilansBeregningsgrunnlagAndel: FaktaOmBeregningAndel = {
     andelsnr: standardFaktaFrilansAndel.andelsnr,
     aktivitetStatus: standardFaktaFrilansAndel.aktivitetStatus,
     inntektskategori: standardFaktaFrilansAndel.inntektskategori,
-    erNyoppstartet: null,
   };
   const militærBeregningsgrunnlagAndel = {
     andelsnr: standardFaktaMilitærAndel.andelsnr,
@@ -1022,7 +1025,7 @@ const lagBeregningsgrunnlag16 = () => {
   ];
   const refusjonskravSomKommerForSentListe = [
     {
-      arbeidsgiverIdent: standardFaktaArbeidstakerAndel.arbeidsforhold.arbeidsgiverIdent,
+      arbeidsgiverIdent: standardFaktaArbeidstakerAndel.arbeidsforhold!.arbeidsgiverIdent!,
     },
   ];
   const vurderMottarYtelse = {
@@ -1030,11 +1033,8 @@ const lagBeregningsgrunnlag16 = () => {
     frilansInntektPrMnd: 30000,
     arbeidstakerAndelerUtenIM: [standardFaktaArbeidstakerAndel2],
   };
-  const vurderBesteberegning = {
-    andeler: andelerForFaktaOmBeregning,
-  };
 
-  const faktaOmBeregning = {
+  const faktaOmBeregning: FaktaOmBeregning = {
     faktaOmBeregningTilfeller: [
       VURDER_REFUSJONSKRAV_SOM_HAR_KOMMET_FOR_SENT,
       VURDER_SN_NY_I_ARBEIDSLIVET,
@@ -1049,7 +1049,9 @@ const lagBeregningsgrunnlag16 = () => {
     refusjonskravSomKommerForSentListe,
     arbeidstakerOgFrilanserISammeOrganisasjonListe: [arbeidstakerBeregningsgrunnlagAndel2],
     kortvarigeArbeidsforhold: [tidsbegrensetarbeidstakerBeregningsgrunnlagAndel],
-    vurderBesteberegning,
+    vurderBesteberegning: {
+      skalHaBesteberegning: true,
+    },
     andelerForFaktaOmBeregning,
     vurderMottarYtelse,
     avklarAktiviteter: {
@@ -1061,17 +1063,17 @@ const lagBeregningsgrunnlag16 = () => {
       ],
       skjæringstidspunkt: '',
     },
-  } as FaktaOmBeregning;
-  const avklaringsbehov = [
+  };
+  const avklaringsbehov: BeregningAvklaringsbehov[] = [
     {
       definisjon: FaktaBeregningAvklaringsbehovCode.AVKLAR_AKTIVITETER,
-      status: AksjonspunktStatus.UTFORT,
+      status: 'UTFO',
       begrunnelse: 'En begrunnelse for at arbeidsforholdet var gyldig.',
       kanLoses: true,
     },
     {
       definisjon: FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN,
-      status: AksjonspunktStatus.OPPRETTET,
+      status: 'OPPR',
       begrunnelse: undefined,
       kanLoses: true,
     },
@@ -1088,33 +1090,35 @@ export const KombinasjonstestForFaktapanelAp5052Ap5058: Story = {
 };
 
 const lagBeregningsgrunnlag17 = () => {
-  const arbeidsAktivitet = {
+  const arbeidsAktivitet: BeregningAktivitet = {
     ...standardFaktaArbeidstakerAndel.arbeidsforhold,
+    arbeidsforholdType: 'ARBEID',
     fom: '2019-01-01',
     tom: '2020-04-01',
     skalBrukes: true,
   };
-  const arbeidsAktivitet2 = {
+  const arbeidsAktivitet2: BeregningAktivitet = {
     ...standardFaktaArbeidstakerAndel2.arbeidsforhold,
+    arbeidsforholdType: 'ARBEID',
     fom: '2019-01-01',
     tom: '2020-04-01',
     skalBrukes: true,
   };
   const aktiviteter = [arbeidsAktivitet, arbeidsAktivitet2];
 
-  const arbeidstakerBeregningsgrunnlagAndel = {
+  const arbeidstakerBeregningsgrunnlagAndel: FaktaOmBeregningAndel = {
     andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
     inntektskategori: standardFaktaArbeidstakerAndel.inntektskategori,
   };
-  const arbeidstakerBeregningsgrunnlagAndel2 = {
+  const arbeidstakerBeregningsgrunnlagAndel2: FaktaOmBeregningAndel = {
     andelsnr: standardFaktaArbeidstakerAndel2.andelsnr,
     aktivitetStatus: standardFaktaArbeidstakerAndel2.aktivitetStatus,
     inntektskategori: standardFaktaArbeidstakerAndel2.inntektskategori,
   };
   const andeler = [arbeidstakerBeregningsgrunnlagAndel, arbeidstakerBeregningsgrunnlagAndel2];
   const andelerForFaktaOmBeregning = [standardFaktaArbeidstakerAndel, standardFaktaArbeidstakerAndel2];
-  const faktaOmBeregning = {
+  const faktaOmBeregning: FaktaOmBeregning = {
     faktaOmBeregningTilfeller: [],
     andelerForFaktaOmBeregning,
     avklarAktiviteter: {
@@ -1127,10 +1131,10 @@ const lagBeregningsgrunnlag17 = () => {
       skjæringstidspunkt: '',
     },
   };
-  const avklaringsbehov = [
+  const avklaringsbehov: BeregningAvklaringsbehov[] = [
     {
       definisjon: FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG,
-      status: AksjonspunktStatus.OPPRETTET,
+      status: 'OPPR',
       begrunnelse: undefined,
       kanLoses: true,
     },

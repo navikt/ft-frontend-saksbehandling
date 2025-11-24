@@ -78,9 +78,10 @@ KunYtelsePanel.buildInitialValues = (
     }
 
     const fastsattBelop = andel.fastsattBelopPrMnd !== null ? formatCurrencyNoKr(andel.fastsattBelopPrMnd) : '';
-
+    const generellAndelsinfo = setGenerellAndelsinfo(andelMedInfo, arbeidsgiverOpplysningerPerId, kodeverkSamling);
     return {
-      ...setGenerellAndelsinfo(andelMedInfo, arbeidsgiverOpplysningerPerId, kodeverkSamling),
+      ...generellAndelsinfo,
+      inntektskategori: generellAndelsinfo.inntektskategori === '-' ? undefined : generellAndelsinfo.inntektskategori,
       fastsattBelop: fastsattBelop ?? '',
     };
   });

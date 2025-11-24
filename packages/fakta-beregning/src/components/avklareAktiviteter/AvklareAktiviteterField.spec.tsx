@@ -1,5 +1,5 @@
-import { OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
-import type { AvklarBeregningAktiviteterMap } from '@navikt/ft-types';
+import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
+import type { AvklarBeregningAktiviteterMap, BeregningAvklaringsbehov } from '@navikt/ft-types';
 
 import { agOpplysninger as arbeidsgiverOpplysninger } from '../../../testdata/arbeidsgiverOpplysninger';
 import type { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
@@ -8,28 +8,9 @@ import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import type { Vilkårperiode } from '../../typer/Vilkår';
 import { buildInitialValues, transformFieldValue } from './avklareAktiviteterHjelpefunksjoner';
 
-const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
+const kodeverkSamling = alleKodeverk as KodeverkForPanel;
 
-const kodeverkSamling = {
-  OpptjeningAktivitetType: [
-    {
-      kode: OpptjeningAktivitetType.ARBEID,
-      navn: 'Arbeid',
-    },
-    {
-      kode: OpptjeningAktivitetType.FRILANS,
-      navn: 'Frilans',
-    },
-    {
-      kode: OpptjeningAktivitetType.DAGPENGER,
-      navn: 'Dagpenger',
-    },
-    {
-      kode: OpptjeningAktivitetType.NARING,
-      navn: 'Næring',
-    },
-  ],
-} as KodeverkForPanel;
+const { AVKLAR_AKTIVITETER, OVERSTYRING_AV_BEREGNINGSAKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
 const aktivitet1 = {
   arbeidsgiverIdent: '384723894723',
@@ -49,7 +30,6 @@ const aktivitet2 = {
 };
 
 const aktivitet3 = {
-  aktørIdString: '324234234234',
   arbeidsgiverIdent: '324234234234',
   arbeidsforholdId: 'efj8343f34f',
   fom: '2019-01-01',
@@ -82,7 +62,7 @@ const vilkarPeriode = {
   vilkarStatus: 'IKKE_VURDERT',
 } as Vilkårperiode;
 
-const avklarAktiviteterAvklaringsbehov = [
+const avklarAktiviteterAvklaringsbehov: BeregningAvklaringsbehov[] = [
   {
     definisjon: AVKLAR_AKTIVITETER,
     status: 'UTFO',
@@ -142,7 +122,7 @@ describe('AvklareAktiviteterField', () => {
         },
       ],
     } as AvklarBeregningAktiviteterMap;
-    const aps = [
+    const aps: BeregningAvklaringsbehov[] = [
       {
         definisjon: OVERSTYRING_AV_BEREGNINGSAKTIVITETER,
         status: 'OPPR',

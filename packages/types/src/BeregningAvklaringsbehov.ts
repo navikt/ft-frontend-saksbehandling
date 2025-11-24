@@ -1,6 +1,8 @@
+import type { AksjonspunktStatus } from './AksjonspunktStatus';
+
 export type BeregningAvklaringsbehov = Readonly<{
   definisjon: string;
-  status: string;
+  status: AksjonspunktStatus;
   kanLoses: boolean;
   erTrukket?: boolean;
   begrunnelse?: string;

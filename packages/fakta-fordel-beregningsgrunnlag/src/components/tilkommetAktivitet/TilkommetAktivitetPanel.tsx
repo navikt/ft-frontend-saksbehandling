@@ -6,8 +6,12 @@ import { ScissorsIcon } from '@navikt/aksel-icons';
 import { Alert, BodyShort, Button, Heading, HStack, Label, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, VurderInntektsforholdPeriode } from '@navikt/ft-types';
+import type {
+  AktivitetStatus,
+  ArbeidsgiverOpplysningerPerId,
+  Beregningsgrunnlag,
+  VurderInntektsforholdPeriode,
+} from '@navikt/ft-types';
 import { ISO_DATE_FORMAT, sortPeriodsByFom } from '@navikt/ft-utils';
 
 import type { TilkommetAktivitetFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
@@ -73,20 +77,17 @@ export const TilkommetAktivitetPanel = ({
       return intl.formatMessage({ id: 'TilkommetAktivitet.AlertHeading.FlereStatuser' });
     }
 
-    const harSNAktvitet = finnAktivitetStatus(
-      AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
-      vurderInntektsforholdPerioder,
-    );
+    const harSNAktvitet = finnAktivitetStatus('SN', vurderInntektsforholdPerioder);
     if (harSNAktvitet) {
       return intl.formatMessage({ id: 'TilkommetAktivitet.AlertHeading.SelvstendigNæringsdrivende' });
     }
 
-    const harFrilanserAktvitet = finnAktivitetStatus(AktivitetStatus.FRILANSER, vurderInntektsforholdPerioder);
+    const harFrilanserAktvitet = finnAktivitetStatus('FL', vurderInntektsforholdPerioder);
     if (harFrilanserAktvitet) {
       return intl.formatMessage({ id: 'TilkommetAktivitet.AlertHeading.Frilans' });
     }
 
-    const harDagpengerAktivitet = finnAktivitetStatus(AktivitetStatus.DAGPENGER, vurderInntektsforholdPerioder);
+    const harDagpengerAktivitet = finnAktivitetStatus('DP', vurderInntektsforholdPerioder);
     if (harDagpengerAktivitet) {
       return intl.formatMessage({ id: 'TilkommetAktivitet.AlertHeading.Dagpenger' });
     }

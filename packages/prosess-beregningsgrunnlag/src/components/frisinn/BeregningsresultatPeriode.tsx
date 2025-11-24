@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl';
 import { BodyShort, Detail, HStack, Label, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { periodFormat } from '@navikt/ft-utils';
@@ -90,21 +89,11 @@ const lagPeriodeblokk = (
   if (!andelerDetErSøktOm || andelerDetErSøktOm.length < 1) {
     return null;
   }
-  const beregningsgrunnlagFL = andelerDetErSøktOm.some(p => p.statusSøktFor === AktivitetStatus.FRILANSER)
-    ? frilansGrunnlag
-    : null;
-  const beregningsgrunnlagSN = andelerDetErSøktOm.some(
-    p => p.statusSøktFor === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
-  )
-    ? næringGrunnlag
-    : null;
+  const beregningsgrunnlagFL = andelerDetErSøktOm.some(p => p.statusSøktFor === 'FL') ? frilansGrunnlag : null;
+  const beregningsgrunnlagSN = andelerDetErSøktOm.some(p => p.statusSøktFor === 'SN') ? næringGrunnlag : null;
 
-  const løpendeInntektFL = finnOppgittInntektForAndelIPeriode(AktivitetStatus.FRILANSER, bgperiode, ytelsegrunnlag);
-  const løpendeInntektSN = finnOppgittInntektForAndelIPeriode(
-    AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
-    bgperiode,
-    ytelsegrunnlag,
-  );
+  const løpendeInntektFL = finnOppgittInntektForAndelIPeriode('FL', bgperiode, ytelsegrunnlag);
+  const løpendeInntektSN = finnOppgittInntektForAndelIPeriode('SN', bgperiode, ytelsegrunnlag);
   const gjeldendeDekningsgrad = finnDekningsgrad(bgperiode.beregningsgrunnlagPeriodeFom);
   return (
     <>

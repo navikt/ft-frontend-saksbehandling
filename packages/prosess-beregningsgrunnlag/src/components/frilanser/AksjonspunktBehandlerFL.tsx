@@ -5,7 +5,6 @@ import { BodyShort } from '@navikt/ds-react';
 
 import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr, parseCurrencyInput } from '@navikt/ft-utils';
 
@@ -17,8 +16,7 @@ import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 
 const erFrilansFastsatt = (alleAndelerIForstePeriode: BeregningsgrunnlagAndel[]): boolean =>
   alleAndelerIForstePeriode.some(
-    andel =>
-      andel.aktivitetStatus === AktivitetStatus.FRILANSER && (andel.overstyrtPrAar || andel.overstyrtPrAar === 0),
+    andel => andel.aktivitetStatus === 'FL' && (andel.overstyrtPrAar || andel.overstyrtPrAar === 0),
   );
 
 type Props = {

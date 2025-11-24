@@ -1,4 +1,4 @@
-import type { HendelseType } from '@navikt/ft-kodeverk';
+import type { HendelseType } from '@navikt/ft-types';
 
 import type { Aktsomhet } from '../kodeverk/aktsomhet';
 import type { SærligGrunn } from '../kodeverk/særligGrunn';

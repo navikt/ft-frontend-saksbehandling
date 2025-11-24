@@ -1,6 +1,5 @@
 import dayjs from 'dayjs';
 
-import { OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { formaterArbeidsgiver } from '@navikt/ft-utils';
 
@@ -78,7 +77,7 @@ export const skalVurdereAktivitet = (
   if (!skalOverstyre && !harAksjonspunkt) {
     return false;
   }
-  if (aktivitet.arbeidsforholdType && aktivitet.arbeidsforholdType === opptjeningAktivitetTyper.AAP) {
+  if (aktivitet.arbeidsforholdType && aktivitet.arbeidsforholdType === 'AAP') {
     return false;
   }
   if (skalOverstyre) {

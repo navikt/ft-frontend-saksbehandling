@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
-import { AksjonspunktStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
+import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 
 import { ForeldelseAksjonspunktCodes } from './ForeldelseAksjonspunktCodes';
 import { ForeldelseProsessIndex } from './ForeldelseProsessIndex';
@@ -94,7 +94,7 @@ export const Default: Story = {
     aksjonspunkter: [
       {
         definisjon: ForeldelseAksjonspunktCodes.VURDER_FORELDELSE,
-        status: AksjonspunktStatus.OPPRETTET,
+        status: 'OPPR',
         begrunnelse: undefined,
         kanLoses: true,
       },

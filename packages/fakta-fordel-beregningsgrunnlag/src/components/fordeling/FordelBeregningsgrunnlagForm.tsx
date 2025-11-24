@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 import { Accordion } from '@navikt/ds-react';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
@@ -162,7 +161,7 @@ FordelBeregningsgrunnlagForm.buildInitialValues = (
   if (!fordelBGPerioder) {
     return initialValues;
   }
-  const harKunYtelse = !!bg.aktivitetStatus && bg.aktivitetStatus.some(status => status === AktivitetStatus.KUN_YTELSE);
+  const harKunYtelse = !!bg.aktivitetStatus && bg.aktivitetStatus.some(status => status === 'KUN_YTELSE');
   const bgPerioder = bg.beregningsgrunnlagPeriode;
   slåSammenPerioder(fordelBGPerioder, bgPerioder, bg.forlengelseperioder).forEach((periode, index) => {
     const bgPeriode = finnRiktigBgPeriode(periode, bgPerioder);

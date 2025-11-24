@@ -1,0 +1,28 @@
+/*
+ * Denne er en kombinasjon av typene som er generert fra k9- og fp-sak
+ */
+export type OpptjeningAktivitetType =
+  | 'AAP'
+  | 'ARBEID'
+  | 'DAGPENGER'
+  | 'FORELDREPENGER'
+  | 'FRILANS'
+  | 'FRILOPP'
+  | 'FRISINN'
+  | 'MILITÆR_ELLER_SIVILTJENESTE'
+  | 'NÆRING'
+  | 'OMSORGSPENGER'
+  | 'OPPLÆRINGSPENGER'
+  | 'PLEIEPENGER'
+  | 'SVANGERSKAPSPENGER'
+  | 'SYKEPENGER'
+  | 'VARTPENGER'
+  | 'VIDERE_ETTERUTDANNING'
+  | 'UTENLANDSK_ARBEIDSFORHOLD'
+  | 'VENTELØNN_VARTPENGER'
+  | 'ETTERLØNN_SLUTTPAKKE'
+  | 'UTDANNINGSPERMISJON'
+  | 'SYKEPENGER_AV_DAGPENGER'
+  | 'PLEIEPENGER_AV_DAGPENGER'
+  | 'MELLOM_ARBEID'
+  | '-';

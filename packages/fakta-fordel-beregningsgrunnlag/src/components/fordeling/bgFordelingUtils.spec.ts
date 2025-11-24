@@ -1,5 +1,9 @@
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import type { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
+import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
+import type {
+  ArbeidsgiverOpplysningerPerId,
+  BeregningsgrunnlagArbeidsforhold,
+  FordelBeregningsgrunnlagAndel,
+} from '@navikt/ft-types';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import type { KodeverkForPanel } from '../../types/kodeverkForPanel';
@@ -24,24 +28,7 @@ const agOpplysninger: ArbeidsgiverOpplysningerPerId = {
   },
 };
 
-const arbeidstakerIkkeFastsatt = {
-  lagtTilAvSaksbehandler: false,
-  aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
-  inntektskategori: 'ARBEIDSTAKER',
-};
-
-const kodeverkSamling = {
-  AktivitetStatus: [
-    {
-      kode: AktivitetStatus.ARBEIDSTAKER,
-      navn: 'Arbeidstaker',
-    },
-    {
-      kode: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
-      navn: 'Selvstendig næringsdrivende',
-    },
-  ],
-} as KodeverkForPanel;
+const kodeverkSamling = alleKodeverk as KodeverkForPanel;
 
 describe('bgFordelingUtils', () => {
   it('skal sette riktig fastsatt beløp for andel i periode fastsatt bruttoPrAar og fordeltPrAar', () => {
@@ -76,13 +63,14 @@ describe('bgFordelingUtils', () => {
   });
 
   it('skal sette initial values for generell andelinfo med arbeidsforhold', () => {
-    const andelValueFromState = {
+    const andelValueFromState: FordelBeregningsgrunnlagAndel = {
       arbeidsforhold: {
         arbeidsgiverIdent: '3284788923',
         arbeidsforholdId: '321378huda7e2',
         eksternArbeidsforholdId: '345678',
-      } as BeregningsgrunnlagArbeidsforhold,
-      aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+        arbeidsforholdType: 'ARBEID',
+      },
+      aktivitetStatus: 'AT',
       andelsnr: 3,
       kilde: 'PROSESS_START',
       lagtTilAvSaksbehandler: false,
@@ -100,8 +88,8 @@ describe('bgFordelingUtils', () => {
   });
 
   it('skal sette initial values for generell andelinfo uten arbeidsforhold', () => {
-    const andelValueFromState = {
-      aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
+    const andelValueFromState: FordelBeregningsgrunnlagAndel = {
+      aktivitetStatus: 'SN',
       andelsnr: 2,
       lagtTilAvSaksbehandler: true,
       inntektskategori: 'SN',
@@ -116,8 +104,8 @@ describe('bgFordelingUtils', () => {
   });
 
   it('skal ikkje sette arbeidsforhold initial values for andel uten arbeidsforhold', () => {
-    const andelValueFromState = {
-      aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
+    const andelValueFromState: FordelBeregningsgrunnlagAndel = {
+      aktivitetStatus: 'SN',
       andelsnr: 2,
       lagtTilAvSaksbehandler: true,
       inntektskategori: 'SN',
@@ -128,13 +116,15 @@ describe('bgFordelingUtils', () => {
     expect(arbeidsforholdIV.arbeidsperiodeTom).toBe('');
   });
 
-  const arbeidstakerAndel3 = {
+  const arbeidstakerAndel3: FordelBeregningsgrunnlagAndel = {
     arbeidsforhold: {
       ...arbeidsgiver,
       arbeidsforholdId: '321378huda7e2',
     } as BeregningsgrunnlagArbeidsforhold,
     andelsnr: 3,
-    ...arbeidstakerIkkeFastsatt,
+    lagtTilAvSaksbehandler: false,
+    aktivitetStatus: 'AT',
+    inntektskategori: 'ARBEIDSTAKER',
   };
 
   it('skal sette arbeidsforhold initial values for andel med arbeidsforhold', () => {

@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
@@ -151,22 +150,22 @@ export const getAktivitetNavnFraInnteksforhold = (
     agOpplysning = arbeidsgiverOpplysningerPerId[inntektsforhold.arbeidsgiverId];
   }
 
-  if (inntektsforhold.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER) {
+  if (inntektsforhold.aktivitetStatus === 'AT') {
     if (!agOpplysning) {
       return 'Arbeidsforhold';
     }
     return formaterArbeidsgiver(agOpplysning, inntektsforhold.arbeidsforholdId);
   }
 
-  if (inntektsforhold.aktivitetStatus === AktivitetStatus.FRILANSER) {
+  if (inntektsforhold.aktivitetStatus === 'FL') {
     return 'Frilanser';
   }
 
-  if (inntektsforhold.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE) {
+  if (inntektsforhold.aktivitetStatus === 'SN') {
     return 'Selvstendig næringsdrivende';
   }
 
-  if (inntektsforhold.aktivitetStatus === AktivitetStatus.DAGPENGER) {
+  if (inntektsforhold.aktivitetStatus === 'DP') {
     return 'Dagpenger';
   }
 
@@ -182,18 +181,18 @@ export const getAktivitetNavnFraField = (
     agOpplysning = arbeidsgiverOpplysningerPerId[field.arbeidsgiverIdent];
   }
 
-  if (field.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER) {
+  if (field.aktivitetStatus === 'AT') {
     if (!agOpplysning) {
       return 'Arbeidsforhold';
     }
     return formaterArbeidsgiver(agOpplysning, field.arbeidsforholdId);
   }
 
-  if (field.aktivitetStatus === AktivitetStatus.FRILANSER) {
+  if (field.aktivitetStatus === 'FL') {
     return 'Frilanser';
   }
 
-  if (field.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE) {
+  if (field.aktivitetStatus === 'SN') {
     return 'Selvstendig næringsdrivende';
   }
   return '';

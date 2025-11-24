@@ -11,8 +11,12 @@ import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 import { ErrorMessage, Table, VStack } from '@navikt/ds-react';
 
 import { useCustomValidation } from '@navikt/ft-form-hooks';
-import { AktivitetStatus, Inntektskategori } from '@navikt/ft-kodeverk';
-import type { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import type {
+  AktivitetStatus,
+  AndelForFaktaOmBeregning,
+  ArbeidsgiverOpplysningerPerId,
+  Beregningsgrunnlag,
+} from '@navikt/ft-types';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import type {
@@ -46,10 +50,10 @@ import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 import { erKunstigAndel } from './vurderOgFastsettATFL/forms/KunstigArbeidsforhold';
 
 const lagNyMS = (aktivitetStatuser: KodeverkMedNavn<'AktivitetStatus'>[]): AndelFieldValue => ({
-  andel: finnStatus(aktivitetStatuser, AktivitetStatus.MILITÆR_ELLER_SIVIL),
-  aktivitetStatus: AktivitetStatus.MILITÆR_ELLER_SIVIL,
+  andel: finnStatus(aktivitetStatuser, 'MS'),
+  aktivitetStatus: 'MS',
   fastsattBelop: '',
-  inntektskategori: Inntektskategori.ARBEIDSTAKER,
+  inntektskategori: 'ARBEIDSTAKER',
   nyAndel: true,
   skalKunneEndreAktivitet: false,
   lagtTilAvSaksbehandler: true,
@@ -82,13 +86,11 @@ const removeAndel = (index: number, remove: UseFieldArrayRemove) => () => {
   remove(index);
 };
 
-const erFrilanser = (aktivitetStatus: string): boolean => aktivitetStatus === AktivitetStatus.FRILANSER;
-const erArbeidstaker = (aktivitetStatus: string): boolean => aktivitetStatus === AktivitetStatus.ARBEIDSTAKER;
-const erDagpenger = (aktivitetStatus: string): boolean => aktivitetStatus === AktivitetStatus.DAGPENGER;
-const erSelvstendigNæringsdrivende = (aktivitetStatus: string): boolean =>
-  aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE;
-const erMilitærEllerSivil = (aktivitetStatus: string): boolean =>
-  aktivitetStatus === AktivitetStatus.MILITÆR_ELLER_SIVIL;
+const erFrilanser = (aktivitetStatus: AktivitetStatus): boolean => aktivitetStatus === 'FL';
+const erArbeidstaker = (aktivitetStatus: AktivitetStatus): boolean => aktivitetStatus === 'AT';
+const erDagpenger = (aktivitetStatus: AktivitetStatus): boolean => aktivitetStatus === 'DP';
+const erSelvstendigNæringsdrivende = (aktivitetStatus: string): boolean => aktivitetStatus === 'SN';
+const erMilitærEllerSivil = (aktivitetStatus: string): boolean => aktivitetStatus === 'MS';
 
 const fjernEllerLeggTilMilitær = (
   fields: AndelFieldValue[],
@@ -99,7 +101,7 @@ const fjernEllerLeggTilMilitær = (
 ) => {
   fjernEllerLeggTilAktivitetStatus(
     fields,
-    AktivitetStatus.MILITÆR_ELLER_SIVIL,
+    'MS',
     skalHaMilitær === true,
     () => skalHaMilitær === false,
     lagNyMS(aktivitetStatuser),

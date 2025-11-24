@@ -1,5 +1,9 @@
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import type { Beregningsgrunnlag, BeregningsgrunnlagArbeidsforhold, VurderMottarYtelse } from '@navikt/ft-types';
+import type {
+  ArbeidstakerUtenIMAndel,
+  Beregningsgrunnlag,
+  BeregningsgrunnlagArbeidsforhold,
+  VurderMottarYtelse,
+} from '@navikt/ft-types';
 
 import type { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
 import {
@@ -31,24 +35,24 @@ const arbeidsforhold3 = {
   opphoersdato: '2018-01-01',
 } as BeregningsgrunnlagArbeidsforhold;
 
-const andel = {
-  aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+const andel: ArbeidstakerUtenIMAndel = {
+  aktivitetStatus: 'AT',
   andelsnr: 1,
   inntektPrMnd: 25000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold,
 };
 
-const andel2 = {
-  aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+const andel2: ArbeidstakerUtenIMAndel = {
+  aktivitetStatus: 'AT',
   andelsnr: 2,
   inntektPrMnd: 25000,
   lagtTilAvSaksbehandler: false,
   arbeidsforhold: arbeidsforhold2,
 };
 
-const andel3 = {
-  aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+const andel3: ArbeidstakerUtenIMAndel = {
+  aktivitetStatus: 'AT',
   andelsnr: 3,
   inntektPrMnd: 25000,
   lagtTilAvSaksbehandler: false,
@@ -56,12 +60,12 @@ const andel3 = {
 };
 
 const frilansAndel = {
-  aktivitetStatus: AktivitetStatus.FRILANSER,
+  aktivitetStatus: 'FL',
   andelsnr: 4,
 };
 
-const arbeidstakerAndelerUtenIM = [
-  { ...andel, mottarYtelse: null },
+const arbeidstakerAndelerUtenIM: ArbeidstakerUtenIMAndel[] = [
+  { ...andel, mottarYtelse: undefined },
   { ...andel2, mottarYtelse: false },
   { ...andel3, mottarYtelse: true },
 ];
