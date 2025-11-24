@@ -27,7 +27,7 @@ jobs:
         run: yarn stylelint
 
       - name: ESLint
-        run: yarn eslint:changed
+        run: yarn eslint
 
       - name: Typescript
         run: yarn tsc
