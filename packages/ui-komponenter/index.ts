@@ -3,6 +3,7 @@ export { OverstyringKnapp } from './src/OverstyringKnapp';
 export { ArrowBox } from './src/ArrowBox';
 export { BorderBox } from './src/BorderBox';
 export { AksjonspunktBox } from './src/AksjonspunktBox';
+export { AksjonspunktBoks } from './src/AksjonspunktBoks/AksjonspunktBoks';
 export { DateLabel } from './src/DateLabel';
 export { DateTimeLabel } from './src/DateTimeLabel';
 export { LabeledValue } from './src/LabeledValue/LabeledValue';
