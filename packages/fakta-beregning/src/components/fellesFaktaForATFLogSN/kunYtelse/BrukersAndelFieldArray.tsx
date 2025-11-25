@@ -4,7 +4,13 @@ import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
 import { ErrorMessage, Table, VStack } from '@navikt/ds-react';
 
-import { RhfFieldArrayAppendButton, RhfFieldArrayRemoveButton, RhfSelect, RhfTextField, useCustomValidation } from '@navikt/ft-form-hooks';
+import {
+  RhfFieldArrayAppendButton,
+  RhfFieldArrayRemoveButton,
+  RhfSelect,
+  RhfTextField,
+  useCustomValidation,
+} from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
