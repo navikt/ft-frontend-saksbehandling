@@ -26,7 +26,7 @@ export type AndelFieldValue = AndelFieldIdentifikator & {
 export type InntektTransformed = {
   andelsnr?: number;
   fastsattBelop: number;
-  inntektskategori?: string;
+  inntektskategori?: Inntektskategori;
   nyAndel?: boolean;
   lagtTilAvSaksbehandler?: boolean;
   aktivitetStatus?: AktivitetStatus;

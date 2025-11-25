@@ -1,4 +1,4 @@
-import type { BeregningAvklaringsbehovTilBekreftelse } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehovTilBekreftelse, Inntektskategori } from '@navikt/ft-types';
 
 import { FaktaBeregningAvklaringsbehovCode } from './FaktaBeregningAvklaringsbehovCode';
 
@@ -68,7 +68,7 @@ type VurderATFLISammeOrgTransformedValues = {
 
 type FastsatteVerdierForBesteberegningTransformedValues = {
   fastsattBeløp: number;
-  inntektskategori: string;
+  inntektskategori: Inntektskategori;
 };
 
 export type BesteberegningFødendeKvinneAndelTransformedValues = {
@@ -90,7 +90,7 @@ type BesteberegningFødendeKvinneTransformedValues = {
 type FastsattBrukersAndelTransformedValues = {
   nyAndel: boolean;
   fastsattBeløp: number;
-  inntektskategori: string;
+  inntektskategori: Inntektskategori;
   andelsnr?: number;
   lagtTilAvSaksbehandler?: boolean;
 };

@@ -1,8 +1,8 @@
-import type { Inntektsforhold, VurderInntektsforholdPeriode } from '@navikt/ft-types';
+import type { AktivitetStatus, Inntektsforhold, VurderInntektsforholdPeriode } from '@navikt/ft-types';
 
 import { slaaSammenPerioder } from './tilkommetAktivitetUtils';
 
-const lagInntektsforhold = (aktivitetStatus: string, arbeidsgiverId: string): Inntektsforhold => ({
+const lagInntektsforhold = (aktivitetStatus: AktivitetStatus, arbeidsgiverId: string): Inntektsforhold => ({
   aktivitetStatus,
   arbeidsgiverId,
   arbeidsforholdId: '',

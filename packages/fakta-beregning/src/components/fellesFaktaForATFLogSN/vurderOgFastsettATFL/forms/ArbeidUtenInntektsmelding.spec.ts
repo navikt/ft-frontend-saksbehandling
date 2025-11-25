@@ -12,10 +12,12 @@ const emptyValues = {
   periode: { fom: '2022-01-01', tom: '2022-02-01' },
 } as FaktaOmBeregningAksjonspunktValues;
 
-describe('<ArbeidUtenInntektsmelding>', () => {
+describe('ArbeidUtenInntektsmelding', () => {
   it('skal ikke transform values uten tilfelle', () => {
-    const inntektVerdier = [{ andelsnr: 1, fastsattBelop: 100000, inntektskategori: 'ARBEIDSTAKER' }];
-    const faktaOmBeregning = {
+    const inntektVerdier: InntektTransformed[] = [
+      { andelsnr: 1, fastsattBelop: 100000, inntektskategori: 'ARBEIDSTAKER' },
+    ];
+    const faktaOmBeregning: FaktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE],
     };
@@ -30,7 +32,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
   });
 
   it('skal ikke transform values når inntektverdier er null', () => {
-    const faktaOmBeregning = {
+    const faktaOmBeregning: FaktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: [
         FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE,
@@ -48,7 +50,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
   });
 
   it('skal ikke transform values når andel allerede er fastsatt', () => {
-    const faktaOmBeregning = {
+    const faktaOmBeregning: FaktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: [
         FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE,
@@ -80,14 +82,16 @@ describe('<ArbeidUtenInntektsmelding>', () => {
   });
 
   it('skal transform values for kunstig arbeidsforhold', () => {
-    const faktaOmBeregning = {
+    const faktaOmBeregning: FaktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: [
         FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE,
         FaktaOmBeregningTilfelle.FASTSETT_MÅNEDSLØNN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
       ],
     };
-    const inntektVerdier = [{ andelsnr: 1, fastsattBelop: 10000, inntektskategori: 'ARBEIDSTAKER' }];
+    const inntektVerdier: InntektTransformed[] = [
+      { andelsnr: 1, fastsattBelop: 10000, inntektskategori: 'ARBEIDSTAKER' },
+    ];
     const bg = {
       beregningsgrunnlagPeriode: [
         {
@@ -123,7 +127,9 @@ describe('<ArbeidUtenInntektsmelding>', () => {
       periode: { fom: '2022-01-01', tom: '2022-02-01' },
       [lonnsendringField]: true,
     } as FaktaOmBeregningAksjonspunktValues;
-    const inntektVerdier = [{ fastsattBelop: 10000, andelsnr: 1, inntektskategori: 'ARBEIDSTAKER' }];
+    const inntektVerdier: InntektTransformed[] = [
+      { fastsattBelop: 10000, andelsnr: 1, inntektskategori: 'ARBEIDSTAKER' },
+    ];
     const faktaOmBeregning: FaktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING],
@@ -188,8 +194,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
     'skal transform values når ved avsluttet arbeidsforhold dagen før skjæringstidspunktet ' +
       'og et annet løpende i samme virksomhet der det er mottatt inntektsmelding',
     () => {
-      const values = { ...emptyValues };
-      const inntektVerdier = [
+      const inntektVerdier: InntektTransformed[] = [
         {
           fastsattBelop: 10000,
           andelsnr: 1,
@@ -225,7 +230,7 @@ describe('<ArbeidUtenInntektsmelding>', () => {
         ],
       };
       const transformedObject = transformValuesArbeidUtenInntektsmelding(
-        values,
+        emptyValues,
         inntektVerdier,
         faktaOmBeregning,
         bg as Beregningsgrunnlag,

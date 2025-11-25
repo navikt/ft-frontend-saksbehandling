@@ -88,13 +88,8 @@ const lagAndeler = (
   avklaringsbehov: BeregningAvklaringsbehov[],
 ): TabellRadData[] => {
   const andelerSomSkalVises = andeler.filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
-  const grupperteAndeler = new Map<AktivitetStatus, BeregningsgrunnlagAndel[]>();
-  for (const andel of andelerSomSkalVises) {
-    if (!grupperteAndeler.has(andel.aktivitetStatus)) {
-      grupperteAndeler.set(andel.aktivitetStatus, []);
-    }
-    grupperteAndeler.get(andel.aktivitetStatus)!.push(andel);
-  }
+  const grupperteAndeler = Map.groupBy(andelerSomSkalVises, andel => andel.aktivitetStatus);
+
   const radListe: TabellRadData[] = [];
   for (const [aktivitetStatus, andelerMedStatus] of grupperteAndeler) {
     const aksjonspunkt = finnAksjonspunktForStatus(aktivitetStatus, avklaringsbehov);

@@ -92,7 +92,7 @@ describe('bgFordelingUtils', () => {
       aktivitetStatus: 'SN',
       andelsnr: 2,
       lagtTilAvSaksbehandler: true,
-      inntektskategori: 'SN',
+      inntektskategori: 'SELVSTENDIG_NÆRINGSDRIVENDE',
     };
     const andelsInfo = setGenerellAndelsinfo(andelValueFromState, false, kodeverkSamling, agOpplysninger);
     expect(andelsInfo.andel).toBe('Selvstendig næringsdrivende');
@@ -100,7 +100,7 @@ describe('bgFordelingUtils', () => {
     expect(andelsInfo.andelsnr).toBe(2);
     expect(andelsInfo.nyAndel).toBe(false);
     expect(andelsInfo.lagtTilAvSaksbehandler).toBe(true);
-    expect(andelsInfo.inntektskategori).toBe('SN');
+    expect(andelsInfo.inntektskategori).toBe('SELVSTENDIG_NÆRINGSDRIVENDE');
   });
 
   it('skal ikkje sette arbeidsforhold initial values for andel uten arbeidsforhold', () => {
@@ -108,7 +108,7 @@ describe('bgFordelingUtils', () => {
       aktivitetStatus: 'SN',
       andelsnr: 2,
       lagtTilAvSaksbehandler: true,
-      inntektskategori: 'SN',
+      inntektskategori: 'SELVSTENDIG_NÆRINGSDRIVENDE',
     };
     const arbeidsforholdIV = setArbeidsforholdInitialValues(andelValueFromState);
     expect(arbeidsforholdIV.arbeidsforholdId).toBe('');

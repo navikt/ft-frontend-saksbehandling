@@ -1,9 +1,9 @@
-import type { BeregningAvklaringsbehovTilBekreftelse } from '@navikt/ft-types';
+import type { AktivitetStatus, BeregningAvklaringsbehovTilBekreftelse } from '@navikt/ft-types';
 
 import { FaktaFordelBeregningAvklaringsbehovCode } from './FaktaFordelBeregningAvklaringsbehovCode';
 
 type VurderNyttInntektsforholdAndelTransformedValues = {
-  aktivitetStatus: string;
+  aktivitetStatus: AktivitetStatus;
   skalRedusereUtbetaling: boolean;
   arbeidsgiverId?: string;
   arbeidsforholdId?: string;

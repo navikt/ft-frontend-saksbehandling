@@ -9,7 +9,7 @@ export type TidligereUtbetalinger = Readonly<{
 }>;
 
 export type RefusjonTilVurderingAndel = Readonly<{
-  aktivitetStatus: string;
+  aktivitetStatus: AktivitetStatus;
   tidligereUtbetalinger?: TidligereUtbetalinger[];
   nyttRefusjonskravFom: string;
   fastsattNyttRefusjonskravFom?: string;

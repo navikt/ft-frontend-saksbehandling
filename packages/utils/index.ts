@@ -44,3 +44,4 @@ export { prettifyDateString } from './src/dateUtils';
 export { sortPeriodsByFom, periodFormat } from './src/periodUtils';
 export { formaterArbeidsgiver } from './src/arbeidsgiverUtils';
 export { isAksjonspunktOpen } from './src/aksjonspunktUtils';
+export { notEmpty } from './src/notEmpty';

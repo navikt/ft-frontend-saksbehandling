@@ -66,8 +66,8 @@ const lagAndel = (andelsnr: number, aktivitetStatus: AktivitetStatus, inntektska
 const lagAndelValues = (
   andelsnr: number | undefined,
   fastsattBelop: string,
-  inntektskategori: string,
-  aktivitetStatus: string,
+  inntektskategori: Inntektskategori,
+  aktivitetStatus: AktivitetStatus,
   lagtTilAvSaksbehandler = false,
   nyAndel = false,
   kanRedigereInntekt = true,

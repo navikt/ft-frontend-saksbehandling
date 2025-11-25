@@ -7,6 +7,7 @@ import { BodyShort, Label, Link, Radio, VStack } from '@navikt/ds-react';
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import type { BeregningAvklaringsbehov, FaktaOmBeregning, VurderBesteberegning } from '@navikt/ft-types';
+import { notEmpty } from '@navikt/ft-utils';
 
 import { FaktaOmBeregningTilfelle } from '../../../kodeverk/faktaOmBeregningTilfelle';
 import type {
@@ -90,8 +91,7 @@ VurderBesteberegningForm.buildInitialValues = (
   if (!vurderBesteberegning) {
     return {};
   }
-  const erOverstyring =
-    avklaringsbehov.find(ap => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG) !== undefined || erOverstyrt;
+  const erOverstyring = avklaringsbehov.some(ap => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG) || erOverstyrt;
   if (erOverstyring) {
     return {
       [besteberegningField]: false,
@@ -102,19 +102,12 @@ VurderBesteberegningForm.buildInitialValues = (
   };
 };
 
-const krevVerdiEllerKastFeil = (verdi: string | undefined): string => {
-  if (!verdi) {
-    throw new Error('Påkrev verdi er undefined');
-  }
-  return verdi;
-};
-
 VurderBesteberegningForm.transformValues = (
   values: FaktaOmBeregningAksjonspunktValues,
   faktaOmBeregning: FaktaOmBeregning,
   inntektPrAndel: InntektTransformed[],
 ): FaktaBeregningTransformedValues => {
-  if (!faktaOmBeregning || !faktaOmBeregning.vurderBesteberegning) {
+  if (!faktaOmBeregning?.vurderBesteberegning) {
     return {};
   }
   const skalHaBesteberegning = values[besteberegningField];
@@ -133,7 +126,7 @@ VurderBesteberegningForm.transformValues = (
       lagtTilAvSaksbehandler: !!verdi.lagtTilAvSaksbehandler,
       fastsatteVerdier: {
         fastsattBeløp: verdi.fastsattBelop,
-        inntektskategori: krevVerdiEllerKastFeil(verdi.inntektskategori),
+        inntektskategori: notEmpty(verdi.inntektskategori),
       },
     }));
   const nyDagpengeAndel = inntektPrAndel.find(a => a.nyAndel && a.aktivitetStatus === 'DP');
@@ -144,7 +137,7 @@ VurderBesteberegningForm.transformValues = (
         ? {
             fastsatteVerdier: {
               fastsattBeløp: nyDagpengeAndel.fastsattBelop,
-              inntektskategori: krevVerdiEllerKastFeil(nyDagpengeAndel.inntektskategori),
+              inntektskategori: notEmpty(nyDagpengeAndel.inntektskategori),
             },
           }
         : undefined,

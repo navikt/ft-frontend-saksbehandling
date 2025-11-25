@@ -86,11 +86,11 @@ const removeAndel = (index: number, remove: UseFieldArrayRemove) => () => {
   remove(index);
 };
 
-const erFrilanser = (aktivitetStatus: AktivitetStatus): boolean => aktivitetStatus === 'FL';
-const erArbeidstaker = (aktivitetStatus: AktivitetStatus): boolean => aktivitetStatus === 'AT';
-const erDagpenger = (aktivitetStatus: AktivitetStatus): boolean => aktivitetStatus === 'DP';
-const erSelvstendigNæringsdrivende = (aktivitetStatus: string): boolean => aktivitetStatus === 'SN';
-const erMilitærEllerSivil = (aktivitetStatus: string): boolean => aktivitetStatus === 'MS';
+const erFrilanser = (aktivitetStatus: AktivitetStatus) => aktivitetStatus === 'FL';
+const erArbeidstaker = (aktivitetStatus: AktivitetStatus) => aktivitetStatus === 'AT';
+const erDagpenger = (aktivitetStatus: AktivitetStatus) => aktivitetStatus === 'DP';
+const erSelvstendigNæringsdrivende = (aktivitetStatus: AktivitetStatus) => aktivitetStatus === 'SN';
+const erMilitærEllerSivil = (aktivitetStatus: AktivitetStatus) => aktivitetStatus === 'MS';
 
 const fjernEllerLeggTilMilitær = (
   fields: AndelFieldValue[],
