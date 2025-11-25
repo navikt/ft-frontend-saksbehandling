@@ -23,8 +23,7 @@ import { type SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 const defaultBGFordeling = (aktivitetStatuser: string[], kodeverkSamling: KodeverkForPanel) => ({
-  andel: kodeverkSamling['AktivitetStatus'].find(as => as.kode === aktivitetStatuser.filter(kode => kode === 'BA')[0])
-    ?.navn,
+  andel: kodeverkSamling['AktivitetStatus'].find(as => as.kode === aktivitetStatuser.find(kode => kode === 'BA'))?.navn,
   fastsattBelop: '',
   inntektskategori: '',
   nyAndel: true,
@@ -40,9 +39,9 @@ const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn<'Inntektskateg
 
 const summerFordeling = (fields: BrukersAndelValues[]): string | undefined => {
   let sum = 0;
-  fields.forEach(field => {
+  for (const field of fields) {
     sum += field.fastsattBelop ? removeSpacesFromNumber(field.fastsattBelop) : 0;
-  });
+  }
   return sum > 0 ? formatCurrencyNoKr(sum) : '';
 };
 

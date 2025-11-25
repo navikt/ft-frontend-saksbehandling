@@ -112,7 +112,7 @@ const lagIkkeOppfyltVisning = (grunnbeløp: number, erMidlertidigInaktiv: boolea
 );
 
 const sjekkErMidlertidigInaktiv = (beregningsgrunnlag: Beregningsgrunnlag): boolean =>
-  !!beregningsgrunnlag.aktivitetStatus && beregningsgrunnlag.aktivitetStatus.some(a => a === 'MIDL_INAKTIV');
+  !!beregningsgrunnlag.aktivitetStatus && beregningsgrunnlag.aktivitetStatus.includes('MIDL_INAKTIV');
 
 const lagResultatRader = (
   tabellData: TabellData,

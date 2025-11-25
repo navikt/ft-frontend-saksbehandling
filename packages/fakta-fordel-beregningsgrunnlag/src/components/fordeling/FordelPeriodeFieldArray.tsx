@@ -244,7 +244,7 @@ export const FordelPeriodeFieldArray = ({
   }, [fieldArrayToRepeat]);
 
   const harKunYtelse =
-    !!beregningsgrunnlag.aktivitetStatus && beregningsgrunnlag.aktivitetStatus.some(status => status === 'KUN_YTELSE');
+    !!beregningsgrunnlag.aktivitetStatus && beregningsgrunnlag.aktivitetStatus.includes('KUN_YTELSE');
   const arbeidsforholdList = finnUnikeArbeidsforhold(beregningsgrunnlag);
 
   const gjelderGradering = getGjelderGradering(beregningsgrunnlag);
@@ -383,7 +383,9 @@ export const FordelPeriodeFieldArray = ({
                       hideLabel
                       readOnly
                       className={styles.litenBredde}
-                      normalizeOnBlur={value => (Number.isNaN(value) ? value : parseFloat(value.toString()).toFixed(2))}
+                      normalizeOnBlur={value =>
+                        Number.isNaN(value) ? value : Number.parseFloat(value.toString()).toFixed(2)
+                      }
                     />
                   </Table.DataCell>
                 )}
