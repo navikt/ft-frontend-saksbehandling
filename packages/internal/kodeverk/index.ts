@@ -1,6 +1,3 @@
-export { AktivitetStatus } from './src/aktivitetStatus';
-export { OpptjeningAktivitetType } from './src/opptjeningAktivitetType';
-export { AksjonspunktStatus } from './src/aksjonspunktStatus';
 export { BehandlingType } from './src/behandlingType';
 export { InntektAktivitetType } from './src/inntektAktivitetType';
 export { PgiType } from './src/pgiType';
@@ -14,7 +11,4 @@ export { BehandlingStatus } from './src/behandlingStatus';
 export { ForeldelseVurderingType } from './src/foreldelseVurderingType';
 export { FagsakStatus } from './src/fagsakStatus';
 export { Kommunikasjonsretning } from './src/kommunikasjonsretning';
-export { Inntektskategori } from './src/inntektskategori';
 export { LønnsendringScenario } from './src/lønnsendringScenario';
-export type { HendelseType } from './src/hendelseType';
-export { HendelseUnderType } from './src/hendelseUnderType';

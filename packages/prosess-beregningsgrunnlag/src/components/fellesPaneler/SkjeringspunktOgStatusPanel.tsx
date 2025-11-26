@@ -3,8 +3,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, HStack, Tag, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import type { ArbeidsgiverOpplysningerPerId, Saksopplysninger } from '@navikt/ft-types';
+import type { AktivitetStatus, ArbeidsgiverOpplysningerPerId, Saksopplysninger } from '@navikt/ft-types';
 import { DateLabel } from '@navikt/ft-ui-komponenter';
 
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
@@ -19,20 +18,20 @@ enum TagType {
   GRÅ = 'neutral',
 }
 
-const finnTagType = (status: string): TagType => {
+const finnTagType = (status: AktivitetStatus): TagType => {
   switch (status) {
-    case AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE:
+    case 'SN':
       return TagType.GRØNN;
-    case AktivitetStatus.FRILANSER:
+    case 'FL':
       return TagType.LILLA;
-    case AktivitetStatus.ARBEIDSTAKER:
+    case 'AT':
       return TagType.BLÅ;
     default:
       return TagType.GRÅ;
   }
 };
 
-type statusObjekt = {
+type StatusObjekt = {
   visningsNavn: string;
   kode: string;
   tagType: TagType;
@@ -42,12 +41,12 @@ const createStatusEtiketter = (
   listeMedStatuser: AktivitetStatus[],
   kodeverkSamling: KodeverkForPanel,
 ): ReactElement => {
-  const statusList = [] as statusObjekt[];
-  const unikeStatuser = listeMedStatuser.filter((status, index, self) => index === self.findIndex(t => t === status));
-  unikeStatuser.forEach(status => {
+  const statusList: StatusObjekt[] = [];
+  const unikeStatuser = new Set(listeMedStatuser);
+  for (const status of unikeStatuser) {
     const statusName = kodeverkSamling['AktivitetStatus'].find(s => s.kode === status)?.navn || '';
     statusList.push({ visningsNavn: statusName, kode: status, tagType: finnTagType(status) });
-  });
+  }
 
   statusList.sort((a, b) => (a.visningsNavn > b.visningsNavn ? 1 : -1));
   return (

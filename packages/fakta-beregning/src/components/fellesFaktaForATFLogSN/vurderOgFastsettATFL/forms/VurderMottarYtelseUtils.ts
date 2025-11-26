@@ -1,4 +1,3 @@
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { ArbeidstakerUtenIMAndel, Beregningsgrunnlag, VurderMottarYtelse } from '@navikt/ft-types';
 
 import type { AndelMottarYtelseMap } from '../../../../typer/AndelMottarYtelseMap';
@@ -53,7 +52,7 @@ export const andelsnrMottarYtelseMap = (
     return mottarYtelseMap;
   }
   const frilansAndel = beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel?.find(
-    andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER,
+    andel => andel.aktivitetStatus === 'FL',
   );
   if (frilansAndel) {
     mottarYtelseMap[frilansAndel.andelsnr] = frilansMottarYtelse(values);

@@ -6,7 +6,6 @@ import { List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
 
 import type { FaktaOmBeregningAksjonspunktValues, NyIArbeidslivetValues } from '../../../typer/FaktaBeregningTypes';
@@ -76,9 +75,7 @@ NyIArbeidslivetSNForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnl
   const alleAndeler = beregningsgrunnlag.beregningsgrunnlagPeriode.map(
     periode => periode.beregningsgrunnlagPrStatusOgAndel,
   );
-  const snAndeler = alleAndeler
-    .flat()
-    .filter(andel => andel?.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE);
+  const snAndeler = alleAndeler.flat().filter(andel => andel?.aktivitetStatus === 'SN');
   if (snAndeler.length > 0) {
     initialValues[radioGroupFieldName] = snAndeler[0]?.erNyIArbeidslivet;
   }

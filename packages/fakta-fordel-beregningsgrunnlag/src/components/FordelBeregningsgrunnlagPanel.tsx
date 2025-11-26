@@ -4,7 +4,7 @@ import { VStack } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
-import type { AksjonspunktSubmitType } from '../types/AksjonspunktSubmitType.ts';
+import type { AksjonspunktSubmitType } from '../types/AksjonspunktSubmitType';
 import type {
   FordelBeregningsgrunnlagFormValues,
   TilkommetAktivitetFormValues,

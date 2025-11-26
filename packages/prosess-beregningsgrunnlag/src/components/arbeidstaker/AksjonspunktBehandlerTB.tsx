@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 
 import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { AktivitetStatus, PeriodeÅrsak } from '@navikt/ft-kodeverk';
+import { PeriodeÅrsak } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
@@ -67,7 +67,7 @@ const findArbeidstakerAndeler = (periode: BeregningsgrunnlagPeriodeProp): Beregn
   !periode.beregningsgrunnlagPrStatusOgAndel
     ? []
     : periode.beregningsgrunnlagPrStatusOgAndel.filter(
-        andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER && andel.erTilkommetAndel !== true,
+        andel => andel.aktivitetStatus === 'AT' && andel.erTilkommetAndel !== true,
       );
 
 const createArbeidsforholdMapKey = (arbeidsforhold?: BeregningsgrunnlagArbeidsforhold): string => {
@@ -137,7 +137,7 @@ const finnAndelIPeriode = (
   periode: BeregningsgrunnlagPeriodeProp,
 ): BeregningsgrunnlagAndel | undefined => {
   const andeler = periode.beregningsgrunnlagPrStatusOgAndel;
-  if (andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER) {
+  if (andel.aktivitetStatus === 'AT') {
     return andeler?.find(
       a =>
         a.arbeidsforhold?.arbeidsgiverIdent === andel.arbeidsforhold?.arbeidsgiverIdent &&
@@ -309,9 +309,7 @@ export const AksjonspunktBehandlerTidsbegrenset = ({
   const tabellData = createTableData(allePerioder, kodeverkSamling, arbeidsgiverOpplysningerPerId);
   const finnesAlleredeLøstPeriode = allePerioder.some(periode =>
     periode.beregningsgrunnlagPrStatusOgAndel?.some(
-      andel =>
-        andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER &&
-        (!!andel.overstyrtPrAar || andel.overstyrtPrAar === 0),
+      andel => andel.aktivitetStatus === 'AT' && (!!andel.overstyrtPrAar || andel.overstyrtPrAar === 0),
     ),
   );
   const formMethods = useFormContext<BeregningFormValues>();
@@ -343,9 +341,7 @@ AksjonspunktBehandlerTidsbegrenset.buildInitialValues = (
   const førstePeriode = finnFørstePeriode(allePerioder);
   relevantePerioder.forEach(periode => {
     const arbeidstakerAndeler = periode.beregningsgrunnlagPrStatusOgAndel
-      ? periode.beregningsgrunnlagPrStatusOgAndel.filter(
-          andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
-        )
+      ? periode.beregningsgrunnlagPrStatusOgAndel.filter(andel => andel.aktivitetStatus === 'AT')
       : [];
     arbeidstakerAndeler.forEach(andel => {
       const erTB = erAndelTidsbegrenset(andel, allePerioder);

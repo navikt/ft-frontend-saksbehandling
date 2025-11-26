@@ -1,19 +1,19 @@
 import { type IntlShape } from 'react-intl';
 
-import { AktivitetStatus, BeregningsgrunnlagAndelType } from '@navikt/ft-kodeverk';
+import { BeregningsgrunnlagAndelType } from '@navikt/ft-kodeverk';
 
 import type { BrukersAndelValues } from '../../typer/FaktaBeregningTypes';
 import type { AndelFieldValue } from '../../typer/FieldValues';
 
-const aktivitetstatusTilAndeltypeMap: Record<string, string> = {
-  [AktivitetStatus.BRUKERS_ANDEL]: BeregningsgrunnlagAndelType.BRUKERS_ANDEL,
-  [AktivitetStatus.FRILANSER]: BeregningsgrunnlagAndelType.FRILANS,
-  [AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE]: BeregningsgrunnlagAndelType.EGEN_NÆRING,
+const aktivitetstatusTilAndeltypeMap: Record<string, BeregningsgrunnlagAndelType> = {
+  BA: BeregningsgrunnlagAndelType.BRUKERS_ANDEL,
+  FL: BeregningsgrunnlagAndelType.FRILANS,
+  SN: BeregningsgrunnlagAndelType.EGEN_NÆRING,
 };
 
 export type SortedAndelInfo = {
   andelsinfo: string;
-  inntektskategori: string;
+  inntektskategori?: string;
   arbeidsforholdId?: string;
 };
 
@@ -22,6 +22,8 @@ export const compareAndeler = (andel1: SortedAndelInfo, andel2: SortedAndelInfo)
     if (andel1.inntektskategori === andel2.inntektskategori) {
       return 0;
     }
+    if (andel1.inntektskategori === undefined) return -1;
+    if (andel2.inntektskategori === undefined) return 1;
     return andel1.inntektskategori > andel2.inntektskategori ? 1 : -1;
   }
   return andel1.andelsinfo > andel2.andelsinfo ? 1 : -1;

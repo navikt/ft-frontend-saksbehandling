@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form';
 
 import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import type { AndelForFaktaOmBeregning } from '@navikt/ft-types';
+import type { AktivitetStatus, AndelForFaktaOmBeregning } from '@navikt/ft-types';
 import { parseCurrencyInput } from '@navikt/ft-utils';
 
 import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
@@ -36,7 +36,7 @@ export const InntektInput = ({ name, readOnly, isAksjonspunktClosed, label }: Pr
 
 InntektInput.buildInitialValues = (
   andelerForFaktaOmBeregning: AndelForFaktaOmBeregning[],
-  aktivitetStatus: string,
+  aktivitetStatus: AktivitetStatus,
 ): { fastsattBelop: number } | undefined => {
   const fastsattBelop = andelerForFaktaOmBeregning?.find(
     andel => andel.aktivitetStatus === aktivitetStatus,

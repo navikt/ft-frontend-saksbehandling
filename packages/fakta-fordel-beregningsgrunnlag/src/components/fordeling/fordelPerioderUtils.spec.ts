@@ -1,4 +1,4 @@
-import { OpptjeningAktivitetType, PeriodeÅrsak } from '@navikt/ft-kodeverk';
+import { PeriodeÅrsak } from '@navikt/ft-kodeverk';
 import type {
   BeregningsgrunnlagArbeidsforhold,
   BeregningsgrunnlagPeriodeProp,
@@ -30,7 +30,7 @@ const fordelAndel = {
 
 const arbeidsforhold2 = {
   arbeidsforholdId: 'd0101e6c-c54a-4db2-ac91-f5b0d86a6d3e',
-  arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
+  arbeidsforholdType: 'ARBEID',
   arbeidsgiverIdent: '996607852',
   belopFraInntektsmeldingPrMnd: 41667,
   organisasjonstype: 'VIRKSOMHET',

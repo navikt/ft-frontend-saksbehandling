@@ -1,5 +1,4 @@
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
-
+import type { AktivitetStatus } from './AktivitetStatus';
 import type { BeregningAvklaringsbehov } from './BeregningAvklaringsbehov';
 import type { BeregningsgrunnlagArbeidsforhold } from './BeregningsgrunnlagArbeidsforhold';
 import type { FaktaOmBeregning } from './BeregningsgrunnlagFakta';
@@ -131,7 +130,7 @@ export type Beregningsgrunnlag = Readonly<{
   dekningsgrad?: number;
   grunnbeløp: number;
   erOverstyrtInntekt: boolean;
-  aktivitetStatus?: string[];
+  aktivitetStatus?: AktivitetStatus[];
   beregningsgrunnlagPeriode: BeregningsgrunnlagPeriodeProp[];
   sammenligningsgrunnlagPrStatus?: SammenligningsgrunlagProp[];
   faktaOmBeregning?: FaktaOmBeregning;

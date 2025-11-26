@@ -888,6 +888,7 @@ export const alleKodeverk = {
       kode: 'VENTELØNN_VARTPENGER',
       navn: 'Ventelønn/Vartpenger',
     },
+    { kode: 'IKKE_YRKESAKTIV', navn: 'Ikke yrkesaktiv' },
   ],
   BeregningsgrunnlagAndeltype: [
     {

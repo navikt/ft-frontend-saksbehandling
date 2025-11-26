@@ -4,7 +4,6 @@ import { BodyShort } from '@navikt/ds-react';
 
 import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
@@ -30,7 +29,7 @@ const finnAndelerSomSkalVisesAT = (andeler: BeregningsgrunnlagAndel[]): Beregnin
     return [];
   }
   return andeler
-    .filter(andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)
+    .filter(andel => andel.aktivitetStatus === 'AT')
     .filter(andel => andel.skalFastsetteGrunnlag === true)
     .filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
 };
@@ -84,7 +83,7 @@ AksjonspunktBehandlerAT.transformValues = (
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
 ): ArbeidsinntektResultat[] => {
   let inntektPrAndelList = [] as ArbeidsinntektResultat[];
-  if (alleAndelerIForstePeriode.find(a => a.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)) {
+  if (alleAndelerIForstePeriode.some(a => a.aktivitetStatus === 'AT')) {
     inntektPrAndelList = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode).map(({ andelsnr }, index) => {
       const overstyrtInntekt = values[`inntekt${index}`];
       if (!andelsnr) {

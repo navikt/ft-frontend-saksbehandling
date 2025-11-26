@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl';
 import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { Beregningsgrunnlag, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, periodFormat, TIDENES_ENDE } from '@navikt/ft-utils';
@@ -86,15 +85,15 @@ const starterFørISammeMåned = (frisinnPeriode: FrisinnPeriode, bgPeriode: Bere
 
 const lagGrenseverdirad = (bg: Beregningsgrunnlag, bgPeriode: BeregningsgrunnlagPeriodeProp) => {
   const frisinnGrunnlag = bg.ytelsesspesifiktGrunnlag as FrisinnGrunnlag;
-  const bruttoAT = finnBruttoForStatusIPeriode(AktivitetStatus.ARBEIDSTAKER, bg, bgPeriode);
+  const bruttoAT = finnBruttoForStatusIPeriode('AT', bg, bgPeriode);
   const originaltInntektstak = bg.grunnbeløp * 6;
   let annenInntektIkkeSøktFor = bruttoAT;
-  if (!erSøktForAndelISøknadsperiode(AktivitetStatus.FRILANSER, bgPeriode, frisinnGrunnlag)) {
-    const bruttoFL = finnBruttoForStatusIPeriode(AktivitetStatus.FRILANSER, bg, bgPeriode);
+  if (!erSøktForAndelISøknadsperiode('FL', bgPeriode, frisinnGrunnlag)) {
+    const bruttoFL = finnBruttoForStatusIPeriode('FL', bg, bgPeriode);
     annenInntektIkkeSøktFor += bruttoFL;
   }
-  if (!erSøktForAndelISøknadsperiode(AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE, bgPeriode, frisinnGrunnlag)) {
-    const bruttoSN = finnBruttoForStatusIPeriode(AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE, bg, bgPeriode);
+  if (!erSøktForAndelISøknadsperiode('SN', bgPeriode, frisinnGrunnlag)) {
+    const bruttoSN = finnBruttoForStatusIPeriode('SN', bg, bgPeriode);
     annenInntektIkkeSøktFor += bruttoSN;
   }
   const utregnetInntektstak =

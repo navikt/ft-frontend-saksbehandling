@@ -6,9 +6,10 @@ import { VStack } from '@navikt/ds-react';
 
 import { RhfForm, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { AktivitetStatus, PeriodeÅrsak } from '@navikt/ft-kodeverk';
+import { PeriodeÅrsak } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type {
+  AktivitetStatus,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -69,7 +70,10 @@ const harAvklaringsbehovForLovparagraf = (
 
 const finnFormName = (lovparagraf: LovParagraf): string => `${defaultFormName}_${lovparagraf}`;
 
-const finnesAndelÅFastsetteMedStatus = (allePerioder: BeregningsgrunnlagPeriodeProp[], status: string): boolean => {
+const finnesAndelÅFastsetteMedStatus = (
+  allePerioder: BeregningsgrunnlagPeriodeProp[],
+  status: AktivitetStatus,
+): boolean => {
   if (!allePerioder || allePerioder.length < 1) {
     return false;
   }
@@ -101,16 +105,10 @@ const buildInitialValues = (
   const allePerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
   const alleAndelerIForstePeriode =
     beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel ?? [];
-  const arbeidstakerAndeler = alleAndelerIForstePeriode.filter(
-    andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER,
-  );
-  const frilanserAndeler = alleAndelerIForstePeriode.filter(
-    andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER,
-  );
+  const arbeidstakerAndeler = alleAndelerIForstePeriode.filter(andel => andel.aktivitetStatus === 'AT');
+  const frilanserAndeler = alleAndelerIForstePeriode.filter(andel => andel.aktivitetStatus === 'FL');
   const snEllerMidlertidigInaktivAndeler = alleAndelerIForstePeriode.filter(
-    andel =>
-      andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE ||
-      andel.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL,
+    andel => andel.aktivitetStatus === 'SN' || andel.aktivitetStatus === 'BA',
   );
   const valuesATFL = {
     ...BeregningsgrunnlagPanel.buildInitialValues(beregningsgrunnlag.avklaringsbehov),
@@ -210,14 +208,12 @@ const SelvstendigNæringsdrivendeContainer = ({
   skalValideres: boolean;
 }): ReactElement | null => {
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
-  const snAndel = alleAndelerIForstePeriode.find(
-    andel => andel.aktivitetStatus && andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
-  );
-  const erNyArbLivet = snAndel && snAndel.erNyIArbeidslivet;
+  const snAndel = alleAndelerIForstePeriode.find(andel => andel.aktivitetStatus && andel.aktivitetStatus === 'SN');
+  const erNyArbLivet = snAndel?.erNyIArbeidslivet;
   const erVarigEndring =
     avklaringsbehov.definisjon === ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON ||
-    (snAndel && snAndel.næringer && snAndel.næringer.some(naring => naring.erVarigEndret === true));
-  const erNyoppstartet = snAndel && snAndel.næringer && snAndel.næringer.some(naring => naring.erNyoppstartet === true);
+    snAndel?.næringer?.some(naring => naring.erVarigEndret === true);
+  const erNyoppstartet = snAndel?.næringer?.some(naring => naring.erNyoppstartet === true);
   if (!erNyArbLivet && !erNyoppstartet && !erVarigEndring) {
     return null;
   }
@@ -259,8 +255,8 @@ const ArbeidstakerEllerFrilansContainer = ({
   const { control } = useFormContext<BeregningFormValues>();
 
   const erTidsbegrenset = harPerioderMedAvsluttedeArbeidsforhold(allePerioder);
-  const visFL = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.FRILANSER);
-  const visAT = finnesAndelÅFastsetteMedStatus(allePerioder, AktivitetStatus.ARBEIDSTAKER);
+  const visFL = finnesAndelÅFastsetteMedStatus(allePerioder, 'FL');
+  const visAT = finnesAndelÅFastsetteMedStatus(allePerioder, 'AT');
 
   return (
     <>

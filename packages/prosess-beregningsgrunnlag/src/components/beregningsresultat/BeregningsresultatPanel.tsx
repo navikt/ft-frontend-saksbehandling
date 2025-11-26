@@ -3,11 +3,16 @@ import { FormattedMessage } from 'react-intl';
 import { Heading, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { AktivitetStatus, PeriodeÅrsak } from '@navikt/ft-kodeverk';
-import type { BeregningAvklaringsbehov, Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { PeriodeÅrsak } from '@navikt/ft-kodeverk';
+import type {
+  AktivitetStatus,
+  BeregningAvklaringsbehov,
+  Beregningsgrunnlag,
+  BeregningsgrunnlagAndel,
+} from '@navikt/ft-types';
 import { isAksjonspunktOpen, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
-import type { TabellData, TabellMap, TabellRadData } from '../../types/BeregningsresultatTabellType';
+import type { TabellData, TabellRadData } from '../../types/BeregningsresultatTabellType';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import type { Vilkårperiode } from '../../types/Vilkår';
 import { OppsummertGrunnlagPanel } from './OppsummertGrunnlagPanel';
@@ -32,12 +37,12 @@ const finnForeslåttBeløp = (andel: BeregningsgrunnlagAndel): number => {
 };
 
 const finnAksjonspunktForStatus = (
-  status: string,
+  status: AktivitetStatus,
   avklaringsbehov: BeregningAvklaringsbehov[],
 ): BeregningAvklaringsbehov | undefined => {
   switch (status) {
-    case AktivitetStatus.ARBEIDSTAKER:
-    case AktivitetStatus.FRILANSER:
+    case 'AT':
+    case 'FL':
       return avklaringsbehov.find(
         ak =>
           ak.definisjon ===
@@ -45,7 +50,7 @@ const finnAksjonspunktForStatus = (
           ak.definisjon ===
             ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
       );
-    case AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE:
+    case 'SN':
       return avklaringsbehov.find(
         ak =>
           ak.definisjon ===
@@ -53,7 +58,7 @@ const finnAksjonspunktForStatus = (
           ak.definisjon ===
             ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
       );
-    case AktivitetStatus.BRUKERS_ANDEL:
+    case 'BA':
       return avklaringsbehov.find(
         ak => ak.definisjon === ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
       );
@@ -83,22 +88,14 @@ const lagAndeler = (
   avklaringsbehov: BeregningAvklaringsbehov[],
 ): TabellRadData[] => {
   const andelerSomSkalVises = andeler.filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
-  const grupperteAndeler: TabellMap = {};
-  andelerSomSkalVises.forEach(andel => {
-    const eksisterendeListe = grupperteAndeler[andel.aktivitetStatus];
-    if (!eksisterendeListe) {
-      grupperteAndeler[andel.aktivitetStatus] = [andel];
-    } else {
-      eksisterendeListe.push(andel);
-    }
-  });
+  const grupperteAndeler = Map.groupBy(andelerSomSkalVises, andel => andel.aktivitetStatus);
+
   const radListe: TabellRadData[] = [];
-  Object.keys(grupperteAndeler).forEach(key => {
-    const liste = grupperteAndeler[key];
-    const aksjonspunkt = finnAksjonspunktForStatus(key, avklaringsbehov);
-    const alleAndelerErBeregnet = liste.every(andel => erBeregnet(andel));
-    const inntekt = liste.reduce((sum, andel) => finnForeslåttBeløp(andel) + sum, 0);
-    const bortfaltNaturalytelse = liste.reduce((sum, andel) => finnNaturalytelsebeløp(andel) + sum, 0);
+  for (const [aktivitetStatus, andelerMedStatus] of grupperteAndeler) {
+    const aksjonspunkt = finnAksjonspunktForStatus(aktivitetStatus, avklaringsbehov);
+    const alleAndelerErBeregnet = andelerMedStatus.every(andel => erBeregnet(andel));
+    const inntekt = andelerMedStatus.reduce((sum, andel) => finnForeslåttBeløp(andel) + sum, 0);
+    const bortfaltNaturalytelse = andelerMedStatus.reduce((sum, andel) => finnNaturalytelsebeløp(andel) + sum, 0);
     const inntektPlussNaturalytelse = (inntekt || 0) + (bortfaltNaturalytelse || 0);
     const erFerdigBeregnet = alleAndelerErBeregnet && !isAksjonspunktOpen(aksjonspunkt);
     radListe.push({
@@ -106,9 +103,9 @@ const lagAndeler = (
       bortfaltNaturalytelse,
       inntektPlussNaturalytelse,
       erFerdigBeregnet,
-      status: key,
+      aktivitetStatus,
     });
-  });
+  }
   return radListe;
 };
 

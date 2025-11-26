@@ -1,4 +1,3 @@
-import { AksjonspunktStatus } from '@navikt/ft-kodeverk';
 import type { BeregningAvklaringsbehov, FaktaOmBeregning } from '@navikt/ft-types';
 
 import type { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
@@ -11,7 +10,7 @@ const { AVKLAR_AKTIVITETER, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaring
 
 const avklarAktiviteterAp: BeregningAvklaringsbehov = {
   definisjon: AVKLAR_AKTIVITETER,
-  status: AksjonspunktStatus.OPPRETTET,
+  status: 'OPPR',
   kanLoses: true,
 };
 

@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 
 import { Label, List, ReadMore, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import type { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
@@ -87,7 +86,7 @@ export const InntektInputFields = ({
       `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`,
     ]).includes(true);
     const harFrilansandel = beregningsgrunnlag.faktaOmBeregning?.andelerForFaktaOmBeregning.some(
-      andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER,
+      andel => andel.aktivitetStatus === 'FL',
     );
 
     return erBesteberegning && harFrilansandel;
@@ -95,7 +94,7 @@ export const InntektInputFields = ({
 
   const skalRedigereSelvstendigNæringsgivendeInntekt = () => {
     const harSelvstendigNæringsgivendeAndel = beregningsgrunnlag.faktaOmBeregning?.andelerForFaktaOmBeregning.some(
-      andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
+      andel => andel.aktivitetStatus === 'SN',
     );
 
     const erBesteberegning = getValues([
@@ -107,7 +106,7 @@ export const InntektInputFields = ({
 
   const skalRedigereMilitærEllerSivilInntekt = () => {
     const harMilitærEllerSivilAndel = beregningsgrunnlag.faktaOmBeregning?.andelerForFaktaOmBeregning.some(
-      andel => andel.aktivitetStatus === AktivitetStatus.MILITÆR_ELLER_SIVIL,
+      andel => andel.aktivitetStatus === 'MS',
     );
 
     const erBesteberegning = getValues([
@@ -145,7 +144,7 @@ export const InntektInputFields = ({
    *
    */
   const andelerMedArbeidsinntekt = beregningsgrunnlag.faktaOmBeregning?.andelerForFaktaOmBeregning
-    .filter(andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)
+    .filter(andel => andel.aktivitetStatus === 'AT')
     ?.filter(andel =>
       getKanRedigereInntekt(
         formValues,
@@ -378,7 +377,7 @@ export const InntektInputFields = ({
         ? andelerMedArbeidsinntekt
             ?.filter(andel => {
               if (skalRedigereEtterlønnSluttpakke && !skalRedigereArbeidsinntekt) {
-                return andel.arbeidsforhold?.arbeidsforholdType === OpptjeningAktivitetType.ETTERLONN_SLUTTPAKKE;
+                return andel.arbeidsforhold?.arbeidsforholdType === 'ETTERLØNN_SLUTTPAKKE';
               }
               return true;
             })

@@ -1,4 +1,4 @@
-import { AktivitetStatus, Inntektskategori, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
+import type { AktivitetStatus, Inntektskategori, OpptjeningAktivitetType } from '@navikt/ft-types';
 
 //Mapping mellom KodeverkType og enums/union-types med verdier
 type KodeverkEnumMap = {

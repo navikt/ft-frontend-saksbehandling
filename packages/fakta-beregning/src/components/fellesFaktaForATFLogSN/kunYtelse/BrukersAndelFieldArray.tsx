@@ -12,7 +12,6 @@ import {
   useCustomValidation,
 } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import type { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
@@ -24,9 +23,7 @@ import { type SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 const defaultBGFordeling = (aktivitetStatuser: string[], kodeverkSamling: KodeverkForPanel) => ({
-  andel: kodeverkSamling['AktivitetStatus'].find(
-    as => as.kode === aktivitetStatuser.filter(kode => kode === AktivitetStatus.BRUKERS_ANDEL)[0],
-  )?.navn,
+  andel: kodeverkSamling['AktivitetStatus'].find(as => as.kode === aktivitetStatuser.find(kode => kode === 'BA'))?.navn,
   fastsattBelop: '',
   inntektskategori: '',
   nyAndel: true,
@@ -42,9 +39,9 @@ const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn<'Inntektskateg
 
 const summerFordeling = (fields: BrukersAndelValues[]): string | undefined => {
   let sum = 0;
-  fields.forEach(field => {
+  for (const field of fields) {
     sum += field.fastsattBelop ? removeSpacesFromNumber(field.fastsattBelop) : 0;
-  });
+  }
   return sum > 0 ? formatCurrencyNoKr(sum) : '';
 };
 

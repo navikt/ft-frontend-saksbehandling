@@ -2,7 +2,6 @@ import { FormattedMessage } from 'react-intl';
 
 import { Label, Table, VStack } from '@navikt/ds-react';
 
-import { OpptjeningAktivitetType as opptjeningAktivitetTyper } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { dateFormat } from '@navikt/ft-utils';
 
@@ -16,8 +15,7 @@ import styles from './vurderAktiviteterTabell.module.css';
 
 const finnHeading = (aktiviteter: BeregningAktivitet[], skjaeringstidspunkt: string) => {
   const harVentelonnVartpenger = aktiviteter.some(
-    aktivitet =>
-      aktivitet.arbeidsforholdType && aktivitet.arbeidsforholdType === opptjeningAktivitetTyper.VENTELØNN_VARTPENGER,
+    aktivitet => aktivitet.arbeidsforholdType && aktivitet.arbeidsforholdType === 'VENTELØNN_VARTPENGER',
   );
 
   if (harVentelonnVartpenger) {

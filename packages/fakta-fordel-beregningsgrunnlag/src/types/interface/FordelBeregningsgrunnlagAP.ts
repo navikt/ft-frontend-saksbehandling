@@ -1,11 +1,11 @@
-import type { BeregningAvklaringsbehovTilBekreftelse } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehovTilBekreftelse, Inntektskategori } from '@navikt/ft-types';
 
 import { FaktaFordelBeregningAvklaringsbehovCode } from './FaktaFordelBeregningAvklaringsbehovCode';
 
 export type FordelBeregningsgrunnlagFastsatteVerdierTransformedValues = {
   refusjonPrÅr?: number;
   fastsattÅrsbeløpInklNaturalytelse: number;
-  inntektskategori: string;
+  inntektskategori: Inntektskategori;
 };
 
 export type FordelBeregningsgrunnlagAndelTransformedValues = {

@@ -2,7 +2,6 @@ import { FormattedMessage } from 'react-intl';
 
 import { Heading, Table, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
@@ -12,22 +11,20 @@ import { isStatusDagpengerOrAAP } from '../../util/aktivitetStatusUtils';
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
 const getTekstForAndelBruktIBeregning = (andel: BeregningsgrunnlagAndel): string => {
-  if (andel.aktivitetStatus === AktivitetStatus.DAGPENGER) {
+  if (andel.aktivitetStatus === 'DP') {
     return 'TilstottendeYtelse.Dagpenger';
   }
-  if (andel.aktivitetStatus === AktivitetStatus.SYKEPENGER_AV_DAGPENGER) {
+  if (andel.aktivitetStatus === 'SP_AV_DP') {
     return 'TilstottendeYtelse.SykepengerAvDagpenger';
   }
-  if (andel.aktivitetStatus === AktivitetStatus.PLEIEPENGER_AV_DAGPENGER) {
+  if (andel.aktivitetStatus === 'PSB_AV_DP') {
     return 'TilstottendeYtelse.PleiepengerAvDagpenger';
   }
-  if (andel.aktivitetStatus === AktivitetStatus.ARBEIDSAVKLARINGSPENGER) {
+  if (andel.aktivitetStatus === 'AAP') {
     return 'TilstottendeYtelse.AAP';
   }
   return '';
 };
-const isAktivitetKodeDagpenger = (aktivitetStatusKode: string): boolean =>
-  aktivitetStatusKode === AktivitetStatus.DAGPENGER;
 
 type Props = {
   alleAndeler: BeregningsgrunnlagAndel[];
@@ -76,7 +73,7 @@ export const TilstotendeYtelser = ({ alleAndeler, relevanteStatuser, gjelderBest
                 <BeløpLabel beløp={andel.beregnetPrAar} />
               </Table.DataCell>
             </Table.Row>
-            {gjelderBesteberegning && isAktivitetKodeDagpenger(andel.aktivitetStatus) && (
+            {gjelderBesteberegning && andel.aktivitetStatus === 'DP' && (
               <Table.Row shadeOnHover={false}>
                 <Table.DataCell textSize="small" colSpan={3}>
                   <FormattedMessage id="TilstottendeYtelse.Besteberegning" />

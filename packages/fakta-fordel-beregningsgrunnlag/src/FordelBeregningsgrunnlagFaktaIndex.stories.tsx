@@ -2,8 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
 import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
-import { AktivitetStatus, Inntektskategori, OpptjeningAktivitetType, PeriodeÅrsak } from '@navikt/ft-kodeverk';
+import { PeriodeÅrsak } from '@navikt/ft-kodeverk';
 import type {
+  AktivitetStatus,
   ArbeidsforholdTilFordeling,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
@@ -14,6 +15,7 @@ import type {
   FaktaOmFordeling,
   FordelBeregningsgrunnlagAndel,
   FordelBeregningsgrunnlagPeriode,
+  Inntektskategori,
 } from '@navikt/ft-types';
 import { TIDENES_ENDE } from '@navikt/ft-utils';
 
@@ -89,7 +91,7 @@ const agOpplysninger: ArbeidsgiverOpplysningerPerId = {
   },
 };
 
-const fordelAP = [
+const fordelAP: BeregningAvklaringsbehov[] = [
   {
     definisjon: FaktaFordelBeregningAvklaringsbehovCode.FORDEL_BEREGNINGSGRUNNLAG,
     status: 'OPPR',
@@ -215,35 +217,35 @@ const lagArbforTilFordeling = (
   startdato: '2019-11-27',
 });
 
-const mapIKKode = (bgStatus: string): string => {
-  switch (bgStatus) {
+const mapIKKode = (aktivitetStatus: AktivitetStatus): Inntektskategori => {
+  switch (aktivitetStatus) {
     case 'AT':
-      return Inntektskategori.ARBEIDSTAKER;
+      return 'ARBEIDSTAKER';
     case 'AAP':
-      return Inntektskategori.ARBEIDSAVKLARINGSPENGER;
+      return 'ARBEIDSAVKLARINGSPENGER';
     case 'FL':
-      return Inntektskategori.FRILANSER;
+      return 'FRILANSER';
     case 'SN':
-      return Inntektskategori.SELVSTENDIG_NÆRINGSDRIVENDE;
+      return 'SELVSTENDIG_NÆRINGSDRIVENDE';
     default:
-      return Inntektskategori.UDEFINERT;
+      return '-';
   }
 };
 
 const lagFordelingsandel = (
   andelsnr: number,
-  status: string,
+  aktivitetStatus: AktivitetStatus,
   ref: number,
   fordelt?: number,
   arbeidsforhold?: BeregningsgrunnlagArbeidsforhold,
 ): FordelBeregningsgrunnlagAndel => ({
-  aktivitetStatus: status,
+  aktivitetStatus,
   andelsnr,
   arbeidsforholdType: '-',
   arbeidsforhold,
   andelIArbeid: [0],
   fordeltPrAar: fordelt,
-  inntektskategori: mapIKKode(status),
+  inntektskategori: mapIKKode(aktivitetStatus),
   lagtTilAvSaksbehandler: false,
   nyttArbeidsforhold: false,
   refusjonskravFraInntektsmeldingPrAar: ref,
@@ -273,7 +275,7 @@ const lagArbeidsforhold = (
   arbeidsgiverIdent: arbeidsgiverId,
   startdato: '2018-10-09',
   arbeidsforholdId,
-  arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
+  arbeidsforholdType: 'ARBEID',
   refusjonPrAar: refKrav,
   organisasjonstype: 'VIRKSOMHET',
 });
@@ -364,16 +366,11 @@ export const SkalVurdereTilkommetØktRefusjonPåTidligereInnvilgetDelvisRefusjon
 const beregningsgrunnlagListeAapOgRefusjonAp5046 = [
   lagBG(
     [
-      lagBGPeriode([lagBGAndel(1, AktivitetStatus.ARBEIDSAVKLARINGSPENGER, 100000)], [], '2019-08-05', '2019-11-26'),
+      lagBGPeriode([lagBGAndel(1, 'AAP', 100000)], [], '2019-08-05', '2019-11-26'),
       lagBGPeriode(
         [
-          lagBGAndel(2, AktivitetStatus.ARBEIDSAVKLARINGSPENGER, 100000),
-          lagBGAndel(
-            1,
-            AktivitetStatus.ARBEIDSTAKER,
-            300000,
-            lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000),
-          ),
+          lagBGAndel(2, 'AAP', 100000),
+          lagBGAndel(1, 'AT', 300000, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
         ],
         [PeriodeÅrsak.ENDRING_I_REFUSJONSKRAV],
         '2019-11-27',
@@ -421,16 +418,11 @@ export const AapOgRefusjonAp5046: Story = {
 const beregningsgrunnlagListeFordelingKanEndreRefusjonskravAp5046 = [
   lagBG(
     [
-      lagBGPeriode([lagBGAndel(1, AktivitetStatus.ARBEIDSAVKLARINGSPENGER, 100000)], [], '2019-08-05', '2019-11-26'),
+      lagBGPeriode([lagBGAndel(1, 'AAP', 100000)], [], '2019-08-05', '2019-11-26'),
       lagBGPeriode(
         [
-          lagBGAndel(2, AktivitetStatus.ARBEIDSAVKLARINGSPENGER, 100000),
-          lagBGAndel(
-            1,
-            AktivitetStatus.ARBEIDSTAKER,
-            300000,
-            lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000),
-          ),
+          lagBGAndel(2, 'AAP', 100000),
+          lagBGAndel(1, 'AT', 300000, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
         ],
         [PeriodeÅrsak.ENDRING_I_REFUSJONSKRAV],
         '2019-11-27',
@@ -479,45 +471,21 @@ const beregningsgrunnlagListeSkalSlåSammenNaturalytelseperioderAp5046 = [
   lagBG(
     [
       lagBGPeriode(
-        [
-          lagBGAndel(
-            1,
-            AktivitetStatus.ARBEIDSTAKER,
-            100000,
-            lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000),
-          ),
-        ],
+        [lagBGAndel(1, 'AT', 100000, lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000))],
         [],
         '2019-08-05',
         '2019-11-26',
       ),
       lagBGPeriode(
-        [
-          lagBGAndel(
-            1,
-            AktivitetStatus.ARBEIDSTAKER,
-            100000,
-            lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000),
-          ),
-        ],
+        [lagBGAndel(1, 'AT', 100000, lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000))],
         [PeriodeÅrsak.NATURALYTELSE_BORTFALT],
         '2019-11-27',
         '2019-12-05',
       ),
       lagBGPeriode(
         [
-          lagBGAndel(
-            1,
-            AktivitetStatus.ARBEIDSTAKER,
-            100000,
-            lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000),
-          ),
-          lagBGAndel(
-            2,
-            AktivitetStatus.ARBEIDSTAKER,
-            300000,
-            lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000),
-          ),
+          lagBGAndel(1, 'AT', 100000, lagArbeidsforhold('874652202', 'AD-ASD-ADF-SADGF-ASGASDF-ÅTYIUOH', 500000)),
+          lagBGAndel(2, 'AT', 300000, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
         ],
         [PeriodeÅrsak.ENDRING_I_REFUSJONSKRAV],
         '2019-12-06',
@@ -600,16 +568,11 @@ export const SkalSlåSammenNaturalytelseperioderAp5046: Story = {
 const beregningsgrunnlagListeFordelingFlereBeregningsgrunnlagKanEndreRefusjonskravAp5046 = [
   lagBG(
     [
-      lagBGPeriode([lagBGAndel(1, AktivitetStatus.ARBEIDSAVKLARINGSPENGER, 100000)], [], '2019-08-05', '2019-11-26'),
+      lagBGPeriode([lagBGAndel(1, 'AAP', 100000)], [], '2019-08-05', '2019-11-26'),
       lagBGPeriode(
         [
-          lagBGAndel(2, AktivitetStatus.ARBEIDSAVKLARINGSPENGER, 100000),
-          lagBGAndel(
-            1,
-            AktivitetStatus.ARBEIDSTAKER,
-            300000,
-            lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000),
-          ),
+          lagBGAndel(2, 'AAP', 100000),
+          lagBGAndel(1, 'AT', 300000, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
         ],
         [PeriodeÅrsak.ENDRING_I_REFUSJONSKRAV],
         '2019-11-27',
@@ -643,13 +606,8 @@ const beregningsgrunnlagListeFordelingFlereBeregningsgrunnlagKanEndreRefusjonskr
     [
       lagBGPeriode(
         [
-          lagBGAndel(2, AktivitetStatus.ARBEIDSAVKLARINGSPENGER, 100000),
-          lagBGAndel(
-            1,
-            AktivitetStatus.ARBEIDSTAKER,
-            300000,
-            lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000),
-          ),
+          lagBGAndel(2, 'AAP', 100000),
+          lagBGAndel(1, 'AT', 300000, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
         ],
         [PeriodeÅrsak.ENDRING_I_REFUSJONSKRAV],
         '2020-01-01',
@@ -702,18 +660,13 @@ export const AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046: Sto
     beregningsgrunnlagListe: [
       lagBG(
         [
-          lagBGPeriode(
-            [lagBGAndel(1, AktivitetStatus.ARBEIDSAVKLARINGSPENGER, 300000)],
-            [],
-            '2019-08-05',
-            '2019-11-26',
-          ),
+          lagBGPeriode([lagBGAndel(1, 'AAP', 300000)], [], '2019-08-05', '2019-11-26'),
           lagBGPeriode(
             [
-              lagBGAndel(2, AktivitetStatus.ARBEIDSAVKLARINGSPENGER, 300000),
+              lagBGAndel(2, 'AAP', 300000),
               lagBGAndel(
                 1,
-                AktivitetStatus.ARBEIDSTAKER,
+                'AT',
                 undefined,
                 lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000),
               ),
@@ -755,18 +708,13 @@ export const AapOgRefusjonFlereBeregningsgrunnlagMedKunEnTilVurderingAp5046: Sto
       ),
       lagBG(
         [
-          lagBGPeriode(
-            [lagBGAndel(1, AktivitetStatus.ARBEIDSAVKLARINGSPENGER, 300000)],
-            [],
-            '2020-01-01',
-            '2020-01-26',
-          ),
+          lagBGPeriode([lagBGAndel(1, 'AAP', 300000)], [], '2020-01-01', '2020-01-26'),
           lagBGPeriode(
             [
-              lagBGAndel(2, AktivitetStatus.ARBEIDSAVKLARINGSPENGER, 300000),
+              lagBGAndel(2, 'AAP', 300000),
               lagBGAndel(
                 1,
-                AktivitetStatus.ARBEIDSTAKER,
+                'AT',
                 undefined,
                 lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000),
               ),
@@ -839,13 +787,13 @@ export const TilkommetAktivitet: Story = {
             periodeAarsaker: [],
             beregningsgrunnlagPrStatusOgAndel: [
               {
-                aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+                aktivitetStatus: 'AT',
                 andelsnr: 2,
                 inntektskategori: '-',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999997',
                   startdato: '2022-10-27',
-                  arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 40000,
                 },
                 lagtTilAvSaksbehandler: false,
@@ -853,7 +801,7 @@ export const TilkommetAktivitet: Story = {
                 skalFastsetteGrunnlag: false,
               },
               {
-                aktivitetStatus: AktivitetStatus.BRUKERS_ANDEL,
+                aktivitetStatus: 'BA',
                 beregningsperiodeFom: '2018-01-01',
                 beregningsperiodeTom: '2020-12-31',
                 beregnetPrAar: 0,
@@ -892,7 +840,7 @@ export const TilkommetAktivitet: Story = {
             periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             beregningsgrunnlagPrStatusOgAndel: [
               {
-                aktivitetStatus: AktivitetStatus.BRUKERS_ANDEL,
+                aktivitetStatus: 'BA',
                 beregningsperiodeFom: '2018-01-01',
                 beregningsperiodeTom: '2020-12-31',
                 beregnetPrAar: 0,
@@ -976,7 +924,7 @@ export const TilkommetAktivitet: Story = {
                 tom: TIDENES_ENDE,
                 inntektsforholdListe: [
                   {
-                    aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+                    aktivitetStatus: 'AT',
                     arbeidsgiverId: '999999997',
                     bruttoInntektPrÅr: 480000,
                     inntektFraInntektsmeldingPrÅr: 480000,
@@ -1009,7 +957,7 @@ export const TilkommetAktivitet: Story = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999997',
                       startdato: '2022-10-27',
-                      arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
+                      arbeidsforholdType: 'ARBEID',
                     },
                     inntektskategori: '-',
                     aktivitetStatus: 'AT',

@@ -1,4 +1,4 @@
-import { OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
+import type { OpptjeningAktivitetType } from './OpptjeningAktivitetType';
 
 export type BeregningsgrunnlagArbeidsforhold = Readonly<{
   arbeidsgiverIdent?: string;

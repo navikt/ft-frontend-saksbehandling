@@ -6,7 +6,7 @@ import { VurderAktiviteterPanel } from './VurderAktiviteterPanel';
 import { finnPlasseringIListe, leggTilAktivitet } from './vurderAktiviteterPanelUtils';
 import { lagAktivitetFieldId } from './vurderAktiviteterTabellUtils';
 
-const aktivitet1 = {
+const aktivitet1: BeregningAktivitet = {
   arbeidsgiverIdent: '384723894723',
   fom: '2019-01-01',
   tom: TIDENES_ENDE,
@@ -14,7 +14,7 @@ const aktivitet1 = {
   arbeidsforholdType: 'ARBEID',
 };
 
-const aktivitet2 = {
+const aktivitet2: BeregningAktivitet = {
   arbeidsgiverIdent: '334534623342',
   arbeidsforholdId: 'efj8343f34f',
   fom: '2019-01-01',
@@ -23,7 +23,7 @@ const aktivitet2 = {
   arbeidsforholdType: 'ARBEID',
 };
 
-const aktivitet3 = {
+const aktivitet3: BeregningAktivitet = {
   arbeidsgiverIdent: '324234234234',
   arbeidsforholdId: 'efj8343f34f',
   fom: '2019-01-01',
@@ -32,14 +32,14 @@ const aktivitet3 = {
   arbeidsforholdType: 'ARBEID',
 };
 
-const aktivitetAAP = {
+const aktivitetAAP: BeregningAktivitet = {
   arbeidsforholdType: 'AAP',
   fom: '2019-01-01',
   tom: '2020-02-02',
   skalBrukes: undefined,
 };
 
-const aktiviteter: BeregningAktivitet[] = [aktivitet1, aktivitet2, aktivitet3, aktivitetAAP];
+const aktiviteter = [aktivitet1, aktivitet2, aktivitet3, aktivitetAAP];
 
 const id1: string = '3847238947232019-01-01';
 const id2: string = '334534623342efj8343f34f2019-01-01';
@@ -66,14 +66,14 @@ describe('VurderAktiviteterPanel', () => {
   });
 
   it('skal returnere false om ingen aktiviteter skal brukes og det finnes fleire aktiviteter i opptjeningsperioden', () => {
-    const aktivitet1STP2 = {
+    const aktivitet1STP2: BeregningAktivitet = {
       arbeidsgiverIdent: '384723894723',
       fom: '2019-01-01',
       tom: '2019-01-01',
       skalBrukes: undefined,
       arbeidsforholdType: 'ARBEID',
     };
-    const aktivitet2STP2 = {
+    const aktivitet2STP2: BeregningAktivitet = {
       arbeidsgiverIdent: '334534623342',
       arbeidsforholdId: 'efj8343f34f',
       fom: '2019-01-01',
@@ -82,7 +82,7 @@ describe('VurderAktiviteterPanel', () => {
       arbeidsforholdType: 'ARBEID',
     };
 
-    const aktiviteterTomDatoMapping = [
+    const aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[] = [
       { tom: '2019-02-02', aktiviteter: [aktivitet3, aktivitetAAP] },
       { tom: '2019-01-02', aktiviteter: [aktivitet1STP2, aktivitet2STP2] },
     ];
@@ -103,15 +103,14 @@ describe('VurderAktiviteterPanel', () => {
   });
 
   it('skal returnere true om ingen aktiviteter er valgt i stp nr 2', () => {
-    const aktivitetStp2 = {
+    const aktivitetStp2: BeregningAktivitet = {
       arbeidsgiverIdent: '384723894723',
       fom: '2019-01-01',
       tom: '2019-01-01',
       skalBrukes: undefined,
       arbeidsforholdType: 'ARBEID',
     };
-    const aktivitetStp3 = {
-      aktørIdString: '324234234234',
+    const aktivitetStp3: BeregningAktivitet = {
       arbeidsgiverIdent: '1960-01-01',
       arbeidsforholdId: 'efj8343f34f',
       fom: '2018-01-01',
@@ -119,7 +118,7 @@ describe('VurderAktiviteterPanel', () => {
       skalBrukes: false,
       arbeidsforholdType: 'ARBEID',
     };
-    const aktiviteterTomDatoMapping = [
+    const aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[] = [
       { tom: '2019-02-02', aktiviteter: [aktivitet3, aktivitetAAP] },
       { tom: '2019-01-02', aktiviteter: [aktivitetStp2] },
       { tom: '2019-01-01', aktiviteter: [aktivitetStp3] },
@@ -130,8 +129,14 @@ describe('VurderAktiviteterPanel', () => {
         skjæringstidspunkt: '2019-02-02',
       },
       aktiviteterValues: {
-        [lagAktivitetFieldId(aktivitetStp2)]: { skalBrukes: 'false', tom: aktivitetStp2.tom },
-        [lagAktivitetFieldId(aktivitetStp3)]: { skalBrukes: null, tom: aktivitetStp3.tom },
+        [lagAktivitetFieldId(aktivitetStp2)]: {
+          skalBrukes: 'false',
+          tom: aktivitetStp2.tom,
+        },
+        [lagAktivitetFieldId(aktivitetStp3)]: {
+          skalBrukes: undefined,
+          tom: aktivitetStp3.tom,
+        },
         [id3]: { skalBrukes: 'false', tom: aktivitet3.tom },
         [idAAP]: { skalBrukes: 'false', tom: aktivitetAAP.tom },
       },

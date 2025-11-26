@@ -17,9 +17,6 @@
     "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules"
   },
-  "peerDependencies": {
-    "@navikt/ft-kodeverk": "4.x"
-  },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",

@@ -6,7 +6,6 @@ import { List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
   ArbeidstakerUtenIMAndel,
@@ -269,7 +268,7 @@ const transformValuesFrilans = (
     values.vurderMottarYtelseValues && values.vurderMottarYtelseValues[frilansFieldName];
   if (skalFastsetteInntektFrilans) {
     const frilansAndel = beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel?.find(
-      andel => andel.aktivitetStatus === AktivitetStatus.FRILANSER,
+      andel => andel.aktivitetStatus === 'FL',
     );
     if (frilansAndel && !fastsatteAndelsnr.includes(frilansAndel.andelsnr) && frilansMottarYtelse(values)) {
       const frilansInntekt = values.frilansInntektValues;

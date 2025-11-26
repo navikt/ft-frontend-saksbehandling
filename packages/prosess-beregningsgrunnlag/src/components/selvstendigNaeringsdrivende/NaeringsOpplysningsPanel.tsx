@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Heading, Label, Table, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } from '@navikt/ft-types';
 import { BeløpLabel, NoWrap, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { BTag, dateFormat, formaterArbeidsgiver } from '@navikt/ft-utils';
@@ -77,9 +76,7 @@ type Props = {
 };
 
 export const NaeringsopplysningsPanel = ({ alleAndelerIForstePeriode, arbeidsgiverOpplysningerPerId }: Props) => {
-  const selvstendigNæringer = alleAndelerIForstePeriode.find(
-    andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
-  )?.næringer;
+  const selvstendigNæringer = alleAndelerIForstePeriode.find(andel => andel.aktivitetStatus === 'SN')?.næringer;
 
   if (!selvstendigNæringer) {
     return null;

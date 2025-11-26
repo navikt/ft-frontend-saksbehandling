@@ -2,7 +2,6 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Label, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { dateFormat } from '@navikt/ft-utils';
 
@@ -23,10 +22,8 @@ const lagPerioderadMedTekst = (tekstId: string, fom: string, tom: string) => (
 );
 
 const lagSøktYtelseRadPeriode = (periode: FrisinnPeriode) => {
-  const snAndel = periode.frisinnAndeler.find(
-    andel => andel.statusSøktFor === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
-  );
-  const flAndel = periode.frisinnAndeler.find(andel => andel.statusSøktFor === AktivitetStatus.FRILANSER);
+  const snAndel = periode.frisinnAndeler.find(andel => andel.statusSøktFor === 'SN');
+  const flAndel = periode.frisinnAndeler.find(andel => andel.statusSøktFor === 'FL');
   return (
     <div key={periode.fom}>
       {flAndel && lagPerioderadMedTekst('Søknad.SøktYtelseFL', periode.fom, periode.tom)}

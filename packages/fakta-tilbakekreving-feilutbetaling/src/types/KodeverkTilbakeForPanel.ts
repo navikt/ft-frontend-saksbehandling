@@ -1,4 +1,5 @@
-import { type HendelseType, HendelseUnderType, TilbakekrevingVidereBehandling } from '@navikt/ft-kodeverk';
+import { TilbakekrevingVidereBehandling } from '@navikt/ft-kodeverk';
+import type { HendelseType, HendelseUnderType } from '@navikt/ft-types';
 
 //Mapping mellom KodeverkType og enums/union-types med verdier
 type KodeverkEnumMap = {

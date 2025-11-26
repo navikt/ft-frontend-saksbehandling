@@ -1,5 +1,5 @@
-import type { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
-import { removeSpacesFromNumber } from '@navikt/ft-utils';
+import type { Beregningsgrunnlag, FaktaOmBeregning, Inntektskategori } from '@navikt/ft-types';
+import { notEmpty, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
 import type { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
@@ -12,18 +12,12 @@ import { erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse 
 import { harFieldKunstigArbeidsforhold } from './KunstigArbeidsforhold';
 import { harFieldLønnsendring } from './lonnsendringFormUtils';
 
-const krevAndelsnr = (andelsnr: number | undefined): number => {
-  if (!andelsnr) {
-    throw new Error('Mangler andelsnr på arbeid uten inntektsmelding, ugyldig tilstand');
-  }
-  return andelsnr;
+const krevAndelsnr = (andelsnr: number | undefined) => {
+  return notEmpty(andelsnr, 'Mangler andelsnr på arbeid uten inntektsmelding, ugyldig tilstand');
 };
 
-const krevInntektskategori = (inntektskategori: string | undefined): string => {
-  if (!inntektskategori) {
-    throw new Error('Mangler inntektskategori på arbeid uten inntektsmelding, ugyldig tilstand');
-  }
-  return inntektskategori;
+const krevInntektskategori = (inntektskategori: Inntektskategori | undefined) => {
+  return notEmpty(inntektskategori, 'Mangler inntektskategori på arbeid uten inntektsmelding, ugyldig tilstand');
 };
 
 export const transformValuesArbeidUtenInntektsmelding = (

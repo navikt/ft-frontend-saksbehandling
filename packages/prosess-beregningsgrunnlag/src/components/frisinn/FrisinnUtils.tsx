@@ -1,11 +1,16 @@
 import dayjs, { Dayjs } from 'dayjs';
 
 import { BehandlingArsakType } from '@navikt/ft-kodeverk';
-import type { Beregningsgrunnlag, BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
+import type {
+  AktivitetStatus,
+  Beregningsgrunnlag,
+  BeregningsgrunnlagAndel,
+  BeregningsgrunnlagPeriodeProp,
+} from '@navikt/ft-types';
 
 export type FrisinnAndel = Readonly<{
   oppgittInntekt: number;
-  statusSøktFor: string;
+  statusSøktFor: AktivitetStatus;
 }>;
 
 export type FrisinnPeriode = Readonly<{
@@ -20,7 +25,7 @@ export type FrisinnGrunnlag = Readonly<{
   behandlingÅrsaker: string[];
 }>;
 
-const finnSamletBruttoForStatus = (andeler: BeregningsgrunnlagAndel[], status: string) => {
+const finnSamletBruttoForStatus = (andeler: BeregningsgrunnlagAndel[], status: AktivitetStatus) => {
   if (!andeler) {
     return 0;
   }
@@ -46,7 +51,7 @@ const erSøktForMars2020 = (frisinnPeriode: FrisinnPeriode) => {
  Hvis to perioder ligger i samme måned ligger de i samme søknadsperiode
  */
 const finnFrisinnAndelerISøknadsperiodeForStatus = (
-  status: string,
+  status: AktivitetStatus,
   bgPeriode: BeregningsgrunnlagPeriodeProp,
   ytelsegrunnlag: FrisinnGrunnlag,
 ) => {
@@ -76,7 +81,7 @@ const finnFrisinnAndelerISøknadsperiodeForStatus = (
 };
 
 export const erSøktForAndelISøknadsperiode = (
-  status: string,
+  status: AktivitetStatus,
   bgPeriode: BeregningsgrunnlagPeriodeProp,
   ytelsegrunnlag: FrisinnGrunnlag,
 ) => {
@@ -90,7 +95,7 @@ export const erSøktForAndelISøknadsperiode = (
  * som ligger i perioden
  */
 export const finnBruttoForStatusIPeriode = (
-  status: string,
+  status: AktivitetStatus,
   bg: Beregningsgrunnlag,
   bgPeriode: BeregningsgrunnlagPeriodeProp,
 ) => {
@@ -105,7 +110,7 @@ export const finnBruttoForStatusIPeriode = (
 };
 
 export const finnOppgittInntektForAndelIPeriode = (
-  status: string,
+  status: AktivitetStatus,
   bgPeriode: BeregningsgrunnlagPeriodeProp,
   ytelsegrunnlag: FrisinnGrunnlag,
 ) => {

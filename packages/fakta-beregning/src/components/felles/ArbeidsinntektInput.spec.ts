@@ -1,4 +1,3 @@
-import { OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
 import type { AndelForFaktaOmBeregning } from '@navikt/ft-types';
 
 import { ArbeidsinntektInput } from './ArbeidsinntektInput';
@@ -13,7 +12,7 @@ describe('<ArbeidsinntektInput>', () => {
         arbeidsforhold: {
           arbeidsgiverIdent: '947064649',
           startdato: '2002-04-20',
-          arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
+          arbeidsforholdType: 'ARBEID',
         },
         andelsnr: 1,
         skalKunneEndreAktivitet: false,
@@ -24,7 +23,7 @@ describe('<ArbeidsinntektInput>', () => {
         inntektskategori: 'FRILANSER',
         aktivitetStatus: 'FL',
         arbeidsforhold: {
-          arbeidsforholdType: OpptjeningAktivitetType.FRILANS,
+          arbeidsforholdType: 'FRILANS',
         },
         andelsnr: 2,
         skalKunneEndreAktivitet: false,
@@ -55,7 +54,7 @@ describe('<ArbeidsinntektInput>', () => {
         inntektskategori: 'FRILANSER',
         aktivitetStatus: 'FL',
         arbeidsforhold: {
-          arbeidsforholdType: OpptjeningAktivitetType.FRILANS,
+          arbeidsforholdType: 'FRILANS',
         },
         andelsnr: 2,
         skalKunneEndreAktivitet: false,

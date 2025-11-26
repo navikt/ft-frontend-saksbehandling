@@ -1,4 +1,6 @@
+import type { AktivitetStatus } from './AktivitetStatus';
 import type { BeregningsgrunnlagArbeidsforhold } from './BeregningsgrunnlagArbeidsforhold';
+import type { Inntektskategori } from './Inntektskategori';
 
 export type TidligereUtbetalinger = Readonly<{
   fom: string;
@@ -7,7 +9,7 @@ export type TidligereUtbetalinger = Readonly<{
 }>;
 
 export type RefusjonTilVurderingAndel = Readonly<{
-  aktivitetStatus: string;
+  aktivitetStatus: AktivitetStatus;
   tidligereUtbetalinger?: TidligereUtbetalinger[];
   nyttRefusjonskravFom: string;
   fastsattNyttRefusjonskravFom?: string;
@@ -58,7 +60,7 @@ export type ArbeidsforholdTilFordeling = Readonly<{
 }>;
 
 export type FordelBeregningsgrunnlagAndel = Readonly<{
-  aktivitetStatus?: string;
+  aktivitetStatus?: AktivitetStatus;
   andelIArbeid?: number[];
   andelsnr?: number;
   arbeidsforhold?: BeregningsgrunnlagArbeidsforhold;
@@ -66,7 +68,7 @@ export type FordelBeregningsgrunnlagAndel = Readonly<{
   belopFraInntektsmeldingPrAar?: number;
   fordelingForrigeBehandlingPrAar?: number;
   fordeltPrAar?: number;
-  inntektskategori?: string;
+  inntektskategori?: Inntektskategori;
   lagtTilAvSaksbehandler?: boolean;
   nyttArbeidsforhold?: boolean;
   refusjonskravFraInntektsmeldingPrAar?: number;
@@ -89,7 +91,7 @@ type FordelBeregningsgrunnlag = Readonly<{
 }>;
 
 export type Inntektsforhold = Readonly<{
-  aktivitetStatus: string;
+  aktivitetStatus: AktivitetStatus;
   arbeidsforholdId: string;
   arbeidsgiverId: string;
   bruttoInntektPrÅr?: number;

@@ -90,7 +90,7 @@ const buildFieldInitialValues = (
 
   return {
     beregningsgrunnlagStp: beregningsgrunnlag.skjaeringstidspunktBeregning,
-    begrunnelse: avklaringsbehov && avklaringsbehov.begrunnelse ? avklaringsbehov.begrunnelse : '',
+    begrunnelse: avklaringsbehov?.begrunnelse ? avklaringsbehov.begrunnelse : '',
     periode: finnVilkårsperiode(vilkarperioder, beregningsgrunnlag.vilkårsperiodeFom).periode,
     perioder: perioderTilVurdering.map(periode => buildInitialValuesPeriode(periode)),
   };

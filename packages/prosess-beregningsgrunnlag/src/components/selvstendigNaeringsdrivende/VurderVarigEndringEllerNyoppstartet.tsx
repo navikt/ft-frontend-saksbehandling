@@ -6,7 +6,6 @@ import { BodyShort, HStack, Radio, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup, RhfTextarea, RhfTextField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr, isAksjonspunktOpen, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -145,9 +144,7 @@ VurderVarigEndringEllerNyoppstartet.buildInitialValues = (
   avklaringsbehov: BeregningAvklaringsbehov[],
 ): VurderOgFastsettValues => {
   const varigEndretAndel = relevanteAndeler.find(
-    andel =>
-      andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE ||
-      andel.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL,
+    andel => andel.aktivitetStatus === 'SN' || andel.aktivitetStatus === 'BA',
   );
   const varigEndretNaeringAP = avklaringsbehov.find(
     ap =>

@@ -12,8 +12,8 @@ import {
   useCustomValidation,
 } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { AktivitetStatus, BeregningsgrunnlagAndelType, Inntektskategori } from '@navikt/ft-kodeverk';
-import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import { BeregningsgrunnlagAndelType } from '@navikt/ft-kodeverk';
+import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, Inntektskategori } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, formaterArbeidsgiver, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
@@ -123,9 +123,7 @@ const isSelvstendigOrFrilanser = (fieldVal: FordelBeregningsgrunnlagAndelValues)
   if (!fieldVal.inntektskategori) {
     return false;
   }
-  return (
-    isSelvstendigNæringsdrivende(fieldVal.inntektskategori) || Inntektskategori.FRILANSER === fieldVal.inntektskategori
-  );
+  return selvstendigNæringsdrivendeEllerFrilansSet.has(fieldVal.inntektskategori);
 };
 
 const finnArbeidsforholdForAndel = (
@@ -136,7 +134,7 @@ const finnArbeidsforholdForAndel = (
   return arbeidsforholdListe.find(arbeidsforhold => arbeidsforhold.andelsnr === andelsnr);
 };
 
-const finnAktivitetStatus = (fields: FordelBeregningsgrunnlagAndelValues[], val: string): string | undefined => {
+const finnAktivitetStatus = (fields: FordelBeregningsgrunnlagAndelValues[], val: string) => {
   const andelsnr = Number(val);
   return fields.find(field => field.andelsnr === andelsnr)?.aktivitetStatus;
 };
@@ -246,8 +244,7 @@ export const FordelPeriodeFieldArray = ({
   }, [fieldArrayToRepeat]);
 
   const harKunYtelse =
-    !!beregningsgrunnlag.aktivitetStatus &&
-    beregningsgrunnlag.aktivitetStatus.some(status => status === AktivitetStatus.KUN_YTELSE);
+    !!beregningsgrunnlag.aktivitetStatus && beregningsgrunnlag.aktivitetStatus.includes('KUN_YTELSE');
   const arbeidsforholdList = finnUnikeArbeidsforhold(beregningsgrunnlag);
 
   const gjelderGradering = getGjelderGradering(beregningsgrunnlag);
@@ -386,7 +383,9 @@ export const FordelPeriodeFieldArray = ({
                       hideLabel
                       readOnly
                       className={styles.litenBredde}
-                      normalizeOnBlur={value => (Number.isNaN(value) ? value : parseFloat(value.toString()).toFixed(2))}
+                      normalizeOnBlur={value =>
+                        Number.isNaN(value) ? value : Number.parseFloat(value.toString()).toFixed(2)
+                      }
                     />
                   </Table.DataCell>
                 )}
@@ -499,10 +498,10 @@ export const FordelPeriodeFieldArray = ({
   );
 };
 
-const isSelvstendigNæringsdrivende = (inntektskategori: string): boolean =>
-  [
-    Inntektskategori.SELVSTENDIG_NÆRINGSDRIVENDE,
-    Inntektskategori.JORDBRUKER,
-    Inntektskategori.DAGMAMMA,
-    Inntektskategori.FISKER,
-  ].some(s => s === inntektskategori);
+const selvstendigNæringsdrivendeEllerFrilansSet = new Set<Inntektskategori>([
+  'SELVSTENDIG_NÆRINGSDRIVENDE',
+  'JORDBRUKER',
+  'DAGMAMMA',
+  'FISKER',
+  'FRILANSER',
+]);

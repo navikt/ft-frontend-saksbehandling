@@ -1,8 +1,7 @@
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type {
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
-  BeregningsgrunnlagArbeidsforhold,
+  FaktaOmBeregning,
   FaktaOmBeregningAndel,
 } from '@navikt/ft-types';
 
@@ -30,10 +29,10 @@ const lagBeregningsgrunnlag = (andeler: FaktaOmBeregningAndel[]): Beregningsgrun
 describe('FaktaForATFLOgSNPanel', () => {
   it('skal kunne transform values for kun besteberegning', () => {
     const aktivePaneler = [FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FØDENDE_KVINNE];
-    const andel1 = { andelsnr: 1, aktivitetStatus: AktivitetStatus.ARBEIDSAVKLARINGSPENGER };
+    const andel1 = { andelsnr: 1, aktivitetStatus: 'AAP' };
     const andel2 = {
       andelsnr: 2,
-      aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
+      aktivitetStatus: 'SN',
     } as BeregningsgrunnlagAndel;
     const faktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
@@ -60,7 +59,7 @@ describe('FaktaForATFLOgSNPanel', () => {
       [INNTEKT_FIELD_ARRAY_NAME]: [
         {
           andel: 'Arbeid',
-          aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+          aktivitetStatus: 'AT',
           fastsattBelop: '10 000',
           inntektskategori: 'ARBEIDSTAKER',
           andelsnr: andel1.andelsnr,
@@ -68,7 +67,7 @@ describe('FaktaForATFLOgSNPanel', () => {
         },
         {
           andel: 'Næring',
-          aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
+          aktivitetStatus: 'SN',
           fastsattBelop: '20 000',
           inntektskategori: 'SELVSTENDIG_NÆRINGSDRIVENDE',
           andelsnr: andel2.andelsnr,
@@ -96,40 +95,42 @@ describe('FaktaForATFLOgSNPanel', () => {
       FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL,
       FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING,
     ];
-    const forholdMedAtOgFl = {
+    const forholdMedAtOgFl: FaktaOmBeregningAndel = {
       andelsnr: 2,
-      aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
-      inntektskategori: 'Arbeidstaker',
-      arbeidsforhold: {
-        arbeidsgiverIdent: '123',
-        arbeidsforholdId: 'abc',
-        startdato: '2018-01-01',
-      } as BeregningsgrunnlagArbeidsforhold,
-    };
-
-    const forholdMedLonnsendringUtenIM = {
-      andelsnr: 2,
-      aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+      aktivitetStatus: 'AT',
       inntektskategori: 'ARBEIDSTAKER',
       arbeidsforhold: {
         arbeidsgiverIdent: '123',
         arbeidsforholdId: 'abc',
         startdato: '2018-01-01',
-      } as BeregningsgrunnlagArbeidsforhold,
+        arbeidsforholdType: 'ARBEID',
+      },
     };
 
-    const frilansAndel = {
-      inntektskategori: 'Frilans',
+    const forholdMedLonnsendringUtenIM: FaktaOmBeregningAndel = {
+      andelsnr: 2,
+      aktivitetStatus: 'AT',
+      inntektskategori: 'ARBEIDSTAKER',
+      arbeidsforhold: {
+        arbeidsgiverIdent: '123',
+        arbeidsforholdId: 'abc',
+        startdato: '2018-01-01',
+        arbeidsforholdType: 'ARBEID',
+      },
+    };
+
+    const frilansAndel: FaktaOmBeregningAndel = {
+      inntektskategori: 'FRILANSER',
       arbeidsforhold: {
         startdato: '2018-01-01',
         opphoersdato: '2018-06-01',
-      } as BeregningsgrunnlagArbeidsforhold,
+        arbeidsforholdType: 'FRILANS',
+      },
       andelsnr: 1,
-      arbeidsforholdType: 'Frilans',
-      aktivitetStatus: AktivitetStatus.FRILANSER,
-    } as FaktaOmBeregningAndel;
+      aktivitetStatus: 'FL',
+    };
 
-    const faktaOmBeregning = {
+    const faktaOmBeregning: FaktaOmBeregning = {
       andelerForFaktaOmBeregning: [],
       faktaOmBeregningTilfeller: aktivePaneler,
       arbeidsforholdMedLønnsendringUtenIM: [forholdMedLonnsendringUtenIM],
@@ -149,7 +150,7 @@ describe('FaktaForATFLOgSNPanel', () => {
       [erNyoppstartetFLField]: true,
       [INNTEKT_FIELD_ARRAY_NAME]: [
         {
-          aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+          aktivitetStatus: 'AT',
           andel: 'Arbeid',
           fastsattBelop: '10 000',
           inntektskategori: 'ARBEIDSTAKER',
@@ -159,9 +160,9 @@ describe('FaktaForATFLOgSNPanel', () => {
         {
           andel: 'Arbeid',
           fastsattBelop: '20 000',
-          inntektskategori: 'FRILANS',
+          inntektskategori: 'FRILANSER',
           andelsnr: frilansAndel.andelsnr,
-          aktivitetStatus: AktivitetStatus.FRILANSER,
+          aktivitetStatus: 'FL',
           kanRedigereInntekt: true,
         },
       ],

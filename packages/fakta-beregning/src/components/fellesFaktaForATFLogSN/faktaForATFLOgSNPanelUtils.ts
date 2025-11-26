@@ -1,4 +1,3 @@
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
@@ -225,22 +224,13 @@ export const getBuildInitialValuesFaktaForATFLOgSN = (
       tilfeller,
     ),
     arbeidstakerInntektValues: ArbeidsinntektInput.buildInitialValues(faktaOmBeregning.andelerForFaktaOmBeregning),
-    frilansInntektValues: InntektInput.buildInitialValues(
-      faktaOmBeregning.andelerForFaktaOmBeregning,
-      AktivitetStatus.FRILANSER,
-    ),
-    dagpengerInntektValues: InntektInput.buildInitialValues(
-      faktaOmBeregning.andelerForFaktaOmBeregning,
-      AktivitetStatus.DAGPENGER,
-    ),
+    frilansInntektValues: InntektInput.buildInitialValues(faktaOmBeregning.andelerForFaktaOmBeregning, 'FL'),
+    dagpengerInntektValues: InntektInput.buildInitialValues(faktaOmBeregning.andelerForFaktaOmBeregning, 'DP'),
     selvstendigNæringsdrivendeInntektValues: InntektInput.buildInitialValues(
       faktaOmBeregning.andelerForFaktaOmBeregning,
-      AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
+      'SN',
     ),
-    militærEllerSivilInntektValues: InntektInput.buildInitialValues(
-      faktaOmBeregning.andelerForFaktaOmBeregning,
-      AktivitetStatus.MILITÆR_ELLER_SIVIL,
-    ),
+    militærEllerSivilInntektValues: InntektInput.buildInitialValues(faktaOmBeregning.andelerForFaktaOmBeregning, 'MS'),
     vurderRefusjonValues: VurderRefusjonForm.buildInitialValues(
       tilfeller,
       getArbeidsgiverInfoForRefusjonskravSomKommerForSent(beregningsgrunnlag),

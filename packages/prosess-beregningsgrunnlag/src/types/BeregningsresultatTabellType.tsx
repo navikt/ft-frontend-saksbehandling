@@ -1,7 +1,7 @@
-import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { AktivitetStatus } from '@navikt/ft-types';
 
 export type TabellRadData = {
-  status: string;
+  aktivitetStatus: AktivitetStatus;
   erFerdigBeregnet: boolean;
   inntekt?: number;
   bortfaltNaturalytelse?: number;
@@ -16,8 +16,4 @@ export type TabellData = {
   dagsats?: number;
   årsak: string[];
   andeler: TabellRadData[];
-};
-
-export type TabellMap = {
-  [key: string]: BeregningsgrunnlagAndel[];
 };
