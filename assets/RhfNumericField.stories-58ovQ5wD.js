@@ -1,0 +1,18 @@
+import{g as O,a as S,r as _}from"./formUtils-scCUyMbE.js";import{r as g,u as M,a as A,j as v,T as j}from"./iframe-DH7Rhn68.js";import{R as P}from"./ReadOnlyField-sou-u3hS.js";import"./preload-helper-PPVm8Dsz.js";const I=/^(\d+[,]?(\d{1,2})?)$/,k=/^(\d{1,20}[,.]?(\d{1,10})?)$/,b=({label:u,hideLabel:i,validate:m=[],readOnly:y,description:T,isEdited:V,forceTwoDecimalDigits:o=!1,returnAsNumber:R=!1,onChange:d,autoComplete:D="off",size:c="small",name:p,control:x,disabled:E,...F})=>{const[C,f]=g.useState(!1),{formState:{errors:N}}=M(),{field:r}=A({name:p,control:x,rules:{validate:g.useMemo(()=>O(m),[m])}});if(y)return v.jsx(P,{label:u,value:r.value,isEdited:V,hideLabel:i,size:c});const q=o?I:k,a=r.value!==void 0&&r.value!==null?r.value.toString():"",w=!C&&o&&a!==""&&!Number.isNaN(a)?parseFloat(a).toFixed(2):a;return v.jsx(j,{size:c,description:T,label:u,error:S(N,p),...r,value:w.replace(".",","),autoComplete:D,disabled:E,type:"text",hideLabel:i,inputMode:"decimal",onChange:h=>{f(!0);const l=h.currentTarget.value;let e;return l===""?e=null:q.test(l)?e=l.replace(",","."):e=r.value,d&&d(e),e&&R&&(e=parseFloat(e),Number.isNaN(e)&&(e=null)),r.onChange(e)},onBlur:()=>{f(!1),r.onBlur(),o&&a.slice(-1)==="."&&r.onChange(a+0)},...F})};b.__docgenInfo={description:"",methods:[],displayName:"RhfNumericField",props:{validate:{required:!1,tsType:{name:"union",raw:"((value: string) => ValidationReturnType)[] | ((value: number) => ValidationReturnType)[]",elements:[{name:"Array",elements:[{name:"unknown"}],raw:"((value: string) => ValidationReturnType)[]"},{name:"Array",elements:[{name:"unknown"}],raw:"((value: number) => ValidationReturnType)[]"}]},description:"",defaultValue:{value:"[]",computed:!1}},autoFocus:{required:!1,tsType:{name:"boolean"},description:""},isEdited:{required:!1,tsType:{name:"boolean"},description:""},forceTwoDecimalDigits:{required:!1,tsType:{name:"boolean"},description:"",defaultValue:{value:"false",computed:!1}},returnAsNumber:{required:!1,tsType:{name:"boolean"},description:"",defaultValue:{value:"false",computed:!1}},onChange:{required:!1,tsType:{name:"signature",type:"function",raw:"(value: any) => void",signature:{arguments:[{type:{name:"any"},name:"value"}],return:{name:"void"}}},description:""},control:{required:!0,tsType:{name:"UseControllerProps['control']",raw:"UseControllerProps<T>['control']"},description:""},autoComplete:{defaultValue:{value:"'off'",computed:!1},required:!1},size:{defaultValue:{value:"'small'",computed:!1},required:!1}}};const $={component:b,tags:["autodocs"],decorators:_({testnumberpre:45.1}),args:{control:void 0}},t={args:{label:"Dette er et numberfelt",name:"testnumber",forceTwoDecimalDigits:!0}},s={args:{label:"Dette er et numberfelt der verdi er valgt",name:"testnumberpre"}},n={args:{label:"Dette er et numberfelt som er readonly",name:"testnumberpre",readOnly:!0}};t.parameters={...t.parameters,docs:{...t.parameters?.docs,source:{originalSource:`{
+  args: {
+    label: 'Dette er et numberfelt',
+    name: 'testnumber',
+    forceTwoDecimalDigits: true
+  }
+}`,...t.parameters?.docs?.source}}};s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
+  args: {
+    label: 'Dette er et numberfelt der verdi er valgt',
+    name: 'testnumberpre'
+  }
+}`,...s.parameters?.docs?.source}}};n.parameters={...n.parameters,docs:{...n.parameters?.docs,source:{originalSource:`{
+  args: {
+    label: 'Dette er et numberfelt som er readonly',
+    name: 'testnumberpre',
+    readOnly: true
+  }
+}`,...n.parameters?.docs?.source}}};const H=["Default","MedVerdi","ReadOnly"];export{t as Default,s as MedVerdi,n as ReadOnly,H as __namedExportsOrder,$ as default};
