@@ -86,3 +86,16 @@ export const bgMedDelvisRefusjon = {
     ],
   },
 } as Beregningsgrunnlag;
+
+export const bgUtenDelvisRefusjonMedRefusjonskravForSent = {
+  ...bgUtenDelvisRefusjon,
+  refusjonTilVurdering: {
+    ...bgUtenDelvisRefusjon.refusjonTilVurdering,
+    refusjonskravForSentListe: [
+      {
+        arbeidsgiverIdent: '999999998',
+        erRefusjonskravGyldig: undefined,
+      },
+    ],
+  },
+} as Beregningsgrunnlag;

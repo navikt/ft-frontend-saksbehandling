@@ -11,7 +11,7 @@ import type {
   RefusjonTilVurderingAndel,
 } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
-import { isAksjonspunktOpen } from '@navikt/ft-utils';
+import { BTag, isAksjonspunktOpen } from '@navikt/ft-utils';
 
 import type { VurderRefusjonFormValues } from '../../types/FordelBeregningsgrunnlagPanelValues';
 import { FaktaFordelBeregningAvklaringsbehovCode } from '../../types/interface/FaktaFordelBeregningAvklaringsbehovCode';
@@ -19,6 +19,7 @@ import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { SubmitButton } from '../felles/SubmitButton';
 import { TidligereUtbetalinger } from './TidligereUtbetalinger';
 import { VurderEndringRefusjonRad } from './VurderEndringRefusjonRad';
+import { VurderRefusjonKravForSentRad } from './VurderRefusjonKravForSentRad';
 
 const FORM_NAME = 'VURDER_REFUSJON_BERGRUNN_FORM';
 
@@ -27,7 +28,7 @@ const { VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
 const finnAvklaringsbehov = (avklaringsbehov: BeregningAvklaringsbehov[]): BeregningAvklaringsbehov | undefined =>
   avklaringsbehov ? avklaringsbehov.find(ap => ap.definisjon === VURDER_REFUSJON_BERGRUNN) : undefined;
 
-const lagRadNøkkel = (andel: RefusjonTilVurderingAndel): string => {
+const lagRadNøkkelAndel = (andel: RefusjonTilVurderingAndel): string => {
   if (!andel.arbeidsgiver) {
     return `${andel.aktivitetStatus}${andel.internArbeidsforholdRef})`;
   }
@@ -58,6 +59,9 @@ export const VurderEndringRefusjonField = ({
     ab => ab.definisjon === FaktaFordelBeregningAvklaringsbehovCode.VURDER_REFUSJON_BERGRUNN,
   );
   const andeler = beregningsgrunnlag.refusjonTilVurdering?.andeler ?? [];
+  const refusjonskravForSentListe = beregningsgrunnlag.refusjonTilVurdering?.refusjonskravForSentListe ?? [];
+  const harAndeler = andeler.length > 0;
+  const harRefusjonskravForSent = refusjonskravForSentListe.length > 0;
   const avklaringsbehovRefusjon = finnAvklaringsbehov(beregningsgrunnlag.avklaringsbehov);
   const erAksjonspunktÅpent = isAksjonspunktOpen(avklaringsbehovRefusjon);
   const formMethods = useFormContext<VurderRefusjonFormValues>();
@@ -66,23 +70,52 @@ export const VurderEndringRefusjonField = ({
     <VStack gap="space-16">
       {erAksjonspunktÅpent && (
         <AksjonspunktHelpTextHTML>
-          <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Aksjonspunkt" />
+          <FormattedMessage
+            id="BeregningInfoPanel.RefusjonBG.Aksjonspunkt"
+            values={{
+              b: BTag,
+              br: <br />,
+              harRefusjonskravForSent,
+              harAndeler,
+              skalHaBr: harRefusjonskravForSent && harAndeler,
+            }}
+          />
         </AksjonspunktHelpTextHTML>
       )}
-      <Heading size="small" level="4">
-        <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Tittel" />
-      </Heading>
-      <TidligereUtbetalinger
-        beregningsgrunnlag={beregningsgrunnlag}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-      />
-      {andeler.map(andel => (
+      {harRefusjonskravForSent && (
+        <Heading size="small" level="4">
+          <FormattedMessage id="BeregningInfoPanel.RefusjonskravForSent.Tittel" />
+        </Heading>
+      )}
+      {refusjonskravForSentListe.map((krav, index) => (
+        <VurderRefusjonKravForSentRad
+          key={`${krav.arbeidsgiverIdent}_${krav.erRefusjonskravGyldig}`}
+          refusjonskrav={krav}
+          kravIndex={index}
+          readOnly={manglerAksjonspunkt || readOnly}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          beregningsgrunnlagIndeks={vilkårperiodeFieldIndex}
+        />
+      ))}
+      {harAndeler && (
+        <>
+          <Heading size="small" level="4">
+            <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Tittel" />
+          </Heading>
+          <TidligereUtbetalinger
+            beregningsgrunnlag={beregningsgrunnlag}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          />
+        </>
+      )}
+      {andeler.map((andel, index) => (
         <VurderEndringRefusjonRad
           refusjonAndel={andel}
+          andelIndex={index}
           readOnly={manglerAksjonspunkt || readOnly}
           erAksjonspunktÅpent={erAksjonspunktÅpent}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          key={lagRadNøkkel(andel)}
+          key={lagRadNøkkelAndel(andel)}
           skjæringstidspunkt={beregningsgrunnlag.skjaeringstidspunktBeregning}
           formName={FORM_NAME}
           vilkårperiodeFieldIndex={vilkårperiodeFieldIndex}
