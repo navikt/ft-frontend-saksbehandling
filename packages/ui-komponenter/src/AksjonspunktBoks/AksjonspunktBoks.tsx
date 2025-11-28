@@ -6,8 +6,6 @@ import { Box, type BoxNewProps, Heading, HStack } from '@navikt/ds-react';
 type Aksjonspunkt = {
   status: string;
   definisjon: string;
-  toTrinnsBehandling?: boolean;
-  toTrinnsBehandlingGodkjent?: boolean;
 };
 
 interface Props {

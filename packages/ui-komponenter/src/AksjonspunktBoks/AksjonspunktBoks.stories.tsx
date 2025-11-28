@@ -26,8 +26,6 @@ export const OpprettetAksjonspunkt: Story = {
     aksjonspunkt: {
       definisjon: '1234',
       status: 'OPPR',
-      toTrinnsBehandling: undefined,
-      toTrinnsBehandlingGodkjent: undefined,
     },
   },
 };
@@ -37,8 +35,6 @@ export const UtførtAksjonspunkt: Story = {
     aksjonspunkt: {
       definisjon: '1234',
       status: 'UTFO',
-      toTrinnsBehandling: undefined,
-      toTrinnsBehandlingGodkjent: undefined,
     },
   },
 };
@@ -48,8 +44,6 @@ export const ReturnertAksjonspunkt: Story = {
     aksjonspunkt: {
       definisjon: '1234',
       status: 'OPPR',
-      toTrinnsBehandling: true,
-      toTrinnsBehandlingGodkjent: false,
     },
   },
 };
