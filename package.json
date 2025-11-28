@@ -26,7 +26,7 @@
     "clean": "lerna run clean",
     "prepare": "husky install",
     "storybook-clean-deploy-folder": "rm -rf ./.storybook-static-build",
-    "storybook-build-all": "rm -rf ./.storybook-static-build",
+    "storybook-build-all": "yarn build",
     "storybook-create-deploy-folder": "yarn storybook-build",
     "storybook-build": "storybook build -o .storybook-static-build",
     "storybook-deploy-to-github": "gh-pages -d .storybook-static-build -t",
