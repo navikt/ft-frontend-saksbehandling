@@ -35,6 +35,11 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor}}@users.noreply.github.com"
 
+      - name: Stash yarnrc changes
+        run: |
+          git add .yarnrc.yml
+          git stash push -m "CI yarnrc changes"
+
       - name: Build packages
         run: yarn build
 
