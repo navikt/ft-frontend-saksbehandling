@@ -10,8 +10,8 @@ import { SaksbehandlernavnContext } from './SaksbehandlernavnContext';
 import styles from './assessedBy.module.css';
 
 interface IAssessedByProps {
-  ident?: string;
   date?: string;
+  ident?: string;
 }
 
 /* For å få opp saksbehandlerens navn må sette saksbehandlernavn i SaksbehandlernavnContext.Provider
