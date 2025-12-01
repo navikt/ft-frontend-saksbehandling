@@ -12,8 +12,7 @@
         "**/vite.config.js",
         "**/.storybook/**",
         "**/dist/**",
-        "**/node_modules/**",
-        ".yarnrc.yml"
+        "**/node_modules/**"
       ]
     },
     "bootstrap": {
