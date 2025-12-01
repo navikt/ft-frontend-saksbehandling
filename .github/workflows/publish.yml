@@ -14,6 +14,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: navikt/fp-gha-workflows/.github/actions/setup-yarnrc@main
         with:
@@ -36,7 +39,7 @@ jobs:
         run: yarn build
 
       - name: Publish packages
-        run: lerna publish --conventional-commits --yes --no-verify-access
+        run: lerna publish --conventional-commits --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
