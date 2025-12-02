@@ -3,8 +3,9 @@ import type { ReactElement, ReactNode } from 'react';
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { Box, type BoxNewProps, Heading, HStack } from '@navikt/ds-react';
 
+export type AksjonspunktStatus = 'OPPR' | 'UTFO' | 'AVBR';
 type Aksjonspunkt = {
-  status: string;
+  status: AksjonspunktStatus;
   definisjon: string;
 };
 
@@ -21,15 +22,15 @@ export const AksjonspunktBoks = ({ tittel, aksjonspunkt, children }: Props) => {
   return (
     <Box.New
       borderRadius="medium"
-      background={headerBackground}
+      background={bodyBackground}
       data-testid={aksjonspunktIder ?? 'AksjonspunktBoks'}
-      data-color={headerBackground}
+      data-color={bodyBackground}
     >
       <Box.New
         paddingInline={icon ? '4' : '12'}
         paddingBlock="4"
         borderRadius="medium medium 0 0"
-        background={bodyBackground}
+        background={headerBackground}
       >
         <HStack gap="2" wrap={false}>
           {icon && <span>{icon}</span>}
@@ -56,14 +57,14 @@ const getStateProps = (
 
   if (erOpprettetAksjonspunkt) {
     return {
-      headerBackground: 'warning-soft',
-      bodyBackground: 'warning-moderateA',
+      bodyBackground: 'warning-soft',
+      headerBackground: 'warning-moderateA',
       icon: <ExclamationmarkTriangleFillIcon aria-hidden color="var(--ax-text-warning-subtle)" fontSize="1.5rem" />,
     };
   } else {
     return {
-      headerBackground: 'neutral-soft',
-      bodyBackground: 'neutral-moderateA',
+      bodyBackground: 'neutral-soft',
+      headerBackground: 'neutral-moderateA',
       icon: null,
     };
   }

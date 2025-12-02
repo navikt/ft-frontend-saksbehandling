@@ -12,12 +12,12 @@ describe('AksjonspunktBoks', () => {
     expect(screen.getByTestId('AksjonspunktBoks-1234')).toHaveAttribute('data-color', 'warning-soft');
   });
 
-  it('Skal vise tilstand for utført aksjonspunkt', async () => {
+  it('Skal vise nøytral-tilstand for utført aksjonspunkt', async () => {
     render(<UtførtAksjonspunkt />);
     expect(screen.queryByTestId('AksjonspunktBoks-1234')).toHaveAttribute('data-color', 'neutral-soft');
   });
 
-  it('Skal vise danger-tilstand ved retur fra beslutter', async () => {
+  it('Skal vise warning-tilstand ved retur fra beslutter', async () => {
     render(<ReturnertAksjonspunkt />);
     expect(screen.getByTestId('AksjonspunktBoks-1234')).toHaveAttribute('data-color', 'warning-soft');
   });
