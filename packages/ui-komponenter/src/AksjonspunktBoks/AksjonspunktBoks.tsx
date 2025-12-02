@@ -3,9 +3,8 @@ import type { ReactElement, ReactNode } from 'react';
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { Box, type BoxNewProps, Heading, HStack } from '@navikt/ds-react';
 
-export type AksjonspunktStatus = 'OPPR' | 'UTFO' | 'AVBR';
 type Aksjonspunkt = {
-  status: AksjonspunktStatus;
+  status: 'OPPR' | 'UTFO' | 'AVBR';
   definisjon: string;
 };
 
