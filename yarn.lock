@@ -2382,6 +2382,49 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@navikt/ft-prosess-beregning@workspace:packages/prosess-beregning":
+  version: 0.0.0-use.local
+  resolution: "@navikt/ft-prosess-beregning@workspace:packages/prosess-beregning"
+  dependencies:
+    "@navikt/aksel-icons": "npm:7.32.5"
+    "@navikt/ds-css": "npm:7.32.5"
+    "@navikt/ds-react": "npm:7.32.5"
+    "@navikt/ft-config-eslint": "workspace:^"
+    "@navikt/ft-config-typescript": "workspace:^"
+    "@navikt/ft-config-vite": "workspace:^"
+    "@navikt/ft-form-hooks": "workspace:^"
+    "@navikt/ft-form-validators": "workspace:^"
+    "@navikt/ft-frontend-storybook-utils": "workspace:^"
+    "@navikt/ft-ui-komponenter": "workspace:^"
+    "@navikt/ft-utils": "workspace:^"
+    "@testing-library/dom": "npm:10.4.1"
+    "@testing-library/react": "npm:16.3.0"
+    "@testing-library/user-event": "npm:14.6.1"
+    dayjs: "npm:1.11.19"
+    eslint: "npm:9.39.1"
+    react: "npm:19.2.0"
+    react-hook-form: "npm:7.66.0"
+    react-intl: "npm:7.1.14"
+    typescript: "npm:5.9.3"
+    vite: "npm:7.1.12"
+    vitest: "npm:4.0.6"
+  peerDependencies:
+    "@navikt/aksel-icons": 7.x
+    "@navikt/ds-css": 7.x
+    "@navikt/ds-react": 7.x
+    "@navikt/ft-form-hooks": 5.x
+    "@navikt/ft-form-validators": 2.x
+    "@navikt/ft-kodeverk": 4.x
+    "@navikt/ft-types": 3.x
+    "@navikt/ft-ui-komponenter": 2.x
+    "@navikt/ft-utils": 2.x
+    dayjs: 1.11.x
+    react: 19.1.0
+    react-hook-form: 7.x
+    react-intl: 6.x
+  languageName: unknown
+  linkType: soft
+
 "@navikt/ft-prosess-beregningsgrunnlag@workspace:packages/prosess-beregningsgrunnlag":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-beregningsgrunnlag@workspace:packages/prosess-beregningsgrunnlag"
