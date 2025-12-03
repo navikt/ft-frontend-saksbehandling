@@ -14,9 +14,9 @@ import { erBGTilVurdering } from '../utils/beregningsgrunnlagUtils';
 
 export const useSkjæringstidspunktVelger = (
   beregningsgrunnlagListe: Beregningsgrunnlag[],
-  beregningsgrunnlagsvilkar: Vilkår | null,
+  beregningsgrunnlagsvilkår: Vilkår | null,
 ) => {
-  const options = lagSorterteOptionProps(beregningsgrunnlagListe, beregningsgrunnlagsvilkar);
+  const options = lagSorterteOptionProps(beregningsgrunnlagListe, beregningsgrunnlagsvilkår);
 
   const initialIndex = options.find(o => o.skalVurderes && o.harAvklaringsbehov)?.bgIndex ?? 0;
 
@@ -36,10 +36,10 @@ export const useSkjæringstidspunktVelger = (
           value={options[0].optionLabel}
         />
       ) : (
-        <Select size="small" label={<FormattedMessage id="SkjæringstidspunktVelger.Label" />} onChange={handleOnChange}>
+        <Select label={<FormattedMessage id="SkjæringstidspunktVelger.Label" />} onChange={handleOnChange}>
           {options.map(o => (
             <option key={o.bgIndex} value={o.bgIndex}>
-              {o.optionLabel}
+              {o.harAvklaringsbehov && <>⚠️</>} {o.optionLabel}
             </option>
           ))}
         </Select>
@@ -47,11 +47,14 @@ export const useSkjæringstidspunktVelger = (
   };
 };
 
-const lagSorterteOptionProps = (beregningsgrunnlagListe: Beregningsgrunnlag[], bgVilkår: Vilkår | null) =>
+const lagSorterteOptionProps = (
+  beregningsgrunnlagListe: Beregningsgrunnlag[],
+  beregningsgrunnlagsvilkår: Vilkår | null,
+) =>
   beregningsgrunnlagListe
     .map((gr, index) => ({
       bgIndex: index,
-      skalVurderes: erBGTilVurdering(gr, bgVilkår),
+      skalVurderes: erBGTilVurdering(gr, beregningsgrunnlagsvilkår),
       harAvklaringsbehov: harAksjonspunktSomkanLøses(gr.avklaringsbehov),
       skjæringstidspunkt: gr.skjaeringstidspunktBeregning,
       optionLabel: (
