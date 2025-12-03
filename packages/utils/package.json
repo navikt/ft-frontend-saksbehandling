@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-utils",
-  "version": "3.9.0",
+  "version": "3.9.1",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -35,8 +35,8 @@
     "@navikt/ft-config-vite": "workspace:^",
     "eslint": "9.39.1",
     "typescript": "5.9.3",
-    "vite": "7.1.12",
-    "vitest": "4.0.6"
+    "vite": "7.2.4",
+    "vitest": "4.0.14"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
