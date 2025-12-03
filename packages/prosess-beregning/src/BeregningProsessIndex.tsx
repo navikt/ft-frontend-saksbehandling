@@ -1,12 +1,13 @@
 import { RawIntlProvider } from 'react-intl';
 
-import { VStack } from '@navikt/ds-react';
+import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
+import { Tabs } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
-import { GrunnlagForBeregning } from './components/grunnlagForBeregning/GrunnlagForBeregning';
-import { useSkjæringstidspunktVelger } from './hooks/useSkjæringstidspunktVelger';
+import { TabInnhold } from './components/TabInnhold.tsx';
+import { useSkjæringstidspunktTabs } from './hooks/useSkjæringstidspunktTabs.tsx';
 import type { KodeverkForPanel } from './types/KodeverkForPanel';
 import type { Vilkår } from './types/Vilkår';
 
@@ -27,22 +28,40 @@ export const BeregningProsessIndex = ({
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
 }: Props) => {
-  const { aktivtBeregningsgrunnlag, skjæringstidspunktVelger } = useSkjæringstidspunktVelger(
+  const { tabOptions, currentTabValue, onTabChange } = useSkjæringstidspunktTabs(
     beregningsgrunnlagListe,
     beregningsgrunnlagsvilkår,
   );
   return (
     <RawIntlProvider value={intl}>
-      <VStack gap="space-8">
-        <GrunnlagForBeregning
-          beregningsgrunnlag={aktivtBeregningsgrunnlag}
-          beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
-          kodeverkSamling={kodeverkSamling}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          skjæringstidspunktVelger={skjæringstidspunktVelger}
-        />
-        {/* her legges graf, tabell, ap, osv. */}
-      </VStack>
+      <Tabs value={currentTabValue} onChange={onTabChange}>
+        {tabOptions.length > 1 && (
+          <Tabs.List>
+            {tabOptions.map(o => (
+              <Tabs.Tab
+                key={o.bgIndex}
+                value={o.bgIndex.toString()}
+                label={o.optionLabel}
+                icon={
+                  o.harAvklaringsbehov ? (
+                    <ExclamationmarkTriangleFillIcon aria-hidden color="var(--ax-bg-warning-strong)" />
+                  ) : undefined
+                }
+              />
+            ))}
+          </Tabs.List>
+        )}
+        {tabOptions.map(o => (
+          <Tabs.Panel key={o.bgIndex} value={o.bgIndex.toString()} aria-label={o.optionLabel}>
+            <TabInnhold
+              beregningsgrunnlag={beregningsgrunnlagListe[o.bgIndex]}
+              beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
+              kodeverkSamling={kodeverkSamling}
+              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            />
+          </Tabs.Panel>
+        ))}
+      </Tabs>
     </RawIntlProvider>
   );
 };
