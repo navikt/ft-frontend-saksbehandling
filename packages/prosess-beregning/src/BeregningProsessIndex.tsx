@@ -6,8 +6,8 @@ import { Tabs } from '@navikt/ds-react';
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
-import { TabInnhold } from './components/TabInnhold.tsx';
-import { useSkjæringstidspunktTabs } from './hooks/useSkjæringstidspunktTabs.tsx';
+import { TabInnhold } from './components/TabInnhold';
+import { useSkjæringstidspunktTabs } from './hooks/useSkjæringstidspunktTabs';
 import type { KodeverkForPanel } from './types/KodeverkForPanel';
 import type { Vilkår } from './types/Vilkår';
 

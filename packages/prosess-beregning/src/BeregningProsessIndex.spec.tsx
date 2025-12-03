@@ -1,6 +1,6 @@
 import { composeStories } from '@storybook/react-vite';
 import { render, screen } from '@testing-library/react';
-import { userEvent } from 'storybook/test';
+import { userEvent } from '@testing-library/user-event';
 import { expect } from 'vitest';
 
 import * as stories from './BeregningProsessIndex.stories';
