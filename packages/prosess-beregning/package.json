@@ -1,0 +1,76 @@
+{
+  "name": "@navikt/ft-prosess-beregning",
+  "description": "Prosesspanel for beregningsgrunnlaget med aksjonspunkter relatert til avvik for arbeid, frilans og næring",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "vitest --project=jsdom",
+    "test:watch": "vitest --project=jsdom --watch=true",
+    "test:browser": "vitest --project=browser",
+    "test:browser:watch": "vitest --project=browser --watch=true",
+    "tsc": "tsc --pretty",
+    "eslint": "eslint \"src/**/*.ts*\" --color",
+    "eslint:fix": "eslint --fix \"src/**/*.ts*\" --color",
+    "prettier": "prettier --write src",
+    "dev": "vite build --watch --mode development",
+    "build": "vite build",
+    "clean": "rm -rf ./dist ./node_modules"
+  },
+  "dependencies": {
+    "@navikt/aksel-icons": "7.32.5",
+    "@navikt/ds-css": "7.32.5",
+    "@navikt/ds-react": "7.32.5",
+    "@navikt/ft-form-hooks": "workspace:^",
+    "@navikt/ft-form-validators": "workspace:^",
+    "@navikt/ft-ui-komponenter": "workspace:^",
+    "@navikt/ft-utils": "workspace:^",
+    "dayjs": "1.11.19",
+    "react": "19.2.0",
+    "react-hook-form": "7.66.0",
+    "react-intl": "7.1.14"
+  },
+  "peerDependencies": {
+    "@navikt/aksel-icons": "7.x",
+    "@navikt/ds-css": "7.x",
+    "@navikt/ds-react": "7.x",
+    "@navikt/ft-form-hooks": "5.x",
+    "@navikt/ft-form-validators": "2.x",
+    "@navikt/ft-kodeverk": "4.x",
+    "@navikt/ft-types": "3.x",
+    "@navikt/ft-ui-komponenter": "2.x",
+    "@navikt/ft-utils": "2.x",
+    "dayjs": "1.11.x",
+    "react": "19.1.0",
+    "react-hook-form": "7.x",
+    "react-intl": "6.x"
+  },
+  "devDependencies": {
+    "@navikt/ft-config-eslint": "workspace:^",
+    "@navikt/ft-config-typescript": "workspace:^",
+    "@navikt/ft-config-vite": "workspace:^",
+    "@navikt/ft-frontend-storybook-utils": "workspace:^",
+    "@testing-library/dom": "10.4.1",
+    "@testing-library/react": "16.3.0",
+    "@testing-library/user-event": "14.6.1",
+    "eslint": "9.39.1",
+    "typescript": "5.9.3",
+    "vite": "7.1.12",
+    "vitest": "4.0.6"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./dist/style.css": "./dist/style.css"
+  }
+}
