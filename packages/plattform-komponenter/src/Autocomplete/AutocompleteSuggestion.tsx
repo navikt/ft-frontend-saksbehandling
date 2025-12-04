@@ -5,12 +5,12 @@ import type { Suggestion } from './types/Suggestion';
 import styles from './autocompleteSuggestion.module.css';
 
 interface Props {
+  active: boolean;
   id: string;
   index: number;
   onClick: (value: Suggestion) => void;
   value: Suggestion;
   match: string;
-  active: boolean;
   setSuggestionIndex: (index: number) => void;
   avoidBlur: () => void;
 }
