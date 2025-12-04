@@ -10,9 +10,9 @@ interface Props {
   id: string;
   index: number;
   onClick: (value: Suggestion) => void;
-  value: Suggestion;
   match: string;
   setSuggestionIndex: (index: number) => void;
+  value: Suggestion;
 }
 
 interface State {
