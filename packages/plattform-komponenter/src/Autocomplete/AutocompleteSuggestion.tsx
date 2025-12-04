@@ -6,13 +6,13 @@ import styles from './autocompleteSuggestion.module.css';
 
 interface Props {
   active: boolean;
+  avoidBlur: () => void;
   id: string;
   index: number;
   onClick: (value: Suggestion) => void;
   value: Suggestion;
   match: string;
   setSuggestionIndex: (index: number) => void;
-  avoidBlur: () => void;
 }
 
 interface State {
