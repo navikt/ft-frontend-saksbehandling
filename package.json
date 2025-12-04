@@ -21,7 +21,7 @@
     "stylelint": "lerna run stylelint --stream",
     "prettier": "lerna run prettier --stream",
     "build": "lerna run build --stream",
-    "lerna-publish": "yarn build && lerna publish",
+    "publish": "yarn build && lerna version && git push --follow-tags",
     "lerna-changed": "lerna changed",
     "clean": "lerna run clean",
     "prepare": "husky install",

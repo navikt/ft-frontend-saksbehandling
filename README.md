@@ -21,7 +21,7 @@ En skal alltid utvikle på branch og lage pull request på GitHub. Denne kan mer
 
 ## Publisering av moduler
 
-En Github Action kjører automatisk ved hver Pull request merge til main, som bygger og publiserer pakkene til GitHub Package Registry. For å kontrollere versjonering og changelog brukes [lerna conventional commits](https://github.com/lerna/lerna/tree/main/libs/commands/version#--conventional-commits). Om du vil definere versjon manuelt kan du skrive en commit-melding som indikerer hvilken type versjon som skal publiseres: (feat: = minor, fix: = patch, BREAKING CHANGE: = major).
+En Github Action kjører automatisk ved hver Pull request merge til main, som bygger og publiserer pakkene til GitHub Package Registry. Du må selv sette versjon og lage tag ved å kjøre `yarn publish` på rot i branchen din før merging til main. Denne kommandoen bygger pakkene, lar deg velge versjoner og pusher tag til GitHub. Når PR-en er merget vil Github Action publisere pakkene.
 
 ### Utvikling mot lokal kode i ft-frontend-saksbehandling fra annet repo
 

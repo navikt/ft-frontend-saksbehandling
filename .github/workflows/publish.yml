@@ -9,14 +9,11 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       packages: write
 
     steps:
       - uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: navikt/fp-gha-workflows/.github/actions/setup-yarnrc@main
         with:
@@ -30,21 +27,10 @@ jobs:
       - name: Installere dependencies
         run: yarn install --immutable
 
-      - name: Configure Git
-        run: |
-          git config user.name "${{ github.actor }}"
-          git config user.email "${{ github.actor}}@users.noreply.github.com"
-
-      - name: Stash yarnrc changes
-        run: |
-          git add .yarnrc.yml
-          git stash push -m "CI yarnrc changes"
-
       - name: Build packages
         run: yarn build
 
       - name: Publish packages
-        run: lerna publish --conventional-commits --yes
+        run: lerna publish from-git --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
