@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 
-import { lagBG } from '../testdata/beregningsgrunnlag';
+import { arbeistakerFPEttArbeidsforhold } from '../testdata/arbeistakerFPEttArbeidsforhold';
 import { BeregningProsessIndex } from './BeregningProsessIndex';
 import type { KodeverkForPanel } from './types/KodeverkForPanel';
 
@@ -31,11 +31,18 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const VisningAvFaktaUtenAksjonspunkt: Story = {
+export const CaseArbeidstakerMedEttArbeidsforholdFP: Story = {
+  name: 'Case - Arbeidstaker med ett arbeidsforhold (FP)',
+  args: {
+    beregningsgrunnlagListe: [arbeistakerFPEttArbeidsforhold],
+  },
+};
+
+export const ToGrunnlagHvorEnHarÅpentAP: Story = {
   args: {
     beregningsgrunnlagListe: [
-      lagBG({ skjaeringstidspunktBeregning: '2023-02-01' }),
-      lagBG({ skjaeringstidspunktBeregning: '2024-02-01' }),
+      { ...arbeistakerFPEttArbeidsforhold, skjaeringstidspunktBeregning: '2025-11-01' },
+      { ...arbeistakerFPEttArbeidsforhold, avklaringsbehov: [] },
     ],
   },
 };

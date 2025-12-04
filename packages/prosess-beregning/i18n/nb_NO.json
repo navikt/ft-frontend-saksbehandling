@@ -1,5 +1,4 @@
 {
-"BeregningsgrunnlagFakta.Tittel": "Grunnlag for beregning",
-"SkjæringstidspunktVelger.Label": "Skjæringsgrunnlag",
-"SkjæringstidspunktVelger.ValueLabel": "Skjæringstidspunkt for beregning {dato}"
+  "GrunnlagForBeregning.Tittel": "Grunnlag for beregning",
+  "GrunnlagForBeregning.Skjæringstidspunkt": "Skjæringstidspunkt for beregning <b>{dato}</b>"
 }
