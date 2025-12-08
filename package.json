@@ -56,7 +56,7 @@
     "lerna": "9.0.3",
     "lint-staged": "16.2.7",
     "prettier": "3.7.1",
-    "storybook": "10.1.0",
+    "storybook": "10.1.2",
     "stylelint": "16.26.1",
     "stylelint-order": "7.0.0",
     "typescript": "5.9.3",
