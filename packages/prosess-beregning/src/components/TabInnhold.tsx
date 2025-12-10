@@ -5,6 +5,7 @@ import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/
 import type { KodeverkForPanel } from '../types/KodeverkForPanel';
 import type { Vilkår } from '../types/Vilkår';
 import { GrunnlagForBeregning } from './grunnlagForBeregning/GrunnlagForBeregning';
+import { Sammenligningsgrunnlag } from './sammenligningsgrunnlag/Sammenligningsgrunnlag';
 
 interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
@@ -26,7 +27,13 @@ export const TabInnhold = ({
         kodeverkSamling={kodeverkSamling}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
       />
-      {/* her legges graf, tabell, ap, osv. */}
+      {beregningsgrunnlag.inntektsgrunnlag && beregningsgrunnlag.sammenligningsgrunnlagPrStatus && (
+        <Sammenligningsgrunnlag
+          sammenligningsgrunnlagPrStatus={beregningsgrunnlag.sammenligningsgrunnlagPrStatus}
+          inntektsgrunnlag={beregningsgrunnlag.inntektsgrunnlag}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        />
+      )}
     </VStack>
   );
 };

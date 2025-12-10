@@ -5,11 +5,16 @@ import type { FaktaOmBeregning } from './BeregningsgrunnlagFakta';
 import type { FaktaOmFordeling, RefusjonTilVurdering } from './BeregningsgrunnlagFordeling';
 import type { Besteberegninggrunnlag } from './Besteberegning';
 
-export type InntektsgrunnlagInntekt = Readonly<{
-  inntektAktivitetType: string;
-  arbeidsgiverIdent?: string;
-  beløp: number;
-}>;
+export type InntektsgrunnlagInntekt =
+  | {
+      inntektAktivitetType: 'ARBEIDSTAKERINNTEKT';
+      arbeidsgiverIdent: string;
+      beløp: number;
+    }
+  | {
+      inntektAktivitetType: string;
+      beløp: number;
+    };
 
 export type InntektsgrunnlagMåned = Readonly<{
   fom: string;

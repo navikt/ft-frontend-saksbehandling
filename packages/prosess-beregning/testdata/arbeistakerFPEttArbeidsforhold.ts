@@ -1,4 +1,4 @@
-import type { Beregningsgrunnlag } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 
 /**
  * Syntetisk testdata for beregningsgrunnlag
@@ -37,7 +37,7 @@ export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
           andelsnr: 1,
           inntektskategori: 'ARBEIDSTAKER',
           arbeidsforhold: {
-            arbeidsgiverIdent: '311536753',
+            arbeidsgiverIdent: '222222222',
             startdato: '2010-10-01',
             arbeidsforholdType: 'ARBEID',
             belopFraInntektsmeldingPrMnd: 30000,
@@ -76,7 +76,7 @@ export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
           tom: '2025-10-31',
           aktiviteter: [
             {
-              arbeidsgiverIdent: '311536753',
+              arbeidsgiverIdent: '222222222',
               fom: '2010-10-01',
               tom: '9999-12-31',
               arbeidsforholdType: 'ARBEID',
@@ -94,7 +94,7 @@ export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
         aktivitetStatus: 'AT',
         refusjonskrav: 30000,
         arbeidsforhold: {
-          arbeidsgiverIdent: '311536753',
+          arbeidsgiverIdent: '222222222',
           startdato: '2010-10-01',
           arbeidsforholdType: 'ARBEID',
           belopFraInntektsmeldingPrMnd: 30000,
@@ -112,53 +112,6 @@ export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
   },
   erOverstyrtInntekt: false,
   inntektsgrunnlag: {
-    // @ts-expect-error typen er ufullstendig
-    måneder: [
-      {
-        fom: '2025-09-01',
-        tom: '2025-09-30',
-        inntekter: [
-          {
-            inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 30000,
-            arbeidsgiverIdent: '311536753',
-          },
-        ],
-      },
-      {
-        fom: '2025-08-01',
-        tom: '2025-08-31',
-        inntekter: [
-          {
-            inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 30000,
-            arbeidsgiverIdent: '311536753',
-          },
-        ],
-      },
-      {
-        fom: '2025-07-01',
-        tom: '2025-07-31',
-        inntekter: [
-          {
-            inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 30000,
-            arbeidsgiverIdent: '311536753',
-          },
-        ],
-      },
-      {
-        fom: '2025-06-01',
-        tom: '2025-06-30',
-        inntekter: [
-          {
-            inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 30000,
-            arbeidsgiverIdent: '311536753',
-          },
-        ],
-      },
-    ],
     pgiGrunnlag: [],
     sammenligningsgrunnlagInntekter: [
       {
@@ -168,7 +121,7 @@ export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 30000,
-            arbeidsgiverIdent: '311536753',
+            arbeidsgiverIdent: '222222222',
           },
         ],
       },
@@ -179,7 +132,7 @@ export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 30000,
-            arbeidsgiverIdent: '311536753',
+            arbeidsgiverIdent: '222222222',
           },
         ],
       },
@@ -190,7 +143,7 @@ export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 30000,
-            arbeidsgiverIdent: '311536753',
+            arbeidsgiverIdent: '222222222',
           },
         ],
       },
@@ -201,7 +154,7 @@ export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 30000,
-            arbeidsgiverIdent: '311536753',
+            arbeidsgiverIdent: '222222222',
           },
         ],
       },
@@ -214,7 +167,7 @@ export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 30000,
-            arbeidsgiverIdent: '311536753',
+            arbeidsgiverIdent: '222222222',
           },
         ],
       },
@@ -225,7 +178,7 @@ export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 30000,
-            arbeidsgiverIdent: '311536753',
+            arbeidsgiverIdent: '222222222',
           },
         ],
       },
@@ -236,10 +189,28 @@ export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 30000,
-            arbeidsgiverIdent: '311536753',
+            arbeidsgiverIdent: '222222222',
           },
         ],
       },
     ],
+  },
+};
+
+export const arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId = {
+  '111111111': {
+    identifikator: '111111111',
+    navn: 'Lagt til av saksbehandler',
+    erPrivatPerson: false,
+  },
+  '222222222': {
+    identifikator: '222222222',
+    navn: 'Trossig Naturstridig Tiger AS',
+    erPrivatPerson: false,
+  },
+  '333333333': {
+    identifikator: '333333333',
+    navn: 'Norge AS',
+    erPrivatPerson: false,
   },
 };

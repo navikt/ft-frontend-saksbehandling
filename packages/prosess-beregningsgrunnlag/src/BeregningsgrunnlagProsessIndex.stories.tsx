@@ -364,6 +364,7 @@ const malSGGrunnlag = (kode: string) => lagSammenligningsGrunnlag(kode, 200000, 
 
 const lagATInntektsgrunnlag = (inntekt: number): InntektsgrunnlagInntekt => ({
   inntektAktivitetType: InntektAktivitetType.ARBEID,
+  arbeidsgiverIdent: '999999996',
   beløp: inntekt,
 });
 
