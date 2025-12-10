@@ -19,7 +19,7 @@ const BAR_COLORS_YTELSE: ColorPair = ['#99DEAD', '#2AA758'];
 export const getBarColors = (inntektAktivitetType: InntektAktivitetType, index: number) => {
   switch (inntektAktivitetType) {
     case InntektAktivitetType.ARBEID:
-      return BAR_COLORS_ARBEID[index];
+      return BAR_COLORS_ARBEID[index % BAR_COLORS_ARBEID.length];
     case InntektAktivitetType.FRILANS:
       return BAR_COLORS_FRILANS;
     case InntektAktivitetType.YTELSE:
