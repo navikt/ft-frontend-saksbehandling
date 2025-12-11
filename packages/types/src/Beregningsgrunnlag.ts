@@ -12,7 +12,7 @@ export type InntektsgrunnlagInntekt =
       beløp: number;
     }
   | {
-      inntektAktivitetType: string;
+      inntektAktivitetType: 'FRILANSINNTEKT' | 'YTELSEINNTEKT';
       beløp: number;
     };
 

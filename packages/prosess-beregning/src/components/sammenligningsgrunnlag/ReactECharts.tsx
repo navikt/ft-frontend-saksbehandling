@@ -13,7 +13,7 @@ export const ReactECharts = ({ option }: Props) => {
   useEffect(() => {
     let chart: ECharts | undefined;
     if (chartRef.current !== null) {
-      chart = init(chartRef.current, undefined, { locale: 'nb-NO', renderer: 'svg' });
+      chart = init(chartRef.current, undefined, { locale: 'nb-NO' });
     }
 
     const resizeChart = () => {

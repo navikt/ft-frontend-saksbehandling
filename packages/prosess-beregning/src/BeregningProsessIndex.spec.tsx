@@ -2,18 +2,12 @@ import { composeStories } from '@storybook/react-vite';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { expect } from 'vitest';
-import { setupVitestCanvasMock } from 'vitest-canvas-mock';
 
 import * as stories from './BeregningProsessIndex.stories';
 
 const { ToGrunnlagHvorEnHarÅpentAP } = composeStories(stories);
 
 describe('BeregningProsessIndex', () => {
-  beforeEach(() => {
-    vi.resetAllMocks();
-    setupVitestCanvasMock();
-  });
-
   it('skal vise tabs', async () => {
     render(<ToGrunnlagHvorEnHarÅpentAP />);
 
