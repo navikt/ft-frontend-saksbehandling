@@ -1,4 +1,11 @@
 {
   "GrunnlagForBeregning.Tittel": "Grunnlag for beregning",
-  "GrunnlagForBeregning.Skjæringstidspunkt": "Skjæringstidspunkt for beregning <b>{dato}</b>"
+  "GrunnlagForBeregning.Skjæringstidspunkt": "Skjæringstidspunkt for beregning <b>{dato}</b>",
+
+  "Sammenligningsgrunnlag.ExpansionCard.Header": "Sammenligningsgrunnlag §8-30 fra A-ordningen",
+  "Sammenligningsgrunnlag.ExpansionCard.Description": "Inntekt og ytelser etter kap. 8, 9 og 14 de 12 siste månedene",
+  "SammenligningsgrunnlagGraf.Arbeid": "Arbeid",
+  "SammenligningsgrunnlagGraf.Frilans": "Frilans",
+  "SammenligningsgrunnlagGraf.Ytelse": "Ytelse",
+  "SammenligningsgrunnlagGraf.UkjentArbeidsgiver": "Ukjent arbeidsgiver ({arbeidsgiverIdent})"
 }

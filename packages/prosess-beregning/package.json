@@ -31,6 +31,7 @@
     "@navikt/ft-ui-komponenter": "workspace:^",
     "@navikt/ft-utils": "workspace:^",
     "dayjs": "1.11.19",
+    "echarts": "6.0.0",
     "react": "19.2.0",
     "react-hook-form": "7.66.0",
     "react-intl": "7.1.14"
@@ -46,6 +47,7 @@
     "@navikt/ft-ui-komponenter": "2.x",
     "@navikt/ft-utils": "2.x",
     "dayjs": "1.11.x",
+    "echarts": "6.x",
     "react": "19.1.0",
     "react-hook-form": "7.x",
     "react-intl": "6.x"
@@ -60,8 +62,8 @@
     "@testing-library/user-event": "14.6.1",
     "eslint": "9.39.1",
     "typescript": "5.9.3",
-    "vite": "7.1.12",
-    "vitest": "4.0.6"
+    "vite": "7.2.4",
+    "vitest": "4.0.14"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
