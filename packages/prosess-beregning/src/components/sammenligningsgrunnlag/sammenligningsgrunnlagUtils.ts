@@ -1,10 +1,11 @@
 import type { IntlShape } from 'react-intl';
 
 import dayjs from 'dayjs';
+import norskFormat from 'dayjs/locale/nb';
 
 import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId, InntektsgrunnlagInntekt, InntektsgrunnlagMåned } from '@navikt/ft-types';
-import { formaterArbeidsgiver, ISO_DATE_FORMAT } from '@navikt/ft-utils';
+import { capitalizeFirstLetter, formaterArbeidsgiver, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 const mapDataPunkt =
   (inntektAType: InntektAktivitetType, arbeidsgiverIdent?: string) =>
@@ -124,3 +125,6 @@ export const transformerGrafData = (
   const periodeData = utvidetSammenligningsgrunnlag.map(periode => periode.fom);
   return { periodeData, dataForFrilans, dataForYtelse, dataForArbeid };
 };
+
+export const formaterMåned = (dato: string): string =>
+  capitalizeFirstLetter(dayjs(dato).locale(norskFormat).format('MMM YY'));

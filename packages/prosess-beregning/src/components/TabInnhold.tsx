@@ -31,7 +31,7 @@ export const TabInnhold = ({
         beregningsgrunnlag.sammenligningsgrunnlagPrStatus?.[0]?.sammenligningsgrunnlagFom && (
           <Sammenligningsgrunnlag
             sammenligningsgrunnlagFom={beregningsgrunnlag.sammenligningsgrunnlagPrStatus[0].sammenligningsgrunnlagFom}
-            inntektsgrunnlag={beregningsgrunnlag.inntektsgrunnlag}
+            sammenligningsgrunnlagInntekter={beregningsgrunnlag.inntektsgrunnlag.sammenligningsgrunnlagInntekter}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           />
         )}
