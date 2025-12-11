@@ -27,13 +27,14 @@ export const TabInnhold = ({
         kodeverkSamling={kodeverkSamling}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
       />
-      {beregningsgrunnlag.inntektsgrunnlag && beregningsgrunnlag.sammenligningsgrunnlagPrStatus && (
-        <Sammenligningsgrunnlag
-          sammenligningsgrunnlagPrStatus={beregningsgrunnlag.sammenligningsgrunnlagPrStatus}
-          inntektsgrunnlag={beregningsgrunnlag.inntektsgrunnlag}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        />
-      )}
+      {beregningsgrunnlag.inntektsgrunnlag &&
+        beregningsgrunnlag.sammenligningsgrunnlagPrStatus?.[0]?.sammenligningsgrunnlagFom && (
+          <Sammenligningsgrunnlag
+            sammenligningsgrunnlagFom={beregningsgrunnlag.sammenligningsgrunnlagPrStatus[0].sammenligningsgrunnlagFom}
+            inntektsgrunnlag={beregningsgrunnlag.inntektsgrunnlag}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          />
+        )}
     </VStack>
   );
 };

@@ -1,13 +1,11 @@
 import { useIntl } from 'react-intl';
 
 import dayjs from 'dayjs';
-import norskFormat from 'dayjs/locale/nb';
 import type { BarSeriesOption } from 'echarts';
-import type { OptionDataValue } from 'echarts/types/src/util/types.js';
 
 import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId, InntektsgrunnlagMåned } from '@navikt/ft-types';
-import { capitalizeFirstLetter, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { getBarColors } from './grafFarger';
 import { ReactECharts } from './ReactECharts';
@@ -35,7 +33,7 @@ export const SammenligningsgrunnlagGraf = ({
     return null;
   }
 
-  const { dataForFrilans, dataForYtelse, dataForArbeid } = transformerGrafData(
+  const { periodeData, dataForFrilans, dataForYtelse, dataForArbeid } = transformerGrafData(
     sammenligningsgrunnlagInntekter,
     sammenligningsgrunnlagFom,
     arbeidsgiverOpplysningerPerId,
@@ -45,11 +43,7 @@ export const SammenligningsgrunnlagGraf = ({
   return (
     <ReactECharts
       option={{
-        textStyle: {
-          fontFamily: getAkselVariable('--ax-font-family'),
-          color: getAkselVariable('--ax-text-neutral'),
-          fontSize,
-        },
+        textStyle,
         legend: {
           data: [...Object.keys(dataForArbeid), ...Object.keys(dataForFrilans), ...Object.keys(dataForYtelse)],
           top: 'top',
@@ -63,63 +57,32 @@ export const SammenligningsgrunnlagGraf = ({
           type: 'value',
           axisLabel: {
             fontSize,
-            formatter: (value: any) => formatCurrencyNoKr(value) || '',
+            formatter: value => formatCurrencyNoKr(value) || '',
           },
         },
         yAxis: {
           type: 'category',
           axisLabel: {
             fontSize,
-            formatter: (value: any) => dayjs(value).format('MMM YY'),
           },
+          data: periodeData.map(value => dayjs(value).format('MMM YY')),
         },
-
         series: [
           ...Object.entries(dataForArbeid).map(createBar(InntektAktivitetType.ARBEID)),
           ...Object.entries(dataForFrilans).map(createBar(InntektAktivitetType.FRILANS)),
           ...Object.entries(dataForYtelse).map(createBar(InntektAktivitetType.YTELSE)),
         ],
         tooltip: {
-          formatter: formatToolTip,
-          axisPointer: {
-            type: 'shadow',
-          },
-          textStyle: {
-            fontFamily: getAkselVariable('--ax-font-family'),
-            color: getAkselVariable('--ax-text-neutral'),
-            fontSize,
-          },
-          backgroundColor: getAkselVariable('--ax-bg-raised'),
+          trigger: 'axis',
+          textStyle,
           borderColor: getAkselVariable('--ax-border-neutral-subtleA'),
           borderRadius: 12,
           padding: [16, 20],
           borderWidth: 1,
-          shadowBlur: 6,
-          shadowColor: '#00000026',
-          shadowOffsetX: 0,
-          shadowOffsetY: 4,
         },
       }}
-      height={500}
     />
   );
-};
-
-const formatToolTip = (series: any) => {
-  const castedSeries = Array.isArray(series) ? series : [series];
-  const data = castedSeries[0].data as OptionDataValue[];
-  const date = dayjs(data[1]);
-  const formatertMndÅr = date.locale(norskFormat).format('MMMM YYYY');
-
-  const seriesData = castedSeries
-    .reduce<string[]>((acc, sData) => {
-      const dataCasted = sData.data as OptionDataValue[];
-      return acc.concat(
-        `${(sData.marker || '') + (sData.seriesName || '')}: ${formatCurrencyNoKr(dataCasted[0] as string)}`,
-      );
-    }, [])
-    .join('<br/>');
-  return `<b>${capitalizeFirstLetter(formatertMndÅr)}</b><br/>${seriesData}`;
 };
 
 const createBar =
@@ -137,14 +100,30 @@ const createBar =
       },
       stack: 'total',
       type: 'bar',
+      emphasis: {
+        focus: 'series',
+      },
+      tooltip: {
+        valueFormatter: value => {
+          const castedVerdi = value as number;
+          return formatCurrencyNoKr(castedVerdi) || '';
+        },
+      },
       label: {
         show: true,
-        formatter: (params: any) => {
-          if (params.value[0] > 5000) {
-            return formatCurrencyNoKr(params.value[0]) || '';
+        formatter: params => {
+          const value = params.value as DataPunkt;
+          if (value > 5000) {
+            return formatCurrencyNoKr(value) || '';
           }
-          return params.value[0] === 0 ? '' : '..';
+          return '';
         },
       },
     };
   };
+
+const textStyle = {
+  fontFamily: getAkselVariable('--ax-font-family'),
+  color: getAkselVariable('--ax-text-neutral'),
+  fontSize,
+};

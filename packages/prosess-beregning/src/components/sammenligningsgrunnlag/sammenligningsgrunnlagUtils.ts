@@ -6,19 +6,19 @@ import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId, InntektsgrunnlagInntekt, InntektsgrunnlagMåned } from '@navikt/ft-types';
 import { formaterArbeidsgiver, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
-export type DataPunkt = [number, string];
+export type DataPunkt = number;
 const mapDataPunkt =
   (inntektAType: InntektAktivitetType, arbeidsgiverIdent?: string) =>
-  ({ inntekter, fom }: InntektsgrunnlagMåned): DataPunkt => {
+  ({ inntekter }: InntektsgrunnlagMåned): DataPunkt => {
     if (!inntekter || inntekter.length === 0) {
-      return [0, fom];
+      return 0;
     }
 
     const beløp = inntekter
       .filter(erRelevantType(inntektAType, arbeidsgiverIdent))
       .reduce((previousValue, currentValue) => previousValue + currentValue.beløp, 0);
 
-    return [beløp, fom];
+    return beløp;
   };
 
 const erRelevantType =
@@ -117,6 +117,6 @@ export const transformerGrafData = (
   );
   const dataForYtelse = mapDataForFrilansEllerYtelse(utvidetSammenligningsgrunnlag, InntektAktivitetType.YTELSE, intl);
   const dataForArbeid = mapDataForArbeid(utvidetSammenligningsgrunnlag, arbeidsgiverOpplysningerPerId);
-
-  return { dataForFrilans, dataForYtelse, dataForArbeid };
+  const periodeData = utvidetSammenligningsgrunnlag.map(periode => periode.fom);
+  return { periodeData, dataForFrilans, dataForYtelse, dataForArbeid };
 };

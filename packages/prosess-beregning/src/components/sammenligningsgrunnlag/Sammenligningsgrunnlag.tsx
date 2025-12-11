@@ -2,19 +2,19 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ExpansionCard } from '@navikt/ds-react';
 
-import type { ArbeidsgiverOpplysningerPerId, Inntektsgrunnlag, SammenligningsgrunlagProp } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, Inntektsgrunnlag } from '@navikt/ft-types';
 
 import { SammenligningsgrunnlagGraf } from './SammenligningsgrunnlagGraf';
 
 interface Props {
+  sammenligningsgrunnlagFom: string;
   inntektsgrunnlag: Inntektsgrunnlag;
-  sammenligningsgrunnlagPrStatus: SammenligningsgrunlagProp[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 }
 
 export const Sammenligningsgrunnlag = ({
   inntektsgrunnlag,
-  sammenligningsgrunnlagPrStatus,
+  sammenligningsgrunnlagFom,
   arbeidsgiverOpplysningerPerId,
 }: Props) => {
   const intl = useIntl();
@@ -35,7 +35,7 @@ export const Sammenligningsgrunnlag = ({
       <ExpansionCard.Content>
         <SammenligningsgrunnlagGraf
           sammenligningsgrunnlagInntekter={inntektsgrunnlag.sammenligningsgrunnlagInntekter}
-          sammenligningsgrunnlagFom={sammenligningsgrunnlagPrStatus[0].sammenligningsgrunnlagFom}
+          sammenligningsgrunnlagFom={sammenligningsgrunnlagFom}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         />
       </ExpansionCard.Content>

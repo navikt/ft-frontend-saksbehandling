@@ -1,4 +1,3 @@
-import type { CSSProperties, JSX } from 'react';
 import { useEffect, useRef } from 'react';
 
 import type { ECharts, EChartsOption } from 'echarts';
@@ -6,17 +5,15 @@ import { getInstanceByDom, init } from 'echarts';
 
 interface Props {
   option: EChartsOption;
-  style?: CSSProperties;
-  height: number;
 }
 
-export const ReactECharts = ({ option, style, height }: Props): JSX.Element => {
+export const ReactECharts = ({ option }: Props) => {
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let chart: ECharts | undefined;
     if (chartRef.current !== null) {
-      chart = init(chartRef.current);
+      chart = init(chartRef.current, undefined, { locale: 'nb-NO', renderer: 'svg' });
     }
 
     const resizeChart = () => {
@@ -35,13 +32,9 @@ export const ReactECharts = ({ option, style, height }: Props): JSX.Element => {
       const chart = getInstanceByDom(chartRef.current);
       if (chart) {
         chart.setOption(option);
-        if (chart?.getWidth() === 0) {
-          chart?.resize();
-        }
       }
     }
-    // eslint-disable-next-line react-hooks/refs
-  }, [chartRef.current, option]);
+  }, [option]);
 
-  return <div ref={chartRef} style={{ width: 'auto', height, ...style }} />;
+  return <div ref={chartRef} style={{ width: 'auto', height: '500px' }} />;
 };
