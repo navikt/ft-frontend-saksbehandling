@@ -13,11 +13,9 @@ const mapDataPunkt =
       return 0;
     }
 
-    const beløp = inntekter
+    return inntekter
       .filter(erRelevantType(inntektAType, arbeidsgiverIdent))
       .reduce((previousValue, currentValue) => previousValue + currentValue.beløp, 0);
-
-    return beløp;
   };
 
 const erRelevantType =
@@ -62,14 +60,15 @@ const mapDataForFrilansEllerYtelse = (
   inntektAType: InntektAktivitetType.FRILANS | InntektAktivitetType.YTELSE,
   intl: IntlShape,
 ): { [label: string]: number[] } => {
+  if (!finnesInntektAvType(sammenligningsgrunnlagInntekter, inntektAType)) {
+    return {};
+  }
+
   const label =
     inntektAType === 'FRILANSINNTEKT'
       ? intl.formatMessage({ id: 'SammenligningsgrunnlagGraf.Frilans' })
       : intl.formatMessage({ id: 'SammenligningsgrunnlagGraf.Ytelse' });
 
-  if (!finnesInntektAvType(sammenligningsgrunnlagInntekter, inntektAType)) {
-    return {};
-  }
   return {
     [label]: sammenligningsgrunnlagInntekter.map(mapDataPunkt(inntektAType)),
   };

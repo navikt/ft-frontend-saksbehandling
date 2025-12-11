@@ -27,10 +27,6 @@ export const SammenligningsgrunnlagGraf = ({
 }: Props) => {
   const intl = useIntl();
 
-  if (!sammenligningsgrunnlagFom) {
-    return null;
-  }
-
   const { periodeData, dataForFrilans, dataForYtelse, dataForArbeid } = transformerGrafData(
     sammenligningsgrunnlagInntekter,
     sammenligningsgrunnlagFom,
