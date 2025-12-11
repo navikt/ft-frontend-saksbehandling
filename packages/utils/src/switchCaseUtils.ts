@@ -6,7 +6,7 @@
  *     case KodeverkType.KONSEKVENS_FOR_YTELSEN:
  *       return 'something';
  *     default:
- *       return assertUnreachable(kodeverkType);
+ *       assertUnreachable(kodeverkType);
  *   }
  */
 export function assertUnreachable(x: never): never {

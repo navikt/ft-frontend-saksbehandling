@@ -7,7 +7,7 @@ import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId, InntektsgrunnlagMåned } from '@navikt/ft-types';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import { getBarColors } from './grafFarger';
+import { getGrafFarger } from './grafFarger';
 import { ReactECharts } from './ReactECharts';
 import { transformerGrafData } from './sammenligningsgrunnlagUtils';
 
@@ -93,7 +93,7 @@ export const SammenligningsgrunnlagGraf = ({
 const createBar =
   (inntektAktivitetType: InntektAktivitetType) =>
   ([name, data]: [string, number[]], index: number): BarSeriesOption => {
-    const [color, borderColor] = getBarColors(inntektAktivitetType, index);
+    const [color, borderColor] = getGrafFarger(inntektAktivitetType, index);
     return {
       name,
       data,

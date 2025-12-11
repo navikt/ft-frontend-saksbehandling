@@ -1,4 +1,5 @@
-import { InntektAktivitetType } from '@navikt/ft-kodeverk';
+import type { InntektsgrunnlagInntekt } from '@navikt/ft-types';
+import { assertUnreachable } from '@navikt/ft-utils';
 
 type ColorPair = [string, string];
 /**
@@ -16,13 +17,15 @@ const BAR_COLORS_ARBEID: ColorPair[] = [
 const BAR_COLORS_FRILANS: ColorPair = ['#C0B2D2', '#8269A2'];
 const BAR_COLORS_YTELSE: ColorPair = ['#99DEAD', '#2AA758'];
 
-export const getBarColors = (inntektAktivitetType: InntektAktivitetType, index: number) => {
+export const getGrafFarger = (inntektAktivitetType: InntektsgrunnlagInntekt['inntektAktivitetType'], index: number) => {
   switch (inntektAktivitetType) {
-    case InntektAktivitetType.ARBEID:
+    case 'ARBEIDSTAKERINNTEKT':
       return BAR_COLORS_ARBEID[index % BAR_COLORS_ARBEID.length];
-    case InntektAktivitetType.FRILANS:
+    case 'FRILANSINNTEKT':
       return BAR_COLORS_FRILANS;
-    case InntektAktivitetType.YTELSE:
+    case 'YTELSEINNTEKT':
       return BAR_COLORS_YTELSE;
+    default:
+      assertUnreachable(inntektAktivitetType);
   }
 };
