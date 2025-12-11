@@ -6,10 +6,9 @@ import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId, InntektsgrunnlagInntekt, InntektsgrunnlagMåned } from '@navikt/ft-types';
 import { formaterArbeidsgiver, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
-export type DataPunkt = number;
 const mapDataPunkt =
   (inntektAType: InntektAktivitetType, arbeidsgiverIdent?: string) =>
-  ({ inntekter }: InntektsgrunnlagMåned): DataPunkt => {
+  ({ inntekter }: InntektsgrunnlagMåned): number => {
     if (!inntekter || inntekter.length === 0) {
       return 0;
     }
@@ -62,7 +61,7 @@ const mapDataForFrilansEllerYtelse = (
   sammenligningsgrunnlagInntekter: InntektsgrunnlagMåned[],
   inntektAType: InntektAktivitetType.FRILANS | InntektAktivitetType.YTELSE,
   intl: IntlShape,
-): { [label: string]: DataPunkt[] } => {
+): { [label: string]: number[] } => {
   const label =
     inntektAType === 'FRILANSINNTEKT'
       ? intl.formatMessage({ id: 'SammenligningsgrunnlagGraf.Frilans' })
@@ -93,7 +92,7 @@ const mapDataForArbeid = (
       .flatMap(i => ('arbeidsgiverIdent' in i ? [i.arbeidsgiverIdent] : [])),
   );
 
-  const inntektPerAg = new Map<string, DataPunkt[]>();
+  const inntektPerAg = new Map<string, number[]>();
 
   for (const arbeidsgiverIdent of arbeidsgiverer) {
     const opplysning = arbeidsgiverOpplysningerPerId[arbeidsgiverIdent];

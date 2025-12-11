@@ -7,5 +7,5 @@
   "SammenligningsgrunnlagGraf.Arbeid": "Arbeid",
   "SammenligningsgrunnlagGraf.Frilans": "Frilans",
   "SammenligningsgrunnlagGraf.Ytelse": "Ytelse",
-  "SammenligningsgrunnlagGraf.UkjentArbeidsgiver": "Ukjent AG Org.nr. {arbeidsgiverIdent}"
+  "SammenligningsgrunnlagGraf.UkjentArbeidsgiver": "Ukjent arbeidsgiver ({arbeidsgiverIdent})"
 }

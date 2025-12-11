@@ -9,7 +9,7 @@ import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { getBarColors } from './grafFarger';
 import { ReactECharts } from './ReactECharts';
-import { type DataPunkt, transformerGrafData } from './sammenligningsgrunnlagUtils';
+import { transformerGrafData } from './sammenligningsgrunnlagUtils';
 
 const getAkselVariable = (akselVariable: string) =>
   getComputedStyle(document.documentElement).getPropertyValue(akselVariable);
@@ -92,7 +92,7 @@ export const SammenligningsgrunnlagGraf = ({
 
 const createBar =
   (inntektAktivitetType: InntektAktivitetType) =>
-  ([name, data]: [string, DataPunkt[]], index: number): BarSeriesOption => {
+  ([name, data]: [string, number[]], index: number): BarSeriesOption => {
     const [color, borderColor] = getBarColors(inntektAktivitetType, index);
     return {
       name,
@@ -117,7 +117,7 @@ const createBar =
       label: {
         show: true,
         formatter: params => {
-          const value = params.value as DataPunkt;
+          const value = params.value as number;
           if (value > 5000) {
             return formatCurrencyNoKr(value) || '';
           }
