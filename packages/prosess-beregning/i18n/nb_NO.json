@@ -6,5 +6,6 @@
   "Sammenligningsgrunnlag.ExpansionCard.Description": "Inntekt og ytelser etter kap. 8, 9 og 14 de 12 siste månedene",
   "SammenligningsgrunnlagGraf.Arbeid": "Arbeid",
   "SammenligningsgrunnlagGraf.Frilans": "Frilans",
-  "SammenligningsgrunnlagGraf.Ytelse": "Ytelse"
+  "SammenligningsgrunnlagGraf.Ytelse": "Ytelse",
+  "SammenligningsgrunnlagGraf.UkjentArbeidsgiver": "Ukjent AG Org.nr. {arbeidsgiverIdent}"
 }

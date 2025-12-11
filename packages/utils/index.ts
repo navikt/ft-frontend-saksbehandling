@@ -29,7 +29,7 @@ export {
   YYYY_MM_FORMAT,
   ACCEPTED_DATE_INPUT_FORMATS,
 } from './src/formats';
-export { capitalizeFirstLetter, formaterFritekst } from './src/stringUtils';
+export { formaterFritekst } from './src/stringUtils';
 export { assertUnreachable } from './src/switchCaseUtils';
 export { guid } from './src/guid';
 export { replaceNorwegianCharacters, getLanguageFromSprakkode } from './src/languageUtils';

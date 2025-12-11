@@ -14,8 +14,6 @@ import { type DataPunkt, transformerGrafData } from './sammenligningsgrunnlagUti
 const getAkselVariable = (akselVariable: string) =>
   getComputedStyle(document.documentElement).getPropertyValue(akselVariable);
 
-const fontSize = getAkselVariable('--ax-font-size-medium');
-
 interface Props {
   sammenligningsgrunnlagFom: string;
   sammenligningsgrunnlagInntekter: InntektsgrunnlagMåned[];
@@ -39,6 +37,13 @@ export const SammenligningsgrunnlagGraf = ({
     arbeidsgiverOpplysningerPerId,
     intl,
   );
+
+  const fontSize = getAkselVariable('--ax-font-size-medium');
+  const textStyle = {
+    fontFamily: getAkselVariable('--ax-font-family'),
+    color: getAkselVariable('--ax-text-neutral'),
+    fontSize,
+  };
 
   return (
     <ReactECharts
@@ -121,9 +126,3 @@ const createBar =
       },
     };
   };
-
-const textStyle = {
-  fontFamily: getAkselVariable('--ax-font-family'),
-  color: getAkselVariable('--ax-text-neutral'),
-  fontSize,
-};

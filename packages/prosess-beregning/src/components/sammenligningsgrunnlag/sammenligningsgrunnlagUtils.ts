@@ -79,6 +79,7 @@ const mapDataForFrilansEllerYtelse = (
 const mapDataForArbeid = (
   sammenligningsgrunnlagInntekter: InntektsgrunnlagMåned[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
+  intl: IntlShape,
 ) => {
   const inntektAType = InntektAktivitetType.ARBEID;
 
@@ -86,14 +87,19 @@ const mapDataForArbeid = (
     return {};
   }
 
-  const arbeidsgiverer = sammenligningsgrunnlagInntekter
-    .flatMap(a => a.inntekter)
-    .flatMap(i => ('arbeidsgiverIdent' in i ? [i.arbeidsgiverIdent] : []));
+  const arbeidsgiverer = new Set(
+    sammenligningsgrunnlagInntekter
+      .flatMap(a => a.inntekter)
+      .flatMap(i => ('arbeidsgiverIdent' in i ? [i.arbeidsgiverIdent] : [])),
+  );
 
   const inntektPerAg = new Map<string, DataPunkt[]>();
 
   for (const arbeidsgiverIdent of arbeidsgiverer) {
-    const label = formaterArbeidsgiver(arbeidsgiverOpplysningerPerId[arbeidsgiverIdent]);
+    const opplysning = arbeidsgiverOpplysningerPerId[arbeidsgiverIdent];
+    const label = opplysning
+      ? formaterArbeidsgiver(opplysning)
+      : intl.formatMessage({ id: 'SammenligningsgrunnlagGraf.UkjentArbeidsgiver' }, { arbeidsgiverIdent });
     inntektPerAg.set(label, sammenligningsgrunnlagInntekter.map(mapDataPunkt(inntektAType, arbeidsgiverIdent)));
   }
   return Object.fromEntries(inntektPerAg);
@@ -116,7 +122,7 @@ export const transformerGrafData = (
     intl,
   );
   const dataForYtelse = mapDataForFrilansEllerYtelse(utvidetSammenligningsgrunnlag, InntektAktivitetType.YTELSE, intl);
-  const dataForArbeid = mapDataForArbeid(utvidetSammenligningsgrunnlag, arbeidsgiverOpplysningerPerId);
+  const dataForArbeid = mapDataForArbeid(utvidetSammenligningsgrunnlag, arbeidsgiverOpplysningerPerId, intl);
   const periodeData = utvidetSammenligningsgrunnlag.map(periode => periode.fom);
   return { periodeData, dataForFrilans, dataForYtelse, dataForArbeid };
 };
