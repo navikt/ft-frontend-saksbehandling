@@ -5,6 +5,7 @@ import { ExpansionCard } from '@navikt/ds-react';
 import type { ArbeidsgiverOpplysningerPerId, Inntektsgrunnlag } from '@navikt/ft-types';
 
 import { SammenligningsgrunnlagGraf } from './SammenligningsgrunnlagGraf';
+import { SammenligningsgrunnlagTabell } from './SammenligningsgrunnlagTabell';
 
 interface Props {
   sammenligningsgrunnlagFom: string;
@@ -34,6 +35,11 @@ export const Sammenligningsgrunnlag = ({
       </ExpansionCard.Header>
       <ExpansionCard.Content>
         <SammenligningsgrunnlagGraf
+          sammenligningsgrunnlagInntekter={inntektsgrunnlag.sammenligningsgrunnlagInntekter}
+          sammenligningsgrunnlagFom={sammenligningsgrunnlagFom}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        />
+        <SammenligningsgrunnlagTabell
           sammenligningsgrunnlagInntekter={inntektsgrunnlag.sammenligningsgrunnlagInntekter}
           sammenligningsgrunnlagFom={sammenligningsgrunnlagFom}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}

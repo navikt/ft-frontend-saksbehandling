@@ -2,22 +2,22 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { getIntlDecorator } from '@navikt/ft-frontend-storybook-utils';
 
-import { SammenligningsgrunnlagGraf } from './SammenligningsgrunnlagGraf';
+import { Sammenligningsgrunnlag } from './Sammenligningsgrunnlag';
 
 import messages from '../../../i18n/nb_NO.json';
 
 const withIntl = getIntlDecorator(messages);
 
 const meta = {
-  component: SammenligningsgrunnlagGraf,
+  component: Sammenligningsgrunnlag,
   decorators: [withIntl],
-} satisfies Meta<typeof SammenligningsgrunnlagGraf>;
+} satisfies Meta<typeof Sammenligningsgrunnlag>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Graf: Story = {
+export const VisningAvSammenligningsgrunnlag: Story = {
   args: {
     sammenligningsgrunnlagFom: '2025-01-01',
     sammenligningsgrunnlagInntekter: [
