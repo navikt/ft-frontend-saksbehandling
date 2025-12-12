@@ -30,7 +30,8 @@ export const SammenligningsgrunnlagTabell = ({
     ...Object.entries(dataForArbeid),
     ...Object.entries(dataForFrilans),
     ...Object.entries(dataForYtelse),
-  ];
+  ].map(([inntektspostNavn, inntekter]) => ({ inntektspostNavn, inntekter }));
+
   return (
     <Table size="small" zebraStripes>
       <Table.Header>
@@ -49,28 +50,28 @@ export const SammenligningsgrunnlagTabell = ({
       <Table.Body>
         {periodeData
           .map((periode, periodeIndex) => {
-            const inntektskilderForRad = alleInntektskilder.filter(kilde => kilde[1][periodeIndex] !== 0);
+            const inntektskilderForRad = alleInntektskilder
+              .map(({ inntektspostNavn, inntekter }) => ({ inntektspostNavn, beløp: inntekter[periodeIndex] }))
+              .filter(({ beløp }) => beløp !== 0);
 
             return (
               <Table.Row key={periode}>
                 <Table.HeaderCell scope="row">{formaterMåned(periode)}</Table.HeaderCell>
                 <Table.DataCell>
-                  {inntektskilderForRad.map((inntektskilde, ikIndex) => (
-                    <Fragment key={inntektskilde[0]}>
-                      {inntektskilde[0]}
-                      {ikIndex < inntektskilderForRad.length - 1 && <br />}
+                  {inntektskilderForRad.map(({ inntektspostNavn }, index) => (
+                    <Fragment key={inntektspostNavn}>
+                      {inntektspostNavn}
+                      {index < inntektskilderForRad.length - 1 && <br />}
                     </Fragment>
                   ))}
                 </Table.DataCell>
                 <Table.DataCell align="right">
-                  {inntektskilderForRad
-                    .map(inntektskilde => inntektskilde[1][periodeIndex])
-                    .map((beløp, ikIndex, array) => (
-                      <Fragment key={`${ikIndex}-${beløp}`}>
-                        {formatCurrencyNoKr(beløp) || ''}
-                        {ikIndex < array.length - 1 && <br />}
-                      </Fragment>
-                    ))}
+                  {inntektskilderForRad.map(({ beløp }, index) => (
+                    <Fragment key={`${index}-${beløp}`}>
+                      {formatCurrencyNoKr(beløp) || ''}
+                      {index < inntektskilderForRad.length - 1 && <br />}
+                    </Fragment>
+                  ))}
                 </Table.DataCell>
               </Table.Row>
             );
