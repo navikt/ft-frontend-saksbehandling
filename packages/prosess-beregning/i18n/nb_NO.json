@@ -2,13 +2,21 @@
   "GrunnlagForBeregning.Tittel": "Grunnlag for beregning",
   "GrunnlagForBeregning.Skjæringstidspunkt": "Skjæringstidspunkt for beregning <b>{dato}</b>",
 
+  "Arbeidsinntekt.Tittel": "Arbeidsinntekt",
+  "Arbeidsinntekt.Table.TypeInntekt": "Type inntekt",
+  "Arbeidsinntekt.Table.Inntektsmelding": "<b>Inntektsmelding</b>{br}(Omregnet årsinntekt)",
+  "Arbeidsinntekt.Table.Innrapportert": "<b>Innrapportert §8-28</b>{br}(Rapportert årsinntekt Inntektsmelding)",
+  "Arbeidsinntekt.Table.Sammenligningsgrunnlag": "<b>Sammenligningsgrunnlag</b>{br}(Rapportert årsinntekt)",
+
   "Sammenligningsgrunnlag.ExpansionCard.Header": "Sammenligningsgrunnlag §8-30 fra A-ordningen",
   "Sammenligningsgrunnlag.ExpansionCard.Description": "Inntekt og ytelser etter kap. 8, 9 og 14 de 12 siste månedene",
   "SammenligningsgrunnlagGraf.Arbeid": "Arbeid",
   "SammenligningsgrunnlagGraf.Frilans": "Frilans",
   "SammenligningsgrunnlagGraf.Ytelse": "Ytelse",
-  "SammenligningsgrunnlagGraf.UkjentArbeidsgiver": "Ukjent arbeidsgiver ({arbeidsgiverIdent})",
   "SammenligningsgrunnlagTabell.Måned": "Måned",
   "SammenligningsgrunnlagTabell.Inntektskilde": "Inntektskilde",
-  "SammenligningsgrunnlagTabell.Beløp": "Beløp"
+  "SammenligningsgrunnlagTabell.Beløp": "Beløp",
+
+  "ArbeidsgiverUtils.IngenArbeidsgiverReferanse": "Ukjent arbeidsgiver ({arbeidsgiverIdent})",
+  "ArbeidsgiverUtils.UkjentArbeidsgiver": "Mangler arbeidsgiver referanser"
 }
