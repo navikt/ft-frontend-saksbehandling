@@ -18,6 +18,7 @@
     "eslint": "eslint {src,testdata}/**/*.ts* --color",
     "eslint:fix": "eslint --fix {src,testdata}/**/*.ts* --color",
     "prettier": "prettier --write {src,testdata}",
+    "stylelint": "stylelint src/**/*.module.css",
     "dev": "vite build --watch --mode development",
     "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules"
@@ -61,6 +62,7 @@
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
     "eslint": "9.39.1",
+    "stylelint": "16.26.1",
     "typescript": "5.9.3",
     "vite": "7.2.4",
     "vitest": "4.0.14"
