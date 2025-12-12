@@ -97,7 +97,6 @@ const mapDataForArbeid = (
   const inntektPerAg = new Map<string, number[]>();
   const formaterArbeidsgiver = formaterArbeidsgiverNullable(arbeidsgiverOpplysningerPerId, intl);
   for (const arbeidsgiverIdent of arbeidsgiverer) {
-    formaterArbeidsgiverNullable(arbeidsgiverOpplysningerPerId, intl)(arbeidsgiverIdent);
     const label = formaterArbeidsgiver(arbeidsgiverIdent);
     inntektPerAg.set(label, sammenligningsgrunnlagInntekter.map(mapDataPunkt(inntektAType, arbeidsgiverIdent)));
   }

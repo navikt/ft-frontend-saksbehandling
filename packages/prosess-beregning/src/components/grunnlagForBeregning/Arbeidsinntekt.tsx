@@ -8,7 +8,7 @@ import { BeløpLabel, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponente
 import { BTag } from '@navikt/ft-utils';
 
 import { formaterArbeidsgiverNullable } from '../../utils/arbeidsgiverUtils';
-import { Todo } from '../Todo.tsx';
+import { Todo } from '../Todo';
 
 import styles from './arbeidsinntekt.module.css';
 
@@ -76,7 +76,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
         <Table.Body>
           {relevanteAndeler.map(andel => (
             <Table.ExpandableRow
-              key={andel.arbeidsforhold?.arbeidsgiverIdent}
+              key={`${andel.arbeidsforhold?.arbeidsgiverIdent ?? 'unknown'}-${andel.andelsnr}`}
               expandOnRowClick
               togglePlacement="right"
               content={
@@ -121,15 +121,8 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
   );
 };
 
-const finnAndelerSomSkalVises = (andeler: BeregningsgrunnlagAndel[]): BeregningsgrunnlagAndel[] => {
-  if (!andeler) {
-    return [];
-  }
-  return andeler
-    .filter(andel => andel.aktivitetStatus === 'AT')
-    .filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
-};
-
+const finnAndelerSomSkalVises = (andeler: BeregningsgrunnlagAndel[]): BeregningsgrunnlagAndel[] =>
+  andeler.filter(andel => andel.aktivitetStatus === 'AT').filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   // Andelen er fastsatt før og må kunne fastsettes igjen
   if (andel.overstyrtPrAar !== null && andel.overstyrtPrAar !== undefined) {
