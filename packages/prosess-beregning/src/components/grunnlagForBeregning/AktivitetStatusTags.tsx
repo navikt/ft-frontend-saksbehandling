@@ -59,9 +59,8 @@ const getStatusList = (
   beregningsgrunnlagPerioder: BeregningsgrunnlagPeriodeProp[],
   kodeverkSamling: KodeverkForPanel,
 ) => {
-  const statusAndeler = beregningsgrunnlagPerioder[0]?.beregningsgrunnlagPrStatusOgAndel || [];
-
-  const aktivitetStatuser = statusAndeler
+  const aktivitetStatuser = beregningsgrunnlagPerioder
+    .flatMap(periode => periode.beregningsgrunnlagPrStatusOgAndel || [])
     .filter(statusAndel => statusAndel.erTilkommetAndel !== true)
     .map(statusAndel => statusAndel.aktivitetStatus);
   const unikeStatuser = [...new Set(aktivitetStatuser)];
