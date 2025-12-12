@@ -7,6 +7,7 @@ import { BTag, dateFormat } from '@navikt/ft-utils';
 
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import type { Vilkår } from '../../types/Vilkår';
+import { AktivitetStatusTags } from './AktivitetStatusTags.tsx';
 
 interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
@@ -15,10 +16,10 @@ interface Props {
   kodeverkSamling: KodeverkForPanel;
 }
 
-export const GrunnlagForBeregning = ({ beregningsgrunnlag }: Props) => {
+export const GrunnlagForBeregning = ({ beregningsgrunnlag, kodeverkSamling }: Props) => {
   return (
     <Box.New background="neutral-soft" padding="5">
-      <VStack gap="space-8">
+      <VStack gap="4">
         <Heading size="large" level="2">
           <FormattedMessage id="GrunnlagForBeregning.Tittel" />
         </Heading>
@@ -28,6 +29,10 @@ export const GrunnlagForBeregning = ({ beregningsgrunnlag }: Props) => {
             values={{ dato: dateFormat(beregningsgrunnlag.skjaeringstidspunktBeregning), b: BTag }}
           />
         </BodyShort>
+        <AktivitetStatusTags
+          kodeverkSamling={kodeverkSamling}
+          beregningsgrunnlagPeriode={beregningsgrunnlag.beregningsgrunnlagPeriode}
+        />
       </VStack>
     </Box.New>
   );
