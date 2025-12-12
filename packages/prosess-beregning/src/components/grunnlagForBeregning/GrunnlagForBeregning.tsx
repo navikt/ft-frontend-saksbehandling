@@ -8,7 +8,7 @@ import { BTag, dateFormat } from '@navikt/ft-utils';
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import type { Vilkår } from '../../types/Vilkår';
 import { AktivitetStatusTags } from './AktivitetStatusTags';
-import { Arbeidsinntekt } from './Arbeidsinntekt.tsx';
+import { Arbeidsinntekt } from './Arbeidsinntekt';
 
 interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
