@@ -66,7 +66,7 @@ export const SammenligningsgrunnlagTabell = ({
                   {inntektskilderForRad
                     .map(inntektskilde => inntektskilde[1][periodeIndex])
                     .map((beløp, ikIndex, array) => (
-                      <Fragment key={beløp}>
+                      <Fragment key={`${ikIndex}-${beløp}`}>
                         {formatCurrencyNoKr(beløp) || ''}
                         {ikIndex < array.length - 1 && <br />}
                       </Fragment>
