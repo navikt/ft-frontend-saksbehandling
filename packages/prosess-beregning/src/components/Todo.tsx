@@ -1,7 +1,7 @@
 import { Tag, Tooltip } from '@navikt/ds-react';
 
 /**
- * Tag for å visuelt vise tings som må avklares eller gjøres
+ * Tag for å visuelt vise ting som må avklares eller gjøres
  */
 export const Todo = ({ beskrivelse }: { beskrivelse: string }) => {
   if (globalThis.location.href.includes('intern.nav.no')) {

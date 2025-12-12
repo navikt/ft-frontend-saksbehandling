@@ -17,6 +17,6 @@
   "SammenligningsgrunnlagTabell.Inntektskilde": "Inntektskilde",
   "SammenligningsgrunnlagTabell.Beløp": "Beløp",
 
-  "ArbeidsgiverUtils.IngenArbeidsgiverReferanse": "Ukjent arbeidsgiver ({arbeidsgiverIdent})",
-  "ArbeidsgiverUtils.UkjentArbeidsgiver": "Mangler arbeidsgiver referanser"
+  "ArbeidsgiverUtils.UkjentArbeidsgiver": "Ukjent arbeidsgiver ({arbeidsgiverIdent})",
+  "ArbeidsgiverUtils.IngenArbeidsgiverReferanse": "Mangler arbeidsgiver referanse"
 }
