@@ -7,5 +7,8 @@
   "SammenligningsgrunnlagGraf.Arbeid": "Arbeid",
   "SammenligningsgrunnlagGraf.Frilans": "Frilans",
   "SammenligningsgrunnlagGraf.Ytelse": "Ytelse",
-  "SammenligningsgrunnlagGraf.UkjentArbeidsgiver": "Ukjent arbeidsgiver ({arbeidsgiverIdent})"
+  "SammenligningsgrunnlagGraf.UkjentArbeidsgiver": "Ukjent arbeidsgiver ({arbeidsgiverIdent})",
+  "SammenligningsgrunnlagTabell.Måned": "Måned",
+  "SammenligningsgrunnlagTabell.Inntektskilde": "Inntektskilde",
+  "SammenligningsgrunnlagTabell.Beløp": "Beløp"
 }

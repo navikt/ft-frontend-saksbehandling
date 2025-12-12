@@ -1,23 +1,28 @@
+import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { ExpansionCard } from '@navikt/ds-react';
+import { BarChartIcon, TableIcon } from '@navikt/aksel-icons';
+import { ExpansionCard, ToggleGroup, VStack } from '@navikt/ds-react';
 
-import type { ArbeidsgiverOpplysningerPerId, Inntektsgrunnlag } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, InntektsgrunnlagMåned } from '@navikt/ft-types';
 
 import { SammenligningsgrunnlagGraf } from './SammenligningsgrunnlagGraf';
+import { SammenligningsgrunnlagTabell } from './SammenligningsgrunnlagTabell';
 
 interface Props {
   sammenligningsgrunnlagFom: string;
-  inntektsgrunnlag: Inntektsgrunnlag;
+  sammenligningsgrunnlagInntekter: InntektsgrunnlagMåned[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 }
-
+type Visning = 'graf' | 'tabell';
 export const Sammenligningsgrunnlag = ({
-  inntektsgrunnlag,
+  sammenligningsgrunnlagInntekter,
   sammenligningsgrunnlagFom,
   arbeidsgiverOpplysningerPerId,
 }: Props) => {
   const intl = useIntl();
+  const [valgtVisning, setValgtVisning] = useState<Visning>('graf');
+
   return (
     <ExpansionCard
       defaultOpen
@@ -33,11 +38,26 @@ export const Sammenligningsgrunnlag = ({
         </ExpansionCard.Description>
       </ExpansionCard.Header>
       <ExpansionCard.Content>
-        <SammenligningsgrunnlagGraf
-          sammenligningsgrunnlagInntekter={inntektsgrunnlag.sammenligningsgrunnlagInntekter}
-          sammenligningsgrunnlagFom={sammenligningsgrunnlagFom}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        />
+        <VStack gap="space-16">
+          <ToggleGroup size="small" value={valgtVisning} onChange={value => setValgtVisning(value as Visning)}>
+            <ToggleGroup.Item value="graf" icon={<BarChartIcon aria-hidden />} label="Graf" />
+            <ToggleGroup.Item value="tabell" icon={<TableIcon aria-hidden />} label="Tabell" />
+          </ToggleGroup>
+          {valgtVisning === 'graf' && (
+            <SammenligningsgrunnlagGraf
+              sammenligningsgrunnlagInntekter={sammenligningsgrunnlagInntekter}
+              sammenligningsgrunnlagFom={sammenligningsgrunnlagFom}
+              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            />
+          )}
+          {valgtVisning === 'tabell' && (
+            <SammenligningsgrunnlagTabell
+              sammenligningsgrunnlagInntekter={sammenligningsgrunnlagInntekter}
+              sammenligningsgrunnlagFom={sammenligningsgrunnlagFom}
+              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            />
+          )}
+        </VStack>
       </ExpansionCard.Content>
     </ExpansionCard>
   );

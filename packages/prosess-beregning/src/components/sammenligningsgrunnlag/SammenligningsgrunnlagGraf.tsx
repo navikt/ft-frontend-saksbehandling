@@ -1,6 +1,5 @@
 import { useIntl } from 'react-intl';
 
-import dayjs from 'dayjs';
 import type { BarSeriesOption } from 'echarts';
 
 import { InntektAktivitetType } from '@navikt/ft-kodeverk';
@@ -9,7 +8,7 @@ import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { getGrafFarger } from './grafFarger';
 import { ReactECharts } from './ReactECharts';
-import { transformerGrafData } from './sammenligningsgrunnlagUtils';
+import { formaterMåned, transformerGrafData } from './sammenligningsgrunnlagUtils';
 
 const getAkselVariable = (akselVariable: string) =>
   getComputedStyle(document.documentElement).getPropertyValue(akselVariable);
@@ -66,7 +65,7 @@ export const SammenligningsgrunnlagGraf = ({
           axisLabel: {
             fontSize,
           },
-          data: periodeData.map(value => dayjs(value).format('MMM YY')),
+          data: periodeData.map(value => formaterMåned(value)),
         },
         series: [
           ...Object.entries(dataForArbeid).map(createBar(InntektAktivitetType.ARBEID)),

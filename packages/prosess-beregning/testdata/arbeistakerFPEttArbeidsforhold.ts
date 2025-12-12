@@ -1,5 +1,7 @@
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 
+import { lagArbeidsgiver } from './utils/lagArbeidsgiver.ts';
+
 /**
  * Syntetisk testdata for beregningsgrunnlag
  * Saksnummer: 352028404 (dev)
@@ -198,19 +200,7 @@ export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
 };
 
 export const arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId = {
-  '111111111': {
-    identifikator: '111111111',
-    navn: 'Lagt til av saksbehandler',
-    erPrivatPerson: false,
-  },
-  '222222222': {
-    identifikator: '222222222',
-    navn: 'Trossig Naturstridig Tiger AS',
-    erPrivatPerson: false,
-  },
-  '333333333': {
-    identifikator: '333333333',
-    navn: 'Norge AS',
-    erPrivatPerson: false,
-  },
+  '111111111': lagArbeidsgiver('111111111', 'Lagt til av saksbehandler'),
+  '222222222': lagArbeidsgiver('222222222', 'Trossig Naturstridig Tiger AS'),
+  '333333333': lagArbeidsgiver('333333333', 'Norge AS'),
 };
