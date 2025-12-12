@@ -55,19 +55,19 @@ export const SammenligningsgrunnlagTabell = ({
               <Table.Row key={periode}>
                 <Table.HeaderCell scope="row">{formaterMåned(periode)}</Table.HeaderCell>
                 <Table.DataCell>
-                  {inntektskilderForRad.map((i, ikIndex) => (
-                    <Fragment key={i[0]}>
-                      {i[0]}
+                  {inntektskilderForRad.map((inntektskilde, ikIndex) => (
+                    <Fragment key={inntektskilde[0]}>
+                      {inntektskilde[0]}
                       {ikIndex < inntektskilderForRad.length - 1 && <br />}
                     </Fragment>
                   ))}
                 </Table.DataCell>
                 <Table.DataCell align="right">
                   {inntektskilderForRad
-                    .map(i => i[1][periodeIndex])
-                    .map((b, ikIndex, array) => (
-                      <Fragment key={b}>
-                        {formatCurrencyNoKr(b) || ''}
+                    .map(inntektskilde => inntektskilde[1][periodeIndex])
+                    .map((beløp, ikIndex, array) => (
+                      <Fragment key={beløp}>
+                        {formatCurrencyNoKr(beløp) || ''}
                         {ikIndex < array.length - 1 && <br />}
                       </Fragment>
                     ))}

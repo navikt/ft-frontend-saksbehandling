@@ -127,4 +127,4 @@ export const transformerGrafData = (
 };
 
 export const formaterMåned = (dato: string): string =>
-  capitalizeFirstLetter(dayjs(dato).locale(norskFormat).format('MMM YY'));
+  capitalizeFirstLetter(dayjs(dato).locale(norskFormat).format('MMM YY').replace('.', ''));

@@ -14,14 +14,14 @@ interface Props {
   sammenligningsgrunnlagInntekter: InntektsgrunnlagMåned[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 }
-type VisningType = 'graf' | 'tabell';
+type Visning = 'graf' | 'tabell';
 export const Sammenligningsgrunnlag = ({
   sammenligningsgrunnlagInntekter,
   sammenligningsgrunnlagFom,
   arbeidsgiverOpplysningerPerId,
 }: Props) => {
   const intl = useIntl();
-  const [visGraf, setVisGraf] = useState<VisningType>('graf');
+  const [valgtVisning, setValgtVisning] = useState<Visning>('graf');
 
   return (
     <ExpansionCard
@@ -39,18 +39,18 @@ export const Sammenligningsgrunnlag = ({
       </ExpansionCard.Header>
       <ExpansionCard.Content>
         <VStack gap="space-16">
-          <ToggleGroup size="small" defaultValue="graf" onChange={value => setVisGraf(value as VisningType)}>
+          <ToggleGroup size="small" value={valgtVisning} onChange={value => setValgtVisning(value as Visning)}>
             <ToggleGroup.Item value="graf" icon={<BarChartIcon aria-hidden />} label="Graf" />
             <ToggleGroup.Item value="tabell" icon={<TableIcon aria-hidden />} label="Tabell" />
           </ToggleGroup>
-          {visGraf === 'graf' && (
+          {valgtVisning === 'graf' && (
             <SammenligningsgrunnlagGraf
               sammenligningsgrunnlagInntekter={sammenligningsgrunnlagInntekter}
               sammenligningsgrunnlagFom={sammenligningsgrunnlagFom}
               arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             />
           )}
-          {visGraf === 'tabell' && (
+          {valgtVisning === 'tabell' && (
             <SammenligningsgrunnlagTabell
               sammenligningsgrunnlagInntekter={sammenligningsgrunnlagInntekter}
               sammenligningsgrunnlagFom={sammenligningsgrunnlagFom}
