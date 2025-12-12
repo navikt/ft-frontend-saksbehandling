@@ -7,7 +7,7 @@ import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, Beregningsgrunn
 import { BeløpLabel, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { BTag } from '@navikt/ft-utils';
 
-import { formaterArbeidsgiverNullable } from '../../utils/arbeidsgiverUtils.ts';
+import { formaterArbeidsgiverNullable } from '../../utils/arbeidsgiverUtils';
 import { Todo } from '../Todo.tsx';
 
 import styles from './arbeidsinntekt.module.css';
