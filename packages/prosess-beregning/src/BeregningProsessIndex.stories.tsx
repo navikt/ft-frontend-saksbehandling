@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 
+import { ArbeidstakerMedAvvikAp5038 } from '../../prosess-beregningsgrunnlag/src/BeregningsgrunnlagProsessIndex.stories';
 import {
   arbeidsgiverOpplysningerPerId,
   arbeistakerFPEttArbeidsforhold,
@@ -38,5 +39,12 @@ export const ToGrunnlagHvorEnHarÅpentAP: Story = {
       { ...arbeistakerFPEttArbeidsforhold, skjaeringstidspunktBeregning: '2025-11-01' },
       { ...arbeistakerFPEttArbeidsforhold, avklaringsbehov: [] },
     ],
+  },
+};
+
+export const ArbeidstakerMedAvvik: Story = {
+  args: {
+    beregningsgrunnlagListe: ArbeidstakerMedAvvikAp5038.args?.beregningsgrunnlagListe,
+    arbeidsgiverOpplysningerPerId: ArbeidstakerMedAvvikAp5038.args?.arbeidsgiverOpplysningerPerId,
   },
 };

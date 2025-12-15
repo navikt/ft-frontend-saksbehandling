@@ -3,7 +3,12 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { BriefcaseFillIcon } from '@navikt/aksel-icons';
 import { BodyShort, Heading, HStack, Table, Tag } from '@navikt/ds-react';
 
-import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type {
+  ArbeidsgiverOpplysningerPerId,
+  Beregningsgrunnlag,
+  BeregningsgrunnlagAndel,
+  InntektsgrunnlagMåned,
+} from '@navikt/ft-types';
 import { BeløpLabel, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { BTag } from '@navikt/ft-utils';
 
@@ -90,7 +95,11 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
                     </BodyShort>
                   )}
                   {andel.arbeidsforhold?.stillingsProsent && (
-                    <LabeledValue horizontal label="Sist endret lønn" value="TODO" />
+                    <LabeledValue
+                      horizontal
+                      label="Sist endret lønn"
+                      value={<Todo beskrivelse="Ta i bruk nytt felt" />}
+                    />
                   )}
                   {andel.arbeidsforhold?.stillingsProsent && (
                     <LabeledValue label="Stillingsprosent" value={`${andel.arbeidsforhold.stillingsProsent}%`} />
@@ -100,18 +109,27 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
             >
               <Table.HeaderCell>{formaterArbeidsgiver(andel.arbeidsforhold?.arbeidsgiverIdent)}</Table.HeaderCell>
               <Table.DataCell>
-                <BeløpLabel beløp={andel.beregnetPrAar} kr />
-                <Todo beskrivelse="Finn ut hvilket tall som skal brukes her" />
+                <BeløpLabel beløp={andel.arbeidsforhold?.belopFraInntektsmeldingPrMnd * 12} kr />
                 <IMTag />
               </Table.DataCell>
               <Table.DataCell>
-                <BeløpLabel beløp={andel.beregnetPrAar} kr />
-                <Todo beskrivelse="Finn ut hvilket tall som skal brukes her" />
+                <BeløpLabel
+                  beløp={summerInntekterPerMndForArbeidsgiver(
+                    beregningsgrunnlag.inntektsgrunnlag?.beregningsgrunnlagInntekter,
+                    andel.arbeidsforhold?.arbeidsgiverIdent,
+                  )}
+                  kr
+                />
                 <AOTag />
               </Table.DataCell>
               <Table.DataCell>
-                <BeløpLabel beløp={andel.beregnetPrAar} kr />
-                <Todo beskrivelse="Finn ut hvilket tall som skal brukes her" />
+                <BeløpLabel
+                  beløp={summerInntekterPerMndForArbeidsgiver(
+                    beregningsgrunnlag.inntektsgrunnlag?.sammenligningsgrunnlagInntekter,
+                    andel.arbeidsforhold?.arbeidsgiverIdent,
+                  )}
+                  kr
+                />
               </Table.DataCell>
             </Table.ExpandableRow>
           ))}
@@ -144,3 +162,16 @@ const IMTag = () => (
     IM
   </Tag>
 );
+
+const summerInntekterPerMndForArbeidsgiver = (
+  inntekterMnd: InntektsgrunnlagMåned[] | undefined,
+  agIdent: string | undefined,
+) =>
+  inntekterMnd && agIdent
+    ? inntekterMnd
+        .flatMap(({ inntekter }) => inntekter)
+        .filter(
+          inntekt => inntekt.inntektAktivitetType === 'ARBEIDSTAKERINNTEKT' && inntekt.arbeidsgiverIdent === agIdent,
+        )
+        .reduce((acc, { beløp }) => acc + beløp, 0)
+    : 0;
