@@ -1,13 +1,11 @@
-import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
-
-import { lagArbeidsgiver } from './utils/lagArbeidsgiver.ts';
+import type { Beregningsgrunnlag } from '@navikt/ft-types';
 
 /**
  * Syntetisk testdata for beregningsgrunnlag
  * Saksnummer: 352028404 (dev)
  * Beregningsgrunnlag for arbeidstaker i FP-sak med åpent AP.
  */
-export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
+export const arbeidstakerFPEttArbeidsforhold: Beregningsgrunnlag = {
   avklaringsbehov: [
     {
       definisjon: 'FASTSETT_BG_AT_FL',
@@ -197,10 +195,4 @@ export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
       },
     ],
   },
-};
-
-export const arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId = {
-  '111111111': lagArbeidsgiver('111111111', 'Lagt til av saksbehandler'),
-  '222222222': lagArbeidsgiver('222222222', 'Trossig Naturstridig Tiger AS'),
-  '333333333': lagArbeidsgiver('333333333', 'Norge AS'),
 };

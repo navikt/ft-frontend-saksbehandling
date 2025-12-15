@@ -3,17 +3,13 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { BriefcaseFillIcon } from '@navikt/aksel-icons';
 import { BodyShort, Heading, HStack, Table, Tag } from '@navikt/ds-react';
 
-import type {
-  ArbeidsgiverOpplysningerPerId,
-  Beregningsgrunnlag,
-  BeregningsgrunnlagAndel,
-  InntektsgrunnlagMåned,
-} from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { BTag } from '@navikt/ft-utils';
 
 import { formaterArbeidsgiverNullable } from '../../utils/arbeidsgiverUtils';
 import { Todo } from '../Todo';
+import { mapBeregningsgrunnlagTilArbeidsinntektVisning } from './arbeidsinntektUtils';
 
 import styles from './arbeidsinntekt.module.css';
 
@@ -25,14 +21,14 @@ interface Props {
 export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPerId }: Props) => {
   const intl = useIntl();
 
-  const andelerIFørstePeriode = beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel || [];
-  const relevanteAndeler = finnAndelerSomSkalVises(andelerIFørstePeriode);
+  const arbeidsinntektVisninger = mapBeregningsgrunnlagTilArbeidsinntektVisning(
+    beregningsgrunnlag,
+    formaterArbeidsgiverNullable(arbeidsgiverOpplysningerPerId, intl),
+  );
 
-  if (relevanteAndeler.length === 0) {
+  if (arbeidsinntektVisninger.length === 0) {
     return null;
   }
-
-  const formaterArbeidsgiver = formaterArbeidsgiverNullable(arbeidsgiverOpplysningerPerId, intl);
 
   return (
     <div>
@@ -48,107 +44,114 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
             <Table.HeaderCell textSize="small">
               <FormattedMessage id="Arbeidsinntekt.Table.TypeInntekt" />
             </Table.HeaderCell>
-            <Table.DataCell textSize="small">
-              <FormattedMessage
-                id="Arbeidsinntekt.Table.Inntektsmelding"
-                values={{
-                  br: <br />,
-                  b: BTag,
-                }}
-              />
-            </Table.DataCell>
-            <Table.DataCell textSize="small">
-              <FormattedMessage
-                id="Arbeidsinntekt.Table.Innrapportert"
-                values={{
-                  br: <br />,
-                  b: BTag,
-                }}
-              />
-            </Table.DataCell>
-            <Table.DataCell textSize="small">
-              <FormattedMessage
-                id="Arbeidsinntekt.Table.Sammenligningsgrunnlag"
-                values={{
-                  br: <br />,
-                  b: BTag,
-                }}
-              />
-            </Table.DataCell>
+            <Table.HeaderCell scope="col" textSize="small" align="right">
+              <BodyShort size="small">
+                <FormattedMessage
+                  id="Arbeidsinntekt.Table.Inntektsmelding"
+                  values={{
+                    br: <br key="break-line" />,
+                    b: BTag,
+                  }}
+                />
+              </BodyShort>
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col" align="right">
+              <BodyShort size="small">
+                <FormattedMessage
+                  id="Arbeidsinntekt.Table.Innrapportert"
+                  values={{
+                    br: <br key="break-line" />,
+                    b: BTag,
+                  }}
+                />
+              </BodyShort>
+            </Table.HeaderCell>
+
+            <Table.HeaderCell scope="col" textSize="small" align="right">
+              <FormattedMessage id="Arbeidsinntekt.Table.Sammenligningsgrunnlag" />
+            </Table.HeaderCell>
             <Table.HeaderCell />
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {relevanteAndeler.map(andel => (
+          {arbeidsinntektVisninger.map(visning => (
             <Table.ExpandableRow
-              key={`${andel.arbeidsforhold?.arbeidsgiverIdent ?? 'unknown'}-${andel.andelsnr}`}
+              key={visning.andelsnr}
               expandOnRowClick
               togglePlacement="right"
               content={
                 <div>
-                  {andel.beregningsperiodeFom && (
+                  {visning.beregningsperiodeFom && (
                     <BodyShort>
                       <PeriodLabel
-                        dateStringFom={andel.beregningsperiodeFom}
-                        dateStringTom={andel.beregningsperiodeTom}
+                        dateStringFom={visning.beregningsperiodeFom}
+                        dateStringTom={visning.beregningsperiodeTom}
                       />
                     </BodyShort>
                   )}
-                  {andel.arbeidsforhold?.stillingsProsent && (
+                  {visning.stillingsProsent && (
                     <LabeledValue
                       horizontal
-                      label="Sist endret lønn"
+                      label={<FormattedMessage id="Arbeidsinntekt.SistEndretLonn" />}
                       value={<Todo beskrivelse="Ta i bruk nytt felt" />}
                     />
                   )}
-                  {andel.arbeidsforhold?.stillingsProsent && (
-                    <LabeledValue label="Stillingsprosent" value={`${andel.arbeidsforhold.stillingsProsent}%`} />
+                  {visning.stillingsProsent && (
+                    <LabeledValue
+                      label={<FormattedMessage id="Arbeidsinntekt.Stillingsprosent" />}
+                      value={`${visning.stillingsProsent}%`}
+                    />
                   )}
                 </div>
               }
             >
-              <Table.HeaderCell>{formaterArbeidsgiver(andel.arbeidsforhold?.arbeidsgiverIdent)}</Table.HeaderCell>
-              <Table.DataCell>
-                <BeløpLabel beløp={andel.arbeidsforhold?.belopFraInntektsmeldingPrMnd * 12} kr />
+              <Table.HeaderCell>{visning.arbeidsgiverLabel}</Table.HeaderCell>
+              <Table.DataCell align="right">
+                <BeløpLabel beløp={visning.inntektsmeldingÅrsinntekt} kr />
                 <IMTag />
               </Table.DataCell>
-              <Table.DataCell>
-                <BeløpLabel
-                  beløp={summerInntekterPerMndForArbeidsgiver(
-                    beregningsgrunnlag.inntektsgrunnlag?.beregningsgrunnlagInntekter,
-                    andel.arbeidsforhold?.arbeidsgiverIdent,
-                  )}
-                  kr
-                />
+              <Table.DataCell align="right">
+                <BeløpLabel beløp={visning.beregningsgrunnlagÅrsinntekt} kr />
                 <AOTag />
               </Table.DataCell>
-              <Table.DataCell>
-                <BeløpLabel
-                  beløp={summerInntekterPerMndForArbeidsgiver(
-                    beregningsgrunnlag.inntektsgrunnlag?.sammenligningsgrunnlagInntekter,
-                    andel.arbeidsforhold?.arbeidsgiverIdent,
-                  )}
-                  kr
-                />
+              <Table.DataCell align="right">
+                <BeløpLabel beløp={visning.sammenligningsgrunnlagÅrsinntekt} kr />
               </Table.DataCell>
             </Table.ExpandableRow>
           ))}
         </Table.Body>
+        <tfoot>
+          <Table.Row>
+            <Table.HeaderCell>
+              <FormattedMessage id="Arbeidsinntekt.Table.Total" />
+            </Table.HeaderCell>
+            <Table.HeaderCell align="right">
+              <BeløpLabel
+                beløp={arbeidsinntektVisninger.reduce((acc, current) => acc + current.inntektsmeldingÅrsinntekt, 0)}
+                kr
+              />
+            </Table.HeaderCell>
+            <Table.HeaderCell align="right">
+              <BeløpLabel
+                beløp={arbeidsinntektVisninger.reduce((acc, current) => acc + current.beregningsgrunnlagÅrsinntekt, 0)}
+                kr
+              />
+            </Table.HeaderCell>
+            <Table.HeaderCell align="right">
+              <BeløpLabel
+                beløp={arbeidsinntektVisninger.reduce(
+                  (acc, current) => acc + current.sammenligningsgrunnlagÅrsinntekt,
+                  0,
+                )}
+                kr
+              />
+            </Table.HeaderCell>
+            <Table.HeaderCell />
+          </Table.Row>
+        </tfoot>
       </Table>
     </div>
   );
-};
-
-const finnAndelerSomSkalVises = (andeler: BeregningsgrunnlagAndel[]): BeregningsgrunnlagAndel[] =>
-  andeler.filter(andel => andel.aktivitetStatus === 'AT').filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
-const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
-  // Andelen er fastsatt før og må kunne fastsettes igjen
-  if (andel.overstyrtPrAar !== null && andel.overstyrtPrAar !== undefined) {
-    return true;
-  }
-
-  // Andeler som er lagt til av sbh eller tilkom før stp skal ikke kunne endres på
-  return andel.erTilkommetAndel === false && andel.lagtTilAvSaksbehandler === false;
 };
 
 const AOTag = () => (
@@ -162,16 +165,3 @@ const IMTag = () => (
     IM
   </Tag>
 );
-
-const summerInntekterPerMndForArbeidsgiver = (
-  inntekterMnd: InntektsgrunnlagMåned[] | undefined,
-  agIdent: string | undefined,
-) =>
-  inntekterMnd && agIdent
-    ? inntekterMnd
-        .flatMap(({ inntekter }) => inntekter)
-        .filter(
-          inntekt => inntekt.inntektAktivitetType === 'ARBEIDSTAKERINNTEKT' && inntekt.arbeidsgiverIdent === agIdent,
-        )
-        .reduce((acc, { beløp }) => acc + beløp, 0)
-    : 0;

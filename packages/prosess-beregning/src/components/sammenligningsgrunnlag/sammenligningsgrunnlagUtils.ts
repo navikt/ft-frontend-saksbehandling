@@ -7,7 +7,7 @@ import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId, InntektsgrunnlagInntekt, InntektsgrunnlagMåned } from '@navikt/ft-types';
 import { capitalizeFirstLetter, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
-import { formaterArbeidsgiverNullable } from '../../utils/arbeidsgiverUtils.ts';
+import { formaterArbeidsgiverNullable } from '../../utils/arbeidsgiverUtils';
 
 const mapDataPunkt =
   (inntektAType: InntektAktivitetType, arbeidsgiverIdent?: string) =>

@@ -30,10 +30,12 @@ export const GrunnlagForBeregning = ({ beregningsgrunnlag, arbeidsgiverOpplysnin
             values={{ dato: dateFormat(beregningsgrunnlag.skjaeringstidspunktBeregning), b: BTag }}
           />
         </BodyShort>
+
         <AktivitetStatusTags
           kodeverkSamling={kodeverkSamling}
           beregningsgrunnlagPeriode={beregningsgrunnlag.beregningsgrunnlagPeriode}
         />
+
         <Arbeidsinntekt
           beregningsgrunnlag={beregningsgrunnlag}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}

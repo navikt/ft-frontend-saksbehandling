@@ -2,11 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 
-import { ArbeidstakerMedAvvikAp5038 } from '../../prosess-beregningsgrunnlag/src/BeregningsgrunnlagProsessIndex.stories';
-import {
-  arbeidsgiverOpplysningerPerId,
-  arbeistakerFPEttArbeidsforhold,
-} from '../testdata/arbeistakerFPEttArbeidsforhold';
+import { arbeidsgiverOpplysningerPerId } from '../testdata/arbeidsgivere';
+import { arbeidstakerFPEttArbeidsforhold } from '../testdata/arbeidstakerFPEttArbeidsforhold';
+import { arbeidstakerFPFlereArbeidsforhold } from '../testdata/arbeidstakerFPFlereArbeidsforhold';
 import { BeregningProsessIndex } from './BeregningProsessIndex';
 import type { KodeverkForPanel } from './types/KodeverkForPanel';
 
@@ -29,22 +27,21 @@ type Story = StoryObj<typeof meta>;
 export const CaseArbeidstakerMedEttArbeidsforholdFP: Story = {
   name: 'Case - Arbeidstaker med ett arbeidsforhold (FP)',
   args: {
-    beregningsgrunnlagListe: [arbeistakerFPEttArbeidsforhold],
+    beregningsgrunnlagListe: [arbeidstakerFPEttArbeidsforhold],
   },
 };
 
 export const ToGrunnlagHvorEnHarÅpentAP: Story = {
   args: {
     beregningsgrunnlagListe: [
-      { ...arbeistakerFPEttArbeidsforhold, skjaeringstidspunktBeregning: '2025-11-01' },
-      { ...arbeistakerFPEttArbeidsforhold, avklaringsbehov: [] },
+      { ...arbeidstakerFPEttArbeidsforhold, skjaeringstidspunktBeregning: '2025-11-01' },
+      { ...arbeidstakerFPFlereArbeidsforhold, avklaringsbehov: [] },
     ],
   },
 };
 
-export const ArbeidstakerMedAvvik: Story = {
+export const ArbeidstakerMedFlereArbeidsforhold: Story = {
   args: {
-    beregningsgrunnlagListe: ArbeidstakerMedAvvikAp5038.args?.beregningsgrunnlagListe,
-    arbeidsgiverOpplysningerPerId: ArbeidstakerMedAvvikAp5038.args?.arbeidsgiverOpplysningerPerId,
+    beregningsgrunnlagListe: [arbeidstakerFPFlereArbeidsforhold],
   },
 };
