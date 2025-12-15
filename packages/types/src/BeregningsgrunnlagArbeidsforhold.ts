@@ -1,4 +1,5 @@
 import type { OpptjeningAktivitetType } from './OpptjeningAktivitetType';
+import type { Stillingsprosent } from './Stillingsprosent.ts';
 
 export type BeregningsgrunnlagArbeidsforhold = Readonly<{
   arbeidsgiverIdent?: string;
@@ -12,6 +13,8 @@ export type BeregningsgrunnlagArbeidsforhold = Readonly<{
   opphoersdato?: string;
   arbeidsforholdId?: string;
   arbeidsforholdType: OpptjeningAktivitetType;
+  sisteLønnsendringsdato?: string;
+  stillingsprosenter?: Stillingsprosent[];
 
   // Felter som brukes hvis de er satt men mappes ikke backend, løses i TFP-2044
   stillingsNavn?: string;
