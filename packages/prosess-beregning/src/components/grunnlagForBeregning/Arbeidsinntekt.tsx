@@ -38,7 +38,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
           <FormattedMessage id="Arbeidsinntekt.Tittel" />
         </Heading>
       </HStack>
-      <Table>
+      <Table className={styles.table}>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell scope="col" textSize="small">
@@ -79,6 +79,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
               key={visning.andelsnr}
               expandOnRowClick
               togglePlacement="right"
+              defaultOpen={true}
               content={
                 <div>
                   {visning.beregningsperiodeFom && (
