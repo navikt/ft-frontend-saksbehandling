@@ -6,15 +6,17 @@ import type { FaktaOmFordeling, RefusjonTilVurdering } from './Beregningsgrunnla
 import type { Besteberegninggrunnlag } from './Besteberegning';
 
 export type InntektsgrunnlagInntekt =
-  | {
-      inntektAktivitetType: 'ARBEIDSTAKERINNTEKT';
-      arbeidsgiverIdent: string;
-      beløp: number;
-    }
+  | InntektsgrunnlagInntektAT
   | {
       inntektAktivitetType: 'FRILANSINNTEKT' | 'YTELSEINNTEKT';
       beløp: number;
     };
+
+export type InntektsgrunnlagInntektAT = {
+  inntektAktivitetType: 'ARBEIDSTAKERINNTEKT';
+  arbeidsgiverIdent: string;
+  beløp: number;
+};
 
 export type InntektsgrunnlagMåned = Readonly<{
   fom: string;

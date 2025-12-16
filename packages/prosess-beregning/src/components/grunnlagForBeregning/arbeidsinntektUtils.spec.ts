@@ -1,5 +1,3 @@
-import { expect } from 'vitest';
-
 import { createIntl } from '@navikt/ft-utils';
 
 import { arbeidsgiverOpplysningerPerId } from '../../../testdata/arbeidsgivere';

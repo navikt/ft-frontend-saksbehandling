@@ -1,42 +1,57 @@
-import type { Beregningsgrunnlag, BeregningsgrunnlagAndel, InntektsgrunnlagMåned } from '@navikt/ft-types';
+import type {
+  Beregningsgrunnlag,
+  BeregningsgrunnlagAndel,
+  InntektsgrunnlagInntektAT,
+  InntektsgrunnlagMåned,
+} from '@navikt/ft-types';
 
-const summerInntekterForArbeidsgiver = (
+const grupperSummerteInntekterPerArbeidsgiver = (
   inntekterMnd: InntektsgrunnlagMåned[] | undefined,
-  agIdent: string | undefined,
-) =>
-  inntekterMnd && agIdent
-    ? inntekterMnd
-        .flatMap(({ inntekter }) => inntekter)
-        .filter(
-          inntekt => inntekt.inntektAktivitetType === 'ARBEIDSTAKERINNTEKT' && inntekt.arbeidsgiverIdent === agIdent,
-        )
-        .reduce((acc, { beløp }) => acc + beløp, 0)
-    : 0;
+): Record<string, number> => {
+  if (!inntekterMnd) {
+    return {};
+  }
+
+  return inntekterMnd
+    .flatMap(({ inntekter }) => inntekter)
+    .filter<InntektsgrunnlagInntektAT>(inntekt => inntekt.inntektAktivitetType === 'ARBEIDSTAKERINNTEKT')
+    .reduce(
+      (acc, inntekt) => {
+        acc[inntekt.arbeidsgiverIdent] = (acc[inntekt.arbeidsgiverIdent] || 0) + inntekt.beløp;
+        return acc;
+      },
+      {} as Record<string, number>,
+    );
+};
 
 const finnAndelerSomSkalVises = (andeler: BeregningsgrunnlagAndel[]): BeregningsgrunnlagAndel[] =>
   andeler.filter(andel => andel.aktivitetStatus === 'AT');
 
 export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
-  beregningsgrunnlag: Beregningsgrunnlag,
+  { inntektsgrunnlag, beregningsgrunnlagPeriode }: Beregningsgrunnlag,
   formaterArbeidsgiver: (arbeidsgiverIdent: string | undefined) => string,
 ) => {
-  const andelerIFørstePeriode = beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel || [];
+  const andelerIFørstePeriode = beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel || [];
   const relevanteAndeler = finnAndelerSomSkalVises(andelerIFørstePeriode);
 
-  return relevanteAndeler.map(andel => ({
-    arbeidsgiverLabel: formaterArbeidsgiver(andel.arbeidsforhold?.arbeidsgiverIdent),
-    andelsnr: andel.andelsnr,
-    beregningsperiodeFom: andel.beregningsperiodeFom,
-    beregningsperiodeTom: andel.beregningsperiodeTom,
-    stillingsProsent: andel.arbeidsforhold?.stillingsProsent,
-    inntektsmeldingÅrsinntekt: (andel.arbeidsforhold?.belopFraInntektsmeldingPrMnd ?? 0) * 12,
-    beregningsgrunnlagÅrsinntekt: summerInntekterForArbeidsgiver(
-      beregningsgrunnlag.inntektsgrunnlag?.beregningsgrunnlagInntekter,
-      andel.arbeidsforhold?.arbeidsgiverIdent,
-    ),
-    sammenligningsgrunnlagÅrsinntekt: summerInntekterForArbeidsgiver(
-      beregningsgrunnlag.inntektsgrunnlag?.sammenligningsgrunnlagInntekter,
-      andel.arbeidsforhold?.arbeidsgiverIdent,
-    ),
-  }));
+  const beregningsgrunnlagInntekter = grupperSummerteInntekterPerArbeidsgiver(
+    inntektsgrunnlag?.beregningsgrunnlagInntekter,
+  );
+  const sammenligningsgrunnlagInntekter = grupperSummerteInntekterPerArbeidsgiver(
+    inntektsgrunnlag?.sammenligningsgrunnlagInntekter,
+  );
+
+  return relevanteAndeler.map(andel => {
+    const arbeidsgiverIdent = andel.arbeidsforhold?.arbeidsgiverIdent;
+    return {
+      arbeidsgiverLabel: formaterArbeidsgiver(arbeidsgiverIdent),
+      andelsnr: andel.andelsnr,
+      beregningsperiodeFom: andel.beregningsperiodeFom,
+      beregningsperiodeTom: andel.beregningsperiodeTom,
+      stillingsProsent: andel.arbeidsforhold?.stillingsProsent,
+      inntektsmeldingÅrsinntekt: (andel.arbeidsforhold?.belopFraInntektsmeldingPrMnd ?? 0) * 12,
+      beregningsgrunnlagÅrsinntekt: arbeidsgiverIdent ? beregningsgrunnlagInntekter[arbeidsgiverIdent] : 0,
+      sammenligningsgrunnlagÅrsinntekt: arbeidsgiverIdent ? sammenligningsgrunnlagInntekter[arbeidsgiverIdent] : 0,
+    };
+  });
 };
