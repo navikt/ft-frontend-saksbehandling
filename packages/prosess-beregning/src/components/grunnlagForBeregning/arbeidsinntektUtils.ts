@@ -51,7 +51,7 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
       beregningsperiodeFom: andel.beregningsperiodeFom,
       beregningsperiodeTom: andel.beregningsperiodeTom,
       sisteLønnsendringsdato: andel.arbeidsforhold?.sisteLønnsendringsdato,
-      stillingsProsent: formaterStillingsprosenter(andel.arbeidsforhold?.stillingsprosenter),
+      formatertStillingsprosenter: formaterStillingsprosenter(andel.arbeidsforhold?.stillingsprosenter),
       inntektsmeldingÅrsinntekt: (andel.arbeidsforhold?.belopFraInntektsmeldingPrMnd ?? 0) * 12,
       beregningsgrunnlagÅrsinntekt: arbeidsgiverIdent ? beregningsgrunnlagInntekter[arbeidsgiverIdent] : 0,
       sammenligningsgrunnlagÅrsinntekt: arbeidsgiverIdent ? sammenligningsgrunnlagInntekter[arbeidsgiverIdent] : 0,

@@ -99,11 +99,11 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
                     />
                   )}
 
-                  {visning.stillingsProsent && (
+                  {visning.formatertStillingsprosenter && (
                     <LabeledValue
                       size="medium"
                       label={<FormattedMessage id="Arbeidsinntekt.Stillingsprosent" />}
-                      value={visning.stillingsProsent}
+                      value={visning.formatertStillingsprosenter}
                     />
                   )}
                 </div>
