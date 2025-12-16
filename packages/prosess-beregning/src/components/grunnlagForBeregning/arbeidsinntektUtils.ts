@@ -3,7 +3,9 @@ import type {
   BeregningsgrunnlagAndel,
   InntektsgrunnlagInntektAT,
   InntektsgrunnlagMåned,
+  Stillingsprosent,
 } from '@navikt/ft-types';
+import { sortPeriodsBy } from '@navikt/ft-utils';
 
 const grupperSummerteInntekterPerArbeidsgiver = (
   inntekterMnd: InntektsgrunnlagMåned[] | undefined,
@@ -48,10 +50,22 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
       andelsnr: andel.andelsnr,
       beregningsperiodeFom: andel.beregningsperiodeFom,
       beregningsperiodeTom: andel.beregningsperiodeTom,
-      stillingsProsent: andel.arbeidsforhold?.stillingsProsent,
+      sisteLønnsendringsdato: andel.arbeidsforhold?.sisteLønnsendringsdato,
+      stillingsProsent: formaterStillingsprosenter(andel.arbeidsforhold?.stillingsprosenter),
       inntektsmeldingÅrsinntekt: (andel.arbeidsforhold?.belopFraInntektsmeldingPrMnd ?? 0) * 12,
       beregningsgrunnlagÅrsinntekt: arbeidsgiverIdent ? beregningsgrunnlagInntekter[arbeidsgiverIdent] : 0,
       sammenligningsgrunnlagÅrsinntekt: arbeidsgiverIdent ? sammenligningsgrunnlagInntekter[arbeidsgiverIdent] : 0,
     };
   });
+};
+
+export const formaterStillingsprosenter = (stillingsprosenter: Stillingsprosent[] | undefined): string | undefined => {
+  if (!stillingsprosenter || stillingsprosenter.length === 0) {
+    return undefined;
+  }
+  if (stillingsprosenter.length === 1) {
+    return stillingsprosenter[0].prosent + '%';
+  }
+  const sortedStillingsprosenter = stillingsprosenter?.toSorted(sortPeriodsBy('fomDate'));
+  return `Fra ${sortedStillingsprosenter.at(-2)?.prosent}% til ${sortedStillingsprosenter.at(-1)?.prosent}%`;
 };

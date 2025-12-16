@@ -6,6 +6,7 @@ import type { Beregningsgrunnlag } from '@navikt/ft-types';
  * Beregningsgrunnlag for arbeidstaker i FP-sak med åpent AP.
  */
 export const arbeidstakerFPEttArbeidsforhold: Beregningsgrunnlag = {
+  vilkårsperiodeFom: '', // Finn ut om denne kan slettes fra type
   avklaringsbehov: [
     {
       definisjon: 'FASTSETT_BG_AT_FL',
@@ -15,7 +16,6 @@ export const arbeidstakerFPEttArbeidsforhold: Beregningsgrunnlag = {
     },
   ],
   skjaeringstidspunktBeregning: '2025-10-31',
-  skjæringstidspunkt: '2025-10-31',
   aktivitetStatus: ['AT'],
   beregningsgrunnlagPeriode: [
     {
@@ -27,8 +27,6 @@ export const arbeidstakerFPEttArbeidsforhold: Beregningsgrunnlag = {
       periodeAarsaker: [],
       beregningsgrunnlagPrStatusOgAndel: [
         {
-          // @ts-expect-error typen er ufullstendig
-          dtoType: 'GENERELL',
           aktivitetStatus: 'AT',
           beregningsperiodeFom: '2025-07-01',
           beregningsperiodeTom: '2025-09-30',
@@ -42,7 +40,6 @@ export const arbeidstakerFPEttArbeidsforhold: Beregningsgrunnlag = {
             arbeidsforholdType: 'ARBEID',
             belopFraInntektsmeldingPrMnd: 30000,
           },
-          fastsattAvSaksbehandler: false,
           lagtTilAvSaksbehandler: false,
           erTilkommetAndel: false,
           skalFastsetteGrunnlag: true,
@@ -61,12 +58,9 @@ export const arbeidstakerFPEttArbeidsforhold: Beregningsgrunnlag = {
       differanseBeregnet: 240000,
     },
   ],
-  halvG: 65080,
   grunnbeløp: 130160,
   faktaOmBeregning: {
     saksopplysninger: {
-      // @ts-expect-error typen er ufullstendig
-      arbeidsforholdMedLønnsendring: [],
       lønnsendringSaksopplysning: [],
       kortvarigeArbeidsforhold: [],
     },
@@ -105,7 +99,6 @@ export const arbeidstakerFPEttArbeidsforhold: Beregningsgrunnlag = {
       },
     ],
   },
-  hjemmel: 'F_14_7_8_30',
   dekningsgrad: 100,
   ytelsesspesifiktGrunnlag: {
     ytelsetype: 'FP',

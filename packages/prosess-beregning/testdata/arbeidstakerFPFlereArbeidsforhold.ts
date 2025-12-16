@@ -6,6 +6,7 @@ import type { Beregningsgrunnlag } from '@navikt/ft-types';
  * Beregningsgrunnlag for arbeidstaker i FP-sak med åpent AP.
  */
 export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
+  vilkårsperiodeFom: '', // Finn ut om denne kan slettes fra type
   avklaringsbehov: [
     {
       definisjon: 'FASTSETT_BG_AT_FL',
@@ -78,8 +79,6 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
   grunnbeløp: 130160,
   faktaOmBeregning: {
     saksopplysninger: {
-      // @ts-expect-error typen er ufullstendig
-      arbeidsforholdMedLønnsendring: [],
       lønnsendringSaksopplysning: [],
       kortvarigeArbeidsforhold: [],
     },

@@ -4,11 +4,10 @@ import { BriefcaseFillIcon } from '@navikt/aksel-icons';
 import { BodyShort, Heading, HStack, Table, Tag } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
-import { BeløpLabel, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
+import { BeløpLabel, DateLabel, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { BTag } from '@navikt/ft-utils';
 
 import { formaterArbeidsgiverNullable } from '../../utils/arbeidsgiverUtils';
-import { Todo } from '../Todo';
 import { mapBeregningsgrunnlagTilArbeidsinntektVisning } from './arbeidsinntektUtils';
 
 import styles from './arbeidsinntekt.module.css';
@@ -83,22 +82,28 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
               content={
                 <div>
                   {visning.beregningsperiodeFom && (
-                    <BodyShort>
+                    <BodyShort size="medium">
                       <PeriodLabel
                         dateStringFom={visning.beregningsperiodeFom}
                         dateStringTom={visning.beregningsperiodeTom}
                       />
                     </BodyShort>
                   )}
-                  <LabeledValue
-                    horizontal
-                    label={<FormattedMessage id="Arbeidsinntekt.SistEndretLonn" />}
-                    value={<Todo beskrivelse="Ta i bruk nytt felt" />}
-                  />
+
+                  {visning.sisteLønnsendringsdato && (
+                    <LabeledValue
+                      horizontal
+                      size="medium"
+                      label={<FormattedMessage id="Arbeidsinntekt.SistEndretLonn" />}
+                      value={<DateLabel dateString={visning.sisteLønnsendringsdato} />}
+                    />
+                  )}
+
                   {visning.stillingsProsent && (
                     <LabeledValue
+                      size="medium"
                       label={<FormattedMessage id="Arbeidsinntekt.Stillingsprosent" />}
-                      value={`${visning.stillingsProsent}%`}
+                      value={visning.stillingsProsent}
                     />
                   )}
                 </div>

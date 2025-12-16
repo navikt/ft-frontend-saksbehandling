@@ -1,7 +1,7 @@
 import { expect } from 'vitest';
 
 import { TIDENES_ENDE } from './dateUtils';
-import { periodFormat, sortPeriodsByFom } from './periodUtils';
+import { periodFormat, sortPeriodsBy, sortPeriodsByFom } from './periodUtils';
 
 describe('periodUtils', () => {
   describe('periodFormat', () => {
@@ -34,22 +34,37 @@ describe('periodUtils', () => {
     });
   });
 
+  const perioder = [
+    { fom: '2020-01-02', tom: '2020-01-04', land: 'Norge' },
+    { fom: '2020-01-04', tom: '2020-01-05', land: 'Sverige' },
+    { fom: '2020-01-03', tom: '2020-01-03', land: 'Finland' },
+    { fom: '2020-01-01', tom: '2020-01-04', land: 'Danmark' },
+  ];
+
   describe('sortPeriodByFom', () => {
     it('skal sortere liste med perioder på fom', () => {
-      const perioder = [
-        { fom: '2020-01-02', tom: '2020-01-04', land: 'Norge' },
-        { fom: '2020-01-04', tom: '2020-01-05', land: 'Sverige' },
-        { fom: '2020-01-03', tom: '2020-01-03', land: 'Finland' },
-        { fom: '2020-01-01', tom: '2020-01-04', land: 'Danmark' },
-      ];
       const sortert = [
         { fom: '2020-01-01', tom: '2020-01-04', land: 'Danmark' },
         { fom: '2020-01-02', tom: '2020-01-04', land: 'Norge' },
         { fom: '2020-01-03', tom: '2020-01-03', land: 'Finland' },
         { fom: '2020-01-04', tom: '2020-01-05', land: 'Sverige' },
       ];
-      perioder.sort(sortPeriodsByFom);
-      expect(perioder).toEqual(sortert);
+      const result = perioder.toSorted(sortPeriodsByFom);
+      expect(result).toEqual(sortert);
+    });
+  });
+
+  describe('sortPeriodsBy', () => {
+    it('skal sortere liste med perioder på tom', () => {
+      const sortert = [
+        { fom: '2020-01-03', tom: '2020-01-03', land: 'Finland' },
+        { fom: '2020-01-02', tom: '2020-01-04', land: 'Norge' },
+        { fom: '2020-01-01', tom: '2020-01-04', land: 'Danmark' },
+        { fom: '2020-01-04', tom: '2020-01-05', land: 'Sverige' },
+      ];
+
+      const result = perioder.toSorted(sortPeriodsBy('tom'));
+      expect(result).toEqual(sortert);
     });
   });
 });
