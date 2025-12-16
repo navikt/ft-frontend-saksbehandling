@@ -38,10 +38,10 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
           <FormattedMessage id="Arbeidsinntekt.Tittel" />
         </Heading>
       </HStack>
-      <Table size="small">
+      <Table>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell textSize="small">
+            <Table.HeaderCell scope="col" textSize="small">
               <FormattedMessage id="Arbeidsinntekt.Table.TypeInntekt" />
             </Table.HeaderCell>
             <Table.HeaderCell scope="col" textSize="small" align="right">
@@ -89,13 +89,11 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
                       />
                     </BodyShort>
                   )}
-                  {visning.stillingsProsent && (
-                    <LabeledValue
-                      horizontal
-                      label={<FormattedMessage id="Arbeidsinntekt.SistEndretLonn" />}
-                      value={<Todo beskrivelse="Ta i bruk nytt felt" />}
-                    />
-                  )}
+                  <LabeledValue
+                    horizontal
+                    label={<FormattedMessage id="Arbeidsinntekt.SistEndretLonn" />}
+                    value={<Todo beskrivelse="Ta i bruk nytt felt" />}
+                  />
                   {visning.stillingsProsent && (
                     <LabeledValue
                       label={<FormattedMessage id="Arbeidsinntekt.Stillingsprosent" />}
@@ -105,7 +103,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
                 </div>
               }
             >
-              <Table.HeaderCell>{visning.arbeidsgiverLabel}</Table.HeaderCell>
+              <Table.DataCell>{visning.arbeidsgiverLabel}</Table.DataCell>
               <Table.DataCell align="right">
                 <BeløpLabel beløp={visning.inntektsmeldingÅrsinntekt} kr />
                 <IMTag />
@@ -127,20 +125,26 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
             </Table.HeaderCell>
             <Table.HeaderCell align="right">
               <BeløpLabel
-                beløp={arbeidsinntektVisninger.reduce((acc, current) => acc + current.inntektsmeldingÅrsinntekt, 0)}
-                kr
-              />
-            </Table.HeaderCell>
-            <Table.HeaderCell align="right">
-              <BeløpLabel
-                beløp={arbeidsinntektVisninger.reduce((acc, current) => acc + current.beregningsgrunnlagÅrsinntekt, 0)}
+                beløp={arbeidsinntektVisninger.reduce(
+                  (acc, { inntektsmeldingÅrsinntekt }) => acc + inntektsmeldingÅrsinntekt,
+                  0,
+                )}
                 kr
               />
             </Table.HeaderCell>
             <Table.HeaderCell align="right">
               <BeløpLabel
                 beløp={arbeidsinntektVisninger.reduce(
-                  (acc, current) => acc + current.sammenligningsgrunnlagÅrsinntekt,
+                  (acc, { beregningsgrunnlagÅrsinntekt }) => acc + beregningsgrunnlagÅrsinntekt,
+                  0,
+                )}
+                kr
+              />
+            </Table.HeaderCell>
+            <Table.HeaderCell align="right">
+              <BeløpLabel
+                beløp={arbeidsinntektVisninger.reduce(
+                  (acc, { sammenligningsgrunnlagÅrsinntekt }) => acc + sammenligningsgrunnlagÅrsinntekt,
                   0,
                 )}
                 kr
