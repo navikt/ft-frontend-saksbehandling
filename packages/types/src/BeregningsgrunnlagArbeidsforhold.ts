@@ -1,5 +1,5 @@
 import type { OpptjeningAktivitetType } from './OpptjeningAktivitetType';
-import type { Stillingsprosent } from './Stillingsprosent.ts';
+import type { Stillingsprosent } from './Stillingsprosent';
 
 export type BeregningsgrunnlagArbeidsforhold = Readonly<{
   arbeidsgiverIdent?: string;
