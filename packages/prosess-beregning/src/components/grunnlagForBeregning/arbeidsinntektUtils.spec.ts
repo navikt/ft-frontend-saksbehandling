@@ -24,21 +24,25 @@ describe('arbeidsinntektUtils', () => {
         andelsnr: 1,
         arbeidsgiverLabel: 'INTERESSANT INTUITIV KATT DIAMETER (444444444)',
         beregningsgrunnlagÅrsinntekt: 31776,
-        beregningsperiodeFom: '2025-09-01',
-        beregningsperiodeTom: '2025-11-30',
+        ansattPeriode: {
+          fom: '2005-12-15',
+          tom: undefined,
+        },
         inntektsmeldingÅrsinntekt: 600000,
         sammenligningsgrunnlagÅrsinntekt: 78054,
-        stillingsProsent: undefined,
+        formatertStillingsprosenter: undefined,
       });
       expect(resultat[1]).toEqual({
         andelsnr: 2,
         arbeidsgiverLabel: 'TROSSIG NATURSTRIDIG TIGER AS (222222222)',
         beregningsgrunnlagÅrsinntekt: 90000,
-        beregningsperiodeFom: '2025-09-01',
-        beregningsperiodeTom: '2025-11-30',
+        ansattPeriode: {
+          fom: '2010-10-01',
+          tom: undefined,
+        },
         inntektsmeldingÅrsinntekt: 480000,
         sammenligningsgrunnlagÅrsinntekt: 180000,
-        stillingsProsent: undefined,
+        formatertStillingsprosenter: undefined,
       });
     });
   });
