@@ -34,7 +34,7 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
           andelsnr: 1,
           inntektskategori: 'ARBEIDSTAKER',
           arbeidsforhold: {
-            arbeidsgiverIdent: '315853370',
+            arbeidsgiverIdent: '444444444',
             startdato: '2005-12-15',
             arbeidsforholdType: 'ARBEID',
             belopFraInntektsmeldingPrMnd: 50000,
@@ -52,7 +52,7 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
           andelsnr: 2,
           inntektskategori: 'ARBEIDSTAKER',
           arbeidsforhold: {
-            arbeidsgiverIdent: '311536753',
+            arbeidsgiverIdent: '222222222',
             startdato: '2010-10-01',
             arbeidsforholdType: 'ARBEID',
             belopFraInntektsmeldingPrMnd: 40000,
@@ -89,13 +89,13 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
           tom: '2025-12-03',
           aktiviteter: [
             {
-              arbeidsgiverIdent: '315853370',
+              arbeidsgiverIdent: '444444444',
               fom: '2005-12-15',
               tom: '9999-12-31',
               arbeidsforholdType: 'ARBEID',
             },
             {
-              arbeidsgiverIdent: '311536753',
+              arbeidsgiverIdent: '222222222',
               fom: '2010-10-01',
               tom: '9999-12-31',
               arbeidsforholdType: 'ARBEID',
@@ -113,7 +113,7 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
         aktivitetStatus: 'AT',
         refusjonskrav: 50000,
         arbeidsforhold: {
-          arbeidsgiverIdent: '315853370',
+          arbeidsgiverIdent: '444444444',
           startdato: '2005-12-15',
           arbeidsforholdType: 'ARBEID',
           belopFraInntektsmeldingPrMnd: 50000,
@@ -129,7 +129,7 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
         aktivitetStatus: 'AT',
         refusjonskrav: 40000,
         arbeidsforhold: {
-          arbeidsgiverIdent: '311536753',
+          arbeidsgiverIdent: '222222222',
           startdato: '2010-10-01',
           arbeidsforholdType: 'ARBEID',
           belopFraInntektsmeldingPrMnd: 40000,
@@ -155,7 +155,7 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 5459,
-            arbeidsgiverIdent: '315853370',
+            arbeidsgiverIdent: '444444444',
           },
         ],
       },
@@ -166,7 +166,7 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 5459,
-            arbeidsgiverIdent: '315853370',
+            arbeidsgiverIdent: '444444444',
           },
         ],
       },
@@ -177,12 +177,12 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 30000,
-            arbeidsgiverIdent: '311536753',
+            arbeidsgiverIdent: '222222222',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 7800,
-            arbeidsgiverIdent: '315853370',
+            arbeidsgiverIdent: '444444444',
           },
         ],
       },
@@ -193,12 +193,12 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 30000,
-            arbeidsgiverIdent: '311536753',
+            arbeidsgiverIdent: '222222222',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 23976,
-            arbeidsgiverIdent: '315853370',
+            arbeidsgiverIdent: '444444444',
           },
         ],
       },
@@ -209,12 +209,12 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 30000,
-            arbeidsgiverIdent: '311536753',
+            arbeidsgiverIdent: '222222222',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 0,
-            arbeidsgiverIdent: '315853370',
+            arbeidsgiverIdent: '444444444',
           },
         ],
       },
@@ -225,12 +225,12 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 30000,
-            arbeidsgiverIdent: '311536753',
+            arbeidsgiverIdent: '222222222',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 17680,
-            arbeidsgiverIdent: '315853370',
+            arbeidsgiverIdent: '444444444',
           },
         ],
       },
@@ -241,17 +241,17 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 30000,
-            arbeidsgiverIdent: '311536753',
+            arbeidsgiverIdent: '222222222',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 17680,
-            arbeidsgiverIdent: '315853370',
+            arbeidsgiverIdent: '444444444',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 5000,
-            arbeidsgiverIdent: '896929119',
+            arbeidsgiverIdent: '333333333',
           },
         ],
       },
@@ -262,12 +262,12 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 30000,
-            arbeidsgiverIdent: '311536753',
+            arbeidsgiverIdent: '222222222',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 5000,
-            arbeidsgiverIdent: '896929119',
+            arbeidsgiverIdent: '333333333',
           },
         ],
       },
@@ -280,12 +280,12 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 30000,
-            arbeidsgiverIdent: '311536753',
+            arbeidsgiverIdent: '222222222',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 7800,
-            arbeidsgiverIdent: '315853370',
+            arbeidsgiverIdent: '444444444',
           },
         ],
       },
@@ -296,12 +296,12 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 30000,
-            arbeidsgiverIdent: '311536753',
+            arbeidsgiverIdent: '222222222',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 23976,
-            arbeidsgiverIdent: '315853370',
+            arbeidsgiverIdent: '444444444',
           },
         ],
       },
@@ -312,12 +312,12 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 30000,
-            arbeidsgiverIdent: '311536753',
+            arbeidsgiverIdent: '222222222',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
             beløp: 0,
-            arbeidsgiverIdent: '315853370',
+            arbeidsgiverIdent: '444444444',
           },
         ],
       },

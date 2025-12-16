@@ -22,7 +22,7 @@ describe('arbeidsinntektUtils', () => {
       expect(resultat).toHaveLength(2);
       expect(resultat[0]).toEqual({
         andelsnr: 1,
-        arbeidsgiverLabel: 'INTERESSANT INTUITIV KATT DIAMETER (315853370)',
+        arbeidsgiverLabel: 'INTERESSANT INTUITIV KATT DIAMETER (444444444)',
         beregningsgrunnlagÅrsinntekt: 31776,
         beregningsperiodeFom: '2025-09-01',
         beregningsperiodeTom: '2025-11-30',
@@ -32,7 +32,7 @@ describe('arbeidsinntektUtils', () => {
       });
       expect(resultat[1]).toEqual({
         andelsnr: 2,
-        arbeidsgiverLabel: 'TROSSIG NATURSTRIDIG TIGER AS (311536753)',
+        arbeidsgiverLabel: 'TROSSIG NATURSTRIDIG TIGER AS (222222222)',
         beregningsgrunnlagÅrsinntekt: 90000,
         beregningsperiodeFom: '2025-09-01',
         beregningsperiodeTom: '2025-11-30',
