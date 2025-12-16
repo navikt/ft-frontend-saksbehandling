@@ -20,24 +20,24 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
     {
       beregningsgrunnlagPeriodeFom: '2025-12-03',
       beregningsgrunnlagPeriodeTom: '9999-12-31',
-      beregnetPrAar: 1080000.0,
-      bruttoPrAar: 1080000.0,
-      bruttoInkludertBortfaltNaturalytelsePrAar: 1080000.0,
+      beregnetPrAar: 1080000,
+      bruttoPrAar: 1080000,
+      bruttoInkludertBortfaltNaturalytelsePrAar: 1080000,
       periodeAarsaker: [],
       beregningsgrunnlagPrStatusOgAndel: [
         {
           aktivitetStatus: 'AT',
           beregningsperiodeFom: '2025-09-01',
           beregningsperiodeTom: '2025-11-30',
-          beregnetPrAar: 600000.0,
-          bruttoPrAar: 600000.0,
+          beregnetPrAar: 600000,
+          bruttoPrAar: 600000,
           andelsnr: 1,
           inntektskategori: 'ARBEIDSTAKER',
           arbeidsforhold: {
             arbeidsgiverIdent: '315853370',
             startdato: '2005-12-15',
             arbeidsforholdType: 'ARBEID',
-            belopFraInntektsmeldingPrMnd: 50000.0,
+            belopFraInntektsmeldingPrMnd: 50000,
           },
           lagtTilAvSaksbehandler: false,
           erTilkommetAndel: false,
@@ -47,15 +47,15 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
           aktivitetStatus: 'AT',
           beregningsperiodeFom: '2025-09-01',
           beregningsperiodeTom: '2025-11-30',
-          beregnetPrAar: 480000.0,
-          bruttoPrAar: 480000.0,
+          beregnetPrAar: 480000,
+          bruttoPrAar: 480000,
           andelsnr: 2,
           inntektskategori: 'ARBEIDSTAKER',
           arbeidsforhold: {
             arbeidsgiverIdent: '311536753',
             startdato: '2010-10-01',
             arbeidsforholdType: 'ARBEID',
-            belopFraInntektsmeldingPrMnd: 40000.0,
+            belopFraInntektsmeldingPrMnd: 40000,
           },
           lagtTilAvSaksbehandler: false,
           erTilkommetAndel: false,
@@ -68,14 +68,14 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
     {
       sammenligningsgrunnlagFom: '2024-12-01',
       sammenligningsgrunnlagTom: '2025-11-30',
-      rapportertPrAar: 268054.0,
+      rapportertPrAar: 268054,
       avvikPromille: 3029.038925,
       avvikProsent: 302.9038925,
       sammenligningsgrunnlagType: 'SAMMENLIGNING_AT_FL',
-      differanseBeregnet: 811946.0,
+      differanseBeregnet: 811946,
     },
   ],
-  grunnbeløp: 130160.0,
+  grunnbeløp: 130160,
   faktaOmBeregning: {
     saksopplysninger: {
       // @ts-expect-error typen er ufullstendig
@@ -107,32 +107,32 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
     },
     andelerForFaktaOmBeregning: [
       {
-        belopReadOnly: 50000.0,
-        fastsattBelop: 50000.0,
+        belopReadOnly: 50000,
+        fastsattBelop: 50000,
         inntektskategori: 'ARBEIDSTAKER',
         aktivitetStatus: 'AT',
-        refusjonskrav: 50000.0,
+        refusjonskrav: 50000,
         arbeidsforhold: {
           arbeidsgiverIdent: '315853370',
           startdato: '2005-12-15',
           arbeidsforholdType: 'ARBEID',
-          belopFraInntektsmeldingPrMnd: 50000.0,
+          belopFraInntektsmeldingPrMnd: 50000,
         },
         andelsnr: 1,
         skalKunneEndreAktivitet: false,
         lagtTilAvSaksbehandler: false,
       },
       {
-        belopReadOnly: 40000.0,
-        fastsattBelop: 40000.0,
+        belopReadOnly: 40000,
+        fastsattBelop: 40000,
         inntektskategori: 'ARBEIDSTAKER',
         aktivitetStatus: 'AT',
-        refusjonskrav: 40000.0,
+        refusjonskrav: 40000,
         arbeidsforhold: {
           arbeidsgiverIdent: '311536753',
           startdato: '2010-10-01',
           arbeidsforholdType: 'ARBEID',
-          belopFraInntektsmeldingPrMnd: 40000.0,
+          belopFraInntektsmeldingPrMnd: 40000,
         },
         andelsnr: 2,
         skalKunneEndreAktivitet: false,
@@ -154,7 +154,7 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
         inntekter: [
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 5459.0,
+            beløp: 5459,
             arbeidsgiverIdent: '315853370',
           },
         ],
@@ -165,7 +165,7 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
         inntekter: [
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 5459.0,
+            beløp: 5459,
             arbeidsgiverIdent: '315853370',
           },
         ],
@@ -176,12 +176,12 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
         inntekter: [
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 30000.0,
+            beløp: 30000,
             arbeidsgiverIdent: '311536753',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 7800.0,
+            beløp: 7800,
             arbeidsgiverIdent: '315853370',
           },
         ],
@@ -192,12 +192,12 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
         inntekter: [
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 30000.0,
+            beløp: 30000,
             arbeidsgiverIdent: '311536753',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 23976.0,
+            beløp: 23976,
             arbeidsgiverIdent: '315853370',
           },
         ],
@@ -208,12 +208,12 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
         inntekter: [
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 30000.0,
+            beløp: 30000,
             arbeidsgiverIdent: '311536753',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 0.0,
+            beløp: 0,
             arbeidsgiverIdent: '315853370',
           },
         ],
@@ -224,12 +224,12 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
         inntekter: [
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 30000.0,
+            beløp: 30000,
             arbeidsgiverIdent: '311536753',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 17680.0,
+            beløp: 17680,
             arbeidsgiverIdent: '315853370',
           },
         ],
@@ -240,17 +240,17 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
         inntekter: [
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 30000.0,
+            beløp: 30000,
             arbeidsgiverIdent: '311536753',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 17680.0,
+            beløp: 17680,
             arbeidsgiverIdent: '315853370',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 5000.0,
+            beløp: 5000,
             arbeidsgiverIdent: '896929119',
           },
         ],
@@ -261,12 +261,12 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
         inntekter: [
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 30000.0,
+            beløp: 30000,
             arbeidsgiverIdent: '311536753',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 5000.0,
+            beløp: 5000,
             arbeidsgiverIdent: '896929119',
           },
         ],
@@ -279,12 +279,12 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
         inntekter: [
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 30000.0,
+            beløp: 30000,
             arbeidsgiverIdent: '311536753',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 7800.0,
+            beløp: 7800,
             arbeidsgiverIdent: '315853370',
           },
         ],
@@ -295,12 +295,12 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
         inntekter: [
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 30000.0,
+            beløp: 30000,
             arbeidsgiverIdent: '311536753',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 23976.0,
+            beløp: 23976,
             arbeidsgiverIdent: '315853370',
           },
         ],
@@ -311,12 +311,12 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
         inntekter: [
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 30000.0,
+            beløp: 30000,
             arbeidsgiverIdent: '311536753',
           },
           {
             inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-            beløp: 0.0,
+            beløp: 0,
             arbeidsgiverIdent: '315853370',
           },
         ],
