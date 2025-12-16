@@ -1,0 +1,9 @@
+.tag {
+  margin-left: 8px;
+}
+
+.table {
+  thead th {
+    vertical-align: top;
+  }
+}

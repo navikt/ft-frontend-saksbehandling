@@ -13,12 +13,12 @@ describe('BeregningProsessIndex', () => {
 
     expect(screen.getByRole('tab', { name: '01.11.2025', selected: true })).toBeInTheDocument();
     expect(screen.getByRole('tabpanel', { name: '01.11.2025' })).toBeInTheDocument();
-    expect(screen.getByRole('tab', { name: '31.10.2025', selected: false })).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: '03.12.2025', selected: false })).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole('tab', { name: '31.10.2025', selected: false }));
+    await userEvent.click(screen.getByRole('tab', { name: '03.12.2025', selected: false }));
     expect(screen.queryByRole('tabpanel', { name: '01.11.2025' })).not.toBeInTheDocument();
 
-    expect(screen.getByRole('tab', { name: '31.10.2025', selected: true })).toBeInTheDocument();
-    expect(screen.getByRole('tabpanel', { name: '31.10.2025' })).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: '03.12.2025', selected: true })).toBeInTheDocument();
+    expect(screen.getByRole('tabpanel', { name: '03.12.2025' })).toBeInTheDocument();
   });
 });

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { createIntl } from '@navikt/ft-utils';
 
-import { lagArbeidsgiver } from '../../../testdata/utils/lagArbeidsgiver';
+import { arbeidsgiverOpplysningerPerId } from '../../../testdata/arbeidsgivere';
 import {
   lagArbeidInntekt,
   lagFrilansInntekt,
@@ -15,23 +15,19 @@ import messages from '../../../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-const ARBEIDSGIVER_A = '123456789';
-const ARBEIDSGIVER_B = '987654321';
+const ARBEIDSGIVER_A = arbeidsgiverOpplysningerPerId['222222222'].identifikator;
+const ARBEIDSGIVER_B = arbeidsgiverOpplysningerPerId['333333333'].identifikator;
 
-const BEDRIFT_A_NAVN = 'Bedrift A AS';
+const BEDRIFT_A_NAVN = arbeidsgiverOpplysningerPerId['222222222'].navn;
+const BEDRIFT_B_NAVN = arbeidsgiverOpplysningerPerId['333333333'].navn;
+
 const BEDRIFT_A_MED_IDENT = `${BEDRIFT_A_NAVN} (${ARBEIDSGIVER_A})`;
-const BEDRIFT_B_NAVN = 'Bedrift B AS';
 const BEDRIFT_B_MED_IDENT = `${BEDRIFT_B_NAVN} (${ARBEIDSGIVER_B})`;
 
 const SAMMENLIGNINGSGRUNNLAG_FOM = '2025-01-01';
 
 const FRILANS_LABEL = 'Frilans';
 const YTELSE_LABEL = 'Ytelse';
-
-const BEDRIFT_A_OG_B_OPPLYSNINGER = {
-  [ARBEIDSGIVER_A]: lagArbeidsgiver(ARBEIDSGIVER_A, BEDRIFT_A_NAVN),
-  [ARBEIDSGIVER_B]: lagArbeidsgiver(ARBEIDSGIVER_B, BEDRIFT_B_NAVN),
-};
 
 const INNTEKTER_MAI = lagInntektsgrunnlagMåned('2025-05-01', [
   lagArbeidInntekt(30000, ARBEIDSGIVER_A),
@@ -74,7 +70,7 @@ describe('sammenligningsgrunnlagUtils', () => {
       const { dataForArbeid } = transformerGrafData(
         inntekter,
         SAMMENLIGNINGSGRUNNLAG_FOM,
-        BEDRIFT_A_OG_B_OPPLYSNINGER,
+        arbeidsgiverOpplysningerPerId,
         intl,
       );
 
@@ -97,7 +93,7 @@ describe('sammenligningsgrunnlagUtils', () => {
       const { dataForArbeid, dataForFrilans, dataForYtelse } = transformerGrafData(
         inntekter,
         SAMMENLIGNINGSGRUNNLAG_FOM,
-        BEDRIFT_A_OG_B_OPPLYSNINGER,
+        arbeidsgiverOpplysningerPerId,
         intl,
       );
 
@@ -138,7 +134,7 @@ describe('sammenligningsgrunnlagUtils', () => {
       const { dataForArbeid } = transformerGrafData(
         inntekter,
         SAMMENLIGNINGSGRUNNLAG_FOM,
-        BEDRIFT_A_OG_B_OPPLYSNINGER,
+        arbeidsgiverOpplysningerPerId,
         intl,
       );
 

@@ -14,6 +14,7 @@ export type {
   InntektsgrunnlagMåned,
   Inntektsgrunnlag,
   InntektsgrunnlagInntekt,
+  InntektsgrunnlagInntektAT,
   ForlengelsePeriodeProp,
   PGIGrunnlag,
   PGIPrÅr,
@@ -56,3 +57,4 @@ export type { HendelseType, HendelseUnderType } from './src/HendelseType';
 export type { OpptjeningAktivitetType } from './src/OpptjeningAktivitetType';
 export type { StandardFaktaPanelProps } from './src/StandardFaktaPanelProps';
 export type { StandardProsessPanelProps } from './src/StandardProsessPanelProps';
+export type { Stillingsprosent } from './src/Stillingsprosent';

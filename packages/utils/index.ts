@@ -41,7 +41,7 @@ export { BTag } from './src/createTags';
 
 export { Period, sortPeriodsByFomDate } from './src/Period';
 export { prettifyDateString } from './src/dateUtils';
-export { sortPeriodsByFom, periodFormat } from './src/periodUtils';
+export { sortPeriodsByFom, sortPeriodsBy, periodFormat } from './src/periodUtils';
 export { formaterArbeidsgiver } from './src/arbeidsgiverUtils';
 export { isAksjonspunktOpen } from './src/aksjonspunktUtils';
 export { notEmpty } from './src/notEmpty';

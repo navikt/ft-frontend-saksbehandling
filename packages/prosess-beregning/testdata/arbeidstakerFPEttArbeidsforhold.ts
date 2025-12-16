@@ -1,13 +1,12 @@
-import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
-
-import { lagArbeidsgiver } from './utils/lagArbeidsgiver.ts';
+import type { Beregningsgrunnlag } from '@navikt/ft-types';
 
 /**
  * Syntetisk testdata for beregningsgrunnlag
  * Saksnummer: 352028404 (dev)
  * Beregningsgrunnlag for arbeidstaker i FP-sak med åpent AP.
  */
-export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
+export const arbeidstakerFPEttArbeidsforhold: Beregningsgrunnlag = {
+  vilkårsperiodeFom: '', // Finn ut om denne kan slettes fra type
   avklaringsbehov: [
     {
       definisjon: 'FASTSETT_BG_AT_FL',
@@ -17,7 +16,6 @@ export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
     },
   ],
   skjaeringstidspunktBeregning: '2025-10-31',
-  skjæringstidspunkt: '2025-10-31',
   aktivitetStatus: ['AT'],
   beregningsgrunnlagPeriode: [
     {
@@ -29,8 +27,6 @@ export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
       periodeAarsaker: [],
       beregningsgrunnlagPrStatusOgAndel: [
         {
-          // @ts-expect-error typen er ufullstendig
-          dtoType: 'GENERELL',
           aktivitetStatus: 'AT',
           beregningsperiodeFom: '2025-07-01',
           beregningsperiodeTom: '2025-09-30',
@@ -44,7 +40,6 @@ export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
             arbeidsforholdType: 'ARBEID',
             belopFraInntektsmeldingPrMnd: 30000,
           },
-          fastsattAvSaksbehandler: false,
           lagtTilAvSaksbehandler: false,
           erTilkommetAndel: false,
           skalFastsetteGrunnlag: true,
@@ -63,12 +58,9 @@ export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
       differanseBeregnet: 240000,
     },
   ],
-  halvG: 65080,
   grunnbeløp: 130160,
   faktaOmBeregning: {
     saksopplysninger: {
-      // @ts-expect-error typen er ufullstendig
-      arbeidsforholdMedLønnsendring: [],
       lønnsendringSaksopplysning: [],
       kortvarigeArbeidsforhold: [],
     },
@@ -107,7 +99,6 @@ export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
       },
     ],
   },
-  hjemmel: 'F_14_7_8_30',
   dekningsgrad: 100,
   ytelsesspesifiktGrunnlag: {
     ytelsetype: 'FP',
@@ -197,10 +188,4 @@ export const arbeistakerFPEttArbeidsforhold: Beregningsgrunnlag = {
       },
     ],
   },
-};
-
-export const arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId = {
-  '111111111': lagArbeidsgiver('111111111', 'Lagt til av saksbehandler'),
-  '222222222': lagArbeidsgiver('222222222', 'Trossig Naturstridig Tiger AS'),
-  '333333333': lagArbeidsgiver('333333333', 'Norge AS'),
 };
