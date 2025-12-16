@@ -66,6 +66,6 @@ export const formaterStillingsprosenter = (stillingsprosenter: Stillingsprosent[
   if (stillingsprosenter.length === 1) {
     return stillingsprosenter[0].prosent + '%';
   }
-  const sortedStillingsprosenter = stillingsprosenter?.toSorted(sortPeriodsBy('fomDate'));
+  const sortedStillingsprosenter = stillingsprosenter?.toSorted(sortPeriodsBy('fomDato'));
   return `Fra ${sortedStillingsprosenter.at(-2)?.prosent}% til ${sortedStillingsprosenter.at(-1)?.prosent}%`;
 };
