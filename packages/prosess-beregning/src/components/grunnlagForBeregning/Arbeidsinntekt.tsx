@@ -1,7 +1,7 @@
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BriefcaseFillIcon } from '@navikt/aksel-icons';
-import { BodyShort, Heading, HStack, Table, Tag } from '@navikt/ds-react';
+import { BodyShort, Heading, HStack, Table, Tag, Tooltip } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel, DateLabel, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
@@ -81,13 +81,15 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
               defaultOpen={true}
               content={
                 <div>
-                  {visning.beregningsperiodeFom && (
-                    <BodyShort size="medium">
-                      <PeriodLabel
-                        dateStringFom={visning.beregningsperiodeFom}
-                        dateStringTom={visning.beregningsperiodeTom}
-                      />
-                    </BodyShort>
+                  {visning.ansattPeriode?.fom && (
+                    <Tooltip content={intl.formatMessage({ id: 'Arbeidsinntekt.Ansettelsesperiode' })}>
+                      <BodyShort size="medium" as="span">
+                        <PeriodLabel
+                          dateStringFom={visning.ansattPeriode.fom}
+                          dateStringTom={visning.ansattPeriode.tom}
+                        />
+                      </BodyShort>
+                    </Tooltip>
                   )}
 
                   {visning.sisteLønnsendringsdato && (

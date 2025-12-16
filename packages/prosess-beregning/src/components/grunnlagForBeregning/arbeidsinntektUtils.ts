@@ -48,8 +48,12 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
     return {
       arbeidsgiverLabel: formaterArbeidsgiver(arbeidsgiverIdent),
       andelsnr: andel.andelsnr,
-      beregningsperiodeFom: andel.beregningsperiodeFom,
-      beregningsperiodeTom: andel.beregningsperiodeTom,
+      ansattPeriode: andel.arbeidsforhold
+        ? {
+            fom: andel.arbeidsforhold.startdato,
+            tom: andel.arbeidsforhold.opphoersdato,
+          }
+        : undefined,
       sisteLønnsendringsdato: andel.arbeidsforhold?.sisteLønnsendringsdato,
       formatertStillingsprosenter: formaterStillingsprosenter(andel.arbeidsforhold?.stillingsprosenter),
       inntektsmeldingÅrsinntekt: (andel.arbeidsforhold?.belopFraInntektsmeldingPrMnd ?? 0) * 12,
