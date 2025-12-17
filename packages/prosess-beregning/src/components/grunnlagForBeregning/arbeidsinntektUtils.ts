@@ -27,7 +27,7 @@ const grupperSummerteInntekterPerArbeidsgiver = (
 };
 
 /**
- * Andeler som er tilkomment andel skal ikke vises i arbeidsinntektsoversikten
+ * Andeler som er tilkommen andel skal ikke vises i arbeidsinntektsoversikten
  */
 const finnAndelerSomSkalVises = (andeler: BeregningsgrunnlagAndel[]): BeregningsgrunnlagAndel[] =>
   andeler.filter(andel => andel.aktivitetStatus === 'AT').filter(andel => andel.erTilkommetAndel === false);

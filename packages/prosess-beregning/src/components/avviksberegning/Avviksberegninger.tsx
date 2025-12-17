@@ -13,7 +13,7 @@ export const Avviksberegninger = ({ sammenligningsgrunnlagPrStatus = [] }: Props
     return null;
   }
   return (
-    <HStack gap="space-8" style={{ display: 'flex' }}>
+    <HStack gap="space-8">
       {sammenligningsgrunnlagPrStatus.map(sg => (
         <AvviksberegningForSammenligningsgrunnlagType key={sg.sammenligningsgrunnlagType} sammenligningsgrunnlag={sg} />
       ))}

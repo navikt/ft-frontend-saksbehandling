@@ -14,7 +14,7 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({ sammenligningsgru
 
   const avvikProsentAvrundet = Number.parseFloat(avvikProsent.toFixed(1));
 
-  const forenkletKalkuleringAvInntekt = rapportertPrAar + differanseBeregnet;
+  const årsinntekt = rapportertPrAar + differanseBeregnet;
 
   return (
     <Box.New background="neutral-soft" padding="5" flexBasis="0%" flexGrow="1">
@@ -29,7 +29,7 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({ sammenligningsgru
                 <FormattedMessage id="Avviksberegning.OmregnetAarsinntekt" />
               </Table.DataCell>
               <Table.DataCell align="right">
-                <BeløpLabel beløp={forenkletKalkuleringAvInntekt} />
+                <BeløpLabel beløp={årsinntekt} kr />
               </Table.DataCell>
               <Table.DataCell />
             </Table.Row>
@@ -38,7 +38,7 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({ sammenligningsgru
                 <FormattedMessage id="Avviksberegning.RapportertAarsinntekt" />
               </Table.DataCell>
               <Table.DataCell align="right">
-                <BeløpLabel beløp={rapportertPrAar} />
+                <BeløpLabel beløp={rapportertPrAar} kr />
               </Table.DataCell>
               <Table.DataCell />
             </Table.Row>
@@ -49,7 +49,7 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({ sammenligningsgru
                 <FormattedMessage id="Avviksberegning.BeregnetAvvik" />
               </Table.HeaderCell>
               <Table.HeaderCell align="right">
-                <BeløpLabel beløp={differanseBeregnet ?? 0} />
+                <BeløpLabel beløp={differanseBeregnet} kr />
               </Table.HeaderCell>
               <Table.HeaderCell>
                 <Tag variant={avvikProsentAvrundet > 25 ? 'error' : 'success'} size="small">

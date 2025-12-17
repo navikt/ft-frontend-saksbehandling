@@ -17,7 +17,7 @@ export default meta;
 
 type Story = StoryObj<typeof Avviksberegninger>;
 
-export const Avviksbereginger: Story = {
+export const AvviksberegningerFlereTyper: Story = {
   args: {
     sammenligningsgrunnlagPrStatus: [
       {
