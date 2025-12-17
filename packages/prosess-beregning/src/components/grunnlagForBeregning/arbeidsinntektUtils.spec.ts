@@ -58,7 +58,7 @@ describe('arbeidsinntektUtils', () => {
         { fomDato: '2022-01-01', tomDato: '2023-01-01', prosent: 80 },
         { fomDato: '2021-11-01', tomDato: '2022-01-01', prosent: 10 },
       ]);
-      expect(resultat).toBe('Fra 80% til 30%');
+      expect(resultat).toBe('Fra 80% til 30% (01.01.2023)');
     });
   });
 });

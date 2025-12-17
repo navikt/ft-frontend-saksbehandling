@@ -7,6 +7,7 @@ export type {
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
   SammenligningsgrunlagProp,
+  SammenligningType,
   YtelseGrunnlag,
   BeregningsgrunnlagPeriodeProp,
   PgiVerdier,

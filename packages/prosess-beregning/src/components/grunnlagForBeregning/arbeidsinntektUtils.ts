@@ -5,7 +5,7 @@ import type {
   InntektsgrunnlagMåned,
   Stillingsprosent,
 } from '@navikt/ft-types';
-import { sortPeriodsBy } from '@navikt/ft-utils';
+import { dateFormat, sortPeriodsBy } from '@navikt/ft-utils';
 
 const grupperSummerteInntekterPerArbeidsgiver = (
   inntekterMnd: InntektsgrunnlagMåned[] | undefined,
@@ -26,8 +26,11 @@ const grupperSummerteInntekterPerArbeidsgiver = (
     );
 };
 
+/**
+ * Andeler som er tilkomment andel skal ikke vises i arbeidsinntektsoversikten
+ */
 const finnAndelerSomSkalVises = (andeler: BeregningsgrunnlagAndel[]): BeregningsgrunnlagAndel[] =>
-  andeler.filter(andel => andel.aktivitetStatus === 'AT');
+  andeler.filter(andel => andel.aktivitetStatus === 'AT').filter(andel => andel.erTilkommetAndel === false);
 
 export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
   { inntektsgrunnlag, beregningsgrunnlagPeriode }: Beregningsgrunnlag,
@@ -71,5 +74,8 @@ export const formaterStillingsprosenter = (stillingsprosenter: Stillingsprosent[
     return stillingsprosenter[0].prosent + '%';
   }
   const sortedStillingsprosenter = stillingsprosenter?.toSorted(sortPeriodsBy('fomDato'));
-  return `Fra ${sortedStillingsprosenter.at(-2)?.prosent}% til ${sortedStillingsprosenter.at(-1)?.prosent}%`;
+  const nyeste = sortedStillingsprosenter.at(-1)!;
+  const nestNyeste = sortedStillingsprosenter.at(-2)!;
+
+  return `Fra ${nestNyeste.prosent}% til ${nyeste.prosent}% (${dateFormat(nyeste.fomDato)})`;
 };

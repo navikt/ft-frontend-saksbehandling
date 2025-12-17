@@ -4,6 +4,7 @@ import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/
 
 import type { KodeverkForPanel } from '../types/KodeverkForPanel';
 import type { Vilkår } from '../types/Vilkår';
+import { Avviksberegninger } from './avviksberegning/Avviksberegninger';
 import { GrunnlagForBeregning } from './grunnlagForBeregning/GrunnlagForBeregning';
 import { Sammenligningsgrunnlag } from './sammenligningsgrunnlag/Sammenligningsgrunnlag';
 
@@ -27,6 +28,9 @@ export const TabInnhold = ({
         kodeverkSamling={kodeverkSamling}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
       />
+
+      <Avviksberegninger sammenligningsgrunnlagPrStatus={beregningsgrunnlag.sammenligningsgrunnlagPrStatus} />
+
       {beregningsgrunnlag.inntektsgrunnlag &&
         beregningsgrunnlag.sammenligningsgrunnlagPrStatus?.[0]?.sammenligningsgrunnlagFom && (
           <Sammenligningsgrunnlag
