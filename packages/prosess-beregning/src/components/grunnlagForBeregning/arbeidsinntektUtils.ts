@@ -66,16 +66,19 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
   });
 };
 
-export const formaterStillingsprosenter = (stillingsprosenter: Stillingsprosent[] | undefined): string | undefined => {
-  if (!stillingsprosenter || stillingsprosenter.length === 0) {
+export const formaterStillingsprosenter = (
+  stillingsprosenter: Stillingsprosent[] | undefined = [],
+): string | undefined => {
+  if (stillingsprosenter.length === 0) {
     return undefined;
   }
-  if (stillingsprosenter.length === 1) {
-    return stillingsprosenter[0].prosent + '%';
-  }
-  const sortedStillingsprosenter = stillingsprosenter?.toSorted(sortPeriodsBy('fomDato'));
-  const nyeste = sortedStillingsprosenter.at(-1)!;
-  const nestNyeste = sortedStillingsprosenter.at(-2)!;
+  const sortedStillingsprosenter = stillingsprosenter.toSorted(sortPeriodsBy('fomDato'));
 
-  return `Fra ${nestNyeste.prosent}% til ${nyeste.prosent}% (${dateFormat(nyeste.fomDato)})`;
+  const nyeste = sortedStillingsprosenter.at(-1);
+  const nestNyeste = sortedStillingsprosenter.at(-2);
+
+  if (nyeste && nestNyeste) {
+    return `Fra ${nestNyeste.prosent}% til ${nyeste.prosent}% (${dateFormat(nyeste.fomDato)})`;
+  }
+  return stillingsprosenter[0].prosent + '%';
 };
