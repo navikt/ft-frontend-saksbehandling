@@ -99,7 +99,7 @@ export type YtelseGrunnlag = Readonly<{
   ForeldrepengerGrunnlag;
 
 export type SammenligningsgrunlagProp = Readonly<{
-  sammenligningsgrunnlagType: string;
+  sammenligningsgrunnlagType: SammenligningType;
   differanseBeregnet: number;
   avvikProsent: number;
   avvikPromille: number;
@@ -107,6 +107,14 @@ export type SammenligningsgrunlagProp = Readonly<{
   sammenligningsgrunnlagFom: string;
   sammenligningsgrunnlagTom: string;
 }>;
+
+export type SammenligningType =
+  | 'SAMMENLIGNING_FL'
+  | 'SAMMENLIGNING_SN'
+  | 'SAMMENLIGNING_AT'
+  | 'SAMMENLIGNING_AT_FL'
+  | 'SAMMENLIGNING_ATFL_SN'
+  | 'SAMMENLIGNING_MIDL_INAKTIV';
 
 export type BeregningsgrunnlagPeriodeProp = Readonly<{
   avkortetPrAar?: number;
