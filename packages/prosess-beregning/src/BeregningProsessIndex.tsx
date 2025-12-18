@@ -8,8 +8,8 @@ import { createIntl } from '@navikt/ft-utils';
 
 import { TabInnhold } from './components/TabInnhold';
 import { useSkjæringstidspunktTabs } from './hooks/useSkjæringstidspunktTabs';
-import type { BeregningFormValues } from './legacyAP/types/BeregningFormValues.ts';
-import type { BeregningAksjonspunktSubmitType } from './legacyAP/types/BeregningsgrunnlagAP.ts';
+import type { BeregningFormValues } from './legacyAP/types/BeregningFormValues';
+import type { BeregningAksjonspunktSubmitType } from './legacyAP/types/BeregningsgrunnlagAP';
 import type { KodeverkForPanel } from './types/KodeverkForPanel';
 import type { Vilkår } from './types/Vilkår';
 
