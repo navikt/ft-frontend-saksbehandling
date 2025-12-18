@@ -1,12 +1,14 @@
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
 
+import type { Vilkår } from '../src/types/Vilkår';
+
 /**
  * Syntetisk testdata for beregningsgrunnlag
  * Saksnummer: 352029012 (dev)
  * Beregningsgrunnlag for arbeidstaker i FP-sak med åpent AP.
  */
-export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
-  vilkårsperiodeFom: '', // Finn ut om denne kan slettes fra type
+const beregningsgrunnlag: Beregningsgrunnlag = {
+  vilkårsperiodeFom: '2025-12-03',
   avklaringsbehov: [
     {
       definisjon: 'FASTSETT_BG_AT_FL',
@@ -322,4 +324,25 @@ export const arbeidstakerFPFlereArbeidsforhold: Beregningsgrunnlag = {
       },
     ],
   },
+};
+
+const beregningsgrunnlagsvilkår: Vilkår = {
+  vilkarType: 'FP_VK_41',
+  overstyrbar: true,
+  perioder: [
+    {
+      vurderesIBehandlingen: true,
+      merknadParametere: {},
+      periode: {
+        fom: '2025-12-03',
+        tom: '9999-12-31',
+      },
+      vilkarStatus: 'IKKE_VURDERT',
+    },
+  ],
+};
+
+export const arbeidstakerFPFlereArbeidsforhold = {
+  beregningsgrunnlagListe: [beregningsgrunnlag],
+  beregningsgrunnlagsvilkår,
 };

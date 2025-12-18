@@ -15,7 +15,7 @@ describe('arbeidsinntektUtils', () => {
       const formatArbeidsgiver = formaterArbeidsgiverNullable(arbeidsgiverOpplysningerPerId, intl);
 
       const resultat = mapBeregningsgrunnlagTilArbeidsinntektVisning(
-        arbeidstakerFPFlereArbeidsforhold,
+        arbeidstakerFPFlereArbeidsforhold.beregningsgrunnlagListe[0],
         formatArbeidsgiver,
       );
 
