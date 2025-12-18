@@ -7,7 +7,7 @@ import { arbeidsgiverOpplysningerPerId } from '../testdata/arbeidsgivere';
 import { arbeidstakerFPEttArbeidsforhold } from '../testdata/arbeidstakerFPEttArbeidsforhold';
 import { arbeidstakerFPFlereArbeidsforhold } from '../testdata/arbeidstakerFPFlereArbeidsforhold';
 import { BeregningProsessIndex } from './BeregningProsessIndex';
-import type { BeregningAksjonspunktSubmitType } from './legacyAP/types/BeregningsgrunnlagAP';
+import type { BeregningAksjonspunktSubmitType } from './legacyAP/types/BeregningsgrunnlagAP.ts';
 import type { KodeverkForPanel } from './types/KodeverkForPanel';
 
 import '@navikt/ft-form-hooks/dist/style.css';

@@ -3,11 +3,13 @@ import { RawIntlProvider } from 'react-intl';
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { Tabs } from '@navikt/ds-react';
 
-import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
 import { TabInnhold } from './components/TabInnhold';
 import { useSkjæringstidspunktTabs } from './hooks/useSkjæringstidspunktTabs';
+import type { BeregningFormValues } from './legacyAP/types/BeregningFormValues.ts';
+import type { BeregningAksjonspunktSubmitType } from './legacyAP/types/BeregningsgrunnlagAP.ts';
 import type { KodeverkForPanel } from './types/KodeverkForPanel';
 import type { Vilkår } from './types/Vilkår';
 
@@ -18,6 +20,7 @@ interface Props {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   beregningsgrunnlagsvilkår: Vilkår | null;
   kodeverkSamling: KodeverkForPanel;
+  readOnlySubmitButton: boolean;
 }
 
 const intl = createIntl(messages);
@@ -27,11 +30,12 @@ export const BeregningProsessIndex = ({
   beregningsgrunnlagsvilkår,
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
-}: Props) => {
+}: Props & StandardProsessPanelProps<BeregningAksjonspunktSubmitType[], BeregningFormValues>) => {
   const { tabOptions, currentTabValue, onTabChange } = useSkjæringstidspunktTabs(
     beregningsgrunnlagListe,
     beregningsgrunnlagsvilkår,
   );
+
   return (
     <RawIntlProvider value={intl}>
       <Tabs value={currentTabValue} onChange={onTabChange}>
