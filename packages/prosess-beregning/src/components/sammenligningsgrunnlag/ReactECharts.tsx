@@ -36,5 +36,5 @@ export const ReactECharts = ({ option }: Props) => {
     }
   }, [option]);
 
-  return <div ref={chartRef} style={{ width: 'auto', height: '500px' }} />;
+  return <div ref={chartRef} style={{ width: 'auto', height: '400px' }} />;
 };

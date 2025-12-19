@@ -33,7 +33,7 @@ export const SammenligningsgrunnlagGraf = ({
     intl,
   );
 
-  const fontSize = getAkselVariable('--ax-font-size-medium');
+  const fontSize = getAkselVariable('--ax-font-size-small');
   const textStyle = {
     fontFamily: getAkselVariable('--ax-font-family'),
     color: getAkselVariable('--ax-text-neutral'),
