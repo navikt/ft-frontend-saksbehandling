@@ -41,6 +41,14 @@ const beregningsgrunnlag: Beregningsgrunnlag = {
             startdato: '2010-10-01',
             arbeidsforholdType: 'ARBEID',
             belopFraInntektsmeldingPrMnd: 30000,
+            stillingsprosenter: [
+              {
+                prosent: 100,
+                fomDato: '2010-10-01',
+                tomDato: '9999-12-31',
+              },
+            ],
+            sisteLønnsendringsdato: '2010-10-01',
           },
           lagtTilAvSaksbehandler: false,
           erTilkommetAndel: false,
