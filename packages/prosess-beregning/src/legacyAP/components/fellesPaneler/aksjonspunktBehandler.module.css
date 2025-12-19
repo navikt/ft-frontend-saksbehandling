@@ -1,0 +1,11 @@
+.textAreaStyle {
+  min-height: 100px;
+}
+
+.beløpInput {
+  max-width: 100px;
+  min-width: 85px;
+  > input {
+    text-align: right;
+  }
+}

@@ -2,6 +2,7 @@ import { VStack } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 
+import { LegacyAksjonspunktTittel } from '../legacyAP/LegacyAksjonspunktTittel';
 import type { KodeverkForPanel } from '../types/KodeverkForPanel';
 import type { Vilkår } from '../types/Vilkår';
 import { Avviksberegninger } from './avviksberegning/Avviksberegninger';
@@ -23,6 +24,11 @@ export const TabInnhold = ({
   const { sammenligningsgrunnlagPrStatus = [], inntektsgrunnlag } = beregningsgrunnlag;
   return (
     <VStack gap="space-8" paddingBlock="space-16">
+      <LegacyAksjonspunktTittel
+        avklaringsbehov={beregningsgrunnlag.avklaringsbehov}
+        beregningsgrunnlag={beregningsgrunnlag}
+      />
+
       <GrunnlagForBeregning
         beregningsgrunnlag={beregningsgrunnlag}
         beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}

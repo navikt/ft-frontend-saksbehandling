@@ -1,0 +1,19 @@
+.horizontalBox {
+  align-items: center;
+  padding: 4px 0;
+}
+
+.borderTop {
+  border-top: 1px solid var(--ax-border-neutral);
+  padding: 4px 8px;
+}
+
+.borderBottom {
+  border-bottom: 1px solid var(--ax-border-neutral);
+  padding: 4px 8px;
+}
+
+.doubleBorder {
+  border-bottom: 3px double var(--ax-border-neutral);
+  padding: 4px 8px;
+}
