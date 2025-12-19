@@ -49,6 +49,7 @@ export const SammenligningsgrunnlagGraf = ({
           top: 'top',
         },
         grid: {
+          top: '7%',
           left: '0%',
           bottom: '0%',
           right: '0%',
