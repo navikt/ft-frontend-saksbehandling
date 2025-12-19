@@ -71,4 +71,25 @@
   "ProsessStegSubmitButton.Label": "Bekreft og fortsett",
   "ReadonlyAPGraderingUtenBG.Tittel": "Saksbehandler har tidligere vurdert om fordeling av inntekt er korrekt grunnet en andel uten utbetaling som skal graderes.",
   "ReadonlyAPGraderingUtenBG.Begrunnelse": "Begrunnelse"
+
+  "Dagsats.Tittel": "Beregning av dagsats ",
+  "Dagsats.Arbeid": "Fastsatt årsinntekt - arbeidstaker",
+  "Dagsats.BeregnetDagsats": "Dagsats ({inntekt}/260 dager)",
+  "Dagsats.Periode": "Periode {periode}",
+  "Dagsats.Frilans": "Fastsatt årsinntekt - frilans",
+  "Dagsats.Næring": "Fastsatt årsinntekt - næring",
+  "Dagsats.Dagpenger": "Fastsatt årsinntekt - dagpenger",
+  "Dagsats.SykepengerAvDagpenger": "Fastsatt årsinntekt - sykepenger av dagpenger",
+  "Dagsats.PleiepengerAvDagpenger": "Fastsatt årsinntekt - pleiepenger av dagpenger",
+  "Dagsats.Arbeidsavklaringspenger": "Fastsatt årsinntekt - arbeidsavklaringspenger",
+  "Dagsats.Militær": "Fastsatt årsinntekt - militær",
+  "Dagsats.BrukersAndel": "Fastsatt årsinntekt - brukers andel",
+  "Dagsats.Ytelse": "Fastsatt årsinntekt - ytelse",
+  "Dagsats.IkkeBeregnet": "Ikke beregnet",
+  "Dagsats.Naturalytelser": "Naturalytelser",
+  "Dagsats.TotalÅrsinntekt": "Total årsinntekt",
+  "Dagsats.Avkortet": "Årsinntekt redusert til 6G på skjæringstidspunktet",
+  "Dagsats.Redusert": "Årsinntekt redusert til 80% dekningsgrad",
+  "Dagsats.VilkårIkkeOppfylt": "Beløpet er under 1/2 G (G = {grunnbeløp}) - søker har ikke rett til ytelse",
+  "Dagsats.VilkårIkkeOppfyltMidlertidigInaktiv": "Beløpet er under 1 G (G = {grunnbeløp}) - søker har ikke rett til ytelse"
 }

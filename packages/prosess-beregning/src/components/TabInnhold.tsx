@@ -8,6 +8,7 @@ import type { Vilkår } from '../types/Vilkår';
 import { AksjonspunktKode } from '../utils/aksjonspunkt';
 import { ReadonlyAPGraderingUtenBG } from './aksjonspunkt/utgåttAP/ReadonlyAPGraderingUtenBG';
 import { Avviksberegninger } from './avviksberegning/Avviksberegninger';
+import { Dagsatser } from './dagsats/Dagsatser';
 import { GrunnlagForBeregning } from './grunnlagForBeregning/GrunnlagForBeregning';
 import { Sammenligningsgrunnlag } from './sammenligningsgrunnlag/Sammenligningsgrunnlag';
 
@@ -52,6 +53,9 @@ export const TabInnhold = ({
           ap => ap.definisjon === AksjonspunktKode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG,
         )}
       />
+      {beregningsgrunnlagsvilkår && (
+        <Dagsatser beregningsgrunnlag={beregningsgrunnlag} beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår} />
+      )}
     </VStack>
   );
 };
