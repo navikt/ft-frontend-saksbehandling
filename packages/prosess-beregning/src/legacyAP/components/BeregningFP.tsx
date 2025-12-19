@@ -11,7 +11,7 @@ import { GraderingUtenBGReadOnly } from './gradering/GraderingUtenBGReadOnly';
 interface Props {
   submitCallback: (aksjonspunktData: BeregningAksjonspunktSubmitType[]) => Promise<void>;
   readOnly: boolean;
-  readOnlySubmitButton: boolean;
+  isSubmittable: boolean;
   kodeverkSamling: KodeverkForPanel;
   aktivtBeregningsgrunnlagIndeks: number;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
@@ -41,7 +41,7 @@ export const BeregningFP = ({
   beregningsgrunnlagListe,
   submitCallback,
   readOnly,
-  readOnlySubmitButton,
+  isSubmittable,
   vilkår,
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
@@ -55,7 +55,7 @@ export const BeregningFP = ({
       <SammenligningOgFastsettelsePanel
         readOnly={readOnly || !skalVurderes(vilkår, aktivtBeregningsgrunnlag)}
         sammenligningsgrunnlag={aktivtBeregningsgrunnlag.sammenligningsgrunnlagPrStatus || []}
-        readOnlySubmitButton={readOnlySubmitButton}
+        isSubmittable={isSubmittable}
         kodeverkSamling={kodeverkSamling}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         beregningsgrunnlagListe={beregningsgrunnlagListe}

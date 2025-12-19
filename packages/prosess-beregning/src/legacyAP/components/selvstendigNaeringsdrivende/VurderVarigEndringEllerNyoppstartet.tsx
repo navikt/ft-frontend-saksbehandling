@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, HStack, Radio, VStack } from '@navikt/ds-react';
 
@@ -15,8 +15,6 @@ import type { BeregningFormValues, FormNameType } from '../../types/BeregningFor
 import type { VurderVarigEndretNyoppstartetResultatAP } from '../../types/BeregningsgrunnlagAP';
 import type { VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
 
-import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
-
 const MAX_LENGTH = 4000;
 const maxLength4000 = maxLength(MAX_LENGTH);
 const minLength3 = minLength(3);
@@ -28,13 +26,6 @@ const {
   VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
 } = AksjonspunktKode;
 
-const inntektFastsettesText = (erVarigEndretArbeidssituasjon?: boolean) =>
-  erVarigEndretArbeidssituasjon ? (
-    <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.VarigEndretInntektFastsettesTil" />
-  ) : (
-    <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.BruttoBerGr2" />
-  );
-
 interface Props {
   endretTekst?: React.ReactNode;
   readOnly: boolean;
@@ -44,7 +35,7 @@ interface Props {
   fieldIndex: number;
   formName: FormNameType;
   isAksjonspunktClosed: boolean;
-  avklaringsbehov: BeregningAvklaringsbehov;
+  aksjonspunkt: BeregningAvklaringsbehov;
   skalValideres: boolean;
 }
 
@@ -55,7 +46,7 @@ interface Props {
  * VURDER_VARIG_ENDRET_ARBEIDSSITUASJON
  *
  * Presentasjonskomponent. Setter opp radioknapper som lar saksbehandler vurdere
- * aksjonspunkt om søker har hatt varig endret eller nyoppstaret næring eller varig endret arbeidssituasjon.
+ * aksjonspunkt om søker har hatt varig endret eller nyoppstartet næring eller varig endret arbeidssituasjon.
  */
 export const VurderVarigEndringEllerNyoppstartet = ({
   readOnly,
@@ -65,27 +56,14 @@ export const VurderVarigEndringEllerNyoppstartet = ({
   fieldIndex,
   formName,
   isAksjonspunktClosed,
-  avklaringsbehov,
+  aksjonspunkt,
   skalValideres,
 }: Props) => {
-  let radioLabel1 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.IngenEndring" />;
-  let radioLabel2 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.EndretNaering" />;
-  if (erNyoppstartet && !erVarigEndring) {
-    radioLabel1 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.IkkeNyoppstartet" />;
-    radioLabel2 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.Nyoppstartet" />;
-  }
-  if (erVarigEndring && !erNyoppstartet) {
-    radioLabel1 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.IkkeVarigEndring" />;
-    radioLabel2 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.VarigEndring" />;
-  }
-  let radioLabel = 'VurderVarigEndringEllerNyoppstartet.RadioTittel.VarigEndringNæring';
-  if (erVarigEndretArbeidssituasjon) {
-    radioLabel = 'VurderVarigEndringEllerNyoppstartet.RadioTittel.VarigEndringArbeid';
-  }
-  if (erNyoppstartet) {
-    radioLabel = 'VurderVarigEndringEllerNyoppstartet.RadioTittel.NyoppstartetNæring';
-  }
-  const intl = useIntl();
+  const { radioOption1, radioOption2, radioLegend } = hentRadioTekster(
+    erNyoppstartet,
+    erVarigEndring,
+    erVarigEndretArbeidssituasjon,
+  );
   const formMethods = useFormContext<BeregningFormValues>();
   const varigEndringValues = formMethods.watch(formName)[fieldIndex] as VurderOgFastsettValues;
   const varigEndringBekreftetVerdi = varigEndringValues.erVarigEndret;
@@ -96,15 +74,15 @@ export const VurderVarigEndringEllerNyoppstartet = ({
         name={`${formName}.${fieldIndex}.${varigEndringRadioname}`}
         control={formMethods.control}
         validate={skalValideres ? [required] : []}
-        legend={intl.formatMessage({ id: radioLabel })}
+        legend={radioLegend}
         readOnly={readOnly}
         isEdited={readOnly && isAksjonspunktClosed}
       >
         <Radio value={false} size="small">
-          {radioLabel1}
+          {radioOption1}
         </Radio>
         <Radio value={true} size="small">
-          {radioLabel2}
+          {radioOption2}
         </Radio>
       </RhfRadioGroup>
       {varigEndringBekreftetVerdi && (
@@ -116,7 +94,8 @@ export const VurderVarigEndringEllerNyoppstartet = ({
             validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
             parse={parseCurrencyInput}
             hideLabel
-            className={styles.beløpInput}
+            htmlSize={12}
+            style={{ textAlign: 'right' }}
             readOnly={readOnly}
             isEdited={readOnly && isAksjonspunktClosed}
           />
@@ -129,12 +108,10 @@ export const VurderVarigEndringEllerNyoppstartet = ({
         validate={skalValideres ? [required, maxLength4000, minLength3, hasValidText] : []}
         maxLength={MAX_LENGTH}
         readOnly={readOnly}
-        description={intl.formatMessage({
-          id: 'Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
-        })}
+        description={<FormattedMessage id="Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst" />}
         parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
       />
-      <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
+      <AssessedBy ident={aksjonspunkt?.vurdertAv} date={aksjonspunkt?.vurdertTidspunkt} />
     </VStack>
   );
 };
@@ -174,4 +151,36 @@ VurderVarigEndringEllerNyoppstartet.transformValues = (
     erVarigEndret: erVarigEndring,
     bruttoBeregningsgrunnlag: erVarigEndring ? removeSpacesFromNumber(values[fastsettInntektFieldname]) : undefined,
   };
+};
+
+const inntektFastsettesText = (erVarigEndretArbeidssituasjon: boolean | undefined) =>
+  erVarigEndretArbeidssituasjon ? (
+    <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.VarigEndretInntektFastsettesTil" />
+  ) : (
+    <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.BruttoBerGr2" />
+  );
+
+const hentRadioTekster = (
+  erNyoppstartet: boolean | undefined,
+  erVarigEndring: boolean | undefined,
+  erVarigEndretArbeidssituasjon: boolean | undefined,
+) => {
+  let radioOption1 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.IngenEndring" />;
+  let radioOption2 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.EndretNaering" />;
+  if (erNyoppstartet && !erVarigEndring) {
+    radioOption1 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.IkkeNyoppstartet" />;
+    radioOption2 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.Nyoppstartet" />;
+  }
+  if (erVarigEndring && !erNyoppstartet) {
+    radioOption1 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.IkkeVarigEndring" />;
+    radioOption2 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.VarigEndring" />;
+  }
+  let radioLegend = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.RadioTittel.VarigEndringNæring" />;
+  if (erVarigEndretArbeidssituasjon) {
+    radioLegend = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.RadioTittel.VarigEndringArbeid" />;
+  }
+  if (erNyoppstartet) {
+    radioLegend = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.RadioTittel.NyoppstartetNæring" />;
+  }
+  return { radioOption1, radioOption2, radioLegend };
 };

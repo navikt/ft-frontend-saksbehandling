@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FormattedMessage, type IntlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
@@ -13,7 +13,6 @@ import type {
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
-import { removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import type { KodeverkForPanel } from '../../../types/KodeverkForPanel';
 import { AksjonspunktKode } from '../../../utils/aksjonspunkt';
@@ -24,11 +23,9 @@ import type {
   FastsettAvvikATFLTidsbegrensetResultatAP,
 } from '../../types/BeregningsgrunnlagAP';
 import { AksjonspunktBehandlerAT } from '../arbeidstaker/AksjonspunktBehandlerAT';
-import { AksjonspunktBehandlerTidsbegrenset } from '../arbeidstaker/AksjonspunktBehandlerTB';
+import { AksjonspunktBehandlerTidsbegrenset } from '../arbeidstaker/AksjonspunktBehandlerTidsbegrenset.tsx';
 import { AksjonspunktBehandlerFL } from '../frilanser/AksjonspunktBehandlerFL';
 import { finnAlleAndelerIFørstePeriode } from './aksjonspunktBehandlerUtils';
-
-import styles from './aksjonspunktBehandler.module.css';
 
 const { FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD } =
   AksjonspunktKode;
@@ -46,27 +43,26 @@ const minLength3 = minLength(3);
 const MAX_LENGTH = 4000;
 const maxLength4000 = maxLength(MAX_LENGTH);
 
+interface Props {
+  kodeverkSamling: KodeverkForPanel;
+  allePerioder: BeregningsgrunnlagPeriodeProp[];
+  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  readOnly: boolean;
+  fieldIndex: number;
+  formName: FormNameType;
+  avklaringsbehov: BeregningAvklaringsbehov;
+  skalValideres: boolean;
+}
 export const ArbeidstakerEllerFrilansContainer = ({
   kodeverkSamling,
   allePerioder,
   arbeidsgiverOpplysningerPerId,
   readOnly,
-  intl,
   fieldIndex,
   formName,
   avklaringsbehov,
   skalValideres,
-}: {
-  kodeverkSamling: KodeverkForPanel;
-  allePerioder: BeregningsgrunnlagPeriodeProp[];
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  readOnly: boolean;
-  intl: IntlShape;
-  fieldIndex: number;
-  formName: FormNameType;
-  avklaringsbehov: BeregningAvklaringsbehov;
-  skalValideres: boolean;
-}): ReactElement => {
+}: Props): ReactElement => {
   const { control } = useFormContext<BeregningFormValues>();
 
   const erTidsbegrenset = harPerioderMedAvsluttedeArbeidsforhold(allePerioder);
@@ -116,10 +112,8 @@ export const ArbeidstakerEllerFrilansContainer = ({
           validate={[required, maxLength4000, minLength3, hasValidText]}
           maxLength={MAX_LENGTH}
           readOnly={readOnly}
-          className={styles.textAreaStyle}
-          description={intl.formatMessage({
-            id: 'Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
-          })}
+          minRows={3}
+          description={<FormattedMessage id="Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst" />}
           parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
         />
         <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
@@ -147,7 +141,7 @@ ArbeidstakerEllerFrilansContainer.buildInitialValues = (
 ): ATFLBegrunnelseValues => {
   const aksjonspunktATFL = finnAksjonspunktForATFL(gjeldendeAvklaringsbehov);
   return {
-    ATFLVurdering: aksjonspunktATFL && aksjonspunktATFL.begrunnelse ? aksjonspunktATFL.begrunnelse : '',
+    ATFLVurdering: aksjonspunktATFL?.begrunnelse ? aksjonspunktATFL.begrunnelse : '',
   };
 };
 
@@ -156,8 +150,8 @@ ArbeidstakerEllerFrilansContainer.transformATFLValues = (
   alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[],
 ): FastsettAvvikATFLResultatAP => ({
   begrunnelse: values.ATFLVurdering,
-  inntektPrAndelList: AksjonspunktBehandlerAT.transformValues(values, alleAndelerIFørstePeriode),
-  inntektFrilanser: values.inntektFrilanser !== undefined ? removeSpacesFromNumber(values.inntektFrilanser) : null,
+  ...AksjonspunktBehandlerAT.transformValues(values, alleAndelerIFørstePeriode),
+  ...AksjonspunktBehandlerFL.transformValues(values),
 });
 
 ArbeidstakerEllerFrilansContainer.transformATFLTidsbegrensetValues = (
@@ -165,6 +159,6 @@ ArbeidstakerEllerFrilansContainer.transformATFLTidsbegrensetValues = (
   allePerioder: BeregningsgrunnlagPeriodeProp[],
 ): FastsettAvvikATFLTidsbegrensetResultatAP => ({
   begrunnelse: values.ATFLVurdering,
-  fastsatteTidsbegrensedePerioder: AksjonspunktBehandlerTidsbegrenset.transformValues(values, allePerioder),
-  frilansInntekt: values.inntektFrilanser !== undefined ? removeSpacesFromNumber(values.inntektFrilanser) : null,
+  ...AksjonspunktBehandlerTidsbegrenset.transformValues(values, allePerioder),
+  frilansInntekt: AksjonspunktBehandlerFL.transformValues(values).inntektFrilanser,
 });

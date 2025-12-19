@@ -1,18 +1,15 @@
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, HStack, Spacer } from '@navikt/ds-react';
 
 import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { formatCurrencyNoKr, parseCurrencyInput } from '@navikt/ft-utils';
+import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import type { FrilansInntektValues } from '../../types/ATFLAksjonspunkt';
+import type { ATFLValues, FrilansInntektValues } from '../../types/ATFLAksjonspunkt';
 import type { BeregningFormValues, FormNameType } from '../../types/BeregningFormValues';
-import { HorizontalBox } from '../../util/HorizontalBox';
-
-import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 
 const erFrilansFastsatt = (alleAndelerIForstePeriode: BeregningsgrunnlagAndel[]): boolean =>
   alleAndelerIForstePeriode.some(
@@ -41,10 +38,11 @@ export const AksjonspunktBehandlerFL = ({
 }: Props) => {
   const { control } = useFormContext<BeregningFormValues>();
   return (
-    <HorizontalBox>
+    <HStack wrap={false}>
       <BodyShort size="small">
         <FormattedMessage id="AksjonspunktBehandlerFL.Label" />
       </BodyShort>
+      <Spacer />
       <RhfTextField
         control={control}
         name={`${formName}.${fieldIndex}.inntektFrilanser`}
@@ -52,10 +50,11 @@ export const AksjonspunktBehandlerFL = ({
         readOnly={readOnly}
         hideLabel
         parse={parseCurrencyInput}
-        className={styles.beløpInput}
+        htmlSize={12}
+        style={{ textAlign: 'right' }}
         isEdited={readOnly && erFrilansFastsatt(alleAndelerIForstePeriode)}
       />
-    </HorizontalBox>
+    </HStack>
   );
 };
 
@@ -69,3 +68,7 @@ AksjonspunktBehandlerFL.buildInitialValues = (relevanteAndeler: Beregningsgrunnl
   }
   return {};
 };
+
+AksjonspunktBehandlerFL.transformValues = (values: ATFLValues) => ({
+  inntektFrilanser: values.inntektFrilanser === undefined ? null : removeSpacesFromNumber(values.inntektFrilanser),
+});

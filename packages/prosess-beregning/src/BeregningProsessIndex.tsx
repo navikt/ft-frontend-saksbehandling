@@ -21,7 +21,7 @@ interface Props {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   beregningsgrunnlagsvilkår: Vilkår | null;
   kodeverkSamling: KodeverkForPanel;
-  readOnlySubmitButton: boolean;
+  isSubmittable: boolean;
 }
 
 const intl = createIntl(messages);
@@ -35,7 +35,7 @@ export const BeregningProsessIndex = ({
   setFormData,
   submitCallback,
   isReadOnly,
-  readOnlySubmitButton,
+  isSubmittable,
 }: Props & StandardProsessPanelProps<BeregningAksjonspunktSubmitType[], BeregningFormValues>) => {
   const { tabOptions, currentTabValue, onTabChange } = useSkjæringstidspunktTabs(
     beregningsgrunnlagListe,
@@ -82,7 +82,7 @@ export const BeregningProsessIndex = ({
                 label={o.optionLabel}
                 aria-controls={`${o.optionLabel}-panel`}
                 icon={
-                  o.harAksjonspunkt ? (
+                  o.harAksjonspunkt && o.skalVurderes ? (
                     <ExclamationmarkTriangleFillIcon aria-hidden color="var(--ax-bg-warning-strong)" />
                   ) : undefined
                 }
@@ -112,7 +112,7 @@ export const BeregningProsessIndex = ({
         beregningsgrunnlagListe={beregningsgrunnlagListe}
         submitCallback={submitCallback}
         readOnly={isReadOnly}
-        readOnlySubmitButton={readOnlySubmitButton}
+        isSubmittable={isSubmittable}
         vilkår={beregningsgrunnlagsvilkår}
         kodeverkSamling={kodeverkSamling}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}

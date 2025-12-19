@@ -1,6 +1,6 @@
 export type NyIArbeidslivetValues = {
   bruttoBeregningsgrunnlag?: string;
-  fastsettBeregningsgrnunnlagSNBegrunnelse?: string;
+  fastsettBeregningsgrunnlagSNBegrunnelse?: string;
 };
 
 export type VurderOgFastsettValues = {

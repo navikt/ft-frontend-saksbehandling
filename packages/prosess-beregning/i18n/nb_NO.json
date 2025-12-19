@@ -70,5 +70,6 @@
   "Forms.Vurdering": "Vurdering",
   "Forms.VurderingAvFastsattBeregningsgrunnlag": "Vurdering av fastsatt beregningsgrunnlag",
   "Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst": "Forklar hvordan du har kommet frem til beregningsgrunnlaget og hvilke vurderinger du har gjort. Beskriv hvorfor det er avvik og hvilken inntekt som kan legges til grunn. Dette skal gjøres i henhold til lovhjemmel.",
-  "ProsessStegSubmitButton.Label": "Bekreft og fortsett"
+  "ProsessStegSubmitButton.Label": "Bekreft og fortsett",
+  "GraderingUtenBGReadOnly.Label": "Saksbehandler har tidligere vurdert om fordeling av inntekt er korrekt grunnet en andel uten utbetaling som skal graderes."
 }

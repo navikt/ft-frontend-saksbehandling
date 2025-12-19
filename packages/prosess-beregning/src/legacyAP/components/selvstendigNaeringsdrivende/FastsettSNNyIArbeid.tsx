@@ -1,8 +1,8 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, VStack } from '@navikt/ds-react';
+import { BodyShort, HStack, Spacer, VStack } from '@navikt/ds-react';
 
 import { RhfTextarea, RhfTextField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
@@ -14,15 +14,12 @@ import { AksjonspunktKode } from '../../../utils/aksjonspunkt';
 import type { BeregningFormValues, FormNameType } from '../../types/BeregningFormValues';
 import type { NyIArbeidslivetruttoNæringResultatAP } from '../../types/BeregningsgrunnlagAP';
 import type { NyIArbeidslivetValues } from '../../types/NæringAksjonspunkt';
-import { HorizontalBox } from '../../util/HorizontalBox';
-
-import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 
 const MAX_LENGTH = 4000;
 const maxLength4000 = maxLength(MAX_LENGTH);
 
 const minLength3 = minLength(3);
-const begrunnelseFieldname = 'fastsettBeregningsgrnunnlagSNBegrunnelse';
+const begrunnelseFieldname = 'fastsettBeregningsgrunnlagSNBegrunnelse';
 const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
 const { FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET } = AksjonspunktKode;
 
@@ -30,10 +27,10 @@ interface Props {
   endretTekst?: React.ReactNode;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
-  erNyArbLivet: boolean;
+  erNyIArbeidslivet: boolean;
   fieldIndex: number;
   formName: FormNameType;
-  avklaringsbehov: BeregningAvklaringsbehov;
+  aksjonspunkt: BeregningAvklaringsbehov;
   skalValideres: boolean;
 }
 
@@ -48,33 +45,34 @@ interface Props {
 export const FastsettSNNyIArbeid = ({
   readOnly,
   isAksjonspunktClosed,
-  erNyArbLivet,
+  erNyIArbeidslivet,
   fieldIndex,
   formName,
-  avklaringsbehov,
+  aksjonspunkt,
   skalValideres,
 }: Props) => {
-  const intl = useIntl();
-
   const { control } = useFormContext<BeregningFormValues>();
 
   return (
     <VStack gap="space-40">
-      {erNyArbLivet && (
-        <HorizontalBox borderBottom borderTop>
+      {erNyIArbeidslivet && (
+        <HStack wrap={false}>
           <BodyShort size="small">
             <FormattedMessage id="FastsettSNNyIArbeid.Tittel" />
           </BodyShort>
+          <Spacer />
           <RhfTextField
             name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
             control={control}
             validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
             parse={parseCurrencyInput}
-            className={styles.beløpInput}
+            hideLabel
+            htmlSize={12}
+            style={{ textAlign: 'right' }}
             isEdited={readOnly && isAksjonspunktClosed}
             readOnly={readOnly}
           />
-        </HorizontalBox>
+        </HStack>
       )}
       <RhfTextarea
         name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
@@ -84,17 +82,15 @@ export const FastsettSNNyIArbeid = ({
         isEdited={readOnly && isAksjonspunktClosed}
         maxLength={MAX_LENGTH}
         readOnly={readOnly}
-        description={intl.formatMessage({
-          id: 'Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst',
-        })}
+        description={<FormattedMessage id="Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst" />}
         parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
       />
-      <AssessedBy ident={avklaringsbehov?.vurdertAv} date={avklaringsbehov?.vurdertTidspunkt} />
+      <AssessedBy ident={aksjonspunkt?.vurdertAv} date={aksjonspunkt?.vurdertTidspunkt} />
     </VStack>
   );
 };
 
-FastsettSNNyIArbeid.buildInitialValuesNyIArbeidslivet = (
+FastsettSNNyIArbeid.buildInitialValues = (
   relevanteAndeler: BeregningsgrunnlagAndel[],
   avklaringsbehov: BeregningAvklaringsbehov[],
 ): NyIArbeidslivetValues => {
@@ -104,12 +100,11 @@ FastsettSNNyIArbeid.buildInitialValuesNyIArbeidslivet = (
   );
   return {
     [fastsettInntektFieldname]: snAndel ? formatCurrencyNoKr(snAndel.overstyrtPrAar) : undefined,
-    [begrunnelseFieldname]:
-      nyIArbeidslivetAP && nyIArbeidslivetAP.begrunnelse ? nyIArbeidslivetAP.begrunnelse : undefined,
+    [begrunnelseFieldname]: nyIArbeidslivetAP?.begrunnelse ? nyIArbeidslivetAP.begrunnelse : undefined,
   };
 };
 
-FastsettSNNyIArbeid.transformValuesNyIArbeidslivet = (
+FastsettSNNyIArbeid.transformValues = (
   values: Required<NyIArbeidslivetValues>,
 ): NyIArbeidslivetruttoNæringResultatAP => ({
   begrunnelse: values[begrunnelseFieldname],

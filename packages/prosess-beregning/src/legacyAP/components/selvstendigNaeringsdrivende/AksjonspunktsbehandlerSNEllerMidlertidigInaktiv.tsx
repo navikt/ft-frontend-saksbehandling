@@ -1,5 +1,5 @@
 import type { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { isAksjonspunktOpen } from '@navikt/ft-utils';
+import { hasAksjonspunkt, isAksjonspunktOpen } from '@navikt/ft-utils';
 
 import { AksjonspunktKode } from '../../../utils/aksjonspunkt';
 import type { FormNameType } from '../../types/BeregningFormValues';
@@ -17,19 +17,17 @@ const {
   VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
 } = AksjonspunktKode;
 
-const hasAksjonspunkt = (kode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
-  avklaringsbehov.some(ap => ap.definisjon === kode);
-
-const skalFastsette = (ap: BeregningAvklaringsbehov): boolean =>
-  ap &&
-  (ap.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE ||
-    ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET ||
-    ap.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON);
+const skalFastsette = (ap: BeregningAvklaringsbehov) =>
+  [
+    VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+    FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
+    VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
+  ].includes(ap.definisjon as AksjonspunktKode);
 
 interface Props {
   readOnly: boolean;
-  avklaringsbehov: BeregningAvklaringsbehov;
-  erNyArbLivet?: boolean;
+  aksjonspunkt: BeregningAvklaringsbehov;
+  erNyIArbeidslivet?: boolean;
   erVarigEndring?: boolean;
   erNyoppstartet?: boolean;
   fieldIndex: number;
@@ -39,27 +37,27 @@ interface Props {
 
 export const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv = ({
   readOnly,
-  avklaringsbehov,
-  erNyArbLivet = false,
+  aksjonspunkt,
+  erNyIArbeidslivet = false,
   erVarigEndring = false,
   erNyoppstartet = false,
   fieldIndex,
   formName,
   skalValideres,
 }: Props) => {
-  if (!skalFastsette(avklaringsbehov)) {
+  if (!skalFastsette(aksjonspunkt)) {
     return null;
   }
-  const isAksjonspunktClosed = !isAksjonspunktOpen(avklaringsbehov);
-  if (erNyArbLivet) {
+  const isAksjonspunktClosed = !isAksjonspunktOpen(aksjonspunkt);
+  if (erNyIArbeidslivet) {
     return (
       <FastsettSNNyIArbeid
         readOnly={readOnly}
         isAksjonspunktClosed={isAksjonspunktClosed}
-        erNyArbLivet={erNyArbLivet}
+        erNyIArbeidslivet={erNyIArbeidslivet}
         fieldIndex={fieldIndex}
         formName={formName}
-        avklaringsbehov={avklaringsbehov}
+        aksjonspunkt={aksjonspunkt}
         skalValideres={skalValideres}
       />
     );
@@ -68,12 +66,12 @@ export const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv = ({
     <VurderVarigEndringEllerNyoppstartet
       readOnly={readOnly}
       erVarigEndring={erVarigEndring}
-      erVarigEndretArbeidssituasjon={avklaringsbehov.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON}
+      erVarigEndretArbeidssituasjon={aksjonspunkt.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON}
       erNyoppstartet={erNyoppstartet}
       fieldIndex={fieldIndex}
       formName={formName}
       isAksjonspunktClosed={isAksjonspunktClosed}
-      avklaringsbehov={avklaringsbehov}
+      aksjonspunkt={aksjonspunkt}
       skalValideres={skalValideres}
     />
   );
@@ -81,14 +79,12 @@ export const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv = ({
 
 AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.buildInitialValues = (
   relevanteAndeler: BeregningsgrunnlagAndel[],
-  avklaringsbehov: BeregningAvklaringsbehov[],
+  aksjonspunkt: BeregningAvklaringsbehov[],
 ): VurderOgFastsettValues | NyIArbeidslivetValues => {
-  if (hasAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, avklaringsbehov)) {
-    return FastsettSNNyIArbeid.buildInitialValuesNyIArbeidslivet(relevanteAndeler, avklaringsbehov);
+  if (hasAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, aksjonspunkt)) {
+    return FastsettSNNyIArbeid.buildInitialValues(relevanteAndeler, aksjonspunkt);
   }
-  return {
-    ...VurderVarigEndringEllerNyoppstartet.buildInitialValues(relevanteAndeler, avklaringsbehov),
-  };
+  return VurderVarigEndringEllerNyoppstartet.buildInitialValues(relevanteAndeler, aksjonspunkt);
 };
 
 AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.transformValues = (
@@ -96,7 +92,7 @@ AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.transformValues = (
   gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[],
 ): VurderVarigEndretNyoppstartetResultatAP | NyIArbeidslivetruttoNæringResultatAP => {
   if (hasAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, gjeldendeAvklaringsbehov)) {
-    return FastsettSNNyIArbeid.transformValuesNyIArbeidslivet(values as Required<NyIArbeidslivetValues>);
+    return FastsettSNNyIArbeid.transformValues(values as Required<NyIArbeidslivetValues>);
   }
   return VurderVarigEndringEllerNyoppstartet.transformValues(values as Required<VurderOgFastsettValues>);
 };

@@ -1,11 +1,7 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import { Button } from '@navikt/ds-react';
-
-import { createIntl } from '@navikt/ft-utils';
-
-import messages from '../../../i18n/nb_NO.json';
-const intl = createIntl(messages);
 
 const isDisabled = (
   isDirty: boolean,
@@ -52,7 +48,7 @@ export const ProsessStegSubmitButton = ({
         onClick={onClick}
         type={onClick ? 'button' : 'submit'}
       >
-        {text || intl.formatMessage({ id: 'ProsessStegSubmitButton.Label' })}
+        {text || <FormattedMessage id="ProsessStegSubmitButton.Label" />}
       </Button>
     );
   }

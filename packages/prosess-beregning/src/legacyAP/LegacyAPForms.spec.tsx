@@ -2,15 +2,13 @@ import { composeStories } from '@storybook/react-vite';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import * as stories from './LegacyStories.stories';
+import * as stories from './LegacyAPForms.stories';
 
 const {
   ArbeidstakerMedAvvikAp5038,
-  ArbeidstakerUtenAvvik,
   SelvstendigNæringsdrivendeMedAksjonspunktAp5039,
   MidlertidigInaktivMedAksjonspunktAp5054,
   SelvstendigNæringsdrivendNyIArbeidslivetAp5049,
-  NaturalYtelse,
   TidsbegrensetArbeidsforholdMedAvvikAp5047,
   AvvikNæringEtterLøstAvvikArbeid5038Og5039,
   ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp5038,
@@ -19,36 +17,7 @@ const {
 const scrollIntoViewMock = vi.fn();
 globalThis.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
 
-describe('BeregningsgrunnlagProsessIndex', () => {
-  it('skal vise informasjon om arbeidstakerinntekt (Dette er same tekst som over)', async () => {
-    render(<ArbeidstakerUtenAvvik />);
-
-    expect(await screen.findByText('Skjæringstidspunkt for beregning')).toBeInTheDocument();
-    expect(screen.getByText('01.01.2021')).toBeInTheDocument();
-    expect(screen.getByText('Arbeidstaker')).toBeInTheDocument();
-    expect(screen.queryByText('Frilanser.')).not.toBeInTheDocument();
-    expect(screen.queryByText('Selvstendig Næringsdrivende')).not.toBeInTheDocument();
-
-    // Årsgrunnlag arbeid
-    expect(screen.getByText('Arbeidsinntekt')).toBeInTheDocument();
-    expect(screen.getByText('BEDRIFT AS (999999996)')).toBeInTheDocument();
-    expect(screen.getByText('28.11.2019 - 31.12.2070')).toBeInTheDocument();
-    expect(screen.getByText('16 667 kr')).toBeInTheDocument();
-
-    // Sammenligningsgrunnlag
-    expect(screen.getByText('Beregnet årsinntekt')).toBeInTheDocument();
-    expect(screen.getByText('Sammenligningsgrunnlag')).toBeInTheDocument();
-    expect(screen.getByText('Beregnet avvik')).toBeInTheDocument();
-    expect(screen.getByText('0%')).toBeInTheDocument();
-
-    // Beregningsresultat
-    expect(screen.getByText('Fastsatt årsinntekt arbeid')).toBeInTheDocument();
-    expect(screen.getByText('Årsinntekt redusert til 80% dekningsgrad')).toBeInTheDocument();
-    expect(screen.getByText('Dagsats (årsinntekt/260 dager)')).toBeInTheDocument();
-    expect(screen.queryByText('Fastsatt årsinntekt frilans')).not.toBeInTheDocument();
-    expect(screen.queryByText('Fastsatt årsinntekt næring')).not.toBeInTheDocument();
-  });
-
+describe('LegacyAPForms', () => {
   it('skal bekrefte aksjonspunkt for avvik', async () => {
     const lagre = vi.fn();
 
@@ -60,17 +29,14 @@ describe('BeregningsgrunnlagProsessIndex', () => {
     // Årsgrunnlag arbeid
     expect(screen.getByText('Arbeidsinntekt')).toBeInTheDocument();
     expect(screen.getAllByText('BEDRIFT AS (999999996)')).toHaveLength(2);
-    expect(screen.getByText('Beregningsmann 100%')).toBeInTheDocument();
+    await userEvent.click(screen.getAllByText('BEDRIFT AS (999999996)')[0]);
     expect(screen.getByText('28.11.2019 - 31.12.2070')).toBeInTheDocument();
-    expect(screen.getByText('16 667')).toBeInTheDocument();
 
     // Aksjonspunkt avvik
     expect(screen.getByText('Fastsett årsinntekt skjønnsmessig for arbeidstaker')).toBeInTheDocument();
     const alleInputfelt = screen.getAllByRole('textbox', { hidden: true });
-    const bruttoFelt = alleInputfelt[0];
-    const begrunnelseFelt = alleInputfelt[1];
-    await userEvent.type(bruttoFelt, '260 000');
-    await userEvent.type(begrunnelseFelt, 'Min begrunnelse for inntekt');
+    await userEvent.type(alleInputfelt[0], '260 000');
+    await userEvent.type(alleInputfelt[1], 'Min begrunnelse for inntekt');
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeEnabled();
     await userEvent.click(screen.getByText('Bekreft og fortsett'));
@@ -107,27 +73,6 @@ describe('BeregningsgrunnlagProsessIndex', () => {
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
-
-    // Årsgrunnlag næring
-    expect(screen.getByText('3 siste år fra skatt')).toBeInTheDocument();
-    expect(screen.getByText('2017')).toBeInTheDocument();
-    expect(screen.getByText('2016')).toBeInTheDocument();
-    expect(screen.getByText('2015')).toBeInTheDocument();
-    expect(screen.getByText('124 412')).toBeInTheDocument();
-    expect(screen.getByText('98 456')).toBeInTheDocument();
-    expect(screen.getByText('9 861 482')).toBeInTheDocument();
-
-    // Næringsopplysinger
-    expect(screen.getByText('Gardslien transport og Gardiner AS (999999998)')).toBeInTheDocument();
-    expect(screen.getByText('Regnskapsfører Regn S. Fører - Tlf: 99999999')).toBeInTheDocument();
-    expect(screen.getByText('Søker har oppgitt varig endring fra')).toBeInTheDocument();
-    expect(screen.getByText('01.05.2016')).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        'Jeg utvidet virksomheten fra en ren transportfirma til også å tilby gardiner.' +
-          ' Jeg jobbet opprinnelig alene men har ansatt to stykker i løpet av det siste året',
-      ),
-    ).toBeInTheDocument();
 
     // Aksjonspunkt
     expect(screen.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument();
@@ -173,15 +118,6 @@ describe('BeregningsgrunnlagProsessIndex', () => {
     expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
-    // Årsgrunnlag næring
-    expect(screen.getByText('3 siste år fra skatt')).toBeInTheDocument();
-    expect(screen.getByText('2017')).toBeInTheDocument();
-    expect(screen.getByText('2016')).toBeInTheDocument();
-    expect(screen.getByText('2015')).toBeInTheDocument();
-    expect(screen.getByText('124 412')).toBeInTheDocument();
-    expect(screen.getByText('98 456')).toBeInTheDocument();
-    expect(screen.getByText('9 861 482')).toBeInTheDocument();
-
     // Aksjonspunkt
     expect(screen.queryByText('Varig endret årsinntekt fastsettes til')).not.toBeInTheDocument();
     await userEvent.click(screen.getByLabelText('Ingen varig endring'));
@@ -226,15 +162,7 @@ describe('BeregningsgrunnlagProsessIndex', () => {
     expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
-    // Næringsopplysinger
-    expect(screen.getByText('Gardslien transport og Gardiner AS (999999998)')).toBeInTheDocument();
-    expect(screen.getByText('Regnskapsfører Regn S. Fører - Tlf: 99999999')).toBeInTheDocument();
-    expect(screen.getByText('01.11.2015 -')).toBeInTheDocument();
-
     // Aksjonspunkt
-    expect(
-      screen.getByText('Søker er ny i arbeidslivet. Det foretas derfor ingen avviksvurdering.'),
-    ).toBeInTheDocument();
     expect(
       screen.getByText('Søker har oppgitt å være ny i arbeidslivet (blitt yrkesaktiv siste tre år).'),
     ).toBeInTheDocument();
@@ -267,28 +195,6 @@ describe('BeregningsgrunnlagProsessIndex', () => {
     ]);
   });
 
-  it('skal ha korrekt visning ved naturalytelser', async () => {
-    render(<NaturalYtelse />);
-    expect(await screen.findByText('Skjæringstidspunkt for beregning')).toBeInTheDocument();
-    expect(screen.getByText('Arbeidstaker')).toBeInTheDocument();
-    expect(screen.queryByText('Frilanser.')).not.toBeInTheDocument();
-    expect(screen.queryByText('Selvstendig Næringsdrivende')).not.toBeInTheDocument();
-
-    expect(screen.getAllByText('Naturalytelser')).toHaveLength(5);
-
-    expect(screen.getByText('01.01.2021 - 21.01.2021')).toBeInTheDocument();
-    expect(screen.getByText('417')).toBeInTheDocument();
-
-    expect(screen.getByText('22.01.2021 - 31.01.2021')).toBeInTheDocument();
-    expect(screen.getByText('333')).toBeInTheDocument();
-
-    expect(screen.getByText('01.02.2021 - 20.02.2021')).toBeInTheDocument();
-    expect(screen.getByText('250')).toBeInTheDocument();
-
-    expect(screen.getByText('21.02.2021 -')).toBeInTheDocument();
-    expect(screen.getByText('167')).toBeInTheDocument();
-  });
-
   it('skal bekrefte aksjonspunkt for avvik ved tidsbegrenset arbeidsforhold', async () => {
     const lagre = vi.fn();
 
@@ -311,9 +217,6 @@ describe('BeregningsgrunnlagProsessIndex', () => {
     await userEvent.type(bruttoFeltAg1P2, '150 000');
 
     await userEvent.type(begrunnelseFelt, 'Min begrunnelse for tidsbegrenset inntekt');
-
-    expect(await screen.findByText('222 000')).toBeInTheDocument();
-    expect(screen.getAllByText('100 000')).toHaveLength(2);
 
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeEnabled();
     await userEvent.click(screen.getByText('Bekreft og fortsett'));
@@ -374,21 +277,6 @@ describe('BeregningsgrunnlagProsessIndex', () => {
     // Årsgrunnlag arbeid
     expect(screen.getAllByText('BEDRIFT AS (999999996)')).toHaveLength(2);
 
-    // Årgrunnlag næring
-    expect(screen.getByText('3 siste år fra skatt')).toBeInTheDocument();
-    expect(screen.getByText('2017')).toBeInTheDocument();
-    expect(screen.getByText('2016')).toBeInTheDocument();
-    expect(screen.getByText('2015')).toBeInTheDocument();
-    expect(screen.getByText('124 412')).toBeInTheDocument();
-    expect(screen.getByText('98 456')).toBeInTheDocument();
-    expect(screen.getByText('9 861 482')).toBeInTheDocument();
-
-    // Næringsopplysninger
-    expect(screen.getByText('Opplysninger om næring fra søknad')).toBeInTheDocument();
-
-    // Forklaring på manglende sammenligningsgrunnlag
-    expect(screen.getByText('Det foretas ikke avviksvurdering på Dagpenger')).toBeInTheDocument();
-
     const alleInputfelt = screen.getAllByRole('textbox', { hidden: true });
 
     // Avvik arbeid og frilans
@@ -444,10 +332,8 @@ describe('BeregningsgrunnlagProsessIndex', () => {
 
   it('skal sette første kronologiske skjæringstidspunkt med aksjonspunkt som aktiv', () => {
     const lagre = vi.fn();
-    const { getByTestId } = render(
-      <ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp5038 submitCallback={lagre} />,
-    );
-    expect(getByTestId('activeMenuItemButton')).toHaveTextContent('01.02.2021');
-    expect(getByTestId('activeMenuItemButton')).not.toHaveTextContent('01.01.2021');
+    render(<ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp5038 submitCallback={lagre} />);
+    expect(screen.getByRole('tab', { name: '01.02.2021' })).toHaveAttribute('data-state', 'active');
+    expect(screen.getByRole('tab', { name: '01.01.2021' })).toHaveAttribute('data-state', 'inactive');
   });
 });

@@ -2,7 +2,7 @@ type Begrunnelse = {
   begrunnelse: string;
 };
 
-export type ArbeidsinntektResultat = {
+type ArbeidsinntektResultat = {
   andelsnr: number;
   inntekt: number;
 };

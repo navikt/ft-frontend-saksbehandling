@@ -10,33 +10,37 @@ import { finnAlleAndelerIFørstePeriode } from './aksjonspunktBehandlerUtils';
 export const SelvstendigNæringsdrivendeContainer = ({
   readOnly,
   allePerioder,
-  avklaringsbehov,
+  aksjonspunkt,
   fieldIndex,
   formName,
   skalValideres,
 }: {
   readOnly: boolean;
   allePerioder: BeregningsgrunnlagPeriodeProp[];
-  avklaringsbehov: BeregningAvklaringsbehov;
+  aksjonspunkt: BeregningAvklaringsbehov;
   fieldIndex: number;
   formName: FormNameType;
   skalValideres: boolean;
 }): ReactElement | null => {
-  const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(allePerioder);
-  const snAndel = alleAndelerIForstePeriode.find(andel => andel.aktivitetStatus && andel.aktivitetStatus === 'SN');
-  const erNyArbLivet = snAndel?.erNyIArbeidslivet;
+  const snAndel = finnAlleAndelerIFørstePeriode(allePerioder).find(
+    andel => andel.aktivitetStatus && andel.aktivitetStatus === 'SN',
+  );
+
+  const erNyIArbeidslivet = snAndel?.erNyIArbeidslivet;
   const erVarigEndring =
-    avklaringsbehov.definisjon === AksjonspunktKode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON ||
+    aksjonspunkt.definisjon === AksjonspunktKode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON ||
     snAndel?.næringer?.some(naring => naring.erVarigEndret === true);
   const erNyoppstartet = snAndel?.næringer?.some(naring => naring.erNyoppstartet === true);
-  if (!erNyArbLivet && !erNyoppstartet && !erVarigEndring) {
+
+  if (!erNyIArbeidslivet && !erNyoppstartet && !erVarigEndring) {
     return null;
   }
+
   return (
     <AksjonspunktsbehandlerSNEllerMidlertidigInaktiv
       readOnly={readOnly}
-      avklaringsbehov={avklaringsbehov}
-      erNyArbLivet={erNyArbLivet}
+      aksjonspunkt={aksjonspunkt}
+      erNyIArbeidslivet={erNyIArbeidslivet}
       erVarigEndring={erVarigEndring}
       erNyoppstartet={erNyoppstartet}
       fieldIndex={fieldIndex}

@@ -15,7 +15,7 @@ import { LovParagraf, mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilL
 interface Props {
   readOnly: boolean;
   kodeverkSamling: KodeverkForPanel;
-  readOnlySubmitButton: boolean;
+  isSubmittable: boolean;
   sammenligningsgrunnlag: SammenligningsgrunlagProp[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
@@ -70,7 +70,7 @@ const grupperPrLovparagraf = (beregningsgrunnlagListe: Beregningsgrunnlag[]) =>
 
 export const SammenligningOgFastsettelsePanel = ({
   readOnly,
-  readOnlySubmitButton,
+  isSubmittable,
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   beregningsgrunnlagListe,
@@ -105,7 +105,7 @@ export const SammenligningOgFastsettelsePanel = ({
                 readOnly={readOnly}
                 lovparagraf={lovparagraf}
                 kodeverkSamling={kodeverkSamling}
-                readOnlySubmitButton={readOnlySubmitButton}
+                isSubmittable={isSubmittable}
                 arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
                 beregningsgrunnlagListe={beregningsgrunnlagListe}
                 vilkår={vilkår}

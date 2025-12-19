@@ -18,7 +18,7 @@ const meta = {
   args: {
     isReadOnly: false,
     submitCallback: action('submit') as (data: BeregningAksjonspunktSubmitType[]) => Promise<void>,
-    readOnlySubmitButton: false,
+    isSubmittable: false,
     setFormData: () => undefined,
     kodeverkSamling: alleKodeverk as KodeverkForPanel,
     arbeidsgiverOpplysningerPerId,

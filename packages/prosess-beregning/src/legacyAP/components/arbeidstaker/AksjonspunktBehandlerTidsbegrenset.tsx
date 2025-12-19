@@ -2,8 +2,7 @@ import { type ReactElement } from 'react';
 import { type Control, useFormContext, type UseFormReturn } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { Label, Table } from '@navikt/ds-react';
-import dayjs from 'dayjs';
+import { HStack, Label, Spacer, Table } from '@navikt/ds-react';
 
 import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
@@ -15,7 +14,13 @@ import type {
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
 import { BeløpLabel, DateLabel } from '@navikt/ft-ui-komponenter';
-import { formatCurrencyNoKr, formaterArbeidsgiver, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import {
+  formatCurrencyNoKr,
+  formaterArbeidsgiver,
+  parseCurrencyInput,
+  removeSpacesFromNumber,
+  sortPeriodsBy,
+} from '@navikt/ft-utils';
 
 import type { KodeverkForPanel } from '../../../types/KodeverkForPanel';
 import type {
@@ -25,11 +30,10 @@ import type {
 } from '../../types/ATFLAksjonspunkt';
 import type { BeregningFormValues, FormNameType } from '../../types/BeregningFormValues';
 import type {
+  FastsettAvvikATFLTidsbegrensetResultatAP,
   TidsbegrensetArbeidsforholdInntektResultat,
   TidsbegrensetArbeidsforholdPeriodeResultat,
 } from '../../types/BeregningsgrunnlagAP';
-
-import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
 
 const formPrefix = 'inntektField';
 
@@ -49,8 +53,10 @@ const finnPerioderMedAvsluttetArbeidsforhold = (
     while (k < allePerioder.length && !harPeriodeArbeidsforholdAvsluttet(allePerioder[k])) {
       k += 1;
     }
-    nyPeriode.beregningsgrunnlagPeriodeTom = allePerioder[k - 1].beregningsgrunnlagPeriodeTom;
-    perioderMellomSluttdatoForArbeidsforhold.push(nyPeriode);
+    perioderMellomSluttdatoForArbeidsforhold.push({
+      ...nyPeriode,
+      beregningsgrunnlagPeriodeTom: allePerioder[k - 1].beregningsgrunnlagPeriodeTom,
+    });
   }
   return perioderMellomSluttdatoForArbeidsforhold;
 };
@@ -64,11 +70,11 @@ const createInputFieldKey = (andel: BeregningsgrunnlagAndel, periode: Beregnings
 };
 
 const findArbeidstakerAndeler = (periode: BeregningsgrunnlagPeriodeProp): BeregningsgrunnlagAndel[] =>
-  !periode.beregningsgrunnlagPrStatusOgAndel
-    ? []
-    : periode.beregningsgrunnlagPrStatusOgAndel.filter(
+  periode.beregningsgrunnlagPrStatusOgAndel
+    ? periode.beregningsgrunnlagPrStatusOgAndel.filter(
         andel => andel.aktivitetStatus === 'AT' && andel.erTilkommetAndel !== true,
-      );
+      )
+    : [];
 
 const createArbeidsforholdMapKey = (arbeidsforhold?: BeregningsgrunnlagArbeidsforhold): string => {
   const arbeidsforholdId = arbeidsforhold?.arbeidsforholdId ? arbeidsforhold?.arbeidsforholdId : '';
@@ -123,14 +129,14 @@ const initializeMap = (
       arbeidsgiverOpplysningerPerId,
     );
     mapValueMedAndelNavn.erTidsbegrenset =
-      andel.erTidsbegrensetArbeidsforhold !== undefined ? andel.erTidsbegrensetArbeidsforhold : false;
+      andel.erTidsbegrensetArbeidsforhold === undefined ? false : andel.erTidsbegrensetArbeidsforhold;
     mapMedAndeler[andelMapNavn] = [mapValueMedAndelNavn];
   });
   return mapMedAndeler;
 };
 
 const finnFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeProp[]): BeregningsgrunnlagPeriodeProp =>
-  allePerioder.sort((a, b) => dayjs(a.beregningsgrunnlagPeriodeFom).diff(dayjs(b.beregningsgrunnlagPeriodeFom)))[0];
+  allePerioder.toSorted(sortPeriodsBy('beregningsgrunnlagPeriodeFom'))[0];
 
 const finnAndelIPeriode = (
   andel: BeregningsgrunnlagAndel,
@@ -186,12 +192,12 @@ const createTableData = (
   return arbeidsforholdPeriodeMap;
 };
 
-const createSummaryTableRow = (listOfBruttoPrPeriode: BruttoPrPeriode[]): ReactElement => (
+const SummaryTableRow = ({ relevantePerioder }: { relevantePerioder: BruttoPrPeriode[] }): ReactElement => (
   <Table.Row shadeOnHover={false}>
     <Table.HeaderCell textSize="small">
       <FormattedMessage id="AksjonspunktBehandlerTB.SumPeriode" />
     </Table.HeaderCell>
-    {listOfBruttoPrPeriode.map(({ periodeFom, brutto }) => (
+    {relevantePerioder.map(({ periodeFom, brutto }) => (
       <Table.HeaderCell key={periodeFom} textSize="small" align="right">
         <BeløpLabel beløp={brutto} />
       </Table.HeaderCell>
@@ -199,7 +205,7 @@ const createSummaryTableRow = (listOfBruttoPrPeriode: BruttoPrPeriode[]): ReactE
   </Table.Row>
 );
 
-const createPerioderRow = (relevantePerioder: BruttoPrPeriode[]): ReactElement => (
+const PerioderRow = ({ relevantePerioder }: { relevantePerioder: BruttoPrPeriode[] }): ReactElement => (
   <Table.Row shadeOnHover={false}>
     <Table.HeaderCell scope="col" />
     {relevantePerioder.map(({ periodeFom }) => {
@@ -215,16 +221,25 @@ const createPerioderRow = (relevantePerioder: BruttoPrPeriode[]): ReactElement =
     })}
   </Table.Row>
 );
-const createRows = (
-  tableData: TidsbegrenseArbeidsforholdTabellData,
-  readOnly: boolean,
-  finnesAlleredeLøstPeriode: boolean,
-  fieldIndex: number,
-  formName: FormNameType,
-  skalValideres: boolean,
-  control: Control<BeregningFormValues, any, BeregningFormValues>,
-): ReactElement[] => {
-  return Object.entries(tableData).map(([key, val]) => (
+
+const Rows = ({
+  tabellData,
+  readOnly,
+  finnesAlleredeLøstPeriode,
+  fieldIndex,
+  formName,
+  skalValideres,
+  control,
+}: {
+  tabellData: TidsbegrenseArbeidsforholdTabellData;
+  readOnly: boolean;
+  finnesAlleredeLøstPeriode: boolean;
+  fieldIndex: number;
+  formName: FormNameType;
+  skalValideres: boolean;
+  control: Control<BeregningFormValues, any, BeregningFormValues>;
+}): ReactElement[] => {
+  return Object.entries(tabellData).map(([key, val]) => (
     <Table.Row key={key} shadeOnHover={false}>
       {val.map(element => {
         if (!element.isEditable) {
@@ -236,16 +251,20 @@ const createRows = (
         }
         return (
           <Table.DataCell key={`Col-${element.inputfieldKey}`} align="right">
-            <RhfTextField
-              name={`${formName}.${fieldIndex}.${element.inputfieldKey}`}
-              control={control}
-              validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
-              readOnly={readOnly}
-              isEdited={readOnly && finnesAlleredeLøstPeriode}
-              hideLabel
-              parse={parseCurrencyInput}
-              className={styles.beløpInput}
-            />
+            <HStack>
+              <Spacer />
+              <RhfTextField
+                name={`${formName}.${fieldIndex}.${element.inputfieldKey}`}
+                control={control}
+                validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
+                readOnly={readOnly}
+                isEdited={readOnly && finnesAlleredeLøstPeriode}
+                hideLabel
+                parse={parseCurrencyInput}
+                htmlSize={12}
+                style={{ textAlign: 'right' }}
+              />
+            </HStack>
           </Table.DataCell>
         );
       })}
@@ -265,11 +284,12 @@ const lagBruttoPrPeriodeListe = (
   fieldIndex: number,
   formName: FormNameType,
 ): BruttoPrPeriode[] => {
-  const bruttoPrPeriodeList = [] as BruttoPrPeriode[];
   if (allePerioder.length < 1) {
-    return bruttoPrPeriodeList;
+    return [];
   }
   const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(allePerioder);
+  const bruttoPrPeriodeList: BruttoPrPeriode[] = [];
+
   relevantePerioder.forEach(relevantPeriode => {
     const arbeidstakerAndeler = findArbeidstakerAndeler(relevantPeriode);
     const bruttoPrAndelForPeriode = arbeidstakerAndeler.map(andel => {
@@ -277,7 +297,8 @@ const lagBruttoPrPeriodeListe = (
       const fastsattInntekt = formMethods.watch(`${formName}.${fieldIndex}.${inputFieldKey}`);
       return fastsattInntekt === undefined || fastsattInntekt === '' ? 0 : removeSpacesFromNumber(fastsattInntekt);
     });
-    const samletBruttoForPeriode = bruttoPrAndelForPeriode.reduce((a, b) => a + b);
+    const samletBruttoForPeriode = bruttoPrAndelForPeriode.reduce((a, b) => a + b, 0);
+
     bruttoPrPeriodeList.push({
       brutto: samletBruttoForPeriode,
       periodeFom: relevantPeriode.beregningsgrunnlagPeriodeFom,
@@ -316,19 +337,23 @@ export const AksjonspunktBehandlerTidsbegrenset = ({
   const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(allePerioder, formMethods, fieldIndex, formName);
   return (
     <Table>
-      <Table.Header>{createPerioderRow(bruttoPrPeriodeList)}</Table.Header>
+      <Table.Header>
+        <PerioderRow relevantePerioder={bruttoPrPeriodeList} />
+      </Table.Header>
       <Table.Body>
-        {createRows(
-          tabellData,
-          readOnly,
-          finnesAlleredeLøstPeriode,
-          fieldIndex,
-          formName,
-          skalValideres,
-          formMethods.control,
-        )}
+        <Rows
+          tabellData={tabellData}
+          readOnly={readOnly}
+          finnesAlleredeLøstPeriode={finnesAlleredeLøstPeriode}
+          fieldIndex={fieldIndex}
+          formName={formName}
+          skalValideres={skalValideres}
+          control={formMethods.control}
+        />
       </Table.Body>
-      <tfoot>{createSummaryTableRow(bruttoPrPeriodeList)}</tfoot>
+      <tfoot>
+        <SummaryTableRow relevantePerioder={bruttoPrPeriodeList} />
+      </tfoot>
     </Table>
   );
 };
@@ -361,8 +386,8 @@ AksjonspunktBehandlerTidsbegrenset.buildInitialValues = (
 AksjonspunktBehandlerTidsbegrenset.transformValues = (
   values: TidsbegrenseArbeidsforholdValues,
   perioder: BeregningsgrunnlagPeriodeProp[],
-): TidsbegrensetArbeidsforholdPeriodeResultat[] => {
-  const respons: TidsbegrensetArbeidsforholdPeriodeResultat[] = [];
+): Pick<FastsettAvvikATFLTidsbegrensetResultatAP, 'fastsatteTidsbegrensedePerioder'> => {
+  const fastsatteTidsbegrensedePerioder: TidsbegrensetArbeidsforholdPeriodeResultat[] = [];
   const førstePeriode = finnFørstePeriode(perioder);
   const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(perioder);
   relevantePerioder.forEach(relevantPeriode => {
@@ -384,11 +409,11 @@ AksjonspunktBehandlerTidsbegrenset.transformValues = (
         });
       }
     });
-    respons.push({
+    fastsatteTidsbegrensedePerioder.push({
       periodeFom: relevantPeriode.beregningsgrunnlagPeriodeFom,
       periodeTom: relevantPeriode.beregningsgrunnlagPeriodeTom,
       fastsatteTidsbegrensedeAndeler,
     });
   });
-  return respons;
+  return { fastsatteTidsbegrensedePerioder };
 };

@@ -1,3 +1,5 @@
+import { FormattedMessage } from 'react-intl';
+
 import type { BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import { AksjonspunktKode } from '../../../utils/aksjonspunkt';
@@ -11,7 +13,7 @@ const {
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
 } = AksjonspunktKode;
 
-const finnAPBeskrivelseSN = (bg: Beregningsgrunnlag): string => {
+const finnAPBeskrivelseSN = (bg: Beregningsgrunnlag) => {
   const alleAndelerIForstePeriode =
     bg.beregningsgrunnlagPeriode && bg.beregningsgrunnlagPeriode.length > 0
       ? bg.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel || []
@@ -19,49 +21,49 @@ const finnAPBeskrivelseSN = (bg: Beregningsgrunnlag): string => {
   const snAndel = alleAndelerIForstePeriode.find(andel => andel.aktivitetStatus && andel.aktivitetStatus === 'SN');
   const erNyoppstartet = !!snAndel?.næringer?.some(naring => naring.erNyoppstartet === true);
   if (erNyoppstartet) {
-    return 'AksjonspunktBehandlerHeader.Detaljer.Nyoppstartet';
+    return <FormattedMessage id="AksjonspunktBehandlerHeader.Detaljer.Nyoppstartet" />;
   }
-  return 'AksjonspunktBehandlerHeader.Detaljer.VarigEndring';
+  return <FormattedMessage id="AksjonspunktBehandlerHeader.Detaljer.VarigEndring" />;
 };
 
-export const finnAPBeskrivelse = (avklaringsbehov: BeregningAvklaringsbehov, bg: Beregningsgrunnlag): string => {
-  switch (avklaringsbehov.definisjon) {
+export const finnAPBeskrivelse = (aksjonspunkt: BeregningAvklaringsbehov, bg: Beregningsgrunnlag) => {
+  switch (aksjonspunkt.definisjon) {
     case VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE:
       return finnAPBeskrivelseSN(bg);
     case FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET:
-      return 'AksjonspunktBehandlerHeader.Detaljer.SNNyIArb';
+      return <FormattedMessage id="AksjonspunktBehandlerHeader.Detaljer.SNNyIArb" />;
     case VURDER_VARIG_ENDRET_ARBEIDSSITUASJON:
-      return 'AksjonspunktBehandlerHeader.Detaljer.VarigEndringArbeid';
+      return <FormattedMessage id="AksjonspunktBehandlerHeader.Detaljer.VarigEndringArbeid" />;
     case FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS:
-      return 'AksjonspunktBehandlerHeader.Detaljer.ATFL';
+      return <FormattedMessage id="AksjonspunktBehandlerHeader.Detaljer.ATFL" />;
     case FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD:
-      return 'AksjonspunktBehandlerHeader.Detaljer.ATFLTidsbegrenset';
+      return <FormattedMessage id="AksjonspunktBehandlerHeader.Detaljer.ATFLTidsbegrenset" />;
     default:
       return 'Ukjent aksjonspunkt';
   }
 };
 
-const finnAPTittelATFL = (bg: Beregningsgrunnlag): string => {
+const finnAPTittelATFL = (bg: Beregningsgrunnlag) => {
   const statuser = bg.aktivitetStatus || [];
   const erAT = statuser.some(st => isStatusArbeidstakerOrKombinasjon(st));
   const erFL = statuser.some(st => isStatusFrilanserOrKombinasjon(st));
   if (erAT && erFL) {
-    return 'AksjonspunktBehandlerHeader.Tittel.ATFLAvvik';
+    return <FormattedMessage id="AksjonspunktBehandlerHeader.Tittel.ATFLAvvik" />;
   }
   if (erFL) {
-    return 'AksjonspunktBehandlerHeader.Tittel.FLAvvik';
+    return <FormattedMessage id="AksjonspunktBehandlerHeader.Tittel.FLAvvik" />;
   }
-  return 'AksjonspunktBehandlerHeader.Tittel.ATAvvik';
+  return <FormattedMessage id="AksjonspunktBehandlerHeader.Tittel.ATAvvik" />;
 };
 
-export const finnAPTittel = (avklaringsbehov: BeregningAvklaringsbehov, bg: Beregningsgrunnlag): string => {
+export const finnAPTittel = (avklaringsbehov: BeregningAvklaringsbehov, bg: Beregningsgrunnlag) => {
   switch (avklaringsbehov.definisjon) {
     case VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE:
-      return 'AksjonspunktBehandlerHeader.Tittel.VarigEndringNyoppstartet';
+      return <FormattedMessage id="AksjonspunktBehandlerHeader.Tittel.VarigEndringNyoppstartet" />;
     case FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET:
-      return 'AksjonspunktBehandlerHeader.Tittel.SNNyIArb';
+      return <FormattedMessage id="AksjonspunktBehandlerHeader.Tittel.SNNyIArb" />;
     case VURDER_VARIG_ENDRET_ARBEIDSSITUASJON:
-      return 'AksjonspunktBehandlerHeader.Tittel.VarigEndringArbeid';
+      return <FormattedMessage id="AksjonspunktBehandlerHeader.Tittel.VarigEndringArbeid" />;
     case FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS:
     case FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD:
       return finnAPTittelATFL(bg);

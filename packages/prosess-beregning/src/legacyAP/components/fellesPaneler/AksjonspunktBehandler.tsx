@@ -1,6 +1,5 @@
 import { type ReactElement, useEffect, useRef } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
 
 import { VStack } from '@navikt/ds-react';
 
@@ -24,7 +23,7 @@ import { type BeregningFormValues, finnFormName, type FormNameType } from '../..
 import type { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunkt';
 import type { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/BeregningsgrunnlagAP';
 import type { VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
-import { AksjonspunktBehandlerTidsbegrenset } from '../arbeidstaker/AksjonspunktBehandlerTB';
+import { AksjonspunktBehandlerTidsbegrenset } from '../arbeidstaker/AksjonspunktBehandlerTidsbegrenset.tsx';
 import { GrunnlagForAarsinntektPanelAT } from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
 import { AksjonspunktBehandlerFL } from '../frilanser/AksjonspunktBehandlerFL';
 import { ProsessStegSubmitButton } from '../ProsessStegSubmitButton';
@@ -43,11 +42,11 @@ const {
   VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
 } = AksjonspunktKode;
 
-const gjelderForParagraf = (a: BeregningAvklaringsbehov, lovparagraf: LovParagraf) =>
-  mapAvklaringsbehovTilLovparagraf(a) === lovparagraf;
+const gjelderForParagraf = (lovparagraf: LovParagraf) => (aksjonspunkt: BeregningAvklaringsbehov) =>
+  mapAvklaringsbehovTilLovparagraf(aksjonspunkt) === lovparagraf;
 
 const harAvklaringsbehovForLovparagraf = (avklaringsbehov: BeregningAvklaringsbehov[], lovparagraf: LovParagraf) =>
-  !!avklaringsbehov.find(a => gjelderForParagraf(a, lovparagraf));
+  !!avklaringsbehov.find(gjelderForParagraf(lovparagraf));
 
 const finnVilkårperiode = (vilkår: Vilkår, vilkårsperiodeFom: string): Vilkårperiode =>
   // @ts-expect-error Fiks
@@ -82,10 +81,7 @@ const buildInitialValues = (
   };
   if (!sammenligningsgrunnlag) {
     return {
-      ...FastsettSNNyIArbeid.buildInitialValuesNyIArbeidslivet(
-        snEllerMidlertidigInaktivAndeler,
-        beregningsgrunnlag.avklaringsbehov,
-      ),
+      ...FastsettSNNyIArbeid.buildInitialValues(snEllerMidlertidigInaktivAndeler, beregningsgrunnlag.avklaringsbehov),
     };
   }
   if (sammenligningsgrunnlag.sammenligningsgrunnlagType === SammenligningType.ATFLSN) {
@@ -142,7 +138,7 @@ const buildFormInitialValues = (
     buildFieldInitialValue(
       bg,
       finnVilkårperiode(vilkår, bg.vilkårsperiodeFom),
-      bg.avklaringsbehov.find(a => gjelderForParagraf(a, lovparagraf)),
+      bg.avklaringsbehov.find(gjelderForParagraf(lovparagraf)),
       bg.sammenligningsgrunnlagPrStatus?.find(
         s => mapSammenligningtypeTilLovparagraf(s.sammenligningsgrunnlagType, bg.aktivitetStatus) === lovparagraf,
       ),
@@ -275,7 +271,7 @@ const transformFields = (values: BeregningFormValues, lovparagraf: LovParagraf) 
 interface Props {
   readOnly: boolean;
   kodeverkSamling: KodeverkForPanel;
-  readOnlySubmitButton: boolean;
+  isSubmittable: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkår: Vilkår;
@@ -290,7 +286,7 @@ interface Props {
 
 export const AksjonspunktBehandler = ({
   readOnly,
-  readOnlySubmitButton,
+  isSubmittable,
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   beregningsgrunnlagListe,
@@ -303,8 +299,6 @@ export const AksjonspunktBehandler = ({
   finnesFormSomSubmittes,
   setSubmitting,
 }: Props) => {
-  const intl = useIntl();
-
   const utledSkalValideres = (beregningsgrunnlag: Beregningsgrunnlag) => {
     const periode = finnVilkårperiode(vilkår, beregningsgrunnlag.vilkårsperiodeFom);
     return periode.vurderesIBehandlingen && !periode.erForlengelse;
@@ -355,42 +349,45 @@ export const AksjonspunktBehandler = ({
     if (finnesFormSomSubmittes && dirtyFields[formName]?.[aktivIndex]) {
       trigger();
     }
+    // TODO: finn ut av sortering og bruk av bgIndex
     const aktivtBG = beregningsgrunnlagListe[aktivIndex];
-    if (aktivtBG.avklaringsbehov.some(ak => gjelderForParagraf(ak, lovparagraf) && isAksjonspunktOpen(ak))) {
+    if (
+      aktivtBG.avklaringsbehov.some(
+        aksjonspunkt => gjelderForParagraf(lovparagraf)(aksjonspunkt) && isAksjonspunktOpen(aksjonspunkt),
+      )
+    ) {
       panelRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
     }
   }, [aktivIndex]);
 
-  const finnAvklaringsbehov = (
-    avklaringsbehovForBG: BeregningAvklaringsbehov[],
-  ): BeregningAvklaringsbehov | undefined => avklaringsbehovForBG.find(a => gjelderForParagraf(a, lovparagraf));
-
-  const formKomponent = (index: number, avklaringsbehovForBG: BeregningAvklaringsbehov[]): ReactElement | null => {
+  const formKomponent = (
+    index: number,
+    aksjonspunktForLovparagraf: BeregningAvklaringsbehov | undefined,
+  ): ReactElement | null => {
     const skalValideres = utledSkalValideres(bgSomSkalVurderes[index]);
-    const avklaringsbehov = finnAvklaringsbehov(avklaringsbehovForBG);
-    if (lovparagraf === LovParagraf.ÅTTE_TRETTI && avklaringsbehov) {
+
+    if (lovparagraf === LovParagraf.ÅTTE_TRETTI && aksjonspunktForLovparagraf) {
       return (
         <ArbeidstakerEllerFrilansContainer
           kodeverkSamling={kodeverkSamling}
           allePerioder={bgSomSkalVurderes[index].beregningsgrunnlagPeriode}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           readOnly={readOnly}
-          intl={intl}
           fieldIndex={index}
           formName={formName}
-          avklaringsbehov={avklaringsbehov}
+          avklaringsbehov={aksjonspunktForLovparagraf}
           skalValideres={skalValideres}
         />
       );
     }
-    if (lovparagraf === LovParagraf.ÅTTE_TRETTIFEM && avklaringsbehov) {
+    if (lovparagraf === LovParagraf.ÅTTE_TRETTIFEM && aksjonspunktForLovparagraf) {
       return (
         <SelvstendigNæringsdrivendeContainer
           readOnly={readOnly}
           allePerioder={bgSomSkalVurderes[index].beregningsgrunnlagPeriode}
           fieldIndex={index}
           formName={formName}
-          avklaringsbehov={avklaringsbehov}
+          aksjonspunkt={aksjonspunktForLovparagraf}
           skalValideres={skalValideres}
         />
       );
@@ -408,11 +405,12 @@ export const AksjonspunktBehandler = ({
         setDataOnUnmount={setFormData}
       >
         {fields.map((field, index) => {
-          const avklaringsbehov = finnAvklaringsbehov(bgSomSkalVurderes[index].avklaringsbehov);
-          if (!avklaringsbehov) {
+          const beregningsgrunnlag = bgSomSkalVurderes[index];
+          const aksjonspunktForLovparagraf = beregningsgrunnlag.avklaringsbehov.find(gjelderForParagraf(lovparagraf));
+
+          if (!aksjonspunktForLovparagraf) {
             return null;
           }
-          const beregningsgrunnlag = bgSomSkalVurderes[index];
 
           return (
             <div
@@ -420,16 +418,16 @@ export const AksjonspunktBehandler = ({
               style={{ display: beregningsgrunnlag.vilkårsperiodeFom === aktivtStp ? 'block' : 'none' }}
             >
               <AksjonspunktBoks
-                tittel={<FormattedMessage id={finnAPTittel(avklaringsbehov, beregningsgrunnlag)} />}
-                beskrivelse={<FormattedMessage id={finnAPBeskrivelse(avklaringsbehov, beregningsgrunnlag)} />}
-                aksjonspunkt={avklaringsbehov}
+                tittel={finnAPTittel(aksjonspunktForLovparagraf, beregningsgrunnlag)}
+                beskrivelse={finnAPBeskrivelse(aksjonspunktForLovparagraf, beregningsgrunnlag)}
+                aksjonspunkt={aksjonspunktForLovparagraf}
               >
                 <VStack gap="space-16">
-                  {formKomponent(index, beregningsgrunnlag.avklaringsbehov)}
+                  {formKomponent(index, aksjonspunktForLovparagraf)}
                   <div>
                     <ProsessStegSubmitButton
                       isReadOnly={readOnly}
-                      isSubmittable={!readOnlySubmitButton}
+                      isSubmittable={isSubmittable}
                       isDirty={formMethods.formState.isDirty}
                       isSubmitting={finnesFormSomSubmittes}
                     />
