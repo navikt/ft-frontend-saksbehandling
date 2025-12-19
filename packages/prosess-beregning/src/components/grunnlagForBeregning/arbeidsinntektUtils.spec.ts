@@ -29,8 +29,9 @@ describe('arbeidsinntektUtils', () => {
           tom: undefined,
         },
         inntektsmeldingÅrsinntekt: 600000,
+        formatertStillingsprosenter: '61%',
         sammenligningsgrunnlagÅrsinntekt: 78054,
-        formatertStillingsprosenter: undefined,
+        sisteLønnsendringsdato: '2005-12-15',
       });
       expect(resultat[1]).toEqual({
         andelsnr: 2,
@@ -41,11 +42,13 @@ describe('arbeidsinntektUtils', () => {
           tom: undefined,
         },
         inntektsmeldingÅrsinntekt: 480000,
+        formatertStillingsprosenter: '100%',
         sammenligningsgrunnlagÅrsinntekt: 180000,
-        formatertStillingsprosenter: undefined,
+        sisteLønnsendringsdato: '2010-10-01',
       });
     });
   });
+
   describe('formaterStillingsprosenter', () => {
     it('skal formatere stillingsprosenter med ett innslag', () => {
       const resultat = formaterStillingsprosenter([{ fomDato: '2022-01-01', tomDato: TIDENES_ENDE, prosent: 80 }]);
