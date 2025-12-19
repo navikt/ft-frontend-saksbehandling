@@ -1,7 +1,7 @@
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BriefcaseFillIcon } from '@navikt/aksel-icons';
-import { BodyShort, Heading, HStack, Table, Tag, Tooltip } from '@navikt/ds-react';
+import { BodyShort, Heading, HStack, Table, Tooltip } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel, DateLabel, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
@@ -32,18 +32,16 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
   return (
     <div>
       <HStack gap="space-8" align="center">
-        <BriefcaseFillIcon aria-hidden fontSize="1.5rem" />
-        <Heading size="medium" level="3">
+        <BriefcaseFillIcon aria-hidden fontSize="1.25rem" />
+        <Heading size="small" level="4">
           <FormattedMessage id="Arbeidsinntekt.Tittel" />
         </Heading>
       </HStack>
-      <Table className={styles.table}>
+      <Table size="small" className={styles.table}>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell scope="col" textSize="small">
-              <FormattedMessage id="Arbeidsinntekt.Table.TypeInntekt" />
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col" textSize="small" align="right">
+            <Table.HeaderCell />
+            <Table.HeaderCell scope="col" align="right">
               <BodyShort size="small">
                 <FormattedMessage
                   id="Arbeidsinntekt.Table.Inntektsmelding"
@@ -78,12 +76,11 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
               key={visning.andelsnr}
               expandOnRowClick
               togglePlacement="right"
-              defaultOpen={true}
               content={
                 <div>
                   {visning.ansattPeriode?.fom && (
                     <Tooltip content={intl.formatMessage({ id: 'Arbeidsinntekt.Ansettelsesperiode' })}>
-                      <BodyShort size="medium" as="span">
+                      <BodyShort size="small" as="span">
                         <PeriodLabel
                           dateStringFom={visning.ansattPeriode.fom}
                           dateStringTom={visning.ansattPeriode.tom}
@@ -95,7 +92,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
                   {visning.sisteLønnsendringsdato && (
                     <LabeledValue
                       horizontal
-                      size="medium"
+                      size="small"
                       label={<FormattedMessage id="Arbeidsinntekt.SistEndretLonn" />}
                       value={<DateLabel dateString={visning.sisteLønnsendringsdato} />}
                     />
@@ -103,7 +100,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
 
                   {visning.formatertStillingsprosenter && (
                     <LabeledValue
-                      size="medium"
+                      size="small"
                       label={<FormattedMessage id="Arbeidsinntekt.Stillingsprosent" />}
                       value={visning.formatertStillingsprosenter}
                     />
@@ -111,16 +108,14 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
                 </div>
               }
             >
-              <Table.DataCell>{visning.arbeidsgiverLabel}</Table.DataCell>
-              <Table.DataCell align="right">
+              <Table.DataCell textSize="small">{visning.arbeidsgiverLabel}</Table.DataCell>
+              <Table.DataCell textSize="small" align="right">
                 <BeløpLabel beløp={visning.inntektsmeldingÅrsinntekt} kr />
-                <IMTag />
               </Table.DataCell>
-              <Table.DataCell align="right">
+              <Table.DataCell textSize="small" align="right">
                 <BeløpLabel beløp={visning.beregningsgrunnlagÅrsinntekt} kr />
-                <AOTag />
               </Table.DataCell>
-              <Table.DataCell align="right">
+              <Table.DataCell textSize="small" align="right">
                 <BeløpLabel beløp={visning.sammenligningsgrunnlagÅrsinntekt} kr />
               </Table.DataCell>
             </Table.ExpandableRow>
@@ -128,10 +123,10 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
         </Table.Body>
         <tfoot>
           <Table.Row>
-            <Table.HeaderCell>
+            <Table.HeaderCell textSize="small">
               <FormattedMessage id="Arbeidsinntekt.Table.Total" />
             </Table.HeaderCell>
-            <Table.HeaderCell align="right">
+            <Table.HeaderCell textSize="small" align="right">
               <BeløpLabel
                 beløp={arbeidsinntektVisninger.reduce(
                   (acc, { inntektsmeldingÅrsinntekt }) => acc + inntektsmeldingÅrsinntekt,
@@ -140,7 +135,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
                 kr
               />
             </Table.HeaderCell>
-            <Table.HeaderCell align="right">
+            <Table.HeaderCell textSize="small" align="right">
               <BeløpLabel
                 beløp={arbeidsinntektVisninger.reduce(
                   (acc, { beregningsgrunnlagÅrsinntekt }) => acc + beregningsgrunnlagÅrsinntekt,
@@ -149,7 +144,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
                 kr
               />
             </Table.HeaderCell>
-            <Table.HeaderCell align="right">
+            <Table.HeaderCell textSize="small" align="right">
               <BeløpLabel
                 beløp={arbeidsinntektVisninger.reduce(
                   (acc, { sammenligningsgrunnlagÅrsinntekt }) => acc + sammenligningsgrunnlagÅrsinntekt,
@@ -165,15 +160,3 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
     </div>
   );
 };
-
-const AOTag = () => (
-  <Tag variant="alt2" size="xsmall" aria-label="A-Ordningen" className={styles.tag}>
-    AO
-  </Tag>
-);
-
-const IMTag = () => (
-  <Tag variant="info" size="xsmall" aria-label="Inntektsmelding" className={styles.tag}>
-    IM
-  </Tag>
-);

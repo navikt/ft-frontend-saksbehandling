@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { Table } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, InntektsgrunnlagMåned } from '@navikt/ft-types';
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 import { formaterMåned, transformerGrafData } from './sammenligningsgrunnlagUtils';
 
@@ -36,13 +36,13 @@ export const SammenligningsgrunnlagTabell = ({
     <Table size="small" zebraStripes>
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell scope="col">
+          <Table.HeaderCell scope="col" textSize="small">
             <FormattedMessage id="SammenligningsgrunnlagTabell.Måned" />
           </Table.HeaderCell>
-          <Table.HeaderCell scope="col">
+          <Table.HeaderCell scope="col" textSize="small">
             <FormattedMessage id="SammenligningsgrunnlagTabell.Inntektskilde" />
           </Table.HeaderCell>
-          <Table.HeaderCell scope="col" align="right">
+          <Table.HeaderCell scope="col" textSize="small" align="right">
             <FormattedMessage id="SammenligningsgrunnlagTabell.Beløp" />
           </Table.HeaderCell>
         </Table.Row>
@@ -56,8 +56,10 @@ export const SammenligningsgrunnlagTabell = ({
 
             return (
               <Table.Row key={periode}>
-                <Table.HeaderCell scope="row">{formaterMåned(periode)}</Table.HeaderCell>
-                <Table.DataCell>
+                <Table.HeaderCell scope="row" textSize="small">
+                  {formaterMåned(periode)}
+                </Table.HeaderCell>
+                <Table.DataCell textSize="small">
                   {inntektskilderForRad.map(({ inntektspostNavn }, index) => (
                     <Fragment key={inntektspostNavn}>
                       {inntektspostNavn}
@@ -65,10 +67,10 @@ export const SammenligningsgrunnlagTabell = ({
                     </Fragment>
                   ))}
                 </Table.DataCell>
-                <Table.DataCell align="right">
+                <Table.DataCell align="right" textSize="small">
                   {inntektskilderForRad.map(({ beløp }, index) => (
                     <Fragment key={`${index}-${beløp}`}>
-                      {formatCurrencyNoKr(beløp) || ''}
+                      {<BeløpLabel beløp={beløp} kr />}
                       {index < inntektskilderForRad.length - 1 && <br />}
                     </Fragment>
                   ))}

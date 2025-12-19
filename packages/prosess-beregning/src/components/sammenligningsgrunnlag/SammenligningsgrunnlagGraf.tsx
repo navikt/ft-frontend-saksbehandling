@@ -33,7 +33,7 @@ export const SammenligningsgrunnlagGraf = ({
     intl,
   );
 
-  const fontSize = getAkselVariable('--ax-font-size-medium');
+  const fontSize = getAkselVariable('--ax-font-size-small');
   const textStyle = {
     fontFamily: getAkselVariable('--ax-font-family'),
     color: getAkselVariable('--ax-text-neutral'),
@@ -49,6 +49,7 @@ export const SammenligningsgrunnlagGraf = ({
           top: 'top',
         },
         grid: {
+          top: '7%',
           left: '0%',
           bottom: '0%',
           right: '0%',

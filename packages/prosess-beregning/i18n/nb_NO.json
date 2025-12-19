@@ -3,11 +3,10 @@
   "GrunnlagForBeregning.Skjæringstidspunkt": "Skjæringstidspunkt for beregning <b>{dato}</b>",
 
   "Arbeidsinntekt.Tittel": "Arbeidsinntekt",
-  "Arbeidsinntekt.Table.TypeInntekt": "Type inntekt",
   "Arbeidsinntekt.Table.Inntektsmelding": "<b>Inntektsmelding</b>{br}Omregnet årsinntekt",
   "Arbeidsinntekt.Table.Innrapportert": "<b>Innrapportert § 8-28</b>{br}Rapportert årsinntekt",
   "Arbeidsinntekt.Table.Sammenligningsgrunnlag": "Sammenligningsgr.",
-  "Arbeidsinntekt.Table.Total": "Totalt:",
+  "Arbeidsinntekt.Table.Total": "Totalt",
   "Arbeidsinntekt.Ansettelsesperiode": "Ansettelsesperiode",
   "Arbeidsinntekt.SistEndretLonn": "Sist endret lønn:",
   "Arbeidsinntekt.Stillingsprosent": "Stillingsprosent",
