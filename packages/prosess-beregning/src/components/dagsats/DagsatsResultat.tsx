@@ -1,7 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 
-import { XMarkOctagonFillIcon } from '@navikt/aksel-icons';
-import { BodyShort, HStack, Table } from '@navikt/ds-react';
+import { Alert, Table } from '@navikt/ds-react';
 
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
@@ -16,8 +15,6 @@ import {
   finnTotalInntektEllerAvkortetInntekt,
 } from './dagsatserUtils';
 import type { TabellData } from './dagsatsTabell';
-
-import styles from './dagsats.module.css';
 
 const DEKNINGSGRAD_HUNDRE = 100;
 
@@ -37,56 +34,49 @@ export const DagsatsResultat = ({ tabellData, vilkårsperiode, beregningsgrunnla
   return (
     <tfoot>
       {erIkkeOppfylt ? (
-        <Table.Row>
+        <Table.Row shadeOnHover={false}>
           <Table.DataCell colSpan={2}>
-            <HStack gap="space-8">
-              <XMarkOctagonFillIcon className={styles.avslåttIkon} />
-              <BodyShort size="small" className={styles.avslåttIkon}>
-                <FormattedMessage
-                  id={
-                    erMidlertidigInaktiv(beregningsgrunnlag)
-                      ? 'Dagsats.VilkårIkkeOppfyltMidlertidigInaktiv'
-                      : 'Dagsats.VilkårIkkeOppfylt'
-                  }
-                  values={{
-                    grunnbeløp: formatCurrencyNoKr(beregningsgrunnlag.grunnbeløp),
-                    b: BTag,
-                  }}
-                />
-              </BodyShort>
-            </HStack>
+            <Alert variant="error" size="small" inline>
+              <FormattedMessage
+                id={
+                  erMidlertidigInaktiv(beregningsgrunnlag)
+                    ? 'Dagsats.VilkårIkkeOppfyltMidlertidigInaktiv'
+                    : 'Dagsats.VilkårIkkeOppfylt'
+                }
+                values={{
+                  grunnbeløp: formatCurrencyNoKr(beregningsgrunnlag.grunnbeløp),
+                  b: BTag,
+                }}
+              />
+            </Alert>
           </Table.DataCell>
         </Table.Row>
       ) : (
         <>
           {harBruttoOver6G && (
             // TODO: Legg inn et skille over denne slik at man skjønner at det er en sum
-            <Table.Row>
-              <Table.DataCell>
+            <Table.Row shadeOnHover={false}>
+              <Table.DataCell textSize="small">
                 <FormattedMessage id="Dagsats.Avkortet" />
               </Table.DataCell>
-              <Table.DataCell align="right">
-                <BodyShort size="small">
-                  <BeløpLabel beløp={tabellData.avkortetPrÅr} kr />
-                </BodyShort>
+              <Table.DataCell textSize="small" align="right">
+                <BeløpLabel beløp={tabellData.avkortetPrÅr} kr />
               </Table.DataCell>
             </Table.Row>
           )}
           {harDekningsgradUlik100 && (
             // TODO: Legg inn et skille over denne slik at man skjønner at det er en sum
-            <Table.Row>
-              <Table.DataCell>
+            <Table.Row shadeOnHover={false}>
+              <Table.DataCell textSize="small">
                 <FormattedMessage id="Dagsats.Redusert" />
               </Table.DataCell>
-              <Table.DataCell align="right">
-                <BodyShort size="small">
-                  <BeløpLabel beløp={tabellData.redusertPrÅr} kr />
-                </BodyShort>
+              <Table.DataCell textSize="small" align="right">
+                <BeløpLabel beløp={tabellData.redusertPrÅr} kr />
               </Table.DataCell>
             </Table.Row>
           )}
-          <Table.Row>
-            <Table.HeaderCell>
+          <Table.Row shadeOnHover={false}>
+            <Table.HeaderCell scope="row" textSize="small">
               <FormattedMessage
                 id="Dagsats.BeregnetDagsats"
                 values={{
@@ -99,10 +89,8 @@ export const DagsatsResultat = ({ tabellData, vilkårsperiode, beregningsgrunnla
                 }}
               />
             </Table.HeaderCell>
-            <Table.HeaderCell align="right">
-              <BodyShort size="small">
-                <BeløpLabel beløp={finnDagsats(tabellData, beregningsgrunnlag.ytelsesspesifiktGrunnlag)} kr />
-              </BodyShort>
+            <Table.HeaderCell scope="row" textSize="small" align="right">
+              <BeløpLabel beløp={finnDagsats(tabellData, beregningsgrunnlag.ytelsesspesifiktGrunnlag)} kr />
             </Table.HeaderCell>
           </Table.Row>
         </>

@@ -148,13 +148,13 @@ export const utledTabellData = (beregningsgrunnlag: Beregningsgrunnlag): TabellD
   return tabellData;
 };
 
-export const sorterAndelerEtterPrioritet = (andeler: TabellRadData[]) => {
-  andeler.sort((a, b) => finnRekkefølgePrioritet(a) - finnRekkefølgePrioritet(b));
-};
-
 const finnRekkefølgePrioritet = (andel: TabellRadData): number => {
   const pri = statusKonfigMap[andel.aktivitetStatus]?.rekkefølgePri;
   return pri || 100; // Default settes veldig høyt så den havner nederst i tabellen
+};
+
+export const sorterAndelerEtterPrioritet = (andeler: TabellRadData[]) => {
+  andeler.sort((a, b) => finnRekkefølgePrioritet(a) - finnRekkefølgePrioritet(b));
 };
 
 export const erBruttoOver6G = (andeler: TabellRadData[], grunnbeløp: number): boolean =>

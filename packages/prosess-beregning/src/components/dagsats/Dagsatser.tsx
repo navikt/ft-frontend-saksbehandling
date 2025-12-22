@@ -5,7 +5,7 @@ import { Box, Heading, VStack } from '@navikt/ds-react';
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
 
 import type { Vilkår } from '../../types/Vilkår';
-import { finnVilkårperiode } from '../../utils/vilkårUtils.ts';
+import { finnVilkårperiode } from '../../utils/vilkårUtils';
 import { Dagsats } from './Dagsats';
 import { utledTabellData } from './dagsatserUtils';
 
@@ -20,7 +20,7 @@ export const Dagsatser = ({ beregningsgrunnlag, beregningsgrunnlagsvilkår }: Pr
   return (
     <Box.New background="neutral-soft" padding="5" flexBasis="0%" flexGrow="1">
       <VStack gap="space-20">
-        <Heading size="medium" level="4">
+        <Heading size="small" level="4">
           <FormattedMessage id="Dagsats.Tittel" />
         </Heading>
         {tabellData.map(data => (

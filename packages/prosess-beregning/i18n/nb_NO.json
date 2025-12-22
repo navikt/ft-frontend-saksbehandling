@@ -72,7 +72,7 @@
   "ReadonlyAPGraderingUtenBG.Tittel": "Saksbehandler har tidligere vurdert om fordeling av inntekt er korrekt grunnet en andel uten utbetaling som skal graderes.",
   "ReadonlyAPGraderingUtenBG.Begrunnelse": "Begrunnelse",
 
-  "Dagsats.Tittel": "Beregning av dagsats ",
+  "Dagsats.Tittel": "Beregning av dagsats",
   "Dagsats.Arbeid": "Fastsatt årsinntekt - arbeidstaker",
   "Dagsats.BeregnetDagsats": "Dagsats ({inntekt}/260 dager)",
   "Dagsats.Periode": "Periode {periode}",
