@@ -7,6 +7,8 @@ import type {
 } from '@navikt/ft-types';
 import { dateFormat, sortPeriodsBy } from '@navikt/ft-utils';
 
+import { finnAlleAndelerIFørstePeriode } from '../../utils/beregningsgrunnlagUtils';
+
 const grupperSummerteInntekterPerArbeidsgiver = (
   inntekterMnd: InntektsgrunnlagMåned[] | undefined,
 ): Record<string, number> => {
@@ -34,9 +36,9 @@ const finnAndelerSomSkalVises = (andeler: BeregningsgrunnlagAndel[]): Beregnings
 
 export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
   { inntektsgrunnlag, beregningsgrunnlagPeriode }: Beregningsgrunnlag,
-  formaterArbeidsgiver: (arbeidsgiverIdent: string | undefined) => string,
+  formaterVisningsnavnForAndel: (andel: BeregningsgrunnlagAndel) => string,
 ) => {
-  const andelerIFørstePeriode = beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel || [];
+  const andelerIFørstePeriode = finnAlleAndelerIFørstePeriode(beregningsgrunnlagPeriode);
   const relevanteAndeler = finnAndelerSomSkalVises(andelerIFørstePeriode);
 
   const beregningsgrunnlagInntekter = grupperSummerteInntekterPerArbeidsgiver(
@@ -48,7 +50,7 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
   return relevanteAndeler.map(andel => {
     const arbeidsgiverIdent = andel.arbeidsforhold?.arbeidsgiverIdent;
     return {
-      arbeidsgiverLabel: formaterArbeidsgiver(arbeidsgiverIdent),
+      andelsLabel: formaterVisningsnavnForAndel(andel),
       andelsnr: andel.andelsnr,
       ansattPeriode: andel.arbeidsforhold
         ? {

@@ -5,31 +5,13 @@ import { BodyShort, HStack, Spacer } from '@navikt/ds-react';
 import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import type { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import type { KodeverkForPanel } from '../../../types/KodeverkForPanel';
+import { createVisningsnavnForAndel } from '../../../utils/createVisningsnavnForAktivitet';
 import type { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
 import type { BeregningFormValues, FormNameType } from '../../types/BeregningFormValues';
 import type { FastsettAvvikATFLResultatAP } from '../../types/BeregningsgrunnlagAP';
-import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
-
-const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
-  if (andel.overstyrtPrAar !== null && andel.overstyrtPrAar !== undefined) {
-    return true;
-  }
-  // Andeler som er lagt til av sbh eller tilkom før stp skal ikke kunne endres på
-  return andel.erTilkommetAndel === false && andel.lagtTilAvSaksbehandler === false;
-};
-
-const finnAndelerSomSkalVisesAT = (andeler: BeregningsgrunnlagAndel[]): BeregningsgrunnlagAndel[] => {
-  if (!andeler) {
-    return [];
-  }
-  return andeler
-    .filter(andel => andel.aktivitetStatus === 'AT')
-    .filter(andel => andel.skalFastsetteGrunnlag === true)
-    .filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
-};
 
 interface Props {
   readOnly: boolean;
@@ -52,19 +34,19 @@ export const AksjonspunktBehandlerAT = ({
 }: Props) => {
   const { control } = useFormContext<BeregningFormValues>();
   const relevanteAndelerAT = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode);
+  const formaterAndel = createVisningsnavnForAndel(arbeidsgiverOpplysningerPerId, kodeverkSamling);
+
   return (
     <>
       {relevanteAndelerAT.map((andel, index) => (
         <HStack wrap={false} key={andel.andelsnr}>
-          <BodyShort size="small">
-            {createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling)}
-          </BodyShort>
+          <BodyShort size="small">{formaterAndel(andel)}</BodyShort>
           <Spacer />
           <RhfTextField
             name={`${formName}.${fieldIndex}.inntekt${index}`}
             control={control}
             validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
-            readOnly={readOnly}
+            readOnly={readOnly || andel.skalFastsetteGrunnlag !== true}
             parse={parseCurrencyInput}
             htmlSize={12}
             style={{ textAlign: 'right' }}
@@ -75,6 +57,15 @@ export const AksjonspunktBehandlerAT = ({
       ))}
     </>
   );
+};
+
+AksjonspunktBehandlerAT.buildInitialValues = (alleAndeler: BeregningsgrunnlagAndel[]): ArbeidstakerInntektValues => {
+  const relevanteAndeler = finnAndelerSomSkalVisesAT(alleAndeler);
+  const initialValues = {} as ArbeidstakerInntektValues;
+  relevanteAndeler.forEach((inntekt, index) => {
+    initialValues[`inntekt${index}`] = formatCurrencyNoKr(inntekt.overstyrtPrAar) ?? '';
+  });
+  return initialValues;
 };
 
 AksjonspunktBehandlerAT.transformValues = (
@@ -96,4 +87,21 @@ AksjonspunktBehandlerAT.transformValues = (
     return { inntektPrAndelList };
   }
   return { inntektPrAndelList: [] };
+};
+
+const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
+  if (andel.overstyrtPrAar !== null && andel.overstyrtPrAar !== undefined) {
+    return true;
+  }
+  // Andeler som er lagt til av sbh eller tilkom før stp skal ikke kunne endres på
+  return andel.erTilkommetAndel === false && andel.lagtTilAvSaksbehandler === false;
+};
+
+const finnAndelerSomSkalVisesAT = (andeler: BeregningsgrunnlagAndel[]): BeregningsgrunnlagAndel[] => {
+  if (!andeler) {
+    return [];
+  }
+  return andeler
+    .filter(andel => andel.aktivitetStatus === 'AT')
+    .filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
 };

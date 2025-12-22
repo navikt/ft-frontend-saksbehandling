@@ -1,4 +1,4 @@
-import type { Beregningsgrunnlag } from '@navikt/ft-types';
+import type { Beregningsgrunnlag, BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 
 import type { Vilkår } from '../types/Vilkår';
 
@@ -8,4 +8,13 @@ export const erBGTilVurdering = (beregningsgrunnlag: Beregningsgrunnlag, beregni
     ? beregningsgrunnlagsvilkår.perioder.filter(periode => periode.vurderesIBehandlingen && !periode.erForlengelse)
     : [];
   return perioderTilVurdering.some(vkp => vkp.periode.fom === vilkårsperiodeFom);
+};
+
+export const finnAlleAndelerIFørstePeriode = (
+  beregningsgrunnlagPeriode: BeregningsgrunnlagPeriodeProp[],
+): BeregningsgrunnlagAndel[] => {
+  if (beregningsgrunnlagPeriode.length > 0) {
+    return beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel ?? [];
+  }
+  return [];
 };

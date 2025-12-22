@@ -12,6 +12,7 @@ import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
 import { BTag, isAksjonspunktOpen } from '@navikt/ft-utils';
 
 import { AksjonspunktKode } from '../utils/aksjonspunkt';
+import { finnAlleAndelerIFørstePeriode } from '../utils/beregningsgrunnlagUtils';
 
 const {
   VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
@@ -115,12 +116,8 @@ interface Props {
 }
 
 export const LegacyAksjonspunktTittel = ({ avklaringsbehov, beregningsgrunnlag }: Props) => {
-  const førstePeriode = beregningsgrunnlag.beregningsgrunnlagPeriode
-    ? beregningsgrunnlag.beregningsgrunnlagPeriode[0]
-    : undefined;
-  const andelerIFørstePeriode = førstePeriode?.beregningsgrunnlagPrStatusOgAndel
-    ? førstePeriode.beregningsgrunnlagPrStatusOgAndel
-    : [];
+  const andelerIFørstePeriode = finnAlleAndelerIFørstePeriode(beregningsgrunnlag.beregningsgrunnlagPeriode);
+
   const åpneAksjonspunkter = avklaringsbehov.filter(isAksjonspunktOpen);
   const harGrunnTilÅViseKomponent = definertOgIkkeTom(åpneAksjonspunkter) && definertOgIkkeTom(andelerIFørstePeriode);
   if (!harGrunnTilÅViseKomponent) {

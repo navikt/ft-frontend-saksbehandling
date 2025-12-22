@@ -10,7 +10,7 @@ import { AksjonspunktKode } from '../../../utils/aksjonspunkt';
 import { type BeregningFormValues, finnFormName } from '../../types/BeregningFormValues';
 import type { BeregningAksjonspunktSubmitType } from '../../types/BeregningsgrunnlagAP';
 import { AksjonspunktBehandler } from './AksjonspunktBehandler';
-import { LovParagraf, mapAvklaringsbehovTilLovparagraf, mapSammenligningtypeTilLovparagraf } from './lovparagrafUtils';
+import { finnLovparagrafForAksjonspunkt, LovParagraf, mapSammenligningtypeTilLovparagraf } from './lovparagrafUtils';
 
 interface Props {
   readOnly: boolean;
@@ -89,10 +89,10 @@ export const SammenligningOgFastsettelsePanel = ({
       const aktivtGrunnlagForLovparagraf = grunnlagForLovparagraf.find(bg => bg.vilkårsperiodeFom === aktivPeriodeFom);
 
       const harAvklaringsbehovForLovparagraf = gruppertPrLovparagraf[lovparagraf].some(bg =>
-        bg.avklaringsbehov.some(a => mapAvklaringsbehovTilLovparagraf(a) === lovparagraf),
+        bg.avklaringsbehov.some(a => finnLovparagrafForAksjonspunkt(a) === lovparagraf),
       );
       const harAktivtAvklaringsbehovForLovparagraf = aktivtGrunnlagForLovparagraf?.avklaringsbehov.some(
-        a => mapAvklaringsbehovTilLovparagraf(a) === lovparagraf,
+        a => finnLovparagrafForAksjonspunkt(a) === lovparagraf,
       );
       const formName = finnFormName(lovparagraf);
 

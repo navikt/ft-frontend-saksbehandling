@@ -2,7 +2,7 @@ import { type ReactElement } from 'react';
 import { type Control, useFormContext, type UseFormReturn } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { HStack, Label, Spacer, Table } from '@navikt/ds-react';
+import { Detail, HStack, Spacer, Table } from '@navikt/ds-react';
 
 import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
@@ -192,30 +192,29 @@ const createTableData = (
   return arbeidsforholdPeriodeMap;
 };
 
-const SummaryTableRow = ({ relevantePerioder }: { relevantePerioder: BruttoPrPeriode[] }): ReactElement => (
+const SummaryTableRow = ({ bruttoPrPeriodeList }: { bruttoPrPeriodeList: BruttoPrPeriode[] }): ReactElement => (
   <Table.Row shadeOnHover={false}>
     <Table.HeaderCell textSize="small">
       <FormattedMessage id="AksjonspunktBehandlerTB.SumPeriode" />
     </Table.HeaderCell>
-    {relevantePerioder.map(({ periodeFom, brutto }) => (
+    {bruttoPrPeriodeList.map(({ periodeFom, brutto }) => (
       <Table.HeaderCell key={periodeFom} textSize="small" align="right">
-        <BeløpLabel beløp={brutto} />
+        <BeløpLabel beløp={brutto} kr />
       </Table.HeaderCell>
     ))}
   </Table.Row>
 );
 
-const PerioderRow = ({ relevantePerioder }: { relevantePerioder: BruttoPrPeriode[] }): ReactElement => (
+const HeaderRow = ({ bruttoPrPeriodeList }: { bruttoPrPeriodeList: BruttoPrPeriode[] }): ReactElement => (
   <Table.Row shadeOnHover={false}>
     <Table.HeaderCell scope="col" />
-    {relevantePerioder.map(({ periodeFom }) => {
+    {bruttoPrPeriodeList.map(({ periodeFom }) => {
       return (
-        <Table.HeaderCell key={`periodetittel${periodeFom}`} align="right">
-          <Label size="small">
-            <DateLabel dateString={periodeFom} />
-            <br />
+        <Table.HeaderCell key={`periodetittel${periodeFom}`} textSize="small" align="right">
+          <DateLabel dateString={periodeFom} />
+          <Detail>
             <FormattedMessage id="AksjonspunktBehandlerTB.OmberegnetAar" key={`Tittel_${periodeFom}`} />
-          </Label>
+          </Detail>
         </Table.HeaderCell>
       );
     })}
@@ -312,7 +311,7 @@ interface Props {
   readOnly: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   formName: FormNameType;
-  allePerioder: BeregningsgrunnlagPeriodeProp[];
+  beregningsgrunnlagPeriode: BeregningsgrunnlagPeriodeProp[];
   kodeverkSamling: KodeverkForPanel;
   fieldIndex: number;
   skalValideres: boolean;
@@ -320,25 +319,25 @@ interface Props {
 
 export const AksjonspunktBehandlerTidsbegrenset = ({
   readOnly,
-  allePerioder,
+  beregningsgrunnlagPeriode,
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   fieldIndex,
   formName,
   skalValideres,
 }: Props) => {
-  const tabellData = createTableData(allePerioder, kodeverkSamling, arbeidsgiverOpplysningerPerId);
-  const finnesAlleredeLøstPeriode = allePerioder.some(periode =>
+  const tabellData = createTableData(beregningsgrunnlagPeriode, kodeverkSamling, arbeidsgiverOpplysningerPerId);
+  const finnesAlleredeLøstPeriode = beregningsgrunnlagPeriode.some(periode =>
     periode.beregningsgrunnlagPrStatusOgAndel?.some(
       andel => andel.aktivitetStatus === 'AT' && (!!andel.overstyrtPrAar || andel.overstyrtPrAar === 0),
     ),
   );
   const formMethods = useFormContext<BeregningFormValues>();
-  const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(allePerioder, formMethods, fieldIndex, formName);
+  const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(beregningsgrunnlagPeriode, formMethods, fieldIndex, formName);
   return (
     <Table>
       <Table.Header>
-        <PerioderRow relevantePerioder={bruttoPrPeriodeList} />
+        <HeaderRow bruttoPrPeriodeList={bruttoPrPeriodeList} />
       </Table.Header>
       <Table.Body>
         <Rows
@@ -352,24 +351,24 @@ export const AksjonspunktBehandlerTidsbegrenset = ({
         />
       </Table.Body>
       <tfoot>
-        <SummaryTableRow relevantePerioder={bruttoPrPeriodeList} />
+        <SummaryTableRow bruttoPrPeriodeList={bruttoPrPeriodeList} />
       </tfoot>
     </Table>
   );
 };
 
 AksjonspunktBehandlerTidsbegrenset.buildInitialValues = (
-  allePerioder: BeregningsgrunnlagPeriodeProp[],
+  beregningsgrunnlagPeriode: BeregningsgrunnlagPeriodeProp[],
 ): TidsbegrenseArbeidsforholdValues => {
   const initialValues = {} as TidsbegrenseArbeidsforholdValues;
-  const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(allePerioder);
-  const førstePeriode = finnFørstePeriode(allePerioder);
+  const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(beregningsgrunnlagPeriode);
+  const førstePeriode = finnFørstePeriode(beregningsgrunnlagPeriode);
   relevantePerioder.forEach(periode => {
     const arbeidstakerAndeler = periode.beregningsgrunnlagPrStatusOgAndel
       ? periode.beregningsgrunnlagPrStatusOgAndel.filter(andel => andel.aktivitetStatus === 'AT')
       : [];
     arbeidstakerAndeler.forEach(andel => {
-      const erTB = erAndelTidsbegrenset(andel, allePerioder);
+      const erTB = erAndelTidsbegrenset(andel, beregningsgrunnlagPeriode);
       if (erTB) {
         const overstyrt = formatCurrencyNoKr(andel.overstyrtPrAar);
         initialValues[createInputFieldKey(andel, periode)] = overstyrt || '';

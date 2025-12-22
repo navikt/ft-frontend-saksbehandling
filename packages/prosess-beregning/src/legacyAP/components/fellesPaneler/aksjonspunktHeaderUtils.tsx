@@ -1,8 +1,9 @@
 import { FormattedMessage } from 'react-intl';
 
-import type { BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
+import type { AktivitetStatus, BeregningAvklaringsbehov, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 
 import { AksjonspunktKode } from '../../../utils/aksjonspunkt';
+import { finnAlleAndelerIFørstePeriode } from '../../../utils/beregningsgrunnlagUtils';
 import { isStatusArbeidstakerOrKombinasjon, isStatusFrilanserOrKombinasjon } from '../../util/aktivitetStatusUtils';
 
 const {
@@ -13,23 +14,23 @@ const {
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
 } = AksjonspunktKode;
 
-const finnAPBeskrivelseSN = (bg: Beregningsgrunnlag) => {
-  const alleAndelerIForstePeriode =
-    bg.beregningsgrunnlagPeriode && bg.beregningsgrunnlagPeriode.length > 0
-      ? bg.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel || []
-      : [];
-  const snAndel = alleAndelerIForstePeriode.find(andel => andel.aktivitetStatus && andel.aktivitetStatus === 'SN');
-  const erNyoppstartet = !!snAndel?.næringer?.some(naring => naring.erNyoppstartet === true);
+const finnAPBeskrivelseSN = (beregningsgrunnlagPeriode: BeregningsgrunnlagPeriodeProp[]) => {
+  const alleAndelerIFørstePeriode = finnAlleAndelerIFørstePeriode(beregningsgrunnlagPeriode);
+  const snAndel = alleAndelerIFørstePeriode.find(andel => andel.aktivitetStatus && andel.aktivitetStatus === 'SN');
+  const erNyoppstartet = (snAndel?.næringer ?? []).some(naring => naring.erNyoppstartet === true);
   if (erNyoppstartet) {
     return <FormattedMessage id="AksjonspunktBehandlerHeader.Detaljer.Nyoppstartet" />;
   }
   return <FormattedMessage id="AksjonspunktBehandlerHeader.Detaljer.VarigEndring" />;
 };
 
-export const finnAPBeskrivelse = (aksjonspunkt: BeregningAvklaringsbehov, bg: Beregningsgrunnlag) => {
+export const finnAPBeskrivelse = (
+  aksjonspunkt: BeregningAvklaringsbehov,
+  beregningsgrunnlagPeriode: BeregningsgrunnlagPeriodeProp[],
+) => {
   switch (aksjonspunkt.definisjon) {
     case VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE:
-      return finnAPBeskrivelseSN(bg);
+      return finnAPBeskrivelseSN(beregningsgrunnlagPeriode);
     case FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET:
       return <FormattedMessage id="AksjonspunktBehandlerHeader.Detaljer.SNNyIArb" />;
     case VURDER_VARIG_ENDRET_ARBEIDSSITUASJON:
@@ -43,10 +44,9 @@ export const finnAPBeskrivelse = (aksjonspunkt: BeregningAvklaringsbehov, bg: Be
   }
 };
 
-const finnAPTittelATFL = (bg: Beregningsgrunnlag) => {
-  const statuser = bg.aktivitetStatus || [];
-  const erAT = statuser.some(st => isStatusArbeidstakerOrKombinasjon(st));
-  const erFL = statuser.some(st => isStatusFrilanserOrKombinasjon(st));
+const finnAPTittelATFL = (aktivitetStatus: AktivitetStatus[]) => {
+  const erAT = aktivitetStatus.some(isStatusArbeidstakerOrKombinasjon);
+  const erFL = aktivitetStatus.some(isStatusFrilanserOrKombinasjon);
   if (erAT && erFL) {
     return <FormattedMessage id="AksjonspunktBehandlerHeader.Tittel.ATFLAvvik" />;
   }
@@ -56,7 +56,7 @@ const finnAPTittelATFL = (bg: Beregningsgrunnlag) => {
   return <FormattedMessage id="AksjonspunktBehandlerHeader.Tittel.ATAvvik" />;
 };
 
-export const finnAPTittel = (avklaringsbehov: BeregningAvklaringsbehov, bg: Beregningsgrunnlag) => {
+export const finnAPTittel = (avklaringsbehov: BeregningAvklaringsbehov, aktivitetStatus: AktivitetStatus[]) => {
   switch (avklaringsbehov.definisjon) {
     case VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE:
       return <FormattedMessage id="AksjonspunktBehandlerHeader.Tittel.VarigEndringNyoppstartet" />;
@@ -66,7 +66,7 @@ export const finnAPTittel = (avklaringsbehov: BeregningAvklaringsbehov, bg: Bere
       return <FormattedMessage id="AksjonspunktBehandlerHeader.Tittel.VarigEndringArbeid" />;
     case FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS:
     case FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD:
-      return finnAPTittelATFL(bg);
+      return finnAPTittelATFL(aktivitetStatus);
     default:
       return 'Ukjent aksjonspunkt';
   }

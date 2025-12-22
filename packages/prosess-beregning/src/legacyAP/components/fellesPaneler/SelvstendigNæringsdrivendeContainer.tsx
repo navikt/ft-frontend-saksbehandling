@@ -3,26 +3,28 @@ import type { ReactElement } from 'react';
 import type { BeregningAvklaringsbehov, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 
 import { AksjonspunktKode } from '../../../utils/aksjonspunkt';
+import { finnAlleAndelerIFørstePeriode } from '../../../utils/beregningsgrunnlagUtils';
 import type { FormNameType } from '../../types/BeregningFormValues';
 import { AksjonspunktsbehandlerSNEllerMidlertidigInaktiv } from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSNEllerMidlertidigInaktiv';
-import { finnAlleAndelerIFørstePeriode } from './aksjonspunktBehandlerUtils';
 
-export const SelvstendigNæringsdrivendeContainer = ({
-  readOnly,
-  allePerioder,
-  aksjonspunkt,
-  fieldIndex,
-  formName,
-  skalValideres,
-}: {
+interface Props {
   readOnly: boolean;
-  allePerioder: BeregningsgrunnlagPeriodeProp[];
+  beregningsgrunnlagPeriode: BeregningsgrunnlagPeriodeProp[];
   aksjonspunkt: BeregningAvklaringsbehov;
   fieldIndex: number;
   formName: FormNameType;
   skalValideres: boolean;
-}): ReactElement | null => {
-  const snAndel = finnAlleAndelerIFørstePeriode(allePerioder).find(
+}
+
+export const SelvstendigNæringsdrivendeContainer = ({
+  readOnly,
+  beregningsgrunnlagPeriode,
+  aksjonspunkt,
+  fieldIndex,
+  formName,
+  skalValideres,
+}: Props): ReactElement | null => {
+  const snAndel = finnAlleAndelerIFørstePeriode(beregningsgrunnlagPeriode).find(
     andel => andel.aktivitetStatus && andel.aktivitetStatus === 'SN',
   );
 

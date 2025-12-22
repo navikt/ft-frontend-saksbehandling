@@ -19,31 +19,28 @@ export enum LovParagraf {
 
 export const mapSammenligningtypeTilLovparagraf = (
   type: string,
-  aktivitetstatuser: AktivitetStatus[] | undefined,
+  aktivitetstatuser: AktivitetStatus[] = [],
 ): LovParagraf => {
   if (SammenligningType.SN === type || SammenligningType.MIDLERTIDIG_INAKTIV === type) {
     return LovParagraf.ÅTTE_TRETTIFEM;
   }
   // Kan fjerne aktivitetstatus og kun sjekke på type etter splitting
-  if (SammenligningType.ATFLSN === type && !!aktivitetstatuser?.find(a => isStatusSNOrKombinasjon(a))) {
+  if (SammenligningType.ATFLSN === type && aktivitetstatuser.some(isStatusSNOrKombinasjon)) {
     return LovParagraf.ÅTTE_TRETTIFEM;
   }
   return LovParagraf.ÅTTE_TRETTI;
 };
 
-export const mapAvklaringsbehovTilLovparagraf = (a: BeregningAvklaringsbehov): string | null => {
-  if (
-    VURDER_VARIG_ENDRET_ARBEIDSSITUASJON === a.definisjon ||
-    VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE === a.definisjon ||
-    FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET === a.definisjon
-  ) {
-    return LovParagraf.ÅTTE_TRETTIFEM;
+export const finnLovparagrafForAksjonspunkt = (a: BeregningAvklaringsbehov): string | null => {
+  switch (a.definisjon) {
+    case VURDER_VARIG_ENDRET_ARBEIDSSITUASJON:
+    case VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE:
+    case FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET:
+      return LovParagraf.ÅTTE_TRETTIFEM;
+    case FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS:
+    case FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD:
+      return LovParagraf.ÅTTE_TRETTI;
+    default:
+      return null;
   }
-  if (
-    FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS === a.definisjon ||
-    FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD === a.definisjon
-  ) {
-    return LovParagraf.ÅTTE_TRETTI;
-  }
-  return null;
 };

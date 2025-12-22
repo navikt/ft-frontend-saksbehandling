@@ -1,28 +1,26 @@
-import { createIntl, TIDENES_ENDE } from '@navikt/ft-utils';
+import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
+import { TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { arbeidsgiverOpplysningerPerId } from '../../../testdata/arbeidsgivere';
 import { arbeidstakerFPFlereArbeidsforhold } from '../../../testdata/arbeidstakerFPFlereArbeidsforhold';
-import { formaterArbeidsgiverNullable } from '../../utils/arbeidsgiverUtils';
+import type { KodeverkForPanel } from '../../types/KodeverkForPanel.ts';
+import { createVisningsnavnForAndel } from '../../utils/createVisningsnavnForAktivitet.ts';
 import { formaterStillingsprosenter, mapBeregningsgrunnlagTilArbeidsinntektVisning } from './arbeidsinntektUtils';
-
-import messages from '../../../i18n/nb_NO.json';
-
-const intl = createIntl(messages);
 
 describe('arbeidsinntektUtils', () => {
   describe('mapBeregningsgrunnlagTilArbeidsinntektVisning', () => {
     it('skal mappe inntektsrader for andelene', () => {
-      const formatArbeidsgiver = formaterArbeidsgiverNullable(arbeidsgiverOpplysningerPerId, intl);
+      const formaterAndel = createVisningsnavnForAndel(arbeidsgiverOpplysningerPerId, alleKodeverk as KodeverkForPanel);
 
       const resultat = mapBeregningsgrunnlagTilArbeidsinntektVisning(
         arbeidstakerFPFlereArbeidsforhold.beregningsgrunnlagListe[0],
-        formatArbeidsgiver,
+        formaterAndel,
       );
 
       expect(resultat).toHaveLength(2);
       expect(resultat[0]).toEqual({
         andelsnr: 1,
-        arbeidsgiverLabel: 'INTERESSANT INTUITIV KATT DIAMETER (444444444)',
+        andelsLabel: 'INTERESSANT INTUITIV KATT DIAMETER (444444444)',
         beregningsgrunnlagÅrsinntekt: 31776,
         ansattPeriode: {
           fom: '2005-12-15',
@@ -35,7 +33,7 @@ describe('arbeidsinntektUtils', () => {
       });
       expect(resultat[1]).toEqual({
         andelsnr: 2,
-        arbeidsgiverLabel: 'TROSSIG NATURSTRIDIG TIGER AS (222222222)',
+        andelsLabel: 'TROSSIG NATURSTRIDIG TIGER AS (222222222)',
         beregningsgrunnlagÅrsinntekt: 90000,
         ansattPeriode: {
           fom: '2010-10-01',

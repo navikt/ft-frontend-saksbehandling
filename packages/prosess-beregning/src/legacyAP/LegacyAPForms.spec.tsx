@@ -160,7 +160,7 @@ describe('LegacyAPForms', () => {
 
     // Aksjonspunkt
     expect(
-      screen.getByText('Søker har oppgitt å være ny i arbeidslivet (blitt yrkesaktiv siste tre år).'),
+      screen.getByText('Søker har oppgitt å være ny i arbeidslivet (blitt yrkesaktiv siste tre år)'),
     ).toBeInTheDocument();
 
     const alleInputfelt = screen.getAllByRole('textbox', { hidden: true });
@@ -278,7 +278,7 @@ describe('LegacyAPForms', () => {
     // Avvik arbeid og frilans
     expect(screen.getByText('Fastsett årsinntekt skjønnsmessig for arbeidstaker og frilans')).toBeInTheDocument();
     expect(
-      screen.getByText('Det er mer enn 25% avvik mellom beregnet årsinntekt og sammenligningsgrunnlaget.'),
+      screen.getByText('Det er mer enn 25% avvik mellom beregnet årsinntekt og sammenligningsgrunnlaget'),
     ).toBeInTheDocument();
     const bruttoAG1 = alleInputfelt[0];
     const bruttoFL1 = alleInputfelt[1];

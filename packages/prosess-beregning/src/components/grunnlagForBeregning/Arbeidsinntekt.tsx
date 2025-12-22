@@ -6,7 +6,8 @@ import { BodyShort, Detail, Heading, HStack, Table, Tooltip } from '@navikt/ds-r
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel, DateLabel, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
-import { formaterArbeidsgiverNullable } from '../../utils/arbeidsgiverUtils';
+import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import { createVisningsnavnForAndel } from '../../utils/createVisningsnavnForAktivitet';
 import { mapBeregningsgrunnlagTilArbeidsinntektVisning } from './arbeidsinntektUtils';
 
 import styles from './arbeidsinntekt.module.css';
@@ -14,14 +15,15 @@ import styles from './arbeidsinntekt.module.css';
 interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  kodeverkSamling: KodeverkForPanel;
 }
 
-export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPerId }: Props) => {
+export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPerId, kodeverkSamling }: Props) => {
   const intl = useIntl();
 
   const arbeidsinntektVisninger = mapBeregningsgrunnlagTilArbeidsinntektVisning(
     beregningsgrunnlag,
-    formaterArbeidsgiverNullable(arbeidsgiverOpplysningerPerId, intl),
+    createVisningsnavnForAndel(arbeidsgiverOpplysningerPerId, kodeverkSamling),
   );
 
   if (arbeidsinntektVisninger.length === 0) {
@@ -99,7 +101,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
                 </div>
               }
             >
-              <Table.DataCell textSize="small">{visning.arbeidsgiverLabel}</Table.DataCell>
+              <Table.DataCell textSize="small">{visning.andelsLabel}</Table.DataCell>
               <Table.DataCell textSize="small" align="right">
                 <BeløpLabel beløp={visning.inntektsmeldingÅrsinntekt} kr />
               </Table.DataCell>

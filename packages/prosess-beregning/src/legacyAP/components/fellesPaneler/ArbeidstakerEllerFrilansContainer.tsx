@@ -16,6 +16,7 @@ import type {
 
 import type { KodeverkForPanel } from '../../../types/KodeverkForPanel';
 import { AksjonspunktKode } from '../../../utils/aksjonspunkt';
+import { finnAlleAndelerIFørstePeriode } from '../../../utils/beregningsgrunnlagUtils';
 import type { ATFLBegrunnelseValues, ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
 import type { BeregningFormValues, FormNameType } from '../../types/BeregningFormValues';
 import type {
@@ -25,7 +26,6 @@ import type {
 import { AksjonspunktBehandlerAT } from '../arbeidstaker/AksjonspunktBehandlerAT';
 import { AksjonspunktBehandlerTidsbegrenset } from '../arbeidstaker/AksjonspunktBehandlerTidsbegrenset';
 import { AksjonspunktBehandlerFL } from '../frilanser/AksjonspunktBehandlerFL';
-import { finnAlleAndelerIFørstePeriode } from './aksjonspunktBehandlerUtils';
 
 const { FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD } =
   AksjonspunktKode;
@@ -45,7 +45,7 @@ const maxLength4000 = maxLength(MAX_LENGTH);
 
 interface Props {
   kodeverkSamling: KodeverkForPanel;
-  allePerioder: BeregningsgrunnlagPeriodeProp[];
+  beregningsgrunnlagPeriode: BeregningsgrunnlagPeriodeProp[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   readOnly: boolean;
   fieldIndex: number;
@@ -53,9 +53,10 @@ interface Props {
   avklaringsbehov: BeregningAvklaringsbehov;
   skalValideres: boolean;
 }
+
 export const ArbeidstakerEllerFrilansContainer = ({
   kodeverkSamling,
-  allePerioder,
+  beregningsgrunnlagPeriode,
   arbeidsgiverOpplysningerPerId,
   readOnly,
   fieldIndex,
@@ -65,9 +66,9 @@ export const ArbeidstakerEllerFrilansContainer = ({
 }: Props): ReactElement => {
   const { control } = useFormContext<BeregningFormValues>();
 
-  const erTidsbegrenset = harPerioderMedAvsluttedeArbeidsforhold(allePerioder);
-  const visFL = finnesAndelÅFastsetteMedStatus(allePerioder, 'FL');
-  const visAT = finnesAndelÅFastsetteMedStatus(allePerioder, 'AT');
+  const erTidsbegrenset = harPerioderMedAvsluttedeArbeidsforhold(beregningsgrunnlagPeriode);
+  const visFL = finnesAndelÅFastsetteMedStatus(beregningsgrunnlagPeriode, 'FL');
+  const visAT = finnesAndelÅFastsetteMedStatus(beregningsgrunnlagPeriode, 'AT');
 
   return (
     <>
@@ -75,7 +76,7 @@ export const ArbeidstakerEllerFrilansContainer = ({
         <AksjonspunktBehandlerTidsbegrenset
           readOnly={readOnly}
           formName={formName}
-          allePerioder={allePerioder}
+          beregningsgrunnlagPeriode={beregningsgrunnlagPeriode}
           kodeverkSamling={kodeverkSamling}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           fieldIndex={fieldIndex}
@@ -86,7 +87,7 @@ export const ArbeidstakerEllerFrilansContainer = ({
         {!erTidsbegrenset && visAT && (
           <AksjonspunktBehandlerAT
             readOnly={readOnly}
-            alleAndelerIForstePeriode={finnAlleAndelerIFørstePeriode(allePerioder)}
+            alleAndelerIForstePeriode={finnAlleAndelerIFørstePeriode(beregningsgrunnlagPeriode)}
             kodeverkSamling={kodeverkSamling}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
             fieldIndex={fieldIndex}
@@ -99,7 +100,7 @@ export const ArbeidstakerEllerFrilansContainer = ({
             readOnly={readOnly}
             fieldIndex={fieldIndex}
             formName={formName}
-            alleAndelerIForstePeriode={finnAlleAndelerIFørstePeriode(allePerioder)}
+            alleAndelerIForstePeriode={finnAlleAndelerIFørstePeriode(beregningsgrunnlagPeriode)}
             skalValideres={skalValideres}
           />
         )}
@@ -123,13 +124,13 @@ export const ArbeidstakerEllerFrilansContainer = ({
 };
 
 const finnesAndelÅFastsetteMedStatus = (
-  allePerioder: BeregningsgrunnlagPeriodeProp[],
+  beregningsgrunnlagPeriode: BeregningsgrunnlagPeriodeProp[],
   status: AktivitetStatus,
 ): boolean => {
-  if (!allePerioder || allePerioder.length < 1) {
+  if (!beregningsgrunnlagPeriode || beregningsgrunnlagPeriode.length < 1) {
     return false;
   }
-  const andeler = allePerioder[0].beregningsgrunnlagPrStatusOgAndel ?? [];
+  const andeler = finnAlleAndelerIFørstePeriode(beregningsgrunnlagPeriode);
   return andeler?.some(a => a.aktivitetStatus === status && a.skalFastsetteGrunnlag);
 };
 
