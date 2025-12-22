@@ -1,15 +1,8 @@
-import { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import type {
-  BeregningAvklaringsbehov,
-  Beregningsgrunnlag,
-  Beregningsgrunnlag as BeregningsgrunnlagProp,
-  BeregningsgrunnlagAndel,
-  SammenligningsgrunlagProp,
-} from '@navikt/ft-types';
+import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
-import { BTag, isAksjonspunktOpen } from '@navikt/ft-utils';
+import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
 import { AksjonspunktKode } from '../utils/aksjonspunkt';
 import { finnAlleAndelerIFørstePeriode } from '../utils/beregningsgrunnlagUtils';
@@ -22,107 +15,35 @@ const {
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
 } = AksjonspunktKode;
 
-const getKorrektSammenligningsgrunnlagForAvklaringsbehov = (
-  avklaringsbehov: BeregningAvklaringsbehov,
-  sammenligningsgrunnlagPrStatus: SammenligningsgrunlagProp[],
-): SammenligningsgrunlagProp | undefined => {
-  switch (avklaringsbehov.definisjon) {
-    case VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE:
-      return sammenligningsgrunnlagPrStatus.find(
-        sg =>
-          sg.sammenligningsgrunnlagType === 'SAMMENLIGNING_ATFL_SN' ||
-          sg.sammenligningsgrunnlagType === 'SAMMENLIGNING_SN',
-      );
-    case VURDER_VARIG_ENDRET_ARBEIDSSITUASJON:
-      return sammenligningsgrunnlagPrStatus.find(sg => sg.sammenligningsgrunnlagType === 'SAMMENLIGNING_MIDL_INAKTIV');
-    case FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS:
-    case FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD:
-      return sammenligningsgrunnlagPrStatus.find(
-        sg =>
-          sg.sammenligningsgrunnlagType === 'SAMMENLIGNING_ATFL_SN' ||
-          sg.sammenligningsgrunnlagType === 'SAMMENLIGNING_AT_FL' ||
-          sg.sammenligningsgrunnlagType === 'SAMMENLIGNING_AT' ||
-          sg.sammenligningsgrunnlagType === 'SAMMENLIGNING_FL',
-      );
-    case FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET:
-      return undefined;
-    default:
-      return undefined;
-  }
-};
-
-const getAvviksprosent = (
-  avklaringsbehov: BeregningAvklaringsbehov,
-  sammenligningsgrunnlagPrStatus: SammenligningsgrunlagProp[],
-): number => {
-  const sg = getKorrektSammenligningsgrunnlagForAvklaringsbehov(avklaringsbehov, sammenligningsgrunnlagPrStatus);
-  const avvikProsent = sg?.avvikProsent ? sg.avvikProsent : 0;
-  return Number(avvikProsent.toFixed(1));
-};
-
-const definertOgIkkeTom = (liste: any[]): boolean => liste && liste.length > 0;
-
-const getSammenligningsgrunnlagsPrStatus = (bg: BeregningsgrunnlagProp): SammenligningsgrunlagProp[] =>
-  bg.sammenligningsgrunnlagPrStatus ? bg.sammenligningsgrunnlagPrStatus : [];
-
 const APTekster = {
-  [FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS]: 'AksjonspunktTittel.Arbeidstaker',
-  [FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD]: 'AksjonspunktTittel.TidsbegrensetArbeidsforhold',
-  [FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET]: 'AksjonspunktTittel.NyIArbeidslivetSN',
-  [VURDER_VARIG_ENDRET_ARBEIDSSITUASJON]: 'AksjonspunktTittel.VarigEndretArbeidssituasjon',
+  [FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS]: 'LegacyAksjonspunktTittel.Arbeidstaker',
+  [FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD]: 'LegacyAksjonspunktTittel.TidsbegrensetArbeidsforhold',
+  [FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET]: 'LegacyAksjonspunktTittel.NyIArbeidslivetSN',
+  [VURDER_VARIG_ENDRET_ARBEIDSSITUASJON]: 'LegacyAksjonspunktTittel.VarigEndretArbeidssituasjon',
+  [VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE]:
+    'LegacyAksjonspunktTittel.SelvstendigNaeringsdrivende',
 } as Record<string, string>;
 
-const findAksjonspunktHelpTekst = (
-  gjeldendeAvklaringsbehov: BeregningAvklaringsbehov,
-  erVarigEndring: boolean,
-): string => {
-  if (
-    gjeldendeAvklaringsbehov.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE
-  ) {
-    return erVarigEndring
-      ? 'AksjonspunktTittel.SelvstendigNaeringsdrivende.VarigEndring'
-      : 'AksjonspunktTittel.SelvstendigNaeringsdrivende.Nyoppstartet';
-  }
-  return APTekster[gjeldendeAvklaringsbehov.definisjon];
-};
-
-const lagAksjonspunktHelpText = (
-  åpneAvklaringsbehov: BeregningAvklaringsbehov[],
-  sammenligningsgrunnlag: SammenligningsgrunlagProp[],
-  alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
-): ReactElement => {
-  const snAndel = alleAndelerIForstePeriode.find(andel => andel.aktivitetStatus === 'SN');
-  const erVarigEndring = !!snAndel?.næringer?.some(naring => naring.erVarigEndret === true);
-  return (
-    <AksjonspunktHelpTextHTML>
-      {åpneAvklaringsbehov.map(ap => (
-        <FormattedMessage
-          key={ap.definisjon}
-          id={findAksjonspunktHelpTekst(ap, erVarigEndring || ap.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON)}
-          values={{
-            verdi: getAvviksprosent(ap, sammenligningsgrunnlag),
-            b: BTag,
-            br: <br />,
-          }}
-        />
-      ))}
-    </AksjonspunktHelpTextHTML>
-  );
-};
-
 interface Props {
-  avklaringsbehov: BeregningAvklaringsbehov[];
   beregningsgrunnlag: Beregningsgrunnlag;
 }
 
-export const LegacyAksjonspunktTittel = ({ avklaringsbehov, beregningsgrunnlag }: Props) => {
-  const andelerIFørstePeriode = finnAlleAndelerIFørstePeriode(beregningsgrunnlag.beregningsgrunnlagPeriode);
-
+export const LegacyAksjonspunktTittel = ({
+  beregningsgrunnlag: { avklaringsbehov, beregningsgrunnlagPeriode },
+}: Props) => {
+  const andelerIFørstePeriode = finnAlleAndelerIFørstePeriode(beregningsgrunnlagPeriode);
   const åpneAksjonspunkter = avklaringsbehov.filter(isAksjonspunktOpen);
-  const harGrunnTilÅViseKomponent = definertOgIkkeTom(åpneAksjonspunkter) && definertOgIkkeTom(andelerIFørstePeriode);
-  if (!harGrunnTilÅViseKomponent) {
+
+  if (andelerIFørstePeriode.length === 0) {
     return null;
   }
-  const sammenligningGr = getSammenligningsgrunnlagsPrStatus(beregningsgrunnlag);
-  return lagAksjonspunktHelpText(åpneAksjonspunkter, sammenligningGr, andelerIFørstePeriode);
+  const snAndel = andelerIFørstePeriode.find(andel => andel.aktivitetStatus === 'SN');
+  const erVarigEndring = (snAndel?.næringer ?? []).some(næring => næring.erVarigEndret === true);
+  return (
+    <AksjonspunktHelpTextHTML>
+      {åpneAksjonspunkter.map(ap => (
+        <FormattedMessage key={ap.definisjon} id={APTekster[ap.definisjon]} values={{ erVarigEndring }} />
+      ))}
+    </AksjonspunktHelpTextHTML>
+  );
 };

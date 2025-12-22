@@ -35,7 +35,7 @@ interface Props {
   skalValideres: boolean;
 }
 
-export const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv = ({
+export const AksjonspunktBehandlerSNEllerMidlertidigInaktiv = ({
   readOnly,
   aksjonspunkt,
   erNyIArbeidslivet = false,
@@ -77,7 +77,7 @@ export const AksjonspunktsbehandlerSNEllerMidlertidigInaktiv = ({
   );
 };
 
-AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.buildInitialValues = (
+AksjonspunktBehandlerSNEllerMidlertidigInaktiv.buildInitialValues = (
   relevanteAndeler: BeregningsgrunnlagAndel[],
   aksjonspunkt: BeregningAvklaringsbehov[],
 ): VurderOgFastsettValues | NyIArbeidslivetValues => {
@@ -87,7 +87,7 @@ AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.buildInitialValues = (
   return VurderVarigEndringEllerNyoppstartet.buildInitialValues(relevanteAndeler, aksjonspunkt);
 };
 
-AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.transformValues = (
+AksjonspunktBehandlerSNEllerMidlertidigInaktiv.transformValues = (
   values: VurderOgFastsettValues | NyIArbeidslivetValues,
   gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[],
 ): VurderVarigEndretNyoppstartetResultatAP | NyIArbeidslivetBruttoNæringResultatAP => {

@@ -5,7 +5,7 @@ import type { BeregningAvklaringsbehov, BeregningsgrunnlagPeriodeProp } from '@n
 import { AksjonspunktKode } from '../../../utils/aksjonspunkt';
 import { finnAlleAndelerIFørstePeriode } from '../../../utils/beregningsgrunnlagUtils';
 import type { FormNameType } from '../../types/BeregningFormValues';
-import { AksjonspunktsbehandlerSNEllerMidlertidigInaktiv } from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSNEllerMidlertidigInaktiv';
+import { AksjonspunktBehandlerSNEllerMidlertidigInaktiv } from '../selvstendigNaeringsdrivende/AksjonspunktBehandlerSNEllerMidlertidigInaktiv';
 
 interface Props {
   readOnly: boolean;
@@ -39,7 +39,7 @@ export const SelvstendigNæringsdrivendeContainer = ({
   }
 
   return (
-    <AksjonspunktsbehandlerSNEllerMidlertidigInaktiv
+    <AksjonspunktBehandlerSNEllerMidlertidigInaktiv
       readOnly={readOnly}
       aksjonspunkt={aksjonspunkt}
       erNyIArbeidslivet={erNyIArbeidslivet}

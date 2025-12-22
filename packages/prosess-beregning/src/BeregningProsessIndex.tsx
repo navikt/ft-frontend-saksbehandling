@@ -8,7 +8,7 @@ import { createIntl } from '@navikt/ft-utils';
 
 import { TabInnhold } from './components/TabInnhold';
 import { useSkjæringstidspunktTabs } from './hooks/useSkjæringstidspunktTabs';
-import { BeregningFP } from './legacyAP/components/BeregningFP';
+import { FastsettBeregningAksjonspunktContainer } from './legacyAP/components/FastsettBeregningAksjonspunktContainer';
 import type { BeregningFormValues } from './legacyAP/types/BeregningFormValues';
 import type { BeregningAksjonspunktSubmitType } from './legacyAP/types/BeregningsgrunnlagAP';
 import type { KodeverkForPanel } from './types/KodeverkForPanel';
@@ -107,17 +107,17 @@ export const BeregningProsessIndex = ({
           />
         </div>
       ))}
-      <BeregningFP
-        aktivtBeregningsgrunnlagIndeks={Number(currentTabValue)}
-        beregningsgrunnlagListe={beregningsgrunnlagListe}
-        submitCallback={submitCallback}
+      <FastsettBeregningAksjonspunktContainer
         readOnly={isReadOnly}
         isSubmittable={isSubmittable}
-        vilkår={beregningsgrunnlagsvilkår}
         kodeverkSamling={kodeverkSamling}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        setFormData={setFormData}
+        beregningsgrunnlagListe={beregningsgrunnlagListe}
+        vilkår={beregningsgrunnlagsvilkår}
+        submitCallback={submitCallback}
         formData={formData}
+        setFormData={setFormData}
+        aktivtBeregningsgrunnlagIndeks={Number(currentTabValue)}
       />
     </RawIntlProvider>
   );

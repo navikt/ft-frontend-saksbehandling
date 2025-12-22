@@ -5,6 +5,8 @@ import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/
 import { LegacyAksjonspunktTittel } from '../legacyAP/LegacyAksjonspunktTittel';
 import type { KodeverkForPanel } from '../types/KodeverkForPanel';
 import type { Vilkår } from '../types/Vilkår';
+import { AksjonspunktKode } from '../utils/aksjonspunkt';
+import { ReadonlyAPGraderingUtenBG } from './aksjonspunkt/utgåttAP/ReadonlyAPGraderingUtenBG';
 import { Avviksberegninger } from './avviksberegning/Avviksberegninger';
 import { GrunnlagForBeregning } from './grunnlagForBeregning/GrunnlagForBeregning';
 import { Sammenligningsgrunnlag } from './sammenligningsgrunnlag/Sammenligningsgrunnlag';
@@ -21,13 +23,10 @@ export const TabInnhold = ({
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
 }: Props) => {
-  const { sammenligningsgrunnlagPrStatus = [], inntektsgrunnlag } = beregningsgrunnlag;
+  const { sammenligningsgrunnlagPrStatus = [], inntektsgrunnlag, avklaringsbehov } = beregningsgrunnlag;
   return (
     <VStack gap="space-8" paddingBlock="space-16">
-      <LegacyAksjonspunktTittel
-        avklaringsbehov={beregningsgrunnlag.avklaringsbehov}
-        beregningsgrunnlag={beregningsgrunnlag}
-      />
+      <LegacyAksjonspunktTittel beregningsgrunnlag={beregningsgrunnlag} />
 
       <GrunnlagForBeregning
         beregningsgrunnlag={beregningsgrunnlag}
@@ -47,6 +46,12 @@ export const TabInnhold = ({
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         />
       )}
+
+      <ReadonlyAPGraderingUtenBG
+        avklaringsbehov={avklaringsbehov.find(
+          ap => ap.definisjon === AksjonspunktKode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG,
+        )}
+      />
     </VStack>
   );
 };

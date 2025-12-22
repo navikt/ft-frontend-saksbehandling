@@ -30,12 +30,11 @@
   "BeregningsgrunnlagProsessIndex.Title": "Beregning",
   "BeregningsgrunnlagProsessIndex.IkkeTilstrekkeligInntektsgrunnlag": "Ikke tilstrekkelig inntektsgrunnlag",
   "BeregningsgrunnlagProsessIndex.HarIkkeBeregningsregler": "Har ikke beregningsregler (trer i kraft 1 jan. 2019). Sak overført til Infotrygd.",
-  "AksjonspunktTittel.Arbeidstaker": "Det er mer enn 25% avvik mellom beregnet årsinntekt og sammenligningsgrunnlaget",
-  "AksjonspunktTittel.SelvstendigNaeringsdrivende.Nyoppstartet": "Søker har nyoppstartet næring og det er mer enn 25% avvik mellom pensjonsgivende inntekt og samlet inntekt",
-  "AksjonspunktTittel.SelvstendigNaeringsdrivende.VarigEndring": "Søker har oppgitt varig endring og det er mer enn 25% avvik mellom pensjonsgivende inntekt og samlet inntekt.",
-  "AksjonspunktTittel.VarigEndretArbeidssituasjon": "Varig endret arbeidssituasjon.",
-  "AksjonspunktTittel.TidsbegrensetArbeidsforhold": "Det er mer enn 25 % avvik mellom beregnet årsinntekt og sammenligningsgrunnlaget, og det er tidsbegrenset arbeidsforhold",
-  "AksjonspunktTittel.NyIArbeidslivetSN": "Søker er ny i arbeidslivet",
+  "LegacyAksjonspunktTittel.Arbeidstaker": "Det er mer enn 25% avvik mellom beregnet årsinntekt og sammenligningsgrunnlaget",
+  "LegacyAksjonspunktTittel.SelvstendigNaeringsdrivende": "Søker har {erVarigEndring, select, true {oppgitt varig endring} other {nyoppstartet næring}} og det er mer enn 25% avvik mellom pensjonsgivende inntekt og samlet inntekt",
+  "LegacyAksjonspunktTittel.VarigEndretArbeidssituasjon": "Varig endret arbeidssituasjon",
+  "LegacyAksjonspunktTittel.TidsbegrensetArbeidsforhold": "Det er mer enn 25 % avvik mellom beregnet årsinntekt og sammenligningsgrunnlaget, og det er tidsbegrenset arbeidsforhold",
+  "LegacyAksjonspunktTittel.NyIArbeidslivetSN": "Søker er ny i arbeidslivet",
   "AksjonspunktBehandlerHeader.Tittel.VarigEndringNyoppstartet": "Vurder om det er varig endring i næringen og/eller arbeidssituasjonen, som gjør at inntekten skal fastsettes skjønnsmessig",
   "AksjonspunktBehandlerHeader.Tittel.VarigEndringArbeid": "Vurder om det er varig endring i arbeidssituasjonen, som gjør at inntekten skal fastsettes skjønnsmessig",
   "AksjonspunktBehandlerHeader.Tittel.ATAvvik": "Fastsett årsinntekt skjønnsmessig for arbeidstaker",
@@ -70,5 +69,6 @@
   "Forms.VurderingAvFastsattBeregningsgrunnlag": "Vurdering av fastsatt beregningsgrunnlag",
   "Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst": "Forklar hvordan du har kommet frem til beregningsgrunnlaget og hvilke vurderinger du har gjort. Beskriv hvorfor det er avvik og hvilken inntekt som kan legges til grunn. Dette skal gjøres i henhold til lovhjemmel.",
   "ProsessStegSubmitButton.Label": "Bekreft og fortsett",
-  "GraderingUtenBGReadOnly.Label": "Saksbehandler har tidligere vurdert om fordeling av inntekt er korrekt grunnet en andel uten utbetaling som skal graderes."
+  "ReadonlyAPGraderingUtenBG.Tittel": "Saksbehandler har tidligere vurdert om fordeling av inntekt er korrekt grunnet en andel uten utbetaling som skal graderes.",
+  "ReadonlyAPGraderingUtenBG.Begrunnelse": "Begrunnelse"
 }

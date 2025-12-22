@@ -1,7 +1,7 @@
 import { FormattedMessage } from 'react-intl';
 
 import type { BeregningAvklaringsbehov } from '@navikt/ft-types';
-import { EditedIcon, LabeledValue } from '@navikt/ft-ui-komponenter';
+import { AksjonspunktBoks, LabeledValue } from '@navikt/ft-ui-komponenter';
 
 interface Props {
   avklaringsbehov: BeregningAvklaringsbehov | undefined;
@@ -12,19 +12,20 @@ interface Props {
  * Vil ikke lenger oppstå men vi må kunne vise begrunnelsen som ble
  * oppgitt av saksbehandler og en kort beskrivelse av aksjonspunktet.
  */
-export const GraderingUtenBGReadOnly = ({ avklaringsbehov }: Props) => {
+export const ReadonlyAPGraderingUtenBG = ({ avklaringsbehov }: Props) => {
   if (!avklaringsbehov?.begrunnelse) {
     return null;
   }
   return (
-    <LabeledValue
-      size="small"
-      label={<FormattedMessage id="GraderingUtenBGReadOnly.Label" />}
-      value={
-        <>
-          {avklaringsbehov.begrunnelse} <EditedIcon />
-        </>
-      }
-    />
+    <AksjonspunktBoks
+      tittel={<FormattedMessage id="ReadonlyAPGraderingUtenBG.Tittel" />}
+      aksjonspunkt={avklaringsbehov}
+    >
+      <LabeledValue
+        size="small"
+        label={<FormattedMessage id="ReadonlyAPGraderingUtenBG.Begrunnelse" />}
+        value={avklaringsbehov.begrunnelse}
+      />
+    </AksjonspunktBoks>
   );
 };

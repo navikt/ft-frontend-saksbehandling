@@ -1,4 +1,8 @@
-import type { AktivitetStatus, BeregningAvklaringsbehov } from '@navikt/ft-types';
+import type {
+  AktivitetStatus,
+  BeregningAvklaringsbehov,
+  SammenligningType as SammenligningsgrunnlagType,
+} from '@navikt/ft-types';
 
 import { AksjonspunktKode } from '../../../utils/aksjonspunkt';
 import { SammenligningType } from '../../kodeverk/sammenligningType';
@@ -17,15 +21,18 @@ export enum LovParagraf {
   ÅTTE_TRETTI = '8-30',
 }
 
-export const mapSammenligningtypeTilLovparagraf = (
-  type: string,
+export const finnLovparagraf = (
+  sammenligningsgrunnlagType: SammenligningsgrunnlagType,
   aktivitetstatuser: AktivitetStatus[] = [],
 ): LovParagraf => {
-  if (SammenligningType.SN === type || SammenligningType.MIDLERTIDIG_INAKTIV === type) {
+  if (
+    SammenligningType.SN === sammenligningsgrunnlagType ||
+    SammenligningType.MIDLERTIDIG_INAKTIV === sammenligningsgrunnlagType
+  ) {
     return LovParagraf.ÅTTE_TRETTIFEM;
   }
   // Kan fjerne aktivitetstatus og kun sjekke på type etter splitting
-  if (SammenligningType.ATFLSN === type && aktivitetstatuser.some(isStatusSNOrKombinasjon)) {
+  if (SammenligningType.ATFLSN === sammenligningsgrunnlagType && aktivitetstatuser.some(isStatusSNOrKombinasjon)) {
     return LovParagraf.ÅTTE_TRETTIFEM;
   }
   return LovParagraf.ÅTTE_TRETTI;

@@ -93,7 +93,6 @@ const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): 
   if (andel.overstyrtPrAar !== null && andel.overstyrtPrAar !== undefined) {
     return true;
   }
-  // Andeler som er lagt til av sbh eller tilkom før stp skal ikke kunne endres på
   return andel.erTilkommetAndel === false && andel.lagtTilAvSaksbehandler === false;
 };
 

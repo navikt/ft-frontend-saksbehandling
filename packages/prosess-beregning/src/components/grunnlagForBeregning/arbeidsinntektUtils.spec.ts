@@ -3,8 +3,8 @@ import { TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { arbeidsgiverOpplysningerPerId } from '../../../testdata/arbeidsgivere';
 import { arbeidstakerFPFlereArbeidsforhold } from '../../../testdata/arbeidstakerFPFlereArbeidsforhold';
-import type { KodeverkForPanel } from '../../types/KodeverkForPanel.ts';
-import { createVisningsnavnForAndel } from '../../utils/createVisningsnavnForAktivitet.ts';
+import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import { createVisningsnavnForAndel } from '../../utils/createVisningsnavnForAktivitet';
 import { formaterStillingsprosenter, mapBeregningsgrunnlagTilArbeidsinntektVisning } from './arbeidsinntektUtils';
 
 describe('arbeidsinntektUtils', () => {

@@ -24,15 +24,15 @@ import { type BeregningFormValues, finnFormName, type FormNameType } from '../..
 import type { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunkt';
 import type { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/BeregningsgrunnlagAP';
 import type { VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
-import { AksjonspunktBehandlerAT } from '../arbeidstaker/AksjonspunktBehandlerAT.tsx';
-import { AksjonspunktBehandlerTidsbegrenset } from '../arbeidstaker/AksjonspunktBehandlerTidsbegrenset';
-import { AksjonspunktBehandlerFL } from '../frilanser/AksjonspunktBehandlerFL';
+import { AksjonspunktBehandlerAT } from '../ATFL/AksjonspunktBehandlerAT';
+import { AksjonspunktBehandlerFL } from '../ATFL/AksjonspunktBehandlerFL';
+import { AksjonspunktBehandlerTidsbegrenset } from '../ATFL/AksjonspunktBehandlerTidsbegrenset';
 import { ProsessStegSubmitButton } from '../ProsessStegSubmitButton';
-import { AksjonspunktsbehandlerSNEllerMidlertidigInaktiv } from '../selvstendigNaeringsdrivende/AksjonspunktsbehandlerSNEllerMidlertidigInaktiv';
+import { AksjonspunktBehandlerSNEllerMidlertidigInaktiv } from '../selvstendigNaeringsdrivende/AksjonspunktBehandlerSNEllerMidlertidigInaktiv';
 import { FastsettSNNyIArbeid } from '../selvstendigNaeringsdrivende/FastsettSNNyIArbeid';
 import { finnAPBeskrivelse, finnAPTittel } from './aksjonspunktHeaderUtils';
 import { ArbeidstakerEllerFrilansContainer } from './ArbeidstakerEllerFrilansContainer';
-import { finnLovparagrafForAksjonspunkt, LovParagraf, mapSammenligningtypeTilLovparagraf } from './lovparagrafUtils';
+import { finnLovparagraf, finnLovparagrafForAksjonspunkt, LovParagraf } from './lovparagrafUtils';
 import { SelvstendigNæringsdrivendeContainer } from './SelvstendigNæringsdrivendeContainer';
 
 const {
@@ -214,7 +214,7 @@ const buildInitialValues = (
     ...AksjonspunktBehandlerAT.buildInitialValues(andelerArbeidstaker),
   };
   const valuesSNEllerMidlInaktiv = {
-    ...AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.buildInitialValues(andelerSNEllerMidlInaktiv, avklaringsbehov),
+    ...AksjonspunktBehandlerSNEllerMidlertidigInaktiv.buildInitialValues(andelerSNEllerMidlInaktiv, avklaringsbehov),
   };
 
   switch (sammenligningsgrunnlag?.sammenligningsgrunnlagType) {
@@ -245,7 +245,7 @@ const buildFormInitialValues = (
     const vilkårsperiode = finnVilkårperiode(vilkår, bg.vilkårsperiodeFom)!;
     const avklaringsbehov = bg.avklaringsbehov.find(gjelderForParagraf(lovparagraf));
     const sammenligningsgrunnlag = bg.sammenligningsgrunnlagPrStatus?.find(
-      s => mapSammenligningtypeTilLovparagraf(s.sammenligningsgrunnlagType, bg.aktivitetStatus) === lovparagraf,
+      s => finnLovparagraf(s.sammenligningsgrunnlagType, bg.aktivitetStatus) === lovparagraf,
     );
 
     return {
@@ -328,7 +328,7 @@ const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunkt
     return [
       {
         kode: VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
-        aksjonspunktData: AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.transformValues(
+        aksjonspunktData: AksjonspunktBehandlerSNEllerMidlertidigInaktiv.transformValues(
           values as VurderOgFastsettValues,
           values.gjeldendeAvklaringsbehov,
         ),
@@ -339,7 +339,7 @@ const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunkt
     return [
       {
         kode: VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
-        aksjonspunktData: AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.transformValues(
+        aksjonspunktData: AksjonspunktBehandlerSNEllerMidlertidigInaktiv.transformValues(
           values as VurderOgFastsettValues,
           values.gjeldendeAvklaringsbehov,
         ),
@@ -350,7 +350,7 @@ const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunkt
     return [
       {
         kode: FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
-        aksjonspunktData: AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.transformValues(
+        aksjonspunktData: AksjonspunktBehandlerSNEllerMidlertidigInaktiv.transformValues(
           values as VurderOgFastsettValues,
           values.gjeldendeAvklaringsbehov,
         ),

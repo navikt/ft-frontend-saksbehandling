@@ -23,9 +23,9 @@ import type {
   FastsettAvvikATFLResultatAP,
   FastsettAvvikATFLTidsbegrensetResultatAP,
 } from '../../types/BeregningsgrunnlagAP';
-import { AksjonspunktBehandlerAT } from '../arbeidstaker/AksjonspunktBehandlerAT';
-import { AksjonspunktBehandlerTidsbegrenset } from '../arbeidstaker/AksjonspunktBehandlerTidsbegrenset';
-import { AksjonspunktBehandlerFL } from '../frilanser/AksjonspunktBehandlerFL';
+import { AksjonspunktBehandlerAT } from '../ATFL/AksjonspunktBehandlerAT';
+import { AksjonspunktBehandlerFL } from '../ATFL/AksjonspunktBehandlerFL';
+import { AksjonspunktBehandlerTidsbegrenset } from '../ATFL/AksjonspunktBehandlerTidsbegrenset';
 
 const { FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD } =
   AksjonspunktKode;
