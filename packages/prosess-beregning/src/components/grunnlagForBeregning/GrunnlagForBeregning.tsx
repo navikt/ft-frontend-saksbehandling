@@ -41,6 +41,7 @@ export const GrunnlagForBeregning = ({ beregningsgrunnlag, arbeidsgiverOpplysnin
         <Arbeidsinntekt
           beregningsgrunnlag={beregningsgrunnlag}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          kodeverkSamling={kodeverkSamling}
         />
       </VStack>
     </Box.New>

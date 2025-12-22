@@ -1,4 +1,4 @@
-export type Vilkårperiode = Readonly<{
+type Vilkårperiode = Readonly<{
   avslagKode?: string;
   begrunnelse?: string;
   vurderesIBehandlingen: boolean;

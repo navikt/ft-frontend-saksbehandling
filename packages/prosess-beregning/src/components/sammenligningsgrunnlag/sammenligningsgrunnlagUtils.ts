@@ -5,9 +5,7 @@ import norskFormat from 'dayjs/locale/nb';
 
 import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId, InntektsgrunnlagInntekt, InntektsgrunnlagMåned } from '@navikt/ft-types';
-import { capitalizeFirstLetter, ISO_DATE_FORMAT } from '@navikt/ft-utils';
-
-import { formaterArbeidsgiverNullable } from '../../utils/arbeidsgiverUtils';
+import { capitalizeFirstLetter, formaterArbeidsgiver, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 const mapDataPunkt =
   (inntektAType: InntektAktivitetType, arbeidsgiverIdent?: string) =>
@@ -80,7 +78,6 @@ const mapDataForFrilansEllerYtelse = (
 const mapDataForArbeid = (
   sammenligningsgrunnlagInntekter: InntektsgrunnlagMåned[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-  intl: IntlShape,
 ) => {
   const inntektAType = InntektAktivitetType.ARBEID;
 
@@ -95,9 +92,8 @@ const mapDataForArbeid = (
   );
 
   const inntektPerAg = new Map<string, number[]>();
-  const formaterArbeidsgiver = formaterArbeidsgiverNullable(arbeidsgiverOpplysningerPerId, intl);
   for (const arbeidsgiverIdent of arbeidsgiverer) {
-    const label = formaterArbeidsgiver(arbeidsgiverIdent);
+    const label = formaterArbeidsgiver(arbeidsgiverOpplysningerPerId[arbeidsgiverIdent]);
     inntektPerAg.set(label, sammenligningsgrunnlagInntekter.map(mapDataPunkt(inntektAType, arbeidsgiverIdent)));
   }
   return Object.fromEntries(inntektPerAg);
@@ -120,7 +116,7 @@ export const transformerGrafData = (
     intl,
   );
   const dataForYtelse = mapDataForFrilansEllerYtelse(utvidetSammenligningsgrunnlag, InntektAktivitetType.YTELSE, intl);
-  const dataForArbeid = mapDataForArbeid(utvidetSammenligningsgrunnlag, arbeidsgiverOpplysningerPerId, intl);
+  const dataForArbeid = mapDataForArbeid(utvidetSammenligningsgrunnlag, arbeidsgiverOpplysningerPerId);
   const periodeData = utvidetSammenligningsgrunnlag.map(periode => periode.fom);
   return { periodeData, dataForFrilans, dataForYtelse, dataForArbeid };
 };

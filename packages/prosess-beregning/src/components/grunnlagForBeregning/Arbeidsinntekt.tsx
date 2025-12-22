@@ -1,13 +1,13 @@
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BriefcaseFillIcon } from '@navikt/aksel-icons';
-import { BodyShort, Heading, HStack, Table, Tooltip } from '@navikt/ds-react';
+import { BodyShort, Detail, Heading, HStack, Table, Tooltip } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel, DateLabel, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
-import { BTag } from '@navikt/ft-utils';
 
-import { formaterArbeidsgiverNullable } from '../../utils/arbeidsgiverUtils';
+import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import { createVisningsnavnForAndel } from '../../utils/createVisningsnavnForAktivitet';
 import { mapBeregningsgrunnlagTilArbeidsinntektVisning } from './arbeidsinntektUtils';
 
 import styles from './arbeidsinntekt.module.css';
@@ -15,14 +15,15 @@ import styles from './arbeidsinntekt.module.css';
 interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  kodeverkSamling: KodeverkForPanel;
 }
 
-export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPerId }: Props) => {
+export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPerId, kodeverkSamling }: Props) => {
   const intl = useIntl();
 
   const arbeidsinntektVisninger = mapBeregningsgrunnlagTilArbeidsinntektVisning(
     beregningsgrunnlag,
-    formaterArbeidsgiverNullable(arbeidsgiverOpplysningerPerId, intl),
+    createVisningsnavnForAndel(arbeidsgiverOpplysningerPerId, kodeverkSamling),
   );
 
   if (arbeidsinntektVisninger.length === 0) {
@@ -41,27 +42,19 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell />
-            <Table.HeaderCell scope="col" align="right">
-              <BodyShort size="small">
-                <FormattedMessage
-                  id="Arbeidsinntekt.Table.Inntektsmelding"
-                  values={{
-                    br: <br key="break-line" />,
-                    b: BTag,
-                  }}
-                />
-              </BodyShort>
+
+            <Table.HeaderCell scope="col" textSize="small" align="right">
+              <FormattedMessage id="Arbeidsinntekt.Table.Inntektsmelding" />
+              <Detail>
+                <FormattedMessage id="Arbeidsinntekt.Table.Inntektsmelding.HelpText" />
+              </Detail>
             </Table.HeaderCell>
-            <Table.HeaderCell scope="col" align="right">
-              <BodyShort size="small">
-                <FormattedMessage
-                  id="Arbeidsinntekt.Table.Innrapportert"
-                  values={{
-                    br: <br key="break-line" />,
-                    b: BTag,
-                  }}
-                />
-              </BodyShort>
+
+            <Table.HeaderCell scope="col" textSize="small" align="right">
+              <FormattedMessage id="Arbeidsinntekt.Table.Innrapportert" />
+              <Detail>
+                <FormattedMessage id="Arbeidsinntekt.Table.Innrapportert.HelpText" />
+              </Detail>
             </Table.HeaderCell>
 
             <Table.HeaderCell scope="col" textSize="small" align="right">
@@ -108,7 +101,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
                 </div>
               }
             >
-              <Table.DataCell textSize="small">{visning.arbeidsgiverLabel}</Table.DataCell>
+              <Table.DataCell textSize="small">{visning.andelsLabel}</Table.DataCell>
               <Table.DataCell textSize="small" align="right">
                 <BeløpLabel beløp={visning.inntektsmeldingÅrsinntekt} kr />
               </Table.DataCell>
@@ -129,7 +122,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
             <Table.HeaderCell textSize="small" align="right">
               <BeløpLabel
                 beløp={arbeidsinntektVisninger.reduce(
-                  (acc, { inntektsmeldingÅrsinntekt }) => acc + inntektsmeldingÅrsinntekt,
+                  (acc, { inntektsmeldingÅrsinntekt }) => acc + (inntektsmeldingÅrsinntekt ?? 0),
                   0,
                 )}
                 kr
@@ -138,7 +131,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
             <Table.HeaderCell textSize="small" align="right">
               <BeløpLabel
                 beløp={arbeidsinntektVisninger.reduce(
-                  (acc, { beregningsgrunnlagÅrsinntekt }) => acc + beregningsgrunnlagÅrsinntekt,
+                  (acc, { beregningsgrunnlagÅrsinntekt }) => acc + (beregningsgrunnlagÅrsinntekt ?? 0),
                   0,
                 )}
                 kr
@@ -147,7 +140,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
             <Table.HeaderCell textSize="small" align="right">
               <BeløpLabel
                 beløp={arbeidsinntektVisninger.reduce(
-                  (acc, { sammenligningsgrunnlagÅrsinntekt }) => acc + sammenligningsgrunnlagÅrsinntekt,
+                  (acc, { sammenligningsgrunnlagÅrsinntekt }) => acc + (sammenligningsgrunnlagÅrsinntekt ?? 0),
                   0,
                 )}
                 kr

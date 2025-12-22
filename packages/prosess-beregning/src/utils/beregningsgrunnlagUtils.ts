@@ -1,12 +1,20 @@
-import type { Beregningsgrunnlag } from '@navikt/ft-types';
+import type { Beregningsgrunnlag, BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 
 import type { Vilkår } from '../types/Vilkår';
 
 export const erBGTilVurdering = (beregningsgrunnlag: Beregningsgrunnlag, beregningsgrunnlagsvilkår: Vilkår | null) => {
-  const vilårsperiodeFom = beregningsgrunnlag.vilkårsperiodeFom;
-  const perioderTilVurdering = (beregningsgrunnlagsvilkår?.perioder ?? []).filter(
-    periode => periode.vurderesIBehandlingen && !periode.erForlengelse,
-  );
+  const vilkårsperiodeFom = beregningsgrunnlag.vilkårsperiodeFom;
+  const perioderTilVurdering = beregningsgrunnlagsvilkår?.perioder
+    ? beregningsgrunnlagsvilkår.perioder.filter(periode => periode.vurderesIBehandlingen && !periode.erForlengelse)
+    : [];
+  return perioderTilVurdering.some(vkp => vkp.periode.fom === vilkårsperiodeFom);
+};
 
-  return perioderTilVurdering.some(vkp => vkp.periode.fom === vilårsperiodeFom);
+export const finnAlleAndelerIFørstePeriode = (
+  beregningsgrunnlagPeriode: BeregningsgrunnlagPeriodeProp[],
+): BeregningsgrunnlagAndel[] => {
+  if (beregningsgrunnlagPeriode.length > 0) {
+    return beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel ?? [];
+  }
+  return [];
 };

@@ -15,7 +15,7 @@ export const useSkjæringstidspunktTabs = (
 ) => {
   const tabOptions = lagSorterteOptionProps(beregningsgrunnlagListe, beregningsgrunnlagsvilkår);
 
-  const initialIndex = tabOptions.find(o => o.skalVurderes && o.harAvklaringsbehov)?.bgIndex ?? 0;
+  const initialIndex = tabOptions.find(o => o.skalVurderes && o.harAksjonspunkt)?.bgIndex ?? 0;
 
   const [aktivBGIndex, setAktivBGIndex] = useState(initialIndex);
 
@@ -34,7 +34,7 @@ const lagSorterteOptionProps = (
     .map((gr, index) => ({
       bgIndex: index,
       skalVurderes: erBGTilVurdering(gr, beregningsgrunnlagsvilkår),
-      harAvklaringsbehov: harAksjonspunktSomkanLøses(gr.avklaringsbehov),
+      harAksjonspunkt: harAksjonspunktSomkanLøses(gr.avklaringsbehov),
       skjæringstidspunkt: gr.skjaeringstidspunktBeregning,
       optionLabel: dateFormat(gr.skjaeringstidspunktBeregning),
     }))

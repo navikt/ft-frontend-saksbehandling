@@ -79,14 +79,6 @@ describe('sammenligningsgrunnlagUtils', () => {
       expect(dataForArbeid[BEDRIFT_B_MED_IDENT]).toEqual([0, 0, 20000, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     });
 
-    it('skal håndtere ukjent arbeidsgiver med formatert identifikator', () => {
-      const inntekter = [lagInntektsgrunnlagMåned('2025-01-01', [lagArbeidInntekt(30000, ARBEIDSGIVER_A)])];
-
-      const { dataForArbeid } = transformerGrafData(inntekter, SAMMENLIGNINGSGRUNNLAG_FOM, {}, intl);
-
-      expect(Object.keys(dataForArbeid)).toEqual([`Ukjent arbeidsgiver (${ARBEIDSGIVER_A})`]);
-    });
-
     it('skal returnere 0 for måneder uten inntekt for blandet inntektstyper', () => {
       const inntekter = [INNTEKTER_MAI];
 
