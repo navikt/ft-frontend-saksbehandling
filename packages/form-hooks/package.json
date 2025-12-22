@@ -30,8 +30,8 @@
     "@navikt/ft-utils": "workspace:^",
     "classnames": "2.5.1",
     "dayjs": "1.11.19",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "react-hook-form": "7.66.1"
   },
   "peerDependencies": {

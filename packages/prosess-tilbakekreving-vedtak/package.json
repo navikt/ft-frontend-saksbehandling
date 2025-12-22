@@ -31,7 +31,7 @@
     "@navikt/ft-ui-komponenter": "workspace:^",
     "@navikt/ft-utils": "workspace:^",
     "classnames": "2.5.1",
-    "react": "19.2.0",
+    "react": "19.2.3",
     "react-hook-form": "7.66.1",
     "react-intl": "7.1.14"
   },
