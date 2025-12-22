@@ -54,7 +54,6 @@ export const BeregningFP = ({
     <>
       <SammenligningOgFastsettelsePanel
         readOnly={readOnly || !skalVurderes(vilkår, aktivtBeregningsgrunnlag)}
-        sammenligningsgrunnlag={aktivtBeregningsgrunnlag.sammenligningsgrunnlagPrStatus || []}
         isSubmittable={isSubmittable}
         kodeverkSamling={kodeverkSamling}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}

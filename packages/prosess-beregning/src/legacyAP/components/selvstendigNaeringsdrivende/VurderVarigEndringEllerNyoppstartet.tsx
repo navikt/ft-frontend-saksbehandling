@@ -1,4 +1,3 @@
-import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
@@ -27,7 +26,6 @@ const {
 } = AksjonspunktKode;
 
 interface Props {
-  endretTekst?: React.ReactNode;
   readOnly: boolean;
   erVarigEndring?: boolean;
   erVarigEndretArbeidssituasjon?: boolean;

@@ -451,7 +451,7 @@ const meta = {
   component: BeregningProsessIndex,
   args: {
     submitCallback: action('submit') as (data: BeregningAksjonspunktSubmitType[]) => Promise<void>,
-    isSubmittable: false,
+    isSubmittable: true,
     kodeverkSamling: alleKodeverk as KodeverkForPanel,
     arbeidsgiverOpplysningerPerId,
     setFormData: () => undefined,

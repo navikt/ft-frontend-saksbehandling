@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { VStack } from '@navikt/ds-react';
 
-import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, SammenligningsgrunlagProp } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import type { KodeverkForPanel } from '../../../types/KodeverkForPanel';
 import type { Vilkår } from '../../../types/Vilkår';
@@ -16,7 +16,6 @@ interface Props {
   readOnly: boolean;
   kodeverkSamling: KodeverkForPanel;
   isSubmittable: boolean;
-  sammenligningsgrunnlag: SammenligningsgrunlagProp[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   beregningsgrunnlagListe: Beregningsgrunnlag[];
   vilkår: Vilkår;
@@ -81,7 +80,7 @@ export const SammenligningOgFastsettelsePanel = ({
   aktivIndex,
 }: Props) => {
   const gruppertPrLovparagraf = grupperPrLovparagraf(beregningsgrunnlagListe);
-  const [finnesFormSomSubmittes, setSubmitting] = useState(false);
+  const [finnesFormSomSubmittes, setFinnesFormSomSubmittes] = useState(false);
 
   const lagPanelForLovparagraf = (lovparagraf: LovParagraf) => {
     if (gruppertPrLovparagraf[lovparagraf] && gruppertPrLovparagraf[lovparagraf].length > 0) {
@@ -89,12 +88,12 @@ export const SammenligningOgFastsettelsePanel = ({
       const aktivPeriodeFom = beregningsgrunnlagListe[aktivIndex].vilkårsperiodeFom;
       const aktivtGrunnlagForLovparagraf = grunnlagForLovparagraf.find(bg => bg.vilkårsperiodeFom === aktivPeriodeFom);
 
-      const harAvklaringsbehovForLovparagraf = !!gruppertPrLovparagraf[lovparagraf].find(
-        bg => !!bg.avklaringsbehov.find(a => mapAvklaringsbehovTilLovparagraf(a) === lovparagraf),
+      const harAvklaringsbehovForLovparagraf = gruppertPrLovparagraf[lovparagraf].some(bg =>
+        bg.avklaringsbehov.some(a => mapAvklaringsbehovTilLovparagraf(a) === lovparagraf),
       );
-      const harAktivtAvklaringsbehovForLovparagraf =
-        aktivtGrunnlagForLovparagraf &&
-        !!aktivtGrunnlagForLovparagraf.avklaringsbehov.find(a => mapAvklaringsbehovTilLovparagraf(a) === lovparagraf);
+      const harAktivtAvklaringsbehovForLovparagraf = aktivtGrunnlagForLovparagraf?.avklaringsbehov.some(
+        a => mapAvklaringsbehovTilLovparagraf(a) === lovparagraf,
+      );
       const formName = finnFormName(lovparagraf);
 
       return (
@@ -114,7 +113,7 @@ export const SammenligningOgFastsettelsePanel = ({
                 setFormData={setFormData}
                 aktivIndex={aktivIndex}
                 finnesFormSomSubmittes={finnesFormSomSubmittes}
-                setSubmitting={setSubmitting}
+                setSubmitting={setFinnesFormSomSubmittes}
               />
             </div>
           )}

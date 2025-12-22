@@ -46,7 +46,7 @@ const gjelderForParagraf = (lovparagraf: LovParagraf) => (aksjonspunkt: Beregnin
   mapAvklaringsbehovTilLovparagraf(aksjonspunkt) === lovparagraf;
 
 const harAvklaringsbehovForLovparagraf = (avklaringsbehov: BeregningAvklaringsbehov[], lovparagraf: LovParagraf) =>
-  !!avklaringsbehov.find(gjelderForParagraf(lovparagraf));
+  avklaringsbehov.some(gjelderForParagraf(lovparagraf));
 
 const finnVilkårperiode = (vilkår: Vilkår, vilkårsperiodeFom: string): Vilkårperiode =>
   // @ts-expect-error Fiks

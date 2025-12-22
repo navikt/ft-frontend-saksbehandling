@@ -55,7 +55,7 @@ const getAvviksprosent = (
   sammenligningsgrunnlagPrStatus: SammenligningsgrunlagProp[],
 ): number => {
   const sg = getKorrektSammenligningsgrunnlagForAvklaringsbehov(avklaringsbehov, sammenligningsgrunnlagPrStatus);
-  const avvikProsent = sg && sg.avvikProsent ? sg.avvikProsent : 0;
+  const avvikProsent = sg?.avvikProsent ? sg.avvikProsent : 0;
   return Number(avvikProsent.toFixed(1));
 };
 
@@ -118,10 +118,9 @@ export const LegacyAksjonspunktTittel = ({ avklaringsbehov, beregningsgrunnlag }
   const førstePeriode = beregningsgrunnlag.beregningsgrunnlagPeriode
     ? beregningsgrunnlag.beregningsgrunnlagPeriode[0]
     : undefined;
-  const andelerIFørstePeriode =
-    førstePeriode && førstePeriode.beregningsgrunnlagPrStatusOgAndel
-      ? førstePeriode.beregningsgrunnlagPrStatusOgAndel
-      : [];
+  const andelerIFørstePeriode = førstePeriode?.beregningsgrunnlagPrStatusOgAndel
+    ? førstePeriode.beregningsgrunnlagPrStatusOgAndel
+    : [];
   const åpneAksjonspunkter = avklaringsbehov.filter(isAksjonspunktOpen);
   const harGrunnTilÅViseKomponent = definertOgIkkeTom(åpneAksjonspunkter) && definertOgIkkeTom(andelerIFørstePeriode);
   if (!harGrunnTilÅViseKomponent) {

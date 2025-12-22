@@ -1,4 +1,3 @@
-import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
@@ -24,7 +23,6 @@ const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
 const { FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET } = AksjonspunktKode;
 
 interface Props {
-  endretTekst?: React.ReactNode;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   erNyIArbeidslivet: boolean;
