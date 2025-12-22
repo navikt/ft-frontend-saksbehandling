@@ -4,7 +4,7 @@ import { hasAksjonspunkt, isAksjonspunktOpen } from '@navikt/ft-utils';
 import { AksjonspunktKode } from '../../../utils/aksjonspunkt';
 import type { FormNameType } from '../../types/BeregningFormValues';
 import type {
-  NyIArbeidslivetruttoNæringResultatAP,
+  NyIArbeidslivetBruttoNæringResultatAP,
   VurderVarigEndretNyoppstartetResultatAP,
 } from '../../types/BeregningsgrunnlagAP';
 import type { NyIArbeidslivetValues, VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
@@ -90,7 +90,7 @@ AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.buildInitialValues = (
 AksjonspunktsbehandlerSNEllerMidlertidigInaktiv.transformValues = (
   values: VurderOgFastsettValues | NyIArbeidslivetValues,
   gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[],
-): VurderVarigEndretNyoppstartetResultatAP | NyIArbeidslivetruttoNæringResultatAP => {
+): VurderVarigEndretNyoppstartetResultatAP | NyIArbeidslivetBruttoNæringResultatAP => {
   if (hasAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET, gjeldendeAvklaringsbehov)) {
     return FastsettSNNyIArbeid.transformValues(values as Required<NyIArbeidslivetValues>);
   }

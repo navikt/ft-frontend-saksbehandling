@@ -14,9 +14,6 @@ const {
   ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagKunEnTilVurderingAp5038,
 } = composeStories(stories);
 
-const scrollIntoViewMock = vi.fn();
-globalThis.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
-
 describe('LegacyAPForms', () => {
   it('skal bekrefte aksjonspunkt for avvik', async () => {
     const lagre = vi.fn();
@@ -26,10 +23,9 @@ describe('LegacyAPForms', () => {
     expect(await screen.findByText('Bekreft og fortsett')).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
-    // Årsgrunnlag arbeid
     expect(screen.getByText('Arbeidsinntekt')).toBeInTheDocument();
-    expect(screen.getAllByText('BEDRIFT AS (999999996)')).toHaveLength(2);
-    await userEvent.click(screen.getAllByText('BEDRIFT AS (999999996)')[0]);
+    expect(screen.getAllByText('TROSSIG NATURSTRIDIG TIGER AS (222222222)')).toHaveLength(2);
+    await userEvent.click(screen.getAllByText('TROSSIG NATURSTRIDIG TIGER AS (222222222)')[0]);
     expect(screen.getByText('28.11.2019 - 31.12.2070')).toBeInTheDocument();
 
     // Aksjonspunkt avvik
@@ -204,7 +200,7 @@ describe('LegacyAPForms', () => {
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     // Årsgrunnlag arbeid
-    expect(screen.getAllByText('Andeby bank (999999999)')).toHaveLength(2);
+    expect(screen.getAllByText('SAUEFABRIKK (333333333)')).toHaveLength(2);
 
     // Aksjonspunkt
     const alleInputfelt = screen.getAllByRole('textbox', { hidden: true });
@@ -275,7 +271,7 @@ describe('LegacyAPForms', () => {
     expect(knappNæring).toBeDisabled();
 
     // Årsgrunnlag arbeid
-    expect(screen.getAllByText('BEDRIFT AS (999999996)')).toHaveLength(2);
+    expect(screen.getAllByText('TROSSIG NATURSTRIDIG TIGER AS (222222222)')).toHaveLength(2);
 
     const alleInputfelt = screen.getAllByRole('textbox', { hidden: true });
 
@@ -303,8 +299,8 @@ describe('LegacyAPForms', () => {
     const begrunnelseNæringFelt = alleInputfeltEtterKlikk[5];
     await userEvent.type(bruttoNæringFelt, '260 000');
     await userEvent.type(begrunnelseNæringFelt, 'Min begrunnelse for vurdering av varig endring');
-    await expect(knappNæring).toBeEnabled();
-    await expect(knappATFL).toBeDisabled();
+    expect(knappNæring).toBeEnabled();
+    expect(knappATFL).toBeDisabled();
 
     expect(screen.getAllByText('Bekreft og fortsett')[1]).toBeEnabled();
     await userEvent.click(screen.getAllByText('Bekreft og fortsett')[1]);

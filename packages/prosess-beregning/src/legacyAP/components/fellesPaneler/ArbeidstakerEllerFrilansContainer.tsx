@@ -23,7 +23,7 @@ import type {
   FastsettAvvikATFLTidsbegrensetResultatAP,
 } from '../../types/BeregningsgrunnlagAP';
 import { AksjonspunktBehandlerAT } from '../arbeidstaker/AksjonspunktBehandlerAT';
-import { AksjonspunktBehandlerTidsbegrenset } from '../arbeidstaker/AksjonspunktBehandlerTidsbegrenset.tsx';
+import { AksjonspunktBehandlerTidsbegrenset } from '../arbeidstaker/AksjonspunktBehandlerTidsbegrenset';
 import { AksjonspunktBehandlerFL } from '../frilanser/AksjonspunktBehandlerFL';
 import { finnAlleAndelerIFørstePeriode } from './aksjonspunktBehandlerUtils';
 

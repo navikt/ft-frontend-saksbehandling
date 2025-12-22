@@ -1,4 +1,4 @@
-import { type ReactElement, useEffect, useRef } from 'react';
+import { type ReactElement, useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 import { VStack } from '@navikt/ds-react';
@@ -12,7 +12,7 @@ import type {
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
 import { AksjonspunktBoks, usePrevious } from '@navikt/ft-ui-komponenter';
-import { hasAksjonspunkt, isAksjonspunktOpen } from '@navikt/ft-utils';
+import { hasAksjonspunkt } from '@navikt/ft-utils';
 
 import type { KodeverkForPanel } from '../../../types/KodeverkForPanel';
 import type { Vilkår, Vilkårperiode } from '../../../types/Vilkår';
@@ -23,7 +23,7 @@ import { type BeregningFormValues, finnFormName, type FormNameType } from '../..
 import type { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunkt';
 import type { BeregningAksjonspunktSubmitType, GruppertAksjonspunktData } from '../../types/BeregningsgrunnlagAP';
 import type { VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
-import { AksjonspunktBehandlerTidsbegrenset } from '../arbeidstaker/AksjonspunktBehandlerTidsbegrenset.tsx';
+import { AksjonspunktBehandlerTidsbegrenset } from '../arbeidstaker/AksjonspunktBehandlerTidsbegrenset';
 import { GrunnlagForAarsinntektPanelAT } from '../arbeidstaker/GrunnlagForAarsinntektPanelAT';
 import { AksjonspunktBehandlerFL } from '../frilanser/AksjonspunktBehandlerFL';
 import { ProsessStegSubmitButton } from '../ProsessStegSubmitButton';
@@ -160,13 +160,7 @@ const grupperPåKode = (
 ): BeregningAksjonspunktSubmitType[] => {
   curr.aksjonspunkter.forEach(ap => {
     const eksisterende = gruppert.find(gruppertAp => gruppertAp.kode === ap.kode);
-    if (eksisterende !== undefined) {
-      eksisterende.grunnlag.push({
-        periode: curr.periode,
-        ...ap.aksjonspunktData,
-      });
-      eksisterende.begrunnelse = `${eksisterende.begrunnelse} ${ap.aksjonspunktData.begrunnelse}`;
-    } else {
+    if (eksisterende === undefined) {
       gruppert.push({
         kode: ap.kode,
         begrunnelse: ap.aksjonspunktData.begrunnelse,
@@ -177,6 +171,12 @@ const grupperPåKode = (
           },
         ],
       });
+    } else {
+      eksisterende.grunnlag.push({
+        periode: curr.periode,
+        ...ap.aksjonspunktData,
+      });
+      eksisterende.begrunnelse = `${eksisterende.begrunnelse} ${ap.aksjonspunktData.begrunnelse}`;
     }
   });
   return gruppert;
@@ -194,6 +194,7 @@ const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunkt
     return p1.beregningsgrunnlagPeriodeFom.localeCompare(p2.beregningsgrunnlagPeriodeFom);
   });
   const alleAndelerIFørstePeriode = allePerioder[0].beregningsgrunnlagPrStatusOgAndel ?? [];
+
   if (hasAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, values.gjeldendeAvklaringsbehov)) {
     return [
       {
@@ -333,32 +334,12 @@ export const AksjonspunktBehandler = ({
     }
   }, [totaltAntallAvklaringsbehov, formData, resetForm, setSubmitting, forrigeAntallAvklaringsbehov]);
 
-  const {
-    formState: { dirtyFields },
-    control,
-    trigger,
-  } = formMethods;
+  const { control } = formMethods;
 
   const { fields } = useFieldArray({
     name: formName,
     control,
   });
-
-  const panelRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (finnesFormSomSubmittes && dirtyFields[formName]?.[aktivIndex]) {
-      trigger();
-    }
-    // TODO: finn ut av sortering og bruk av bgIndex
-    const aktivtBG = beregningsgrunnlagListe[aktivIndex];
-    if (
-      aktivtBG.avklaringsbehov.some(
-        aksjonspunkt => gjelderForParagraf(lovparagraf)(aksjonspunkt) && isAksjonspunktOpen(aksjonspunkt),
-      )
-    ) {
-      panelRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
-    }
-  }, [aktivIndex]);
 
   const formKomponent = (
     index: number,
@@ -398,46 +379,44 @@ export const AksjonspunktBehandler = ({
   const aktivtStp = beregningsgrunnlagListe[aktivIndex].vilkårsperiodeFom;
 
   return (
-    <div ref={panelRef}>
-      <RhfForm
-        formMethods={formMethods}
-        onSubmit={values => losAvklaringsbehov(values, lovparagraf)}
-        setDataOnUnmount={setFormData}
-      >
-        {fields.map((field, index) => {
-          const beregningsgrunnlag = bgSomSkalVurderes[index];
-          const aksjonspunktForLovparagraf = beregningsgrunnlag.avklaringsbehov.find(gjelderForParagraf(lovparagraf));
+    <RhfForm
+      formMethods={formMethods}
+      onSubmit={values => losAvklaringsbehov(values, lovparagraf)}
+      setDataOnUnmount={setFormData}
+    >
+      {fields.map((field, index) => {
+        const beregningsgrunnlag = bgSomSkalVurderes[index];
+        const aksjonspunktForLovparagraf = beregningsgrunnlag.avklaringsbehov.find(gjelderForParagraf(lovparagraf));
 
-          if (!aksjonspunktForLovparagraf) {
-            return null;
-          }
+        if (!aksjonspunktForLovparagraf) {
+          return null;
+        }
 
-          return (
-            <div
-              key={field.id}
-              style={{ display: beregningsgrunnlag.vilkårsperiodeFom === aktivtStp ? 'block' : 'none' }}
+        return (
+          <div
+            key={field.id}
+            style={{ display: beregningsgrunnlag.vilkårsperiodeFom === aktivtStp ? 'block' : 'none' }}
+          >
+            <AksjonspunktBoks
+              tittel={finnAPTittel(aksjonspunktForLovparagraf, beregningsgrunnlag)}
+              beskrivelse={finnAPBeskrivelse(aksjonspunktForLovparagraf, beregningsgrunnlag)}
+              aksjonspunkt={aksjonspunktForLovparagraf}
             >
-              <AksjonspunktBoks
-                tittel={finnAPTittel(aksjonspunktForLovparagraf, beregningsgrunnlag)}
-                beskrivelse={finnAPBeskrivelse(aksjonspunktForLovparagraf, beregningsgrunnlag)}
-                aksjonspunkt={aksjonspunktForLovparagraf}
-              >
-                <VStack gap="space-16">
-                  {formKomponent(index, aksjonspunktForLovparagraf)}
-                  <div>
-                    <ProsessStegSubmitButton
-                      isReadOnly={readOnly}
-                      isSubmittable={isSubmittable}
-                      isDirty={formMethods.formState.isDirty}
-                      isSubmitting={finnesFormSomSubmittes}
-                    />
-                  </div>
-                </VStack>
-              </AksjonspunktBoks>
-            </div>
-          );
-        })}
-      </RhfForm>
-    </div>
+              <VStack gap="space-16">
+                {formKomponent(index, aksjonspunktForLovparagraf)}
+                <div>
+                  <ProsessStegSubmitButton
+                    isReadOnly={readOnly}
+                    isSubmittable={isSubmittable}
+                    isDirty={formMethods.formState.isDirty}
+                    isSubmitting={finnesFormSomSubmittes}
+                  />
+                </div>
+              </VStack>
+            </AksjonspunktBoks>
+          </div>
+        );
+      })}
+    </RhfForm>
   );
 };

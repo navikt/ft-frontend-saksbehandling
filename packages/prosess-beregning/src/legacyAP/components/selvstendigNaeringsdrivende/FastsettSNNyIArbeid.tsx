@@ -12,7 +12,7 @@ import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '
 
 import { AksjonspunktKode } from '../../../utils/aksjonspunkt';
 import type { BeregningFormValues, FormNameType } from '../../types/BeregningFormValues';
-import type { NyIArbeidslivetruttoNæringResultatAP } from '../../types/BeregningsgrunnlagAP';
+import type { NyIArbeidslivetBruttoNæringResultatAP } from '../../types/BeregningsgrunnlagAP';
 import type { NyIArbeidslivetValues } from '../../types/NæringAksjonspunkt';
 
 const MAX_LENGTH = 4000;
@@ -106,7 +106,7 @@ FastsettSNNyIArbeid.buildInitialValues = (
 
 FastsettSNNyIArbeid.transformValues = (
   values: Required<NyIArbeidslivetValues>,
-): NyIArbeidslivetruttoNæringResultatAP => ({
+): NyIArbeidslivetBruttoNæringResultatAP => ({
   begrunnelse: values[begrunnelseFieldname],
   bruttoBeregningsgrunnlag: removeSpacesFromNumber(values[fastsettInntektFieldname]),
 });

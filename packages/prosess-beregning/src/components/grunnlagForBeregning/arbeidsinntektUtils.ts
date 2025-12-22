@@ -45,7 +45,6 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
   const sammenligningsgrunnlagInntekter = grupperSummerteInntekterPerArbeidsgiver(
     inntektsgrunnlag?.sammenligningsgrunnlagInntekter,
   );
-
   return relevanteAndeler.map(andel => {
     const arbeidsgiverIdent = andel.arbeidsforhold?.arbeidsgiverIdent;
     return {
@@ -59,9 +58,15 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
         : undefined,
       sisteLønnsendringsdato: andel.arbeidsforhold?.sisteLønnsendringsdato,
       formatertStillingsprosenter: formaterStillingsprosenter(andel.arbeidsforhold?.stillingsprosenter),
-      inntektsmeldingÅrsinntekt: (andel.arbeidsforhold?.belopFraInntektsmeldingPrMnd ?? 0) * 12,
-      beregningsgrunnlagÅrsinntekt: arbeidsgiverIdent ? beregningsgrunnlagInntekter[arbeidsgiverIdent] : 0,
-      sammenligningsgrunnlagÅrsinntekt: arbeidsgiverIdent ? sammenligningsgrunnlagInntekter[arbeidsgiverIdent] : 0,
+      inntektsmeldingÅrsinntekt: andel.arbeidsforhold?.belopFraInntektsmeldingPrMnd
+        ? andel.arbeidsforhold.belopFraInntektsmeldingPrMnd * 12
+        : undefined,
+      beregningsgrunnlagÅrsinntekt: arbeidsgiverIdent
+        ? (beregningsgrunnlagInntekter[arbeidsgiverIdent] as number | undefined)
+        : 0,
+      sammenligningsgrunnlagÅrsinntekt: arbeidsgiverIdent
+        ? (sammenligningsgrunnlagInntekter[arbeidsgiverIdent] as number | undefined)
+        : 0,
     };
   });
 };

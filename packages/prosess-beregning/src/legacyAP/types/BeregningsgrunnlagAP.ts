@@ -34,12 +34,12 @@ export type VurderVarigEndretNyoppstartetResultatAP = {
   bruttoBeregningsgrunnlag?: number;
 } & Begrunnelse;
 
-export type NyIArbeidslivetruttoNæringResultatAP = {
+export type NyIArbeidslivetBruttoNæringResultatAP = {
   bruttoBeregningsgrunnlag: number;
 } & Begrunnelse;
 
 type BeregningsgrunnlagResultatAP =
-  | NyIArbeidslivetruttoNæringResultatAP
+  | NyIArbeidslivetBruttoNæringResultatAP
   | VurderVarigEndretNyoppstartetResultatAP
   | FastsettAvvikATFLTidsbegrensetResultatAP
   | FastsettAvvikATFLResultatAP;
