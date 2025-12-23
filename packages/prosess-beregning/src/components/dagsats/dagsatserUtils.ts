@@ -150,7 +150,7 @@ export const utledTabellData = ({
 };
 
 const finnRekkefølgePrioritet = (andel: TabellRadData): number => {
-  const pri = statusKonfigMap[andel.aktivitetStatus]?.vekt;
+  const pri = statusKonfigMap[andel.aktivitetStatus];
   return pri || 100; // Default settes veldig høyt så den havner nederst i tabellen
 };
 
