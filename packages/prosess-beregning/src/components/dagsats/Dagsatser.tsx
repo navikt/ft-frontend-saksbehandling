@@ -17,8 +17,6 @@ interface Props {
 }
 
 export const Dagsatser = ({ beregningsgrunnlag, beregningsgrunnlagsvilkår, kodeverkSamling }: Props) => {
-  console.log({ beregningsgrunnlag, beregningsgrunnlagsvilkår });
-
   const vilkårsperiode = finnVilkårperiode(beregningsgrunnlagsvilkår, beregningsgrunnlag.vilkårsperiodeFom);
   const tabellData = utledTabellData(beregningsgrunnlag);
   return (

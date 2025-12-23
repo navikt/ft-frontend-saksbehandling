@@ -8,7 +8,7 @@ import type { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@na
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import type { KodeverkForPanel } from '../../../types/KodeverkForPanel';
-import { andelErIkkeTilkommetEllerLagtTilAvSBH } from '../../../utils/beregningsgrunnlagUtils.ts';
+import { andelErIkkeTilkommetEllerLagtTilAvSBH } from '../../../utils/beregningsgrunnlagUtils';
 import { createVisningsnavnForAndel } from '../../../utils/createVisningsnavnForAktivitet';
 import type { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
 import type { BeregningFormValues, FormNameType } from '../../types/BeregningFormValues';

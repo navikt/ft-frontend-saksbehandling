@@ -25,7 +25,6 @@ type Story = StoryObj<typeof meta>;
 export const FastsattBGMedUtregnetDagsatser: Story = {
   args: {
     beregningsgrunnlag: {
-      vilkårsperiodeFom: '2024-10-16',
       avklaringsbehov: [
         {
           definisjon: 'VURDER_VARIG_ENDRT_NYOPPSTR_NAERNG_SN',

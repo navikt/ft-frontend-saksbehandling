@@ -91,7 +91,7 @@ export const Dagsats = ({
                 />
               </Table.DataCell>
               <Table.DataCell textSize="small" align="right">
-                <BeløpLabel beløp={-finnTotalInntekt(tabellPeriode.andeler) + beregningsgrunnlag.grunnbeløp * 6} kr />)
+                <BeløpLabel beløp={-finnTotalInntekt(tabellPeriode.andeler) + beregningsgrunnlag.grunnbeløp * 6} kr />
               </Table.DataCell>
             </Table.Row>
           )}
@@ -181,6 +181,6 @@ export const Dagsats = ({
 
 const formaterAktivitetStatus = (andel: TabellRadData, kodeverkSamling: KodeverkForPanel) => {
   const aktivitetStatus =
-    kodeverkSamling['AktivitetStatus'].find(as => as.kode == andel.aktivitetStatus)?.navn ?? andel.aktivitetStatus;
+    kodeverkSamling['AktivitetStatus'].find(as => as.kode === andel.aktivitetStatus)?.navn ?? andel.aktivitetStatus;
   return <FormattedMessage id="Dagsats.FastsattÅrsinntekt" values={{ aktivitetStatus }} />;
 };
