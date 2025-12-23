@@ -14,6 +14,8 @@ import { DagsatsResultat } from './DagsatsResultat';
 import type { TabellData, TabellRadData } from './dagsatsTabell';
 import { statusKonfigMap } from './statusKonfig.ts';
 
+import styles from './dagsats.module.css';
+
 interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
   vilkårsperiode: Vilkårperiode;
@@ -38,7 +40,7 @@ export const Dagsats = ({ beregningsgrunnlag, vilkårsperiode, tabellPeriode, sk
           />
         </Label>
       )}
-      <Table size="small">
+      <Table size="small" className={styles.table}>
         <Table.Body>
           {tabellPeriode.andeler.map(rad => (
             <Fragment key={`andel_${rad.aktivitetStatus}`}>
@@ -66,19 +68,19 @@ export const Dagsats = ({ beregningsgrunnlag, vilkårsperiode, tabellPeriode, sk
                   </Table.DataCell>
                 </Table.Row>
               )}
-              {skalViseOppsummeringsrad && (
-                // TODO: Legg inn et skille over denne slik at man skjønner at det er en sum
-                <Table.Row shadeOnHover={false}>
-                  <Table.DataCell textSize="small">
-                    <FormattedMessage id="Dagsats.TotalÅrsinntekt" />
-                  </Table.DataCell>
-                  <Table.DataCell textSize="small" align="right">
-                    <BeløpLabel beløp={finnTotalInntekt(tabellPeriode.andeler)} kr />
-                  </Table.DataCell>
-                </Table.Row>
-              )}
             </Fragment>
           ))}
+          {skalViseOppsummeringsrad && (
+            // TODO: Legg inn et skille over denne slik at man skjønner at det er en sum
+            <Table.Row shadeOnHover={false} data-row-type="summary">
+              <Table.DataCell textSize="small">
+                <FormattedMessage id="Dagsats.TotalÅrsinntekt" />
+              </Table.DataCell>
+              <Table.DataCell textSize="small" align="right">
+                <BeløpLabel beløp={finnTotalInntekt(tabellPeriode.andeler)} kr />
+              </Table.DataCell>
+            </Table.Row>
+          )}
         </Table.Body>
         {erAlleAndelerFastsatt && !erIkkeVurdert && (
           <DagsatsResultat

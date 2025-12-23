@@ -1,0 +1,22 @@
+
+.table {
+  tbody:has(tr[data-row-type="summary"]) {
+    border-bottom-color: var(--a-border-default);
+    border-bottom-style: double;
+    border-bottom-width: 3px;
+  }
+
+  tbody:has(tr[data-row-type="summary"]) tr:nth-last-child(2) td {
+    border-color: var(--a-border-default);
+    border-width: thin;
+  }
+
+  tbody tr:not(tr[data-row-type="summary"]) td {
+    padding-left: 15px;
+  }
+
+  tfoot tr:first-child th {
+    padding-top: 32px;
+  }
+
+}
