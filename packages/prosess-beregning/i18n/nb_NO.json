@@ -73,23 +73,18 @@
   "ReadonlyAPGraderingUtenBG.Begrunnelse": "Begrunnelse",
 
   "Dagsats.Tittel": "Beregning av dagsats",
-  "Dagsats.Arbeid": "Fastsatt årsinntekt - arbeidstaker",
-  "Dagsats.BeregnetDagsats": "Dagsats ({inntekt}/260 dager)",
+
+  "Dagsats.BeregnetDagsats": "Dagsats",
+  "Dagsats.BeregnetDagsats.Utregning": "{inntekt}/260 dager = {dagsats}",
   "Dagsats.Periode": "Periode {periode}",
-  "Dagsats.Frilans": "Fastsatt årsinntekt - frilans",
-  "Dagsats.Næring": "Fastsatt årsinntekt - næring",
-  "Dagsats.Dagpenger": "Fastsatt årsinntekt - dagpenger",
-  "Dagsats.SykepengerAvDagpenger": "Fastsatt årsinntekt - sykepenger av dagpenger",
-  "Dagsats.PleiepengerAvDagpenger": "Fastsatt årsinntekt - pleiepenger av dagpenger",
-  "Dagsats.Arbeidsavklaringspenger": "Fastsatt årsinntekt - arbeidsavklaringspenger",
-  "Dagsats.Militær": "Fastsatt årsinntekt - militær",
-  "Dagsats.BrukersAndel": "Fastsatt årsinntekt - brukers andel",
-  "Dagsats.Ytelse": "Fastsatt årsinntekt - ytelse",
+
+  "Dagsats.FastsattÅrsinntekt": "Fastsatt årsinntekt - {aktivitetStatus}",
+
   "Dagsats.IkkeBeregnet": "Ikke beregnet",
   "Dagsats.Naturalytelser": "Naturalytelser",
-  "Dagsats.TotalÅrsinntekt": "Total årsinntekt",
-  "Dagsats.Avkortet": "Årsinntekt redusert til 6G på skjæringstidspunktet",
-  "Dagsats.Redusert": "Årsinntekt redusert til 80% dekningsgrad",
+  "Dagsats.TotalÅrsinntekt": "{erRedusert, select, true {Årsinntekt etter reduksjon } other {Total årsinntekt}}  ",
+  "Dagsats.AvkortetOver6G": "Inntekt over 6G = {grunnbeløp}",
+  "Dagsats.Redusert": "Reduksjon for 80% dekningsgrad",
   "Dagsats.VilkårIkkeOppfylt": "Beløpet er under 1/2 G (G = {grunnbeløp}) - søker har ikke rett til ytelse",
   "Dagsats.VilkårIkkeOppfyltMidlertidigInaktiv": "Beløpet er under 1 G (G = {grunnbeløp}) - søker har ikke rett til ytelse"
 }

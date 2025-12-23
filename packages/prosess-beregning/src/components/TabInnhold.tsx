@@ -15,7 +15,7 @@ import { Sammenligningsgrunnlag } from './sammenligningsgrunnlag/Sammenligningsg
 interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  beregningsgrunnlagsvilkår: Vilkår | null;
+  beregningsgrunnlagsvilkår: Vilkår;
   kodeverkSamling: KodeverkForPanel;
 }
 export const TabInnhold = ({
@@ -51,9 +51,12 @@ export const TabInnhold = ({
       <ReadonlyAPGraderingUtenBG
         avklaringsbehov={avklaringsbehov.find(medAPKode(AksjonspunktKode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG))}
       />
-      {beregningsgrunnlagsvilkår && (
-        <Dagsatser beregningsgrunnlag={beregningsgrunnlag} beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår} />
-      )}
+
+      <Dagsatser
+        beregningsgrunnlag={beregningsgrunnlag}
+        beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
+        kodeverkSamling={kodeverkSamling}
+      />
     </VStack>
   );
 };

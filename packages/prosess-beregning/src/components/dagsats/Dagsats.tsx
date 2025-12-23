@@ -1,18 +1,23 @@
 import { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { ErrorMessage, Label, Table, VStack } from '@navikt/ds-react';
+import { Alert, ErrorMessage, HStack, Label, Spacer, Table, VStack } from '@navikt/ds-react';
 
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { periodFormat } from '@navikt/ft-utils';
 
 import { VilkårUtfallType } from '../../kodeverk/vilkårUtfallType';
+import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import type { Vilkårperiode } from '../../types/Vilkår';
-import { finnTotalInntekt } from './dagsatserUtils';
-import { DagsatsResultat } from './DagsatsResultat';
+import {
+  erBruttoOver6G,
+  erMidlertidigInaktiv,
+  finnDagsats,
+  finnTotalEllerAvkortetInntekt,
+  finnTotalInntekt,
+} from './dagsatserUtils';
 import type { TabellData, TabellRadData } from './dagsatsTabell';
-import { statusKonfigMap } from './statusKonfig.ts';
 
 import styles from './dagsats.module.css';
 
@@ -21,12 +26,21 @@ interface Props {
   vilkårsperiode: Vilkårperiode;
   tabellPeriode: TabellData;
   skalVisePeriode: boolean;
+  kodeverkSamling: KodeverkForPanel;
 }
 
-export const Dagsats = ({ beregningsgrunnlag, vilkårsperiode, tabellPeriode, skalVisePeriode }: Props) => {
+export const Dagsats = ({
+  beregningsgrunnlag,
+  vilkårsperiode,
+  tabellPeriode,
+  skalVisePeriode,
+  kodeverkSamling,
+}: Props) => {
   const erAlleAndelerFastsatt = tabellPeriode.andeler.every(andel => andel.erFerdigBeregnet);
-  const skalViseOppsummeringsrad = tabellPeriode.andeler.length > 1 && erAlleAndelerFastsatt;
+  const harBruttoOver6G = erBruttoOver6G(tabellPeriode.andeler, beregningsgrunnlag.grunnbeløp);
+  const harDekningsgradUlik100 = beregningsgrunnlag.dekningsgrad !== 100;
   const erIkkeVurdert = vilkårsperiode.vilkarStatus === VilkårUtfallType.IKKE_VURDERT;
+  const erIkkeOppfylt = vilkårsperiode.vilkarStatus === VilkårUtfallType.IKKE_OPPFYLT;
 
   return (
     <VStack gap="space-8">
@@ -45,9 +59,7 @@ export const Dagsats = ({ beregningsgrunnlag, vilkårsperiode, tabellPeriode, sk
           {tabellPeriode.andeler.map(rad => (
             <Fragment key={`andel_${rad.aktivitetStatus}`}>
               <Table.Row shadeOnHover={false}>
-                <Table.DataCell textSize="small">
-                  <StatusBeskrivelse andel={rad} />
-                </Table.DataCell>
+                <Table.DataCell textSize="small">{formaterAktivitetStatus(rad, kodeverkSamling)}</Table.DataCell>
                 <Table.DataCell textSize="small" align="right">
                   {rad.erFerdigBeregnet ? (
                     <BeløpLabel beløp={rad.inntekt} kr />
@@ -70,31 +82,105 @@ export const Dagsats = ({ beregningsgrunnlag, vilkårsperiode, tabellPeriode, sk
               )}
             </Fragment>
           ))}
-          {skalViseOppsummeringsrad && (
-            // TODO: Legg inn et skille over denne slik at man skjønner at det er en sum
-            <Table.Row shadeOnHover={false} data-row-type="summary">
+          {!erIkkeVurdert && harBruttoOver6G && (
+            <Table.Row shadeOnHover={false}>
               <Table.DataCell textSize="small">
-                <FormattedMessage id="Dagsats.TotalÅrsinntekt" />
+                <FormattedMessage
+                  id="Dagsats.AvkortetOver6G"
+                  values={{ grunnbeløp: <BeløpLabel beløp={beregningsgrunnlag.grunnbeløp * 6} kr /> }}
+                />
               </Table.DataCell>
               <Table.DataCell textSize="small" align="right">
-                <BeløpLabel beløp={finnTotalInntekt(tabellPeriode.andeler)} kr />
+                <BeløpLabel beløp={-finnTotalInntekt(tabellPeriode.andeler) + beregningsgrunnlag.grunnbeløp * 6} kr />)
+              </Table.DataCell>
+            </Table.Row>
+          )}
+
+          {!erIkkeVurdert && harDekningsgradUlik100 && (
+            <Table.Row shadeOnHover={false}>
+              <Table.DataCell textSize="small">
+                <FormattedMessage id="Dagsats.Redusert" />
+              </Table.DataCell>
+              <Table.DataCell textSize="small" align="right">
+                <BeløpLabel beløp={-finnTotalInntekt(tabellPeriode.andeler) * 0.2} kr />
               </Table.DataCell>
             </Table.Row>
           )}
         </Table.Body>
-        {erAlleAndelerFastsatt && !erIkkeVurdert && (
-          <DagsatsResultat
-            tabellPeriode={tabellPeriode}
-            vilkårsperiode={vilkårsperiode}
-            beregningsgrunnlag={beregningsgrunnlag}
-          />
+        {erAlleAndelerFastsatt && (
+          <tfoot>
+            <Table.Row shadeOnHover={false}>
+              <Table.DataCell textSize="small">
+                <FormattedMessage
+                  id="Dagsats.TotalÅrsinntekt"
+                  values={{ erRedusert: harBruttoOver6G || harDekningsgradUlik100 }}
+                />
+              </Table.DataCell>
+              <Table.DataCell textSize="small" align="right">
+                <BeløpLabel
+                  beløp={finnTotalEllerAvkortetInntekt(tabellPeriode, harBruttoOver6G, harDekningsgradUlik100)}
+                  kr
+                />
+              </Table.DataCell>
+            </Table.Row>
+          </tfoot>
         )}
       </Table>
+
+      {erAlleAndelerFastsatt && !erIkkeVurdert && (
+        <HStack data-row-type="summary">
+          <Label size="small">
+            <FormattedMessage
+              id="Dagsats.BeregnetDagsats"
+              values={{
+                inntekt: (
+                  <BeløpLabel
+                    beløp={finnTotalEllerAvkortetInntekt(tabellPeriode, harBruttoOver6G, harDekningsgradUlik100)}
+                    kr
+                  />
+                ),
+              }}
+            />
+          </Label>
+          <Spacer />
+          <Label size="small">
+            <FormattedMessage
+              id="Dagsats.BeregnetDagsats.Utregning"
+              values={{
+                inntekt: (
+                  <BeløpLabel
+                    beløp={finnTotalEllerAvkortetInntekt(tabellPeriode, harBruttoOver6G, harDekningsgradUlik100)}
+                    kr
+                  />
+                ),
+                dagsats: (
+                  <BeløpLabel beløp={finnDagsats(tabellPeriode, beregningsgrunnlag.ytelsesspesifiktGrunnlag)} kr />
+                ),
+              }}
+            />
+          </Label>
+        </HStack>
+      )}
+      {erIkkeOppfylt && (
+        <Alert variant="error" size="small" inline>
+          <FormattedMessage
+            id={
+              erMidlertidigInaktiv(beregningsgrunnlag)
+                ? 'Dagsats.VilkårIkkeOppfyltMidlertidigInaktiv'
+                : 'Dagsats.VilkårIkkeOppfylt'
+            }
+            values={{
+              grunnbeløp: <BeløpLabel beløp={beregningsgrunnlag.grunnbeløp} kr />,
+            }}
+          />
+        </Alert>
+      )}
     </VStack>
   );
 };
 
-export const StatusBeskrivelse = ({ andel }: { andel: TabellRadData }) => {
-  const beskrivelseId = statusKonfigMap[andel.aktivitetStatus]?.beskrivelseId;
-  return beskrivelseId ? <FormattedMessage id={beskrivelseId} /> : 'Ukjent andel';
+const formaterAktivitetStatus = (andel: TabellRadData, kodeverkSamling: KodeverkForPanel) => {
+  const aktivitetStatus =
+    kodeverkSamling['AktivitetStatus'].find(as => as.kode == andel.aktivitetStatus)?.navn ?? andel.aktivitetStatus;
+  return <FormattedMessage id="Dagsats.FastsattÅrsinntekt" values={{ aktivitetStatus }} />;
 };

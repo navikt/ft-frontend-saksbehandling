@@ -154,7 +154,7 @@ const finnRekkefølgePrioritet = (andel: TabellRadData): number => {
   return pri || 100; // Default settes veldig høyt så den havner nederst i tabellen
 };
 
-export const sorterAndelerEtterPrioritet = (a: TabellRadData, b: TabellRadData) =>
+const sorterAndelerEtterPrioritet = (a: TabellRadData, b: TabellRadData) =>
   finnRekkefølgePrioritet(a) - finnRekkefølgePrioritet(b);
 
 export const erBruttoOver6G = (andeler: TabellRadData[], grunnbeløp: number): boolean =>
@@ -167,7 +167,7 @@ export const finnTotalInntekt = (andeler: TabellRadData[]): number =>
   andeler.reduce((sum, andel) => (andel.inntektPlussNaturalytelse || 0) + sum, 0);
 
 // TODO: Sjekk at dette faktisk er det som skal vises fram
-export const finnTotalInntektEllerAvkortetInntekt = (
+export const finnTotalEllerAvkortetInntekt = (
   tabellData: TabellData,
   harBruttoOver6G: boolean,
   harDekningsgradUlik100: boolean,
