@@ -9,26 +9,23 @@ import { periodFormat } from '@navikt/ft-utils';
 
 import { VilkårUtfallType } from '../../kodeverk/vilkårUtfallType';
 import type { Vilkårperiode } from '../../types/Vilkår';
-import { finnStatusBeskrivelse, finnTotalInntekt, sorterAndelerEtterPrioritet } from './dagsatserUtils';
+import { finnTotalInntekt } from './dagsatserUtils';
 import { DagsatsResultat } from './DagsatsResultat';
-import type { TabellData } from './dagsatsTabell';
+import type { TabellData, TabellRadData } from './dagsatsTabell';
+import { statusKonfigMap } from './statusKonfig.ts';
 
 interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
   vilkårsperiode: Vilkårperiode;
-  tabellData: TabellData;
+  tabellPeriode: TabellData;
   skalVisePeriode: boolean;
 }
 
-export const Dagsats = ({ beregningsgrunnlag, vilkårsperiode, tabellData, skalVisePeriode }: Props) => {
-  sorterAndelerEtterPrioritet(tabellData.andeler);
-
-  const erAlleAndelerFastsatt = tabellData.andeler.every(andel => andel.erFerdigBeregnet);
-  const skalViseOppsummeringsrad = tabellData.andeler.length > 1 && erAlleAndelerFastsatt;
+export const Dagsats = ({ beregningsgrunnlag, vilkårsperiode, tabellPeriode, skalVisePeriode }: Props) => {
+  const erAlleAndelerFastsatt = tabellPeriode.andeler.every(andel => andel.erFerdigBeregnet);
+  const skalViseOppsummeringsrad = tabellPeriode.andeler.length > 1 && erAlleAndelerFastsatt;
   const erIkkeVurdert = vilkårsperiode.vilkarStatus === VilkårUtfallType.IKKE_VURDERT;
 
-  // TODO: Usikker på om tabellen er ok UU-messig. Sjekke ut om man må gjøre noe annet mtp tekststørrelser og strukturen
-  // TODO: Fjerne alle BodyShort, og legg props i Table.DataCell direkte
   return (
     <VStack gap="space-8">
       {skalVisePeriode && (
@@ -36,18 +33,18 @@ export const Dagsats = ({ beregningsgrunnlag, vilkårsperiode, tabellData, skalV
           <FormattedMessage
             id="Dagsats.Periode"
             values={{
-              periode: periodFormat(tabellData.fom, tabellData.tom),
+              periode: periodFormat(tabellPeriode.fom, tabellPeriode.tom),
             }}
           />
         </Label>
       )}
       <Table size="small">
         <Table.Body>
-          {tabellData.andeler.map(rad => (
+          {tabellPeriode.andeler.map(rad => (
             <Fragment key={`andel_${rad.aktivitetStatus}`}>
               <Table.Row shadeOnHover={false}>
                 <Table.DataCell textSize="small">
-                  <FormattedMessage id={finnStatusBeskrivelse(rad)} />
+                  <StatusBeskrivelse andel={rad} />
                 </Table.DataCell>
                 <Table.DataCell textSize="small" align="right">
                   {rad.erFerdigBeregnet ? (
@@ -76,7 +73,7 @@ export const Dagsats = ({ beregningsgrunnlag, vilkårsperiode, tabellData, skalV
                     <FormattedMessage id="Dagsats.TotalÅrsinntekt" />
                   </Table.DataCell>
                   <Table.DataCell textSize="small" align="right">
-                    <BeløpLabel beløp={finnTotalInntekt(tabellData.andeler)} kr />
+                    <BeløpLabel beløp={finnTotalInntekt(tabellPeriode.andeler)} kr />
                   </Table.DataCell>
                 </Table.Row>
               )}
@@ -85,7 +82,7 @@ export const Dagsats = ({ beregningsgrunnlag, vilkårsperiode, tabellData, skalV
         </Table.Body>
         {erAlleAndelerFastsatt && !erIkkeVurdert && (
           <DagsatsResultat
-            tabellData={tabellData}
+            tabellPeriode={tabellPeriode}
             vilkårsperiode={vilkårsperiode}
             beregningsgrunnlag={beregningsgrunnlag}
           />
@@ -93,4 +90,9 @@ export const Dagsats = ({ beregningsgrunnlag, vilkårsperiode, tabellData, skalV
       </Table>
     </VStack>
   );
+};
+
+export const StatusBeskrivelse = ({ andel }: { andel: TabellRadData }) => {
+  const beskrivelseId = statusKonfigMap[andel.aktivitetStatus]?.beskrivelseId;
+  return beskrivelseId ? <FormattedMessage id={beskrivelseId} /> : 'Ukjent andel';
 };

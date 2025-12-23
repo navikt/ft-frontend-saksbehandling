@@ -16,7 +16,7 @@ const {
 
 const finnAPBeskrivelseSN = (beregningsgrunnlagPeriode: BeregningsgrunnlagPeriodeProp[]) => {
   const alleAndelerIFørstePeriode = finnAlleAndelerIFørstePeriode(beregningsgrunnlagPeriode);
-  const snAndel = alleAndelerIFørstePeriode.find(andel => andel.aktivitetStatus && andel.aktivitetStatus === 'SN');
+  const snAndel = alleAndelerIFørstePeriode.find(andel => andel.aktivitetStatus === 'SN');
   const erNyoppstartet = (snAndel?.næringer ?? []).some(naring => naring.erNyoppstartet === true);
   if (erNyoppstartet) {
     return <FormattedMessage id="AksjonspunktBehandlerHeader.Detaljer.Nyoppstartet" />;

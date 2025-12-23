@@ -1,7 +1,7 @@
 import type { AktivitetStatus } from '@navikt/ft-types';
 
 type StatusKonfigEntry = {
-  rekkefølgePri: number;
+  vekt: number;
   beskrivelseId: string;
 };
 
@@ -11,43 +11,43 @@ type StatusKonfig = Partial<Record<AktivitetStatus, StatusKonfigEntry>>;
 // Visningsrekkefølge på statuser i tabellen. Lavere tall = høyere opp i tabellen
 export const statusKonfigMap: StatusKonfig = {
   AT: {
-    rekkefølgePri: 1,
+    vekt: 1,
     beskrivelseId: 'Dagsats.Arbeid',
   },
   FL: {
-    rekkefølgePri: 2,
+    vekt: 2,
     beskrivelseId: 'Dagsats.Frilans',
   },
   DP: {
-    rekkefølgePri: 3,
+    vekt: 3,
     beskrivelseId: 'Dagsats.Dagpenger',
   },
   SP_AV_DP: {
-    rekkefølgePri: 3,
+    vekt: 3,
     beskrivelseId: 'Dagsats.SykepengerAvDagpenger',
   },
   PSB_AV_DP: {
-    rekkefølgePri: 3,
+    vekt: 3,
     beskrivelseId: 'Dagsats.PleiepengerAvDagpenger',
   },
   AAP: {
-    rekkefølgePri: 4,
+    vekt: 4,
     beskrivelseId: 'Dagsats.Arbeidsavklaringspenger',
   },
   KUN_YTELSE: {
-    rekkefølgePri: 5,
+    vekt: 5,
     beskrivelseId: 'Dagsats.Ytelse',
   },
   MS: {
-    rekkefølgePri: 6,
+    vekt: 6,
     beskrivelseId: 'Dagsats.Militær',
   },
   BA: {
-    rekkefølgePri: 7,
+    vekt: 7,
     beskrivelseId: 'Dagsats.BrukersAndel',
   },
   SN: {
-    rekkefølgePri: 8,
+    vekt: 8,
     beskrivelseId: 'Dagsats.Næring',
   },
 };

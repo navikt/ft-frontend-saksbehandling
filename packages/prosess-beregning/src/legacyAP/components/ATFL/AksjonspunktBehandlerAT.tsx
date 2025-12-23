@@ -8,6 +8,7 @@ import type { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel } from '@na
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import type { KodeverkForPanel } from '../../../types/KodeverkForPanel';
+import { andelErIkkeTilkommetEllerLagtTilAvSBH } from '../../../utils/beregningsgrunnlagUtils.ts';
 import { createVisningsnavnForAndel } from '../../../utils/createVisningsnavnForAktivitet';
 import type { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
 import type { BeregningFormValues, FormNameType } from '../../types/BeregningFormValues';
@@ -87,13 +88,6 @@ AksjonspunktBehandlerAT.transformValues = (
     return { inntektPrAndelList };
   }
   return { inntektPrAndelList: [] };
-};
-
-const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
-  if (andel.overstyrtPrAar !== null && andel.overstyrtPrAar !== undefined) {
-    return true;
-  }
-  return andel.erTilkommetAndel === false && andel.lagtTilAvSaksbehandler === false;
 };
 
 const finnAndelerSomSkalVisesAT = (andeler: BeregningsgrunnlagAndel[]): BeregningsgrunnlagAndel[] => {

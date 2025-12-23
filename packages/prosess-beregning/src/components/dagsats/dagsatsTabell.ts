@@ -11,8 +11,8 @@ export type TabellRadData = {
 export type TabellData = {
   fom: string;
   tom?: string;
-  redusertPrÅr?: number;
-  avkortetPrÅr?: number;
+  redusertPrAar?: number;
+  avkortetPrAar?: number;
   dagsats?: number;
   årsak: string[];
   andeler: TabellRadData[];

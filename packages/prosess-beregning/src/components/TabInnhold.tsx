@@ -5,7 +5,7 @@ import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/
 import { LegacyAksjonspunktTittel } from '../legacyAP/LegacyAksjonspunktTittel';
 import type { KodeverkForPanel } from '../types/KodeverkForPanel';
 import type { Vilkår } from '../types/Vilkår';
-import { AksjonspunktKode } from '../utils/aksjonspunkt';
+import { AksjonspunktKode, medAPKode } from '../utils/aksjonspunkt';
 import { ReadonlyAPGraderingUtenBG } from './aksjonspunkt/utgåttAP/ReadonlyAPGraderingUtenBG';
 import { Avviksberegninger } from './avviksberegning/Avviksberegninger';
 import { Dagsatser } from './dagsats/Dagsatser';
@@ -49,9 +49,7 @@ export const TabInnhold = ({
       )}
 
       <ReadonlyAPGraderingUtenBG
-        avklaringsbehov={avklaringsbehov.find(
-          ap => ap.definisjon === AksjonspunktKode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG,
-        )}
+        avklaringsbehov={avklaringsbehov.find(medAPKode(AksjonspunktKode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG))}
       />
       {beregningsgrunnlagsvilkår && (
         <Dagsatser beregningsgrunnlag={beregningsgrunnlag} beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår} />

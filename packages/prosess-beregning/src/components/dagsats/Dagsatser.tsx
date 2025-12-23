@@ -23,12 +23,12 @@ export const Dagsatser = ({ beregningsgrunnlag, beregningsgrunnlagsvilkår }: Pr
         <Heading size="small" level="4">
           <FormattedMessage id="Dagsats.Tittel" />
         </Heading>
-        {tabellData.map(data => (
+        {tabellData.map(tabellPeriode => (
           <Dagsats
-            key={data.fom}
+            key={tabellPeriode.fom}
             beregningsgrunnlag={beregningsgrunnlag}
             vilkårsperiode={vilkårsperiode}
-            tabellData={data}
+            tabellPeriode={tabellPeriode}
             skalVisePeriode={tabellData.length > 1}
           />
         ))}

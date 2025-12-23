@@ -9,7 +9,7 @@ import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr, isAksjonspunktOpen, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { AksjonspunktKode } from '../../../utils/aksjonspunkt';
+import { AksjonspunktKode, medAPKode } from '../../../utils/aksjonspunkt';
 import type { BeregningFormValues, FormNameType } from '../../types/BeregningFormValues';
 import type { VurderVarigEndretNyoppstartetResultatAP } from '../../types/BeregningsgrunnlagAP';
 import type { VurderOgFastsettValues } from '../../types/NæringAksjonspunkt';
@@ -122,9 +122,10 @@ VurderVarigEndringEllerNyoppstartet.buildInitialValues = (
     andel => andel.aktivitetStatus === 'SN' || andel.aktivitetStatus === 'BA',
   );
   const varigEndretNaeringAP = avklaringsbehov.find(
-    ap =>
-      ap.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE ||
-      ap.definisjon === VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
+    medAPKode(
+      VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+      VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
+    ),
   );
   if (varigEndretNaeringAP) {
     const erVarigEndringValgt = isAksjonspunktOpen(varigEndretNaeringAP)

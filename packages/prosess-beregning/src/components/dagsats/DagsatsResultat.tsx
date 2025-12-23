@@ -4,7 +4,7 @@ import { Alert, Table } from '@navikt/ds-react';
 
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
-import { BTag, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { VilkårUtfallType } from '../../kodeverk/vilkårUtfallType';
 import type { Vilkårperiode } from '../../types/Vilkår';
@@ -19,15 +19,15 @@ import type { TabellData } from './dagsatsTabell';
 const DEKNINGSGRAD_HUNDRE = 100;
 
 interface Props {
-  tabellData: TabellData;
+  tabellPeriode: TabellData;
   vilkårsperiode: Vilkårperiode;
   beregningsgrunnlag: Beregningsgrunnlag;
 }
 
-export const DagsatsResultat = ({ tabellData, vilkårsperiode, beregningsgrunnlag }: Props) => {
+export const DagsatsResultat = ({ tabellPeriode, vilkårsperiode, beregningsgrunnlag }: Props) => {
   const erIkkeOppfylt = vilkårsperiode.vilkarStatus === VilkårUtfallType.IKKE_OPPFYLT;
 
-  const harBruttoOver6G = erBruttoOver6G(tabellData.andeler, beregningsgrunnlag.grunnbeløp);
+  const harBruttoOver6G = erBruttoOver6G(tabellPeriode.andeler, beregningsgrunnlag.grunnbeløp);
   const harDekningsgradUlik100 = beregningsgrunnlag.dekningsgrad !== DEKNINGSGRAD_HUNDRE;
 
   // TODO: Vurder en annen type varsel for ikke oppfylt vilkår, denne er bare kopiert fra forrige
@@ -45,7 +45,6 @@ export const DagsatsResultat = ({ tabellData, vilkårsperiode, beregningsgrunnla
                 }
                 values={{
                   grunnbeløp: formatCurrencyNoKr(beregningsgrunnlag.grunnbeløp),
-                  b: BTag,
                 }}
               />
             </Alert>
@@ -60,7 +59,7 @@ export const DagsatsResultat = ({ tabellData, vilkårsperiode, beregningsgrunnla
                 <FormattedMessage id="Dagsats.Avkortet" />
               </Table.DataCell>
               <Table.DataCell textSize="small" align="right">
-                <BeløpLabel beløp={tabellData.avkortetPrÅr} kr />
+                <BeløpLabel beløp={tabellPeriode.avkortetPrAar} kr />
               </Table.DataCell>
             </Table.Row>
           )}
@@ -71,7 +70,7 @@ export const DagsatsResultat = ({ tabellData, vilkårsperiode, beregningsgrunnla
                 <FormattedMessage id="Dagsats.Redusert" />
               </Table.DataCell>
               <Table.DataCell textSize="small" align="right">
-                <BeløpLabel beløp={tabellData.redusertPrÅr} kr />
+                <BeløpLabel beløp={tabellPeriode.redusertPrAar} kr />
               </Table.DataCell>
             </Table.Row>
           )}
@@ -82,7 +81,11 @@ export const DagsatsResultat = ({ tabellData, vilkårsperiode, beregningsgrunnla
                 values={{
                   inntekt: (
                     <BeløpLabel
-                      beløp={finnTotalInntektEllerAvkortetInntekt(tabellData, harBruttoOver6G, harDekningsgradUlik100)}
+                      beløp={finnTotalInntektEllerAvkortetInntekt(
+                        tabellPeriode,
+                        harBruttoOver6G,
+                        harDekningsgradUlik100,
+                      )}
                       kr
                     />
                   ),
@@ -90,7 +93,7 @@ export const DagsatsResultat = ({ tabellData, vilkårsperiode, beregningsgrunnla
               />
             </Table.HeaderCell>
             <Table.HeaderCell scope="row" textSize="small" align="right">
-              <BeløpLabel beløp={finnDagsats(tabellData, beregningsgrunnlag.ytelsesspesifiktGrunnlag)} kr />
+              <BeløpLabel beløp={finnDagsats(tabellPeriode, beregningsgrunnlag.ytelsesspesifiktGrunnlag)} kr />
             </Table.HeaderCell>
           </Table.Row>
         </>
