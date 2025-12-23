@@ -15,7 +15,7 @@ import type {
 } from '@navikt/ft-types';
 
 import type { KodeverkForPanel } from '../../../types/KodeverkForPanel';
-import { AksjonspunktKode } from '../../../utils/aksjonspunkt';
+import { AksjonspunktKode, medAPKode } from '../../../utils/aksjonspunkt';
 import { finnAlleAndelerIFørstePeriode } from '../../../utils/beregningsgrunnlagUtils';
 import type { ATFLBegrunnelseValues, ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
 import type { BeregningFormValues, FormNameType } from '../../types/BeregningFormValues';
@@ -30,13 +30,12 @@ import { AksjonspunktBehandlerTidsbegrenset } from '../ATFL/AksjonspunktBehandle
 const { FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD } =
   AksjonspunktKode;
 
-const finnAksjonspunktForATFL = (
-  gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[],
-): BeregningAvklaringsbehov | undefined =>
-  gjeldendeAvklaringsbehov?.find(
-    ap =>
-      ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS ||
-      ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
+const finnAksjonspunktForATFL = (gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[]) =>
+  gjeldendeAvklaringsbehov.find(
+    medAPKode(
+      FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+      FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
+    ),
   );
 
 const minLength3 = minLength(3);

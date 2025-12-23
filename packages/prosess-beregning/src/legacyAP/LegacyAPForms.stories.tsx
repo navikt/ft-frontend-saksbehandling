@@ -306,11 +306,11 @@ const malPeriode = (
 
 const malPerioder = (
   andelsliste: BeregningsgrunnlagAndel[],
-  skjæringstidspunkt?: string,
-  dagerEtter?: number,
+  skjæringstidspunkt: string = STP,
+  dagerEtter: number = 20,
 ): BeregningsgrunnlagPeriodeProp[] => [
-  lagPeriode(andelsliste, [], skjæringstidspunkt || STP, etterDato(skjæringstidspunkt || STP, dagerEtter || 20), 999),
-  lagPeriode(andelsliste, [], etterDato(skjæringstidspunkt || STP, dagerEtter ? dagerEtter + 1 : 21), undefined, 0),
+  lagPeriode(andelsliste, [], skjæringstidspunkt, etterDato(skjæringstidspunkt, dagerEtter), 999),
+  lagPeriode(andelsliste, [], etterDato(skjæringstidspunkt, dagerEtter + 1), undefined, 0),
 ];
 
 const lagSammenligningsGrunnlag = (

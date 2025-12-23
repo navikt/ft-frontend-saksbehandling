@@ -1,0 +1,23 @@
+.table {
+  /* indent på 'Fastsatt årsinntekt'-rader */
+
+  tbody {
+    tr td {
+      padding-left: 25px;
+    }
+  }
+
+  /* borders på 'Total årsinntekt'-raden */
+
+  tfoot {
+    border-bottom-style: double;
+    border-bottom-width: 3px;
+    border-color: var(--a-border-default);
+    border-top-style: solid;
+    border-top-width: 2px;
+
+    td {
+      font-weight: 600;
+    }
+  }
+}

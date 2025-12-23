@@ -9,7 +9,7 @@ import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { AksjonspunktKode } from '../../../utils/aksjonspunkt';
+import { AksjonspunktKode, medAPKode } from '../../../utils/aksjonspunkt';
 import type { BeregningFormValues, FormNameType } from '../../types/BeregningFormValues';
 import type { NyIArbeidslivetBruttoNæringResultatAP } from '../../types/BeregningsgrunnlagAP';
 import type { NyIArbeidslivetValues } from '../../types/NæringAksjonspunkt';
@@ -93,9 +93,7 @@ FastsettSNNyIArbeid.buildInitialValues = (
   avklaringsbehov: BeregningAvklaringsbehov[],
 ): NyIArbeidslivetValues => {
   const snAndel = relevanteAndeler.find(andel => andel.aktivitetStatus === 'SN');
-  const nyIArbeidslivetAP = avklaringsbehov.find(
-    ap => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
-  );
+  const nyIArbeidslivetAP = avklaringsbehov.find(medAPKode(FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET));
   return {
     [fastsettInntektFieldname]: snAndel ? formatCurrencyNoKr(snAndel.overstyrtPrAar) : undefined,
     [begrunnelseFieldname]: nyIArbeidslivetAP?.begrunnelse ? nyIArbeidslivetAP.begrunnelse : undefined,

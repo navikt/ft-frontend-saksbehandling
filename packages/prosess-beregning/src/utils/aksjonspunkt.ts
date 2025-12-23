@@ -21,3 +21,8 @@ const beregningAksjonspunkter = new Set([
 
 export const harAksjonspunktSomkanLøses = (aksjonspunkter: Aksjonspunkt[]) =>
   aksjonspunkter.some(ap => beregningAksjonspunkter.has(ap.definisjon as AksjonspunktKode) && ap.kanLoses);
+
+export const medAPKode =
+  (...apKode: AksjonspunktKode[]) =>
+  (ap: Aksjonspunkt) =>
+    apKode.includes(ap.definisjon as AksjonspunktKode);

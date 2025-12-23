@@ -18,3 +18,11 @@ export const finnAlleAndelerIFørstePeriode = (
   }
   return [];
 };
+
+// TODO: verifiser med Cecilie om overstyrte andeler alltid skal inkluderes uavhengig om tilkommen
+export const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
+  if (andel.overstyrtPrAar !== null && andel.overstyrtPrAar !== undefined) {
+    return true;
+  }
+  return andel.erTilkommetAndel === false && andel.lagtTilAvSaksbehandler === false;
+};
