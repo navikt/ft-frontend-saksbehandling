@@ -70,5 +70,20 @@
   "Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst": "Forklar hvordan du har kommet frem til beregningsgrunnlaget og hvilke vurderinger du har gjort. Beskriv hvorfor det er avvik og hvilken inntekt som kan legges til grunn. Dette skal gjøres i henhold til lovhjemmel.",
   "ProsessStegSubmitButton.Label": "Bekreft og fortsett",
   "ReadonlyAPGraderingUtenBG.Tittel": "Saksbehandler har tidligere vurdert om fordeling av inntekt er korrekt grunnet en andel uten utbetaling som skal graderes.",
-  "ReadonlyAPGraderingUtenBG.Begrunnelse": "Begrunnelse"
+  "ReadonlyAPGraderingUtenBG.Begrunnelse": "Begrunnelse",
+
+  "Dagsats.Tittel": "Beregning av dagsats",
+
+  "Dagsats.BeregnetDagsats": "<b>Dagsats</b> ({inntekt}/260 dager)",
+  "Dagsats.Periode": "Periode {periode}",
+
+  "Dagsats.FastsattÅrsinntekt": "Fastsatt årsinntekt - {aktivitetStatus}",
+
+  "Dagsats.IkkeBeregnet": "Ikke beregnet",
+  "Dagsats.Naturalytelser": "Naturalytelser",
+  "Dagsats.TotalÅrsinntekt": "{erRedusert, select, true {Årsinntekt etter reduksjon } other {Total årsinntekt}}",
+  "Dagsats.AvkortetOver6G": "Inntekt over 6G = {grunnbeløp}",
+  "Dagsats.Redusert": "Reduksjon for 80% dekningsgrad",
+  "Dagsats.VilkårIkkeOppfylt": "Beløpet er under 1/2 G (G = {grunnbeløp}) - søker har ikke rett til ytelse",
+  "Dagsats.VilkårIkkeOppfyltMidlertidigInaktiv": "Beløpet er under 1 G (G = {grunnbeløp}) - søker har ikke rett til ytelse"
 }

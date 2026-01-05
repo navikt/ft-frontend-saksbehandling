@@ -6,7 +6,7 @@ import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { dateFormat } from '@navikt/ft-utils';
 
 import type { Vilkår } from '../types/Vilkår';
-import { harAksjonspunktSomkanLøses } from '../utils/aksjonspunkt';
+import { harAksjonspunktSomKanLøses } from '../utils/aksjonspunkt';
 import { erBGTilVurdering } from '../utils/beregningsgrunnlagUtils';
 
 export const useSkjæringstidspunktTabs = (
@@ -34,7 +34,7 @@ const lagSorterteOptionProps = (
     .map((gr, index) => ({
       bgIndex: index,
       skalVurderes: erBGTilVurdering(gr, beregningsgrunnlagsvilkår),
-      harAksjonspunkt: harAksjonspunktSomkanLøses(gr.avklaringsbehov),
+      harAksjonspunkt: harAksjonspunktSomKanLøses(gr.avklaringsbehov),
       skjæringstidspunkt: gr.skjaeringstidspunktBeregning,
       optionLabel: dateFormat(gr.skjaeringstidspunktBeregning),
     }))

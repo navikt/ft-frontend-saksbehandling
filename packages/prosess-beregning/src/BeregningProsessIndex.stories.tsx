@@ -6,6 +6,7 @@ import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import { arbeidsgiverOpplysningerPerId } from '../testdata/arbeidsgivere';
 import { arbeidstakerFPEttArbeidsforhold } from '../testdata/arbeidstakerFPEttArbeidsforhold';
 import { arbeidstakerFPFlereArbeidsforhold } from '../testdata/arbeidstakerFPFlereArbeidsforhold';
+import { selvstendigNæringsdrivendeFP } from '../testdata/selvstendigNæringsdrivendeFP';
 import { BeregningProsessIndex } from './BeregningProsessIndex';
 import type { BeregningAksjonspunktSubmitType } from './legacyAP/types/BeregningsgrunnlagAP';
 import type { KodeverkForPanel } from './types/KodeverkForPanel';
@@ -58,5 +59,11 @@ export const ToGrunnlagHvorEnHarÅpentAP: Story = {
 export const ArbeidstakerMedFlereArbeidsforhold: Story = {
   args: {
     ...arbeidstakerFPFlereArbeidsforhold,
+  },
+};
+
+export const SelvstendigNæringsdrivendeFP: Story = {
+  args: {
+    ...selvstendigNæringsdrivendeFP,
   },
 };
