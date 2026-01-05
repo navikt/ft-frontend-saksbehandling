@@ -69,7 +69,7 @@ const beregningsgrunnlag: Beregningsgrunnlag = {
               opphørsdato: '9999-12-31',
               kanRegnskapsførerKontaktes: false,
               erNyIArbeidslivet: false,
-              oppgittInntekt: 48.0,
+              oppgittInntekt: 48,
             },
           ],
         },
@@ -80,14 +80,14 @@ const beregningsgrunnlag: Beregningsgrunnlag = {
     {
       sammenligningsgrunnlagFom: '2024-09-01',
       sammenligningsgrunnlagTom: '2024-09-30',
-      rapportertPrAar: 48.0,
+      rapportertPrAar: 48,
       avvikPromille: 999.8510042,
       avvikProsent: 99.98510042,
       sammenligningsgrunnlagType: 'SAMMENLIGNING_SN',
-      differanseBeregnet: 322109.0,
+      differanseBeregnet: 322109,
     },
   ],
-  grunnbeløp: 124028.0,
+  grunnbeløp: 124028,
   faktaOmBeregning: {
     saksopplysninger: {
       lønnsendringSaksopplysning: [],
@@ -134,7 +134,7 @@ const beregningsgrunnlag: Beregningsgrunnlag = {
         inntekter: [
           {
             pgiType: 'LØNN',
-            beløp: 250000.0,
+            beløp: 250000,
           },
         ],
       },
@@ -143,11 +143,11 @@ const beregningsgrunnlag: Beregningsgrunnlag = {
         inntekter: [
           {
             pgiType: 'NÆRING',
-            beløp: 100000.0,
+            beløp: 100000,
           },
           {
             pgiType: 'LØNN',
-            beløp: 100000.0,
+            beløp: 100000,
           },
         ],
       },
@@ -156,11 +156,11 @@ const beregningsgrunnlag: Beregningsgrunnlag = {
         inntekter: [
           {
             pgiType: 'NÆRING',
-            beløp: 200000.0,
+            beløp: 200000,
           },
           {
             pgiType: 'LØNN',
-            beløp: 200000.0,
+            beløp: 200000,
           },
         ],
       },
