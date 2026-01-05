@@ -19,7 +19,7 @@ const beregningAksjonspunkter = new Set([
   AksjonspunktKode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
 ]);
 
-export const harAksjonspunktSomkanLøses = (aksjonspunkter: Aksjonspunkt[]) =>
+export const harAksjonspunktSomKanLøses = (aksjonspunkter: Aksjonspunkt[]) =>
   aksjonspunkter.some(ap => beregningAksjonspunkter.has(ap.definisjon as AksjonspunktKode) && ap.kanLoses);
 
 export const medAPKode =

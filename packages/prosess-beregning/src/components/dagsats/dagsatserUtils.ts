@@ -31,7 +31,7 @@ const finnForeslåttBeløp = (andel: BeregningsgrunnlagAndel): number => {
   if (andel.overstyrtPrAar || andel.overstyrtPrAar === 0) {
     return andel.overstyrtPrAar;
   }
-  return andel.beregnetPrAar || 0;
+  return andel.beregnetPrAar ?? 0;
 };
 
 const finnAksjonspunktForStatus = (
@@ -71,8 +71,8 @@ const finnNaturalytelsebeløp = ({ arbeidsforhold }: BeregningsgrunnlagAndel): n
 };
 
 const erBeregnet = ({ beregnetPrAar, pgiSnitt }: BeregningsgrunnlagAndel): boolean => {
-  const beregnetErSatt = !!beregnetPrAar || beregnetPrAar === 0;
-  const pgiErSatt = !!pgiSnitt || pgiSnitt === 0;
+  const beregnetErSatt = beregnetPrAar !== undefined && beregnetPrAar !== null;
+  const pgiErSatt = pgiSnitt !== undefined && pgiSnitt !== null;
   return beregnetErSatt || pgiErSatt;
 };
 

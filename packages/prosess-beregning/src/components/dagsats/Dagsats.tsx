@@ -42,6 +42,11 @@ export const Dagsats = ({
   const erIkkeVurdert = vilkårsperiode.vilkarStatus === VilkårUtfallType.IKKE_VURDERT;
   const erIkkeOppfylt = vilkårsperiode.vilkarStatus === VilkårUtfallType.IKKE_OPPFYLT;
 
+  const totalEllerAvkortetInntekt = finnTotalEllerAvkortetInntekt(
+    tabellPeriode,
+    harBruttoOver6G,
+    harDekningsgradUlik100,
+  );
   return (
     <VStack gap="space-8">
       {skalVisePeriode && (
@@ -117,10 +122,7 @@ export const Dagsats = ({
                 />
               </Table.DataCell>
               <Table.DataCell textSize="small" align="right">
-                <BeløpLabel
-                  beløp={finnTotalEllerAvkortetInntekt(tabellPeriode, harBruttoOver6G, harDekningsgradUlik100)}
-                  kr
-                />
+                <BeløpLabel beløp={totalEllerAvkortetInntekt} kr />
               </Table.DataCell>
             </Table.Row>
           </tfoot>
@@ -133,12 +135,7 @@ export const Dagsats = ({
             <FormattedMessage
               id="Dagsats.BeregnetDagsats"
               values={{
-                inntekt: (
-                  <BeløpLabel
-                    beløp={finnTotalEllerAvkortetInntekt(tabellPeriode, harBruttoOver6G, harDekningsgradUlik100)}
-                    kr
-                  />
-                ),
+                inntekt: <BeløpLabel beløp={totalEllerAvkortetInntekt} kr />,
               }}
             />
           </Label>
@@ -147,12 +144,7 @@ export const Dagsats = ({
             <FormattedMessage
               id="Dagsats.BeregnetDagsats.Utregning"
               values={{
-                inntekt: (
-                  <BeløpLabel
-                    beløp={finnTotalEllerAvkortetInntekt(tabellPeriode, harBruttoOver6G, harDekningsgradUlik100)}
-                    kr
-                  />
-                ),
+                inntekt: <BeløpLabel beløp={totalEllerAvkortetInntekt} kr />,
                 dagsats: (
                   <BeløpLabel beløp={finnDagsats(tabellPeriode, beregningsgrunnlag.ytelsesspesifiktGrunnlag)} kr />
                 ),
