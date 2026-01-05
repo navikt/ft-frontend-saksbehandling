@@ -1,11 +1,11 @@
 import { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Alert, ErrorMessage, HStack, Label, Spacer, Table, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, ErrorMessage, HStack, Label, Spacer, Table, VStack } from '@navikt/ds-react';
 
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
-import { periodFormat } from '@navikt/ft-utils';
+import { BTag, periodFormat } from '@navikt/ft-utils';
 
 import { VilkårUtfallType } from '../../kodeverk/vilkårUtfallType';
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
@@ -131,25 +131,18 @@ export const Dagsats = ({
 
       {erAlleAndelerFastsatt && !erIkkeVurdert && (
         <HStack data-row-type="summary">
-          <Label size="small">
+          <BodyShort size="small">
             <FormattedMessage
               id="Dagsats.BeregnetDagsats"
               values={{
+                b: BTag,
                 inntekt: <BeløpLabel beløp={totalEllerAvkortetInntekt} kr />,
               }}
             />
-          </Label>
+          </BodyShort>
           <Spacer />
           <Label size="small">
-            <FormattedMessage
-              id="Dagsats.BeregnetDagsats.Utregning"
-              values={{
-                inntekt: <BeløpLabel beløp={totalEllerAvkortetInntekt} kr />,
-                dagsats: (
-                  <BeløpLabel beløp={finnDagsats(tabellPeriode, beregningsgrunnlag.ytelsesspesifiktGrunnlag)} kr />
-                ),
-              }}
-            />
+            <BeløpLabel beløp={finnDagsats(tabellPeriode, beregningsgrunnlag.ytelsesspesifiktGrunnlag)} kr />
           </Label>
         </HStack>
       )}

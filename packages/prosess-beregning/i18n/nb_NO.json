@@ -74,8 +74,7 @@
 
   "Dagsats.Tittel": "Beregning av dagsats",
 
-  "Dagsats.BeregnetDagsats": "Dagsats",
-  "Dagsats.BeregnetDagsats.Utregning": "{inntekt}/260 dager = {dagsats}",
+  "Dagsats.BeregnetDagsats": "<b>Dagsats</b> ({inntekt}/260 dager)",
   "Dagsats.Periode": "Periode {periode}",
 
   "Dagsats.FastsattÅrsinntekt": "Fastsatt årsinntekt - {aktivitetStatus}",
