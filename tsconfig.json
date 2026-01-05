@@ -1,0 +1,16 @@
+{
+  "extends": "./packages/internal/config-typescript/tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "packages/**/*",
+    "@types/**/*"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/dist"
+  ]
+}
+
