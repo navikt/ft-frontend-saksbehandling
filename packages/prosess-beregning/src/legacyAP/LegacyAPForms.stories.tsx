@@ -26,11 +26,11 @@ import {
   lagYtelseInntekt,
 } from '../../testdata/utils/lagInntektsgrunnlag';
 import { BeregningProsessIndex } from '../BeregningProsessIndex';
+import { SammenligningType } from '../kodeverk/sammenligningType';
+import { VilkårUtfallType } from '../kodeverk/vilkårUtfallType';
 import type { KodeverkForPanel } from '../types/KodeverkForPanel';
 import type { Vilkår } from '../types/Vilkår';
 import { AksjonspunktKode } from '../utils/aksjonspunkt';
-import { SammenligningType } from './kodeverk/sammenligningType';
-import { VilkårUtfallType } from './kodeverk/vilkårUtfallType';
 import type { BeregningAksjonspunktSubmitType } from './types/BeregningsgrunnlagAP';
 
 import '@navikt/ft-form-hooks/dist/style.css';

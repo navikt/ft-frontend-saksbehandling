@@ -6,7 +6,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { rhfDecorator } from '../../.storybook/decorators';
 import { RhfDatepicker } from '../RhfDatepicker/RhfDatepicker';
 import { RhfTextField } from '../RhfTextField/RhfTextField';
-import { RhfFieldArray } from './RhfFieldArray.tsx';
+import { RhfFieldArray } from './RhfFieldArray';
 
 type StoryFormValues = {
   test: { periodeFom: string; periodeTom: string }[];
