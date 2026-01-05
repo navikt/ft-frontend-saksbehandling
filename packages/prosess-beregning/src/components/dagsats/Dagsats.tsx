@@ -146,7 +146,7 @@ export const Dagsats = ({
           </Label>
         </HStack>
       )}
-      {erIkkeOppfylt && (
+      {erIkkeOppfylt && erAlleAndelerFastsatt && (
         <Alert variant="error" size="small" inline>
           <FormattedMessage
             id={
