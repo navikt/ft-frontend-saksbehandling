@@ -11,7 +11,7 @@ const config: StorybookConfig = {
       test: /\.md$/,
       use: 'raw-loader',
     },
-    plugins: c.plugins.filter(p => p['name'] !== 'vite:dts'),
+    plugins: (c.plugins ?? []).filter(p => p && 'name' in p && p['name'] !== 'vite:dts'),
   }),
   stories: async () => ['./*.mdx', ...(await lagStoriesEntriesForPakker('packages'))],
 };
