@@ -50,7 +50,7 @@ export const Dagsats = ({
   return (
     <VStack gap="space-8">
       {skalVisePeriode && (
-        <Label size="small">
+        <Label size="small" className={styles.periodeLabel}>
           <FormattedMessage
             id="Dagsats.Periode"
             values={{
