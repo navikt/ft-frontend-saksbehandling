@@ -39,7 +39,7 @@ export const Dagsats = ({
   const erAlleAndelerFastsatt = tabellPeriode.andeler.every(andel => andel.erFerdigBeregnet);
   const harBruttoOver6G = erBruttoOver6G(tabellPeriode.andeler, beregningsgrunnlag.grunnbeløp);
   const harDekningsgradUlik100 = beregningsgrunnlag.dekningsgrad !== 100;
-  const erIkkeVurdert = vilkårsperiode.vilkarStatus === VilkårUtfallType.IKKE_VURDERT;
+  const erOppfylt = vilkårsperiode.vilkarStatus === VilkårUtfallType.OPPFYLT;
   const erIkkeOppfylt = vilkårsperiode.vilkarStatus === VilkårUtfallType.IKKE_OPPFYLT;
 
   const totalEllerAvkortetInntekt = finnTotalEllerAvkortetInntekt(
@@ -87,7 +87,7 @@ export const Dagsats = ({
               )}
             </Fragment>
           ))}
-          {!erIkkeVurdert && harBruttoOver6G && (
+          {erOppfylt && harBruttoOver6G && (
             <Table.Row shadeOnHover={false}>
               <Table.DataCell textSize="small">
                 <FormattedMessage
@@ -101,7 +101,7 @@ export const Dagsats = ({
             </Table.Row>
           )}
 
-          {!erIkkeVurdert && harDekningsgradUlik100 && (
+          {erOppfylt && harDekningsgradUlik100 && (
             <Table.Row shadeOnHover={false}>
               <Table.DataCell textSize="small">
                 <FormattedMessage id="Dagsats.Redusert" />
@@ -129,7 +129,7 @@ export const Dagsats = ({
         )}
       </Table>
 
-      {erAlleAndelerFastsatt && !erIkkeVurdert && (
+      {erOppfylt && erAlleAndelerFastsatt && (
         <HStack data-row-type="summary">
           <BodyShort size="small">
             <FormattedMessage
