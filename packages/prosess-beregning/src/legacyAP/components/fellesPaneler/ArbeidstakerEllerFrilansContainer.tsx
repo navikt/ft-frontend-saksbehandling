@@ -2,6 +2,8 @@ import type { ReactElement } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
+import { VStack } from '@navikt/ds-react';
+
 import { RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { PeriodeÅrsak } from '@navikt/ft-kodeverk';
@@ -82,7 +84,7 @@ export const ArbeidstakerEllerFrilansContainer = ({
           skalValideres={skalValideres}
         />
       )}
-      <div>
+      <VStack gap="space-8">
         {!erTidsbegrenset && visAT && (
           <AksjonspunktBehandlerAT
             readOnly={readOnly}
@@ -103,7 +105,7 @@ export const ArbeidstakerEllerFrilansContainer = ({
             skalValideres={skalValideres}
           />
         )}
-      </div>
+      </VStack>
       <div>
         <RhfTextarea
           name={`${formName}.${fieldIndex}.ATFLVurdering`}
