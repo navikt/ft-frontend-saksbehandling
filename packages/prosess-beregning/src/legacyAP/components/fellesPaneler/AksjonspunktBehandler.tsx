@@ -14,11 +14,11 @@ import type {
 import { AksjonspunktBoks, usePrevious } from '@navikt/ft-ui-komponenter';
 import { hasAksjonspunkt } from '@navikt/ft-utils';
 
+import { SammenligningType } from '../../../kodeverk/sammenligningType';
 import type { KodeverkForPanel } from '../../../types/KodeverkForPanel';
 import type { Vilkår } from '../../../types/Vilkår';
 import { AksjonspunktKode } from '../../../utils/aksjonspunkt';
 import { finnAlleAndelerIFørstePeriode } from '../../../utils/beregningsgrunnlagUtils';
-import { SammenligningType } from '../../kodeverk/sammenligningType';
 import type { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
 import { type BeregningFormValues, finnFormName, type FormNameType } from '../../types/BeregningFormValues';
 import type { AksjonspunktDataValues, BeregningsgrunnlagValues } from '../../types/BeregningsgrunnlagAksjonspunkt';
