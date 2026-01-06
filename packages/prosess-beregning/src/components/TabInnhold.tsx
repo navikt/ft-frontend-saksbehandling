@@ -40,13 +40,15 @@ export const TabInnhold = ({
         <Avviksberegninger sammenligningsgrunnlagPrStatus={sammenligningsgrunnlagPrStatus} />
       )}
 
-      {inntektsgrunnlag && sammenligningsgrunnlagPrStatus.length > 0 && (
-        <Sammenligningsgrunnlag
-          sammenligningsgrunnlagFom={sammenligningsgrunnlagPrStatus[0].sammenligningsgrunnlagFom}
-          sammenligningsgrunnlagInntekter={inntektsgrunnlag.sammenligningsgrunnlagInntekter}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        />
-      )}
+      {sammenligningsgrunnlagPrStatus.length > 0 &&
+        inntektsgrunnlag &&
+        inntektsgrunnlag.sammenligningsgrunnlagInntekter.length > 0 && (
+          <Sammenligningsgrunnlag
+            sammenligningsgrunnlagFom={sammenligningsgrunnlagPrStatus[0].sammenligningsgrunnlagFom}
+            sammenligningsgrunnlagInntekter={inntektsgrunnlag.sammenligningsgrunnlagInntekter}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          />
+        )}
 
       <ReadonlyAPGraderingUtenBG
         avklaringsbehov={avklaringsbehov.find(medAPKode(AksjonspunktKode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG))}
