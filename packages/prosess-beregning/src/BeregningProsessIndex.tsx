@@ -94,7 +94,7 @@ export const BeregningProsessIndex = ({
       {tabOptions.map(o => (
         <div
           role="tabpanel"
-          hidden={o.skjæringstidspunkt.toString() !== currentSkjæringstidspunkt}
+          hidden={o.skjæringstidspunkt !== currentSkjæringstidspunkt}
           key={o.skjæringstidspunkt}
           id={`${o.optionLabel}-panel`}
           aria-labelledby={`${o.optionLabel}-tab`}

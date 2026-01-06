@@ -35,9 +35,9 @@ import { ProsessStegSubmitButton } from '../ProsessStegSubmitButton';
 import { AksjonspunktBehandlerSNEllerMidlertidigInaktiv } from '../selvstendigNaeringsdrivende/AksjonspunktBehandlerSNEllerMidlertidigInaktiv';
 import { FastsettSNNyIArbeid } from '../selvstendigNaeringsdrivende/FastsettSNNyIArbeid';
 import {
+  erSammenligningsgrunnlagReleavantForAksjonspunkt,
   finnVilkårperiode,
   grupperPåKode,
-  harApForSammelingningsgrunnlagType,
   utledSkalValideres,
 } from './aksjonspunktBehandlerUtils';
 import { finnAPBeskrivelse, finnAPTittel } from './aksjonspunktHeaderUtils';
@@ -237,7 +237,7 @@ const buildFormInitialValues = (
     const vilkårsperiode = finnVilkårperiode(vilkår, bg.vilkårsperiodeFom)!;
     const avklaringsbehov = bg.avklaringsbehov.find(medAPKode(aksjonspunktKode));
     const sammenligningsgrunnlag = bg.sammenligningsgrunnlagPrStatus?.find(
-      harApForSammelingningsgrunnlagType(aksjonspunktKode, bg.aktivitetStatus),
+      erSammenligningsgrunnlagReleavantForAksjonspunkt(aksjonspunktKode, bg.aktivitetStatus),
     );
 
     return {

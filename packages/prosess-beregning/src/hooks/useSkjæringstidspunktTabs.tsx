@@ -16,11 +16,9 @@ export const useSkjæringstidspunktTabs = (
   const tabOptions = lagSorterteOptionProps(beregningsgrunnlagListe, beregningsgrunnlagsvilkår);
 
   const førsteTilVurdering = tabOptions.find(o => o.skalVurderes && o.harAksjonspunkt);
-  const initialBeregningsgrunnlag = førsteTilVurdering?.beregningsgrunnlag ?? tabOptions[0].beregningsgrunnlag;
+  const initialSkjæringstidspunkt = førsteTilVurdering?.skjæringstidspunkt ?? tabOptions[0].skjæringstidspunkt;
 
-  const [aktivBGSkjæringstidspunkt, setAktivBGSkjæringstidspunkt] = useState(
-    initialBeregningsgrunnlag.skjaeringstidspunktBeregning,
-  );
+  const [aktivBGSkjæringstidspunkt, setAktivBGSkjæringstidspunkt] = useState(initialSkjæringstidspunkt);
 
   return {
     tabOptions,
@@ -37,10 +35,11 @@ const lagSorterteOptionProps = (
   beregningsgrunnlagsvilkår: Vilkår | null,
 ) =>
   beregningsgrunnlagListe
-    .toSorted((a, b) => dayjs(a.skjaeringstidspunktBeregning).diff(dayjs(b.skjaeringstidspunktBeregning)))
     .map(beregningsgrunnlag => ({
       beregningsgrunnlag,
+      skjæringstidspunkt: beregningsgrunnlag.skjaeringstidspunktBeregning,
       skalVurderes: erBGTilVurdering(beregningsgrunnlag.vilkårsperiodeFom, beregningsgrunnlagsvilkår),
       harAksjonspunkt: harAksjonspunktSomKanLøses(beregningsgrunnlag.avklaringsbehov),
       optionLabel: dateFormat(beregningsgrunnlag.skjaeringstidspunktBeregning),
-    }));
+    }))
+    .sort((a, b) => dayjs(a.skjæringstidspunkt).diff(dayjs(b.skjæringstidspunkt)));

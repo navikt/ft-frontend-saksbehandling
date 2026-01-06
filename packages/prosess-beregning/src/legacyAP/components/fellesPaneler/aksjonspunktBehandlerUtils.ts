@@ -57,7 +57,7 @@ export const grupperPåKode = (
   return gruppert;
 };
 
-export const harApForSammelingningsgrunnlagType =
+export const erSammenligningsgrunnlagReleavantForAksjonspunkt =
   (aksjonspunktKode: AksjonspunktKode, aktivitetstatuser: AktivitetStatus[] = []) =>
   ({ sammenligningsgrunnlagType }: SammenligningsgrunlagProp) => {
     if (
