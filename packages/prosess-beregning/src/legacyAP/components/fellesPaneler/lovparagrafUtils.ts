@@ -4,8 +4,8 @@ import type {
   SammenligningType as SammenligningsgrunnlagType,
 } from '@navikt/ft-types';
 
+import { SammenligningType } from '../../../kodeverk/sammenligningType';
 import { AksjonspunktKode } from '../../../utils/aksjonspunkt';
-import { SammenligningType } from '../../kodeverk/sammenligningType';
 import { isStatusSNOrKombinasjon } from '../../util/aktivitetStatusUtils';
 
 const {
