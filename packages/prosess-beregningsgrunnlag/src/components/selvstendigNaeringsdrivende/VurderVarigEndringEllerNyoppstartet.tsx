@@ -6,7 +6,6 @@ import { BodyShort, HStack, Radio, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup, RhfTextarea, RhfTextField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr, isAksjonspunktOpen, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -97,8 +96,8 @@ export const VurderVarigEndringEllerNyoppstartet = ({
         name={`${formName}.${fieldIndex}.${varigEndringRadioname}`}
         control={formMethods.control}
         validate={skalValideres ? [required] : []}
-        label={intl.formatMessage({ id: radioLabel })}
-        isReadOnly={readOnly}
+        legend={intl.formatMessage({ id: radioLabel })}
+        readOnly={readOnly}
         isEdited={readOnly && isAksjonspunktClosed}
       >
         <Radio value={false} size="small">
@@ -145,9 +144,7 @@ VurderVarigEndringEllerNyoppstartet.buildInitialValues = (
   avklaringsbehov: BeregningAvklaringsbehov[],
 ): VurderOgFastsettValues => {
   const varigEndretAndel = relevanteAndeler.find(
-    andel =>
-      andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE ||
-      andel.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL,
+    andel => andel.aktivitetStatus === 'SN' || andel.aktivitetStatus === 'BA',
   );
   const varigEndretNaeringAP = avklaringsbehov.find(
     ap =>
@@ -157,7 +154,7 @@ VurderVarigEndringEllerNyoppstartet.buildInitialValues = (
   if (varigEndretNaeringAP) {
     const erVarigEndringValgt = isAksjonspunktOpen(varigEndretNaeringAP)
       ? undefined
-      : relevanteAndeler[0].overstyrtPrAar !== null && relevanteAndeler[0].overstyrtPrAar !== undefined;
+      : relevanteAndeler?.[0]?.overstyrtPrAar != null;
     return {
       [varigEndringRadioname]: erVarigEndringValgt,
       [begrunnelseFieldname]: varigEndretNaeringAP.begrunnelse ? varigEndretNaeringAP.begrunnelse : '',

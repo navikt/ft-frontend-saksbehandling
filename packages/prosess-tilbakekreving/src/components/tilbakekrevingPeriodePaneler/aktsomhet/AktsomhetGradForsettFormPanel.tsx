@@ -35,9 +35,9 @@ export const AktsomhetGradForsettFormPanel = ({ name, readOnly, erValgtResultatT
           <RhfRadioGroup
             name={`${name}.skalDetTilleggesRenter`}
             control={context.control}
-            label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
+            legend={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
             validate={[required]}
-            isReadOnly={readOnly}
+            readOnly={readOnly}
           >
             <Radio value={true} size="small">
               <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Ja" />

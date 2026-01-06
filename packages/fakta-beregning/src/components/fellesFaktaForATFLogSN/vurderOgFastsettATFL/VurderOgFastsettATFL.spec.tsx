@@ -1,10 +1,11 @@
-import { AktivitetStatus, AktivitetStatus as aktivitetStatuser, Inntektskategori } from '@navikt/ft-kodeverk';
 import type {
+  AktivitetStatus,
   ATFLSammeOrgAndel,
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
   FaktaOmBeregning,
   FaktaOmBeregningAndel,
+  Inntektskategori,
 } from '@navikt/ft-types';
 
 import { FaktaOmBeregningTilfelle } from '../../../kodeverk/faktaOmBeregningTilfelle';
@@ -29,6 +30,7 @@ const emptyValues = { erTilVurdering: true, periode: { fom: '2022-01-01', tom: '
 const lagBeregningsgrunnlag = (andeler: BeregningsgrunnlagAndel[]): Beregningsgrunnlag =>
   ({
     vilkårsperiodeFom: '2022-01-01',
+
     beregningsgrunnlagPeriode: [
       {
         beregningsgrunnlagPrStatusOgAndel: andeler.map(andel => ({
@@ -55,7 +57,7 @@ const lagFaktaOmBeregning = (
     vurderMottarYtelse,
   }) as FaktaOmBeregning;
 
-const lagAndel = (andelsnr: number, aktivitetStatus: AktivitetStatus, inntektskategori: string) => ({
+const lagAndel = (andelsnr: number, aktivitetStatus: AktivitetStatus, inntektskategori: Inntektskategori) => ({
   andelsnr,
   aktivitetStatus,
   inntektskategori,
@@ -64,8 +66,8 @@ const lagAndel = (andelsnr: number, aktivitetStatus: AktivitetStatus, inntektska
 const lagAndelValues = (
   andelsnr: number | undefined,
   fastsattBelop: string,
-  inntektskategori: string,
-  aktivitetStatus: string,
+  inntektskategori: Inntektskategori,
+  aktivitetStatus: AktivitetStatus,
   lagtTilAvSaksbehandler = false,
   nyAndel = false,
   kanRedigereInntekt = true,
@@ -83,15 +85,15 @@ const lagAndelValues = (
 describe('VurderOgFastsettATFL', () => {
   it('skal transform values om besteberegning', () => {
     const andelerFields: AndelFieldValue[] = [
-      lagAndelValues(1, '10 000', Inntektskategori.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
-      lagAndelValues(undefined, '20 000', Inntektskategori.DAGPENGER, aktivitetStatuser.DAGPENGER, true, true),
+      lagAndelValues(1, '10 000', 'ARBEIDSTAKER', 'AT'),
+      lagAndelValues(undefined, '20 000', 'DAGPENGER', 'DP', true, true),
     ];
     const values = {
       ...emptyValues,
       [besteberegningField]: true,
       [INNTEKT_FIELD_ARRAY_NAME]: andelerFields,
     } as FaktaOmBeregningAksjonspunktValues;
-    const andeler = [lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER)];
+    const andeler = [lagAndel(1, 'AT', 'ARBEIDSTAKER')];
     const beregningsgrunnlag = lagBeregningsgrunnlag(andeler);
     const faktaOmBeregning = lagFaktaOmBeregning([VURDER_BESTEBEREGNING], undefined, undefined);
     const transformed = VurderOgFastsettATFL.transformValues(
@@ -114,9 +116,9 @@ describe('VurderOgFastsettATFL', () => {
 
   it('skal ikkje transform inntekt for nyoppstartetFL og lønnsendring når man har besteberegning', () => {
     const andelerFields = [
-      lagAndelValues(1, '10 000', Inntektskategori.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
-      lagAndelValues(2, '30 000', Inntektskategori.FRILANSER, aktivitetStatuser.FRILANSER),
-      lagAndelValues(undefined, '20 000', Inntektskategori.DAGPENGER, aktivitetStatuser.DAGPENGER, true, true),
+      lagAndelValues(1, '10 000', 'ARBEIDSTAKER', 'AT'),
+      lagAndelValues(2, '30 000', 'FRILANSER', 'FL'),
+      lagAndelValues(undefined, '20 000', 'DAGPENGER', 'DP', true, true),
     ];
     const values = {
       ...emptyValues,
@@ -125,8 +127,8 @@ describe('VurderOgFastsettATFL', () => {
       [erNyoppstartetFLField]: true,
       [INNTEKT_FIELD_ARRAY_NAME]: andelerFields,
     } as FaktaOmBeregningAksjonspunktValues;
-    const andelMedLonnsendring = lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER);
-    const andeler = [andelMedLonnsendring, lagAndel(2, aktivitetStatuser.FRILANSER, Inntektskategori.FRILANSER)];
+    const andelMedLonnsendring = lagAndel(1, 'AT', 'ARBEIDSTAKER');
+    const andeler = [andelMedLonnsendring, lagAndel(2, 'FL', 'FRILANSER')];
     const beregningsgrunnlag = lagBeregningsgrunnlag(andeler);
     const faktaOmBeregning = lagFaktaOmBeregning(
       [VURDER_BESTEBEREGNING, VURDER_NYOPPSTARTET_FL, VURDER_LØNNSENDRING],
@@ -144,9 +146,9 @@ describe('VurderOgFastsettATFL', () => {
 
   it('skal fastsette inntekt for nyoppstartetFL og arbeidstaker uten inntektsmelding med lønnendring', () => {
     const andelerFields = [
-      lagAndelValues(1, '10 000', Inntektskategori.ARBEIDSTAKER, aktivitetStatuser.ARBEIDSTAKER),
-      lagAndelValues(2, '30 000', Inntektskategori.FRILANSER, aktivitetStatuser.FRILANSER),
-      lagAndelValues(undefined, '20 000', Inntektskategori.DAGPENGER, aktivitetStatuser.DAGPENGER, true, true),
+      lagAndelValues(1, '10 000', 'ARBEIDSTAKER', 'AT'),
+      lagAndelValues(2, '30 000', 'FRILANSER', 'FL'),
+      lagAndelValues(undefined, '20 000', 'DAGPENGER', 'DP', true, true),
     ];
     const values = {
       ...emptyValues,
@@ -154,11 +156,11 @@ describe('VurderOgFastsettATFL', () => {
       [erNyoppstartetFLField]: true,
       [INNTEKT_FIELD_ARRAY_NAME]: andelerFields,
     } as FaktaOmBeregningAksjonspunktValues;
-    const andelMedLonnsendring = lagAndel(1, aktivitetStatuser.ARBEIDSTAKER, Inntektskategori.ARBEIDSTAKER);
+    const andelMedLonnsendring = lagAndel(1, 'AT', 'ARBEIDSTAKER');
     const andeler = [
       andelMedLonnsendring,
       {
-        ...lagAndel(2, aktivitetStatuser.FRILANSER, Inntektskategori.FRILANSER),
+        ...lagAndel(2, 'FL', 'FRILANSER'),
         erNyoppstartet: true,
       },
     ];

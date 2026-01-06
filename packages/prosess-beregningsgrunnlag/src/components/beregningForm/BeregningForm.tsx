@@ -2,8 +2,9 @@ import { FormattedMessage } from 'react-intl';
 
 import { Heading, HGrid, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus, FagsakYtelseType } from '@navikt/ft-kodeverk';
+import { FagsakYtelseType } from '@navikt/ft-kodeverk';
 import type {
+  AktivitetStatus,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag as BeregningsgrunnlagProp,

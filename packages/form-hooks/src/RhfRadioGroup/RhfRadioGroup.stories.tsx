@@ -8,8 +8,6 @@ const meta = {
   component: RhfRadioGroup,
   tags: ['autodocs'],
   args: {
-    isReadOnly: false,
-    isEdited: false,
     control: undefined, // This will be provided by the decorator
   },
   decorators: rhfDecorator({ radiopre: 'no' }),
@@ -31,7 +29,7 @@ export const Default: Story = {
   args: {
     name: 'radio',
     description: 'Dette er en beskrivelse',
-    label: 'Dette er en radiogruppe',
+    legend: 'Dette er en radiogruppe',
     children: defaultRadios,
   },
 };
@@ -39,8 +37,8 @@ export const Default: Story = {
 export const ReadOnlyMedOverstyrtMarkering: Story = {
   args: {
     name: 'radiopre',
-    label: 'Dette er en readonly radioknapp med overstyrt markering',
-    isReadOnly: true,
+    legend: 'Dette er en readonly radioknapp med overstyrt markering',
+    readOnly: true,
     isEdited: true,
     children: defaultRadios,
   },

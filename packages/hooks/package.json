@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-hooks",
-  "version": "2.3.10",
+  "version": "2.3.14",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -28,10 +28,10 @@
     "@navikt/ft-config-typescript": "workspace:^",
     "@navikt/ft-config-vite": "workspace:^",
     "@testing-library/react": "16.3.0",
-    "eslint": "9.37.0",
+    "eslint": "9.39.1",
     "typescript": "5.9.3",
-    "vite": "7.1.10",
-    "vitest": "3.2.4"
+    "vite": "7.2.4",
+    "vitest": "4.0.14"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

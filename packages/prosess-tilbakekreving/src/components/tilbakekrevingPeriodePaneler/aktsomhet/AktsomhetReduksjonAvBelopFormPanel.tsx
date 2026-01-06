@@ -69,9 +69,9 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
       <RhfRadioGroup
         name={`${name}.harGrunnerTilReduksjon`}
         control={context.control}
-        label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalSarligeGrunnerGiReduksjon" />}
+        legend={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalSarligeGrunnerGiReduksjon" />}
         validate={[required]}
-        isReadOnly={readOnly}
+        readOnly={readOnly}
       >
         <HStack gap="space-20">
           <Radio value={true} size="small">
@@ -174,9 +174,9 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
               <RhfRadioGroup
                 name={tilleggesRenterFelt}
                 control={context.control}
-                label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
+                legend={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
                 validate={[required]}
-                isReadOnly={readOnly}
+                readOnly={readOnly}
               >
                 <HStack gap="space-20">
                   <Radio value={true} size="small">

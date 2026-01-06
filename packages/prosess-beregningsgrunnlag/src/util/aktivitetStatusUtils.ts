@@ -1,44 +1,17 @@
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
+import type { AktivitetStatus } from '@navikt/ft-types';
 
-const statuserSomStotterFrilanser = [
-  AktivitetStatus.FRILANSER,
-  AktivitetStatus.KOMBINERT_AT_FL,
-  AktivitetStatus.KOMBINERT_AT_FL_SN,
-  AktivitetStatus.KOMBINERT_FL_SN,
-];
-const statuserSomStotterArbeidstaker = [
-  AktivitetStatus.ARBEIDSTAKER,
-  AktivitetStatus.KOMBINERT_AT_FL,
-  AktivitetStatus.KOMBINERT_AT_FL_SN,
-  AktivitetStatus.KOMBINERT_AT_SN,
-];
-const statuserSomStotterSelvstendigNaeringsdrivende = [
-  AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
-  AktivitetStatus.KOMBINERT_FL_SN,
-  AktivitetStatus.KOMBINERT_AT_FL_SN,
-  AktivitetStatus.KOMBINERT_AT_SN,
-];
-const kombinasjonsstatuser = [
-  AktivitetStatus.KOMBINERT_AT_FL,
-  AktivitetStatus.KOMBINERT_AT_FL_SN,
-  AktivitetStatus.KOMBINERT_FL_SN,
-  AktivitetStatus.KOMBINERT_AT_SN,
-];
-const statuserSomStotterDagpengerEllerAAP = [
-  AktivitetStatus.DAGPENGER,
-  AktivitetStatus.SYKEPENGER_AV_DAGPENGER,
-  AktivitetStatus.PLEIEPENGER_AV_DAGPENGER,
-  AktivitetStatus.ARBEIDSAVKLARINGSPENGER,
-];
+const statuserSomStotterFrilanser = new Set<AktivitetStatus>(['FL', 'AT_FL', 'AT_FL_SN', 'FL_SN']);
+const statuserSomStotterArbeidstaker = new Set<AktivitetStatus>(['AT', 'AT_FL', 'AT_FL_SN', 'AT_SN']);
+const statuserSomStotterSelvstendigNaeringsdrivende = new Set<AktivitetStatus>(['SN', 'FL_SN', 'AT_FL_SN', 'AT_SN']);
+const kombinasjonsstatuser = new Set<AktivitetStatus>(['AT_FL', 'AT_FL_SN', 'FL_SN', 'AT_SN']);
+const statuserSomStotterDagpengerEllerAAP = new Set<AktivitetStatus>(['DP', 'SP_AV_DP', 'PSB_AV_DP', 'AAP']);
 
-export const isStatusDagpengerOrAAP = (status: string): boolean =>
-  statuserSomStotterDagpengerEllerAAP.some(s => s === status);
-export const isStatusTilstøtendeYtelse = (status: string): boolean => AktivitetStatus.KUN_YTELSE === status;
-export const isStatusFrilanserOrKombinasjon = (status: string): boolean =>
-  statuserSomStotterFrilanser.some(s => s === status);
-export const isStatusArbeidstakerOrKombinasjon = (status: string): boolean =>
-  statuserSomStotterArbeidstaker.some(s => s === status);
-export const isStatusSNOrKombinasjon = (status: string): boolean =>
-  statuserSomStotterSelvstendigNaeringsdrivende.some(s => s === status);
-export const isStatusKombinasjon = (status: string): boolean => kombinasjonsstatuser.some(s => s === status);
-export const isStatusMilitær = (status: string): boolean => AktivitetStatus.MILITÆR_ELLER_SIVIL === status;
+export const isStatusDagpengerOrAAP = (status: AktivitetStatus) => statuserSomStotterDagpengerEllerAAP.has(status);
+export const isStatusTilstøtendeYtelse = (status: AktivitetStatus) => 'KUN_YTELSE' === status;
+export const isStatusFrilanserOrKombinasjon = (status: AktivitetStatus) => statuserSomStotterFrilanser.has(status);
+export const isStatusArbeidstakerOrKombinasjon = (status: AktivitetStatus) =>
+  statuserSomStotterArbeidstaker.has(status);
+export const isStatusSNOrKombinasjon = (status: AktivitetStatus) =>
+  statuserSomStotterSelvstendigNaeringsdrivende.has(status);
+export const isStatusKombinasjon = (status: AktivitetStatus) => kombinasjonsstatuser.has(status);
+export const isStatusMilitær = (status: AktivitetStatus) => 'MS' === status;

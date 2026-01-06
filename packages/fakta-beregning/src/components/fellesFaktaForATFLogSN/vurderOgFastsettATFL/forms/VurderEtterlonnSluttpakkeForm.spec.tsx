@@ -1,11 +1,11 @@
-import type { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { BeregningAvklaringsbehov, Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
 import { VurderEtterlonnSluttpakkeForm } from './VurderEtterlonnSluttpakkeForm';
 
 describe('VurderEtterlonnSluttpakkeForm', () => {
   it('Skal teste at buildInitialvalues bygges korrekt når det er tidligere fastsatt etterlønn eller sluttpakke', () => {
-    const ap = {
-      status: 'OPPRETTET',
+    const ap: BeregningAvklaringsbehov = {
+      status: 'UTFO',
       definisjon: 'VURDER_FAKTA_ATFL_SN',
       kanLoses: true,
     };
@@ -31,8 +31,8 @@ describe('VurderEtterlonnSluttpakkeForm', () => {
   });
 
   it('Skal teste at buildInitialvalues bygges korrekt når det ikke er tidligere fastsatt etterlønn eller sluttpakke', () => {
-    const ap = {
-      status: 'OPPRETTET',
+    const ap: BeregningAvklaringsbehov = {
+      status: 'OPPR',
       definisjon: 'VURDER_FAKTA_ATFL_SN',
       kanLoses: true,
     };

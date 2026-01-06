@@ -81,9 +81,9 @@ export const AktsomhetGradUaktsomhetFormPanel = ({
             <RhfRadioGroup
               name={`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`}
               control={control}
-              label={<FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.Tilbakekrev" />}
+              legend={<FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.Tilbakekrev" />}
               validate={[required]}
-              isReadOnly={readOnly}
+              readOnly={readOnly}
             >
               <HStack gap="space-16">
                 <Radio value={true} size="small">

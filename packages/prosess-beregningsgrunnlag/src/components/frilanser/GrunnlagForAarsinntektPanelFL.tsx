@@ -2,7 +2,6 @@ import { FormattedMessage } from 'react-intl';
 
 import { Heading, Label, Table } from '@navikt/ds-react';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { BTag, dateFormat } from '@navikt/ft-utils';
@@ -19,9 +18,7 @@ type Props = {
  * Vises også hvis status er en kombinasjonsstatus som inkluderer frilanser.
  */
 export const GrunnlagForAarsinntektPanelFL = ({ alleAndeler }: Props) => {
-  const relevantAndel = alleAndeler.find(
-    andel => !andel.erTilkommetAndel && andel.aktivitetStatus === AktivitetStatus.FRILANSER,
-  );
+  const relevantAndel = alleAndeler.find(andel => !andel.erTilkommetAndel && andel.aktivitetStatus === 'FL');
   if (!relevantAndel) {
     return null;
   }

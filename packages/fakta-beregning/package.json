@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-beregning",
   "description": "Faktaavklaringer rundt aktiviteter og andeler som skal bidra til beregningsgrunnlaget",
-  "version": "12.1.23",
+  "version": "12.2.5",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -23,18 +23,18 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "7.32.1",
-    "@navikt/ds-css": "7.32.1",
-    "@navikt/ds-react": "7.32.1",
+    "@navikt/aksel-icons": "7.32.5",
+    "@navikt/ds-css": "7.32.5",
+    "@navikt/ds-react": "7.32.5",
     "@navikt/ft-form-hooks": "workspace:^",
     "@navikt/ft-form-validators": "workspace:^",
     "@navikt/ft-ui-komponenter": "workspace:^",
     "@navikt/ft-utils": "workspace:^",
-    "core-js": "3.46.0",
-    "dayjs": "1.11.18",
+    "core-js": "3.47.0",
+    "dayjs": "1.11.19",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "react-hook-form": "7.65.0",
+    "react-hook-form": "7.66.1",
     "react-intl": "7.1.14"
   },
   "peerDependencies": {
@@ -65,11 +65,11 @@
     "@testing-library/dom": "10.4.1",
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
-    "eslint": "9.37.0",
-    "stylelint": "16.25.0",
+    "eslint": "9.39.1",
+    "stylelint": "16.26.1",
     "typescript": "5.9.3",
-    "vite": "7.1.10",
-    "vitest": "3.2.4"
+    "vite": "7.2.4",
+    "vitest": "4.0.14"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

@@ -1,4 +1,4 @@
-import { OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
+import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import type { ArbeidsgiverOpplysningerPerId, BeregningAktivitet } from '@navikt/ft-types';
 import { TIDENES_ENDE } from '@navikt/ft-utils';
 
@@ -7,7 +7,9 @@ import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { VurderAktiviteterTabell } from './VurderAktiviteterTabell';
 import { lagAktivitetFieldId, skalVurdereAktivitet } from './vurderAktiviteterTabellUtils';
 
-const aktivitet1 = {
+const kodeverkSamling = alleKodeverk as KodeverkForPanel;
+
+const aktivitet1: BeregningAktivitet = {
   arbeidsgiverIdent: '384723894723',
   fom: '2019-01-01',
   tom: TIDENES_ENDE,
@@ -15,7 +17,7 @@ const aktivitet1 = {
   arbeidsforholdType: 'ARBEID',
 };
 
-const aktivitet2 = {
+const aktivitet2: BeregningAktivitet = {
   arbeidsgiverIdent: '998877665',
   arbeidsforholdId: 'efj8343f34f',
   eksternArbeidsforholdId: '123456',
@@ -25,8 +27,7 @@ const aktivitet2 = {
   arbeidsforholdType: 'ARBEID',
 };
 
-const aktivitet3 = {
-  aktørIdString: '324234234234',
+const aktivitet3: BeregningAktivitet = {
   arbeidsgiverIdent: '324234234234',
   arbeidsforholdId: 'efj8343f34f',
   eksternArbeidsforholdId: '56789',
@@ -36,9 +37,9 @@ const aktivitet3 = {
   arbeidsforholdType: 'ARBEID',
 };
 
-const aktivitetAAP = {
+const aktivitetAAP: BeregningAktivitet = {
   arbeidsgiverIdent: undefined,
-  arbeidsforholdType: OpptjeningAktivitetType.AAP,
+  arbeidsforholdType: 'AAP',
   fom: '2019-01-01',
   tom: '2020-02-02',
   skalBrukes: undefined,
@@ -64,36 +65,6 @@ const agOpplysninger: ArbeidsgiverOpplysningerPerId = {
     erPrivatPerson: false,
   },
 };
-
-const kodeverkSamling = {
-  OpptjeningAktivitetType: [
-    {
-      kode: OpptjeningAktivitetType.ARBEID,
-      navn: 'Arbeid',
-      kodeverk: 'test',
-    },
-    {
-      kode: OpptjeningAktivitetType.FRILANS,
-      navn: 'Frilans',
-      kodeverk: 'test',
-    },
-    {
-      kode: OpptjeningAktivitetType.DAGPENGER,
-      navn: 'Dagpenger',
-      kodeverk: 'test',
-    },
-    {
-      kode: OpptjeningAktivitetType.NARING,
-      navn: 'Næring',
-      kodeverk: 'test',
-    },
-    {
-      kode: OpptjeningAktivitetType.AAP,
-      navn: 'Arbeidsavklaringspenger',
-      kodeverk: 'test',
-    },
-  ],
-} as KodeverkForPanel;
 
 describe('vurderAktiviteterTabellUtils', () => {
   const id1: string = '3847238947232019-01-01';

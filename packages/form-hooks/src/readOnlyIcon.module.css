@@ -1,0 +1,8 @@
+.noReadOnlyIcon {
+  legend > svg {
+    display: none;
+  }
+  label > svg {
+    display: none;
+  }
+}

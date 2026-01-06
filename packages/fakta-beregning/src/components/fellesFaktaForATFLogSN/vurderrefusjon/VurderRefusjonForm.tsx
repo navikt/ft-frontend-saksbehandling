@@ -43,7 +43,7 @@ const lagRefusjonskravRadios = (
           arbeidsgiverIdent,
         )}`}
         control={control}
-        label={
+        legend={
           <VStack gap="space-8">
             <FormattedMessage
               id="VurderRefusjonForm.ErRefusjonskravGyldig"
@@ -60,7 +60,7 @@ const lagRefusjonskravRadios = (
           </VStack>
         }
         validate={[required]}
-        isReadOnly={readOnly}
+        readOnly={readOnly}
       >
         <Radio value={true} size="small">
           <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />

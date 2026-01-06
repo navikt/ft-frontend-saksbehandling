@@ -6,7 +6,6 @@ import { BodyShort, VStack } from '@navikt/ds-react';
 
 import { RhfTextarea, RhfTextField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
@@ -99,7 +98,7 @@ FastsettSNNyIArbeid.buildInitialValuesNyIArbeidslivet = (
   relevanteAndeler: BeregningsgrunnlagAndel[],
   avklaringsbehov: BeregningAvklaringsbehov[],
 ): NyIArbeidslivetValues => {
-  const snAndel = relevanteAndeler.find(andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE);
+  const snAndel = relevanteAndeler.find(andel => andel.aktivitetStatus === 'SN');
   const nyIArbeidslivetAP = avklaringsbehov.find(
     ap => ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   );

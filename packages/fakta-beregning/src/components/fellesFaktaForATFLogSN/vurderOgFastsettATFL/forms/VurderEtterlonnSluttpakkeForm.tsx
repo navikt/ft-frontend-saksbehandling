@@ -6,7 +6,6 @@ import { Radio, ReadMore, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { OpptjeningAktivitetType as OAType } from '@navikt/ft-kodeverk';
 import type { Aksjonspunkt, Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
@@ -31,9 +30,7 @@ import 'core-js/features/array/flat-map';
 export const harEtterlonnSluttpakkeField = 'vurderEtterlønnSluttpakke';
 
 interface Props {
-  beregningsgrunnlag: Beregningsgrunnlag;
   readOnly: boolean;
-  isAksjonspunktClosed: boolean;
 }
 
 export const VurderEtterlonnSluttpakkeForm = ({ readOnly }: Props) => {
@@ -45,7 +42,7 @@ export const VurderEtterlonnSluttpakkeForm = ({ readOnly }: Props) => {
       <RhfRadioGroup
         name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`}
         control={control}
-        label={
+        legend={
           <VStack gap="space-8">
             <FormattedMessage id="BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt" />
             <ReadMore
@@ -57,7 +54,7 @@ export const VurderEtterlonnSluttpakkeForm = ({ readOnly }: Props) => {
           </VStack>
         }
         validate={[required]}
-        isReadOnly={readOnly}
+        readOnly={readOnly}
       >
         <Radio value={true} size="small">
           <FormattedMessage id="BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes" />
@@ -74,13 +71,13 @@ VurderEtterlonnSluttpakkeForm.buildInitialValues = (
   faktaAksjonspunkt?: Aksjonspunkt,
 ): VurderEtterlønnSluttpakkeValues => {
   const initialValues: VurderEtterlønnSluttpakkeValues = {};
-  if (!beregningsgrunnlag || !beregningsgrunnlag.beregningsgrunnlagPeriode || !faktaAksjonspunkt) {
+  if (!beregningsgrunnlag?.beregningsgrunnlagPeriode || !faktaAksjonspunkt) {
     return {};
   }
   const apErTidligereLost = !isAksjonspunktOpen(faktaAksjonspunkt);
   const relevanteAndeler = beregningsgrunnlag.beregningsgrunnlagPeriode
     .flatMap(periode => periode.beregningsgrunnlagPrStatusOgAndel)
-    .filter(andel => andel?.arbeidsforhold && andel?.arbeidsforhold.arbeidsforholdType === OAType.ETTERLONN_SLUTTPAKKE);
+    .filter(andel => andel?.arbeidsforhold && andel?.arbeidsforhold.arbeidsforholdType === 'ETTERLØNN_SLUTTPAKKE');
   if (relevanteAndeler.length > 0) {
     initialValues[harEtterlonnSluttpakkeField] =
       apErTidligereLost && (relevanteAndeler[0]?.beregnetPrAar || relevanteAndeler[0]?.beregnetPrAar === 0)
@@ -95,10 +92,7 @@ const finnEtterlønnSluttpakkeAndelNr = (faktaOmBeregning: FaktaOmBeregning): nu
     return undefined;
   }
   const etterlønnSluttpakkeAndel = faktaOmBeregning.andelerForFaktaOmBeregning.find(
-    andel =>
-      andel.arbeidsforhold &&
-      andel.arbeidsforhold.arbeidsforholdType &&
-      andel.arbeidsforhold.arbeidsforholdType === OAType.ETTERLONN_SLUTTPAKKE,
+    andel => andel.arbeidsforhold?.arbeidsforholdType === 'ETTERLØNN_SLUTTPAKKE',
   );
 
   return etterlønnSluttpakkeAndel ? etterlønnSluttpakkeAndel.andelsnr : undefined;
@@ -110,7 +104,7 @@ VurderEtterlonnSluttpakkeForm.transformValues = (
   faktaOmBeregning: FaktaOmBeregning,
   fastsatteAndelsnr: number[],
 ): FaktaBeregningTransformedValues => {
-  const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
+  const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ?? [];
   if (!tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_ETTERLØNN_SLUTTPAKKE)) {
     return {};
   }

@@ -1,8 +1,13 @@
 export type { Aksjonspunkt } from './src/Aksjonspunkt';
+export type { AksjonspunktStatus } from './src/AksjonspunktStatus';
+export type { AksjonspunktTilBekreftelse } from './src/AksjonspunktTilBekreftelse';
+export type { AktivitetStatus } from './src/AktivitetStatus';
+export type { ArbeidsgiverOpplysningerPerId, ArbeidsgiverOpplysninger } from './src/ArbeidsgiverOpplysninger';
 export type {
   Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
   SammenligningsgrunlagProp,
+  SammenligningType,
   YtelseGrunnlag,
   BeregningsgrunnlagPeriodeProp,
   PgiVerdier,
@@ -10,6 +15,7 @@ export type {
   InntektsgrunnlagMåned,
   Inntektsgrunnlag,
   InntektsgrunnlagInntekt,
+  InntektsgrunnlagInntektAT,
   ForlengelsePeriodeProp,
   PGIGrunnlag,
   PGIPrÅr,
@@ -43,11 +49,13 @@ export type {
   Inntektsforhold,
   VurderInntektsforholdPeriode,
 } from './src/BeregningsgrunnlagFordeling';
-export type { ArbeidsgiverOpplysningerPerId, ArbeidsgiverOpplysninger } from './src/ArbeidsgiverOpplysninger';
-export type { StandardFaktaPanelProps } from './src/StandardFaktaPanelProps';
-export type { StandardProsessPanelProps } from './src/StandardProsessPanelProps';
-export type { AksjonspunktTilBekreftelse } from './src/AksjonspunktTilBekreftelse';
 export type { Månedsgrunnlag, BesteberegningInntekt, Besteberegninggrunnlag } from './src/Besteberegning';
 export type { BeregningAvklaringsbehov } from './src/BeregningAvklaringsbehov';
 export type { BeregningAvklaringsbehovTilBekreftelse } from './src/BeregningAvklaringsbehovTilBekreftelse';
 export type { BeregningsgrunnlagTilBekreftelse } from './src/BeregningsgrunnlagTilBekreftelse';
+export type { Inntektskategori } from './src/Inntektskategori';
+export type { HendelseType, HendelseUnderType } from './src/HendelseType';
+export type { OpptjeningAktivitetType } from './src/OpptjeningAktivitetType';
+export type { StandardFaktaPanelProps } from './src/StandardFaktaPanelProps';
+export type { StandardProsessPanelProps } from './src/StandardProsessPanelProps';
+export type { Stillingsprosent } from './src/Stillingsprosent';

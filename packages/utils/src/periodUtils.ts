@@ -8,7 +8,12 @@ import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-export const sortPeriodsByFom = (a: { fom: string }, b: { fom: string }) => dayjs(a.fom).diff(dayjs(b.fom));
+export const sortPeriodsBy =
+  <K extends string>(key: K) =>
+  <T extends Record<K, string>>(a: T, b: T) =>
+    dayjs(a[key]).diff(dayjs(b[key]));
+
+export const sortPeriodsByFom = sortPeriodsBy('fom');
 
 type PeriodFormatUtils = {
   separator?: string;

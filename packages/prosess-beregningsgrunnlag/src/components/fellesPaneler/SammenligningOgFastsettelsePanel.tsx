@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl';
 
 import { Heading, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
@@ -99,10 +98,7 @@ const finnBeregnetInntekt = (
   alleAndelerIFørstePeriode: BeregningsgrunnlagAndel[],
 ): BeregnetInntektProp => {
   const pgiAndel = alleAndelerIFørstePeriode.find(
-    andel =>
-      (andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE ||
-        andel.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL) &&
-      !andel.erTilkommetAndel,
+    andel => (andel.aktivitetStatus === 'SN' || andel.aktivitetStatus === 'BA') && !andel.erTilkommetAndel,
   );
   if (sg.sammenligningsgrunnlagType === SammenligningType.SN && pgiAndel) {
     return {
@@ -123,18 +119,12 @@ const finnBeregnetInntekt = (
           erPGI: true,
         }
       : {
-          inntekt: beregnAarsinntektForAktivitetStatuser(alleAndelerIFørstePeriode, [
-            AktivitetStatus.ARBEIDSTAKER,
-            AktivitetStatus.FRILANSER,
-          ]),
+          inntekt: beregnAarsinntektForAktivitetStatuser(alleAndelerIFørstePeriode, ['AT', 'FL']),
           erPGI: false,
         };
   }
   return {
-    inntekt: beregnAarsinntektForAktivitetStatuser(alleAndelerIFørstePeriode, [
-      AktivitetStatus.ARBEIDSTAKER,
-      AktivitetStatus.FRILANSER,
-    ]),
+    inntekt: beregnAarsinntektForAktivitetStatuser(alleAndelerIFørstePeriode, ['AT', 'FL']),
     erPGI: false,
   };
 };

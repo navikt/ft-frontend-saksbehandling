@@ -6,7 +6,6 @@ import { List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { Beregningsgrunnlag, FaktaOmBeregning } from '@navikt/ft-types';
 
 import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
@@ -39,7 +38,7 @@ export const NyoppstartetFLForm = ({ readOnly }: Props) => {
     <RhfRadioGroup
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${erNyoppstartetFLField}`}
       control={control}
-      label={
+      legend={
         <VStack gap="space-8">
           <FormattedMessage id="BeregningInfoPanel.NyoppstartetFLForm.ErSokerNyoppstartetFL" />
           <ReadMore
@@ -58,7 +57,7 @@ export const NyoppstartetFLForm = ({ readOnly }: Props) => {
         </VStack>
       }
       validate={[required]}
-      isReadOnly={readOnly}
+      readOnly={readOnly}
     >
       <Radio value={true} size="small">
         <FormattedMessage id="BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes" />
@@ -77,7 +76,7 @@ NyoppstartetFLForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag)
   const alleAndeler = beregningsgrunnlag.beregningsgrunnlagPeriode.map(
     periode => periode.beregningsgrunnlagPrStatusOgAndel,
   );
-  const flAndeler = alleAndeler.flat().filter(andel => andel?.aktivitetStatus === AktivitetStatus.FRILANSER);
+  const flAndeler = alleAndeler.flat().filter(andel => andel?.aktivitetStatus === 'FL');
   if (flAndeler.length > 0) {
     initialValues[erNyoppstartetFLField] = flAndeler[0]?.erNyoppstartet;
   }
@@ -90,7 +89,7 @@ NyoppstartetFLForm.transformValues = (
   faktaOmBeregning: FaktaOmBeregning,
   fastsatteAndelsnr: number[],
 ): FaktaBeregningTransformedValues => {
-  const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
+  const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ?? [];
   if (!tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)) {
     return {};
   }
@@ -100,7 +99,7 @@ NyoppstartetFLForm.transformValues = (
       vurderNyoppstartetFL: { erNyoppstartetFL: !!values[erNyoppstartetFLField] },
     };
   }
-  const frilansField = inntektPrMnd.find(field => field.aktivitetStatus === AktivitetStatus.FRILANSER);
+  const frilansField = inntektPrMnd.find(field => field.aktivitetStatus === 'FL');
   if (!frilansField) {
     return {
       faktaOmBeregningTilfeller: [FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL],

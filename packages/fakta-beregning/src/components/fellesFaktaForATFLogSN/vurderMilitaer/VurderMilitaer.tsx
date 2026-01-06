@@ -34,7 +34,7 @@ export const VurderMilitaer = ({ readOnly }: Props) => {
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${vurderMilitaerField}`}
       control={control}
       validate={[required]}
-      label={
+      legend={
         <VStack gap="space-8">
           <FormattedMessage id="BeregningInfoPanel.VurderMilitaer.HarSøkerMilitærinntekt" />
           <ReadMore
@@ -52,7 +52,7 @@ export const VurderMilitaer = ({ readOnly }: Props) => {
           </ReadMore>
         </VStack>
       }
-      isReadOnly={readOnly}
+      readOnly={readOnly}
     >
       <Radio value={true} size="small">
         <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />

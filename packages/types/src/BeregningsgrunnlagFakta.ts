@@ -1,18 +1,21 @@
+import type { AktivitetStatus } from './AktivitetStatus';
 import type { BeregningsgrunnlagArbeidsforhold } from './BeregningsgrunnlagArbeidsforhold';
+import type { Inntektskategori } from './Inntektskategori';
+import type { OpptjeningAktivitetType } from './OpptjeningAktivitetType';
 
 export type FaktaOmBeregningAndel = Readonly<{
   arbeidsforhold?: BeregningsgrunnlagArbeidsforhold;
   andelsnr?: number;
-  inntektskategori?: string;
-  aktivitetStatus: string;
+  inntektskategori?: Inntektskategori;
+  aktivitetStatus: AktivitetStatus;
 }>;
 
 export type AndelForFaktaOmBeregning = Readonly<{
   arbeidsforhold?: BeregningsgrunnlagArbeidsforhold;
   andelsnr?: number;
   refusjonskrav?: number;
-  inntektskategori?: string;
-  aktivitetStatus: string;
+  inntektskategori?: Inntektskategori;
+  aktivitetStatus: AktivitetStatus;
   belopReadOnly?: number;
   fastsattBelop?: number;
   skalKunneEndreAktivitet?: boolean;
@@ -38,7 +41,7 @@ export type BeregningAktivitet = Readonly<{
   fom: string;
   tom: string;
   arbeidsforholdId?: string;
-  arbeidsforholdType: string;
+  arbeidsforholdType: OpptjeningAktivitetType;
   skalBrukes?: boolean;
 }>;
 

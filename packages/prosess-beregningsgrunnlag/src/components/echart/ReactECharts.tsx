@@ -22,11 +22,11 @@ export const ReactECharts = ({ option, style, height }: Props): JSX.Element => {
     const resizeChart = () => {
       chart?.resize();
     };
-    window.addEventListener('resize', resizeChart);
+    globalThis.addEventListener('resize', resizeChart);
 
     return () => {
       chart?.dispose();
-      window.removeEventListener('resize', resizeChart);
+      globalThis.removeEventListener('resize', resizeChart);
     };
   }, []);
 
@@ -40,6 +40,7 @@ export const ReactECharts = ({ option, style, height }: Props): JSX.Element => {
         }
       }
     }
+    // eslint-disable-next-line react-hooks/refs
   }, [chartRef.current, option]);
 
   return <div ref={chartRef} style={{ width: 'auto', height, ...style }} />;

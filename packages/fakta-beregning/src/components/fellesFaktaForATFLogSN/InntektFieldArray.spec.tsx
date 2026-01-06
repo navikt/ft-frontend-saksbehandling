@@ -1,47 +1,17 @@
-import { AktivitetStatus as aktivitetStatuser } from '@navikt/ft-kodeverk';
+import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 
+import type { AndelFieldValue } from '../../typer/FieldValues';
 import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { InntektFieldArray } from './InntektFieldArray';
 import { leggTilDagpengerOmBesteberegning } from './inntektFieldArrayUtils';
 
-const kodeverkSamling = {
-  AktivitetStatus: [
-    {
-      kode: aktivitetStatuser.MILITÆR_ELLER_SIVIL,
-      navn: 'Militær og siviltjeneste',
-      kodeverk: 'test',
-    },
-    {
-      kode: aktivitetStatuser.ARBEIDSTAKER,
-      navn: 'Arbeidstaker',
-      kodeverk: 'test',
-    },
-    {
-      kode: aktivitetStatuser.FRILANSER,
-      navn: 'Frilanser',
-      kodeverk: 'test',
-    },
-    {
-      kode: aktivitetStatuser.DAGPENGER,
-      navn: 'Dagpenger',
-      kodeverk: 'test',
-    },
-    {
-      kode: aktivitetStatuser.SELVSTENDIG_NÆRINGSDRIVENDE,
-      navn: 'Selvstendig næringsdrivende',
-      kodeverk: 'test',
-    },
-    {
-      kode: aktivitetStatuser.BRUKERS_ANDEL,
-      navn: 'Brukers andel',
-      kodeverk: 'test',
-    },
-  ],
-} as KodeverkForPanel;
+const kodeverkSamling = alleKodeverk as KodeverkForPanel;
 
 describe('InntektFieldArray', () => {
   it('skal ikkje fjerne dagpengeandel om dagpenger og ikkje lagt til manuelt', () => {
-    const newfields = [{ aktivitetStatus: aktivitetStatuser.DAGPENGER, lagtTilAvSaksbehandler: false }];
+    const newfields: AndelFieldValue[] = [
+      { aktivitetStatus: 'DP', lagtTilAvSaksbehandler: false, andel: '', inntektskategori: 'DAGPENGER' },
+    ];
     const rm = (index: number) => newfields.splice(index, 1);
     leggTilDagpengerOmBesteberegning(
       newfields as any,

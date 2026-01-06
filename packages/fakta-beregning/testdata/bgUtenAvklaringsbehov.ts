@@ -1,4 +1,3 @@
-import { konverterKodeverkTilKode } from '@navikt/ft-frontend-utils-test';
 import { TIDENES_ENDE } from '@navikt/ft-utils';
 
 const beregningsgrunnlag = {
@@ -9,12 +8,7 @@ const beregningsgrunnlag = {
         avklaringsbehov: [],
         skjaeringstidspunktBeregning: '2022-01-18',
         skjæringstidspunkt: '2022-01-18',
-        aktivitetStatus: [
-          {
-            kode: 'AT',
-            kodeverk: 'AKTIVITET_STATUS',
-          },
-        ],
+        aktivitetStatus: ['AT'],
         beregningsgrunnlagPeriode: [
           {
             beregningsgrunnlagPeriodeFom: '2022-01-18',
@@ -29,10 +23,7 @@ const beregningsgrunnlag = {
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -40,17 +31,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -69,20 +54,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -90,17 +67,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -119,20 +90,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -140,17 +103,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -169,20 +126,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -190,17 +139,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -219,20 +162,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -240,17 +175,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -269,20 +198,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -290,17 +211,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -319,20 +234,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -340,17 +247,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -369,20 +270,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -390,17 +283,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -419,20 +306,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -440,17 +319,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -469,20 +342,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -490,17 +355,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -519,20 +378,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -540,17 +391,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -569,20 +414,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -590,17 +427,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -619,20 +450,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -640,17 +463,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -669,20 +486,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -690,17 +499,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -719,20 +522,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -740,17 +535,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -769,20 +558,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -790,17 +571,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -819,20 +594,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -840,17 +607,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -869,20 +630,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -890,17 +643,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -919,20 +666,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -940,17 +679,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -969,20 +702,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -990,17 +715,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1019,20 +738,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1040,17 +751,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1069,20 +774,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1090,17 +787,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1119,20 +810,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1140,17 +823,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1169,20 +846,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1190,17 +859,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1219,20 +882,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1240,17 +895,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1269,20 +918,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1290,17 +931,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1319,20 +954,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1340,17 +967,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1369,20 +990,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1390,17 +1003,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1419,20 +1026,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1440,17 +1039,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1469,20 +1062,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1490,17 +1075,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1519,20 +1098,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1540,17 +1111,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1569,20 +1134,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1590,17 +1147,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1619,20 +1170,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1640,17 +1183,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1669,20 +1206,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1690,17 +1219,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1719,20 +1242,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1740,17 +1255,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1769,20 +1278,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1790,17 +1291,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1819,20 +1314,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1840,17 +1327,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1869,20 +1350,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1890,17 +1363,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1919,20 +1386,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1940,17 +1399,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -1969,20 +1422,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -1990,17 +1435,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2019,20 +1458,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2040,17 +1471,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2069,20 +1494,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2090,17 +1507,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2119,20 +1530,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2140,17 +1543,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2169,20 +1566,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2190,17 +1579,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2219,20 +1602,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2240,17 +1615,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2269,20 +1638,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2290,17 +1651,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2319,20 +1674,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2340,17 +1687,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2369,20 +1710,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2390,17 +1723,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2419,20 +1746,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2440,17 +1759,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2469,20 +1782,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2490,17 +1795,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2519,20 +1818,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2540,17 +1831,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2569,20 +1854,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2590,17 +1867,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2619,20 +1890,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2640,17 +1903,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2669,20 +1926,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2690,17 +1939,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2719,20 +1962,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2740,17 +1975,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2769,20 +1998,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2790,17 +2011,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2819,20 +2034,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2840,17 +2047,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2869,20 +2070,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2890,17 +2083,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2919,20 +2106,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2940,17 +2119,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -2969,20 +2142,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -2990,17 +2155,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3019,20 +2178,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3040,17 +2191,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3069,20 +2214,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3090,17 +2227,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3119,20 +2250,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3140,17 +2263,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3169,20 +2286,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3190,17 +2299,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3219,20 +2322,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3240,17 +2335,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3269,20 +2358,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3290,17 +2371,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3319,20 +2394,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3340,17 +2407,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3369,20 +2430,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3390,17 +2443,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3419,20 +2466,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3440,17 +2479,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3469,20 +2502,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3490,17 +2515,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3519,20 +2538,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3540,17 +2551,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3569,20 +2574,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3590,17 +2587,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3619,20 +2610,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3640,17 +2623,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3669,20 +2646,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3690,17 +2659,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3719,20 +2682,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3740,17 +2695,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3769,20 +2718,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3790,17 +2731,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3819,20 +2754,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3840,17 +2767,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3869,20 +2790,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3890,17 +2803,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3919,20 +2826,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3940,17 +2839,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -3969,20 +2862,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -3990,17 +2875,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4019,20 +2898,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4040,17 +2911,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4069,20 +2934,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4090,17 +2947,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4119,20 +2970,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4140,17 +2983,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4169,20 +3006,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4190,17 +3019,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4219,20 +3042,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4240,17 +3055,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4269,20 +3078,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4290,17 +3091,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4319,20 +3114,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4340,17 +3127,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4369,20 +3150,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4390,17 +3163,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4419,20 +3186,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4440,17 +3199,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4469,20 +3222,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4490,17 +3235,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4519,20 +3258,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4540,17 +3271,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4569,20 +3294,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4590,17 +3307,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4619,20 +3330,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4640,17 +3343,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4669,20 +3366,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4690,17 +3379,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4719,20 +3402,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4740,17 +3415,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4769,20 +3438,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4790,17 +3451,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4819,20 +3474,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4840,17 +3487,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4869,20 +3510,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4890,17 +3523,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4919,20 +3546,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4940,17 +3559,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -4969,20 +3582,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -4990,17 +3595,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5019,20 +3618,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5040,17 +3631,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5069,20 +3654,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5090,17 +3667,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5119,20 +3690,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5140,17 +3703,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5169,20 +3726,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5190,17 +3739,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5219,20 +3762,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5240,17 +3775,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5269,20 +3798,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5290,17 +3811,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5319,20 +3834,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5340,17 +3847,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5369,20 +3870,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5390,17 +3883,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5419,20 +3906,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5440,17 +3919,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5469,20 +3942,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5490,17 +3955,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5519,20 +3978,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5540,17 +3991,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5569,20 +4014,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5590,17 +4027,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5619,20 +4050,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5640,17 +4063,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5669,20 +4086,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5690,17 +4099,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5719,20 +4122,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5740,17 +4135,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5769,20 +4158,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5790,17 +4171,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5819,20 +4194,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5840,17 +4207,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5869,20 +4230,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5890,17 +4243,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5919,20 +4266,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5940,17 +4279,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -5969,20 +4302,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -5990,17 +4315,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6019,20 +4338,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6040,17 +4351,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6069,20 +4374,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6090,17 +4387,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6119,20 +4410,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6140,17 +4423,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6169,20 +4446,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6190,17 +4459,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6219,20 +4482,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6240,17 +4495,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6269,20 +4518,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6290,17 +4531,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6319,20 +4554,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6340,17 +4567,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6369,20 +4590,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6390,17 +4603,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6419,20 +4626,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6440,17 +4639,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6469,20 +4662,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6490,17 +4675,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6519,20 +4698,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6540,17 +4711,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6569,20 +4734,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6590,17 +4747,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6619,20 +4770,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6640,17 +4783,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6669,20 +4806,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6690,17 +4819,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6719,20 +4842,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6740,17 +4855,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6769,20 +4878,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6790,17 +4891,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6819,20 +4914,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6840,17 +4927,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6869,20 +4950,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6890,17 +4963,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6919,20 +4986,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6940,17 +4999,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -6969,20 +5022,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -6990,17 +5035,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -7019,20 +5058,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -7040,17 +5071,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -7069,20 +5094,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -7090,17 +5107,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -7119,20 +5130,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -7140,17 +5143,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -7169,20 +5166,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -7190,17 +5179,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -7219,20 +5202,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -7240,17 +5215,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -7269,20 +5238,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -7290,17 +5251,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -7319,20 +5274,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -7340,17 +5287,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -7369,20 +5310,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -7390,17 +5323,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -7419,20 +5346,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -7440,17 +5359,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -7469,20 +5382,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -7490,17 +5395,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -7519,20 +5418,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -7540,17 +5431,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 542000.04,
                 redusertPrAar: 542000.04,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -7569,20 +5454,12 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              {
-                kode: 'ENDRING_I_AKTIVITETER_SØKT_FOR',
-                kodeverk: 'PERIODE_AARSAK',
-              },
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
                 dtoType: 'GENERELL',
-                aktivitetStatus: {
-                  kode: 'AT',
-                  kodeverk: 'AKTIVITET_STATUS',
-                },
+                aktivitetStatus: 'AT',
                 beregningsperiodeFom: '2021-10-01',
                 beregningsperiodeTom: '2021-12-31',
                 beregnetPrAar: 542000.04,
@@ -7590,17 +5467,11 @@ const beregningsgrunnlag = {
                 avkortetPrAar: 0.0,
                 redusertPrAar: 0.0,
                 andelsnr: 1,
-                inntektskategori: {
-                  kode: 'ARBEIDSTAKER',
-                  kodeverk: 'INNTEKTSKATEGORI',
-                },
+                inntektskategori: 'ARBEIDSTAKER',
                 arbeidsforhold: {
                   arbeidsgiverIdent: '999999999',
                   startdato: '2018-10-01',
-                  arbeidsforholdType: {
-                    kode: 'ARBEID',
-                    kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                  },
+                  arbeidsforholdType: 'ARBEID',
                   belopFraInntektsmeldingPrMnd: 45166.67,
                 },
                 fastsattAvSaksbehandler: false,
@@ -7619,10 +5490,7 @@ const beregningsgrunnlag = {
             rapportertPrAar: 626697.99,
             avvikPromille: 135.1495479,
             avvikProsent: 13.51495479,
-            sammenligningsgrunnlagType: {
-              kode: 'SAMMENLIGNING_AT_FL',
-              kodeverk: 'SAMMENLIGNINGSGRUNNLAG_TYPE',
-            },
+            sammenligningsgrunnlagType: 'SAMMENLIGNING_AT_FL',
             differanseBeregnet: -84697.95,
           },
         ],
@@ -7643,10 +5511,7 @@ const beregningsgrunnlag = {
                     arbeidsgiverIdent: '999999999',
                     fom: '2018-10-01',
                     tom: TIDENES_ENDE,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
               },
@@ -7657,22 +5522,13 @@ const beregningsgrunnlag = {
             {
               belopReadOnly: 45166.67,
               fastsattBelop: 45166.67,
-              inntektskategori: {
-                kode: 'ARBEIDSTAKER',
-                kodeverk: 'INNTEKTSKATEGORI',
-              },
-              aktivitetStatus: {
-                kode: 'AT',
-                kodeverk: 'AKTIVITET_STATUS',
-              },
+              inntektskategori: 'ARBEIDSTAKER',
+              aktivitetStatus: 'AT',
               refusjonskrav: 0.0,
               arbeidsforhold: {
                 arbeidsgiverIdent: '999999999',
                 startdato: '2018-10-01',
-                arbeidsforholdType: {
-                  kode: 'ARBEID',
-                  kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                },
+                arbeidsforholdType: 'ARBEID',
                 belopFraInntektsmeldingPrMnd: 45166.67,
               },
               andelsnr: 1,
@@ -7681,10 +5537,7 @@ const beregningsgrunnlag = {
             },
           ],
         },
-        hjemmel: {
-          kode: 'F_9_9_8_28_8_30',
-          kodeverk: 'BG_HJEMMEL',
-        },
+        hjemmel: 'F_9_9_8_28_8_30',
         faktaOmFordeling: {
           fordelBeregningsgrunnlag: {
             fordelBeregningsgrunnlagPerioder: [
@@ -7697,23 +5550,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -7721,10 +5562,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -7741,23 +5579,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -7765,10 +5591,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -7785,23 +5608,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -7809,10 +5620,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -7829,23 +5637,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -7853,10 +5649,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -7873,23 +5666,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -7897,10 +5678,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -7917,23 +5695,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -7941,10 +5707,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -7961,23 +5724,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -7985,10 +5736,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8005,23 +5753,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -8029,10 +5765,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8049,23 +5782,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -8073,10 +5794,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8093,23 +5811,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -8117,10 +5823,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8137,23 +5840,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -8161,10 +5852,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8181,23 +5869,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -8205,10 +5881,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8225,23 +5898,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -8249,10 +5910,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8269,23 +5927,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100.0],
@@ -8293,10 +5939,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8313,23 +5956,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -8337,10 +5968,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8357,23 +5985,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100.0],
@@ -8381,10 +5997,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8401,23 +6014,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -8425,10 +6026,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8445,23 +6043,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100.0],
@@ -8469,10 +6055,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8489,23 +6072,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -8513,10 +6084,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8533,23 +6101,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100.0],
@@ -8557,10 +6113,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8577,23 +6130,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -8601,10 +6142,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8621,23 +6159,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100.0],
@@ -8645,10 +6171,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8665,23 +6188,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -8689,10 +6200,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8709,23 +6217,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100.0],
@@ -8733,10 +6229,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8753,23 +6246,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -8777,10 +6258,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8797,23 +6275,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100.0],
@@ -8821,10 +6287,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8841,23 +6304,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -8865,10 +6316,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8885,23 +6333,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100.0],
@@ -8909,10 +6345,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8929,23 +6362,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -8953,10 +6374,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -8973,23 +6391,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100.0],
@@ -8997,10 +6403,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9017,23 +6420,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -9041,10 +6432,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9061,23 +6449,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100.0],
@@ -9085,10 +6461,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9105,23 +6478,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -9129,10 +6490,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9149,23 +6507,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100.0],
@@ -9173,10 +6519,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9193,23 +6536,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -9217,10 +6548,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9237,23 +6565,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100.0],
@@ -9261,10 +6577,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9281,23 +6594,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -9305,10 +6606,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9325,23 +6623,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100.0],
@@ -9349,10 +6635,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9369,23 +6652,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -9393,10 +6664,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9413,23 +6681,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100.0],
@@ -9437,10 +6693,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9457,23 +6710,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -9481,10 +6722,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9501,23 +6739,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100.0],
@@ -9525,10 +6751,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9545,23 +6768,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -9569,10 +6780,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9589,23 +6797,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100.0],
@@ -9613,10 +6809,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9633,23 +6826,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -9657,10 +6838,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9677,23 +6855,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100.0],
@@ -9701,10 +6867,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9721,23 +6884,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -9745,10 +6896,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9765,23 +6913,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100.0],
@@ -9789,10 +6925,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9809,23 +6942,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -9833,10 +6954,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9853,23 +6971,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100.0],
@@ -9877,10 +6983,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9897,23 +7000,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -9921,10 +7012,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9941,23 +7029,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -9965,10 +7041,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -9985,23 +7058,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -10009,10 +7070,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10029,23 +7087,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -10053,10 +7099,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10073,23 +7116,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -10097,10 +7128,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10117,23 +7145,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -10141,10 +7157,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10161,23 +7174,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -10185,10 +7186,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10205,23 +7203,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -10229,10 +7215,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10249,23 +7232,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -10273,10 +7244,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10293,23 +7261,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -10317,10 +7273,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10337,23 +7290,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -10361,10 +7302,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10381,23 +7319,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -10405,10 +7331,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10425,23 +7348,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -10449,10 +7360,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10469,23 +7377,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -10493,10 +7389,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10513,23 +7406,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -10537,10 +7418,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10557,23 +7435,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -10581,10 +7447,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10601,23 +7464,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -10625,10 +7476,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10645,23 +7493,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -10669,10 +7505,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10689,23 +7522,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -10713,10 +7534,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10733,23 +7551,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -10757,10 +7563,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10777,23 +7580,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -10801,10 +7592,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10821,23 +7609,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -10845,10 +7621,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10865,23 +7638,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -10889,10 +7650,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10909,23 +7667,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -10933,10 +7679,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10953,23 +7696,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -10977,10 +7708,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -10997,23 +7725,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -11021,10 +7737,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11041,23 +7754,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -11065,10 +7766,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11085,23 +7783,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -11109,10 +7795,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11129,23 +7812,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -11153,10 +7824,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11173,23 +7841,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -11197,10 +7853,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11217,23 +7870,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -11241,10 +7882,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11261,23 +7899,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -11285,10 +7911,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11305,23 +7928,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -11329,10 +7940,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11349,23 +7957,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -11373,10 +7969,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11393,23 +7986,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -11417,10 +7998,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11437,23 +8015,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -11461,10 +8027,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11481,23 +8044,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -11505,10 +8056,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11525,23 +8073,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -11549,10 +8085,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11569,23 +8102,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -11593,10 +8114,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11613,23 +8131,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -11637,10 +8143,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11657,23 +8160,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -11681,10 +8172,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11701,23 +8189,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -11725,10 +8201,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11745,23 +8218,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -11769,10 +8230,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11789,23 +8247,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -11813,10 +8259,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11833,23 +8276,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -11857,10 +8288,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11877,23 +8305,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -11901,10 +8317,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11921,23 +8334,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -11945,10 +8346,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -11965,23 +8363,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -11989,10 +8375,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12009,23 +8392,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -12033,10 +8404,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12053,23 +8421,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -12077,10 +8433,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12097,23 +8450,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -12121,10 +8462,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12141,23 +8479,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -12165,10 +8491,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12185,23 +8508,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -12209,10 +8520,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12229,23 +8537,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -12253,10 +8549,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12273,23 +8566,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -12297,10 +8578,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12317,23 +8595,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -12341,10 +8607,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12361,23 +8624,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -12385,10 +8636,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12405,23 +8653,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -12429,10 +8665,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12449,23 +8682,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -12473,10 +8694,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12493,23 +8711,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -12517,10 +8723,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12537,23 +8740,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -12561,10 +8752,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12581,23 +8769,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -12605,10 +8781,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12625,23 +8798,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -12649,10 +8810,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12669,23 +8827,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -12693,10 +8839,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12713,23 +8856,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -12737,10 +8868,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12757,23 +8885,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -12781,10 +8897,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12801,23 +8914,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -12825,10 +8926,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12845,23 +8943,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -12869,10 +8955,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12889,23 +8972,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -12913,10 +8984,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12933,23 +9001,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -12957,10 +9013,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -12977,23 +9030,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -13001,10 +9042,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13021,23 +9059,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -13045,10 +9071,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13065,23 +9088,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -13089,10 +9100,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13109,23 +9117,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -13133,10 +9129,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13153,23 +9146,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -13177,10 +9158,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13197,23 +9175,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -13221,10 +9187,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13241,23 +9204,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -13265,10 +9216,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13285,23 +9233,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -13309,10 +9245,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13329,23 +9262,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -13353,10 +9274,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13373,23 +9291,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -13397,10 +9303,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13417,23 +9320,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -13441,10 +9332,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13461,23 +9349,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -13485,10 +9361,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13505,23 +9378,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -13529,10 +9390,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13549,23 +9407,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -13573,10 +9419,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13593,23 +9436,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -13617,10 +9448,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13637,23 +9465,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -13661,10 +9477,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13681,23 +9494,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -13705,10 +9506,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13725,23 +9523,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -13749,10 +9535,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13769,23 +9552,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -13793,10 +9564,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13813,23 +9581,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -13837,10 +9593,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13857,23 +9610,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -13881,10 +9622,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13901,23 +9639,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -13925,10 +9651,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13945,23 +9668,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -13969,10 +9680,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -13989,23 +9697,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -14013,10 +9709,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -14033,23 +9726,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -14057,10 +9738,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -14077,23 +9755,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -14101,10 +9767,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -14121,23 +9784,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -14145,10 +9796,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -14165,23 +9813,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -14189,10 +9825,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -14209,23 +9842,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -14233,10 +9854,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -14253,23 +9871,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -14277,10 +9883,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -14297,23 +9900,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [0.0],
@@ -14321,10 +9912,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -14341,23 +9929,11 @@ const beregningsgrunnlag = {
                     arbeidsforhold: {
                       arbeidsgiverIdent: '999999999',
                       startdato: '2018-10-01',
-                      arbeidsforholdType: {
-                        kode: 'ARBEID',
-                        kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                      },
+                      arbeidsforholdType: 'ARBEID',
                     },
-                    inntektskategori: {
-                      kode: 'ARBEIDSTAKER',
-                      kodeverk: 'INNTEKTSKATEGORI',
-                    },
-                    aktivitetStatus: {
-                      kode: 'AT',
-                      kodeverk: 'AKTIVITET_STATUS',
-                    },
-                    kilde: {
-                      kode: 'PROSESS_START',
-                      kodeverk: 'ANDEL_KILDE',
-                    },
+                    inntektskategori: 'ARBEIDSTAKER',
+                    aktivitetStatus: 'AT',
+                    kilde: 'PROSESS_START',
                     lagtTilAvSaksbehandler: false,
                     fastsattAvSaksbehandler: false,
                     andelIArbeid: [100],
@@ -14365,10 +9941,7 @@ const beregningsgrunnlag = {
                     refusjonskravPrAar: 0,
                     belopFraInntektsmeldingPrAar: 542000,
                     nyttArbeidsforhold: false,
-                    arbeidsforholdType: {
-                      kode: 'ARBEID',
-                      kodeverk: 'OPPTJENING_AKTIVITET_TYPE',
-                    },
+                    arbeidsforholdType: 'ARBEID',
                   },
                 ],
                 harPeriodeAarsakGraderingEllerRefusjon: false,
@@ -14390,17 +9963,11 @@ const beregningsgrunnlag = {
               tom: '2021-07-31',
               inntekter: [
                 {
-                  inntektAktivitetType: {
-                    kode: 'ARBEIDSTAKERINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
                   beløp: 50410.24,
                 },
                 {
-                  inntektAktivitetType: {
-                    kode: 'YTELSEINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'YTELSEINNTEKT',
                   beløp: 50534.0,
                 },
               ],
@@ -14410,17 +9977,11 @@ const beregningsgrunnlag = {
               tom: '2021-10-31',
               inntekter: [
                 {
-                  inntektAktivitetType: {
-                    kode: 'ARBEIDSTAKERINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
                   beløp: 0.0,
                 },
                 {
-                  inntektAktivitetType: {
-                    kode: 'YTELSEINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'YTELSEINNTEKT',
                   beløp: 48237.0,
                 },
               ],
@@ -14430,17 +9991,11 @@ const beregningsgrunnlag = {
               tom: '2021-11-30',
               inntekter: [
                 {
-                  inntektAktivitetType: {
-                    kode: 'ARBEIDSTAKERINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
                   beløp: 758.47,
                 },
                 {
-                  inntektAktivitetType: {
-                    kode: 'YTELSEINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'YTELSEINNTEKT',
                   beløp: 50534.0,
                 },
               ],
@@ -14450,17 +10005,11 @@ const beregningsgrunnlag = {
               tom: '2021-12-31',
               inntekter: [
                 {
-                  inntektAktivitetType: {
-                    kode: 'ARBEIDSTAKERINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
                   beløp: -483.04,
                 },
                 {
-                  inntektAktivitetType: {
-                    kode: 'YTELSEINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'YTELSEINNTEKT',
                   beløp: 9188.0,
                 },
               ],
@@ -14470,17 +10019,11 @@ const beregningsgrunnlag = {
               tom: '2021-09-30',
               inntekter: [
                 {
-                  inntektAktivitetType: {
-                    kode: 'ARBEIDSTAKERINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
                   beløp: 0.0,
                 },
                 {
-                  inntektAktivitetType: {
-                    kode: 'YTELSEINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'YTELSEINNTEKT',
                   beløp: 50791.0,
                 },
               ],
@@ -14490,17 +10033,11 @@ const beregningsgrunnlag = {
               tom: '2021-08-31',
               inntekter: [
                 {
-                  inntektAktivitetType: {
-                    kode: 'ARBEIDSTAKERINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
                   beløp: 218.61,
                 },
                 {
-                  inntektAktivitetType: {
-                    kode: 'YTELSEINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'YTELSEINNTEKT',
                   beløp: 50534.0,
                 },
               ],
@@ -14510,17 +10047,11 @@ const beregningsgrunnlag = {
               tom: '2021-06-30',
               inntekter: [
                 {
-                  inntektAktivitetType: {
-                    kode: 'ARBEIDSTAKERINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
                   beløp: 55511.58,
                 },
                 {
-                  inntektAktivitetType: {
-                    kode: 'YTELSEINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'YTELSEINNTEKT',
                   beløp: 924.0,
                 },
               ],
@@ -14530,17 +10061,11 @@ const beregningsgrunnlag = {
               tom: '2021-05-31',
               inntekter: [
                 {
-                  inntektAktivitetType: {
-                    kode: 'ARBEIDSTAKERINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
                   beløp: 54416.09,
                 },
                 {
-                  inntektAktivitetType: {
-                    kode: 'YTELSEINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'YTELSEINNTEKT',
                   beløp: 2100.0,
                 },
               ],
@@ -14550,17 +10075,11 @@ const beregningsgrunnlag = {
               tom: '2021-04-30',
               inntekter: [
                 {
-                  inntektAktivitetType: {
-                    kode: 'ARBEIDSTAKERINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
                   beløp: 47536.99,
                 },
                 {
-                  inntektAktivitetType: {
-                    kode: 'YTELSEINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'YTELSEINNTEKT',
                   beløp: 2200.0,
                 },
               ],
@@ -14570,17 +10089,11 @@ const beregningsgrunnlag = {
               tom: '2021-03-31',
               inntekter: [
                 {
-                  inntektAktivitetType: {
-                    kode: 'ARBEIDSTAKERINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
                   beløp: 47535.41,
                 },
                 {
-                  inntektAktivitetType: {
-                    kode: 'YTELSEINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'YTELSEINNTEKT',
                   beløp: 2300.0,
                 },
               ],
@@ -14590,17 +10103,11 @@ const beregningsgrunnlag = {
               tom: '2021-02-28',
               inntekter: [
                 {
-                  inntektAktivitetType: {
-                    kode: 'ARBEIDSTAKERINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
                   beløp: 51932.9,
                 },
                 {
-                  inntektAktivitetType: {
-                    kode: 'YTELSEINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'YTELSEINNTEKT',
                   beløp: 2000.0,
                 },
               ],
@@ -14610,17 +10117,11 @@ const beregningsgrunnlag = {
               tom: '2021-01-31',
               inntekter: [
                 {
-                  inntektAktivitetType: {
-                    kode: 'ARBEIDSTAKERINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
                   beløp: 47418.74,
                 },
                 {
-                  inntektAktivitetType: {
-                    kode: 'YTELSEINNTEKT',
-                    kodeverk: 'INNTEKT_AKTIVITET_TYPE',
-                  },
+                  inntektAktivitetType: 'YTELSEINNTEKT',
                   beløp: 2100.0,
                 },
               ],
@@ -14631,10 +10132,7 @@ const beregningsgrunnlag = {
               år: 2021,
               inntekter: [
                 {
-                  pgiType: {
-                    kode: 'LØNN',
-                    kodeverk: 'PGI_TYPE',
-                  },
+                  pgiType: 'LØNN',
                   beløp: 640498.0,
                 },
               ],
@@ -14643,10 +10141,7 @@ const beregningsgrunnlag = {
               år: 2020,
               inntekter: [
                 {
-                  pgiType: {
-                    kode: 'LØNN',
-                    kodeverk: 'PGI_TYPE',
-                  },
+                  pgiType: 'LØNN',
                   beløp: 581285.0,
                 },
               ],
@@ -14655,10 +10150,7 @@ const beregningsgrunnlag = {
               år: 2019,
               inntekter: [
                 {
-                  pgiType: {
-                    kode: 'LØNN',
-                    kodeverk: 'PGI_TYPE',
-                  },
+                  pgiType: 'LØNN',
                   beløp: 537929.0,
                 },
               ],
@@ -14667,10 +10159,7 @@ const beregningsgrunnlag = {
               år: 2018,
               inntekter: [
                 {
-                  pgiType: {
-                    kode: 'LØNN',
-                    kodeverk: 'PGI_TYPE',
-                  },
+                  pgiType: 'LØNN',
                   beløp: 513243.0,
                 },
               ],
@@ -14685,20 +10174,14 @@ const beregningsgrunnlag = {
 };
 
 const vilkar = {
-  vilkarType: {
-    kode: 'FP_VK_41',
-    kodeverk: 'VILKAR_TYPE',
-  },
+  vilkarType: 'FP_VK_41',
   lovReferanse: '§ 8',
   overstyrbar: true,
   perioder: [
     {
       avslagKode: null,
       merknadParametere: {},
-      vilkarStatus: {
-        kode: 'OPPFYLT',
-        kodeverk: 'VILKAR_UTFALL_TYPE',
-      },
+      vilkarStatus: 'OPPFYLT',
       periode: {
         fom: '2022-01-18',
         tom: '2023-06-30',
@@ -14706,15 +10189,12 @@ const vilkar = {
       begrunnelse: null,
       vurderesIBehandlingen: true,
       vurdersIBehandlingen: true,
-      merknad: {
-        kode: '-',
-        kodeverk: 'VILKAR_UTFALL_MERKNAD',
-      },
+      merknad: '-',
     },
   ],
 };
 
-export const bgOverstyreUtenAvklaringsbehov = konverterKodeverkTilKode(
-  beregningsgrunnlag.beregningsgrunnlagListe.map(v => v.beregningsgrunnlag),
+export const bgOverstyreUtenAvklaringsbehov = JSON.parse(
+  JSON.stringify(beregningsgrunnlag.beregningsgrunnlagListe.map(v => v.beregningsgrunnlag)),
 );
-export const vilkarOverstyreUtenAvklaringsbehov = konverterKodeverkTilKode(vilkar);
+export const vilkarOverstyreUtenAvklaringsbehov = JSON.parse(JSON.stringify(vilkar));

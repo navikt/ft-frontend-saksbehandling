@@ -1,0 +1,9 @@
+.table {
+  thead th {
+    vertical-align: top;
+  }
+
+  tr[data-state='open'] td > div > div {
+    padding-top: 0;
+  }
+}

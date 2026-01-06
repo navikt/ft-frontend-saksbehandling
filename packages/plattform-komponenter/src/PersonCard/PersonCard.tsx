@@ -114,6 +114,7 @@ export const PersonCard = ({
                   style={{ padding: 0 }}
                 />
                 <Popover
+                  /* eslint-disable-next-line react-hooks/refs */
                   anchorEl={menuRef.current}
                   onClose={() => setIsMenuOpen(false)}
                   open={isMenuOpen}

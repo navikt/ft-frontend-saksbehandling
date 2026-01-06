@@ -7,7 +7,7 @@ import type {
   FordelBeregningsgrunnlagPeriode,
   ForlengelsePeriodeProp,
 } from '@navikt/ft-types';
-import { removeSpacesFromNumber } from '@navikt/ft-utils';
+import { notEmpty, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import type {
   FordelBeregningsgrunnlagAndelValues,
@@ -32,7 +32,7 @@ const mapTilFastsatteVerdier = (
       ? removeSpacesFromNumber(aktivitet.refusjonskrav)
       : undefined,
   fastsattÅrsbeløpInklNaturalytelse: removeSpacesFromNumber(aktivitet.fastsattBelop),
-  inntektskategori: aktivitet.inntektskategori || '',
+  inntektskategori: notEmpty(aktivitet.inntektskategori),
 });
 
 const harPeriodeÅrsak = (periode: BeregningsgrunnlagPeriodeProp, periodeÅrsak: string): boolean =>
@@ -271,11 +271,8 @@ const mapAndel = (aktivitet: FordelBeregningsgrunnlagAndelValues): FordelBeregni
   fastsatteVerdier: mapTilFastsatteVerdier(aktivitet),
 });
 
-const stringEllerFeil = (felt?: string): string => {
-  if (!felt) {
-    throw Error('Fant ikke påkrevd felt før submit');
-  }
-  return felt;
+const stringEllerFeil = (felt: string | undefined) => {
+  return notEmpty(felt, 'Fant ikke påkrevd felt før submit');
 };
 export const lagPerioderForSubmit = (
   values: FordelBeregningsgrunnlagValues,

@@ -1,4 +1,4 @@
-import type { HendelseType } from '@navikt/ft-kodeverk';
+import type { HendelseType } from '@navikt/ft-types';
 
 import type { Aktsomhet } from '../kodeverk/aktsomhet';
 import type { SærligGrunn } from '../kodeverk/særligGrunn';
@@ -23,5 +23,4 @@ type EnumOrUnknown<T extends KodeverkType> = T extends keyof KodeverkEnumMap ? K
 export type KodeverkMedNavnTilbakekreving<T extends KodeverkType> = Readonly<{
   kode: EnumOrUnknown<T>;
   navn: string;
-  kodeverk: string;
 }>;

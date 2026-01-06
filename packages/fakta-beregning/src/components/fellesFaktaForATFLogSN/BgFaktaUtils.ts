@@ -1,4 +1,3 @@
-import { AktivitetStatus, Inntektskategori, OpptjeningAktivitetType as OAType } from '@navikt/ft-kodeverk';
 import type {
   AndelForFaktaOmBeregning,
   ArbeidsgiverOpplysningerPerId,
@@ -31,7 +30,7 @@ import { andelsnrMottarYtelseMap } from './vurderOgFastsettATFL/forms/VurderMott
 export const INNTEKT_FIELD_ARRAY_NAME = 'inntektFieldArray';
 
 const preutfyllInntektskategori = (andel: AndelForFaktaOmBeregning) =>
-  andel.inntektskategori && andel.inntektskategori !== Inntektskategori.UDEFINERT ? andel.inntektskategori : '';
+  andel.inntektskategori && andel.inntektskategori !== '-' ? andel.inntektskategori : undefined;
 
 const lagVisningsnavn = (
   andel: AndelForFaktaOmBeregning,
@@ -87,19 +86,19 @@ const erArbeidstakerUtenInntektsmeldingOgFrilansISammeOrganisasjon = (
 
 // Aktivitetstatus
 export const erArbeidstaker = (field: AndelFieldIdentifikator): boolean =>
-  !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER;
+  !!field.aktivitetStatus && field.aktivitetStatus === 'AT';
 
 export const erFrilanser = (field: AndelFieldIdentifikator): boolean =>
-  !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.FRILANSER;
+  !!field.aktivitetStatus && field.aktivitetStatus === 'FL';
 
 export const erDagpenger = (field: AndelFieldIdentifikator): boolean =>
-  !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.DAGPENGER;
+  !!field.aktivitetStatus && field.aktivitetStatus === 'DP';
 
 export const erSelvstendigNæringsdrivende = (field: AndelFieldIdentifikator): boolean =>
-  !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE;
+  !!field.aktivitetStatus && field.aktivitetStatus === 'SN';
 
 export const erMilitaerEllerSivil = (field: AndelFieldIdentifikator): boolean =>
-  !!field.aktivitetStatus && field.aktivitetStatus === AktivitetStatus.MILITÆR_ELLER_SIVIL;
+  !!field.aktivitetStatus && field.aktivitetStatus === 'MS';
 
 // Nyoppstartet frilanser
 const erNyoppstartetFrilanser = (
@@ -164,7 +163,7 @@ const andelErEtterlønnSluttpakkeOgSkalFastsettes = (
   andel: AndelFieldIdentifikator,
   values: FaktaOmBeregningAksjonspunktValues,
 ): boolean => {
-  if (andel.arbeidsforholdType && andel.arbeidsforholdType === OAType.ETTERLONN_SLUTTPAKKE) {
+  if (andel.arbeidsforholdType && andel.arbeidsforholdType === 'ETTERLØNN_SLUTTPAKKE') {
     return !!values[harEtterlonnSluttpakkeField];
   }
   return false;

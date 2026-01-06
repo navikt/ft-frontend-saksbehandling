@@ -84,7 +84,7 @@ export const TidsbegrensetArbeidsforholdForm = ({
             )}`}
             control={control}
             validate={[required]}
-            label={
+            legend={
               <VStack gap="space-8">
                 <FormattedMessage
                   id="BeregningInfoPanel.TidsbegrensetArbFor.Arbeidsforhold"
@@ -102,7 +102,7 @@ export const TidsbegrensetArbeidsforholdForm = ({
                 </ReadMore>
               </VStack>
             }
-            isReadOnly={readOnly}
+            readOnly={readOnly}
           >
             <Radio value={true} size="small">
               <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />

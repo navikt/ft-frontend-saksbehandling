@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 import { Accordion } from '@navikt/ds-react';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
@@ -29,7 +28,7 @@ const finnRiktigBgPeriode = (
 ): BeregningsgrunnlagPeriodeProp => {
   const matchetPeriode = bgPerioder.find(p => p.beregningsgrunnlagPeriodeFom === periode.fom);
   if (!matchetPeriode) {
-    throw Error(`Finner ikke matchende beregningsgrunnlagperiode for fordelingsperiode med fom ${periode.fom}`);
+    throw new Error(`Finner ikke matchende beregningsgrunnlagperiode for fordelingsperiode med fom ${periode.fom}`);
   }
   return matchetPeriode;
 };
@@ -101,6 +100,7 @@ export const FordelBeregningsgrunnlagForm = ({
       .filter(periode => periode.skalKunneEndreRefusjon || periode.skalRedigereInntekt)
       .filter(periode => !!periode.fom)
       .map(periode => periode.fom);
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- OK, trur denne er grei
     setOpenPanels(åpnePaneler);
   }, [perioder]);
 
@@ -127,7 +127,7 @@ export const FordelBeregningsgrunnlagForm = ({
           erVurdertTidligere={erVurdertTidligere(periode, beregningsgrunnlag)}
           fordelingsperiode={periode}
           fordelBGFieldArrayName={getFieldNameKey(index)}
-          open={openPanels ? openPanels.filter(panel => panel === periode.fom).length > 0 : false}
+          open={openPanels ? openPanels.includes(periode.fom) : false}
           isAksjonspunktClosed={isAksjonspunktClosed}
           showPanel={showPanel}
           beregningsgrunnlag={beregningsgrunnlag}
@@ -161,7 +161,7 @@ FordelBeregningsgrunnlagForm.buildInitialValues = (
   if (!fordelBGPerioder) {
     return initialValues;
   }
-  const harKunYtelse = !!bg.aktivitetStatus && bg.aktivitetStatus.some(status => status === AktivitetStatus.KUN_YTELSE);
+  const harKunYtelse = !!bg.aktivitetStatus && bg.aktivitetStatus.includes('KUN_YTELSE');
   const bgPerioder = bg.beregningsgrunnlagPeriode;
   slåSammenPerioder(fordelBGPerioder, bgPerioder, bg.forlengelseperioder).forEach((periode, index) => {
     const bgPeriode = finnRiktigBgPeriode(periode, bgPerioder);

@@ -8,15 +8,9 @@ import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
 type Props<T extends FieldValues> = {
   name: string;
-  label?: string | ReactNode;
-  readOnly?: boolean;
-  disabled?: boolean;
+  label?: ReactNode;
   type?: 'email' | 'password' | 'tel' | 'text' | 'url';
   isEdited?: boolean;
-  maxLength?: number;
-  autoComplete?: boolean;
-  className?: string;
-  hideLabel?: boolean;
   validate?: ((value: string) => ValidationReturnType)[] | ((value: number) => ValidationReturnType)[];
   onBlur?: (value: any) => void;
   onChange?: (value: any) => void;
@@ -26,30 +20,25 @@ type Props<T extends FieldValues> = {
   format?: (value: string) => string;
   normalizeOnBlur?: (value: string | number) => string | number;
   control: UseControllerProps<T>['control'];
-} & Omit<TextFieldProps, 'label' | 'autoComplete'> &
+} & Omit<TextFieldProps, 'value' | 'defaultValue' | 'onChange' | 'label'> &
   Omit<UseControllerProps<T>, 'control'>;
 
 export const RhfTextField = <T extends FieldValues>({
   name,
   control,
   label,
+  hideLabel,
   validate = [],
-  readOnly = false,
+  readOnly,
   type,
   shouldValidateOnBlur = false,
   onBlur,
   onChange,
-  description,
-  autoFocus,
   parse = value => value,
   format = value => value,
   normalizeOnBlur,
   isEdited,
-  maxLength,
-  autoComplete = false,
-  disabled,
-  className,
-  hideLabel,
+  autoComplete = 'off',
   size = 'small',
   ...props
 }: Props<T>) => {
@@ -74,17 +63,12 @@ export const RhfTextField = <T extends FieldValues>({
     <TextField
       size={size}
       hideLabel={hideLabel}
-      description={description}
       label={label}
       error={getError(errors, name)}
       {...field}
       value={field.value ? format(field.value) : ''}
-      autoFocus={autoFocus}
-      autoComplete={autoComplete ? undefined : 'off'}
-      maxLength={maxLength}
-      disabled={disabled}
+      autoComplete={autoComplete}
       type={type}
-      className={className}
       onChange={event => {
         const verdi = event.currentTarget.value ? parse(event.currentTarget.value) : null;
         if (onChange) {

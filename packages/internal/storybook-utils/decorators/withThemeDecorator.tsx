@@ -5,27 +5,24 @@ import type { ReactRenderer } from '@storybook/react-vite';
 import type { DecoratorFunction } from 'storybook/internal/types';
 
 export const withThemeDecorator: DecoratorFunction<ReactRenderer> = (Story, context) => {
-  const theme = context.globals['theme'];
+  const Wrapper = () => {
+    const theme = context.globals['theme'];
+    useEffect(() => {
+      const elements = document.getElementsByClassName('sb-show-main');
+      if (elements.length > 0) {
+        elements[0].setAttribute(
+          'style',
+          theme === 'dark' ? 'background: #0e151f !important' : 'background: #fff !important',
+        );
+      }
+    }, [theme]);
 
-  useEffect(() => {
-    // Dette kan sikkert gjerast på ein bedre måte
-    const elements = document.getElementsByClassName('sb-show-main');
-    if (elements.length > 0) {
-      elements[0].setAttribute(
-        'style',
-        theme === 'dark' ? 'background: #0e151f !important' : 'background: #fff !important',
-      );
-    }
-  }, [theme]);
+    return (
+      <Theme theme={theme === 'dark' ? 'dark' : 'light'}>
+        <Story />
+      </Theme>
+    );
+  };
 
-  return (
-    <>
-      {theme !== 'none' && (
-        <Theme theme={theme === 'dark' ? 'dark' : 'light'}>
-          <Story />
-        </Theme>
-      )}
-      {theme === 'none' && <Story />}
-    </>
-  );
+  return <Wrapper />;
 };

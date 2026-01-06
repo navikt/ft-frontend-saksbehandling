@@ -4,7 +4,7 @@ import { Heading, Table } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 import norskFormat from 'dayjs/locale/nb';
 
-import { AktivitetStatus, InntektAktivitetType } from '@navikt/ft-kodeverk';
+import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
   Beregningsgrunnlag,
@@ -55,7 +55,12 @@ export const RegisterinntektTabell = ({ beregningsgrunnlag, arbeidsgiverOpplysni
           {måneder.map(måned => (
             <>
               {måned.inntekter.map((inntekt, index) => (
-                <Table.Row key={inntekt.arbeidsgiverIdent}>
+                <Table.Row
+                  key={
+                    inntekt.inntektAktivitetType +
+                    (inntekt.inntektAktivitetType === InntektAktivitetType.ARBEID ? inntekt.arbeidsgiverIdent : '')
+                  }
+                >
                   <Table.HeaderCell textSize="small" scope="row">
                     {index === 0 ? finnMåned(måned.fom) : ''}
                   </Table.HeaderCell>
@@ -88,11 +93,11 @@ const erAktivVedStp = (
   inntekt: InntektsgrunnlagInntekt,
   andelerVedSkjæringstidspunkt: BeregningsgrunnlagAndel[],
 ): boolean => {
-  if (inntekt.arbeidsgiverIdent) {
+  if (inntekt.inntektAktivitetType === InntektAktivitetType.ARBEID) {
     return andelerVedSkjæringstidspunkt.some(a => a.arbeidsforhold?.arbeidsgiverIdent === inntekt.arbeidsgiverIdent);
   }
   if (inntekt.inntektAktivitetType === InntektAktivitetType.FRILANS) {
-    return andelerVedSkjæringstidspunkt.some(a => a.aktivitetStatus === AktivitetStatus.FRILANSER);
+    return andelerVedSkjæringstidspunkt.some(a => a.aktivitetStatus === 'FL');
   }
   return false;
 };
@@ -108,7 +113,10 @@ const finnAktivitetNavn = (
   inntekt: InntektsgrunnlagInntekt,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): string => {
-  const ago = inntekt.arbeidsgiverIdent ? arbeidsgiverOpplysningerPerId[inntekt.arbeidsgiverIdent] : undefined;
+  const ago =
+    inntekt.inntektAktivitetType === InntektAktivitetType.ARBEID
+      ? arbeidsgiverOpplysningerPerId[inntekt.arbeidsgiverIdent]
+      : undefined;
   if (ago) {
     return formaterArbeidsgiver(ago);
   }

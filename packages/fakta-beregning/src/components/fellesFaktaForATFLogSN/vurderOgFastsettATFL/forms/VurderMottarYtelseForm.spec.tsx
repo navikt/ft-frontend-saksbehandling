@@ -1,5 +1,4 @@
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import type { ArbeidstakerUtenIMAndel, Beregningsgrunnlag, BeregningsgrunnlagArbeidsforhold } from '@navikt/ft-types';
+import type { ArbeidstakerUtenIMAndel, Beregningsgrunnlag, VurderMottarYtelse } from '@navikt/ft-types';
 
 import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
 import type { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
@@ -20,55 +19,52 @@ const beregningsgrunnlag = {
   ],
 } as Beregningsgrunnlag;
 
-const arbeidsforhold = {
-  arbeidsgiverIdent: '3284788923',
-  arbeidsforholdId: '321378huda7e2',
-  startdato: '2017-01-01',
-  opphoersdato: '2018-01-01',
-} as BeregningsgrunnlagArbeidsforhold;
-
-const arbeidsforhold2 = {
-  arbeidsgiverIdent: '843597943435',
-  arbeidsforholdId: 'jjisefoosfe',
-  startdato: '2017-01-01',
-  opphoersdato: '2018-01-01',
-} as BeregningsgrunnlagArbeidsforhold;
-
-const arbeidsforhold3 = {
-  arbeidsgiverIdent: '843597943435',
-  arbeidsforholdId: '5465465464',
-  startdato: '2017-01-01',
-  opphoersdato: '2018-01-01',
-} as BeregningsgrunnlagArbeidsforhold;
-
-const andel = {
-  aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+const andel: ArbeidstakerUtenIMAndel = {
+  aktivitetStatus: 'AT',
   andelsnr: 1,
   inntektPrMnd: 25000,
   lagtTilAvSaksbehandler: false,
-  arbeidsforhold,
+  arbeidsforhold: {
+    arbeidsgiverIdent: '3284788923',
+    arbeidsforholdId: '321378huda7e2',
+    arbeidsforholdType: 'ARBEID',
+    startdato: '2017-01-01',
+    opphoersdato: '2018-01-01',
+  },
 };
 
-const andel2 = {
-  aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+const andel2: ArbeidstakerUtenIMAndel = {
+  aktivitetStatus: 'AT',
   andelsnr: 2,
   inntektPrMnd: 25000,
   lagtTilAvSaksbehandler: false,
-  arbeidsforhold: arbeidsforhold2,
+  arbeidsforhold: {
+    arbeidsgiverIdent: '843597943435',
+    arbeidsforholdId: 'jjisefoosfe',
+    arbeidsforholdType: 'ARBEID',
+    startdato: '2017-01-01',
+    opphoersdato: '2018-01-01',
+  },
 };
 
-const andel3 = {
-  aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+const andel3: ArbeidstakerUtenIMAndel = {
+  aktivitetStatus: 'AT',
   andelsnr: 3,
   inntektPrMnd: 25000,
   lagtTilAvSaksbehandler: false,
-  arbeidsforhold: arbeidsforhold3,
+  arbeidsforhold: {
+    arbeidsgiverIdent: '843597943435',
+    arbeidsforholdId: '5465465464',
+    arbeidsforholdType: 'ARBEID',
+    startdato: '2017-01-01',
+    opphoersdato: '2018-01-01',
+  },
 };
 
-const arbeidstakerAndelerUtenIM = [
-  { ...andel, mottarYtelse: undefined } as ArbeidstakerUtenIMAndel,
-  { ...andel2, mottarYtelse: false } as ArbeidstakerUtenIMAndel,
-  { ...andel3, mottarYtelse: true } as ArbeidstakerUtenIMAndel,
+const arbeidstakerAndelerUtenIM: ArbeidstakerUtenIMAndel[] = [
+  { ...andel, mottarYtelse: undefined },
+  { ...andel2, mottarYtelse: false },
+  { ...andel3, mottarYtelse: true },
 ];
 
 describe('VurderMottarYtelseForm', () => {
@@ -110,7 +106,7 @@ describe('VurderMottarYtelseForm', () => {
 
   it('skal teste at initial values bygges korrekt med frilans og arbeidsforhold uten inntektsmelding', () => {
     const tilfeller = [FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
-    const mottarYtelse = {
+    const mottarYtelse: VurderMottarYtelse = {
       erFrilans: true,
       frilansMottarYtelse: false,
       arbeidstakerAndelerUtenIM,
@@ -124,9 +120,9 @@ describe('VurderMottarYtelseForm', () => {
 
   it('skal transform values og sende ned FASTSETT_MAANEDSLONN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING ved mottar ytelse for AT uten inntektsmelding', () => {
     const tilfeller = [FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING, FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
-    const inntektPrMnd = [
-      { andelsnr: andel.andelsnr, fastsattBelop: 10000 } as InntektTransformed,
-      { andelsnr: andel3.andelsnr, fastsattBelop: 20000 } as InntektTransformed,
+    const inntektPrMnd: InntektTransformed[] = [
+      { andelsnr: andel.andelsnr, fastsattBelop: 10000 },
+      { andelsnr: andel3.andelsnr, fastsattBelop: 20000 },
     ];
     const faktaOmBeregning = {
       faktaOmBeregningTilfeller: tilfeller,
@@ -173,9 +169,9 @@ describe('VurderMottarYtelseForm', () => {
 
   it('skal kunne sette beløp til 0', () => {
     const tilfeller = [FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING, FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE];
-    const inntektPrMnd = [
-      { andelsnr: andel.andelsnr, fastsattBelop: 0 } as InntektTransformed,
-      { andelsnr: andel3.andelsnr, fastsattBelop: 0 } as InntektTransformed,
+    const inntektPrMnd: InntektTransformed[] = [
+      { andelsnr: andel.andelsnr, fastsattBelop: 0 },
+      { andelsnr: andel3.andelsnr, fastsattBelop: 0 },
     ];
     const faktaOmBeregning = {
       faktaOmBeregningTilfeller: tilfeller,
@@ -264,10 +260,10 @@ describe('VurderMottarYtelseForm', () => {
       FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING,
       FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE,
     ];
-    const inntektPrMnd = [
-      { andelsnr: andel.andelsnr, fastsattBelop: 10000 } as InntektTransformed,
-      { andelsnr: andel3.andelsnr, fastsattBelop: 20000 } as InntektTransformed,
-      { andelsnr: 4, fastsattBelop: 10000, aktivitetStatus: 'FL' } as InntektTransformed,
+    const inntektPrMnd: InntektTransformed[] = [
+      { andelsnr: andel.andelsnr, fastsattBelop: 10000 },
+      { andelsnr: andel3.andelsnr, fastsattBelop: 20000 },
+      { andelsnr: 4, fastsattBelop: 10000, aktivitetStatus: 'FL' },
     ];
     const faktaOmBeregning = {
       faktaOmBeregningTilfeller: tilfeller,
@@ -321,9 +317,9 @@ describe('VurderMottarYtelseForm', () => {
       FaktaOmBeregningTilfelle.FASTSETT_MÅNEDSLØNN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING,
       FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE,
     ];
-    const inntektPrMnd = [
-      { andelsnr: andel.andelsnr, fastsattBelop: 10000 } as InntektTransformed,
-      { andelsnr: andel3.andelsnr, fastsattBelop: 20000 } as InntektTransformed,
+    const inntektPrMnd: InntektTransformed[] = [
+      { andelsnr: andel.andelsnr, fastsattBelop: 10000 },
+      { andelsnr: andel3.andelsnr, fastsattBelop: 20000 },
     ];
     const faktaOmBeregning = {
       faktaOmBeregningTilfeller: tilfeller,
@@ -333,7 +329,7 @@ describe('VurderMottarYtelseForm', () => {
       },
       andelerForFaktaOmBeregning: [],
     };
-    const fastsatteAndelsnr = [andel.andelsnr, andel3.andelsnr];
+    const fastsatteAndelsnr = [andel.andelsnr!, andel3.andelsnr!];
     const values = {
       vurderMottarYtelseValues: {
         [utledArbeidsforholdFieldName(andel)]: true,
@@ -359,7 +355,7 @@ describe('VurderMottarYtelseForm', () => {
       FaktaOmBeregningTilfelle.FASTSETT_MAANEDSINNTEKT_FL,
       FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE,
     ];
-    const inntektPrMnd = [{ andelsnr: 4, fastsattBelop: 10000, aktivitetStatus: 'FL' } as InntektTransformed];
+    const inntektPrMnd: InntektTransformed[] = [{ andelsnr: 4, fastsattBelop: 10000, aktivitetStatus: 'FL' }];
     const faktaOmBeregning = {
       faktaOmBeregningTilfeller: tilfeller,
       vurderMottarYtelse: {

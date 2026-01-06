@@ -13,13 +13,13 @@ const {
   FordelingFlereBeregningsgrunnlagKanEndreRefusjonskravAp5046,
 } = composeStories(stories);
 
-window.ResizeObserver =
-  window.ResizeObserver ||
-  vi.fn().mockImplementation(() => ({
-    disconnect: vi.fn(),
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-  }));
+class MockResizeObserver {
+  disconnect = vi.fn();
+  observe = vi.fn();
+  unobserve = vi.fn();
+}
+
+globalThis.ResizeObserver = globalThis.ResizeObserver || MockResizeObserver;
 
 describe('FordelBeregningsgrunnlagFaktaIndex', () => {
   it('skal kunne løse aksjonspunkt for nytt refusjonskrav', async () => {

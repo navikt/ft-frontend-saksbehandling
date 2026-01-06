@@ -90,7 +90,7 @@ export const VurderEndringRefusjonRad = ({
           name={`VURDER_REFUSJON_BERGRUNN_FORM.${vilkårperiodeFieldIndex}.${lagNøkkelRefusjonsstart(refusjonAndel)}`}
           control={formMethods.control}
           size="small"
-          isReadOnly={readOnly}
+          readOnly={readOnly}
           hideLabel
           validate={
             readOnly ? [] : [required, hasValidDate, dateAfterOrEqual(refusjonAndel.tidligsteMuligeRefusjonsdato)]
@@ -98,7 +98,6 @@ export const VurderEndringRefusjonRad = ({
           isEdited={!!refusjonAndel.fastsattNyttRefusjonskravFom && !erAksjonspunktÅpent}
         />
       </HStack>
-
       {skalKunneFastsetteDelvisRef && !harValgtRefusjonFraStart && !aksjonspunktErLøstUtenDelvisRef && (
         <HStack align="center" gap="space-24">
           <BodyShort as="span" size="small">

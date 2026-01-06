@@ -1,7 +1,11 @@
 import { VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
-import type { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
+import type {
+  AktivitetStatus,
+  ArbeidsgiverOpplysningerPerId,
+  BeregningAvklaringsbehov,
+  Beregningsgrunnlag,
+} from '@navikt/ft-types';
 
 import type { BeregningFormValues } from '../types/BeregningFormValues';
 import type { BeregningAksjonspunktSubmitType } from '../types/interface/BeregningsgrunnlagAP';
@@ -33,17 +37,15 @@ const beregningAksjonspunkter = [
 const finnAvklaringsbehov = (beregningsgrunnlag: Beregningsgrunnlag) =>
   beregningsgrunnlag.avklaringsbehov.filter(ab => beregningAksjonspunkter.some(bap => bap === ab.definisjon));
 
-const getRelevanteStatuser = (statuser: string[]): RelevanteStatuserProp => ({
+const getRelevanteStatuser = (statuser: AktivitetStatus[]): RelevanteStatuserProp => ({
   isArbeidstaker: statuser.some(kode => isStatusArbeidstakerOrKombinasjon(kode)),
   isFrilanser: statuser.some(kode => isStatusFrilanserOrKombinasjon(kode)),
   isSelvstendigNaeringsdrivende: statuser.some(kode => isStatusSNOrKombinasjon(kode)),
-  isMidlertidigInaktiv: statuser.some(kode => kode === AktivitetStatus.MIDLERTIDIG_INAKTIV),
+  isMidlertidigInaktiv: statuser.includes('MIDL_INAKTIV'),
   harAndreTilstotendeYtelser: statuser.some(kode => isStatusTilstøtendeYtelse(kode)),
   harDagpengerEllerAAP: statuser.some(kode => isStatusDagpengerOrAAP(kode)),
-  isAAP: statuser.some(kode => kode === AktivitetStatus.ARBEIDSAVKLARINGSPENGER),
-  isDagpenger: statuser.some(
-    kode => kode === AktivitetStatus.DAGPENGER || kode === AktivitetStatus.SYKEPENGER_AV_DAGPENGER,
-  ),
+  isAAP: statuser.includes('AAP'),
+  isDagpenger: statuser.some(kode => kode === 'DP' || kode === 'SP_AV_DP'),
   skalViseBeregningsgrunnlag: statuser.length > 0,
   isKombinasjonsstatus: statuser.some(kode => isStatusKombinasjon(kode)) || statuser.length > 1,
   isMilitaer: statuser.some(kode => isStatusMilitær(kode)),

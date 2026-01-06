@@ -8,7 +8,7 @@ const meta = {
   component: RhfCheckboxGroup,
   tags: ['autodocs'],
   args: {
-    isReadOnly: false,
+    readOnly: false,
     isEdited: false,
     control: undefined,
     children: [
@@ -32,7 +32,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: 'Dette er en checkboxpanel',
+    legend: 'Dette er en checkboxpanel',
     description: 'Dette er en beskrivelse',
     name: 'checkboxpanel',
   },
@@ -40,16 +40,16 @@ export const Default: Story = {
 
 export const MedVerdi: Story = {
   args: {
-    label: 'Dette er en checkboxpanel der verdi er valgt',
+    legend: 'Dette er en checkboxpanel der verdi er valgt',
     name: 'checkboxpanelpre',
   },
 };
 
 export const ReadOnlyMedOverstyrtMarkering: Story = {
   args: {
-    isReadOnly: true,
+    readOnly: true,
     isEdited: true,
-    label: 'Dette er en readonly checkboxpanel med overstyrt markering',
+    legend: 'Dette er en readonly checkboxpanel med overstyrt markering',
     name: 'checkboxpanelpre',
   },
 };
@@ -63,7 +63,7 @@ export const MedValidering: Story = {
           ? 'Verdi 1 og 2 kan ikke velges samtidig'
           : undefined,
     ],
-    label: 'Dette er en checkboks med validering',
+    legend: 'Dette er en checkboks med validering',
     name: 'checkboxpanelpre',
   },
 };

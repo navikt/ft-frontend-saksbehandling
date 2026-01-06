@@ -18,7 +18,7 @@ const {
 } = composeStories(stories);
 
 const scrollIntoViewMock = vi.fn();
-window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
+globalThis.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
 
 describe('BeregningsgrunnlagProsessIndex', () => {
   it('skal vise informasjon om arbeidstakerinntekt', async () => {

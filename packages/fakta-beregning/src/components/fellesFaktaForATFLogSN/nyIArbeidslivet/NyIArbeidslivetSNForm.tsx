@@ -6,7 +6,6 @@ import { List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
 
 import type { FaktaOmBeregningAksjonspunktValues, NyIArbeidslivetValues } from '../../../typer/FaktaBeregningTypes';
@@ -34,7 +33,7 @@ export const NyIArbeidslivetSNForm = ({ readOnly }: Props) => {
     <RhfRadioGroup
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${radioGroupFieldName}`}
       control={control}
-      label={
+      legend={
         <VStack gap="space-8">
           <FormattedMessage id="BeregningInfoPanel.NyIArbeidslivet.SelvstendigNaeringsdrivende" />
           <ReadMore
@@ -56,7 +55,7 @@ export const NyIArbeidslivetSNForm = ({ readOnly }: Props) => {
         </VStack>
       }
       validate={[required]}
-      isReadOnly={readOnly}
+      readOnly={readOnly}
     >
       <Radio value={true} size="small">
         <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />
@@ -76,9 +75,7 @@ NyIArbeidslivetSNForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnl
   const alleAndeler = beregningsgrunnlag.beregningsgrunnlagPeriode.map(
     periode => periode.beregningsgrunnlagPrStatusOgAndel,
   );
-  const snAndeler = alleAndeler
-    .flat()
-    .filter(andel => andel?.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE);
+  const snAndeler = alleAndeler.flat().filter(andel => andel?.aktivitetStatus === 'SN');
   if (snAndeler.length > 0) {
     initialValues[radioGroupFieldName] = snAndeler[0]?.erNyIArbeidslivet;
   }

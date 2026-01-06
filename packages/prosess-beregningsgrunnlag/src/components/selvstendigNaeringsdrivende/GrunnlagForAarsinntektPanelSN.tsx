@@ -3,16 +3,14 @@ import { FormattedMessage } from 'react-intl';
 
 import { Heading, Table, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus, PgiType } from '@navikt/ft-kodeverk';
+import { PgiType } from '@navikt/ft-kodeverk';
 import type { BeregningsgrunnlagAndel, Inntektsgrunnlag, PGIPrÅr, PgiVerdier } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 const lagTabellRad = (år: number, pgiVerdier: PgiVerdier[], pgiGrunnlag: PGIPrÅr[]): React.ReactNode => {
   const inntektsgrunnlag = pgiGrunnlag.find(gr => gr.år === år);
-  const næringsgrunnlag =
-    (inntektsgrunnlag && inntektsgrunnlag.inntekter.find(gr => gr.pgiType === PgiType.NÆRING)?.beløp) || 0;
-  const lønnsgrunnlag =
-    (inntektsgrunnlag && inntektsgrunnlag.inntekter.find(gr => gr.pgiType === PgiType.LØNN)?.beløp) || 0;
+  const næringsgrunnlag = inntektsgrunnlag?.inntekter.find(gr => gr.pgiType === PgiType.NÆRING)?.beløp || 0;
+  const lønnsgrunnlag = inntektsgrunnlag?.inntekter.find(gr => gr.pgiType === PgiType.LØNN)?.beløp || 0;
   const totaltUjustertGrunnlag = næringsgrunnlag + lønnsgrunnlag;
   const totaltJustertGrunnlag = pgiVerdier.find(pgi => pgi.årstall === år)?.beløp;
   return (
@@ -65,11 +63,7 @@ type Props = {
  * Vises også hvis status er en kombinasjonsstatus som inkluderer selvstendig næringsdrivende.
  */
 export const GrunnlagForAarsinntektPanelSN = ({ alleAndeler, inntektsgrunnlag }: Props) => {
-  const andel = alleAndeler.find(
-    a =>
-      a.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE ||
-      a.aktivitetStatus === AktivitetStatus.BRUKERS_ANDEL,
-  );
+  const andel = alleAndeler.find(a => a.aktivitetStatus === 'SN' || a.aktivitetStatus === 'BA');
   const pgiGrunlag = inntektsgrunnlag?.pgiGrunnlag || [];
   if (!andel || !andel.pgiSnitt || !andel.pgiVerdier) {
     return null;

@@ -1,7 +1,6 @@
 import { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type {
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -94,9 +93,7 @@ const lagAksjonspunktHelpText = (
   sammenligningsgrunnlag: SammenligningsgrunlagProp[],
   alleAndelerIForstePeriode: BeregningsgrunnlagAndel[],
 ): ReactElement => {
-  const snAndel = alleAndelerIForstePeriode.find(
-    andel => andel.aktivitetStatus === AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
-  );
+  const snAndel = alleAndelerIForstePeriode.find(andel => andel.aktivitetStatus === 'SN');
   const erVarigEndring = !!snAndel?.næringer?.some(naring => naring.erVarigEndret === true);
   return (
     <AksjonspunktHelpTextHTML>

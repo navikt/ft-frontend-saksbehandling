@@ -6,7 +6,6 @@ import { List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { Beregningsgrunnlag, BeregningsgrunnlagAndel, FaktaOmBeregning } from '@navikt/ft-types';
 
 import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
@@ -38,7 +37,7 @@ export const LonnsendringForm = ({ readOnly }: Props) => {
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.lonnsendringField`}
       control={control}
       validate={[required]}
-      label={
+      legend={
         <VStack gap="space-8">
           <FormattedMessage id="BeregningInfoPanel.LonnsendringForm.HarSokerEndring" />
           <ReadMore size="small" header={<FormattedMessage id="BeregningInfoPanel.LonnsendringForm.HvaBetyrDette" />}>
@@ -56,7 +55,7 @@ export const LonnsendringForm = ({ readOnly }: Props) => {
           </ReadMore>
         </VStack>
       }
-      isReadOnly={readOnly}
+      readOnly={readOnly}
     >
       <Radio value={true} size="small">
         <FormattedMessage id="BeregningInfoPanel.FormAlternativ.JaMaanedsinntektMaaFastsettes" />
@@ -85,7 +84,7 @@ LonnsendringForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag): 
   if (!alleAndeler || alleAndeler.length < 1) {
     return initialValues;
   }
-  const alleATAndeler = alleAndeler.filter(andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER);
+  const alleATAndeler = alleAndeler.filter(andel => andel.aktivitetStatus === 'AT');
   if (!alleATAndeler || alleATAndeler.length < 1) {
     return initialValues;
   }

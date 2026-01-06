@@ -1,4 +1,4 @@
-import { type ReactNode, useMemo } from 'react';
+import { useMemo } from 'react';
 import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
 
 import { Tag, Textarea, type TextareaProps } from '@navikt/ds-react';
@@ -16,32 +16,25 @@ interface Badges {
 }
 
 type Props<T extends FieldValues> = {
-  label: string | ReactNode;
-  readOnly?: boolean;
-  size?: 'small' | 'medium';
-  description?: string;
-  maxLength?: number;
   badges?: Badges[];
   validate?: ((value: string) => ValidationReturnType)[];
   parse?: (value: string | number) => string | number;
-  className?: string;
   isEdited?: boolean;
   control: UseControllerProps<T>['control'];
-} & TextareaProps &
+} & Omit<TextareaProps, 'value' | 'defaultValue'> &
   Omit<UseControllerProps<T>, 'control'>;
 
 export const RhfTextarea = <T extends FieldValues>({
   name,
   control,
   label,
+  hideLabel,
   readOnly,
-  maxLength,
   badges,
   validate = [],
   parse = value => value,
-  className,
-  description,
   isEdited,
+  autoComplete = 'off',
   size = 'small',
   ...props
 }: Props<T>) => {
@@ -65,7 +58,7 @@ export const RhfTextarea = <T extends FieldValues>({
         value={field.value}
         type="textarea"
         isEdited={isEdited}
-        hideLabel={props.hideLabel}
+        hideLabel={hideLabel}
       />
     );
   }
@@ -84,14 +77,12 @@ export const RhfTextarea = <T extends FieldValues>({
       <Textarea
         size={size}
         label={label}
-        description={description}
-        className={className}
-        autoComplete="off"
+        hideLabel={hideLabel}
+        autoComplete={autoComplete}
         {...field}
         onChange={event => field.onChange(event.currentTarget.value !== '' ? parse(event.currentTarget.value) : null)}
         value={field.value ? field.value : ''}
         error={getError(errors, name)}
-        maxLength={maxLength}
         {...props}
       />
     </div>

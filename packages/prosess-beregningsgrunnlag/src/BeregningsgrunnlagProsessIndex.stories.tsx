@@ -3,15 +3,9 @@ import dayjs from 'dayjs';
 import { action } from 'storybook/actions';
 
 import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
-import {
-  AktivitetStatus,
-  InntektAktivitetType,
-  LønnsendringScenario,
-  OpptjeningAktivitetType,
-  PeriodeÅrsak,
-  PgiType,
-} from '@navikt/ft-kodeverk';
+import { InntektAktivitetType, LønnsendringScenario, PeriodeÅrsak, PgiType } from '@navikt/ft-kodeverk';
 import type {
+  AktivitetStatus,
   ArbeidsgiverOpplysningerPerId,
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
@@ -94,7 +88,7 @@ const lagSNUtenPGI = (
   erNyIArbeidslivet?: boolean,
   næring?: Næring,
 ): BeregningsgrunnlagAndel => ({
-  aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
+  aktivitetStatus: 'SN',
   beregningsperiodeFom: '2019-01-01',
   beregningsperiodeTom: '2021-12-31',
   beregnetPrAar: beregnet,
@@ -118,7 +112,7 @@ const lagSNMedPGI = (
   erNyIArbeidslivet?: boolean,
   næring?: Næring,
 ): BeregningsgrunnlagAndel => ({
-  aktivitetStatus: AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
+  aktivitetStatus: 'SN',
   beregningsperiodeFom: '2019-01-01',
   beregningsperiodeTom: '2021-12-31',
   beregnetPrAar: beregnet,
@@ -142,7 +136,7 @@ const lagBrukersAndelMedPGI = (
   overstyrt: number | undefined,
   skalFastsettGrunnlag: boolean,
 ): BeregningsgrunnlagAndel => ({
-  aktivitetStatus: AktivitetStatus.BRUKERS_ANDEL,
+  aktivitetStatus: 'BA',
   beregningsperiodeFom: '2019-01-01',
   beregningsperiodeTom: '2021-12-31',
   beregnetPrAar: beregnet,
@@ -214,7 +208,7 @@ const lagArbeidsforhold = (
   arbeidsgiverIdent,
   arbeidsforholdId,
   eksternArbeidsforholdId,
-  arbeidsforholdType: OpptjeningAktivitetType.ARBEID,
+  arbeidsforholdType: 'ARBEID',
   refusjonPrAar: 360000,
   belopFraInntektsmeldingPrMnd: 30000,
   organisasjonstype: 'VIRKSOMHET',
@@ -229,7 +223,7 @@ const lagArbeidsforhold = (
 const malArbeidsorhold = (): BeregningsgrunnlagArbeidsforhold => lagArbeidsforhold('999999996', undefined);
 
 const lagBrukersAndel = (andelnr: number, beregnet: number): BeregningsgrunnlagAndel => ({
-  aktivitetStatus: AktivitetStatus.BRUKERS_ANDEL,
+  aktivitetStatus: 'BA',
   beregningsperiodeFom: undefined,
   beregningsperiodeTom: undefined,
   beregnetPrAar: beregnet,
@@ -253,7 +247,7 @@ const lagArbeidsandel = (
   skalFastsette: boolean,
   erTidsbegrenset: boolean,
 ): BeregningsgrunnlagAndel => ({
-  aktivitetStatus: AktivitetStatus.ARBEIDSTAKER,
+  aktivitetStatus: 'AT',
   beregningsperiodeFom: bgpFom,
   beregningsperiodeTom: bgpTom,
   beregnetPrAar: beregnet,
@@ -278,7 +272,7 @@ const lagFrilansandel = (
   overstyrt: number | undefined,
   skalFastsette: boolean,
 ): BeregningsgrunnlagAndel => ({
-  aktivitetStatus: AktivitetStatus.FRILANSER,
+  aktivitetStatus: 'FL',
   beregningsperiodeFom: '2019-06-01',
   beregningsperiodeTom: '2019-08-31',
   beregnetPrAar: beregnet,
@@ -351,7 +345,7 @@ const malPerioder = (
 ];
 
 const lagSammenligningsGrunnlag = (
-  kode: string,
+  sammenligningsgrunnlagType: SammenligningType,
   rapportertPrAar: number,
   avvikProsent: number,
   differanse: number,
@@ -361,15 +355,16 @@ const lagSammenligningsGrunnlag = (
   rapportertPrAar,
   avvikPromille: avvikProsent ? avvikProsent * 10 : 0,
   avvikProsent,
-  sammenligningsgrunnlagType: kode,
+  sammenligningsgrunnlagType,
   differanseBeregnet: differanse,
 });
 
-const malSGGrunnlagAvvik = (kode: string) => lagSammenligningsGrunnlag(kode, 200000, 30, -150000);
-const malSGGrunnlag = (kode: string) => lagSammenligningsGrunnlag(kode, 200000, 0, 0);
+const malSGGrunnlagAvvik = (kode: SammenligningType) => lagSammenligningsGrunnlag(kode, 200000, 30, -150000);
+const malSGGrunnlag = (kode: SammenligningType) => lagSammenligningsGrunnlag(kode, 200000, 0, 0);
 
 const lagATInntektsgrunnlag = (inntekt: number): InntektsgrunnlagInntekt => ({
   inntektAktivitetType: InntektAktivitetType.ARBEID,
+  arbeidsgiverIdent: '999999996',
   beløp: inntekt,
 });
 
@@ -482,7 +477,7 @@ const lagInntektsgrunnlag = (): Inntektsgrunnlag => ({
 
 const lagBG = (
   perioder: BeregningsgrunnlagPeriodeProp[],
-  aktivitetStatus: string[],
+  aktivitetStatus: AktivitetStatus[],
   inntektsgrunnlag?: Inntektsgrunnlag,
   sammenligningsgrunnlagPrStatus?: SammenligningsgrunlagProp[],
   avklaringsbehov?: BeregningAvklaringsbehov[],
@@ -651,12 +646,9 @@ export const BrukersAndelUtenAvvik: Story = {
   args: {
     isReadOnly: false,
     beregningsgrunnlagListe: [
-      lagBG(
-        malPerioder([malArbeidsandel(), lagGenerellAndel(1, AktivitetStatus.BRUKERS_ANDEL, 200000)]),
-        ['AT', 'BA'],
-        undefined,
-        [malSGGrunnlag(SammenligningType.AT_FL)],
-      ),
+      lagBG(malPerioder([malArbeidsandel(), lagGenerellAndel(1, 'SN', 200000)]), ['AT', 'BA'], undefined, [
+        malSGGrunnlag(SammenligningType.AT_FL),
+      ]),
     ],
     beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
@@ -811,9 +803,7 @@ export const ArbeidstakerFrilansMedAvvikAp5038: Story = {
 export const Militær: Story = {
   args: {
     isReadOnly: false,
-    beregningsgrunnlagListe: [
-      lagBG(malPerioder([lagGenerellAndel(1, AktivitetStatus.MILITÆR_ELLER_SIVIL, 300000)]), ['MS']),
-    ],
+    beregningsgrunnlagListe: [lagBG(malPerioder([lagGenerellAndel(1, 'MS', 300000)]), ['MS'])],
     beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
@@ -1198,7 +1188,7 @@ export const NaturalYtelse: Story = {
 export const Dagpenger: Story = {
   args: {
     isReadOnly: false,
-    beregningsgrunnlagListe: [lagBG(malPerioder([lagGenerellAndel(1, AktivitetStatus.DAGPENGER, 300000)]), ['DP'])],
+    beregningsgrunnlagListe: [lagBG(malPerioder([lagGenerellAndel(1, 'DP', 300000)]), ['DP'])],
     beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
@@ -1206,9 +1196,7 @@ export const Dagpenger: Story = {
 export const SykepengerAvDagpenger: Story = {
   args: {
     isReadOnly: false,
-    beregningsgrunnlagListe: [
-      lagBG(malPerioder([lagGenerellAndel(1, AktivitetStatus.SYKEPENGER_AV_DAGPENGER, 300000)]), ['SP_AV_DP']),
-    ],
+    beregningsgrunnlagListe: [lagBG(malPerioder([lagGenerellAndel(1, 'SP_AV_DP', 300000)]), ['SP_AV_DP'])],
     beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
@@ -1244,7 +1232,7 @@ export const ArbeidstakerDagpengerOgSelvstendigNæringsdrivendeUtenAksjonspunkt:
         malPerioder([
           lagSNMedPGI(1, 200000, undefined, false),
           lagArbeidsandel(2, malArbeidsorhold(), 150000, undefined, false, false),
-          lagGenerellAndel(3, AktivitetStatus.DAGPENGER, 200000),
+          lagGenerellAndel(3, 'DP', 200000),
         ]),
         ['AT_SN', 'DP'],
         undefined,
@@ -1411,9 +1399,7 @@ export const ArbeidstakerOgSelvstendigNæringsdrivendeSnStorreEnnAtOgStorreEnn6g
 export const YtelseFraNav: Story = {
   args: {
     isReadOnly: false,
-    beregningsgrunnlagListe: [
-      lagBG([malPeriode([lagGenerellAndel(1, AktivitetStatus.KUN_YTELSE, 325845)])], ['kun_YTELSE']),
-    ],
+    beregningsgrunnlagListe: [lagBG([malPeriode([lagGenerellAndel(1, 'KUN_YTELSE', 325845)])], ['KUN_YTELSE'])],
     beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.OPPFYLT),
   },
 };
@@ -1426,7 +1412,7 @@ export const ArbeidstakerOgAAPMedAksjonspunktAp5038: Story = {
         [
           malPeriode([
             lagArbeidsandel(1, malArbeidsorhold(), 325845, undefined, true, false),
-            lagGenerellAndel(1, AktivitetStatus.ARBEIDSAVKLARINGSPENGER, 100000),
+            lagGenerellAndel(1, 'AAP', 100000),
           ]),
         ],
         ['KUN_YTELSE', 'AT'],
@@ -1448,7 +1434,7 @@ export const FrilansDagpengerOgSelvstendigNæringsdrivendeAp5039: Story = {
           malPeriode([
             lagFrilansandel(1, 100500, undefined, false),
             lagSNMedPGI(2, 500000, undefined, true, false, lagNæring(false, true)),
-            lagGenerellAndel(3, AktivitetStatus.DAGPENGER, 100500),
+            lagGenerellAndel(3, 'DP', 100500),
           ]),
         ],
         ['FL_SN', 'DP'],
@@ -1473,7 +1459,7 @@ export const AvvikNæringEtterLøstAvvikArbeid5038Og5039: Story = {
         malPerioder([
           lagSNMedPGI(1, 200000, undefined, true, false, lagNæring(true, false)),
           lagArbeidsandel(2, malArbeidsorhold(), 150000, 200000, true, false),
-          lagGenerellAndel(4, AktivitetStatus.DAGPENGER, 100500),
+          lagGenerellAndel(4, 'DP', 100500),
           lagFrilansandel(3, 200000, 100000, true),
         ]),
         ['AT_FL_SN', 'DP'],

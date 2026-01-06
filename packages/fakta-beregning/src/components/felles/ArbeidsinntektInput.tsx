@@ -2,7 +2,6 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, ATFLSammeOrgAndel } from '@navikt/ft-types';
 
 import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
@@ -64,7 +63,7 @@ export const ArbeidsinntektInput = ({
 ArbeidsinntektInput.buildInitialValues = (andelerForFaktaOmBeregning: AndelForFaktaOmBeregning[]): FormValues[] => {
   const initialValues: FormValues[] = [];
   andelerForFaktaOmBeregning
-    ?.filter(andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER && andel.arbeidsforhold)
+    ?.filter(andel => andel.aktivitetStatus === 'AT' && andel.arbeidsforhold)
     .forEach(andel => {
       const arbeidsgiver = {
         fastsattBelop: andel.fastsattBelop,

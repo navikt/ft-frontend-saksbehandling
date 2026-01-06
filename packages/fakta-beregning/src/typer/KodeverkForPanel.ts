@@ -1,4 +1,4 @@
-import { AktivitetStatus, Inntektskategori, OpptjeningAktivitetType } from '@navikt/ft-kodeverk';
+import type { AktivitetStatus, Inntektskategori, OpptjeningAktivitetType } from '@navikt/ft-types';
 
 //Mapping mellom KodeverkType og enums/union-types med verdier
 type KodeverkEnumMap = {
@@ -18,5 +18,4 @@ type EnumOrUnknown<T extends KodeverkType> = T extends keyof KodeverkEnumMap ? K
 export type KodeverkMedNavn<T extends KodeverkType> = Readonly<{
   kode: EnumOrUnknown<T>;
   navn: string;
-  kodeverk: string;
 }>;

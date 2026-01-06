@@ -1,33 +1,34 @@
 import { type ReactNode, useMemo } from 'react';
 import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
 
-import { Checkbox, ErrorMessage } from '@navikt/ds-react';
+import { Checkbox, type CheckboxProps, ErrorMessage } from '@navikt/ds-react';
+import classnames from 'classnames';
 
 import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 
+import styles from '../readOnlyIcon.module.css';
+
 type Props<T extends FieldValues> = {
-  label: string | ReactNode;
+  label: ReactNode;
   validate?: Array<(value: string) => ValidationReturnType>;
-  readOnly?: boolean;
   onChange?: (isChecked: boolean) => void;
   onClick?: () => void;
-  className?: string;
   control: UseControllerProps<T>['control'];
   size?: 'medium' | 'small';
-} & Omit<UseControllerProps<T>, 'control'>;
+} & Omit<UseControllerProps<T>, 'control'> &
+  Omit<CheckboxProps, 'value' | 'defaultValue' | 'children' | 'onChange'>;
 
 export const RhfCheckbox = <T extends FieldValues>({
   label,
   validate = [],
-  readOnly = false,
   onChange,
   onClick,
-  className,
   size = 'small',
-  ...controllerProps
+  name,
+  control,
+  className,
+  ...rest
 }: Props<T>) => {
-  const { name, control, disabled } = controllerProps;
-
   const {
     formState: { errors },
   } = useFormContext();
@@ -46,9 +47,7 @@ export const RhfCheckbox = <T extends FieldValues>({
     <>
       <Checkbox
         size={size}
-        disabled={disabled || readOnly}
         checked={field.value === true}
-        className={className}
         error={!!error}
         {...field}
         onChange={event => {
@@ -62,6 +61,8 @@ export const RhfCheckbox = <T extends FieldValues>({
             onClick();
           }
         }}
+        className={classnames(className, styles.noReadOnlyIcon)}
+        {...rest}
       >
         {label}
       </Checkbox>

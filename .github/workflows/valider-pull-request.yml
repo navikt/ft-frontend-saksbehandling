@@ -1,24 +1,18 @@
 name: Valider pull request
-on: [ pull_request ]
+on: [pull_request]
 jobs:
   valid-pull-request:
     name: Valider pull request
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v5
 
-      - name: Sette yarn-config
-        run: |
-          yarn config set npmScopes.navikt.npmRegistryServer "https://npm.pkg.github.com"
-          yarn config set npmScopes.navikt.npmAlwaysAuth true
-          yarn config set npmScopes.navikt.npmAuthToken $NPM_AUTH_TOKEN
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-          
-      - uses: actions/setup-node@v4
+      - uses: navikt/fp-gha-workflows/.github/actions/setup-yarnrc@main
+        with:
+          npmAuthToken: ${{ secrets.READER_TOKEN }}
+
+      - uses: actions/setup-node@v6
         with:
           node-version: 22.17.1
           cache: 'yarn'
@@ -33,7 +27,7 @@ jobs:
         run: yarn stylelint
 
       - name: ESLint
-        run: yarn eslint:changed
+        run: yarn eslint
 
       - name: Typescript
         run: yarn tsc
@@ -49,23 +43,17 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v5
 
-      - name: Sette yarn-config
-        run: |
-          yarn config set npmScopes.navikt.npmRegistryServer "https://npm.pkg.github.com"
-          yarn config set npmScopes.navikt.npmAlwaysAuth true
-          yarn config set npmScopes.navikt.npmAuthToken $NPM_AUTH_TOKEN
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-          
-      - uses: actions/setup-node@v4
+      - uses: navikt/fp-gha-workflows/.github/actions/setup-yarnrc@main
+        with:
+          npmAuthToken: ${{ secrets.READER_TOKEN }}
+
+      - uses: actions/setup-node@v6
         with:
           node-version: 22.17.1
           cache: 'yarn'
-          
+
       - name: Installere dependencies
         run: yarn install --immutable
 

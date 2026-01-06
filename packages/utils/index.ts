@@ -29,7 +29,7 @@ export {
   YYYY_MM_FORMAT,
   ACCEPTED_DATE_INPUT_FORMATS,
 } from './src/formats';
-export { formaterFritekst } from './src/stringUtils';
+export { capitalizeFirstLetter, formaterFritekst } from './src/stringUtils';
 export { assertUnreachable } from './src/switchCaseUtils';
 export { guid } from './src/guid';
 export { replaceNorwegianCharacters, getLanguageFromSprakkode } from './src/languageUtils';
@@ -41,6 +41,7 @@ export { BTag } from './src/createTags';
 
 export { Period, sortPeriodsByFomDate } from './src/Period';
 export { prettifyDateString } from './src/dateUtils';
-export { sortPeriodsByFom, periodFormat } from './src/periodUtils';
+export { sortPeriodsByFom, sortPeriodsBy, periodFormat } from './src/periodUtils';
 export { formaterArbeidsgiver } from './src/arbeidsgiverUtils';
-export { isAksjonspunktOpen } from './src/aksjonspunktUtils';
+export { isAksjonspunktOpen, hasAksjonspunkt } from './src/aksjonspunktUtils';
+export { notEmpty } from './src/notEmpty';

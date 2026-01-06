@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl';
 
 import { Heading, Table, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type {
   ArbeidsgiverOpplysningerPerId,
   BeregningsgrunnlagAndel,
@@ -31,7 +30,7 @@ const finnAndelerSomSkalVises = (andeler: BeregningsgrunnlagAndel[]): Beregnings
     return [];
   }
   return andeler
-    .filter(andel => andel.aktivitetStatus === AktivitetStatus.ARBEIDSTAKER)
+    .filter(andel => andel.aktivitetStatus === 'AT')
     .filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
 };
 

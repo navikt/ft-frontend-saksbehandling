@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-frontend-utils-test",
-  "version": "3.4.6",
+  "version": "3.4.10",
   "license": "MIT",
   "type": "module",
   "private": true,
@@ -18,7 +18,7 @@
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
-    "eslint": "9.37.0",
+    "eslint": "9.39.1",
     "typescript": "5.9.3"
   }
 }

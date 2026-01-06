@@ -244,9 +244,9 @@ export const TilbakekrevingPeriodeForm = ({
                 <RhfRadioGroup
                   name="valgtVilkarResultatType"
                   control={formMethods.control}
-                  label={<FormattedMessage id="TilbakekrevingPeriodeForm.oppfylt" />}
+                  legend={<FormattedMessage id="TilbakekrevingPeriodeForm.oppfylt" />}
                   validate={[required]}
-                  isReadOnly={readOnly}
+                  readOnly={readOnly}
                   onChange={resetVilkarresultatType}
                 >
                   {vilkarResultatTyper.map(vrt => (

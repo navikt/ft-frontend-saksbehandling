@@ -1,42 +1,36 @@
-import React, { type ReactNode, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
 
-import { Select } from '@navikt/ds-react';
+import { Select, type SelectProps } from '@navikt/ds-react';
 
 import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
 type Props<T extends FieldValues> = {
-  label: string | ReactNode;
-  size?: 'medium' | 'small';
-  description?: ReactNode;
-  hideLabel?: boolean;
-  readOnly?: boolean;
   isEdited?: boolean;
   onChange?: (event: any) => void;
   validate?: ((value: string) => ValidationReturnType)[];
   selectValues: React.ReactElement<any>[];
   hideValueOnDisable?: boolean;
-  className?: string;
   control: UseControllerProps<T>['control'];
-} & Omit<UseControllerProps<T>, 'control'>;
+} & Omit<UseControllerProps<T>, 'control'> &
+  Omit<SelectProps, 'children' | 'value' | 'defaultValue' | 'onChange'>;
 
 export const RhfSelect = <T extends FieldValues>({
   label,
   selectValues,
   validate = [],
   readOnly = false,
-  description,
   hideValueOnDisable = false,
   onChange,
-  className,
   hideLabel,
   isEdited,
   size = 'small',
-  ...controllerProps
+  name,
+  control,
+  disabled,
+  ...rest
 }: Props<T>) => {
-  const { name, control, disabled } = controllerProps;
-
   const {
     formState: { errors },
   } = useFormContext();
@@ -65,12 +59,9 @@ export const RhfSelect = <T extends FieldValues>({
   return (
     <Select
       size={size}
-      className={className}
       error={getError(errors, name)}
       label={label}
-      description={description}
       value={(hideValueOnDisable && disabled) || noCorrespondingOptionFound ? '' : field.value}
-      disabled={disabled}
       onChange={evt => {
         if (onChange) {
           onChange(evt);
@@ -78,8 +69,10 @@ export const RhfSelect = <T extends FieldValues>({
         field.onChange(evt);
       }}
       hideLabel={hideLabel}
+      {...rest}
     >
-      <option style={{ display: 'none' }} />,{selectValues}
+      <option style={{ display: 'none' }} />
+      {selectValues}
     </Select>
   );
 };

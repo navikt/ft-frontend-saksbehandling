@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
-import { AksjonspunktStatus, ForeldelseVurderingType } from '@navikt/ft-kodeverk';
+import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 
 import { ForeldelseAksjonspunktCodes } from './ForeldelseAksjonspunktCodes';
 import { ForeldelseProsessIndex } from './ForeldelseProsessIndex';
@@ -52,17 +52,14 @@ const kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel = {
     {
       kode: ForeldelseVurderingType.FORELDET,
       navn: 'Foreldet',
-      kodeverk: 'FORELDELSE_VURDERING',
     },
     {
       kode: ForeldelseVurderingType.TILLEGGSFRIST,
       navn: 'Ikke foreldet, med tilleggsfrist',
-      kodeverk: 'FORELDELSE_VURDERING',
     },
     {
       kode: ForeldelseVurderingType.IKKE_FORELDET,
       navn: 'Ikke foreldet',
-      kodeverk: 'FORELDELSE_VURDERING',
     },
   ],
 };
@@ -82,7 +79,6 @@ const meta = {
     relasjonsRolleTypeKodeverk: [
       {
         kode: RelasjonsRolleType.MOR,
-        kodeverk: 'RELASJONSROLLE_TYPE',
         navn: 'Mor',
       },
     ],
@@ -98,7 +94,7 @@ export const Default: Story = {
     aksjonspunkter: [
       {
         definisjon: ForeldelseAksjonspunktCodes.VURDER_FORELDELSE,
-        status: AksjonspunktStatus.OPPRETTET,
+        status: 'OPPR',
         begrunnelse: undefined,
         kanLoses: true,
       },

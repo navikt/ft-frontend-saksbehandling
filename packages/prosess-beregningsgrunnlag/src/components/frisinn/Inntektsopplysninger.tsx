@@ -2,7 +2,6 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
@@ -19,17 +18,13 @@ export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
   if (beregningsgrunnlag.beregningsgrunnlagPeriode.length < 2) {
     return null;
   }
-  const kronologiskePerioder = beregningsgrunnlag.beregningsgrunnlagPeriode.sort((a, b) =>
+  const kronologiskePerioder = beregningsgrunnlag.beregningsgrunnlagPeriode.toSorted((a, b) =>
     a.beregningsgrunnlagPeriodeFom.localeCompare(b.beregningsgrunnlagPeriodeFom),
   );
   const gjeldendePeriode = kronologiskePerioder[kronologiskePerioder.length - 2];
-  const bruttoSN = finnBruttoForStatusIPeriode(
-    AktivitetStatus.SELVSTENDIG_NÆRINGSDRIVENDE,
-    beregningsgrunnlag,
-    gjeldendePeriode,
-  );
-  const bruttoFL = finnBruttoForStatusIPeriode(AktivitetStatus.FRILANSER, beregningsgrunnlag, gjeldendePeriode);
-  const bruttoAT = finnBruttoForStatusIPeriode(AktivitetStatus.ARBEIDSTAKER, beregningsgrunnlag, gjeldendePeriode);
+  const bruttoSN = finnBruttoForStatusIPeriode('SN', beregningsgrunnlag, gjeldendePeriode);
+  const bruttoFL = finnBruttoForStatusIPeriode('FL', beregningsgrunnlag, gjeldendePeriode);
+  const bruttoAT = finnBruttoForStatusIPeriode('AT', beregningsgrunnlag, gjeldendePeriode);
 
   return (
     <VStack gap="space-8">

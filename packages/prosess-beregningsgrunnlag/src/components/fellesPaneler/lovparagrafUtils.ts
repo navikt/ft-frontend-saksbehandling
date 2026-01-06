@@ -1,4 +1,4 @@
-import type { BeregningAvklaringsbehov } from '@navikt/ft-types';
+import type { AktivitetStatus, BeregningAvklaringsbehov } from '@navikt/ft-types';
 
 import { SammenligningType } from '../../kodeverk/sammenligningType';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
@@ -17,7 +17,10 @@ export enum LovParagraf {
   ÅTTE_TRETTI = '8-30',
 }
 
-export const mapSammenligningtypeTilLovparagraf = (type: string, aktivitetstatuser?: string[]): LovParagraf => {
+export const mapSammenligningtypeTilLovparagraf = (
+  type: string,
+  aktivitetstatuser: AktivitetStatus[] | undefined,
+): LovParagraf => {
   if (SammenligningType.SN === type || SammenligningType.MIDLERTIDIG_INAKTIV === type) {
     return LovParagraf.ÅTTE_TRETTIFEM;
   }

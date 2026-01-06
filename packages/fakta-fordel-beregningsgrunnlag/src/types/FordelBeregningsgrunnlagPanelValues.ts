@@ -1,12 +1,14 @@
+import type { AktivitetStatus, Inntektskategori } from '@navikt/ft-types';
+
 export type FordelBeregningsgrunnlagGenerellAndelValues = {
   andel?: string;
-  aktivitetStatus?: string;
+  aktivitetStatus?: AktivitetStatus;
   andelsnr?: number;
   andelsnrRef?: number;
   nyAndel: boolean;
   kilde?: string;
   lagtTilAvSaksbehandler: boolean;
-  inntektskategori?: string;
+  inntektskategori?: Inntektskategori;
   forrigeInntektskategori?: string;
 };
 

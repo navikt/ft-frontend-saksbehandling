@@ -1,8 +1,10 @@
+import type { AktivitetStatus, Inntektskategori, OpptjeningAktivitetType } from '@navikt/ft-types';
+
 export type AndelFieldIdentifikator = {
-  aktivitetStatus: string;
+  aktivitetStatus: AktivitetStatus;
   andelsnr?: number;
   arbeidsgiverId?: string;
-  arbeidsforholdType?: string;
+  arbeidsforholdType?: OpptjeningAktivitetType;
   arbeidsforholdId?: string;
 };
 
@@ -10,7 +12,7 @@ export type AndelFieldValue = AndelFieldIdentifikator & {
   andel: string;
   kanRedigereInntekt?: boolean;
   nyAndel?: boolean;
-  inntektskategori: string;
+  inntektskategori?: Inntektskategori;
   lagtTilAvSaksbehandler?: boolean;
   arbeidsforholdId?: string;
   arbeidsperiodeFom?: string;
@@ -24,10 +26,10 @@ export type AndelFieldValue = AndelFieldIdentifikator & {
 export type InntektTransformed = {
   andelsnr?: number;
   fastsattBelop: number;
-  inntektskategori?: string;
+  inntektskategori?: Inntektskategori;
   nyAndel?: boolean;
   lagtTilAvSaksbehandler?: boolean;
-  aktivitetStatus?: string;
+  aktivitetStatus?: AktivitetStatus;
   arbeidsforholdId?: string;
   arbeidsgiverId?: string;
 };

@@ -2,7 +2,6 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 
-import { AktivitetStatus } from '@navikt/ft-kodeverk';
 import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
@@ -18,7 +17,7 @@ type Props = {
  * Presentasjonskomponent. Viser beregningsgrunnlag for militær og sivilforsvarstjeneste.
  */
 export const MilitaerPanel = ({ alleAndeler }: Props) => {
-  const relevanteAndeler = alleAndeler.filter(andel => andel.aktivitetStatus === AktivitetStatus.MILITÆR_ELLER_SIVIL);
+  const relevanteAndeler = alleAndeler.filter(andel => andel.aktivitetStatus === 'MS');
   const beregnetAarsinntekt = relevanteAndeler && relevanteAndeler.length > 0 ? relevanteAndeler[0].beregnetPrAar : '';
   return (
     <VStack gap="space-8">
