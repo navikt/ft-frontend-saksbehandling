@@ -8,9 +8,7 @@ const beregningsgrunnlag = {
         avklaringsbehov: [],
         skjaeringstidspunktBeregning: '2022-01-18',
         skjæringstidspunkt: '2022-01-18',
-        aktivitetStatus: [
-          'AT',
-        ],
+        aktivitetStatus: ['AT'],
         beregningsgrunnlagPeriode: [
           {
             beregningsgrunnlagPeriodeFom: '2022-01-18',
@@ -56,9 +54,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -94,9 +90,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -132,9 +126,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -170,9 +162,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -208,9 +198,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -246,9 +234,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -284,9 +270,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -322,9 +306,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -360,9 +342,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -398,9 +378,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -436,9 +414,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -474,9 +450,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -512,9 +486,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -550,9 +522,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -588,9 +558,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -626,9 +594,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -664,9 +630,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -702,9 +666,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -740,9 +702,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -778,9 +738,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -816,9 +774,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -854,9 +810,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -892,9 +846,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -930,9 +882,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -968,9 +918,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1006,9 +954,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1044,9 +990,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1082,9 +1026,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1120,9 +1062,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1158,9 +1098,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1196,9 +1134,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1234,9 +1170,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1272,9 +1206,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1310,9 +1242,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1348,9 +1278,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1386,9 +1314,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1424,9 +1350,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1462,9 +1386,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1500,9 +1422,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1538,9 +1458,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1576,9 +1494,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1614,9 +1530,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1652,9 +1566,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1690,9 +1602,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1728,9 +1638,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1766,9 +1674,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1804,9 +1710,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1842,9 +1746,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1880,9 +1782,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1918,9 +1818,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1956,9 +1854,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -1994,9 +1890,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2032,9 +1926,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2070,9 +1962,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2108,9 +1998,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2146,9 +2034,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2184,9 +2070,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2222,9 +2106,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2260,9 +2142,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2298,9 +2178,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2336,9 +2214,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2374,9 +2250,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2412,9 +2286,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2450,9 +2322,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2488,9 +2358,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2526,9 +2394,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2564,9 +2430,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2602,9 +2466,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2640,9 +2502,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2678,9 +2538,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2716,9 +2574,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2754,9 +2610,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2792,9 +2646,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2830,9 +2682,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2868,9 +2718,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2906,9 +2754,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2944,9 +2790,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -2982,9 +2826,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3020,9 +2862,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3058,9 +2898,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3096,9 +2934,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3134,9 +2970,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3172,9 +3006,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3210,9 +3042,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3248,9 +3078,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3286,9 +3114,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3324,9 +3150,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3362,9 +3186,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3400,9 +3222,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3438,9 +3258,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3476,9 +3294,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3514,9 +3330,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3552,9 +3366,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3590,9 +3402,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3628,9 +3438,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3666,9 +3474,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3704,9 +3510,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3742,9 +3546,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3780,9 +3582,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3818,9 +3618,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3856,9 +3654,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3894,9 +3690,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3932,9 +3726,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -3970,9 +3762,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4008,9 +3798,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4046,9 +3834,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4084,9 +3870,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4122,9 +3906,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4160,9 +3942,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4198,9 +3978,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4236,9 +4014,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4274,9 +4050,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4312,9 +4086,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4350,9 +4122,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4388,9 +4158,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4426,9 +4194,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4464,9 +4230,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4502,9 +4266,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4540,9 +4302,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4578,9 +4338,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4616,9 +4374,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4654,9 +4410,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4692,9 +4446,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4730,9 +4482,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4768,9 +4518,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4806,9 +4554,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4844,9 +4590,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4882,9 +4626,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4920,9 +4662,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4958,9 +4698,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -4996,9 +4734,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5034,9 +4770,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5072,9 +4806,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5110,9 +4842,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5148,9 +4878,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5186,9 +4914,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5224,9 +4950,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5262,9 +4986,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5300,9 +5022,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5338,9 +5058,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5376,9 +5094,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5414,9 +5130,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5452,9 +5166,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5490,9 +5202,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5528,9 +5238,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5566,9 +5274,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5604,9 +5310,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5642,9 +5346,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5680,9 +5382,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5718,9 +5418,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 542000.04,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 2085,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -5756,9 +5454,7 @@ const beregningsgrunnlag = {
             bruttoInkludertBortfaltNaturalytelsePrAar: 542000.04,
             avkortetPrAar: 542000.04,
             redusertPrAar: 0.0,
-            periodeAarsaker: [
-              'ENDRING_I_AKTIVITETER_SØKT_FOR',
-            ],
+            periodeAarsaker: ['ENDRING_I_AKTIVITETER_SØKT_FOR'],
             dagsats: 0,
             beregningsgrunnlagPrStatusOgAndel: [
               {
@@ -10498,5 +10194,7 @@ const vilkar = {
   ],
 };
 
-export const bgOverstyreUtenAvklaringsbehov = JSON.parse(JSON.stringify(beregningsgrunnlag.beregningsgrunnlagListe.map(v => v.beregningsgrunnlag)));
+export const bgOverstyreUtenAvklaringsbehov = JSON.parse(
+  JSON.stringify(beregningsgrunnlag.beregningsgrunnlagListe.map(v => v.beregningsgrunnlag)),
+);
 export const vilkarOverstyreUtenAvklaringsbehov = JSON.parse(JSON.stringify(vilkar));

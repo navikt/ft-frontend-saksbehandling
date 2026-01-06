@@ -82,9 +82,7 @@ export const beregningsgrunnlag = {
       beregnetPrAar: 456120.0,
       bruttoPrAar: 456120.0,
       bruttoInkludertBortfaltNaturalytelsePrAar: 462120.0,
-      periodeAarsaker: [
-        'NATURALYTELSE_BORTFALT',
-      ],
+      periodeAarsaker: ['NATURALYTELSE_BORTFALT'],
       beregningsgrunnlagPrStatusOgAndel: [
         {
           dtoType: 'AT',
