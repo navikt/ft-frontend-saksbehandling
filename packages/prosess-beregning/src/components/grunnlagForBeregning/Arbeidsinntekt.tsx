@@ -93,6 +93,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
 
                   {visning.formatertStillingsprosenter && (
                     <LabeledValue
+                      horizontal
                       size="small"
                       label={<FormattedMessage id="Arbeidsinntekt.Stillingsprosent" />}
                       value={visning.formatertStillingsprosenter}
