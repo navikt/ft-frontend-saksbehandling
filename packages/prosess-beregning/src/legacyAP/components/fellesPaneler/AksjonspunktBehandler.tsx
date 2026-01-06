@@ -34,9 +34,14 @@ import { AksjonspunktBehandlerTidsbegrenset } from '../ATFL/AksjonspunktBehandle
 import { ProsessStegSubmitButton } from '../ProsessStegSubmitButton';
 import { AksjonspunktBehandlerSNEllerMidlertidigInaktiv } from '../selvstendigNaeringsdrivende/AksjonspunktBehandlerSNEllerMidlertidigInaktiv';
 import { FastsettSNNyIArbeid } from '../selvstendigNaeringsdrivende/FastsettSNNyIArbeid';
+import {
+  finnVilkårperiode,
+  grupperPåKode,
+  harApForSammelingningsgrunnlagType,
+  utledSkalValideres,
+} from './aksjonspunktBehandlerUtils';
 import { finnAPBeskrivelse, finnAPTittel } from './aksjonspunktHeaderUtils';
 import { ArbeidstakerEllerFrilansContainer } from './ArbeidstakerEllerFrilansContainer';
-import { harApForSammelingningsgrunnlagType } from './lovparagrafUtils';
 import { SelvstendigNæringsdrivendeContainer } from './SelvstendigNæringsdrivendeContainer';
 
 const {
@@ -135,8 +140,8 @@ export const AksjonspunktBehandler = ({
         return (
           <div key={field.id} style={{ display: vilkårsperiodeFom === aktivtStp ? 'block' : 'none' }}>
             <AksjonspunktBoks
-              tittel={finnAPTittel(aksjonspunktForGrunnlag, aktivitetStatus ?? [])}
-              beskrivelse={finnAPBeskrivelse(aksjonspunktForGrunnlag, beregningsgrunnlagPeriode)}
+              tittel={finnAPTittel(aksjonspunktKode, aktivitetStatus ?? [])}
+              beskrivelse={finnAPBeskrivelse(aksjonspunktKode, beregningsgrunnlagPeriode)}
               aksjonspunkt={aksjonspunktForGrunnlag}
             >
               <VStack gap="space-16">
@@ -178,17 +183,6 @@ export const AksjonspunktBehandler = ({
     </RhfForm>
   );
 };
-
-const utledSkalValideres = (vilkår: Vilkår, vilkårsperiodeFom: string) => {
-  const periode = finnVilkårperiode(vilkår, vilkårsperiodeFom);
-  if (!periode) {
-    return false;
-  }
-  return periode.vurderesIBehandlingen && !periode.erForlengelse;
-};
-
-const finnVilkårperiode = (vilkår: Vilkår, vilkårsperiodeFom: string) =>
-  vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
 
 const buildInitialValues = (
   { beregningsgrunnlagPeriode, avklaringsbehov }: BeregningsgrunnlagProp,
@@ -242,8 +236,8 @@ const buildFormInitialValues = (
   [formName]: beregningsgrunnlag.map(bg => {
     const vilkårsperiode = finnVilkårperiode(vilkår, bg.vilkårsperiodeFom)!;
     const avklaringsbehov = bg.avklaringsbehov.find(medAPKode(aksjonspunktKode));
-    const sammenligningsgrunnlag = bg.sammenligningsgrunnlagPrStatus?.find(s =>
-      harApForSammelingningsgrunnlagType(s.sammenligningsgrunnlagType, bg.aktivitetStatus, aksjonspunktKode),
+    const sammenligningsgrunnlag = bg.sammenligningsgrunnlagPrStatus?.find(
+      harApForSammelingningsgrunnlagType(aksjonspunktKode, bg.aktivitetStatus),
     );
 
     return {
@@ -256,42 +250,6 @@ const buildFormInitialValues = (
     };
   }),
 });
-
-type AksjonspunktDataMedPeriode = {
-  periode: {
-    fom: string;
-    tom: string;
-  };
-  aksjonspunkter: GruppertAksjonspunktData[];
-};
-
-const grupperPåKode = (
-  gruppert: BeregningAksjonspunktSubmitType[],
-  curr: AksjonspunktDataMedPeriode,
-): BeregningAksjonspunktSubmitType[] => {
-  curr.aksjonspunkter.forEach(ap => {
-    const eksisterende = gruppert.find(gruppertAp => gruppertAp.kode === ap.kode);
-    if (eksisterende === undefined) {
-      gruppert.push({
-        kode: ap.kode,
-        begrunnelse: ap.aksjonspunktData.begrunnelse,
-        grunnlag: [
-          {
-            periode: curr.periode,
-            ...ap.aksjonspunktData,
-          },
-        ],
-      });
-    } else {
-      eksisterende.grunnlag.push({
-        periode: curr.periode,
-        ...ap.aksjonspunktData,
-      });
-      eksisterende.begrunnelse = `${eksisterende.begrunnelse} ${ap.aksjonspunktData.begrunnelse}`;
-    }
-  });
-  return gruppert;
-};
 
 const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunktData[] => {
   const { allePerioder } = values;
