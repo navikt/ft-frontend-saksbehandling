@@ -7,7 +7,7 @@
     "types": ["vite/client", "vitest/globals", "@testing-library/jest-dom"],
     "allowJs": true,
     "noEmit": true,
-    "allowImportingTsExtensions": true,
+    "allowImportingTsExtensions": false,
     "allowUnusedLabels": false,
     "allowUnreachableCode": false,
     "allowArbitraryExtensions": true, // So that typed-css-modules work
