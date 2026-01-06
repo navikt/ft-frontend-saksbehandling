@@ -19,9 +19,21 @@ const beregningAksjonspunkter = new Set([
   AksjonspunktKode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
 ]);
 
-export const harAksjonspunktSomKanLøses = (aksjonspunkter: Aksjonspunkt[]) =>
-  aksjonspunkter.some(ap => beregningAksjonspunkter.has(ap.definisjon as AksjonspunktKode) && ap.kanLoses);
+export const ÅTTE_TRETTIFEM_AKSJONSPUNKTER = new Set([
+  AksjonspunktKode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
+  AksjonspunktKode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
+  AksjonspunktKode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
+]);
 
+export const ÅTTE_TRETTI_AKSJONSPUNKTER = new Set([
+  AksjonspunktKode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
+  AksjonspunktKode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
+]);
+
+export const harAksjonspunktSomKanLøses = (aksjonspunkter: Aksjonspunkt[]) =>
+  aksjonspunkter.some(ap => erBeregningsAP(ap) && ap.kanLoses);
+
+export const erBeregningsAP = (ap: Aksjonspunkt) => beregningAksjonspunkter.has(ap.definisjon as AksjonspunktKode);
 export const medAPKode =
   (...apKode: AksjonspunktKode[]) =>
   (ap: Aksjonspunkt) =>

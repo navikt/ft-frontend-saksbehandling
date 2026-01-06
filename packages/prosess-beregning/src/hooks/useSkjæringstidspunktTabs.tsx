@@ -15,14 +15,20 @@ export const useSkjæringstidspunktTabs = (
 ) => {
   const tabOptions = lagSorterteOptionProps(beregningsgrunnlagListe, beregningsgrunnlagsvilkår);
 
-  const initialIndex = tabOptions.find(o => o.skalVurderes && o.harAksjonspunkt)?.bgIndex ?? 0;
+  const førsteTilVurdering = tabOptions.find(o => o.skalVurderes && o.harAksjonspunkt);
+  const initialBeregningsgrunnlag = førsteTilVurdering?.beregningsgrunnlag ?? tabOptions[0].beregningsgrunnlag;
 
-  const [aktivBGIndex, setAktivBGIndex] = useState(initialIndex);
+  const [aktivBGSkjæringstidspunkt, setAktivBGSkjæringstidspunkt] = useState(
+    initialBeregningsgrunnlag.skjaeringstidspunktBeregning,
+  );
 
   return {
     tabOptions,
-    currentTabValue: aktivBGIndex.toString(),
-    onTabChange: (tabIndex: string) => setAktivBGIndex(Number(tabIndex)),
+    currentSkjæringstidspunkt: aktivBGSkjæringstidspunkt,
+    currentBeregningsgrunnlag:
+      beregningsgrunnlagListe.find(bg => bg.skjaeringstidspunktBeregning === aktivBGSkjæringstidspunkt) ??
+      beregningsgrunnlagListe[0],
+    onTabChange: (skjæringstidspunkt: string) => setAktivBGSkjæringstidspunkt(skjæringstidspunkt),
   };
 };
 
@@ -31,11 +37,10 @@ const lagSorterteOptionProps = (
   beregningsgrunnlagsvilkår: Vilkår | null,
 ) =>
   beregningsgrunnlagListe
-    .map((gr, index) => ({
-      bgIndex: index,
-      skalVurderes: erBGTilVurdering(gr, beregningsgrunnlagsvilkår),
-      harAksjonspunkt: harAksjonspunktSomKanLøses(gr.avklaringsbehov),
-      skjæringstidspunkt: gr.skjaeringstidspunktBeregning,
-      optionLabel: dateFormat(gr.skjaeringstidspunktBeregning),
-    }))
-    .sort((a, b) => dayjs(a.skjæringstidspunkt).diff(dayjs(b.skjæringstidspunkt)));
+    .toSorted((a, b) => dayjs(a.skjaeringstidspunktBeregning).diff(dayjs(b.skjaeringstidspunktBeregning)))
+    .map(beregningsgrunnlag => ({
+      beregningsgrunnlag,
+      skalVurderes: erBGTilVurdering(beregningsgrunnlag.vilkårsperiodeFom, beregningsgrunnlagsvilkår),
+      harAksjonspunkt: harAksjonspunktSomKanLøses(beregningsgrunnlag.avklaringsbehov),
+      optionLabel: dateFormat(beregningsgrunnlag.skjaeringstidspunktBeregning),
+    }));

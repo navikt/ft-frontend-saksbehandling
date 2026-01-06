@@ -37,7 +37,7 @@ export const BeregningProsessIndex = ({
   isReadOnly,
   isSubmittable,
 }: Props & StandardProsessPanelProps<BeregningAksjonspunktSubmitType[], BeregningFormValues>) => {
-  const { tabOptions, currentTabValue, onTabChange } = useSkjæringstidspunktTabs(
+  const { tabOptions, currentSkjæringstidspunkt, onTabChange, currentBeregningsgrunnlag } = useSkjæringstidspunktTabs(
     beregningsgrunnlagListe,
     beregningsgrunnlagsvilkår,
   );
@@ -71,13 +71,13 @@ export const BeregningProsessIndex = ({
 
   return (
     <RawIntlProvider value={intl}>
-      <Tabs value={currentTabValue} onChange={onTabChange}>
+      <Tabs value={currentSkjæringstidspunkt} onChange={onTabChange}>
         {tabOptions.length > 1 && (
           <Tabs.List>
             {tabOptions.map(o => (
               <Tabs.Tab
-                key={o.bgIndex}
-                value={o.bgIndex.toString()}
+                key={o.skjæringstidspunkt}
+                value={o.skjæringstidspunkt}
                 id={`${o.optionLabel}-tab`}
                 label={o.optionLabel}
                 aria-controls={`${o.optionLabel}-panel`}
@@ -94,13 +94,13 @@ export const BeregningProsessIndex = ({
       {tabOptions.map(o => (
         <div
           role="tabpanel"
-          hidden={o.bgIndex.toString() !== currentTabValue}
-          key={o.bgIndex}
+          hidden={o.skjæringstidspunkt.toString() !== currentSkjæringstidspunkt}
+          key={o.skjæringstidspunkt}
           id={`${o.optionLabel}-panel`}
           aria-labelledby={`${o.optionLabel}-tab`}
         >
           <TabInnhold
-            beregningsgrunnlag={beregningsgrunnlagListe[o.bgIndex]}
+            beregningsgrunnlag={o.beregningsgrunnlag}
             beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
             kodeverkSamling={kodeverkSamling}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
@@ -117,7 +117,7 @@ export const BeregningProsessIndex = ({
         submitCallback={submitCallback}
         formData={formData}
         setFormData={setFormData}
-        aktivtBeregningsgrunnlagIndeks={Number(currentTabValue)}
+        aktivtBeregningsgrunnlag={currentBeregningsgrunnlag}
       />
     </RawIntlProvider>
   );

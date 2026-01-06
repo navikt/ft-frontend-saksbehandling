@@ -18,6 +18,7 @@ interface Props {
   beregningsgrunnlagsvilkår: Vilkår;
   kodeverkSamling: KodeverkForPanel;
 }
+
 export const TabInnhold = ({
   beregningsgrunnlag,
   beregningsgrunnlagsvilkår,

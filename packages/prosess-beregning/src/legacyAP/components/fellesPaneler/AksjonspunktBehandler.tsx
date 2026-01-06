@@ -6,7 +6,6 @@ import { VStack } from '@navikt/ds-react';
 import { RhfForm } from '@navikt/ft-form-hooks';
 import type {
   ArbeidsgiverOpplysningerPerId,
-  BeregningAvklaringsbehov,
   Beregningsgrunnlag,
   Beregningsgrunnlag as BeregningsgrunnlagProp,
   SammenligningsgrunlagProp,
@@ -17,7 +16,12 @@ import { hasAksjonspunkt } from '@navikt/ft-utils';
 import { SammenligningType } from '../../../kodeverk/sammenligningType';
 import type { KodeverkForPanel } from '../../../types/KodeverkForPanel';
 import type { Vilkår } from '../../../types/Vilkår';
-import { AksjonspunktKode } from '../../../utils/aksjonspunkt';
+import {
+  AksjonspunktKode,
+  ÅTTE_TRETTI_AKSJONSPUNKTER,
+  ÅTTE_TRETTIFEM_AKSJONSPUNKTER,
+  medAPKode,
+} from '../../../utils/aksjonspunkt';
 import { finnAlleAndelerIFørstePeriode } from '../../../utils/beregningsgrunnlagUtils';
 import type { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
 import { type BeregningFormValues, finnFormName, type FormNameType } from '../../types/BeregningFormValues';
@@ -32,7 +36,7 @@ import { AksjonspunktBehandlerSNEllerMidlertidigInaktiv } from '../selvstendigNa
 import { FastsettSNNyIArbeid } from '../selvstendigNaeringsdrivende/FastsettSNNyIArbeid';
 import { finnAPBeskrivelse, finnAPTittel } from './aksjonspunktHeaderUtils';
 import { ArbeidstakerEllerFrilansContainer } from './ArbeidstakerEllerFrilansContainer';
-import { finnLovparagraf, finnLovparagrafForAksjonspunkt, LovParagraf } from './lovparagrafUtils';
+import { harApForSammelingningsgrunnlagType } from './lovparagrafUtils';
 import { SelvstendigNæringsdrivendeContainer } from './SelvstendigNæringsdrivendeContainer';
 
 const {
@@ -48,13 +52,13 @@ interface Props {
   kodeverkSamling: KodeverkForPanel;
   isSubmittable: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  beregningsgrunnlagListe: Beregningsgrunnlag[];
+  beregningsgrunnlagForAksjonspunkt: Beregningsgrunnlag[];
   vilkår: Vilkår;
   submitCallback: (aksjonspunktData: BeregningAksjonspunktSubmitType[]) => Promise<void>;
   formData?: BeregningFormValues;
   setFormData: (data: BeregningFormValues) => void;
-  aktivIndex: number;
-  lovparagraf: LovParagraf;
+  aktivtBeregningsgrunnlag: Beregningsgrunnlag;
+  aksjonspunktKode: AksjonspunktKode;
   finnesFormSomSubmittes: boolean;
   setSubmitting: (toggle: boolean) => void;
 }
@@ -64,33 +68,37 @@ export const AksjonspunktBehandler = ({
   isSubmittable,
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
-  beregningsgrunnlagListe,
+  beregningsgrunnlagForAksjonspunkt,
   vilkår,
   submitCallback,
   formData,
   setFormData,
-  aktivIndex,
-  lovparagraf,
+  aktivtBeregningsgrunnlag,
+  aksjonspunktKode,
   finnesFormSomSubmittes,
   setSubmitting,
 }: Props) => {
-  const bgSomSkalVurderes = beregningsgrunnlagListe.filter(bg =>
-    harAvklaringsbehovForLovparagraf(bg.avklaringsbehov, lovparagraf),
-  );
-  const formName = finnFormName(lovparagraf);
-  const losAvklaringsbehov = (values: BeregningFormValues, lp: LovParagraf) => {
+  const formName = finnFormName(aksjonspunktKode);
+
+  const losAvklaringsbehov = (values: BeregningFormValues) => {
     setSubmitting(true);
-    submitCallback(transformFields(values, lp));
+    submitCallback(transformFields(values, formName));
   };
   const formMethods = useForm<BeregningFormValues>({
-    defaultValues: formData || buildFormInitialValues(bgSomSkalVurderes, vilkår, formName, lovparagraf),
+    defaultValues:
+      formData && formName in formData
+        ? formData
+        : buildFormInitialValues(beregningsgrunnlagForAksjonspunkt, vilkår, formName, aksjonspunktKode),
   });
 
   const resetForm = () => {
-    formMethods.reset(buildFormInitialValues(bgSomSkalVurderes, vilkår, formName, lovparagraf));
+    formMethods.reset(buildFormInitialValues(beregningsgrunnlagForAksjonspunkt, vilkår, formName, aksjonspunktKode));
   };
 
-  const totaltAntallAvklaringsbehov = beregningsgrunnlagListe.reduce((sum, bg) => sum + bg.avklaringsbehov.length, 0);
+  const totaltAntallAvklaringsbehov = beregningsgrunnlagForAksjonspunkt.reduce(
+    (sum, bg) => sum + bg.avklaringsbehov.length,
+    0,
+  );
 
   const forrigeAntallAvklaringsbehov = usePrevious(totaltAntallAvklaringsbehov);
 
@@ -110,33 +118,29 @@ export const AksjonspunktBehandler = ({
     control,
   });
 
-  const aktivtStp = beregningsgrunnlagListe[aktivIndex].vilkårsperiodeFom;
+  const aktivtStp = aktivtBeregningsgrunnlag.vilkårsperiodeFom;
 
   return (
-    <RhfForm
-      formMethods={formMethods}
-      onSubmit={values => losAvklaringsbehov(values, lovparagraf)}
-      setDataOnUnmount={setFormData}
-    >
+    <RhfForm formMethods={formMethods} onSubmit={values => losAvklaringsbehov(values)} setDataOnUnmount={setFormData}>
       {fields.map((field, index) => {
         const { beregningsgrunnlagPeriode, avklaringsbehov, vilkårsperiodeFom, aktivitetStatus } =
-          bgSomSkalVurderes[index];
-        const aksjonspunktForLovparagraf = avklaringsbehov.find(gjelderForParagraf(lovparagraf));
+          beregningsgrunnlagForAksjonspunkt[index];
+        const aksjonspunktForGrunnlag = avklaringsbehov.find(medAPKode(aksjonspunktKode));
         const skalValideres = utledSkalValideres(vilkår, vilkårsperiodeFom);
 
-        if (!aksjonspunktForLovparagraf) {
+        if (!aksjonspunktForGrunnlag) {
           return null;
         }
 
         return (
           <div key={field.id} style={{ display: vilkårsperiodeFom === aktivtStp ? 'block' : 'none' }}>
             <AksjonspunktBoks
-              tittel={finnAPTittel(aksjonspunktForLovparagraf, aktivitetStatus ?? [])}
-              beskrivelse={finnAPBeskrivelse(aksjonspunktForLovparagraf, beregningsgrunnlagPeriode)}
-              aksjonspunkt={aksjonspunktForLovparagraf}
+              tittel={finnAPTittel(aksjonspunktForGrunnlag, aktivitetStatus ?? [])}
+              beskrivelse={finnAPBeskrivelse(aksjonspunktForGrunnlag, beregningsgrunnlagPeriode)}
+              aksjonspunkt={aksjonspunktForGrunnlag}
             >
               <VStack gap="space-16">
-                {lovparagraf === LovParagraf.ÅTTE_TRETTI && (
+                {ÅTTE_TRETTI_AKSJONSPUNKTER.has(aksjonspunktKode) && (
                   <ArbeidstakerEllerFrilansContainer
                     kodeverkSamling={kodeverkSamling}
                     beregningsgrunnlagPeriode={beregningsgrunnlagPeriode}
@@ -144,17 +148,17 @@ export const AksjonspunktBehandler = ({
                     readOnly={readOnly}
                     fieldIndex={index}
                     formName={formName}
-                    avklaringsbehov={aksjonspunktForLovparagraf}
+                    avklaringsbehov={aksjonspunktForGrunnlag}
                     skalValideres={skalValideres}
                   />
                 )}
-                {lovparagraf === LovParagraf.ÅTTE_TRETTIFEM && (
+                {ÅTTE_TRETTIFEM_AKSJONSPUNKTER.has(aksjonspunktKode) && (
                   <SelvstendigNæringsdrivendeContainer
                     readOnly={readOnly}
                     beregningsgrunnlagPeriode={beregningsgrunnlagPeriode}
                     fieldIndex={index}
                     formName={formName}
-                    aksjonspunkt={aksjonspunktForLovparagraf}
+                    aksjonspunkt={aksjonspunktForGrunnlag}
                     skalValideres={skalValideres}
                   />
                 )}
@@ -182,12 +186,6 @@ const utledSkalValideres = (vilkår: Vilkår, vilkårsperiodeFom: string) => {
   }
   return periode.vurderesIBehandlingen && !periode.erForlengelse;
 };
-
-const gjelderForParagraf = (lovparagraf: LovParagraf) => (aksjonspunkt: BeregningAvklaringsbehov) =>
-  finnLovparagrafForAksjonspunkt(aksjonspunkt) === lovparagraf;
-
-const harAvklaringsbehovForLovparagraf = (avklaringsbehov: BeregningAvklaringsbehov[], lovparagraf: LovParagraf) =>
-  avklaringsbehov.some(gjelderForParagraf(lovparagraf));
 
 const finnVilkårperiode = (vilkår: Vilkår, vilkårsperiodeFom: string) =>
   vilkår.perioder.find(({ periode }) => periode.fom === vilkårsperiodeFom);
@@ -239,13 +237,13 @@ const buildFormInitialValues = (
   beregningsgrunnlag: Beregningsgrunnlag[],
   vilkår: Vilkår,
   formName: FormNameType,
-  lovparagraf: LovParagraf,
+  aksjonspunktKode: AksjonspunktKode,
 ): BeregningFormValues => ({
   [formName]: beregningsgrunnlag.map(bg => {
     const vilkårsperiode = finnVilkårperiode(vilkår, bg.vilkårsperiodeFom)!;
-    const avklaringsbehov = bg.avklaringsbehov.find(gjelderForParagraf(lovparagraf));
-    const sammenligningsgrunnlag = bg.sammenligningsgrunnlagPrStatus?.find(
-      s => finnLovparagraf(s.sammenligningsgrunnlagType, bg.aktivitetStatus) === lovparagraf,
+    const avklaringsbehov = bg.avklaringsbehov.find(medAPKode(aksjonspunktKode));
+    const sammenligningsgrunnlag = bg.sammenligningsgrunnlagPrStatus?.find(s =>
+      harApForSammelingningsgrunnlagType(s.sammenligningsgrunnlagType, bg.aktivitetStatus, aksjonspunktKode),
     );
 
     return {
@@ -371,8 +369,8 @@ const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunkt
   throw new Error('Må submitte et aksjonspunkt');
 };
 
-const transformFields = (values: BeregningFormValues, lovparagraf: LovParagraf) => {
-  const fields = values[finnFormName(lovparagraf)];
+const transformFields = (values: BeregningFormValues, formName: string) => {
+  const fields = values[formName];
   const aksjonspunktLister = fields
     .filter(f => f.erTilVurdering)
     .map(field => ({
