@@ -1,3 +1,4 @@
+import { HStack } from '@navikt/ds-react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { getIntlDecorator } from '@navikt/ft-frontend-storybook-utils';
@@ -9,7 +10,14 @@ import messages from '../../../i18n/nb_NO.json';
 const withIntl = getIntlDecorator(messages);
 
 const meta = {
-  decorators: [withIntl],
+  decorators: [
+    withIntl,
+    Story => (
+      <HStack gap="space-8">
+        <Story />
+      </HStack>
+    ),
+  ],
   component: Avviksberegninger,
 } satisfies Meta<typeof Avviksberegninger>;
 
