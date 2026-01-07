@@ -36,8 +36,8 @@
     "transform-to-workspace": "node scripts/restore-workspace-deps.js"
   },
   "devDependencies": {
-    "@navikt/aksel-stylelint": "7.32.5",
-    "@navikt/ds-css": "7.32.5",
+    "@navikt/aksel-stylelint": "7.36.0",
+    "@navikt/ds-css": "7.36.0",
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-frontend-storybook-utils": "workspace:^",
     "@storybook/addon-a11y": "10.1.0",
