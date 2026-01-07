@@ -9,8 +9,8 @@ interface Props {
   avoidBlur: () => void;
   id: string;
   index: number;
-  onClick: (value: Suggestion) => void;
   match: string;
+  onClick: (value: Suggestion) => void;
   setSuggestionIndex: (index: number) => void;
   value: Suggestion;
 }
