@@ -1,13 +1,6 @@
 .table {
   tfoot {
-    border-bottom-style: double;
-    border-bottom-width: 3px;
-    border-color: var(--a-border-default);
-    border-top-style: solid;
-    border-top-width: 2px;
-
-    td {
-      font-weight: 600;
-    }
+    border-bottom: 3px double var(--ax-border-neutral-strong);
+    border-top: 2px solid var(--ax-border-neutral-strong);
   }
 }

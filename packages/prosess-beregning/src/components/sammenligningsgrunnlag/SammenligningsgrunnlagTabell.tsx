@@ -84,10 +84,10 @@ export const SammenligningsgrunnlagTabell = ({
       </Table.Body>
       <tfoot>
         <Table.Row>
-          <Table.DataCell colSpan={2} textSize="small">
+          <Table.HeaderCell scope="row" colSpan={2} textSize="small">
             <FormattedMessage id="Tabell.Total" />
-          </Table.DataCell>
-          <Table.DataCell align="right" textSize="small">
+          </Table.HeaderCell>
+          <Table.HeaderCell scope="row" align="right" textSize="small">
             <BeløpLabel
               beløp={alleInntektskilder.reduce(
                 (acc, { inntekter }) => acc + inntekter.reduce((sum, beløp) => sum + beløp, 0),
@@ -95,7 +95,7 @@ export const SammenligningsgrunnlagTabell = ({
               )}
               kr
             />
-          </Table.DataCell>
+          </Table.HeaderCell>
         </Table.Row>
       </tfoot>
     </Table>
