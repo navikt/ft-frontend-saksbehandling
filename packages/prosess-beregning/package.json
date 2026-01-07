@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-prosess-beregning",
   "description": "Prosesspanel for beregningsgrunnlaget med aksjonspunkter relatert til avvik for arbeid, frilans og næring",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
