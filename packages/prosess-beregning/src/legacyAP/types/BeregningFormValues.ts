@@ -1,4 +1,4 @@
-import { LovParagraf } from '../components/fellesPaneler/lovparagrafUtils';
+import type { AksjonspunktKode } from '../../utils/aksjonspunkt';
 import type { BeregningsgrunnlagValues } from './BeregningsgrunnlagAksjonspunkt';
 
 export type BeregningFormValues = {
@@ -7,4 +7,4 @@ export type BeregningFormValues = {
 
 const defaultFormName = 'BeregningForm';
 export type FormNameType = ReturnType<typeof finnFormName>;
-export const finnFormName = (lovparagraf: LovParagraf) => `${defaultFormName}_${lovparagraf}` as const;
+export const finnFormName = (aksjonspunktKode: AksjonspunktKode) => `${defaultFormName}_${aksjonspunktKode}` as const;

@@ -1,5 +1,5 @@
 import { composeStories } from '@storybook/react-vite';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import * as stories from './LegacyAPForms.stories';
@@ -262,10 +262,15 @@ describe('LegacyAPForms', () => {
     const lagre = vi.fn();
 
     render(<AvvikNæringEtterLøstAvvikArbeid5038Og5039 submitCallback={lagre} />);
+    const apBoks_arbeidOgFrilans = within(screen.getByTestId('AksjonspunktBoks-FASTSETT_BG_AT_FL'));
+
+    const apBoks_selvstendigNæringsdrivende = within(
+      screen.getByTestId('AksjonspunktBoks-VURDER_VARIG_ENDRT_NYOPPSTR_NAERNG_SN'),
+    );
 
     expect(await screen.getAllByText('Bekreft og fortsett')).toHaveLength(2);
-    const knappATFL = screen.getAllByRole('button', { name: 'Bekreft og fortsett' })[0];
-    const knappNæring = screen.getAllByRole('button', { name: 'Bekreft og fortsett' })[1];
+    const knappATFL = apBoks_arbeidOgFrilans.getByRole('button', { name: 'Bekreft og fortsett' });
+    const knappNæring = apBoks_selvstendigNæringsdrivende.getByRole('button', { name: 'Bekreft og fortsett' });
 
     expect(knappATFL).toBeDisabled();
     expect(knappNæring).toBeDisabled();
@@ -273,37 +278,39 @@ describe('LegacyAPForms', () => {
     // Årsgrunnlag arbeid
     expect(screen.getAllByText('TROSSIG NATURSTRIDIG TIGER AS (222222222)')).toHaveLength(2);
 
-    const alleInputfelt = screen.getAllByRole('textbox', { hidden: true });
-
     // Avvik arbeid og frilans
     expect(screen.getByText('Fastsett årsinntekt skjønnsmessig for arbeidstaker og frilans')).toBeInTheDocument();
     expect(
       screen.getByText('Det er mer enn 25% avvik mellom beregnet årsinntekt og sammenligningsgrunnlaget'),
     ).toBeInTheDocument();
-    const bruttoAG1 = alleInputfelt[0];
-    const bruttoFL1 = alleInputfelt[1];
-    const begrunnelseATFL = alleInputfelt[2];
+
+    const inputfelt_arbeidOgFrilans = apBoks_arbeidOgFrilans.getAllByRole('textbox', { hidden: true });
+    const [bruttoAG1, bruttoFL1, begrunnelseATFL] = inputfelt_arbeidOgFrilans;
 
     expect(bruttoAG1).toHaveValue('200 000');
     expect(bruttoFL1).toHaveValue('100 000');
     expect(begrunnelseATFL).toHaveValue('Dette er løst');
 
-    expect(screen.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument();
-    await userEvent.click(screen.getByLabelText('Ingen varig endring'));
-    await waitFor(() => expect(screen.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument());
-    await userEvent.click(screen.getByLabelText('Varig endring - årsinntekt må fastsettes.'));
-    expect(await screen.findByText('Næringsinntekt fastsettes til')).toBeInTheDocument();
+    expect(apBoks_selvstendigNæringsdrivende.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument();
+    await userEvent.click(apBoks_selvstendigNæringsdrivende.getByLabelText('Ingen varig endring'));
+    await waitFor(() =>
+      expect(apBoks_selvstendigNæringsdrivende.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument(),
+    );
+    await userEvent.click(
+      apBoks_selvstendigNæringsdrivende.getByLabelText('Varig endring - årsinntekt må fastsettes.'),
+    );
+    expect(await apBoks_selvstendigNæringsdrivende.findByText('Næringsinntekt fastsettes til')).toBeInTheDocument();
+    const inputfelt_selvstendigNæringsdrivende = apBoks_selvstendigNæringsdrivende.getAllByRole('textbox', {
+      hidden: true,
+    });
+    const [bruttoNæringFelt, begrunnelseNæringFelt] = inputfelt_selvstendigNæringsdrivende;
 
-    const alleInputfeltEtterKlikk = screen.getAllByRole('textbox', { hidden: true });
-    const bruttoNæringFelt = alleInputfeltEtterKlikk[4];
-    const begrunnelseNæringFelt = alleInputfeltEtterKlikk[5];
     await userEvent.type(bruttoNæringFelt, '260 000');
     await userEvent.type(begrunnelseNæringFelt, 'Min begrunnelse for vurdering av varig endring');
     expect(knappNæring).toBeEnabled();
     expect(knappATFL).toBeDisabled();
 
-    expect(screen.getAllByText('Bekreft og fortsett')[1]).toBeEnabled();
-    await userEvent.click(screen.getAllByText('Bekreft og fortsett')[1]);
+    await userEvent.click(knappNæring);
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, [

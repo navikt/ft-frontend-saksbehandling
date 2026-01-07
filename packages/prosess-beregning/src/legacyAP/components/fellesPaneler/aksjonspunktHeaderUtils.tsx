@@ -1,6 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 
-import type { AktivitetStatus, BeregningAvklaringsbehov, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
+import type { AktivitetStatus, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 
 import { AksjonspunktKode } from '../../../utils/aksjonspunkt';
 import { finnAlleAndelerIFørstePeriode } from '../../../utils/beregningsgrunnlagUtils';
@@ -25,10 +25,10 @@ const finnAPBeskrivelseSN = (beregningsgrunnlagPeriode: BeregningsgrunnlagPeriod
 };
 
 export const finnAPBeskrivelse = (
-  aksjonspunkt: BeregningAvklaringsbehov,
+  aksjonspunktKode: AksjonspunktKode,
   beregningsgrunnlagPeriode: BeregningsgrunnlagPeriodeProp[],
 ) => {
-  switch (aksjonspunkt.definisjon) {
+  switch (aksjonspunktKode) {
     case VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE:
       return finnAPBeskrivelseSN(beregningsgrunnlagPeriode);
     case FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET:
@@ -56,8 +56,8 @@ const finnAPTittelATFL = (aktivitetStatus: AktivitetStatus[]) => {
   return <FormattedMessage id="AksjonspunktBehandlerHeader.Tittel.ATAvvik" />;
 };
 
-export const finnAPTittel = (avklaringsbehov: BeregningAvklaringsbehov, aktivitetStatus: AktivitetStatus[]) => {
-  switch (avklaringsbehov.definisjon) {
+export const finnAPTittel = (aksjonspunktKode: AksjonspunktKode, aktivitetStatus: AktivitetStatus[]) => {
+  switch (aksjonspunktKode) {
     case VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE:
       return <FormattedMessage id="AksjonspunktBehandlerHeader.Tittel.VarigEndringNyoppstartet" />;
     case FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET:

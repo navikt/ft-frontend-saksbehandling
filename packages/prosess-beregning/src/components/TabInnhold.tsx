@@ -1,4 +1,4 @@
-import { VStack } from '@navikt/ds-react';
+import { HStack, VStack } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 
@@ -18,6 +18,7 @@ interface Props {
   beregningsgrunnlagsvilkår: Vilkår;
   kodeverkSamling: KodeverkForPanel;
 }
+
 export const TabInnhold = ({
   beregningsgrunnlag,
   beregningsgrunnlagsvilkår,
@@ -26,7 +27,7 @@ export const TabInnhold = ({
 }: Props) => {
   const { sammenligningsgrunnlagPrStatus = [], inntektsgrunnlag, avklaringsbehov } = beregningsgrunnlag;
   return (
-    <VStack gap="space-8" paddingBlock="space-16">
+    <VStack gap="space-8">
       <LegacyAksjonspunktTittel beregningsgrunnlag={beregningsgrunnlag} />
 
       <GrunnlagForBeregning
@@ -36,9 +37,14 @@ export const TabInnhold = ({
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
       />
 
-      {sammenligningsgrunnlagPrStatus.length > 0 && (
-        <Avviksberegninger sammenligningsgrunnlagPrStatus={sammenligningsgrunnlagPrStatus} />
-      )}
+      <HStack gap="space-8">
+        <Avviksberegninger sammenligningsgrunnlagPrStatus={beregningsgrunnlag.sammenligningsgrunnlagPrStatus} />
+        <Dagsatser
+          beregningsgrunnlag={beregningsgrunnlag}
+          beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
+          kodeverkSamling={kodeverkSamling}
+        />
+      </HStack>
 
       {sammenligningsgrunnlagPrStatus.length > 0 &&
         inntektsgrunnlag &&
@@ -52,12 +58,6 @@ export const TabInnhold = ({
 
       <ReadonlyAPGraderingUtenBG
         avklaringsbehov={avklaringsbehov.find(medAPKode(AksjonspunktKode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG))}
-      />
-
-      <Dagsatser
-        beregningsgrunnlag={beregningsgrunnlag}
-        beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
-        kodeverkSamling={kodeverkSamling}
       />
     </VStack>
   );

@@ -37,7 +37,7 @@ export const BeregningProsessIndex = ({
   isReadOnly,
   isSubmittable,
 }: Props & StandardProsessPanelProps<BeregningAksjonspunktSubmitType[], BeregningFormValues>) => {
-  const { tabOptions, currentTabValue, onTabChange } = useSkjæringstidspunktTabs(
+  const { tabOptions, currentSkjæringstidspunkt, onTabChange, currentBeregningsgrunnlag } = useSkjæringstidspunktTabs(
     beregningsgrunnlagListe,
     beregningsgrunnlagsvilkår,
   );
@@ -71,54 +71,56 @@ export const BeregningProsessIndex = ({
 
   return (
     <RawIntlProvider value={intl}>
-      <Tabs value={currentTabValue} onChange={onTabChange}>
-        {tabOptions.length > 1 && (
-          <Tabs.List>
-            {tabOptions.map(o => (
-              <Tabs.Tab
-                key={o.bgIndex}
-                value={o.bgIndex.toString()}
-                id={`${o.optionLabel}-tab`}
-                label={o.optionLabel}
-                aria-controls={`${o.optionLabel}-panel`}
-                icon={
-                  o.harAksjonspunkt && o.skalVurderes ? (
-                    <ExclamationmarkTriangleFillIcon aria-hidden color="var(--ax-bg-warning-strong)" />
-                  ) : undefined
-                }
-              />
-            ))}
-          </Tabs.List>
-        )}
-      </Tabs>
-      {tabOptions.map(o => (
-        <div
-          role="tabpanel"
-          hidden={o.bgIndex.toString() !== currentTabValue}
-          key={o.bgIndex}
-          id={`${o.optionLabel}-panel`}
-          aria-labelledby={`${o.optionLabel}-tab`}
-        >
-          <TabInnhold
-            beregningsgrunnlag={beregningsgrunnlagListe[o.bgIndex]}
-            beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
-            kodeverkSamling={kodeverkSamling}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          />
-        </div>
-      ))}
-      <FastsettBeregningAksjonspunktContainer
-        readOnly={isReadOnly}
-        isSubmittable={isSubmittable}
-        kodeverkSamling={kodeverkSamling}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-        beregningsgrunnlagListe={beregningsgrunnlagListe}
-        vilkår={beregningsgrunnlagsvilkår}
-        submitCallback={submitCallback}
-        formData={formData}
-        setFormData={setFormData}
-        aktivtBeregningsgrunnlagIndeks={Number(currentTabValue)}
-      />
+      <VStack gap="space-8">
+        <Tabs value={currentSkjæringstidspunkt} onChange={onTabChange}>
+          {tabOptions.length > 1 && (
+            <Tabs.List>
+              {tabOptions.map(o => (
+                <Tabs.Tab
+                  key={o.skjæringstidspunkt}
+                  value={o.skjæringstidspunkt}
+                  id={`${o.optionLabel}-tab`}
+                  label={o.optionLabel}
+                  aria-controls={`${o.optionLabel}-panel`}
+                  icon={
+                    o.harAksjonspunkt && o.skalVurderes ? (
+                      <ExclamationmarkTriangleFillIcon aria-hidden color="var(--ax-bg-warning-strong)" />
+                    ) : undefined
+                  }
+                />
+              ))}
+            </Tabs.List>
+          )}
+        </Tabs>
+        {tabOptions.map(o => (
+          <div
+            role="tabpanel"
+            hidden={o.skjæringstidspunkt !== currentSkjæringstidspunkt}
+            key={o.skjæringstidspunkt}
+            id={`${o.optionLabel}-panel`}
+            aria-labelledby={`${o.optionLabel}-tab`}
+          >
+            <TabInnhold
+              beregningsgrunnlag={o.beregningsgrunnlag}
+              beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
+              kodeverkSamling={kodeverkSamling}
+              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            />
+          </div>
+        ))}
+        <FastsettBeregningAksjonspunktContainer
+          readOnly={isReadOnly}
+          isSubmittable={isSubmittable}
+          kodeverkSamling={kodeverkSamling}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          beregningsgrunnlagListe={beregningsgrunnlagListe}
+          vilkår={beregningsgrunnlagsvilkår}
+          submitCallback={submitCallback}
+          formData={formData}
+          setFormData={setFormData}
+          aktivtBeregningsgrunnlag={currentBeregningsgrunnlag}
+        />
+      </VStack>
     </RawIntlProvider>
   );
 };
