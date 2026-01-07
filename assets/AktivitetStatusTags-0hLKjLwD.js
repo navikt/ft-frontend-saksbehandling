@@ -1,0 +1,254 @@
+import{j as i,H as u,g as o}from"./iframe-BqOkSaA8.js";const m=({beregningsgrunnlagPeriode:n,kodeverkSamling:t})=>{const r=d(n,t);return r.length===0?null:i.jsx(u,{gap:"space-8",children:r.map(({visningsNavn:l,kode:e,tagType:a})=>i.jsx(o,{variant:a,title:l,children:l},e))})},g=n=>{switch(n){case"SN":return"alt2";case"FL":return"alt1";case"AT":return"info";case"KUN_YTELSE":case"DP":case"SP_AV_DP":case"AAP":case"PSB_AV_DP":return"success";default:return"neutral"}},d=(n,t)=>{const r=n.flatMap(e=>e.beregningsgrunnlagPrStatusOgAndel||[]).filter(e=>e.erTilkommetAndel!==!0).map(e=>e.aktivitetStatus);return[...new Set(r)].map(e=>({visningsNavn:t.AktivitetStatus.find(({kode:s})=>s===e)?.navn||"",kode:e,tagType:g(e)})).sort((e,a)=>e.visningsNavn.localeCompare(a.visningsNavn))};m.__docgenInfo={description:"",methods:[],displayName:"AktivitetStatusTags",props:{beregningsgrunnlagPeriode:{required:!0,tsType:{name:"Array",elements:[{name:"Readonly",elements:[{name:"signature",type:"object",raw:`{
+  avkortetPrAar?: number;
+  beregnetPrAar?: number;
+  beregningsgrunnlagPeriodeFom: string;
+  beregningsgrunnlagPeriodeTom: string;
+  bruttoInkludertBortfaltNaturalytelsePrAar?: number;
+  bruttoPrAar?: number;
+  dagsats?: number;
+  ledetekstAvkortet?: string;
+  ledetekstBrutto?: string;
+  ledetekstRedusert?: string;
+  overstyrtPrAar?: number;
+  redusertPrAar?: number;
+  periodeAarsaker?: string[];
+  beregningsgrunnlagPrStatusOgAndel?: BeregningsgrunnlagAndel[];
+}`,signature:{properties:[{key:"avkortetPrAar",value:{name:"number",required:!1}},{key:"beregnetPrAar",value:{name:"number",required:!1}},{key:"beregningsgrunnlagPeriodeFom",value:{name:"string",required:!0}},{key:"beregningsgrunnlagPeriodeTom",value:{name:"string",required:!0}},{key:"bruttoInkludertBortfaltNaturalytelsePrAar",value:{name:"number",required:!1}},{key:"bruttoPrAar",value:{name:"number",required:!1}},{key:"dagsats",value:{name:"number",required:!1}},{key:"ledetekstAvkortet",value:{name:"string",required:!1}},{key:"ledetekstBrutto",value:{name:"string",required:!1}},{key:"ledetekstRedusert",value:{name:"string",required:!1}},{key:"overstyrtPrAar",value:{name:"number",required:!1}},{key:"redusertPrAar",value:{name:"number",required:!1}},{key:"periodeAarsaker",value:{name:"Array",elements:[{name:"string"}],raw:"string[]",required:!1}},{key:"beregningsgrunnlagPrStatusOgAndel",value:{name:"Array",elements:[{name:"Readonly",elements:[{name:"signature",type:"object",raw:`{
+  aktivitetStatus: AktivitetStatus;
+  arbeidsforholdType?: string;
+  arbeidsforhold?: BeregningsgrunnlagArbeidsforhold;
+  avkortetPrAar?: number;
+  inntektskategori?: string;
+  beregnetPrAar?: number;
+  beregningsperiodeFom?: string;
+  beregningsperiodeTom?: string;
+  bruttoPrAar?: number;
+  overstyrtPrAar?: number;
+  redusertPrAar?: number;
+  pgiSnitt?: number;
+  pgiVerdier?: PgiVerdier[];
+  aarsbeloepFraTilstoetendeYtelse?: number;
+  erNyIArbeidslivet?: boolean;
+  erTidsbegrensetArbeidsforhold?: boolean;
+  erNyoppstartet?: boolean;
+  andelsnr: number;
+  lonnsendringIBeregningsperioden?: boolean;
+  besteberegningPrAar?: number;
+  skalFastsetteGrunnlag?: boolean;
+  lagtTilAvSaksbehandler?: boolean;
+  erTilkommetAndel?: boolean;
+  næringer?: Næring[];
+}`,signature:{properties:[{key:"aktivitetStatus",value:{name:"union",raw:`| 'MIDL_INAKTIV'
+| 'AAP'
+| 'AT'
+| 'DP'
+| 'SP_AV_DP'
+| 'PSB_AV_DP'
+| 'FL'
+| 'MS'
+| 'SN'
+| 'AT_FL'
+| 'AT_SN'
+| 'FL_SN'
+| 'AT_FL_SN'
+| 'BA'
+| 'IKKE_YRKESAKTIV'
+| 'KUN_YTELSE'
+| 'TY'
+| 'VENTELØNN_VARTPENGER'
+| '-'`,elements:[{name:"literal",value:"'MIDL_INAKTIV'"},{name:"literal",value:"'AAP'"},{name:"literal",value:"'AT'"},{name:"literal",value:"'DP'"},{name:"literal",value:"'SP_AV_DP'"},{name:"literal",value:"'PSB_AV_DP'"},{name:"literal",value:"'FL'"},{name:"literal",value:"'MS'"},{name:"literal",value:"'SN'"},{name:"literal",value:"'AT_FL'"},{name:"literal",value:"'AT_SN'"},{name:"literal",value:"'FL_SN'"},{name:"literal",value:"'AT_FL_SN'"},{name:"literal",value:"'BA'"},{name:"literal",value:"'IKKE_YRKESAKTIV'"},{name:"literal",value:"'KUN_YTELSE'"},{name:"literal",value:"'TY'"},{name:"literal",value:"'VENTELØNN_VARTPENGER'"},{name:"literal",value:"'-'"}],required:!0}},{key:"arbeidsforholdType",value:{name:"string",required:!1}},{key:"arbeidsforhold",value:{name:"Readonly",elements:[{name:"signature",type:"object",raw:`{
+  arbeidsgiverIdent?: string;
+  eksternArbeidsforholdId?: string;
+  refusjonPrAar?: number;
+  belopFraInntektsmeldingPrMnd?: number;
+  organisasjonstype?: string;
+  naturalytelseBortfaltPrÅr?: number;
+  naturalytelseTilkommetPrÅr?: number;
+  startdato?: string;
+  opphoersdato?: string;
+  arbeidsforholdId?: string;
+  arbeidsforholdType: OpptjeningAktivitetType;
+  sisteLønnsendringsdato?: string;
+  stillingsprosenter?: Stillingsprosent[];
+
+  // Felter som brukes hvis de er satt men mappes ikke backend, løses i TFP-2044
+  stillingsNavn?: string;
+  stillingsProsent?: number;
+}`,signature:{properties:[{key:"arbeidsgiverIdent",value:{name:"string",required:!1}},{key:"eksternArbeidsforholdId",value:{name:"string",required:!1}},{key:"refusjonPrAar",value:{name:"number",required:!1}},{key:"belopFraInntektsmeldingPrMnd",value:{name:"number",required:!1}},{key:"organisasjonstype",value:{name:"string",required:!1}},{key:"naturalytelseBortfaltPrÅr",value:{name:"number",required:!1}},{key:"naturalytelseTilkommetPrÅr",value:{name:"number",required:!1}},{key:"startdato",value:{name:"string",required:!1}},{key:"opphoersdato",value:{name:"string",required:!1}},{key:"arbeidsforholdId",value:{name:"string",required:!1}},{key:"arbeidsforholdType",value:{name:"union",raw:`| 'AAP'
+| 'ARBEID'
+| 'DAGPENGER'
+| 'FORELDREPENGER'
+| 'FRILANS'
+| 'FRILOPP'
+| 'FRISINN'
+| 'MILITÆR_ELLER_SIVILTJENESTE'
+| 'NÆRING'
+| 'OMSORGSPENGER'
+| 'OPPLÆRINGSPENGER'
+| 'PLEIEPENGER'
+| 'SVANGERSKAPSPENGER'
+| 'SYKEPENGER'
+| 'VARTPENGER'
+| 'VIDERE_ETTERUTDANNING'
+| 'UTENLANDSK_ARBEIDSFORHOLD'
+| 'VENTELØNN_VARTPENGER'
+| 'ETTERLØNN_SLUTTPAKKE'
+| 'UTDANNINGSPERMISJON'
+| 'SYKEPENGER_AV_DAGPENGER'
+| 'PLEIEPENGER_AV_DAGPENGER'
+| 'MELLOM_ARBEID'
+| '-'`,elements:[{name:"literal",value:"'AAP'"},{name:"literal",value:"'ARBEID'"},{name:"literal",value:"'DAGPENGER'"},{name:"literal",value:"'FORELDREPENGER'"},{name:"literal",value:"'FRILANS'"},{name:"literal",value:"'FRILOPP'"},{name:"literal",value:"'FRISINN'"},{name:"literal",value:"'MILITÆR_ELLER_SIVILTJENESTE'"},{name:"literal",value:"'NÆRING'"},{name:"literal",value:"'OMSORGSPENGER'"},{name:"literal",value:"'OPPLÆRINGSPENGER'"},{name:"literal",value:"'PLEIEPENGER'"},{name:"literal",value:"'SVANGERSKAPSPENGER'"},{name:"literal",value:"'SYKEPENGER'"},{name:"literal",value:"'VARTPENGER'"},{name:"literal",value:"'VIDERE_ETTERUTDANNING'"},{name:"literal",value:"'UTENLANDSK_ARBEIDSFORHOLD'"},{name:"literal",value:"'VENTELØNN_VARTPENGER'"},{name:"literal",value:"'ETTERLØNN_SLUTTPAKKE'"},{name:"literal",value:"'UTDANNINGSPERMISJON'"},{name:"literal",value:"'SYKEPENGER_AV_DAGPENGER'"},{name:"literal",value:"'PLEIEPENGER_AV_DAGPENGER'"},{name:"literal",value:"'MELLOM_ARBEID'"},{name:"literal",value:"'-'"}],required:!0}},{key:"sisteLønnsendringsdato",value:{name:"string",required:!1}},{key:"stillingsprosenter",value:{name:"Array",elements:[{name:"Readonly",elements:[{name:"signature",type:"object",raw:`{
+  prosent: number;
+  fomDato: string;
+  tomDato: string;
+}`,signature:{properties:[{key:"prosent",value:{name:"number",required:!0}},{key:"fomDato",value:{name:"string",required:!0}},{key:"tomDato",value:{name:"string",required:!0}}]}}],raw:`Readonly<{
+  prosent: number;
+  fomDato: string;
+  tomDato: string;
+}>`}],raw:"Stillingsprosent[]",required:!1}},{key:"stillingsNavn",value:{name:"string",required:!1}},{key:"stillingsProsent",value:{name:"number",required:!1}}]}}],raw:`Readonly<{
+  arbeidsgiverIdent?: string;
+  eksternArbeidsforholdId?: string;
+  refusjonPrAar?: number;
+  belopFraInntektsmeldingPrMnd?: number;
+  organisasjonstype?: string;
+  naturalytelseBortfaltPrÅr?: number;
+  naturalytelseTilkommetPrÅr?: number;
+  startdato?: string;
+  opphoersdato?: string;
+  arbeidsforholdId?: string;
+  arbeidsforholdType: OpptjeningAktivitetType;
+  sisteLønnsendringsdato?: string;
+  stillingsprosenter?: Stillingsprosent[];
+
+  // Felter som brukes hvis de er satt men mappes ikke backend, løses i TFP-2044
+  stillingsNavn?: string;
+  stillingsProsent?: number;
+}>`,required:!1}},{key:"avkortetPrAar",value:{name:"number",required:!1}},{key:"inntektskategori",value:{name:"string",required:!1}},{key:"beregnetPrAar",value:{name:"number",required:!1}},{key:"beregningsperiodeFom",value:{name:"string",required:!1}},{key:"beregningsperiodeTom",value:{name:"string",required:!1}},{key:"bruttoPrAar",value:{name:"number",required:!1}},{key:"overstyrtPrAar",value:{name:"number",required:!1}},{key:"redusertPrAar",value:{name:"number",required:!1}},{key:"pgiSnitt",value:{name:"number",required:!1}},{key:"pgiVerdier",value:{name:"Array",elements:[{name:"Readonly",elements:[{name:"signature",type:"object",raw:`{
+  beløp: number;
+  årstall: number;
+}`,signature:{properties:[{key:"beløp",value:{name:"number",required:!0}},{key:"årstall",value:{name:"number",required:!0}}]}}],raw:`Readonly<{
+  beløp: number;
+  årstall: number;
+}>`}],raw:"PgiVerdier[]",required:!1}},{key:"aarsbeloepFraTilstoetendeYtelse",value:{name:"number",required:!1}},{key:"erNyIArbeidslivet",value:{name:"boolean",required:!1}},{key:"erTidsbegrensetArbeidsforhold",value:{name:"boolean",required:!1}},{key:"erNyoppstartet",value:{name:"boolean",required:!1}},{key:"andelsnr",value:{name:"number",required:!0}},{key:"lonnsendringIBeregningsperioden",value:{name:"boolean",required:!1}},{key:"besteberegningPrAar",value:{name:"number",required:!1}},{key:"skalFastsetteGrunnlag",value:{name:"boolean",required:!1}},{key:"lagtTilAvSaksbehandler",value:{name:"boolean",required:!1}},{key:"erTilkommetAndel",value:{name:"boolean",required:!1}},{key:"næringer",value:{name:"Array",elements:[{name:"Readonly",elements:[{name:"signature",type:"object",raw:`{
+  orgnr: string;
+  virksomhetType: string;
+  utenlandskvirksomhetsnavn?: string;
+  erVarigEndret?: boolean;
+  erNyoppstartet?: boolean;
+  begrunnelse?: string;
+  endringsdato?: string;
+  opphørsdato?: string;
+  oppstartsdato?: string;
+  regnskapsførerNavn?: string;
+  regnskapsførerTlf?: string;
+  kanRegnskapsførerKontaktes?: boolean;
+  erNyIArbeidslivet?: boolean;
+  oppgittInntekt?: number;
+}`,signature:{properties:[{key:"orgnr",value:{name:"string",required:!0}},{key:"virksomhetType",value:{name:"string",required:!0}},{key:"utenlandskvirksomhetsnavn",value:{name:"string",required:!1}},{key:"erVarigEndret",value:{name:"boolean",required:!1}},{key:"erNyoppstartet",value:{name:"boolean",required:!1}},{key:"begrunnelse",value:{name:"string",required:!1}},{key:"endringsdato",value:{name:"string",required:!1}},{key:"opphørsdato",value:{name:"string",required:!1}},{key:"oppstartsdato",value:{name:"string",required:!1}},{key:"regnskapsførerNavn",value:{name:"string",required:!1}},{key:"regnskapsførerTlf",value:{name:"string",required:!1}},{key:"kanRegnskapsførerKontaktes",value:{name:"boolean",required:!1}},{key:"erNyIArbeidslivet",value:{name:"boolean",required:!1}},{key:"oppgittInntekt",value:{name:"number",required:!1}}]}}],raw:`Readonly<{
+  orgnr: string;
+  virksomhetType: string;
+  utenlandskvirksomhetsnavn?: string;
+  erVarigEndret?: boolean;
+  erNyoppstartet?: boolean;
+  begrunnelse?: string;
+  endringsdato?: string;
+  opphørsdato?: string;
+  oppstartsdato?: string;
+  regnskapsførerNavn?: string;
+  regnskapsførerTlf?: string;
+  kanRegnskapsførerKontaktes?: boolean;
+  erNyIArbeidslivet?: boolean;
+  oppgittInntekt?: number;
+}>`}],raw:"Næring[]",required:!1}}]}}],raw:`Readonly<{
+  aktivitetStatus: AktivitetStatus;
+  arbeidsforholdType?: string;
+  arbeidsforhold?: BeregningsgrunnlagArbeidsforhold;
+  avkortetPrAar?: number;
+  inntektskategori?: string;
+  beregnetPrAar?: number;
+  beregningsperiodeFom?: string;
+  beregningsperiodeTom?: string;
+  bruttoPrAar?: number;
+  overstyrtPrAar?: number;
+  redusertPrAar?: number;
+  pgiSnitt?: number;
+  pgiVerdier?: PgiVerdier[];
+  aarsbeloepFraTilstoetendeYtelse?: number;
+  erNyIArbeidslivet?: boolean;
+  erTidsbegrensetArbeidsforhold?: boolean;
+  erNyoppstartet?: boolean;
+  andelsnr: number;
+  lonnsendringIBeregningsperioden?: boolean;
+  besteberegningPrAar?: number;
+  skalFastsetteGrunnlag?: boolean;
+  lagtTilAvSaksbehandler?: boolean;
+  erTilkommetAndel?: boolean;
+  næringer?: Næring[];
+}>`}],raw:"BeregningsgrunnlagAndel[]",required:!1}}]}}],raw:`Readonly<{
+  avkortetPrAar?: number;
+  beregnetPrAar?: number;
+  beregningsgrunnlagPeriodeFom: string;
+  beregningsgrunnlagPeriodeTom: string;
+  bruttoInkludertBortfaltNaturalytelsePrAar?: number;
+  bruttoPrAar?: number;
+  dagsats?: number;
+  ledetekstAvkortet?: string;
+  ledetekstBrutto?: string;
+  ledetekstRedusert?: string;
+  overstyrtPrAar?: number;
+  redusertPrAar?: number;
+  periodeAarsaker?: string[];
+  beregningsgrunnlagPrStatusOgAndel?: BeregningsgrunnlagAndel[];
+}>`}],raw:"BeregningsgrunnlagPeriodeProp[]"},description:""},kodeverkSamling:{required:!0,tsType:{name:"signature",type:"object",raw:`{
+  [K in KodeverkType]: KodeverkMedNavn<K>[];
+}`,signature:{properties:[{key:{name:"signature",type:"object",raw:`{
+  AktivitetStatus: AktivitetStatus;
+  OpptjeningAktivitetType: OpptjeningAktivitetType;
+}`,signature:{properties:[{key:"AktivitetStatus",value:{name:"union",raw:`| 'MIDL_INAKTIV'
+| 'AAP'
+| 'AT'
+| 'DP'
+| 'SP_AV_DP'
+| 'PSB_AV_DP'
+| 'FL'
+| 'MS'
+| 'SN'
+| 'AT_FL'
+| 'AT_SN'
+| 'FL_SN'
+| 'AT_FL_SN'
+| 'BA'
+| 'IKKE_YRKESAKTIV'
+| 'KUN_YTELSE'
+| 'TY'
+| 'VENTELØNN_VARTPENGER'
+| '-'`,elements:[{name:"literal",value:"'MIDL_INAKTIV'"},{name:"literal",value:"'AAP'"},{name:"literal",value:"'AT'"},{name:"literal",value:"'DP'"},{name:"literal",value:"'SP_AV_DP'"},{name:"literal",value:"'PSB_AV_DP'"},{name:"literal",value:"'FL'"},{name:"literal",value:"'MS'"},{name:"literal",value:"'SN'"},{name:"literal",value:"'AT_FL'"},{name:"literal",value:"'AT_SN'"},{name:"literal",value:"'FL_SN'"},{name:"literal",value:"'AT_FL_SN'"},{name:"literal",value:"'BA'"},{name:"literal",value:"'IKKE_YRKESAKTIV'"},{name:"literal",value:"'KUN_YTELSE'"},{name:"literal",value:"'TY'"},{name:"literal",value:"'VENTELØNN_VARTPENGER'"},{name:"literal",value:"'-'"}],required:!0}},{key:"OpptjeningAktivitetType",value:{name:"union",raw:`| 'AAP'
+| 'ARBEID'
+| 'DAGPENGER'
+| 'FORELDREPENGER'
+| 'FRILANS'
+| 'FRILOPP'
+| 'FRISINN'
+| 'MILITÆR_ELLER_SIVILTJENESTE'
+| 'NÆRING'
+| 'OMSORGSPENGER'
+| 'OPPLÆRINGSPENGER'
+| 'PLEIEPENGER'
+| 'SVANGERSKAPSPENGER'
+| 'SYKEPENGER'
+| 'VARTPENGER'
+| 'VIDERE_ETTERUTDANNING'
+| 'UTENLANDSK_ARBEIDSFORHOLD'
+| 'VENTELØNN_VARTPENGER'
+| 'ETTERLØNN_SLUTTPAKKE'
+| 'UTDANNINGSPERMISJON'
+| 'SYKEPENGER_AV_DAGPENGER'
+| 'PLEIEPENGER_AV_DAGPENGER'
+| 'MELLOM_ARBEID'
+| '-'`,elements:[{name:"literal",value:"'AAP'"},{name:"literal",value:"'ARBEID'"},{name:"literal",value:"'DAGPENGER'"},{name:"literal",value:"'FORELDREPENGER'"},{name:"literal",value:"'FRILANS'"},{name:"literal",value:"'FRILOPP'"},{name:"literal",value:"'FRISINN'"},{name:"literal",value:"'MILITÆR_ELLER_SIVILTJENESTE'"},{name:"literal",value:"'NÆRING'"},{name:"literal",value:"'OMSORGSPENGER'"},{name:"literal",value:"'OPPLÆRINGSPENGER'"},{name:"literal",value:"'PLEIEPENGER'"},{name:"literal",value:"'SVANGERSKAPSPENGER'"},{name:"literal",value:"'SYKEPENGER'"},{name:"literal",value:"'VARTPENGER'"},{name:"literal",value:"'VIDERE_ETTERUTDANNING'"},{name:"literal",value:"'UTENLANDSK_ARBEIDSFORHOLD'"},{name:"literal",value:"'VENTELØNN_VARTPENGER'"},{name:"literal",value:"'ETTERLØNN_SLUTTPAKKE'"},{name:"literal",value:"'UTDANNINGSPERMISJON'"},{name:"literal",value:"'SYKEPENGER_AV_DAGPENGER'"},{name:"literal",value:"'PLEIEPENGER_AV_DAGPENGER'"},{name:"literal",value:"'MELLOM_ARBEID'"},{name:"literal",value:"'-'"}],required:!0}}]},required:!0},value:{name:"Array",elements:[{name:"Readonly",elements:[{name:"signature",type:"object",raw:`{
+  kode: EnumOrUnknown<T>;
+  navn: string;
+}`,signature:{properties:[{key:"kode",value:{name:"unknown",required:!0}},{key:"navn",value:{name:"string",required:!0}}]}}],raw:`Readonly<{
+  kode: EnumOrUnknown<T>;
+  navn: string;
+}>`}],raw:"KodeverkMedNavn<K>[]"}}]}},description:""}}};export{m as A};
