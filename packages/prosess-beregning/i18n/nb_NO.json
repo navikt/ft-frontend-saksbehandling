@@ -1,4 +1,7 @@
 {
+  "Tabell.Måned": "Måned",
+  "Tabell.År": "År",
+  "Tabell.Total": "Totalt",
   "GrunnlagForBeregning.Tittel": "Grunnlag for beregning",
   "GrunnlagForBeregning.Skjæringstidspunkt": "Skjæringstidspunkt for beregning <b>{dato}</b>",
 
@@ -8,7 +11,7 @@
   "Arbeidsinntekt.Table.Innrapportert": "Innrapportert § 8-28",
   "Arbeidsinntekt.Table.Innrapportert.HelpText": "Rapportert årsinntekt",
   "Arbeidsinntekt.Table.Sammenligningsgrunnlag": "Sammenligningsgr. § 8-30 ",
-  "Arbeidsinntekt.Table.Total": "Totalt",
+
   "Arbeidsinntekt.Ansettelsesperiode": "Ansettelsesperiode",
   "Arbeidsinntekt.SistEndretLonn": "Sist endret lønn:",
   "Arbeidsinntekt.Stillingsprosent": "Stillingsprosent:",
@@ -81,8 +84,8 @@
 
   "Dagsats.IkkeBeregnet": "Ikke beregnet",
   "Dagsats.Naturalytelser": "Naturalytelser",
-  "Dagsats.TotalÅrsinntekt": "{erRedusert, select, true {Årsinntekt etter reduksjon } other {Total årsinntekt}}",
-  "Dagsats.AvkortetOver6G": "Inntekt over 6G = {grunnbeløp}",
+  "Dagsats.TotalÅrsinntekt": "Total årsinntekt {erRedusert, select, true {etter reduksjon} other {}}",
+  "Dagsats.AvkortetOver6G": "Inntekt over 6G ({grunnbeløp})",
   "Dagsats.Redusert": "Reduksjon for 80% dekningsgrad",
   "Dagsats.VilkårIkkeOppfylt": "Beløpet er under 1/2 G (G = {grunnbeløp}) - søker har ikke rett til ytelse",
   "Dagsats.VilkårIkkeOppfyltMidlertidigInaktiv": "Beløpet er under 1 G (G = {grunnbeløp}) - søker har ikke rett til ytelse"

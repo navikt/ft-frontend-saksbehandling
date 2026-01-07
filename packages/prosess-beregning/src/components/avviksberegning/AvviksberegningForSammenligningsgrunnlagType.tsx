@@ -5,6 +5,8 @@ import { Box, Heading, Table, Tag } from '@navikt/ds-react';
 import type { SammenligningsgrunlagProp } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
+import styles from './avviksberegning.module.css';
+
 interface Props {
   sammenligningsgrunnlag: SammenligningsgrunlagProp;
 }
@@ -21,7 +23,7 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({ sammenligningsgru
       <Heading size="small" level="4">
         <FormattedMessage id="Avviksberegning.Tittel" values={{ type: sammenligningsgrunnlagType }} />
       </Heading>
-      <Table size="small">
+      <Table size="small" className={styles.table}>
         <Table.Body>
           <Table.Row>
             <Table.DataCell textSize="small">

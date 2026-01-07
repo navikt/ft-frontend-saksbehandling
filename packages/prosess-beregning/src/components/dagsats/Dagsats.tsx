@@ -47,6 +47,62 @@ export const Dagsats = ({
     harBruttoOver6G,
     harDekningsgradUlik100,
   );
+
+  const tabellRader = tabellPeriode.andeler.map(rad => (
+    <Fragment key={`andel_${rad.aktivitetStatus}`}>
+      <Table.Row>
+        <Table.DataCell textSize="small">{formaterAktivitetStatus(rad, kodeverkSamling)}</Table.DataCell>
+        <Table.DataCell textSize="small" align="right">
+          {rad.erFerdigBeregnet ? (
+            <BeløpLabel beløp={rad.inntekt} kr />
+          ) : (
+            <ErrorMessage size="small">
+              <FormattedMessage id="Dagsats.IkkeBeregnet" />
+            </ErrorMessage>
+          )}
+        </Table.DataCell>
+      </Table.Row>
+      {!!rad.bortfaltNaturalytelse && (
+        <Table.Row>
+          <Table.DataCell textSize="small">
+            <FormattedMessage id="Dagsats.Naturalytelser" />
+          </Table.DataCell>
+          <Table.DataCell textSize="small" align="right">
+            <BeløpLabel beløp={rad.bortfaltNaturalytelse} kr />
+          </Table.DataCell>
+        </Table.Row>
+      )}
+    </Fragment>
+  ));
+
+  if (erOppfylt && harBruttoOver6G) {
+    tabellRader.push(
+      <Table.Row>
+        <Table.DataCell textSize="small">
+          <FormattedMessage
+            id="Dagsats.AvkortetOver6G"
+            values={{ grunnbeløp: <BeløpLabel beløp={beregningsgrunnlag.grunnbeløp * 6} kr /> }}
+          />
+        </Table.DataCell>
+        <Table.DataCell textSize="small" align="right">
+          <BeløpLabel beløp={-finnTotalInntekt(tabellPeriode.andeler) + beregningsgrunnlag.grunnbeløp * 6} kr />
+        </Table.DataCell>
+      </Table.Row>,
+    );
+  }
+
+  if (erOppfylt && harDekningsgradUlik100) {
+    tabellRader.push(
+      <Table.Row>
+        <Table.DataCell textSize="small">
+          <FormattedMessage id="Dagsats.Redusert" />
+        </Table.DataCell>
+        <Table.DataCell textSize="small" align="right">
+          <BeløpLabel beløp={-finnTotalInntekt(tabellPeriode.andeler) * 0.2} kr />
+        </Table.DataCell>
+      </Table.Row>,
+    );
+  }
   return (
     <VStack gap="space-8">
       {skalVisePeriode && (
@@ -60,77 +116,26 @@ export const Dagsats = ({
         </Label>
       )}
       <Table size="small" className={styles.table}>
-        <Table.Body>
-          {tabellPeriode.andeler.map(rad => (
-            <Fragment key={`andel_${rad.aktivitetStatus}`}>
-              <Table.Row shadeOnHover={false}>
-                <Table.DataCell textSize="small">{formaterAktivitetStatus(rad, kodeverkSamling)}</Table.DataCell>
-                <Table.DataCell textSize="small" align="right">
-                  {rad.erFerdigBeregnet ? (
-                    <BeløpLabel beløp={rad.inntekt} kr />
-                  ) : (
-                    <ErrorMessage size="small">
-                      <FormattedMessage id="Dagsats.IkkeBeregnet" />
-                    </ErrorMessage>
-                  )}
-                </Table.DataCell>
-              </Table.Row>
-              {!!rad.bortfaltNaturalytelse && (
-                <Table.Row shadeOnHover={false}>
-                  <Table.DataCell textSize="small">
-                    <FormattedMessage id="Dagsats.Naturalytelser" />
-                  </Table.DataCell>
-                  <Table.DataCell textSize="small" align="right">
-                    <BeløpLabel beløp={rad.bortfaltNaturalytelse} kr />
-                  </Table.DataCell>
-                </Table.Row>
-              )}
-            </Fragment>
-          ))}
-          {erOppfylt && harBruttoOver6G && (
-            <Table.Row shadeOnHover={false}>
-              <Table.DataCell textSize="small">
-                <FormattedMessage
-                  id="Dagsats.AvkortetOver6G"
-                  values={{ grunnbeløp: <BeløpLabel beløp={beregningsgrunnlag.grunnbeløp * 6} kr /> }}
-                />
-              </Table.DataCell>
-              <Table.DataCell textSize="small" align="right">
-                <BeløpLabel beløp={-finnTotalInntekt(tabellPeriode.andeler) + beregningsgrunnlag.grunnbeløp * 6} kr />
-              </Table.DataCell>
-            </Table.Row>
-          )}
-
-          {erOppfylt && harDekningsgradUlik100 && (
-            <Table.Row shadeOnHover={false}>
-              <Table.DataCell textSize="small">
-                <FormattedMessage id="Dagsats.Redusert" />
-              </Table.DataCell>
-              <Table.DataCell textSize="small" align="right">
-                <BeløpLabel beløp={-finnTotalInntekt(tabellPeriode.andeler) * 0.2} kr />
-              </Table.DataCell>
-            </Table.Row>
-          )}
-        </Table.Body>
-        {erAlleAndelerFastsatt && (
+        <Table.Body>{tabellRader}</Table.Body>
+        {erAlleAndelerFastsatt && tabellRader.length > 1 && (
           <tfoot>
-            <Table.Row shadeOnHover={false}>
-              <Table.DataCell textSize="small">
+            <Table.Row>
+              <Table.HeaderCell textSize="small">
                 <FormattedMessage
                   id="Dagsats.TotalÅrsinntekt"
                   values={{ erRedusert: harBruttoOver6G || harDekningsgradUlik100 }}
                 />
-              </Table.DataCell>
-              <Table.DataCell textSize="small" align="right">
+              </Table.HeaderCell>
+              <Table.HeaderCell textSize="small" align="right">
                 <BeløpLabel beløp={totalEllerAvkortetInntekt} kr />
-              </Table.DataCell>
+              </Table.HeaderCell>
             </Table.Row>
           </tfoot>
         )}
       </Table>
 
       {erOppfylt && erAlleAndelerFastsatt && (
-        <HStack data-row-type="summary">
+        <HStack data-row-type="summary" paddingInline="space-8">
           <BodyShort size="small">
             <FormattedMessage
               id="Dagsats.BeregnetDagsats"
