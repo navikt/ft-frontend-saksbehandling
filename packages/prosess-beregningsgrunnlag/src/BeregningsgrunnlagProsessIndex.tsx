@@ -37,6 +37,15 @@ const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkår | null) => {
   const ikkeTilstrekkeligInntektsgrunnlag = beregningsgrunnlagsvilkar?.perioder?.some(
     periode => periode.avslagKode === '1043',
   );
+  const ikkeDokumentertInntektstap = beregningsgrunnlagsvilkar?.perioder?.some(
+    periode => periode.avslagKode === '1044',
+  );
+  let avslagKodeTekst = 'BeregningsgrunnlagProsessIndex.HarIkkeBeregningsregler';
+  if (ikkeTilstrekkeligInntektsgrunnlag) {
+    avslagKodeTekst = 'BeregningsgrunnlagProsessIndex.IkkeTilstrekkeligInntektsgrunnlag';
+  } else if (ikkeDokumentertInntektstap) {
+    avslagKodeTekst = 'BeregningsgrunnlagProsessIndex.IkkeDokumentertInntektstap';
+  }
 
   return (
     <VStack gap="space-8">
@@ -44,13 +53,7 @@ const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkår | null) => {
         <FormattedMessage id="BeregningsgrunnlagProsessIndex.Title" />
       </Heading>
       <BodyShort size="small">
-        <FormattedMessage
-          id={
-            ikkeTilstrekkeligInntektsgrunnlag
-              ? 'BeregningsgrunnlagProsessIndex.IkkeTilstrekkeligInntektsgrunnlag'
-              : 'BeregningsgrunnlagProsessIndex.HarIkkeBeregningsregler'
-          }
-        />
+        <FormattedMessage id={avslagKodeTekst} />
       </BodyShort>
     </VStack>
   );
