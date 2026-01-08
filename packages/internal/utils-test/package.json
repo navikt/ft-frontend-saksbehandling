@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "react": "19.2.0",
-    "react-intl": "7.1.14"
+    "react-intl": "8.0.9"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
