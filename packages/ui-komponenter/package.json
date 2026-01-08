@@ -27,8 +27,8 @@
     "@navikt/ds-react": "7.32.5",
     "@navikt/ft-utils": "workspace:^",
     "classnames": "2.5.1",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "react-intl": "7.1.14"
   },
   "peerDependencies": {
