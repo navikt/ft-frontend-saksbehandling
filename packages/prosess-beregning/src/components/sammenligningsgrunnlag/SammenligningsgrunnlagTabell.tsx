@@ -8,6 +8,8 @@ import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 import { formaterMåned, transformerGrafData } from './sammenligningsgrunnlagUtils';
 
+import styles from './sammenligningsgrunnlagTabell.module.css';
+
 interface Props {
   sammenligningsgrunnlagFom: string;
   sammenligningsgrunnlagInntekter: InntektsgrunnlagMåned[];
@@ -33,7 +35,7 @@ export const SammenligningsgrunnlagTabell = ({
   ].map(([inntektspostNavn, inntekter]) => ({ inntektspostNavn, inntekter }));
 
   return (
-    <Table size="small" zebraStripes>
+    <Table size="small" zebraStripes className={styles.table}>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell scope="col" textSize="small">
@@ -80,6 +82,22 @@ export const SammenligningsgrunnlagTabell = ({
           })
           .reverse()}
       </Table.Body>
+      <tfoot>
+        <Table.Row>
+          <Table.HeaderCell scope="row" colSpan={2} textSize="small">
+            <FormattedMessage id="Tabell.Total" />
+          </Table.HeaderCell>
+          <Table.HeaderCell scope="row" align="right" textSize="small">
+            <BeløpLabel
+              beløp={alleInntektskilder.reduce(
+                (acc, { inntekter }) => acc + inntekter.reduce((sum, beløp) => sum + beløp, 0),
+                0,
+              )}
+              kr
+            />
+          </Table.HeaderCell>
+        </Table.Row>
+      </tfoot>
     </Table>
   );
 };

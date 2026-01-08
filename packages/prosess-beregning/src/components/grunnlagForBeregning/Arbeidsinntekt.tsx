@@ -42,23 +42,35 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell />
-
-            <Table.HeaderCell scope="col" textSize="small" align="right">
+            <Table.HeaderCell scope="colgroup" textSize="small" align="right" colSpan={2}>
               <FormattedMessage id="Arbeidsinntekt.Table.Inntektsmelding" />
               <Detail>
                 <FormattedMessage id="Arbeidsinntekt.Table.Inntektsmelding.HelpText" />
               </Detail>
             </Table.HeaderCell>
-
-            <Table.HeaderCell scope="col" textSize="small" align="right">
+            <Table.HeaderCell />
+            <Table.HeaderCell scope="colgroup" textSize="small" align="right" colSpan={2}>
               <FormattedMessage id="Arbeidsinntekt.Table.Innrapportert" />
               <Detail>
                 <FormattedMessage id="Arbeidsinntekt.Table.Innrapportert.HelpText" />
               </Detail>
             </Table.HeaderCell>
-
+            <Table.HeaderCell />
+          </Table.Row>
+          <Table.Row>
+            <Table.HeaderCell />
             <Table.HeaderCell scope="col" textSize="small" align="right">
-              <FormattedMessage id="Arbeidsinntekt.Table.Sammenligningsgrunnlag" />
+              <FormattedMessage id="Tabell.Måned" />
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col" textSize="small" align="right">
+              <FormattedMessage id="Tabell.År" />
+            </Table.HeaderCell>
+            <Table.HeaderCell />
+            <Table.HeaderCell scope="col" textSize="small" align="right">
+              <FormattedMessage id="Tabell.Måned" />
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col" textSize="small" align="right">
+              <FormattedMessage id="Tabell.År" />
             </Table.HeaderCell>
             <Table.HeaderCell />
           </Table.Row>
@@ -104,52 +116,68 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
             >
               <Table.DataCell textSize="small">{visning.andelsLabel}</Table.DataCell>
               <Table.DataCell textSize="small" align="right">
+                <BeløpLabel beløp={visning.inntektsmeldingMånedinntekt} kr />
+              </Table.DataCell>
+              <Table.DataCell textSize="small" align="right">
                 <BeløpLabel beløp={visning.inntektsmeldingÅrsinntekt} kr />
+              </Table.DataCell>
+              <Table.DataCell />
+              <Table.DataCell textSize="small" align="right">
+                <BeløpLabel beløp={visning.beregningsgrunnlagMånedinntekt} kr />
               </Table.DataCell>
               <Table.DataCell textSize="small" align="right">
                 <BeløpLabel beløp={visning.beregningsgrunnlagÅrsinntekt} kr />
               </Table.DataCell>
-              <Table.DataCell textSize="small" align="right">
-                <BeløpLabel beløp={visning.sammenligningsgrunnlagÅrsinntekt} kr />
-              </Table.DataCell>
             </Table.ExpandableRow>
           ))}
         </Table.Body>
-        <tfoot>
-          <Table.Row>
-            <Table.HeaderCell textSize="small">
-              <FormattedMessage id="Arbeidsinntekt.Table.Total" />
-            </Table.HeaderCell>
-            <Table.HeaderCell textSize="small" align="right">
-              <BeløpLabel
-                beløp={arbeidsinntektVisninger.reduce(
-                  (acc, { inntektsmeldingÅrsinntekt }) => acc + (inntektsmeldingÅrsinntekt ?? 0),
-                  0,
-                )}
-                kr
-              />
-            </Table.HeaderCell>
-            <Table.HeaderCell textSize="small" align="right">
-              <BeløpLabel
-                beløp={arbeidsinntektVisninger.reduce(
-                  (acc, { beregningsgrunnlagÅrsinntekt }) => acc + (beregningsgrunnlagÅrsinntekt ?? 0),
-                  0,
-                )}
-                kr
-              />
-            </Table.HeaderCell>
-            <Table.HeaderCell textSize="small" align="right">
-              <BeløpLabel
-                beløp={arbeidsinntektVisninger.reduce(
-                  (acc, { sammenligningsgrunnlagÅrsinntekt }) => acc + (sammenligningsgrunnlagÅrsinntekt ?? 0),
-                  0,
-                )}
-                kr
-              />
-            </Table.HeaderCell>
-            <Table.HeaderCell />
-          </Table.Row>
-        </tfoot>
+        {arbeidsinntektVisninger.length > 1 && (
+          <tfoot>
+            <Table.Row>
+              <Table.HeaderCell textSize="small">
+                <FormattedMessage id="Tabell.Total" />
+              </Table.HeaderCell>
+              <Table.HeaderCell textSize="small" align="right">
+                <BeløpLabel
+                  beløp={arbeidsinntektVisninger.reduce(
+                    (acc, { inntektsmeldingMånedinntekt }) => acc + (inntektsmeldingMånedinntekt ?? 0),
+                    0,
+                  )}
+                  kr
+                />
+              </Table.HeaderCell>
+              <Table.HeaderCell textSize="small" align="right">
+                <BeløpLabel
+                  beløp={arbeidsinntektVisninger.reduce(
+                    (acc, { inntektsmeldingÅrsinntekt }) => acc + (inntektsmeldingÅrsinntekt ?? 0),
+                    0,
+                  )}
+                  kr
+                />
+              </Table.HeaderCell>
+              <Table.DataCell />
+              <Table.HeaderCell textSize="small" align="right">
+                <BeløpLabel
+                  beløp={arbeidsinntektVisninger.reduce(
+                    (acc, { beregningsgrunnlagMånedinntekt }) => acc + (beregningsgrunnlagMånedinntekt ?? 0),
+                    0,
+                  )}
+                  kr
+                />
+              </Table.HeaderCell>
+              <Table.HeaderCell textSize="small" align="right">
+                <BeløpLabel
+                  beløp={arbeidsinntektVisninger.reduce(
+                    (acc, { beregningsgrunnlagÅrsinntekt }) => acc + (beregningsgrunnlagÅrsinntekt ?? 0),
+                    0,
+                  )}
+                  kr
+                />
+              </Table.HeaderCell>
+              <Table.HeaderCell />
+            </Table.Row>
+          </tfoot>
+        )}
       </Table>
     </div>
   );
