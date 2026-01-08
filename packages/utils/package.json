@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-utils",
-  "version": "3.9.4",
+  "version": "3.10.0",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
