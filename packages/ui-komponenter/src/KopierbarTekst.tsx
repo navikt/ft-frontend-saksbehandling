@@ -16,7 +16,8 @@ export const KopierbarTekst = ({ tekst, children }: Props) => {
   if (!tekst) {
     return children;
   }
-  const copy = async (): Promise<void> => {
+  const copy: React.MouseEventHandler<HTMLSpanElement> = async (e): Promise<void> => {
+    e.stopPropagation();
     await navigator.clipboard.writeText(tekst);
     setSkalViseKopiert(true);
 
