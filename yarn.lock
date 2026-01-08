@@ -2109,7 +2109,7 @@ __metadata:
     eslint: "npm:9.39.1"
     react: "npm:19.2.0"
     react-dom: "npm:19.2.0"
-    react-hook-form: "npm:7.66.1"
+    react-hook-form: "npm:7.69.0"
     react-intl: "npm:7.1.14"
     stylelint: "npm:16.26.1"
     typescript: "npm:5.9.3"
@@ -2159,7 +2159,7 @@ __metadata:
     dayjs: "npm:1.11.19"
     eslint: "npm:9.39.1"
     react: "npm:19.2.0"
-    react-hook-form: "npm:7.66.1"
+    react-hook-form: "npm:7.69.0"
     react-intl: "npm:7.1.14"
     stylelint: "npm:16.26.1"
     typescript: "npm:5.9.3"
@@ -2205,7 +2205,7 @@ __metadata:
     "@testing-library/user-event": "npm:14.6.1"
     eslint: "npm:9.39.1"
     react: "npm:19.2.0"
-    react-hook-form: "npm:7.66.1"
+    react-hook-form: "npm:7.69.0"
     react-intl: "npm:7.1.14"
     stylelint: "npm:16.26.1"
     typescript: "npm:5.9.3"
@@ -2246,7 +2246,7 @@ __metadata:
     eslint: "npm:9.39.1"
     react: "npm:19.2.0"
     react-dom: "npm:19.2.0"
-    react-hook-form: "npm:7.66.1"
+    react-hook-form: "npm:7.69.0"
     stylelint: "npm:16.26.1"
     typescript: "npm:5.9.3"
     vite: "npm:7.2.4"
@@ -2297,7 +2297,7 @@ __metadata:
     "@navikt/ft-form-hooks": "workspace:^"
     eslint: "npm:9.39.1"
     react: "npm:19.2.0"
-    react-hook-form: "npm:7.66.1"
+    react-hook-form: "npm:7.69.0"
     react-intl: "npm:7.1.14"
     typescript: "npm:5.9.3"
   languageName: unknown
@@ -2404,7 +2404,7 @@ __metadata:
     echarts: "npm:6.0.0"
     eslint: "npm:9.39.1"
     react: "npm:19.2.0"
-    react-hook-form: "npm:7.66.1"
+    react-hook-form: "npm:7.69.0"
     react-intl: "npm:7.1.14"
     stylelint: "npm:16.26.1"
     typescript: "npm:5.9.3"
@@ -2452,7 +2452,7 @@ __metadata:
     echarts: "npm:6.0.0"
     eslint: "npm:9.39.1"
     react: "npm:19.2.0"
-    react-hook-form: "npm:7.66.1"
+    react-hook-form: "npm:7.69.0"
     react-intl: "npm:7.1.14"
     stylelint: "npm:16.26.1"
     typescript: "npm:5.9.3"
@@ -2498,7 +2498,7 @@ __metadata:
     dayjs: "npm:1.11.19"
     eslint: "npm:9.39.1"
     react: "npm:19.2.0"
-    react-hook-form: "npm:7.66.1"
+    react-hook-form: "npm:7.69.0"
     react-intl: "npm:7.1.14"
     stylelint: "npm:16.26.1"
     typescript: "npm:5.9.3"
@@ -2542,7 +2542,7 @@ __metadata:
     classnames: "npm:2.5.1"
     eslint: "npm:9.39.1"
     react: "npm:19.2.0"
-    react-hook-form: "npm:7.66.1"
+    react-hook-form: "npm:7.69.0"
     react-intl: "npm:7.1.14"
     stylelint: "npm:16.26.1"
     typescript: "npm:5.9.3"
@@ -2586,7 +2586,7 @@ __metadata:
     dayjs: "npm:1.11.19"
     eslint: "npm:9.39.1"
     react: "npm:19.2.0"
-    react-hook-form: "npm:7.66.1"
+    react-hook-form: "npm:7.69.0"
     react-intl: "npm:7.1.14"
     stylelint: "npm:16.26.1"
     typescript: "npm:5.9.3"
@@ -11573,12 +11573,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:7.66.1":
-  version: 7.66.1
-  resolution: "react-hook-form@npm:7.66.1"
+"react-hook-form@npm:7.69.0":
+  version: 7.69.0
+  resolution: "react-hook-form@npm:7.69.0"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18 || ^19
-  checksum: 10/3b39276432de206ee37b3fb24c7d7b815fa1b641a179685392b9dc715edfa5ed3a5d57f7366429595f09c182bf25d7adc991c0c00101739d9efc977ecee22a53
+  checksum: 10/12a8b90d337c557cb53cfb6c9fd7ed3972a20960834b060bb239101a2765cd762ef6651b3231feb0932d3582d51801fda57bc660bfac88688b538b6609e4a1ec
   languageName: node
   linkType: hard
 
