@@ -12,13 +12,13 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "react": "19.2.0",
-    "react-intl": "7.1.14"
+    "react": "19.2.3",
+    "react-intl": "8.0.9"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
-    "eslint": "9.39.1",
+    "eslint": "9.39.2",
     "typescript": "5.9.3"
   }
 }
