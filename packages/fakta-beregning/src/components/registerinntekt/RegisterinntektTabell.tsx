@@ -55,7 +55,12 @@ export const RegisterinntektTabell = ({ beregningsgrunnlag, arbeidsgiverOpplysni
           {måneder.map(måned => (
             <>
               {måned.inntekter.map((inntekt, index) => (
-                <Table.Row key={inntekt.arbeidsgiverIdent}>
+                <Table.Row
+                  key={
+                    inntekt.inntektAktivitetType +
+                    (inntekt.inntektAktivitetType === InntektAktivitetType.ARBEID ? inntekt.arbeidsgiverIdent : '')
+                  }
+                >
                   <Table.HeaderCell textSize="small" scope="row">
                     {index === 0 ? finnMåned(måned.fom) : ''}
                   </Table.HeaderCell>
@@ -88,7 +93,7 @@ const erAktivVedStp = (
   inntekt: InntektsgrunnlagInntekt,
   andelerVedSkjæringstidspunkt: BeregningsgrunnlagAndel[],
 ): boolean => {
-  if (inntekt.arbeidsgiverIdent) {
+  if (inntekt.inntektAktivitetType === InntektAktivitetType.ARBEID) {
     return andelerVedSkjæringstidspunkt.some(a => a.arbeidsforhold?.arbeidsgiverIdent === inntekt.arbeidsgiverIdent);
   }
   if (inntekt.inntektAktivitetType === InntektAktivitetType.FRILANS) {
@@ -108,7 +113,10 @@ const finnAktivitetNavn = (
   inntekt: InntektsgrunnlagInntekt,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): string => {
-  const ago = inntekt.arbeidsgiverIdent ? arbeidsgiverOpplysningerPerId[inntekt.arbeidsgiverIdent] : undefined;
+  const ago =
+    inntekt.inntektAktivitetType === InntektAktivitetType.ARBEID
+      ? arbeidsgiverOpplysningerPerId[inntekt.arbeidsgiverIdent]
+      : undefined;
   if (ago) {
     return formaterArbeidsgiver(ago);
   }

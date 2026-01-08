@@ -1,7 +1,7 @@
 import type { ReactElement, ReactNode } from 'react';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { Box, type BoxNewProps, Heading, HStack } from '@navikt/ds-react';
+import { Box, type BoxNewProps, Detail, Heading, HStack } from '@navikt/ds-react';
 
 type Aksjonspunkt = {
   status: 'OPPR' | 'UTFO' | 'AVBR';
@@ -10,11 +10,12 @@ type Aksjonspunkt = {
 
 interface Props {
   tittel: ReactNode;
+  beskrivelse?: ReactNode;
   aksjonspunkt: Aksjonspunkt | Aksjonspunkt[] | undefined;
   children: ReactNode;
 }
 
-export const AksjonspunktBoks = ({ tittel, aksjonspunkt, children }: Props) => {
+export const AksjonspunktBoks = ({ tittel, beskrivelse, aksjonspunkt, children }: Props) => {
   const aksjonspunkter = !aksjonspunkt || Array.isArray(aksjonspunkt) ? aksjonspunkt : [aksjonspunkt];
   const { headerBackground, bodyBackground, icon } = getStateProps(aksjonspunkter);
   const aksjonspunktIder = aksjonspunkter?.map(ap => `AksjonspunktBoks-${ap.definisjon}`).join(',');
@@ -33,9 +34,12 @@ export const AksjonspunktBoks = ({ tittel, aksjonspunkt, children }: Props) => {
       >
         <HStack gap="2" wrap={false}>
           {icon && <span>{icon}</span>}
-          <Heading as="span" size="small" level="3">
-            {tittel}
-          </Heading>
+          <div>
+            <Heading as="span" size="small" level="3">
+              {tittel}
+            </Heading>
+            {beskrivelse && <Detail>{beskrivelse}</Detail>}
+          </div>
         </HStack>
       </Box.New>
       <Box.New paddingInline="12" paddingBlock="6">

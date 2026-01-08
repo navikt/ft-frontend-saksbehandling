@@ -345,7 +345,7 @@ const malPerioder = (
 ];
 
 const lagSammenligningsGrunnlag = (
-  kode: string,
+  sammenligningsgrunnlagType: SammenligningType,
   rapportertPrAar: number,
   avvikProsent: number,
   differanse: number,
@@ -355,15 +355,16 @@ const lagSammenligningsGrunnlag = (
   rapportertPrAar,
   avvikPromille: avvikProsent ? avvikProsent * 10 : 0,
   avvikProsent,
-  sammenligningsgrunnlagType: kode,
+  sammenligningsgrunnlagType,
   differanseBeregnet: differanse,
 });
 
-const malSGGrunnlagAvvik = (kode: string) => lagSammenligningsGrunnlag(kode, 200000, 30, -150000);
-const malSGGrunnlag = (kode: string) => lagSammenligningsGrunnlag(kode, 200000, 0, 0);
+const malSGGrunnlagAvvik = (kode: SammenligningType) => lagSammenligningsGrunnlag(kode, 200000, 30, -150000);
+const malSGGrunnlag = (kode: SammenligningType) => lagSammenligningsGrunnlag(kode, 200000, 0, 0);
 
 const lagATInntektsgrunnlag = (inntekt: number): InntektsgrunnlagInntekt => ({
   inntektAktivitetType: InntektAktivitetType.ARBEID,
+  arbeidsgiverIdent: '999999996',
   beløp: inntekt,
 });
 

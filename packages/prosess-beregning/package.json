@@ -1,8 +1,7 @@
 {
   "name": "@navikt/ft-prosess-beregning",
   "description": "Prosesspanel for beregningsgrunnlaget med aksjonspunkter relatert til avvik for arbeid, frilans og næring",
-  "version": "0.0.3-alpha.0",
-  "private": true,
+  "version": "0.0.10",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -18,22 +17,24 @@
     "eslint": "eslint {src,testdata}/**/*.ts* --color",
     "eslint:fix": "eslint --fix {src,testdata}/**/*.ts* --color",
     "prettier": "prettier --write {src,testdata}",
+    "stylelint": "stylelint src/**/*.module.css",
     "dev": "vite build --watch --mode development",
     "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "7.32.5",
-    "@navikt/ds-css": "7.32.5",
-    "@navikt/ds-react": "7.32.5",
+    "@navikt/aksel-icons": "7.37.0",
+    "@navikt/ds-css": "7.37.0",
+    "@navikt/ds-react": "7.37.0",
     "@navikt/ft-form-hooks": "workspace:^",
     "@navikt/ft-form-validators": "workspace:^",
     "@navikt/ft-ui-komponenter": "workspace:^",
     "@navikt/ft-utils": "workspace:^",
     "dayjs": "1.11.19",
-    "react": "19.2.0",
-    "react-hook-form": "7.66.0",
-    "react-intl": "7.1.14"
+    "echarts": "6.0.0",
+    "react": "19.2.3",
+    "react-hook-form": "7.69.0",
+    "react-intl": "8.0.9"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "7.x",
@@ -42,10 +43,12 @@
     "@navikt/ft-form-hooks": "5.x",
     "@navikt/ft-form-validators": "2.x",
     "@navikt/ft-kodeverk": "4.x",
+    "@navikt/ft-plattform-komponenter": "5.x",
     "@navikt/ft-types": "3.x",
     "@navikt/ft-ui-komponenter": "2.x",
     "@navikt/ft-utils": "2.x",
     "dayjs": "1.11.x",
+    "echarts": "6.x",
     "react": "19.1.0",
     "react-hook-form": "7.x",
     "react-intl": "6.x"
@@ -56,12 +59,13 @@
     "@navikt/ft-config-vite": "workspace:^",
     "@navikt/ft-frontend-storybook-utils": "workspace:^",
     "@testing-library/dom": "10.4.1",
-    "@testing-library/react": "16.3.0",
+    "@testing-library/react": "16.3.1",
     "@testing-library/user-event": "14.6.1",
-    "eslint": "9.39.1",
+    "eslint": "9.39.2",
+    "stylelint": "16.26.1",
     "typescript": "5.9.3",
-    "vite": "7.1.12",
-    "vitest": "4.0.6"
+    "vite": "7.3.0",
+    "vitest": "4.0.16"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

@@ -30,6 +30,16 @@ export const OpprettetAksjonspunkt: Story = {
   },
 };
 
+export const OpprettetAksjonspunktMedBeskrivelse: Story = {
+  args: {
+    aksjonspunkt: {
+      definisjon: '1234',
+      status: 'OPPR',
+    },
+    beskrivelse: 'Dette er en beskrivelse av aksjonspunktet',
+  },
+};
+
 export const UtførtAksjonspunkt: Story = {
   args: {
     aksjonspunkt: {

@@ -20,12 +20,12 @@ const vitestConfig = defineVitestConfig(() => {
     test: {
       watch: false,
       globals: true,
-      setupFiles: path.resolve(__dirname, 'vitest-setup.ts'),
       testTimeout: 20000,
       projects: [
         {
           extends: true,
           test: {
+            setupFiles: [path.resolve(__dirname, 'vitest-setup.ts'), 'vitest-canvas-mock'],
             name: 'jsdom',
             deps: { interopDefault: true },
             environment: 'jsdom',
@@ -36,6 +36,7 @@ const vitestConfig = defineVitestConfig(() => {
           extends: true,
           test: {
             name: 'browser',
+            setupFiles: [path.resolve(__dirname, 'vitest-setup.ts')],
             browser: {
               enabled: true,
               provider: playwright({

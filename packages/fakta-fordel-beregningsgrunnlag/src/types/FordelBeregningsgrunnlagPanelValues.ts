@@ -97,30 +97,3 @@ export type VurderRefusjonFieldValues = VurderRefusjonValues & {
 export type VurderRefusjonFormValues = {
   VURDER_REFUSJON_BERGRUNN_FORM: VurderRefusjonFieldValues[];
 };
-
-export type TilkommetInntektsforholdFieldValues = {
-  aktivitetStatus: AktivitetStatus;
-  arbeidsgiverIdent?: string;
-  arbeidsforholdId?: string;
-  skalRedusereUtbetaling?: boolean;
-  bruttoInntektPrÅr?: string;
-};
-
-export type TilkommetAktivitetValues = {
-  fom: string;
-  tom: string;
-  inntektsforhold: TilkommetInntektsforholdFieldValues[];
-};
-
-type TilkommetAktivitetPeriodeValuesMedPerioder = {
-  perioder: TilkommetAktivitetValues[];
-};
-
-export type TilkommetAktivitetFieldValues = AksjonspunktValues &
-  TilkommetAktivitetPeriodeValuesMedPerioder & {
-    beregningsgrunnlagStp: string;
-  };
-
-export type TilkommetAktivitetFormValues = {
-  [key: string]: TilkommetAktivitetFieldValues[];
-};

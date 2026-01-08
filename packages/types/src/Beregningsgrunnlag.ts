@@ -5,11 +5,18 @@ import type { FaktaOmBeregning } from './BeregningsgrunnlagFakta';
 import type { FaktaOmFordeling, RefusjonTilVurdering } from './BeregningsgrunnlagFordeling';
 import type { Besteberegninggrunnlag } from './Besteberegning';
 
-export type InntektsgrunnlagInntekt = Readonly<{
-  inntektAktivitetType: string;
-  arbeidsgiverIdent?: string;
+export type InntektsgrunnlagInntekt =
+  | InntektsgrunnlagInntektAT
+  | {
+      inntektAktivitetType: 'FRILANSINNTEKT' | 'YTELSEINNTEKT';
+      beløp: number;
+    };
+
+export type InntektsgrunnlagInntektAT = {
+  inntektAktivitetType: 'ARBEIDSTAKERINNTEKT';
+  arbeidsgiverIdent: string;
   beløp: number;
-}>;
+};
 
 export type InntektsgrunnlagMåned = Readonly<{
   fom: string;
@@ -92,7 +99,7 @@ export type YtelseGrunnlag = Readonly<{
   ForeldrepengerGrunnlag;
 
 export type SammenligningsgrunlagProp = Readonly<{
-  sammenligningsgrunnlagType: string;
+  sammenligningsgrunnlagType: SammenligningType;
   differanseBeregnet: number;
   avvikProsent: number;
   avvikPromille: number;
@@ -100,6 +107,14 @@ export type SammenligningsgrunlagProp = Readonly<{
   sammenligningsgrunnlagFom: string;
   sammenligningsgrunnlagTom: string;
 }>;
+
+export type SammenligningType =
+  | 'SAMMENLIGNING_FL'
+  | 'SAMMENLIGNING_SN'
+  | 'SAMMENLIGNING_AT'
+  | 'SAMMENLIGNING_AT_FL'
+  | 'SAMMENLIGNING_ATFL_SN'
+  | 'SAMMENLIGNING_MIDL_INAKTIV';
 
 export type BeregningsgrunnlagPeriodeProp = Readonly<{
   avkortetPrAar?: number;

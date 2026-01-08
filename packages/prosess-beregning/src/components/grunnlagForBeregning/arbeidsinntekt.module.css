@@ -1,0 +1,20 @@
+.table {
+  thead tr:first-child th {
+    border-bottom: none;
+  }
+
+  thead tr:first-child th:nth-child(2),
+  tr th:nth-child(4),
+  tr td:nth-child(4) {
+    width: 60px;
+  }
+
+  tr[data-state='open'] td > div > div {
+    padding-top: 0;
+  }
+
+  tfoot {
+    border-bottom: 3px double var(--ax-border-neutral-strong);
+    border-top: 2px solid var(--ax-border-neutral-strong);
+  }
+}
