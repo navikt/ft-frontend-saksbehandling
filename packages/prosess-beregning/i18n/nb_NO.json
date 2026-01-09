@@ -2,8 +2,8 @@
   "Tabell.Måned": "Måned",
   "Tabell.År": "År",
   "Tabell.Total": "Totalt",
-  "GrunnlagForBeregning.Tittel": "Grunnlag for beregning",
-  "GrunnlagForBeregning.Skjæringstidspunkt": "Skjæringstidspunkt for beregning <b>{dato}</b>",
+  "TabInnhold.Tittel": "Grunnlag for beregning",
+  "TabInnhold.Skjæringstidspunkt": "Skjæringstidspunkt for beregning <b>{dato}</b>",
 
   "Arbeidsinntekt.Tittel": "Arbeidsinntekt",
   "Arbeidsinntekt.Table.Inntektsmelding": "Inntektsmelding",
@@ -15,6 +15,7 @@
   "Arbeidsinntekt.Ansettelsesperiode": "Ansettelsesperiode",
   "Arbeidsinntekt.SistEndretLonn": "Sist endret lønn:",
   "Arbeidsinntekt.Stillingsprosent": "Stillingsprosent:",
+  "Arbeidsinntekt.Naturalytelse": "Naturalytelse:",
 
   "Sammenligningsgrunnlag.ExpansionCard.Header": "Sammenligningsgrunnlag § 8-30 fra A-ordningen",
   "Sammenligningsgrunnlag.ExpansionCard.Description": "Inntekt og ytelser etter kap. 8, 9 og 14 de 12 siste månedene",

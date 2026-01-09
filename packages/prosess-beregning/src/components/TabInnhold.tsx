@@ -1,15 +1,19 @@
-import { HStack, VStack } from '@navikt/ds-react';
+import { FormattedMessage } from 'react-intl';
+
+import { BodyShort, Heading, HStack, Spacer, VStack } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import { BTag, dateFormat } from '@navikt/ft-utils';
 
 import { LegacyAksjonspunktTittel } from '../legacyAP/LegacyAksjonspunktTittel';
 import type { KodeverkForPanel } from '../types/KodeverkForPanel';
 import type { Vilkår } from '../types/Vilkår';
 import { AksjonspunktKode, medAPKode } from '../utils/aksjonspunkt';
 import { ReadonlyAPGraderingUtenBG } from './aksjonspunkt/utgåttAP/ReadonlyAPGraderingUtenBG';
+import { AktivitetStatusTags } from './AktivitetStatusTags';
+import { Arbeidsinntekt } from './arbeidsinntekt/Arbeidsinntekt';
 import { Avviksberegninger } from './avviksberegning/Avviksberegninger';
 import { Dagsatser } from './dagsats/Dagsatser';
-import { GrunnlagForBeregning } from './grunnlagForBeregning/GrunnlagForBeregning';
 import { Sammenligningsgrunnlag } from './sammenligningsgrunnlag/Sammenligningsgrunnlag';
 
 interface Props {
@@ -27,14 +31,31 @@ export const TabInnhold = ({
 }: Props) => {
   const { sammenligningsgrunnlagPrStatus = [], inntektsgrunnlag, avklaringsbehov } = beregningsgrunnlag;
   return (
-    <VStack gap="space-8">
+    <VStack gap="space-16">
       <LegacyAksjonspunktTittel beregningsgrunnlag={beregningsgrunnlag} />
+      <VStack gap="space-12">
+        <Heading size="medium" level="2">
+          <FormattedMessage id="TabInnhold.Tittel" />
+        </Heading>
+        <HStack align="center" gap="space-12">
+          <AktivitetStatusTags
+            kodeverkSamling={kodeverkSamling}
+            beregningsgrunnlagPeriode={beregningsgrunnlag.beregningsgrunnlagPeriode}
+          />
+          <Spacer />
+          <BodyShort size="small">
+            <FormattedMessage
+              id="TabInnhold.Skjæringstidspunkt"
+              values={{ dato: dateFormat(beregningsgrunnlag.skjaeringstidspunktBeregning), b: BTag }}
+            />
+          </BodyShort>
+        </HStack>
+      </VStack>
 
-      <GrunnlagForBeregning
+      <Arbeidsinntekt
         beregningsgrunnlag={beregningsgrunnlag}
-        beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
-        kodeverkSamling={kodeverkSamling}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        kodeverkSamling={kodeverkSamling}
       />
 
       <HStack gap="space-8">
