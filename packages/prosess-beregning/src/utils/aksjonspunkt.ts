@@ -20,7 +20,10 @@ export const ÅTTE_TRETTI_AKSJONSPUNKTER = new Set([
   AksjonspunktKode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
 ]);
 
-const beregningAksjonspunkter = ÅTTE_TRETTI_AKSJONSPUNKTER.union(ÅTTE_TRETTIFEM_AKSJONSPUNKTER);
+const beregningAksjonspunkter = new Set([
+  ...ÅTTE_TRETTI_AKSJONSPUNKTER,
+  ...ÅTTE_TRETTIFEM_AKSJONSPUNKTER,
+]);
 
 export const harAksjonspunktSomKanLøses = (aksjonspunkter: Aksjonspunkt[]) =>
   aksjonspunkter.some(ap => erBeregningsAP(ap) && ap.kanLoses);
