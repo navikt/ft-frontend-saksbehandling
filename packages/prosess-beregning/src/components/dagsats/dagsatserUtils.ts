@@ -24,22 +24,21 @@ const ÅRSAKER_SOM_KAN_GI_NY_DAGSATS = new Set<string>([
 
 type TabellRadData = {
   aktivitetStatus: AktivitetStatus;
-  erFerdigBeregnet: boolean;
-  inntekt?: number;
-  bortfaltNaturalytelse?: number;
-  inntektPlussNaturalytelse?: number;
+  ferdigBeregnetInntekt: number | undefined;
+  bortfaltNaturalytelse: number | undefined;
 };
 
 export type TabellData = {
   fom: string;
-  tom?: string;
-  harBruttoOver6G: boolean;
-  andeler: TabellRadData[];
-  redusertMed: number | undefined;
-  avkortetMed: number | undefined;
-  totalInntektEtterAvkortningOgReduksjon?: number;
-  dagsats: number | undefined;
+  tom: string | undefined;
+  andelerPerStatus: TabellRadData[];
+  redusertMed?: number;
+  avkortetMed?: number;
+  totalInntektEtterAvkortningOgReduksjon?: TotalInntekt;
+  dagsats?: number;
 };
+
+type TotalInntekt = { totalInntekt: number; type: 'total' | 'avkortet' | 'redusert' };
 
 const finnForeslåttBeløp = (andel: BeregningsgrunnlagAndel): number => {
   if (andel.besteberegningPrAar || andel.besteberegningPrAar === 0) {
@@ -51,30 +50,31 @@ const finnForeslåttBeløp = (andel: BeregningsgrunnlagAndel): number => {
   return andel.beregnetPrAar ?? 0;
 };
 
-const finnAksjonspunktForStatus = (
+const harÅpentAksjonspunktForStatus = (
   status: AktivitetStatus,
   avklaringsbehov: BeregningAvklaringsbehov[],
-): BeregningAvklaringsbehov | undefined => {
+): boolean => {
+  const åpneAvklaringsbehov = avklaringsbehov.filter(isAksjonspunktOpen);
   switch (status) {
     case 'AT':
     case 'FL':
-      return avklaringsbehov.find(
+      return åpneAvklaringsbehov.some(
         medAPKode(
           AksjonspunktKode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
           AksjonspunktKode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
         ),
       );
     case 'SN':
-      return avklaringsbehov.find(
+      return åpneAvklaringsbehov.some(
         medAPKode(
           AksjonspunktKode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
           AksjonspunktKode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
         ),
       );
     case 'BA':
-      return avklaringsbehov.find(medAPKode(AksjonspunktKode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON));
+      return åpneAvklaringsbehov.some(medAPKode(AksjonspunktKode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON));
     default:
-      return undefined;
+      return false;
   }
 };
 
@@ -96,29 +96,32 @@ const erBeregnet = ({ beregnetPrAar, pgiSnitt }: BeregningsgrunnlagAndel): boole
 const lagAndeler = (
   andeler: BeregningsgrunnlagAndel[],
   avklaringsbehov: BeregningAvklaringsbehov[],
-): TabellRadData[] => {
+): { andelerPerStatus: TabellRadData[]; erAlleAndelerFastsatt: boolean } => {
   const andelerSomSkalVises = andeler.filter(andelErIkkeTilkommetEllerLagtTilAvSBH);
-  const grupperteAndeler = Map.groupBy(andelerSomSkalVises, andel => andel.aktivitetStatus);
+  const grupperteAndelerMap = Map.groupBy(andelerSomSkalVises, andel => andel.aktivitetStatus);
 
-  return grupperteAndeler
+  const andelerPerStatus = grupperteAndelerMap
     .entries()
-    .map<TabellRadData>(([aktivitetStatus, andelerMedStatus]) => {
-      const aksjonspunkt = finnAksjonspunktForStatus(aktivitetStatus, avklaringsbehov);
-      const alleAndelerErBeregnet = andelerMedStatus.every(erBeregnet);
-      const inntekt = andelerMedStatus.reduce((sum, andel) => finnForeslåttBeløp(andel) + sum, 0);
+    .map(([aktivitetStatus, andelerMedStatus]) => {
+      const harÅpentAksjonspunkt = harÅpentAksjonspunktForStatus(aktivitetStatus, avklaringsbehov);
+      const erFerdigBeregnet = andelerMedStatus.every(erBeregnet) && !harÅpentAksjonspunkt;
+      const ferdigBeregnetInntekt = erFerdigBeregnet
+        ? andelerMedStatus.reduce((sum, andel) => finnForeslåttBeløp(andel) + sum, 0)
+        : undefined;
       const bortfaltNaturalytelse = andelerMedStatus.reduce((sum, andel) => finnNaturalytelsebeløp(andel) + sum, 0);
-      const inntektPlussNaturalytelse = (inntekt || 0) + (bortfaltNaturalytelse || 0);
-      const erFerdigBeregnet = alleAndelerErBeregnet && !isAksjonspunktOpen(aksjonspunkt);
       return {
-        inntekt,
+        ferdigBeregnetInntekt,
         bortfaltNaturalytelse,
-        inntektPlussNaturalytelse,
-        erFerdigBeregnet,
         aktivitetStatus,
       };
     })
     .toArray()
     .sort(sorterAndelerEtterPrioritet);
+
+  return {
+    andelerPerStatus,
+    erAlleAndelerFastsatt: andelerPerStatus.every(andel => !!andel.ferdigBeregnetInntekt),
+  };
 };
 
 const harÅrsakSomKanGiNyDagsats = (årsaker: string[]) => årsaker.some(k => ÅRSAKER_SOM_KAN_GI_NY_DAGSATS.has(k));
@@ -136,7 +139,7 @@ export const utledTabellData = ({
   grunnbeløp,
   dekningsgrad,
   ytelsesspesifiktGrunnlag,
-}: Beregningsgrunnlag) => {
+}: Beregningsgrunnlag): TabellData[] => {
   const harDekningsgradUlik100 = dekningsgrad !== 100;
   // Vi skal alltid vise første periode, deretter kun perioder som er opprettet pga noe som kan endre dagsatsen i perioden
   return beregningsgrunnlagPeriode
@@ -146,35 +149,42 @@ export const utledTabellData = ({
         harÅrsakSomKanGiNyDagsats(bgp.periodeAarsaker ?? []),
     )
     .sort(sortPeriodsBy('beregningsgrunnlagPeriodeFom'))
-    .map<TabellData>((bgp, index, array) => {
+    .map((bgp, index, array) => {
       const {
-        beregningsgrunnlagPeriodeFom,
-        beregningsgrunnlagPrStatusOgAndel,
+        beregningsgrunnlagPeriodeFom: fom,
+        beregningsgrunnlagPrStatusOgAndel = [],
         bruttoInkludertBortfaltNaturalytelsePrAar,
         redusertPrAar,
         avkortetPrAar,
       } = bgp;
 
-      const andeler = lagAndeler(beregningsgrunnlagPrStatusOgAndel || [], avklaringsbehov);
-      const harBruttoOver6G = erBruttoOver6G(andeler, grunnbeløp);
+      const tom = regnUtTom(array[index + 1]);
+      const { andelerPerStatus, erAlleAndelerFastsatt } = lagAndeler(
+        beregningsgrunnlagPrStatusOgAndel,
+        avklaringsbehov,
+      );
 
-      const erAlleAndelerFastsatt = andeler.every(andel => andel.erFerdigBeregnet);
-
-      return {
-        harBruttoOver6G,
-        fom: beregningsgrunnlagPeriodeFom,
-        tom: regnUtTom(array[index + 1]),
-        andeler,
-        redusertMed: erAlleAndelerFastsatt && redusertPrAar ? -(redusertPrAar / 0.8) * 0.2 : undefined,
-        avkortetMed:
-          erAlleAndelerFastsatt && bruttoInkludertBortfaltNaturalytelsePrAar && avkortetPrAar
-            ? -bruttoInkludertBortfaltNaturalytelsePrAar + avkortetPrAar
-            : undefined,
-        totalInntektEtterAvkortningOgReduksjon: erAlleAndelerFastsatt
-          ? finnTotalEllerAvkortetInntekt(bgp, andeler, harBruttoOver6G, harDekningsgradUlik100)
-          : undefined,
-        dagsats: erAlleAndelerFastsatt ? finnDagsats(bgp, ytelsesspesifiktGrunnlag) : undefined,
-      };
+      if (erAlleAndelerFastsatt) {
+        const harBruttoOver6G = erBruttoOver6G(bgp, grunnbeløp);
+        return {
+          fom,
+          tom,
+          andelerPerStatus,
+          redusertMed: redusertPrAar ? -(redusertPrAar / 0.8) * 0.2 : undefined,
+          avkortetMed:
+            bruttoInkludertBortfaltNaturalytelsePrAar && avkortetPrAar
+              ? -bruttoInkludertBortfaltNaturalytelsePrAar + avkortetPrAar
+              : undefined,
+          totalInntektEtterAvkortningOgReduksjon: finnTotalInntektRedusertEllerAvkortet(
+            bgp,
+            harBruttoOver6G,
+            harDekningsgradUlik100,
+          ),
+          dagsats: finnDagsats(bgp, ytelsesspesifiktGrunnlag),
+        };
+      } else {
+        return { fom, tom, andelerPerStatus };
+      }
     });
 };
 
@@ -194,28 +204,36 @@ const STATUS_PRIORITET = new Map<AktivitetStatus, number>([
 const sorterAndelerEtterPrioritet = (a: TabellRadData, b: TabellRadData) =>
   (STATUS_PRIORITET.get(a.aktivitetStatus) ?? 100) - (STATUS_PRIORITET.get(b.aktivitetStatus) ?? 100);
 
-const erBruttoOver6G = (andeler: TabellRadData[], grunnbeløp: number): boolean =>
-  finnTotalInntekt(andeler) > grunnbeløp * 6;
+const erBruttoOver6G = (
+  { bruttoInkludertBortfaltNaturalytelsePrAar, bruttoPrAar }: BeregningsgrunnlagPeriodeProp,
+  grunnbeløp: number,
+): boolean => finnTotalInntekt(bruttoInkludertBortfaltNaturalytelsePrAar, bruttoPrAar) > grunnbeløp * 6;
 
 export const erMidlertidigInaktiv = (aktivitetStatus: AktivitetStatus[]): boolean =>
   !!aktivitetStatus && aktivitetStatus.includes('MIDL_INAKTIV');
 
-const finnTotalInntekt = (andeler: TabellRadData[]): number =>
-  andeler.reduce((sum, andel) => (andel.inntektPlussNaturalytelse || 0) + sum, 0);
+const finnTotalInntekt = (
+  bruttoInkludertBortfaltNaturalytelsePrAar: number | undefined,
+  bruttoPrAar: number = 0,
+): number => bruttoInkludertBortfaltNaturalytelsePrAar ?? bruttoPrAar;
 
-const finnTotalEllerAvkortetInntekt = (
-  { avkortetPrAar, redusertPrAar }: BeregningsgrunnlagPeriodeProp,
-  andeler: TabellRadData[],
+const finnTotalInntektRedusertEllerAvkortet = (
+  {
+    avkortetPrAar,
+    redusertPrAar,
+    bruttoInkludertBortfaltNaturalytelsePrAar,
+    bruttoPrAar,
+  }: BeregningsgrunnlagPeriodeProp,
   harBruttoOver6G: boolean,
   harDekningsgradUlik100: boolean,
-): number => {
+): TotalInntekt => {
   if (harDekningsgradUlik100 && redusertPrAar) {
-    return redusertPrAar;
+    return { totalInntekt: redusertPrAar, type: 'redusert' };
   }
   if (harBruttoOver6G && avkortetPrAar) {
-    return avkortetPrAar;
+    return { totalInntekt: avkortetPrAar, type: 'avkortet' };
   }
-  return finnTotalInntekt(andeler);
+  return { totalInntekt: finnTotalInntekt(bruttoInkludertBortfaltNaturalytelsePrAar, bruttoPrAar), type: 'total' };
 };
 
 const finnDagsats = (

@@ -21,32 +21,21 @@ interface Props {
   kodeverkSamling: KodeverkForPanel;
 }
 
-export const Dagsats = ({
-  beregningsgrunnlag: { grunnbeløp, dekningsgrad, aktivitetStatus = [] },
-  vilkarStatus,
-  tabellPeriode,
-  skalVisePeriode,
-  kodeverkSamling,
-}: Props) => {
-  const harDekningsgradUlik100 = dekningsgrad !== 100;
-  const erOppfylt = vilkarStatus === VilkårUtfallType.OPPFYLT;
-  const erIkkeOppfylt = vilkarStatus === VilkårUtfallType.IKKE_OPPFYLT;
-
-  const totalÅrsinntektType = harDekningsgradUlik100
-    ? 'redusert'
-    : tabellPeriode.harBruttoOver6G
-      ? 'avkortet'
-      : undefined;
-
-  const tabellRader = tabellPeriode.andeler.map(rad => (
+const lagTabellRader = (
+  { andelerPerStatus, avkortetMed, redusertMed }: TabellData,
+  kodeverkSamling: KodeverkForPanel,
+  erOppfylt: boolean,
+  grunnbeløp: number,
+) => {
+  const tabellRader = andelerPerStatus.map(rad => (
     <Fragment key={`andel_${rad.aktivitetStatus}`}>
       <Table.Row>
         <Table.DataCell textSize="small">
           {formaterAktivitetStatus(rad.aktivitetStatus, kodeverkSamling)}
         </Table.DataCell>
         <Table.DataCell textSize="small" align="right">
-          {rad.erFerdigBeregnet ? (
-            <BeløpLabel beløp={rad.inntekt} kr />
+          {rad.ferdigBeregnetInntekt ? (
+            <BeløpLabel beløp={rad.ferdigBeregnetInntekt} kr />
           ) : (
             <ErrorMessage size="small">
               <NoWrap>
@@ -69,34 +58,51 @@ export const Dagsats = ({
     </Fragment>
   ));
 
-  if (erOppfylt && tabellPeriode.avkortetMed) {
-    tabellRader.push(
-      <Table.Row>
-        <Table.DataCell textSize="small">
-          <FormattedMessage
-            id="Dagsats.AvkortetOver6G"
-            values={{ grunnbeløp: <BeløpLabel beløp={grunnbeløp * 6} kr /> }}
-          />
-        </Table.DataCell>
-        <Table.DataCell textSize="small" align="right">
-          <BeløpLabel beløp={tabellPeriode.avkortetMed} kr />
-        </Table.DataCell>
-      </Table.Row>,
-    );
-  }
+  if (erOppfylt) {
+    if (avkortetMed) {
+      tabellRader.push(
+        <Table.Row>
+          <Table.DataCell textSize="small">
+            <FormattedMessage
+              id="Dagsats.AvkortetOver6G"
+              values={{ grunnbeløp: <BeløpLabel beløp={grunnbeløp * 6} kr /> }}
+            />
+          </Table.DataCell>
+          <Table.DataCell textSize="small" align="right">
+            <BeløpLabel beløp={avkortetMed} kr />
+          </Table.DataCell>
+        </Table.Row>,
+      );
+    }
 
-  if (erOppfylt && tabellPeriode.redusertMed) {
-    tabellRader.push(
-      <Table.Row>
-        <Table.DataCell textSize="small">
-          <FormattedMessage id="Dagsats.Redusert" />
-        </Table.DataCell>
-        <Table.DataCell textSize="small" align="right">
-          <BeløpLabel beløp={tabellPeriode.redusertMed} kr />
-        </Table.DataCell>
-      </Table.Row>,
-    );
+    if (redusertMed) {
+      tabellRader.push(
+        <Table.Row>
+          <Table.DataCell textSize="small">
+            <FormattedMessage id="Dagsats.Redusert" />
+          </Table.DataCell>
+          <Table.DataCell textSize="small" align="right">
+            <BeløpLabel beløp={redusertMed} kr />
+          </Table.DataCell>
+        </Table.Row>,
+      );
+    }
   }
+  return tabellRader;
+};
+
+export const Dagsats = ({
+  beregningsgrunnlag: { grunnbeløp, aktivitetStatus = [] },
+  vilkarStatus,
+  tabellPeriode,
+  skalVisePeriode,
+  kodeverkSamling,
+}: Props) => {
+  const { fom, tom, totalInntektEtterAvkortningOgReduksjon, dagsats } = tabellPeriode;
+  const erOppfylt = vilkarStatus === VilkårUtfallType.OPPFYLT;
+  const erIkkeOppfylt = vilkarStatus === VilkårUtfallType.IKKE_OPPFYLT;
+
+  const tabellRader = lagTabellRader(tabellPeriode, kodeverkSamling, erOppfylt, grunnbeløp);
   return (
     <VStack gap="space-8">
       {skalVisePeriode && (
@@ -104,46 +110,46 @@ export const Dagsats = ({
           <FormattedMessage
             id="Dagsats.Periode"
             values={{
-              periode: periodFormat(tabellPeriode.fom, tabellPeriode.tom),
+              periode: periodFormat(fom, tom),
             }}
           />
         </Label>
       )}
       <Table size="small" className={styles.table}>
         <Table.Body>{tabellRader}</Table.Body>
-        {!!tabellPeriode.totalInntektEtterAvkortningOgReduksjon && tabellRader.length > 1 && (
+        {!!totalInntektEtterAvkortningOgReduksjon && tabellRader.length > 1 && (
           <tfoot>
             <Table.Row>
               <Table.HeaderCell textSize="small">
                 <FormattedMessage
                   id="Dagsats.TotalÅrsinntekt"
                   values={{
-                    type: totalÅrsinntektType,
+                    type: totalInntektEtterAvkortningOgReduksjon.type,
                   }}
                 />
               </Table.HeaderCell>
               <Table.HeaderCell textSize="small" align="right">
-                <BeløpLabel beløp={tabellPeriode.totalInntektEtterAvkortningOgReduksjon} kr />
+                <BeløpLabel beløp={totalInntektEtterAvkortningOgReduksjon.totalInntekt} kr />
               </Table.HeaderCell>
             </Table.Row>
           </tfoot>
         )}
       </Table>
 
-      {erOppfylt && tabellPeriode.dagsats && (
+      {erOppfylt && dagsats && (
         <HStack data-row-type="summary" paddingInline="space-8">
           <BodyShort size="small">
             <FormattedMessage
               id="Dagsats.BeregnetDagsats"
               values={{
                 b: BTag,
-                inntekt: <BeløpLabel beløp={tabellPeriode.totalInntektEtterAvkortningOgReduksjon} kr />,
+                inntekt: <BeløpLabel beløp={totalInntektEtterAvkortningOgReduksjon?.totalInntekt} kr />,
               }}
             />
           </BodyShort>
           <Spacer />
           <Label size="small">
-            <BeløpLabel beløp={tabellPeriode.dagsats} kr />
+            <BeløpLabel beløp={dagsats} kr />
           </Label>
         </HStack>
       )}
