@@ -28,7 +28,7 @@ export const Dagsatser = ({ beregningsgrunnlag, beregningsgrunnlagsvilkår, kode
         <Dagsats
           key={tabellPeriode.fom}
           beregningsgrunnlag={beregningsgrunnlag}
-          vilkårsperiode={vilkårsperiode}
+          vilkarStatus={vilkårsperiode.vilkarStatus}
           tabellPeriode={tabellPeriode}
           skalVisePeriode={tabellData.length > 1}
           kodeverkSamling={kodeverkSamling}
