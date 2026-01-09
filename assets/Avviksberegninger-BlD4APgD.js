@@ -1,0 +1,43 @@
+import{j as e,a1 as N,a2 as v,an as l,g as d}from"./iframe-B3utfI7G.js";import{M as a}from"./message-B_aun3HK.js";import{T as n}from"./Table-FcPMwIgU.js";const p="_table_24unq_1",I={table:p},m=({sammenligningsgrunnlag:i})=>{const{differanseBeregnet:r,rapportertPrAar:s,avvikProsent:t,sammenligningsgrunnlagType:u}=i,g=Number.parseFloat(t.toFixed(1)),o=s+r;return e.jsxs(N.New,{background:"neutral-soft",padding:"5",flexBasis:"0%",flexGrow:"1",children:[e.jsx(v,{size:"small",level:"4",children:e.jsx(a,{id:"Avviksberegning.Tittel",values:{type:u}})}),e.jsxs(n,{size:"small",className:I.table,children:[e.jsxs(n.Body,{children:[e.jsxs(n.Row,{children:[e.jsx(n.DataCell,{textSize:"small",children:e.jsx(a,{id:"Avviksberegning.OmregnetAarsinntekt"})}),e.jsx(n.DataCell,{textSize:"small",align:"right",children:e.jsx(l,{beløp:o,kr:!0})}),e.jsx(n.DataCell,{})]}),e.jsxs(n.Row,{children:[e.jsx(n.DataCell,{textSize:"small",children:e.jsx(a,{id:"Avviksberegning.RapportertAarsinntekt"})}),e.jsx(n.DataCell,{textSize:"small",align:"right",children:e.jsx(l,{beløp:s,kr:!0})}),e.jsx(n.DataCell,{})]})]}),e.jsx("tfoot",{children:e.jsxs(n.Row,{children:[e.jsx(n.HeaderCell,{textSize:"small",children:e.jsx(a,{id:"Avviksberegning.BeregnetAvvik"})}),e.jsx(n.HeaderCell,{textSize:"small",align:"right",children:e.jsx(l,{beløp:r,kr:!0})}),e.jsx(n.HeaderCell,{children:e.jsx(d,{variant:g>25?"error":"success",size:"small",children:g+"%"})})]})})]})]})};m.__docgenInfo={description:"",methods:[],displayName:"AvviksberegningForSammenligningsgrunnlagType",props:{sammenligningsgrunnlag:{required:!0,tsType:{name:"Readonly",elements:[{name:"signature",type:"object",raw:`{
+  sammenligningsgrunnlagType: SammenligningType;
+  differanseBeregnet: number;
+  avvikProsent: number;
+  avvikPromille: number;
+  rapportertPrAar: number;
+  sammenligningsgrunnlagFom: string;
+  sammenligningsgrunnlagTom: string;
+}`,signature:{properties:[{key:"sammenligningsgrunnlagType",value:{name:"union",raw:`| 'SAMMENLIGNING_FL'
+| 'SAMMENLIGNING_SN'
+| 'SAMMENLIGNING_AT'
+| 'SAMMENLIGNING_AT_FL'
+| 'SAMMENLIGNING_ATFL_SN'
+| 'SAMMENLIGNING_MIDL_INAKTIV'`,elements:[{name:"literal",value:"'SAMMENLIGNING_FL'"},{name:"literal",value:"'SAMMENLIGNING_SN'"},{name:"literal",value:"'SAMMENLIGNING_AT'"},{name:"literal",value:"'SAMMENLIGNING_AT_FL'"},{name:"literal",value:"'SAMMENLIGNING_ATFL_SN'"},{name:"literal",value:"'SAMMENLIGNING_MIDL_INAKTIV'"}],required:!0}},{key:"differanseBeregnet",value:{name:"number",required:!0}},{key:"avvikProsent",value:{name:"number",required:!0}},{key:"avvikPromille",value:{name:"number",required:!0}},{key:"rapportertPrAar",value:{name:"number",required:!0}},{key:"sammenligningsgrunnlagFom",value:{name:"string",required:!0}},{key:"sammenligningsgrunnlagTom",value:{name:"string",required:!0}}]}}],raw:`Readonly<{
+  sammenligningsgrunnlagType: SammenligningType;
+  differanseBeregnet: number;
+  avvikProsent: number;
+  avvikPromille: number;
+  rapportertPrAar: number;
+  sammenligningsgrunnlagFom: string;
+  sammenligningsgrunnlagTom: string;
+}>`},description:""}}};const A=({sammenligningsgrunnlagPrStatus:i=[]})=>e.jsx(e.Fragment,{children:i.map(r=>e.jsx(m,{sammenligningsgrunnlag:r},r.sammenligningsgrunnlagType))});A.__docgenInfo={description:"",methods:[],displayName:"Avviksberegninger",props:{sammenligningsgrunnlagPrStatus:{required:!1,tsType:{name:"Array",elements:[{name:"Readonly",elements:[{name:"signature",type:"object",raw:`{
+  sammenligningsgrunnlagType: SammenligningType;
+  differanseBeregnet: number;
+  avvikProsent: number;
+  avvikPromille: number;
+  rapportertPrAar: number;
+  sammenligningsgrunnlagFom: string;
+  sammenligningsgrunnlagTom: string;
+}`,signature:{properties:[{key:"sammenligningsgrunnlagType",value:{name:"union",raw:`| 'SAMMENLIGNING_FL'
+| 'SAMMENLIGNING_SN'
+| 'SAMMENLIGNING_AT'
+| 'SAMMENLIGNING_AT_FL'
+| 'SAMMENLIGNING_ATFL_SN'
+| 'SAMMENLIGNING_MIDL_INAKTIV'`,elements:[{name:"literal",value:"'SAMMENLIGNING_FL'"},{name:"literal",value:"'SAMMENLIGNING_SN'"},{name:"literal",value:"'SAMMENLIGNING_AT'"},{name:"literal",value:"'SAMMENLIGNING_AT_FL'"},{name:"literal",value:"'SAMMENLIGNING_ATFL_SN'"},{name:"literal",value:"'SAMMENLIGNING_MIDL_INAKTIV'"}],required:!0}},{key:"differanseBeregnet",value:{name:"number",required:!0}},{key:"avvikProsent",value:{name:"number",required:!0}},{key:"avvikPromille",value:{name:"number",required:!0}},{key:"rapportertPrAar",value:{name:"number",required:!0}},{key:"sammenligningsgrunnlagFom",value:{name:"string",required:!0}},{key:"sammenligningsgrunnlagTom",value:{name:"string",required:!0}}]}}],raw:`Readonly<{
+  sammenligningsgrunnlagType: SammenligningType;
+  differanseBeregnet: number;
+  avvikProsent: number;
+  avvikPromille: number;
+  rapportertPrAar: number;
+  sammenligningsgrunnlagFom: string;
+  sammenligningsgrunnlagTom: string;
+}>`}],raw:"SammenligningsgrunlagProp[]"},description:"",defaultValue:{value:"[]",computed:!1}}}};export{A};
