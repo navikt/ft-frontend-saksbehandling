@@ -84,7 +84,7 @@
 
   "Dagsats.IkkeBeregnet": "Ikke beregnet",
   "Dagsats.Naturalytelser": "Naturalytelser",
-  "Dagsats.TotalÅrsinntekt": "Total årsinntekt {erRedusert, select, true {etter reduksjon} other {}}",
+  "Dagsats.TotalÅrsinntekt": "{type, select, redusert {Årsinntekt redusert til 80% dekningsgrad} avkortet {Årsinntekt redusert til 6G på skjæringstidspunktet} other {Total årsinntekt}}",
   "Dagsats.AvkortetOver6G": "Inntekt over 6G ({grunnbeløp})",
   "Dagsats.Redusert": "Reduksjon for 80% dekningsgrad",
   "Dagsats.VilkårIkkeOppfylt": "Beløpet er under 1/2 G (G = {grunnbeløp}) - søker har ikke rett til ytelse",

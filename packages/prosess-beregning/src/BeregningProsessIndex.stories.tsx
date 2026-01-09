@@ -4,6 +4,8 @@ import { action } from 'storybook/actions';
 import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 
 import { arbeidsgiverOpplysningerPerId } from '../testdata/arbeidsgivere';
+// eslint-disable-next-line max-len
+import { arbeidstakerFlereArbeidsforholdMedNaturalytelser80ProsentDekningsgradOgOver6G } from '../testdata/arbeidstakerFlereArbeidsforholdMedNaturalytelser80ProsentDekningsgradOgOver6G';
 import { arbeidstakerFPEttArbeidsforhold } from '../testdata/arbeidstakerFPEttArbeidsforhold';
 import { arbeidstakerFPFlereArbeidsforhold } from '../testdata/arbeidstakerFPFlereArbeidsforhold';
 import { selvstendigNæringsdrivendeFP } from '../testdata/selvstendigNæringsdrivendeFP';
@@ -65,5 +67,10 @@ export const ArbeidstakerMedFlereArbeidsforhold: Story = {
 export const SelvstendigNæringsdrivendeFP: Story = {
   args: {
     ...selvstendigNæringsdrivendeFP,
+  },
+};
+export const ArbeidstakerFlereArbeidsforholdMedNaturalytelser80ProsentDekningsgradOgOver6G: Story = {
+  args: {
+    ...arbeidstakerFlereArbeidsforholdMedNaturalytelser80ProsentDekningsgradOgOver6G,
   },
 };
