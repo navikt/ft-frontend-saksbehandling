@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-prosess-tilbakekreving-vedtak",
   "description": "Vedtaksbilde hvor saksbehandler ferdigstiller vedtaksbrev, med mulighet for å legge til utdypende tekst. I noen tilfeller vil utdypende tekst være obligatorisk, for eksempel ved revurderingsbehandling.",
-  "version": "7.2.6",
+  "version": "7.3.0",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -23,17 +23,17 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "7.32.5",
-    "@navikt/ds-css": "7.32.5",
-    "@navikt/ds-react": "7.32.5",
+    "@navikt/aksel-icons": "7.37.0",
+    "@navikt/ds-css": "7.37.0",
+    "@navikt/ds-react": "7.37.0",
     "@navikt/ft-form-hooks": "workspace:^",
     "@navikt/ft-form-validators": "workspace:^",
     "@navikt/ft-ui-komponenter": "workspace:^",
     "@navikt/ft-utils": "workspace:^",
     "classnames": "2.5.1",
-    "react": "19.2.0",
-    "react-hook-form": "7.66.1",
-    "react-intl": "7.1.14"
+    "react": "19.2.3",
+    "react-hook-form": "7.69.0",
+    "react-intl": "8.0.9"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "7.x",
@@ -56,13 +56,13 @@
     "@navikt/ft-config-vite": "workspace:^",
     "@navikt/ft-frontend-storybook-utils": "workspace:^",
     "@testing-library/dom": "10.4.1",
-    "@testing-library/react": "16.3.0",
+    "@testing-library/react": "16.3.1",
     "@testing-library/user-event": "14.6.1",
-    "eslint": "9.39.1",
+    "eslint": "9.39.2",
     "stylelint": "16.26.1",
     "typescript": "5.9.3",
-    "vite": "7.2.4",
-    "vitest": "4.0.14"
+    "vite": "7.3.0",
+    "vitest": "4.0.16"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
