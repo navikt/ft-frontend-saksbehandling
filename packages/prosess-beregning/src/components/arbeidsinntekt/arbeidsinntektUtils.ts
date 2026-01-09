@@ -8,6 +8,7 @@ import type {
 import { dateFormat, sortPeriodsBy } from '@navikt/ft-utils';
 
 import { finnAlleAndelerIFørstePeriode } from '../../utils/beregningsgrunnlagUtils';
+import { finnEndringerINaturalytelserForArbeidsgiver } from './naturalytelserUtils';
 
 const grupperSummerteInntekterPerArbeidsgiver = (
   inntekterMnd: InntektsgrunnlagMåned[] | undefined,
@@ -68,6 +69,9 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
       beregningsgrunnlagÅrsinntekt: arbeidsgiverIdent
         ? ((beregningsgrunnlagInntekter[arbeidsgiverIdent] ?? 0) / 3) * 12
         : 0,
+      naturalytelser: arbeidsgiverIdent
+        ? finnEndringerINaturalytelserForArbeidsgiver(arbeidsgiverIdent, beregningsgrunnlagPeriode)
+        : undefined,
     };
   });
 };

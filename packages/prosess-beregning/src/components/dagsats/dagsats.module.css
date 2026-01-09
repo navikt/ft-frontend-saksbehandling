@@ -1,6 +1,4 @@
 .table {
-  /* dobbel border på footer-raden */
-
   tbody tr:last-child td {
     border-bottom: none;
   }

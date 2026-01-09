@@ -13,7 +13,6 @@ import { isAksjonspunktOpen, ISO_DATE_FORMAT, sortPeriodsBy } from '@navikt/ft-u
 
 import { AksjonspunktKode, medAPKode } from '../../utils/aksjonspunkt';
 import { andelErIkkeTilkommetEllerLagtTilAvSBH } from '../../utils/beregningsgrunnlagUtils';
-import { statusKonfigMap } from './statusKonfig';
 
 const VIRKEDAGER_PR_AAR = 260;
 
@@ -179,15 +178,23 @@ export const utledTabellData = ({
     });
 };
 
-const finnRekkefølgePrioritet = (andel: TabellRadData): number => {
-  const pri = statusKonfigMap[andel.aktivitetStatus];
-  return pri || 100; // Default settes veldig høyt så den havner nederst i tabellen
-};
+const STATUS_PRIORITET = new Map<AktivitetStatus, number>([
+  ['AT', 0],
+  ['FL', 1],
+  ['DP', 2],
+  ['SP_AV_DP', 3],
+  ['PSB_AV_DP', 4],
+  ['AAP', 5],
+  ['KUN_YTELSE', 6],
+  ['MS', 7],
+  ['BA', 8],
+  ['SN', 9],
+]);
 
 const sorterAndelerEtterPrioritet = (a: TabellRadData, b: TabellRadData) =>
-  finnRekkefølgePrioritet(a) - finnRekkefølgePrioritet(b);
+  (STATUS_PRIORITET.get(a.aktivitetStatus) ?? 100) - (STATUS_PRIORITET.get(b.aktivitetStatus) ?? 100);
 
-export const erBruttoOver6G = (andeler: TabellRadData[], grunnbeløp: number): boolean =>
+const erBruttoOver6G = (andeler: TabellRadData[], grunnbeløp: number): boolean =>
   finnTotalInntekt(andeler) > grunnbeløp * 6;
 
 export const erMidlertidigInaktiv = (aktivitetStatus: AktivitetStatus[]): boolean =>

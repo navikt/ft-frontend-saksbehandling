@@ -2,7 +2,7 @@ import { HStack, Tag } from '@navikt/ds-react';
 
 import type { AktivitetStatus, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 
-import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import type { KodeverkForPanel } from '../types/KodeverkForPanel';
 
 interface Props {
   beregningsgrunnlagPeriode: BeregningsgrunnlagPeriodeProp[];

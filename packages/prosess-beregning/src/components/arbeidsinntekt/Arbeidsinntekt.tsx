@@ -1,7 +1,7 @@
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BriefcaseFillIcon } from '@navikt/aksel-icons';
-import { BodyShort, Detail, Heading, HStack, Table, Tooltip } from '@navikt/ds-react';
+import { BodyShort, Box, Detail, Heading, HStack, Table, Tooltip } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel, DateLabel, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
@@ -9,6 +9,7 @@ import { BeløpLabel, DateLabel, LabeledValue, PeriodLabel } from '@navikt/ft-ui
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { createVisningsnavnForAndel } from '../../utils/createVisningsnavnForAktivitet';
 import { mapBeregningsgrunnlagTilArbeidsinntektVisning } from './arbeidsinntektUtils';
+import { Naturalytelser } from './Naturalytelser';
 
 import styles from './arbeidsinntekt.module.css';
 
@@ -31,8 +32,8 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
   }
 
   return (
-    <div>
-      <HStack gap="space-8" align="center">
+    <Box.New background="neutral-soft" padding="5">
+      <HStack gap="space-12" align="center">
         <BriefcaseFillIcon aria-hidden fontSize="1.25rem" />
         <Heading size="small" level="4">
           <FormattedMessage id="Arbeidsinntekt.Tittel" />
@@ -111,6 +112,10 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
                       value={visning.formatertStillingsprosenter}
                     />
                   )}
+
+                  {visning.naturalytelser && visning.naturalytelser.length > 0 && (
+                    <Naturalytelser naturalytelseEndringer={visning.naturalytelser} />
+                  )}
                 </div>
               }
             >
@@ -179,6 +184,6 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
           </tfoot>
         )}
       </Table>
-    </div>
+    </Box.New>
   );
 };
