@@ -5,8 +5,10 @@ const finnBortfaltBeløp = (arbeidsgiverIdent: string, periode: Beregningsgrunnl
   const matchendeAndel = (periode.beregningsgrunnlagPrStatusOgAndel ?? []).find(
     bgAndel => bgAndel.arbeidsforhold?.arbeidsgiverIdent === arbeidsgiverIdent,
   );
-  const bortfalt = matchendeAndel?.arbeidsforhold ? matchendeAndel.arbeidsforhold.naturalytelseBortfaltPrÅr : 0;
-  return bortfalt || 0;
+  if (matchendeAndel?.arbeidsforhold?.naturalytelseBortfaltPrÅr) {
+    return matchendeAndel?.arbeidsforhold?.naturalytelseBortfaltPrÅr;
+  }
+  return 0;
 };
 
 export type NaturalytelseEndringer = ReturnType<typeof finnEndringerINaturalytelserForArbeidsgiver>;

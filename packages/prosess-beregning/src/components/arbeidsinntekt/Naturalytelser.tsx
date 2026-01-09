@@ -67,36 +67,3 @@ export const Naturalytelser = ({ naturalytelseEndringer }: Props) => {
     />
   );
 };
-
-/*
-<Table size="small">
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell textSize="small">
-                <FormattedMessage id="Tabell.Periode" />
-              </Table.HeaderCell>
-              <Table.HeaderCell textSize="small" align="right">
-                <FormattedMessage id="Tabell.Måned" />
-              </Table.HeaderCell>
-              <Table.HeaderCell textSize="small" align="right">
-                <FormattedMessage id="Tabell.BeregnetÅr" />
-              </Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {naturalytelseEndringer.map(endring => (
-              <Table.Row key={endring.fom}>
-                <Table.DataCell textSize="small">
-                  <PeriodLabel dateStringFom={endring.fom} dateStringTom={endring.tom} />
-                </Table.DataCell>
-                <Table.DataCell textSize="small" align="right">
-                  <BeløpLabel beløp={endring.beløpPrMåned} kr />
-                </Table.DataCell>
-                <Table.DataCell textSize="small" align="right">
-                  <BeløpLabel beløp={endring.beløpPrÅr} kr />
-                </Table.DataCell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
- */
