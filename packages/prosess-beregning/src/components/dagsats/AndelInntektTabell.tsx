@@ -23,7 +23,7 @@ export const AndelInntektTabell = ({
     <Table.Row shadeOnHover={false} key={`andel_${rad.aktivitetStatus}`}>
       <Table.DataCell textSize="small">{formaterAktivitetStatus(rad.aktivitetStatus, kodeverkSamling)}</Table.DataCell>
       <Table.DataCell textSize="small" align="right">
-        {rad.ferdigBeregnetInntekt ? (
+        {rad.ferdigBeregnetInntekt !== undefined ? (
           <BeløpLabel beløp={rad.ferdigBeregnetInntekt} kr />
         ) : (
           <ErrorMessage size="small">
