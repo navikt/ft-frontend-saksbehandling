@@ -1,14 +1,14 @@
-import { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Alert, BodyShort, ErrorMessage, HStack, Label, Spacer, Table, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, HStack, Label, Spacer, Table, Tooltip, VStack } from '@navikt/ds-react';
 
-import type { AktivitetStatus, Beregningsgrunnlag } from '@navikt/ft-types';
-import { BeløpLabel, NoWrap } from '@navikt/ft-ui-komponenter';
-import { BTag, periodFormat } from '@navikt/ft-utils';
+import type { Beregningsgrunnlag } from '@navikt/ft-types';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
+import { periodFormat } from '@navikt/ft-utils';
 
 import { VilkårUtfallType } from '../../kodeverk/vilkårUtfallType';
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import { AndelInntektTabell } from './AndelInntektTabell';
 import { erMidlertidigInaktiv, type TabellData } from './dagsatserUtils';
 
 import styles from './dagsats.module.css';
@@ -22,130 +22,77 @@ interface Props {
 }
 
 export const Dagsats = ({
-  beregningsgrunnlag: { grunnbeløp, dekningsgrad, aktivitetStatus = [] },
+  beregningsgrunnlag: { grunnbeløp, aktivitetStatus = [] },
   vilkarStatus,
   tabellPeriode,
   skalVisePeriode,
   kodeverkSamling,
 }: Props) => {
-  const harDekningsgradUlik100 = dekningsgrad !== 100;
+  const { fom, tom, dagsats, avkortet, redusert } = tabellPeriode;
   const erOppfylt = vilkarStatus === VilkårUtfallType.OPPFYLT;
   const erIkkeOppfylt = vilkarStatus === VilkårUtfallType.IKKE_OPPFYLT;
 
-  const totalÅrsinntektType = harDekningsgradUlik100
-    ? 'redusert'
-    : tabellPeriode.harBruttoOver6G
-      ? 'avkortet'
-      : undefined;
-
-  const tabellRader = tabellPeriode.andeler.map(rad => (
-    <Fragment key={`andel_${rad.aktivitetStatus}`}>
-      <Table.Row>
-        <Table.DataCell textSize="small">
-          {formaterAktivitetStatus(rad.aktivitetStatus, kodeverkSamling)}
-        </Table.DataCell>
-        <Table.DataCell textSize="small" align="right">
-          {rad.erFerdigBeregnet ? (
-            <BeløpLabel beløp={rad.inntekt} kr />
-          ) : (
-            <ErrorMessage size="small">
-              <NoWrap>
-                <FormattedMessage id="Dagsats.IkkeBeregnet" />
-              </NoWrap>
-            </ErrorMessage>
-          )}
-        </Table.DataCell>
-      </Table.Row>
-      {!!rad.bortfaltNaturalytelse && (
-        <Table.Row>
-          <Table.DataCell textSize="small">
-            <FormattedMessage id="Dagsats.Naturalytelser" />
-          </Table.DataCell>
-          <Table.DataCell textSize="small" align="right">
-            <BeløpLabel beløp={rad.bortfaltNaturalytelse} kr />
-          </Table.DataCell>
-        </Table.Row>
-      )}
-    </Fragment>
-  ));
-
-  if (erOppfylt && tabellPeriode.avkortetMed) {
-    tabellRader.push(
-      <Table.Row>
-        <Table.DataCell textSize="small">
-          <FormattedMessage
-            id="Dagsats.AvkortetOver6G"
-            values={{ grunnbeløp: <BeløpLabel beløp={grunnbeløp * 6} kr /> }}
-          />
-        </Table.DataCell>
-        <Table.DataCell textSize="small" align="right">
-          <BeløpLabel beløp={tabellPeriode.avkortetMed} kr />
-        </Table.DataCell>
-      </Table.Row>,
-    );
-  }
-
-  if (erOppfylt && tabellPeriode.redusertMed) {
-    tabellRader.push(
-      <Table.Row>
-        <Table.DataCell textSize="small">
-          <FormattedMessage id="Dagsats.Redusert" />
-        </Table.DataCell>
-        <Table.DataCell textSize="small" align="right">
-          <BeløpLabel beløp={tabellPeriode.redusertMed} kr />
-        </Table.DataCell>
-      </Table.Row>,
-    );
-  }
   return (
-    <VStack gap="space-8">
+    <VStack gap="space-16">
       {skalVisePeriode && (
         <Label size="small" className={styles.periodeLabel}>
           <FormattedMessage
             id="Dagsats.Periode"
             values={{
-              periode: periodFormat(tabellPeriode.fom, tabellPeriode.tom),
+              periode: periodFormat(fom, tom),
             }}
           />
         </Label>
       )}
-      <Table size="small" className={styles.table}>
-        <Table.Body>{tabellRader}</Table.Body>
-        {!!tabellPeriode.totalInntektEtterAvkortningOgReduksjon && tabellRader.length > 1 && (
-          <tfoot>
-            <Table.Row>
-              <Table.HeaderCell textSize="small">
-                <FormattedMessage
-                  id="Dagsats.TotalÅrsinntekt"
-                  values={{
-                    type: totalÅrsinntektType,
-                  }}
-                />
-              </Table.HeaderCell>
-              <Table.HeaderCell textSize="small" align="right">
-                <BeløpLabel beløp={tabellPeriode.totalInntektEtterAvkortningOgReduksjon} kr />
-              </Table.HeaderCell>
-            </Table.Row>
-          </tfoot>
-        )}
-      </Table>
 
-      {erOppfylt && tabellPeriode.dagsats && (
-        <HStack data-row-type="summary" paddingInline="space-8">
-          <BodyShort size="small">
-            <FormattedMessage
-              id="Dagsats.BeregnetDagsats"
-              values={{
-                b: BTag,
-                inntekt: <BeløpLabel beløp={tabellPeriode.totalInntektEtterAvkortningOgReduksjon} kr />,
-              }}
-            />
-          </BodyShort>
-          <Spacer />
-          <Label size="small">
-            <BeløpLabel beløp={tabellPeriode.dagsats} kr />
-          </Label>
-        </HStack>
+      <AndelInntektTabell tabellData={tabellPeriode} kodeverkSamling={kodeverkSamling} />
+
+      {erOppfylt && (
+        <>
+          {(avkortet || redusert) && (
+            <Table size="small" className={styles.table}>
+              <Table.Body>
+                {avkortet && (
+                  <Table.Row shadeOnHover={false}>
+                    <Tooltip content={avkortet.utregning}>
+                      <Table.DataCell textSize="small">
+                        <FormattedMessage id="Dagsats.Avkortet" />
+                      </Table.DataCell>
+                    </Tooltip>
+                    <Table.DataCell textSize="small" align="right">
+                      <BeløpLabel beløp={avkortet.resultat} kr />
+                    </Table.DataCell>
+                  </Table.Row>
+                )}
+                {redusert && (
+                  <Table.Row shadeOnHover={false}>
+                    <Tooltip content={redusert.utregning}>
+                      <Table.DataCell textSize="small">
+                        <FormattedMessage id="Dagsats.Redusert" />
+                      </Table.DataCell>
+                    </Tooltip>
+                    <Table.DataCell textSize="small" align="right">
+                      <BeløpLabel beløp={redusert.resultat} kr />
+                    </Table.DataCell>
+                  </Table.Row>
+                )}
+              </Table.Body>
+            </Table>
+          )}
+
+          {dagsats && (
+            <HStack data-row-type="summary" paddingInline="space-8" gap="space-8">
+              <Label size="small">
+                <FormattedMessage id="Dagsats.BeregnetDagsats" />
+              </Label>
+              <BodyShort size="small">({dagsats.utregning})</BodyShort>
+              <Spacer />
+              <Label size="small">
+                <BeløpLabel beløp={dagsats.resultat} kr />
+              </Label>
+            </HStack>
+          )}
+        </>
       )}
       {erIkkeOppfylt && (
         <Alert variant="error" size="small" inline>
@@ -163,9 +110,4 @@ export const Dagsats = ({
       )}
     </VStack>
   );
-};
-
-const formaterAktivitetStatus = (status: AktivitetStatus, kodeverkSamling: KodeverkForPanel) => {
-  const aktivitetStatus = kodeverkSamling['AktivitetStatus'].find(as => as.kode === status)?.navn ?? status;
-  return <FormattedMessage id="Dagsats.FastsattÅrsinntekt" values={{ aktivitetStatus }} />;
 };
