@@ -224,6 +224,6 @@ const finnDagsats = ({
   }
   return {
     utregning: `${redusertPrAar ?? avkortetPrAar} / ${VIRKEDAGER_PR_AAR}`,
-    resultat: Math.round(redusertPrAar ?? avkortetPrAar ?? 0 / VIRKEDAGER_PR_AAR),
+    resultat: Math.round((redusertPrAar ?? avkortetPrAar ?? 0) / VIRKEDAGER_PR_AAR),
   };
 };
