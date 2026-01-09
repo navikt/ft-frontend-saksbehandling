@@ -118,7 +118,7 @@ const lagAndeler = (
 
   return {
     andelerPerStatus,
-    erAlleAndelerFastsatt: andelerPerStatus.every(andel => !!andel.ferdigBeregnetInntekt),
+    erAlleAndelerFastsatt: andelerPerStatus.every(andel => andel.ferdigBeregnetInntekt !== undefined),
   };
 };
 
