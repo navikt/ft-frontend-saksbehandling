@@ -23,14 +23,14 @@ export const AndelInntektTabell = ({
     <Table.Row shadeOnHover={false} key={`andel_${rad.aktivitetStatus}`}>
       <Table.DataCell textSize="small">{formaterAktivitetStatus(rad.aktivitetStatus, kodeverkSamling)}</Table.DataCell>
       <Table.DataCell textSize="small" align="right">
-        {rad.ferdigBeregnetInntekt !== undefined ? (
-          <BeløpLabel beløp={rad.ferdigBeregnetInntekt} kr />
-        ) : (
+        {rad.ferdigBeregnetInntekt === undefined ? (
           <ErrorMessage size="small">
             <NoWrap>
               <FormattedMessage id="Dagsats.IkkeBeregnet" />
             </NoWrap>
           </ErrorMessage>
+        ) : (
+          <BeløpLabel beløp={rad.ferdigBeregnetInntekt} kr />
         )}
       </Table.DataCell>
     </Table.Row>,
