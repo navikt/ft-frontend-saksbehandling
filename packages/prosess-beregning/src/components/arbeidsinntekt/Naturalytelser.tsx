@@ -1,6 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 
-import { HStack, Table } from '@navikt/ds-react';
+import { Table } from '@navikt/ds-react';
 
 import { BeløpLabel, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
@@ -15,15 +15,24 @@ interface Props {
 export const Naturalytelser = ({ naturalytelseEndringer }: Props) => {
   return (
     <LabeledValue
+      horizontal={naturalytelseEndringer.length === 1}
       size="small"
       label={<FormattedMessage id="Arbeidsinntekt.Naturalytelse" />}
       value={
         naturalytelseEndringer.length === 1 ? (
-          <HStack gap="space-4">
-            <PeriodLabel dateStringFom={naturalytelseEndringer[0].fom} dateStringTom={naturalytelseEndringer[0].tom} />
-            <BeløpLabel beløp={naturalytelseEndringer[0].beløpPrMåned} kr /> per mnd,{' '}
-            <BeløpLabel beløp={naturalytelseEndringer[0].beløpPrÅr} kr /> per år
-          </HStack>
+          <FormattedMessage
+            id="Arbeidsinntekt.Naturalytelse.EnPeriode"
+            values={{
+              beløpPrMåned: <BeløpLabel beløp={naturalytelseEndringer[0].beløpPrMåned} kr />,
+              beløpPrÅr: <BeløpLabel beløp={naturalytelseEndringer[0].beløpPrÅr} kr />,
+              periode: (
+                <PeriodLabel
+                  dateStringFom={naturalytelseEndringer[0].fom}
+                  dateStringTom={naturalytelseEndringer[0].tom}
+                />
+              ),
+            }}
+          />
         ) : (
           <Table size="small" className={styles.table}>
             <Table.Header>
