@@ -1,6 +1,7 @@
 {
   "BeregningsgrunnlagProsessIndex.Title": "Beregning",
   "BeregningsgrunnlagProsessIndex.IkkeTilstrekkeligInntektsgrunnlag": "Ikke tilstrekkelig inntektsgrunnlag",
+  "BeregningsgrunnlagProsessIndex.IkkeDokumentertInntektstap": "Ikke dokumentert inntektstap jf. § 9-3",
   "BeregningsgrunnlagProsessIndex.HarIkkeBeregningsregler": "Har ikke beregningsregler (trer i kraft 1 jan. 2019). Sak overført til Infotrygd.",
 
   "BeregningForm.Beregning.Tittel": "Grunnlag for beregning",
