@@ -8,7 +8,7 @@ import type {
 import { dateFormat, sortPeriodsBy } from '@navikt/ft-utils';
 
 import { finnAlleAndelerIFørstePeriode } from '../../utils/beregningsgrunnlagUtils';
-import { finnEndringerINaturalytelserForArbeidsgiver } from './naturalYtelserUtils';
+import { finnEndringerINaturalytelserForArbeidsgiver } from './naturalytelserUtils';
 
 const grupperSummerteInntekterPerArbeidsgiver = (
   inntekterMnd: InntektsgrunnlagMåned[] | undefined,

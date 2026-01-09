@@ -4,7 +4,7 @@ import { Table } from '@navikt/ds-react';
 
 import { BeløpLabel, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
-import { type NaturalytelseEndringer } from './naturalYtelserUtils';
+import { type NaturalytelseEndringer } from './naturalytelserUtils';
 
 import styles from './arbeidsinntekt.module.css';
 
