@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 import type { BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import { sortPeriodsByFom } from '@navikt/ft-utils';
 
@@ -11,13 +13,18 @@ const finnBortfaltBeløp = (arbeidsgiverIdent: string, periode: Beregningsgrunnl
   return 0;
 };
 
-export type NaturalytelseEndringer = ReturnType<typeof finnEndringerINaturalytelserForArbeidsgiver>;
+export type NaturalytelseEndring = {
+  fom: string;
+  tom: string;
+  beløpPrÅr: number;
+  beløpPrMåned: number;
+};
 export const finnEndringerINaturalytelserForArbeidsgiver = (
   arbeidsgiverIdent: string,
   beregningsgrunnlagPerioder: BeregningsgrunnlagPeriodeProp[],
 ) => {
   return beregningsgrunnlagPerioder
-    .flatMap(periode => {
+    .flatMap<NaturalytelseEndring>(periode => {
       const bortfaltBeløp = finnBortfaltBeløp(arbeidsgiverIdent, periode);
       return bortfaltBeløp
         ? [
@@ -30,5 +37,21 @@ export const finnEndringerINaturalytelserForArbeidsgiver = (
           ]
         : [];
     })
-    .sort(sortPeriodsByFom);
+    .sort(sortPeriodsByFom)
+    .reduce(slåSammenSammenhengendePerioder, []);
+};
+
+const slåSammenSammenhengendePerioder = (merged: NaturalytelseEndring[], current: NaturalytelseEndring) => {
+  const lastMerged = merged.at(-1);
+  if (lastMerged) {
+    const erSammenhengende = dayjs(current.fom).diff(dayjs(lastMerged.tom), 'day') === 1;
+    const erSammeBeløp = lastMerged.beløpPrÅr === current.beløpPrÅr;
+
+    if (erSammenhengende && erSammeBeløp) {
+      lastMerged.tom = current.tom;
+      return merged;
+    }
+  }
+
+  return [...merged, current];
 };
