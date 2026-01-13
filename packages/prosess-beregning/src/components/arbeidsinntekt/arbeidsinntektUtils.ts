@@ -29,8 +29,6 @@ const grupperSummerteInntekterPerArbeidsgiver = (
     );
 };
 
-// dobbel sjekk at 0 er 0 eller om
-
 /**
  * Andeler som er tilkommen andel skal ikke vises i arbeidsinntektsoversikten
  */
