@@ -1,8 +1,8 @@
 {
+  "BeregningProsessIndex.Tittel": "Grunnlag for beregning",
   "Tabell.Måned": "Måned",
   "Tabell.År": "År",
   "Tabell.Total": "Totalt",
-  "TabInnhold.Tittel": "Grunnlag for beregning",
   "TabInnhold.Skjæringstidspunkt": "Skjæringstidspunkt for beregning <b>{dato}</b>",
 
   "Arbeidsinntekt.Tittel": "Arbeidsinntekt",
