@@ -1,16 +1,14 @@
 {
-  "BeregningProsessIndex.Tittel": "Grunnlag for beregning",
+  "BeregningProsessIndex.Tittel": "Beregning",
   "Tabell.Måned": "Måned",
   "Tabell.År": "År",
   "Tabell.Total": "Totalt",
   "TabInnhold.Skjæringstidspunkt": "Skjæringstidspunkt for beregning <b>{dato}</b>",
 
   "Arbeidsinntekt.Tittel": "Arbeidsinntekt",
+  "Arbeidsinntekt.Table.Arbeidsgiver": "Arbeidsgiver",
   "Arbeidsinntekt.Table.Inntektsmelding": "Inntektsmelding",
-  "Arbeidsinntekt.Table.Inntektsmelding.HelpText": "Omregnet årsinntekt",
-  "Arbeidsinntekt.Table.Innrapportert": "Innrapportert § 8-28",
-  "Arbeidsinntekt.Table.Innrapportert.HelpText": "Rapportert årsinntekt",
-  "Arbeidsinntekt.Table.Sammenligningsgrunnlag": "Sammenligningsgr. § 8-30 ",
+  "Arbeidsinntekt.Table.Beregningsgrunnlag": "Beregningsgrunnlag § 8-28",
 
   "Arbeidsinntekt.Ansettelsesperiode": "Ansettelsesperiode",
   "Arbeidsinntekt.SistEndretLonn": "Sist endret lønn:",
