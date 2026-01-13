@@ -4,12 +4,12 @@ import { Table } from '@navikt/ds-react';
 
 import { BeløpLabel, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
-import { type NaturalytelseEndringer } from './naturalytelserUtils';
+import { type NaturalytelseEndring } from './naturalytelserUtils';
 
 import styles from './arbeidsinntekt.module.css';
 
 interface Props {
-  naturalytelseEndringer: NaturalytelseEndringer;
+  naturalytelseEndringer: NaturalytelseEndring[];
 }
 
 export const Naturalytelser = ({ naturalytelseEndringer }: Props) => {
