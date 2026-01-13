@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BarChartIcon, TableIcon } from '@navikt/aksel-icons';
 import { ToggleGroup, VStack } from '@navikt/ds-react';
@@ -23,11 +23,12 @@ export const Sammenligningsgrunnlag = ({
   sammenligningsgrunnlagFom,
   arbeidsgiverOpplysningerPerId,
 }: Props) => {
+  const intl = useIntl();
   const [valgtVisning, setValgtVisning] = useState<Visning>('graf');
 
   return (
     <FaktaBoks
-      tittel={<FormattedMessage id="Sammenligningsgrunnlag.ExpansionCard.Header" />}
+      tittel={intl.formatMessage({ id: 'Sammenligningsgrunnlag.ExpansionCard.Header' })}
       beskrivelse={<FormattedMessage id="Sammenligningsgrunnlag.ExpansionCard.Description" />}
     >
       <VStack gap="space-16">

@@ -1,4 +1,4 @@
-import { FormattedMessage } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { FaktaBoks } from '@navikt/ft-ui-komponenter';
@@ -18,8 +18,9 @@ interface Props {
 export const Dagsatser = ({ beregningsgrunnlag, beregningsgrunnlagsvilkår, kodeverkSamling }: Props) => {
   const vilkårsperiode = finnVilkårperiode(beregningsgrunnlagsvilkår, beregningsgrunnlag.vilkårsperiodeFom);
   const tabellData = utledTabellData(beregningsgrunnlag);
+  const intl = useIntl();
   return (
-    <FaktaBoks tittel={<FormattedMessage id="Dagsats.Tittel" />}>
+    <FaktaBoks tittel={intl.formatMessage({ id: 'Dagsats.Tittel' })}>
       {tabellData.map(tabellPeriode => (
         <Dagsats
           key={tabellPeriode.fom}

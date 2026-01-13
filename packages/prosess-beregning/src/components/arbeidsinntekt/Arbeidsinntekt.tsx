@@ -31,7 +31,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
   }
 
   return (
-    <FaktaBoks tittel={<FormattedMessage id="Arbeidsinntekt.Tittel" />}>
+    <FaktaBoks tittel={intl.formatMessage({ id: 'Arbeidsinntekt.Tittel' })}>
       <Table size="small" className={styles.table}>
         <Table.Header>
           <Table.Row>

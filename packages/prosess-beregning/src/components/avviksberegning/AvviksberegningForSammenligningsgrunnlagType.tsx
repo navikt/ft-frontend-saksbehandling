@@ -1,4 +1,4 @@
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Table, Tag } from '@navikt/ds-react';
 
@@ -13,13 +13,14 @@ interface Props {
 
 export const AvviksberegningForSammenligningsgrunnlagType = ({ sammenligningsgrunnlag }: Props) => {
   const { differanseBeregnet, rapportertPrAar, avvikProsent, sammenligningsgrunnlagType } = sammenligningsgrunnlag;
+  const intl = useIntl();
 
   const avvikProsentAvrundet = Number.parseFloat(avvikProsent.toFixed(1));
 
   const årsinntekt = rapportertPrAar + differanseBeregnet;
 
   return (
-    <FaktaBoks tittel={<FormattedMessage id="Avviksberegning.Tittel" values={{ type: sammenligningsgrunnlagType }} />}>
+    <FaktaBoks tittel={intl.formatMessage({ id: 'Avviksberegning.Tittel' }, { type: sammenligningsgrunnlagType })}>
       <Table size="small" className={styles.table}>
         <Table.Body>
           <Table.Row>
