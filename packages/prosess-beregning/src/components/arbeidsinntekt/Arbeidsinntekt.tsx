@@ -1,10 +1,9 @@
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { BriefcaseFillIcon } from '@navikt/aksel-icons';
-import { BodyShort, Box, Detail, Heading, HStack, Table, Tooltip } from '@navikt/ds-react';
+import { BodyShort, Detail, Table, Tooltip } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
-import { BeløpLabel, DateLabel, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
+import { BeløpLabel, DateLabel, FaktaBoks, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { createVisningsnavnForAndel } from '../../utils/createVisningsnavnForAktivitet';
@@ -32,13 +31,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
   }
 
   return (
-    <Box.New background="neutral-soft" padding="5">
-      <HStack gap="space-12" align="center">
-        <BriefcaseFillIcon aria-hidden fontSize="1.25rem" />
-        <Heading size="small" level="4">
-          <FormattedMessage id="Arbeidsinntekt.Tittel" />
-        </Heading>
-      </HStack>
+    <FaktaBoks tittel={intl.formatMessage({ id: 'Arbeidsinntekt.Tittel' })}>
       <Table size="small" className={styles.table}>
         <Table.Header>
           <Table.Row>
@@ -184,6 +177,6 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
           </tfoot>
         )}
       </Table>
-    </Box.New>
+    </FaktaBoks>
   );
 };

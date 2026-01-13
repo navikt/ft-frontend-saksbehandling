@@ -1,0 +1,27 @@
+.faktaBox {
+  background-color: var(--ax-bg-neutral-soft);
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  flex-basis: 0;
+  flex-grow: 1;
+
+  &:has(> div:first-child[data-open='false']) {
+    height: fit-content;
+  }
+
+  &:has(> div:first-child[data-open='true']) {
+    height: unset;
+  }
+
+  > div:first-child {
+    &:hover {
+      border: none;
+      border-radius: 0;
+    }
+
+    &:after {
+      content: none;
+    }
+  }
+}

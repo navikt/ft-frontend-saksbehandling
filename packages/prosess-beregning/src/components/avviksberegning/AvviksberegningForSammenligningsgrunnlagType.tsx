@@ -1,9 +1,9 @@
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
-import { Box, Heading, Table, Tag } from '@navikt/ds-react';
+import { Table, Tag } from '@navikt/ds-react';
 
 import type { SammenligningsgrunlagProp } from '@navikt/ft-types';
-import { BeløpLabel } from '@navikt/ft-ui-komponenter';
+import { BeløpLabel, FaktaBoks } from '@navikt/ft-ui-komponenter';
 
 import styles from './avviksberegning.module.css';
 
@@ -13,16 +13,14 @@ interface Props {
 
 export const AvviksberegningForSammenligningsgrunnlagType = ({ sammenligningsgrunnlag }: Props) => {
   const { differanseBeregnet, rapportertPrAar, avvikProsent, sammenligningsgrunnlagType } = sammenligningsgrunnlag;
+  const intl = useIntl();
 
   const avvikProsentAvrundet = Number.parseFloat(avvikProsent.toFixed(1));
 
   const årsinntekt = rapportertPrAar + differanseBeregnet;
 
   return (
-    <Box.New background="neutral-soft" padding="5" flexBasis="0%" flexGrow="1">
-      <Heading size="small" level="4">
-        <FormattedMessage id="Avviksberegning.Tittel" values={{ type: sammenligningsgrunnlagType }} />
-      </Heading>
+    <FaktaBoks tittel={intl.formatMessage({ id: 'Avviksberegning.Tittel' }, { type: sammenligningsgrunnlagType })}>
       <Table size="small" className={styles.table}>
         <Table.Body>
           <Table.Row>
@@ -60,6 +58,6 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({ sammenligningsgru
           </Table.Row>
         </tfoot>
       </Table>
-    </Box.New>
+    </FaktaBoks>
   );
 };
