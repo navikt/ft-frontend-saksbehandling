@@ -72,7 +72,7 @@ export const BeregningProsessIndex = ({
 
   return (
     <RawIntlProvider value={intl}>
-      <VStack gap="space-16">
+      <VStack gap="space-12">
         <Heading size="medium" level="2">
           <FormattedMessage id="BeregningProsessIndex.Tittel" />
         </Heading>
@@ -110,7 +110,7 @@ export const BeregningProsessIndex = ({
             id={`${o.optionLabel}-panel`}
             aria-labelledby={`${o.optionLabel}-tab`}
           >
-            <VStack gap="space-16">
+            <VStack gap="space-12">
               <TabInnhold
                 beregningsgrunnlag={o.beregningsgrunnlag}
                 beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
