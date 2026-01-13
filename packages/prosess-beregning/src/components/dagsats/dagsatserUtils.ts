@@ -153,6 +153,7 @@ export const utledTabellData = ({
         bruttoInkludertBortfaltNaturalytelsePrAar,
         redusertPrAar,
         avkortetPrAar,
+        dagsats,
       } = bgp;
 
       const tom = regnUtTom(array[index + 1]);
@@ -183,7 +184,15 @@ export const utledTabellData = ({
                 }
               : undefined,
 
-          dagsats: finnDagsats(bgp),
+          dagsats: dagsats
+            ? {
+                utregning:
+                  redusertPrAar || avkortetPrAar
+                    ? `${formatCurrencyWithKr(redusertPrAar ?? avkortetPrAar ?? totalAndelsInntekt)} / ${VIRKEDAGER_PR_AAR} dager`
+                    : '',
+                resultat: dagsats,
+              }
+            : undefined,
         };
       } else {
         return { fom, tom, andelerPerStatus };
@@ -214,20 +223,3 @@ const finnTotalInntekt = (
   bruttoInkludertBortfaltNaturalytelsePrAar: number | undefined,
   bruttoPrAar: number = 0,
 ): number => bruttoInkludertBortfaltNaturalytelsePrAar ?? bruttoPrAar;
-
-const finnDagsats = ({
-  avkortetPrAar,
-  redusertPrAar,
-  dagsats = 0,
-}: BeregningsgrunnlagPeriodeProp): UtregnetResultat => {
-  if (dagsats) {
-    return {
-      utregning: `${formatCurrencyWithKr(dagsats * VIRKEDAGER_PR_AAR)} / ${VIRKEDAGER_PR_AAR} dager`,
-      resultat: dagsats,
-    };
-  }
-  return {
-    utregning: `${redusertPrAar ?? avkortetPrAar} / ${VIRKEDAGER_PR_AAR}`,
-    resultat: Math.round((redusertPrAar ?? avkortetPrAar ?? 0) / VIRKEDAGER_PR_AAR),
-  };
-};
