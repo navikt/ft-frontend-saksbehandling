@@ -9,7 +9,7 @@ import { createIntl } from '@navikt/ft-utils';
 import { TabInnhold } from './components/TabInnhold';
 import { useSkjæringstidspunktTabs } from './hooks/useSkjæringstidspunktTabs';
 import { FastsettBeregningAksjonspunktContainer } from './legacyAP/components/FastsettBeregningAksjonspunktContainer';
-import { LegacyAksjonspunktTittel } from './legacyAP/LegacyAksjonspunktTittel.tsx';
+import { LegacyAksjonspunktTittel } from './legacyAP/LegacyAksjonspunktTittel';
 import type { BeregningFormValues } from './legacyAP/types/BeregningFormValues';
 import type { BeregningAksjonspunktSubmitType } from './legacyAP/types/BeregningsgrunnlagAP';
 import type { KodeverkForPanel } from './types/KodeverkForPanel';
@@ -76,9 +76,11 @@ export const BeregningProsessIndex = ({
         {beregningsgrunnlagListe.map(bg => (
           <LegacyAksjonspunktTittel key={bg.vilkårsperiodeFom} beregningsgrunnlag={bg} />
         ))}
+
         <Heading size="medium" level="2">
           <FormattedMessage id="BeregningProsessIndex.Tittel" />
         </Heading>
+
         {tabOptions.length > 1 && (
           <Tabs value={currentSkjæringstidspunkt} onChange={onTabChange}>
             <Tabs.List>
@@ -99,6 +101,7 @@ export const BeregningProsessIndex = ({
             </Tabs.List>
           </Tabs>
         )}
+
         {tabOptions.map(o => (
           <div
             role="tabpanel"
@@ -117,6 +120,7 @@ export const BeregningProsessIndex = ({
             </VStack>
           </div>
         ))}
+
         <FastsettBeregningAksjonspunktContainer
           readOnly={isReadOnly}
           isSubmittable={isSubmittable}
