@@ -61,7 +61,7 @@ export const TabInnhold = ({
           />
         )}
 
-      <HStack gap="space-8">
+      <HStack gap="space-12">
         <Avviksberegninger sammenligningsgrunnlagPrStatus={beregningsgrunnlag.sammenligningsgrunnlagPrStatus} />
         <Dagsatser
           beregningsgrunnlag={beregningsgrunnlag}

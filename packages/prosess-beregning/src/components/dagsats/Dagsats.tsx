@@ -33,9 +33,9 @@ export const Dagsats = ({
   const erIkkeOppfylt = vilkarStatus === VilkårUtfallType.IKKE_OPPFYLT;
 
   return (
-    <VStack gap="space-16">
+    <VStack gap="space-12">
       {skalVisePeriode && (
-        <Label size="small" className={styles.periodeLabel}>
+        <Label size="small">
           <FormattedMessage
             id="Dagsats.Periode"
             values={{
@@ -82,7 +82,7 @@ export const Dagsats = ({
 
           {dagsats && (
             <HStack data-row-type="summary" paddingInline="space-8" gap="space-8">
-              <Label size="small">
+              <Label size="medium">
                 <FormattedMessage id="Dagsats.BeregnetDagsats" />
               </Label>
               <BodyShort size="small">({dagsats.utregning})</BodyShort>
