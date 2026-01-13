@@ -33,7 +33,7 @@ export const Dagsats = ({
   const erIkkeOppfylt = vilkarStatus === VilkårUtfallType.IKKE_OPPFYLT;
 
   return (
-    <VStack gap="space-16">
+    <VStack gap="space-12">
       {skalVisePeriode && (
         <Label size="small" className={styles.periodeLabel}>
           <FormattedMessage

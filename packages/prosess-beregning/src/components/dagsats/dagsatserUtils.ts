@@ -134,6 +134,8 @@ export const utledTabellData = ({
   avklaringsbehov,
   skjaeringstidspunktBeregning,
   beregningsgrunnlagPeriode,
+  grunnbeløp,
+  dekningsgrad,
 }: Beregningsgrunnlag): TabellData[] => {
   // Vi skal alltid vise første periode, deretter kun perioder som er opprettet pga noe som kan endre dagsatsen i perioden
   return beregningsgrunnlagPeriode
@@ -166,18 +168,20 @@ export const utledTabellData = ({
           tom,
           andelerPerStatus,
           totalAndelsInntekt,
-          redusert: redusertPrAar
-            ? {
-                utregning: `${formatCurrencyWithKr(avkortetPrAar ?? totalAndelsInntekt)} x 80%`,
-                resultat: redusertPrAar,
-              }
-            : undefined,
-          avkortet: avkortetPrAar
-            ? {
-                utregning: `${formatCurrencyWithKr(totalAndelsInntekt)} - ${formatCurrencyWithKr(totalAndelsInntekt - avkortetPrAar)}`,
-                resultat: avkortetPrAar,
-              }
-            : undefined,
+          redusert:
+            redusertPrAar && dekningsgrad && dekningsgrad < 100
+              ? {
+                  utregning: `${formatCurrencyWithKr(avkortetPrAar ?? totalAndelsInntekt)} x ${dekningsgrad}%`,
+                  resultat: redusertPrAar,
+                }
+              : undefined,
+          avkortet:
+            avkortetPrAar && avkortetPrAar >= 6 * grunnbeløp
+              ? {
+                  utregning: `${formatCurrencyWithKr(totalAndelsInntekt)} - ${formatCurrencyWithKr(totalAndelsInntekt - avkortetPrAar)}`,
+                  resultat: avkortetPrAar,
+                }
+              : undefined,
 
           dagsats: finnDagsats(bgp),
         };
