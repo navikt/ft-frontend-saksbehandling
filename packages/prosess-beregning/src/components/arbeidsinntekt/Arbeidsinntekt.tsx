@@ -1,13 +1,13 @@
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { BodyShort, Detail, Table, Tooltip } from '@navikt/ds-react';
+import { BodyShort, Table, Tooltip } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel, DateLabel, FaktaBoks, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { createVisningsnavnForAndel } from '../../utils/createVisningsnavnForAktivitet';
-import { mapBeregningsgrunnlagTilArbeidsinntektVisning } from './arbeidsinntektUtils';
+import { type ArbeidsinntektVisningBeløp, mapBeregningsgrunnlagTilArbeidsinntektVisning } from './arbeidsinntektUtils';
 import { Naturalytelser } from './Naturalytelser';
 
 import styles from './arbeidsinntekt.module.css';
@@ -30,6 +30,13 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
     return null;
   }
 
+  const summerInntektForKey = (key: keyof ArbeidsinntektVisningBeløp) => {
+    const inntekterSomSkalSummeres = arbeidsinntektVisninger.flatMap(av => (av[key] ? [av[key]] : []));
+    return inntekterSomSkalSummeres.length > 0
+      ? inntekterSomSkalSummeres.reduce((acc, inntekt) => acc + inntekt, 0)
+      : undefined;
+  };
+
   return (
     <FaktaBoks tittel={intl.formatMessage({ id: 'Arbeidsinntekt.Tittel' })}>
       <Table size="small" className={styles.table}>
@@ -38,21 +45,17 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
             <Table.HeaderCell />
             <Table.HeaderCell scope="colgroup" textSize="small" align="right" colSpan={2}>
               <FormattedMessage id="Arbeidsinntekt.Table.Inntektsmelding" />
-              <Detail>
-                <FormattedMessage id="Arbeidsinntekt.Table.Inntektsmelding.HelpText" />
-              </Detail>
             </Table.HeaderCell>
             <Table.HeaderCell />
             <Table.HeaderCell scope="colgroup" textSize="small" align="right" colSpan={2}>
-              <FormattedMessage id="Arbeidsinntekt.Table.Innrapportert" />
-              <Detail>
-                <FormattedMessage id="Arbeidsinntekt.Table.Innrapportert.HelpText" />
-              </Detail>
+              <FormattedMessage id="Arbeidsinntekt.Table.Beregningsgrunnlag" />
             </Table.HeaderCell>
             <Table.HeaderCell />
           </Table.Row>
           <Table.Row>
-            <Table.HeaderCell />
+            <Table.HeaderCell scope="col" textSize="small">
+              <FormattedMessage id="Arbeidsinntekt.Table.Arbeidsgiver" />
+            </Table.HeaderCell>
             <Table.HeaderCell scope="col" textSize="small" align="right">
               <FormattedMessage id="Tabell.Måned" />
             </Table.HeaderCell>
@@ -136,41 +139,17 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
                 <FormattedMessage id="Tabell.Total" />
               </Table.HeaderCell>
               <Table.HeaderCell textSize="small" align="right">
-                <BeløpLabel
-                  beløp={arbeidsinntektVisninger.reduce(
-                    (acc, { inntektsmeldingMånedinntekt }) => acc + (inntektsmeldingMånedinntekt ?? 0),
-                    0,
-                  )}
-                  kr
-                />
+                <BeløpLabel beløp={summerInntektForKey('inntektsmeldingMånedinntekt')} kr />
               </Table.HeaderCell>
               <Table.HeaderCell textSize="small" align="right">
-                <BeløpLabel
-                  beløp={arbeidsinntektVisninger.reduce(
-                    (acc, { inntektsmeldingÅrsinntekt }) => acc + (inntektsmeldingÅrsinntekt ?? 0),
-                    0,
-                  )}
-                  kr
-                />
+                <BeløpLabel beløp={summerInntektForKey('inntektsmeldingÅrsinntekt')} kr />
               </Table.HeaderCell>
               <Table.DataCell />
               <Table.HeaderCell textSize="small" align="right">
-                <BeløpLabel
-                  beløp={arbeidsinntektVisninger.reduce(
-                    (acc, { beregningsgrunnlagMånedinntekt }) => acc + (beregningsgrunnlagMånedinntekt ?? 0),
-                    0,
-                  )}
-                  kr
-                />
+                <BeløpLabel beløp={summerInntektForKey('beregningsgrunnlagMånedinntekt')} kr />
               </Table.HeaderCell>
               <Table.HeaderCell textSize="small" align="right">
-                <BeløpLabel
-                  beløp={arbeidsinntektVisninger.reduce(
-                    (acc, { beregningsgrunnlagÅrsinntekt }) => acc + (beregningsgrunnlagÅrsinntekt ?? 0),
-                    0,
-                  )}
-                  kr
-                />
+                <BeløpLabel beløp={summerInntektForKey('beregningsgrunnlagÅrsinntekt')} kr />
               </Table.HeaderCell>
               <Table.HeaderCell />
             </Table.Row>

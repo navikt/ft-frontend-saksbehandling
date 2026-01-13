@@ -72,14 +72,14 @@ export const BeregningProsessIndex = ({
 
   return (
     <RawIntlProvider value={intl}>
-      <VStack gap="space-8">
-        {beregningsgrunnlagListe.map(bg => (
-          <LegacyAksjonspunktTittel key={bg.vilkårsperiodeFom} beregningsgrunnlag={bg} />
-        ))}
-
+      <VStack gap="space-16">
         <Heading size="medium" level="2">
           <FormattedMessage id="BeregningProsessIndex.Tittel" />
         </Heading>
+
+        {beregningsgrunnlagListe.map(bg => (
+          <LegacyAksjonspunktTittel key={bg.vilkårsperiodeFom} beregningsgrunnlag={bg} />
+        ))}
 
         {tabOptions.length > 1 && (
           <Tabs value={currentSkjæringstidspunkt} onChange={onTabChange}>

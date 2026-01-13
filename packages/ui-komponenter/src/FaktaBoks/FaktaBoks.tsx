@@ -12,7 +12,7 @@ interface Props {
 
 export const FaktaBoks = ({ tittel, beskrivelse, children }: Props) => {
   return (
-    <ExpansionCard defaultOpen size="small" aria-label={tittel} data-color="neutral" className={styles.faktaBox}>
+    <ExpansionCard defaultOpen size="small" aria-label={tittel} className={styles.faktaBox}>
       <ExpansionCard.Header>
         <ExpansionCard.Title size="small">{tittel}</ExpansionCard.Title>
         {beskrivelse && <ExpansionCard.Description>{beskrivelse}</ExpansionCard.Description>}
