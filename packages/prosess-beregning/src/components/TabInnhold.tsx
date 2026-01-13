@@ -1,11 +1,10 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Heading, HStack, Spacer, VStack } from '@navikt/ds-react';
+import { BodyShort, HStack, Spacer } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { BTag, dateFormat } from '@navikt/ft-utils';
 
-import { LegacyAksjonspunktTittel } from '../legacyAP/LegacyAksjonspunktTittel';
 import type { KodeverkForPanel } from '../types/KodeverkForPanel';
 import type { Vilkår } from '../types/Vilkår';
 import { AksjonspunktKode, medAPKode } from '../utils/aksjonspunkt';
@@ -31,41 +30,26 @@ export const TabInnhold = ({
 }: Props) => {
   const { sammenligningsgrunnlagPrStatus = [], inntektsgrunnlag, avklaringsbehov } = beregningsgrunnlag;
   return (
-    <VStack gap="space-16">
-      <LegacyAksjonspunktTittel beregningsgrunnlag={beregningsgrunnlag} />
-      <VStack gap="space-12">
-        <Heading size="medium" level="2">
-          <FormattedMessage id="TabInnhold.Tittel" />
-        </Heading>
-        <HStack align="center" gap="space-12">
-          <AktivitetStatusTags
-            kodeverkSamling={kodeverkSamling}
-            beregningsgrunnlagPeriode={beregningsgrunnlag.beregningsgrunnlagPeriode}
+    <>
+      <HStack align="center" gap="space-12">
+        <AktivitetStatusTags
+          kodeverkSamling={kodeverkSamling}
+          beregningsgrunnlagPeriode={beregningsgrunnlag.beregningsgrunnlagPeriode}
+        />
+        <Spacer />
+        <BodyShort size="small">
+          <FormattedMessage
+            id="TabInnhold.Skjæringstidspunkt"
+            values={{ dato: dateFormat(beregningsgrunnlag.skjaeringstidspunktBeregning), b: BTag }}
           />
-          <Spacer />
-          <BodyShort size="small">
-            <FormattedMessage
-              id="TabInnhold.Skjæringstidspunkt"
-              values={{ dato: dateFormat(beregningsgrunnlag.skjaeringstidspunktBeregning), b: BTag }}
-            />
-          </BodyShort>
-        </HStack>
-      </VStack>
+        </BodyShort>
+      </HStack>
 
       <Arbeidsinntekt
         beregningsgrunnlag={beregningsgrunnlag}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         kodeverkSamling={kodeverkSamling}
       />
-
-      <HStack gap="space-8">
-        <Avviksberegninger sammenligningsgrunnlagPrStatus={beregningsgrunnlag.sammenligningsgrunnlagPrStatus} />
-        <Dagsatser
-          beregningsgrunnlag={beregningsgrunnlag}
-          beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
-          kodeverkSamling={kodeverkSamling}
-        />
-      </HStack>
 
       {sammenligningsgrunnlagPrStatus.length > 0 &&
         inntektsgrunnlag &&
@@ -77,9 +61,18 @@ export const TabInnhold = ({
           />
         )}
 
+      <HStack gap="space-8">
+        <Avviksberegninger sammenligningsgrunnlagPrStatus={beregningsgrunnlag.sammenligningsgrunnlagPrStatus} />
+        <Dagsatser
+          beregningsgrunnlag={beregningsgrunnlag}
+          beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
+          kodeverkSamling={kodeverkSamling}
+        />
+      </HStack>
+
       <ReadonlyAPGraderingUtenBG
         avklaringsbehov={avklaringsbehov.find(medAPKode(AksjonspunktKode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG))}
       />
-    </VStack>
+    </>
   );
 };
