@@ -13,6 +13,7 @@ export { LoadingPanel } from './src/LoadingPanel';
 export { OkAvbrytModal } from './src/OkAvbrytModal';
 export { PeriodLabel } from './src/PeriodLabel';
 export { DataFetchPendingModal } from './src/DataFetchPendingModal';
+export { FaktaBoks } from './src/FaktaBoks/FaktaBoks';
 export { FaktaGruppe } from './src/FaktaGruppe';
 export { AvsnittSkiller } from './src/AvsnittSkiller';
 export { EditedIcon } from './src/EditedIcon';

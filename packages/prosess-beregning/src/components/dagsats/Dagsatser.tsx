@@ -1,8 +1,7 @@
 import { FormattedMessage } from 'react-intl';
 
-import { Box, Heading } from '@navikt/ds-react';
-
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
+import { FaktaBoks } from '@navikt/ft-ui-komponenter';
 
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import type { Vilkår } from '../../types/Vilkår';
@@ -20,10 +19,7 @@ export const Dagsatser = ({ beregningsgrunnlag, beregningsgrunnlagsvilkår, kode
   const vilkårsperiode = finnVilkårperiode(beregningsgrunnlagsvilkår, beregningsgrunnlag.vilkårsperiodeFom);
   const tabellData = utledTabellData(beregningsgrunnlag);
   return (
-    <Box.New background="neutral-soft" padding="5" flexBasis="0%" flexGrow="1">
-      <Heading size="small" level="4">
-        <FormattedMessage id="Dagsats.Tittel" />
-      </Heading>
+    <FaktaBoks tittel={<FormattedMessage id="Dagsats.Tittel" />}>
       {tabellData.map(tabellPeriode => (
         <Dagsats
           key={tabellPeriode.fom}
@@ -34,6 +30,6 @@ export const Dagsatser = ({ beregningsgrunnlag, beregningsgrunnlagsvilkår, kode
           kodeverkSamling={kodeverkSamling}
         />
       ))}
-    </Box.New>
+    </FaktaBoks>
   );
 };
