@@ -114,7 +114,7 @@ const createBar =
         show: true,
         formatter: params => {
           const value = params.value as number;
-          if (value > 5000) {
+          if (value > 3000) {
             return formatCurrencyNoKr(value) || '';
           }
           return '';
