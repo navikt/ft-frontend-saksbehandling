@@ -1,13 +1,48 @@
 .table {
-  thead tr:first-child th {
-    border-bottom: none;
-  }
+  width: 100%;
 
   thead tr:first-child th:nth-child(2),
   tr th:nth-child(4),
   tr td:nth-child(4) {
     width: 60px;
   }
+
+  thead tr:first-child th:nth-child(2),
+  thead tr:first-child th:nth-child(4),
+  thead tr:nth-child(2) th:nth-child(2),
+  thead tr:nth-child(2) th:nth-child(3),
+  thead tr:nth-child(2) th:nth-child(5),
+  thead tr:nth-child(2) th:nth-child(6) {
+    background-color: var(--ax-bg-neutral-moderateA);
+  }
+
+  thead tr:nth-child(1) th:nth-child(2),
+  thead tr:nth-child(2) th:nth-child(2),
+  thead tr:nth-child(2) th:nth-child(3),
+  tbody tr td:nth-child(2),
+  tbody tr td:nth-child(3),
+  tfoot tr th:nth-child(2),
+  tfoot tr th:nth-child(3),
+  thead tr:nth-child(1) th:nth-child(4),
+  thead tr:nth-child(2) th:nth-child(5),
+  thead tr:nth-child(2) th:nth-child(6),
+  tbody tr td:nth-child(5),
+  tbody tr td:nth-child(6),
+  tfoot tr th:nth-child(5),
+  tfoot tr th:nth-child(6) {
+    padding-right: 16px;
+    width: 150px;
+  }
+
+  thead tr:nth-child(2) th:nth-child(3),
+  thead tr:nth-child(2) th:nth-child(6),
+  tbody tr td:nth-child(3),
+  tbody tr td:nth-child(6),
+  tfoot tr th:nth-child(3),
+  tfoot tr th:nth-child(6) {
+    border-left: 2px solid var(--ax-border-neutral-subtleA);
+  }
+
 
   tr[data-state='open'] td > div > div {
     padding-top: 0;

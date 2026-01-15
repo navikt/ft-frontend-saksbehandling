@@ -43,11 +43,11 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell />
-            <Table.HeaderCell scope="colgroup" textSize="small" align="right" colSpan={2}>
+            <Table.HeaderCell scope="colgroup" textSize="small" align="center" colSpan={2}>
               <FormattedMessage id="Arbeidsinntekt.Table.Inntektsmelding" />
             </Table.HeaderCell>
             <Table.HeaderCell />
-            <Table.HeaderCell scope="colgroup" textSize="small" align="right" colSpan={2}>
+            <Table.HeaderCell scope="colgroup" textSize="small" align="center" colSpan={2}>
               <FormattedMessage id="Arbeidsinntekt.Table.Beregningsgrunnlag" />
             </Table.HeaderCell>
             <Table.HeaderCell />
