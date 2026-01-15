@@ -6,7 +6,7 @@ type ColorPair = [string, string];
  * Farger for stolpene i grafen
  * https://aksel.nav.no/grunnleggende/styling/design-tokens#Datavisualisering
  */
-export const BAR_COLORS_BLUE_LIGHT: ColorPair[] = [
+const BAR_COLORS_ARBEID_LIGHT: ColorPair[] = [
   ['#CCE1FF', '#3386E0'],
   ['#99C4DD', '#3386E0'],
   ['#A9C5FF', '#244FA8'],
@@ -14,7 +14,7 @@ export const BAR_COLORS_BLUE_LIGHT: ColorPair[] = [
   ['#3386E0', '#005B82'],
   ['#3D6FD6', '#172E63'],
 ];
-export const BAR_COLORS_BLUE_DARK: ColorPair[] = [
+const BAR_COLORS_ARBEID_DARK: ColorPair[] = [
   ['#24508F', '#8AB9FF'],
   ['#3B73C9', '#A5CCFF'],
   ['#070F1F', '#4D86E6'],
@@ -36,8 +36,8 @@ export const getGrafFarger = (inntektAktivitetType: InntektsgrunnlagInntekt['inn
   switch (inntektAktivitetType) {
     case 'ARBEIDSTAKERINNTEKT':
       return isDarkmode
-        ? BAR_COLORS_BLUE_DARK[index % BAR_COLORS_BLUE_DARK.length]
-        : BAR_COLORS_BLUE_LIGHT[index % BAR_COLORS_BLUE_LIGHT.length];
+        ? BAR_COLORS_ARBEID_DARK[index % BAR_COLORS_BLUE_DARK.length]
+        : BAR_COLORS_ARBEID_LIGHT[index % BAR_COLORS_BLUE_LIGHT.length];
     case 'FRILANSINNTEKT':
       return isDarkmode ? BAR_COLORS_FRILANS_DARK : BAR_COLORS_FRILANS_LIGHT;
     case 'YTELSEINNTEKT':
