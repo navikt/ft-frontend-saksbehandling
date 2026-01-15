@@ -36,8 +36,8 @@ export const getGrafFarger = (inntektAktivitetType: InntektsgrunnlagInntekt['inn
   switch (inntektAktivitetType) {
     case 'ARBEIDSTAKERINNTEKT':
       return isDarkmode
-        ? BAR_COLORS_ARBEID_DARK[index % BAR_COLORS_BLUE_DARK.length]
-        : BAR_COLORS_ARBEID_LIGHT[index % BAR_COLORS_BLUE_LIGHT.length];
+        ? BAR_COLORS_ARBEID_DARK[index % BAR_COLORS_ARBEID_DARK.length]
+        : BAR_COLORS_ARBEID_LIGHT[index % BAR_COLORS_ARBEID_LIGHT.length];
     case 'FRILANSINNTEKT':
       return isDarkmode ? BAR_COLORS_FRILANS_DARK : BAR_COLORS_FRILANS_LIGHT;
     case 'YTELSEINNTEKT':
