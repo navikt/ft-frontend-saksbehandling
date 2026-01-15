@@ -1,9 +1,10 @@
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import type { BarSeriesOption } from 'echarts';
 
 import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId, InntektsgrunnlagMåned } from '@navikt/ft-types';
+import { BeløpLabel, LabeledValue } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { getGrafFarger } from './grafFarger';
@@ -39,51 +40,65 @@ export const SammenligningsgrunnlagGraf = ({
     color: getAkselVariable('--ax-text-neutral'),
     fontSize,
   };
+  const totalInntekt = [
+    ...Object.values(dataForArbeid),
+    ...Object.values(dataForFrilans),
+    ...Object.values(dataForYtelse),
+  ]
+    .flat()
+    .reduce((acc, beløp) => acc + beløp, 0);
 
   return (
-    <ReactECharts
-      option={{
-        animation: false,
-        textStyle,
-        legend: {
-          data: [...Object.keys(dataForArbeid), ...Object.keys(dataForFrilans), ...Object.keys(dataForYtelse)],
-          top: 'top',
-        },
-        grid: {
-          top: '7%',
-          left: '0%',
-          bottom: '0%',
-          right: '0%',
-        },
-        xAxis: {
-          type: 'value',
-          axisLabel: {
-            fontSize,
-            formatter: value => formatCurrencyNoKr(value) || '',
-          },
-        },
-        yAxis: {
-          type: 'category',
-          axisLabel: {
-            fontSize,
-          },
-          data: periodeData.map(value => formaterMåned(value)),
-        },
-        series: [
-          ...Object.entries(dataForArbeid).map(createBar(InntektAktivitetType.ARBEID)),
-          ...Object.entries(dataForFrilans).map(createBar(InntektAktivitetType.FRILANS)),
-          ...Object.entries(dataForYtelse).map(createBar(InntektAktivitetType.YTELSE)),
-        ],
-        tooltip: {
-          trigger: 'axis',
+    <>
+      <ReactECharts
+        option={{
+          animation: false,
           textStyle,
-          borderColor: getAkselVariable('--ax-border-neutral-subtleA'),
-          borderRadius: 12,
-          padding: [16, 20],
-          borderWidth: 1,
-        },
-      }}
-    />
+          legend: {
+            data: [...Object.keys(dataForArbeid), ...Object.keys(dataForFrilans), ...Object.keys(dataForYtelse)],
+            top: 'top',
+          },
+          grid: {
+            left: '0%',
+            bottom: '0%',
+            right: '0%',
+          },
+          xAxis: {
+            type: 'value',
+            axisLabel: {
+              fontSize,
+              formatter: value => formatCurrencyNoKr(value) || '',
+            },
+          },
+          yAxis: {
+            type: 'category',
+            axisLabel: {
+              fontSize,
+            },
+            data: periodeData.map(value => formaterMåned(value)),
+          },
+          series: [
+            ...Object.entries(dataForArbeid).map(createBar(InntektAktivitetType.ARBEID)),
+            ...Object.entries(dataForFrilans).map(createBar(InntektAktivitetType.FRILANS)),
+            ...Object.entries(dataForYtelse).map(createBar(InntektAktivitetType.YTELSE)),
+          ],
+          tooltip: {
+            trigger: 'axis',
+            textStyle,
+            borderColor: getAkselVariable('--ax-border-neutral-subtleA'),
+            borderRadius: 12,
+            padding: [16, 20],
+            borderWidth: 1,
+          },
+        }}
+      />
+      <LabeledValue
+        horizontal
+        size="small"
+        label={<FormattedMessage id="SammenligningsgrunnlagGraf.TotalSammenligningsgrunnlag" />}
+        value={<BeløpLabel beløp={totalInntekt} kr />}
+      />
+    </>
   );
 };
 

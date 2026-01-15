@@ -35,7 +35,7 @@ export const SammenligningsgrunnlagTabell = ({
   ].map(([inntektspostNavn, inntekter]) => ({ inntektspostNavn, inntekter }));
 
   return (
-    <Table size="small" zebraStripes className={styles.table}>
+    <Table size="small" className={styles.table}>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell scope="col" textSize="small">
@@ -76,6 +76,7 @@ export const SammenligningsgrunnlagTabell = ({
                       {index < inntektskilderForRad.length - 1 && <br />}
                     </Fragment>
                   ))}
+                  {inntektskilderForRad.length === 0 && '-'}
                 </Table.DataCell>
               </Table.Row>
             );
@@ -83,6 +84,24 @@ export const SammenligningsgrunnlagTabell = ({
           .reverse()}
       </Table.Body>
       <tfoot>
+        {alleInntektskilder.length > 1 && (
+          <>
+            <Table.Row>
+              <Table.HeaderCell scope="row" colSpan={3} textSize="small">
+                <FormattedMessage id="Tabell.Subtotal" />
+              </Table.HeaderCell>
+            </Table.Row>
+            {alleInntektskilder.map(({ inntektspostNavn, inntekter }) => (
+              <Table.Row key={inntektspostNavn}>
+                <Table.DataCell />
+                <Table.DataCell textSize="small">{inntektspostNavn}</Table.DataCell>
+                <Table.DataCell align="right" textSize="small">
+                  <BeløpLabel beløp={inntekter.reduce((acc, beløp) => acc + beløp, 0)} kr />
+                </Table.DataCell>
+              </Table.Row>
+            ))}
+          </>
+        )}
         <Table.Row>
           <Table.HeaderCell scope="row" colSpan={2} textSize="small">
             <FormattedMessage id="Tabell.Total" />

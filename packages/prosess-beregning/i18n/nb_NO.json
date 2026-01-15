@@ -3,6 +3,7 @@
   "Tabell.Måned": "Måned",
   "Tabell.År": "År",
   "Tabell.Total": "Totalt",
+  "Tabell.Subtotal": "Subtotalt:",
   "TabInnhold.Skjæringstidspunkt": "Skjæringstidspunkt for beregning <b>{dato}</b>",
 
   "Arbeidsinntekt.Tittel": "Arbeidsinntekt",
@@ -21,6 +22,7 @@
   "SammenligningsgrunnlagGraf.Arbeid": "Arbeid",
   "SammenligningsgrunnlagGraf.Frilans": "Frilans",
   "SammenligningsgrunnlagGraf.Ytelse": "Ytelse",
+  "SammenligningsgrunnlagGraf.TotalSammenligningsgrunnlag": "Totalt sammenligningsgrunnlag § 8-30:",
   "SammenligningsgrunnlagTabell.Måned": "Måned",
   "SammenligningsgrunnlagTabell.Inntektskilde": "Inntektskilde",
   "SammenligningsgrunnlagTabell.Beløp": "Beløp",
