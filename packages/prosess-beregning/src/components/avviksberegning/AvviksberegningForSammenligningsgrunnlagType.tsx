@@ -52,7 +52,7 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({ sammenligningsgru
             </Table.HeaderCell>
             <Table.HeaderCell>
               <Tag variant={avvikProsentAvrundet > 25 ? 'error' : 'success'} size="small">
-                {avvikProsentAvrundet + '%'}
+                {avvikProsentAvrundet.toLocaleString('nb-NO', { maximumFractionDigits: 1 }) + '%'}
               </Tag>
             </Table.HeaderCell>
           </Table.Row>
