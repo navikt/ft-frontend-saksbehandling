@@ -43,6 +43,7 @@ export const SammenligningsgrunnlagGraf = ({
   return (
     <ReactECharts
       option={{
+        animation: false,
         textStyle,
         legend: {
           data: [...Object.keys(dataForArbeid), ...Object.keys(dataForFrilans), ...Object.keys(dataForYtelse)],
