@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-config-eslint",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "type": "module",
   "main": "eslint.config.mjs",
@@ -13,12 +13,12 @@
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "7.0.1",
-    "eslint-plugin-react-refresh": "0.4.24",
-    "eslint-plugin-react-you-might-not-need-an-effect": "0.8.3",
+    "eslint-plugin-react-refresh": "0.4.26",
+    "eslint-plugin-react-you-might-not-need-an-effect": "0.8.5",
     "eslint-plugin-simple-import-sort": "12.1.1",
     "eslint-plugin-storybook": "10.1.11",
     "eslint-plugin-vitest": "0.5.4",
     "globals": "16.5.0",
-    "typescript-eslint": "8.51.0"
+    "typescript-eslint": "8.53.0"
   }
 }
