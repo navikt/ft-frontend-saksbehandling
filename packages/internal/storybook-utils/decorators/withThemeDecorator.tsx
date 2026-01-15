@@ -6,7 +6,9 @@ import type { DecoratorFunction } from 'storybook/internal/types';
 
 export const withThemeDecorator: DecoratorFunction<ReactRenderer> = (Story, context) => {
   const Wrapper = () => {
-    const theme = context.globals['theme'];
+    const { theme } = context.globals;
+    localStorage.setItem('fp-frontend-theme', theme);
+
     useEffect(() => {
       const elements = document.getElementsByClassName('sb-show-main');
       if (elements.length > 0) {
