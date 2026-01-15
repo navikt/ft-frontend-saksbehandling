@@ -11,7 +11,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ds-react": "7.37.0",
+    "@navikt/ds-react": "7.38.0",
     "@navikt/ft-form-hooks": "workspace:^",
     "react": "19.2.3",
     "react-hook-form": "7.69.0",
