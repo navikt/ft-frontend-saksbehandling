@@ -1,37 +1,16 @@
 .table {
   width: 100%;
 
-  thead tr:first-child th:nth-child(2),
-  tr th:nth-child(4),
-  tr td:nth-child(4) {
-    width: 60px;
-  }
-
-  thead tr:nth-child(1) th:nth-child(2),
-  thead tr:nth-child(2) th:nth-child(2),
-  thead tr:nth-child(2) th:nth-child(3),
-  tbody tr td:nth-child(2),
-  tbody tr td:nth-child(3),
-  tfoot tr th:nth-child(2),
-  tfoot tr th:nth-child(3),
-  thead tr:nth-child(1) th:nth-child(4),
-  thead tr:nth-child(2) th:nth-child(5),
-  thead tr:nth-child(2) th:nth-child(6),
-  tbody tr td:nth-child(5),
-  tbody tr td:nth-child(6),
-  tfoot tr th:nth-child(5),
-  tfoot tr th:nth-child(6) {
+  thead tr:nth-child(2) th:not(:first-child):not(:last-child),
+  tbody tr td:not(:first-child):not(:last-child),
+  tfoot tr th:not(:first-child):not(:last-child) {
+    border-inline: 1px solid var(--ax-border-neutral-subtleA);
     padding-right: 16px;
-    width: 150px;
-  }
+    width: 120px;
 
-  thead tr:nth-child(2) th:nth-child(3),
-  thead tr:nth-child(2) th:nth-child(6),
-  tbody tr td:nth-child(3),
-  tbody tr td:nth-child(6),
-  tfoot tr th:nth-child(3),
-  tfoot tr th:nth-child(6) {
-    border-left: 2px solid var(--ax-border-neutral-subtleA);
+    &:nth-child(4) {
+      width: 160px;
+    }
   }
 
   tr[data-state='open'] td > div > div {

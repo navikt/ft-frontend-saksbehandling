@@ -46,7 +46,6 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
             <Table.HeaderCell scope="colgroup" textSize="small" align="center" colSpan={2}>
               <FormattedMessage id="Arbeidsinntekt.Table.Inntektsmelding" />
             </Table.HeaderCell>
-            <Table.HeaderCell />
             <Table.HeaderCell scope="colgroup" textSize="small" align="center" colSpan={2}>
               <FormattedMessage id="Arbeidsinntekt.Table.Beregningsgrunnlag" />
             </Table.HeaderCell>
@@ -62,7 +61,6 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
             <Table.HeaderCell scope="col" textSize="small" align="right">
               <FormattedMessage id="Tabell.År" />
             </Table.HeaderCell>
-            <Table.HeaderCell />
             <Table.HeaderCell scope="col" textSize="small" align="right">
               <FormattedMessage id="Tabell.Måned" />
             </Table.HeaderCell>
@@ -122,7 +120,6 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
               <Table.DataCell textSize="small" align="right">
                 <BeløpLabel beløp={visning.inntektsmeldingÅrsinntekt} kr />
               </Table.DataCell>
-              <Table.DataCell />
               <Table.DataCell textSize="small" align="right">
                 <BeløpLabel beløp={visning.beregningsgrunnlagMånedinntekt} kr />
               </Table.DataCell>
@@ -144,7 +141,6 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
               <Table.HeaderCell textSize="small" align="right">
                 <BeløpLabel beløp={summerInntektForKey('inntektsmeldingÅrsinntekt')} kr />
               </Table.HeaderCell>
-              <Table.DataCell />
               <Table.HeaderCell textSize="small" align="right">
                 <BeløpLabel beløp={summerInntektForKey('beregningsgrunnlagMånedinntekt')} kr />
               </Table.HeaderCell>
