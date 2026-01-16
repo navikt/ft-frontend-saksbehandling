@@ -26,8 +26,8 @@
     "@navikt/aksel-icons": "7.40.0",
     "@navikt/ds-css": "7.40.0",
     "@navikt/ds-react": "7.40.0",
-    "@navikt/ft-ui-komponenter": "^6.5.12",
-    "@navikt/ft-utils": "^3.10.10",
+    "@navikt/ft-ui-komponenter": "workspace:^",
+    "@navikt/ft-utils": "workspace:^",
     "classnames": "2.5.1",
     "dayjs": "1.11.19",
     "react": "19.2.3",
@@ -50,9 +50,9 @@
     "react-hook-form": "7.x"
   },
   "devDependencies": {
-    "@navikt/ft-config-eslint": "^1.2.10",
-    "@navikt/ft-config-typescript": "^1.2.10",
-    "@navikt/ft-config-vite": "^1.2.10",
+    "@navikt/ft-config-eslint": "workspace:^",
+    "@navikt/ft-config-typescript": "workspace:^",
+    "@navikt/ft-config-vite": "workspace:^",
     "@testing-library/dom": "10.4.1",
     "@testing-library/react": "16.3.1",
     "@testing-library/user-event": "14.6.1",
@@ -75,6 +75,5 @@
       "types": "./dist/index.d.ts"
     },
     "./dist/style.css": "./dist/style.css"
-  },
-  "gitHead": "39ecc3847e615a89f26fc0f255a1c5587d7a931b"
+  }
 }

@@ -30,9 +30,9 @@
     "react-intl": "6.x"
   },
   "devDependencies": {
-    "@navikt/ft-config-eslint": "^1.2.10",
-    "@navikt/ft-config-typescript": "^1.2.10",
-    "@navikt/ft-config-vite": "^1.2.10",
+    "@navikt/ft-config-eslint": "workspace:^",
+    "@navikt/ft-config-typescript": "workspace:^",
+    "@navikt/ft-config-vite": "workspace:^",
     "eslint": "9.39.2",
     "typescript": "5.9.3",
     "vite": "7.3.1",
@@ -50,6 +50,5 @@
       "import": "./dist/index.es.js",
       "types": "./dist/index.d.ts"
     }
-  },
-  "gitHead": "39ecc3847e615a89f26fc0f255a1c5587d7a931b"
+  }
 }
