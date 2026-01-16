@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-tilbakekreving-feilutbetaling",
   "description": "Saksbehandler angir årsak til at feilutbetalingen har oppstått for hver enkelt periode",
-  "version": "8.3.10",
+  "version": "8.3.11",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -25,10 +25,10 @@
   "dependencies": {
     "@navikt/ds-css": "7.40.0",
     "@navikt/ds-react": "7.40.0",
-    "@navikt/ft-form-hooks": "^10.3.9",
-    "@navikt/ft-form-validators": "^4.4.7",
-    "@navikt/ft-ui-komponenter": "^6.5.9",
-    "@navikt/ft-utils": "^3.10.7",
+    "@navikt/ft-form-hooks": "^10.3.10",
+    "@navikt/ft-form-validators": "^4.4.8",
+    "@navikt/ft-ui-komponenter": "^6.5.10",
+    "@navikt/ft-utils": "^3.10.8",
     "react": "19.2.3",
     "react-hook-form": "7.71.1",
     "react-intl": "8.0.11"
@@ -47,10 +47,10 @@
     "react-intl": "6.x"
   },
   "devDependencies": {
-    "@navikt/ft-config-eslint": "^1.2.7",
-    "@navikt/ft-config-typescript": "^1.2.7",
-    "@navikt/ft-config-vite": "^1.2.7",
-    "@navikt/ft-frontend-storybook-utils": "^5.4.10",
+    "@navikt/ft-config-eslint": "^1.2.8",
+    "@navikt/ft-config-typescript": "^1.2.8",
+    "@navikt/ft-config-vite": "^1.2.8",
+    "@navikt/ft-frontend-storybook-utils": "^5.4.11",
     "@testing-library/dom": "10.4.1",
     "@testing-library/react": "16.3.1",
     "@testing-library/user-event": "14.6.1",
