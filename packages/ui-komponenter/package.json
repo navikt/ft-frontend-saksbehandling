@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-ui-komponenter",
   "description": "Pakke som tilbyr generelle komponenter som grid og tabell",
-  "version": "6.5.7",
+  "version": "6.5.8",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -25,7 +25,7 @@
   "dependencies": {
     "@navikt/aksel-icons": "7.40.0",
     "@navikt/ds-react": "7.40.0",
-    "@navikt/ft-utils": "^3.10.5",
+    "@navikt/ft-utils": "^3.10.6",
     "classnames": "2.5.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -43,9 +43,9 @@
     "react-modal": "3.16.1"
   },
   "devDependencies": {
-    "@navikt/ft-config-eslint": "^1.2.5",
-    "@navikt/ft-config-typescript": "^1.2.5",
-    "@navikt/ft-config-vite": "^1.2.5",
+    "@navikt/ft-config-eslint": "^1.2.6",
+    "@navikt/ft-config-typescript": "^1.2.6",
+    "@navikt/ft-config-vite": "^1.2.6",
     "@testing-library/dom": "10.4.1",
     "@testing-library/react": "16.3.1",
     "@testing-library/user-event": "14.6.1",
@@ -69,5 +69,5 @@
     },
     "./dist/style.css": "./dist/style.css"
   },
-  "gitHead": "32d80ac587d63dc0407049ffa40bad580e88e3f4"
+  "gitHead": "2b48e8a0a558b9c52580af053b0969eccb3ba390"
 }

@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-prosess-tilbakekreving",
   "description": "Saksbehandler vurderer om hovedvilkår for tilbakekreving er oppfylt, dvs om perioder med feilutbetaling kan kreves tilbake eller ikke, periode kan deles opp. Med to perioder: samme som over, men hvor flere perioder vurderes",
-  "version": "9.3.8",
+  "version": "9.3.9",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -26,10 +26,10 @@
     "@navikt/aksel-icons": "7.40.0",
     "@navikt/ds-css": "7.40.0",
     "@navikt/ds-react": "7.40.0",
-    "@navikt/ft-form-hooks": "^10.3.7",
-    "@navikt/ft-form-validators": "^4.4.5",
-    "@navikt/ft-ui-komponenter": "^6.5.7",
-    "@navikt/ft-utils": "^3.10.5",
+    "@navikt/ft-form-hooks": "^10.3.8",
+    "@navikt/ft-form-validators": "^4.4.6",
+    "@navikt/ft-ui-komponenter": "^6.5.8",
+    "@navikt/ft-utils": "^3.10.6",
     "dayjs": "1.11.19",
     "react": "19.2.3",
     "react-hook-form": "7.71.1",
@@ -51,10 +51,10 @@
     "react-intl": "6.x"
   },
   "devDependencies": {
-    "@navikt/ft-config-eslint": "^1.2.5",
-    "@navikt/ft-config-typescript": "^1.2.5",
-    "@navikt/ft-config-vite": "^1.2.5",
-    "@navikt/ft-frontend-storybook-utils": "^5.4.8",
+    "@navikt/ft-config-eslint": "^1.2.6",
+    "@navikt/ft-config-typescript": "^1.2.6",
+    "@navikt/ft-config-vite": "^1.2.6",
+    "@navikt/ft-frontend-storybook-utils": "^5.4.9",
     "@testing-library/dom": "10.4.1",
     "@testing-library/react": "16.3.1",
     "@testing-library/user-event": "14.6.1",
@@ -74,5 +74,5 @@
     },
     "./dist/style.css": "./dist/style.css"
   },
-  "gitHead": "32d80ac587d63dc0407049ffa40bad580e88e3f4"
+  "gitHead": "2b48e8a0a558b9c52580af053b0969eccb3ba390"
 }
