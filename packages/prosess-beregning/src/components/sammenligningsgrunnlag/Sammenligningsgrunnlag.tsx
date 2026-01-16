@@ -9,6 +9,7 @@ import { FaktaBoks } from '@navikt/ft-ui-komponenter';
 
 import { SammenligningsgrunnlagGraf } from './SammenligningsgrunnlagGraf';
 import { SammenligningsgrunnlagTabell } from './SammenligningsgrunnlagTabell';
+import { transformerSammenligningsgrunnlag } from './sammenligningsgrunnlagUtils';
 
 interface Props {
   sammenligningsgrunnlagFom: string;
@@ -26,6 +27,12 @@ export const Sammenligningsgrunnlag = ({
   const intl = useIntl();
   const [valgtVisning, setValgtVisning] = useState<Visning>('graf');
 
+  const transformertSammenligningsgrunnlag = transformerSammenligningsgrunnlag(
+    sammenligningsgrunnlagInntekter,
+    sammenligningsgrunnlagFom,
+    arbeidsgiverOpplysningerPerId,
+    intl,
+  );
   return (
     <FaktaBoks
       tittel={intl.formatMessage({ id: 'Sammenligningsgrunnlag.ExpansionCard.Header' })}
@@ -37,18 +44,10 @@ export const Sammenligningsgrunnlag = ({
           <ToggleGroup.Item value="tabell" icon={<TableIcon aria-hidden />} label="Tabell" />
         </ToggleGroup>
         {valgtVisning === 'graf' && (
-          <SammenligningsgrunnlagGraf
-            sammenligningsgrunnlagInntekter={sammenligningsgrunnlagInntekter}
-            sammenligningsgrunnlagFom={sammenligningsgrunnlagFom}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          />
+          <SammenligningsgrunnlagGraf transformertSammenligningsgrunnlag={transformertSammenligningsgrunnlag} />
         )}
         {valgtVisning === 'tabell' && (
-          <SammenligningsgrunnlagTabell
-            sammenligningsgrunnlagInntekter={sammenligningsgrunnlagInntekter}
-            sammenligningsgrunnlagFom={sammenligningsgrunnlagFom}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          />
+          <SammenligningsgrunnlagTabell transformertSammenligningsgrunnlag={transformertSammenligningsgrunnlag} />
         )}
       </VStack>
     </FaktaBoks>

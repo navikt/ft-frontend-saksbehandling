@@ -9,7 +9,7 @@
   "Arbeidsinntekt.Tittel": "Arbeidsinntekt",
   "Arbeidsinntekt.Table.Arbeidsgiver": "Arbeidsgiver",
   "Arbeidsinntekt.Table.Inntektsmelding": "Inntektsmelding",
-  "Arbeidsinntekt.Table.Beregningsgrunnlag": "Beregningsgrunnlag § 8-28",
+  "Arbeidsinntekt.Table.Beregningsgrunnlag": "A-Ordningen § 8-28",
 
   "Arbeidsinntekt.Ansettelsesperiode": "Ansettelsesperiode",
   "Arbeidsinntekt.SistEndretLonn": "Sist endret lønn:",
@@ -19,15 +19,15 @@
 
   "Sammenligningsgrunnlag.ExpansionCard.Header": "Sammenligningsgrunnlag § 8-30 fra A-ordningen",
   "Sammenligningsgrunnlag.ExpansionCard.Description": "Inntekt og ytelser etter kap. 8, 9 og 14 de 12 siste månedene",
+  "Sammenligningsgrunnlag.TotalSammenligningsgrunnlag": "Sammenligningsgrunnlag § 8-30:",
   "SammenligningsgrunnlagGraf.Arbeid": "Arbeid",
   "SammenligningsgrunnlagGraf.Frilans": "Frilans",
   "SammenligningsgrunnlagGraf.Ytelse": "Ytelse",
-  "SammenligningsgrunnlagGraf.TotalSammenligningsgrunnlag": "Totalt sammenligningsgrunnlag § 8-30:",
   "SammenligningsgrunnlagTabell.Måned": "Måned",
   "SammenligningsgrunnlagTabell.Inntektskilde": "Inntektskilde",
   "SammenligningsgrunnlagTabell.Beløp": "Beløp",
 
-  "Avviksberegning.OmregnetAarsinntekt": "Omregnet årsinntekt",
+  "Avviksberegning.BeregnetÅrsinntekt": "Beregnet årsinntekt",
   "Avviksberegning.RapportertAarsinntekt": "Sammenligningsgrunnlag § 8-30",
   "Avviksberegning.BeregnetAvvik": "Beregnet avvik",
   "Avviksberegning.Tittel": "Avviksberegning for {type, select, SAMMENLIGNING_AT {arbeidstaker} SAMMENLIGNING_FL {frilans} SAMMENLIGNING_AT_FL {arbeidstaker og frilans} SAMMENLIGNING_SN {selvstendig næring} SAMMENLIGNING_ATFL_SN {arbeidstaker, frilans og selvstendig næring} SAMMENLIGNING_MIDL_INAKTIV {midlertidig inaktiv} other {ukjent}}",

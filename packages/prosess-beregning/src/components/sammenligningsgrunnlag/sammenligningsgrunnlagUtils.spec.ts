@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 import { createIntl } from '@navikt/ft-utils';
 
 import { arbeidsgiverOpplysningerPerId } from '../../../testdata/arbeidsgivere';
@@ -9,7 +10,7 @@ import {
   lagInntektsgrunnlagMåned,
   lagYtelseInntekt,
 } from '../../../testdata/utils/lagInntektsgrunnlag';
-import { formaterMåned, transformerGrafData } from './sammenligningsgrunnlagUtils';
+import { transformerSammenligningsgrunnlag } from './sammenligningsgrunnlagUtils';
 
 import messages from '../../../i18n/nb_NO.json';
 
@@ -43,22 +44,28 @@ describe('sammenligningsgrunnlagUtils', () => {
         lagInntektsgrunnlagMåned('2025-02-01', [lagFrilansInntekt(15000)]),
       ];
 
-      const { periodeData } = transformerGrafData(inntekter, SAMMENLIGNINGSGRUNNLAG_FOM, {}, intl);
+      const { periodeData, totalInntekt } = transformerSammenligningsgrunnlag(
+        inntekter,
+        SAMMENLIGNINGSGRUNNLAG_FOM,
+        {},
+        intl,
+      );
 
       expect(periodeData).toEqual([
-        '2025-01-01',
-        '2025-02-01',
-        '2025-03-01',
-        '2025-04-01',
-        '2025-05-01',
-        '2025-06-01',
-        '2025-07-01',
-        '2025-08-01',
-        '2025-09-01',
-        '2025-10-01',
-        '2025-11-01',
-        '2025-12-01',
+        'Jan 25',
+        'Feb 25',
+        'Mars 25',
+        'April 25',
+        'Mai 25',
+        'Juni 25',
+        'Juli 25',
+        'Aug 25',
+        'Sep 25',
+        'Okt 25',
+        'Nov 25',
+        'Des 25',
       ]);
+      expect(totalInntekt).toEqual(25000);
     });
 
     it('skal håndtere arbeidsinntekt fra flere arbeidsgivere', () => {
@@ -67,31 +74,58 @@ describe('sammenligningsgrunnlagUtils', () => {
         lagInntektsgrunnlagMåned('2025-03-01', [lagArbeidInntekt(20000, ARBEIDSGIVER_B)]),
       ];
 
-      const { dataForArbeid } = transformerGrafData(
+      const { periodeData, alleInntektskilder, totalInntekt } = transformerSammenligningsgrunnlag(
         inntekter,
         SAMMENLIGNINGSGRUNNLAG_FOM,
         arbeidsgiverOpplysningerPerId,
         intl,
       );
 
-      expect(Object.keys(dataForArbeid)).toHaveLength(2);
-      expect(dataForArbeid[BEDRIFT_A_MED_IDENT]).toEqual([30000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-      expect(dataForArbeid[BEDRIFT_B_MED_IDENT]).toEqual([0, 0, 20000, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+      expect(alleInntektskilder).toEqual([
+        {
+          label: BEDRIFT_A_MED_IDENT,
+          datapunkter: [30000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          inntektAktivitetType: InntektAktivitetType.ARBEID,
+        },
+        {
+          label: BEDRIFT_B_MED_IDENT,
+          datapunkter: [0, 0, 20000, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          inntektAktivitetType: InntektAktivitetType.ARBEID,
+        },
+      ]);
+      expect(periodeData).toHaveLength(12);
+      expect(totalInntekt).toEqual(50000);
     });
 
     it('skal returnere 0 for måneder uten inntekt for blandet inntektstyper', () => {
       const inntekter = [INNTEKTER_MAI];
 
-      const { dataForArbeid, dataForFrilans, dataForYtelse } = transformerGrafData(
+      const { periodeData, alleInntektskilder, totalInntekt } = transformerSammenligningsgrunnlag(
         inntekter,
         SAMMENLIGNINGSGRUNNLAG_FOM,
         arbeidsgiverOpplysningerPerId,
         intl,
       );
 
-      expect(dataForArbeid[BEDRIFT_A_MED_IDENT]).toEqual([0, 0, 0, 0, 30000, 0, 0, 0, 0, 0, 0, 0]);
-      expect(dataForFrilans[FRILANS_LABEL]).toEqual([0, 0, 0, 0, 10000, 0, 0, 0, 0, 0, 0, 0]);
-      expect(dataForYtelse[YTELSE_LABEL]).toEqual([0, 0, 0, 0, 5000, 0, 0, 0, 0, 0, 0, 0]);
+      expect(alleInntektskilder).toEqual([
+        {
+          label: BEDRIFT_A_MED_IDENT,
+          datapunkter: [0, 0, 0, 0, 30000, 0, 0, 0, 0, 0, 0, 0],
+          inntektAktivitetType: InntektAktivitetType.ARBEID,
+        },
+        {
+          label: FRILANS_LABEL,
+          datapunkter: [0, 0, 0, 0, 10000, 0, 0, 0, 0, 0, 0, 0],
+          inntektAktivitetType: InntektAktivitetType.FRILANS,
+        },
+        {
+          label: YTELSE_LABEL,
+          datapunkter: [0, 0, 0, 0, 5000, 0, 0, 0, 0, 0, 0, 0],
+          inntektAktivitetType: InntektAktivitetType.YTELSE,
+        },
+      ]);
+      expect(periodeData).toHaveLength(12);
+      expect(totalInntekt).toEqual(45000);
     });
 
     it('skal beregne og sortere perioder basert på sammenligningsgrunnlagFom', () => {
@@ -101,12 +135,24 @@ describe('sammenligningsgrunnlagUtils', () => {
         lagInntektsgrunnlagMåned('2025-01-01', [lagFrilansInntekt(2)]),
       ];
 
-      const { periodeData, dataForFrilans } = transformerGrafData(inntekter, '2024-07-01', {}, intl);
+      const { periodeData, alleInntektskilder, totalInntekt } = transformerSammenligningsgrunnlag(
+        inntekter,
+        '2024-07-01',
+        {},
+        intl,
+      );
 
-      expect(periodeData[0]).toBe('2024-07-01');
-      expect(periodeData[11]).toBe('2025-06-01');
+      expect(periodeData[0]).toBe('Juli 24');
+      expect(periodeData[11]).toBe('Juni 25');
 
-      expect(dataForFrilans[FRILANS_LABEL]).toEqual([0, 0, 1, 0, 0, 0, 2, 0, 0, 3, 0, 0]);
+      expect(alleInntektskilder).toEqual([
+        {
+          label: FRILANS_LABEL,
+          datapunkter: [0, 0, 1, 0, 0, 0, 2, 0, 0, 3, 0, 0],
+          inntektAktivitetType: InntektAktivitetType.FRILANS,
+        },
+      ]);
+      expect(totalInntekt).toEqual(6);
     });
 
     it('skal summere arbeidsinntekt korrekt for flere arbeidsgivere over flere måneder', () => {
@@ -123,19 +169,31 @@ describe('sammenligningsgrunnlagUtils', () => {
         lagInntektsgrunnlagMåned('2025-03-01', [lagArbeidInntekt(27000, ARBEIDSGIVER_A)]),
       ];
 
-      const { dataForArbeid } = transformerGrafData(
+      const { periodeData, alleInntektskilder, totalInntekt } = transformerSammenligningsgrunnlag(
         inntekter,
         SAMMENLIGNINGSGRUNNLAG_FOM,
         arbeidsgiverOpplysningerPerId,
         intl,
       );
 
-      expect(dataForArbeid[BEDRIFT_A_MED_IDENT]).toEqual([27000, 25000, 27000, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-      expect(dataForArbeid[BEDRIFT_B_MED_IDENT]).toEqual([15000, 18000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+      expect(alleInntektskilder).toEqual([
+        {
+          label: BEDRIFT_A_MED_IDENT,
+          datapunkter: [27000, 25000, 27000, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          inntektAktivitetType: InntektAktivitetType.ARBEID,
+        },
+        {
+          label: BEDRIFT_B_MED_IDENT,
+          datapunkter: [15000, 18000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          inntektAktivitetType: InntektAktivitetType.ARBEID,
+        },
+      ]);
+      expect(periodeData).toHaveLength(12);
+      expect(totalInntekt).toEqual(112000);
     });
 
     it('skal returnere tomme datastrukturer når inntektsgrunnlaget er tomt', () => {
-      const { periodeData, dataForFrilans, dataForYtelse, dataForArbeid } = transformerGrafData(
+      const { periodeData, alleInntektskilder, totalInntekt } = transformerSammenligningsgrunnlag(
         [],
         SAMMENLIGNINGSGRUNNLAG_FOM,
         {},
@@ -143,15 +201,14 @@ describe('sammenligningsgrunnlagUtils', () => {
       );
 
       expect(periodeData).toHaveLength(12);
-      expect(dataForFrilans).toEqual({});
-      expect(dataForYtelse).toEqual({});
-      expect(dataForArbeid).toEqual({});
+      expect(alleInntektskilder).toEqual([]);
+      expect(totalInntekt).toEqual(0);
     });
 
     it('skal ikke inkludere inntektstyper som ikke finnes i inntektsgrunnlaget', () => {
       const inntekter = [lagInntektsgrunnlagMåned('2025-01-01', [])];
 
-      const { periodeData, dataForFrilans, dataForYtelse, dataForArbeid } = transformerGrafData(
+      const { periodeData, alleInntektskilder, totalInntekt } = transformerSammenligningsgrunnlag(
         inntekter,
         SAMMENLIGNINGSGRUNNLAG_FOM,
         {},
@@ -159,16 +216,8 @@ describe('sammenligningsgrunnlagUtils', () => {
       );
 
       expect(periodeData).toHaveLength(12);
-      expect(dataForFrilans).toEqual({});
-      expect(dataForYtelse).toEqual({});
-      expect(dataForArbeid).toEqual({});
-    });
-  });
-
-  describe('formaterMåned', () => {
-    it('skal formatere måned og år korrekt', () => {
-      const formatertDato = formaterMåned('2025-01-01');
-      expect(formatertDato).toBe('Jan 25');
+      expect(alleInntektskilder).toEqual([]);
+      expect(totalInntekt).toEqual(0);
     });
   });
 });

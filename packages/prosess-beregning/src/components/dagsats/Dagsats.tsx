@@ -1,6 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 
-import { Alert, BodyShort, HStack, Label, Spacer, Table, Tooltip, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, HStack, Label, Spacer, Table, Tooltip, VStack } from '@navikt/ds-react';
 
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
@@ -35,14 +35,9 @@ export const Dagsats = ({
   return (
     <VStack gap="space-12">
       {skalVisePeriode && (
-        <Label size="small">
-          <FormattedMessage
-            id="Dagsats.Periode"
-            values={{
-              periode: periodFormat(fom, tom),
-            }}
-          />
-        </Label>
+        <Heading size="xsmall" level="4">
+          <FormattedMessage id="Dagsats.Periode" values={{ periode: periodFormat(fom, tom) }} />
+        </Heading>
       )}
 
       <AndelInntektTabell tabellData={tabellPeriode} kodeverkSamling={kodeverkSamling} />

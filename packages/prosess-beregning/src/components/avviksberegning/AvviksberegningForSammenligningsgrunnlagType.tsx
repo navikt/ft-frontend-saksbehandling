@@ -25,7 +25,7 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({ sammenligningsgru
         <Table.Body>
           <Table.Row>
             <Table.DataCell textSize="small">
-              <FormattedMessage id="Avviksberegning.OmregnetAarsinntekt" />
+              <FormattedMessage id="Avviksberegning.BeregnetÅrsinntekt" />
             </Table.DataCell>
             <Table.DataCell textSize="small" align="right">
               <BeløpLabel beløp={årsinntekt} kr />
