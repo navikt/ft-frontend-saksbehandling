@@ -144,7 +144,7 @@ export const AksjonspunktBehandler = ({
               beskrivelse={finnAPBeskrivelse(aksjonspunktKode, beregningsgrunnlagPeriode)}
               aksjonspunkt={aksjonspunktForGrunnlag}
             >
-              <VStack gap="space-16">
+              <VStack gap="space-16" maxWidth="800px">
                 {ÅTTE_TRETTI_AKSJONSPUNKTER.has(aksjonspunktKode) && (
                   <ArbeidstakerEllerFrilansContainer
                     kodeverkSamling={kodeverkSamling}

@@ -24,15 +24,21 @@ describe('LegacyAPForms', () => {
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     expect(screen.getByText('Arbeidsinntekt')).toBeInTheDocument();
-    expect(screen.getAllByText('TROSSIG NATURSTRIDIG TIGER AS (222222222)')).toHaveLength(2);
-    await userEvent.click(screen.getAllByText('TROSSIG NATURSTRIDIG TIGER AS (222222222)')[0]);
+    await userEvent.click(screen.getByText('TROSSIG NATURSTRIDIG TIGER AS (222222222)'));
     expect(screen.getByText('28.11.2019 - 31.12.2070')).toBeInTheDocument();
 
     // Aksjonspunkt avvik
-    expect(screen.getByText('Fastsett årsinntekt skjønnsmessig for arbeidstaker')).toBeInTheDocument();
-    const alleInputfelt = screen.getAllByRole('textbox', { hidden: true });
-    await userEvent.type(alleInputfelt[0], '260 000');
-    await userEvent.type(alleInputfelt[1], 'Min begrunnelse for inntekt');
+    const aksjonspunktBoks_FASTSETT_BG_AT_FL = within(screen.getByTestId('AksjonspunktBoks-FASTSETT_BG_AT_FL'));
+
+    expect(
+      aksjonspunktBoks_FASTSETT_BG_AT_FL.getByText('Fastsett årsinntekt skjønnsmessig for arbeidstaker'),
+    ).toBeInTheDocument();
+    const arbeidsinntektInput = aksjonspunktBoks_FASTSETT_BG_AT_FL.getByLabelText(
+      'Arbeidsinntekt fra TROSSIG NATURSTRIDIG TIGER AS (222222222) fastsettes til',
+    );
+    const begrunnelseInput = aksjonspunktBoks_FASTSETT_BG_AT_FL.getByLabelText('Vurdering');
+    await userEvent.type(arbeidsinntektInput, '260 000');
+    await userEvent.type(begrunnelseInput, 'Min begrunnelse for inntekt');
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeEnabled();
     await userEvent.click(screen.getByText('Bekreft og fortsett'));
@@ -73,14 +79,13 @@ describe('LegacyAPForms', () => {
     // Aksjonspunkt
     expect(screen.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument();
     await userEvent.click(screen.getByLabelText('Ingen varig endring'));
-    await waitFor(() => expect(screen.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument());
-    await userEvent.click(screen.getByLabelText('Varig endring - årsinntekt må fastsettes.'));
-    expect(await screen.findByText('Næringsinntekt fastsettes til')).toBeInTheDocument();
-    const alleInputfelt = screen.getAllByRole('textbox', { hidden: true });
-    const bruttoFelt = alleInputfelt[0];
-    const begrunnelseFelt = alleInputfelt[1];
-    await userEvent.type(bruttoFelt, '260 000');
-    await userEvent.type(begrunnelseFelt, 'Min begrunnelse for vurdering av varig endring');
+    expect(screen.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument();
+    await userEvent.click(screen.getByLabelText('Varig endring - Årsinntekt må fastsettes'));
+
+    const næringsinntektInput = screen.getByLabelText('Næringsinntekt fastsettes til');
+    const begrunnelseInput = screen.getByLabelText('Vurdering');
+    await userEvent.type(næringsinntektInput, '260 000');
+    await userEvent.type(begrunnelseInput, 'Min begrunnelse for vurdering av varig endring');
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeEnabled();
     await userEvent.click(screen.getByText('Bekreft og fortsett'));
@@ -118,13 +123,12 @@ describe('LegacyAPForms', () => {
     expect(screen.queryByText('Varig endret årsinntekt fastsettes til')).not.toBeInTheDocument();
     await userEvent.click(screen.getByLabelText('Ingen varig endring'));
     await waitFor(() => expect(screen.queryByText('Varig endret årsinntekt fastsettes til')).not.toBeInTheDocument());
-    await userEvent.click(screen.getByLabelText('Varig endring - årsinntekt må fastsettes.'));
-    expect(await screen.findByText('Varig endret årsinntekt fastsettes til')).toBeInTheDocument();
-    const alleInputfelt = screen.getAllByRole('textbox', { hidden: true });
-    const bruttoFelt = alleInputfelt[0];
-    const begrunnelseFelt = alleInputfelt[1];
-    await userEvent.type(bruttoFelt, '260 000');
-    await userEvent.type(begrunnelseFelt, 'Min begrunnelse for vurdering av varig endring');
+    await userEvent.click(screen.getByLabelText('Varig endring - Årsinntekt må fastsettes'));
+
+    const varigendretÅrsinntektInput = screen.getByLabelText('Varig endret årsinntekt fastsettes til');
+    const begrunnelseInput = screen.getByLabelText('Vurdering');
+    await userEvent.type(varigendretÅrsinntektInput, '260 000');
+    await userEvent.type(begrunnelseInput, 'Min begrunnelse for vurdering av varig endring');
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeEnabled();
     await userEvent.click(screen.getByText('Bekreft og fortsett'));
@@ -163,11 +167,10 @@ describe('LegacyAPForms', () => {
       screen.getByText('Søker har oppgitt å være ny i arbeidslivet (blitt yrkesaktiv siste tre år)'),
     ).toBeInTheDocument();
 
-    const alleInputfelt = screen.getAllByRole('textbox', { hidden: true });
-    const bruttoFelt = alleInputfelt[0];
-    const begrunnelseFelt = alleInputfelt[1];
-    await userEvent.type(bruttoFelt, '500 000');
-    await userEvent.type(begrunnelseFelt, 'Min begrunnelse for inntekt');
+    const næringsinntektInput = screen.getByLabelText('Næringsinntekt fastsettes til');
+    const begrunnelseInput = screen.getByLabelText('Vurdering');
+    await userEvent.type(næringsinntektInput, '500 000');
+    await userEvent.type(begrunnelseInput, 'Min begrunnelse for inntekt');
 
     expect(await screen.findByText('Bekreft og fortsett')).toBeEnabled();
     await userEvent.click(screen.getByText('Bekreft og fortsett'));
@@ -262,48 +265,62 @@ describe('LegacyAPForms', () => {
     const lagre = vi.fn();
 
     render(<AvvikNæringEtterLøstAvvikArbeid5038Og5039 submitCallback={lagre} />);
-    const apBoks_arbeidOgFrilans = within(screen.getByTestId('AksjonspunktBoks-FASTSETT_BG_AT_FL'));
+    const aksjonspunktBoks_FASTSETT_BG_AT_FL = within(screen.getByTestId('AksjonspunktBoks-FASTSETT_BG_AT_FL'));
 
-    const apBoks_selvstendigNæringsdrivende = within(
+    const aksjonspunktBoks_VURDER_VARIG_ENDRT_NYOPPSTR_NAERNG_SN = within(
       screen.getByTestId('AksjonspunktBoks-VURDER_VARIG_ENDRT_NYOPPSTR_NAERNG_SN'),
     );
 
     expect(await screen.getAllByText('Bekreft og fortsett')).toHaveLength(2);
-    const knappATFL = apBoks_arbeidOgFrilans.getByRole('button', { name: 'Bekreft og fortsett' });
-    const knappNæring = apBoks_selvstendigNæringsdrivende.getByRole('button', { name: 'Bekreft og fortsett' });
+    const knappATFL = aksjonspunktBoks_FASTSETT_BG_AT_FL.getByRole('button', { name: 'Bekreft og fortsett' });
+    const knappNæring = aksjonspunktBoks_VURDER_VARIG_ENDRT_NYOPPSTR_NAERNG_SN.getByRole('button', {
+      name: 'Bekreft og fortsett',
+    });
 
     expect(knappATFL).toBeDisabled();
     expect(knappNæring).toBeDisabled();
 
     // Årsgrunnlag arbeid
-    expect(screen.getAllByText('TROSSIG NATURSTRIDIG TIGER AS (222222222)')).toHaveLength(2);
+    expect(screen.getByText('TROSSIG NATURSTRIDIG TIGER AS (222222222)')).toBeInTheDocument();
 
     // Avvik arbeid og frilans
-    expect(screen.getByText('Fastsett årsinntekt skjønnsmessig for arbeidstaker og frilans')).toBeInTheDocument();
     expect(
-      screen.getByText('Det er mer enn 25% avvik mellom beregnet årsinntekt og sammenligningsgrunnlaget'),
+      aksjonspunktBoks_FASTSETT_BG_AT_FL.getByText('Fastsett årsinntekt skjønnsmessig for arbeidstaker og frilans'),
+    ).toBeInTheDocument();
+    expect(
+      aksjonspunktBoks_FASTSETT_BG_AT_FL.getByText(
+        'Det er mer enn 25% avvik mellom beregnet årsinntekt og sammenligningsgrunnlaget',
+      ),
     ).toBeInTheDocument();
 
-    const inputfelt_arbeidOgFrilans = apBoks_arbeidOgFrilans.getAllByRole('textbox', { hidden: true });
-    const [bruttoAG1, bruttoFL1, begrunnelseATFL] = inputfelt_arbeidOgFrilans;
+    expect(
+      aksjonspunktBoks_FASTSETT_BG_AT_FL.getByLabelText(
+        'Arbeidsinntekt fra TROSSIG NATURSTRIDIG TIGER AS (222222222) fastsettes til',
+      ),
+    ).toHaveValue('200 000');
+    expect(aksjonspunktBoks_FASTSETT_BG_AT_FL.getByLabelText('Frilansinntekt fastsettes til')).toHaveValue('100 000');
+    expect(aksjonspunktBoks_FASTSETT_BG_AT_FL.getByLabelText('Vurdering')).toHaveValue('Dette er løst');
 
-    expect(bruttoAG1).toHaveValue('200 000');
-    expect(bruttoFL1).toHaveValue('100 000');
-    expect(begrunnelseATFL).toHaveValue('Dette er løst');
-
-    expect(apBoks_selvstendigNæringsdrivende.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument();
-    await userEvent.click(apBoks_selvstendigNæringsdrivende.getByLabelText('Ingen varig endring'));
+    expect(
+      aksjonspunktBoks_VURDER_VARIG_ENDRT_NYOPPSTR_NAERNG_SN.queryByText('Næringsinntekt fastsettes til'),
+    ).not.toBeInTheDocument();
+    await userEvent.click(aksjonspunktBoks_VURDER_VARIG_ENDRT_NYOPPSTR_NAERNG_SN.getByLabelText('Ingen varig endring'));
     await waitFor(() =>
-      expect(apBoks_selvstendigNæringsdrivende.queryByText('Næringsinntekt fastsettes til')).not.toBeInTheDocument(),
+      expect(
+        aksjonspunktBoks_VURDER_VARIG_ENDRT_NYOPPSTR_NAERNG_SN.queryByText('Næringsinntekt fastsettes til'),
+      ).not.toBeInTheDocument(),
     );
     await userEvent.click(
-      apBoks_selvstendigNæringsdrivende.getByLabelText('Varig endring - årsinntekt må fastsettes.'),
+      aksjonspunktBoks_VURDER_VARIG_ENDRT_NYOPPSTR_NAERNG_SN.getByLabelText('Varig endring - Årsinntekt må fastsettes'),
     );
-    expect(await apBoks_selvstendigNæringsdrivende.findByText('Næringsinntekt fastsettes til')).toBeInTheDocument();
-    const inputfelt_selvstendigNæringsdrivende = apBoks_selvstendigNæringsdrivende.getAllByRole('textbox', {
-      hidden: true,
-    });
-    const [bruttoNæringFelt, begrunnelseNæringFelt] = inputfelt_selvstendigNæringsdrivende;
+    expect(
+      await aksjonspunktBoks_VURDER_VARIG_ENDRT_NYOPPSTR_NAERNG_SN.findByText('Næringsinntekt fastsettes til'),
+    ).toBeInTheDocument();
+
+    const bruttoNæringFelt = aksjonspunktBoks_VURDER_VARIG_ENDRT_NYOPPSTR_NAERNG_SN.getByLabelText(
+      'Næringsinntekt fastsettes til',
+    );
+    const begrunnelseNæringFelt = aksjonspunktBoks_VURDER_VARIG_ENDRT_NYOPPSTR_NAERNG_SN.getByLabelText('Vurdering');
 
     await userEvent.type(bruttoNæringFelt, '260 000');
     await userEvent.type(begrunnelseNæringFelt, 'Min begrunnelse for vurdering av varig endring');

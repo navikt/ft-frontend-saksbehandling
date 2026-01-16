@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, HStack, Spacer, VStack } from '@navikt/ds-react';
+import { VStack } from '@navikt/ds-react';
 
 import { RhfTextarea, RhfTextField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
@@ -52,30 +52,24 @@ export const FastsettSNNyIArbeid = ({
   const { control } = useFormContext<BeregningFormValues>();
 
   return (
-    <VStack gap="space-40">
+    <VStack gap="space-20">
       {erNyIArbeidslivet && (
-        <HStack wrap={false}>
-          <BodyShort size="small">
-            <FormattedMessage id="FastsettSNNyIArbeid.Tittel" />
-          </BodyShort>
-          <Spacer />
-          <RhfTextField
-            name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
-            control={control}
-            validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
-            parse={parseCurrencyInput}
-            hideLabel
-            htmlSize={12}
-            style={{ textAlign: 'right' }}
-            isEdited={readOnly && isAksjonspunktClosed}
-            readOnly={readOnly}
-          />
-        </HStack>
+        <RhfTextField
+          label={<FormattedMessage id="FastsettSNNyIArbeid.Tittel" />}
+          name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
+          control={control}
+          validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
+          parse={parseCurrencyInput}
+          htmlSize={12}
+          style={{ textAlign: 'right' }}
+          isEdited={readOnly && isAksjonspunktClosed}
+          readOnly={readOnly}
+        />
       )}
       <RhfTextarea
         name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
         control={control}
-        label={<FormattedMessage id="Forms.VurderingAvFastsattBeregningsgrunnlag" />}
+        label={<FormattedMessage id="Forms.Vurdering" />}
         validate={skalValideres ? [required, maxLength4000, minLength3, hasValidText] : []}
         isEdited={readOnly && isAksjonspunktClosed}
         maxLength={MAX_LENGTH}

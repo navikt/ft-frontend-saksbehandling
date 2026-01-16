@@ -1,8 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, HStack, Spacer } from '@navikt/ds-react';
-
 import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
 import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
@@ -38,23 +36,17 @@ export const AksjonspunktBehandlerFL = ({
 }: Props) => {
   const { control } = useFormContext<BeregningFormValues>();
   return (
-    <HStack wrap={false}>
-      <BodyShort size="small">
-        <FormattedMessage id="AksjonspunktBehandlerFL.Label" />
-      </BodyShort>
-      <Spacer />
-      <RhfTextField
-        control={control}
-        name={`${formName}.${fieldIndex}.inntektFrilanser`}
-        validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
-        readOnly={readOnly}
-        hideLabel
-        parse={parseCurrencyInput}
-        htmlSize={12}
-        style={{ textAlign: 'right' }}
-        isEdited={readOnly && erFrilansFastsatt(alleAndelerIForstePeriode)}
-      />
-    </HStack>
+    <RhfTextField
+      label={<FormattedMessage id="AksjonspunktBehandlerFL.Label" />}
+      control={control}
+      name={`${formName}.${fieldIndex}.inntektFrilanser`}
+      validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
+      readOnly={readOnly}
+      parse={parseCurrencyInput}
+      htmlSize={12}
+      style={{ textAlign: 'right' }}
+      isEdited={readOnly && erFrilansFastsatt(alleAndelerIForstePeriode)}
+    />
   );
 };
 

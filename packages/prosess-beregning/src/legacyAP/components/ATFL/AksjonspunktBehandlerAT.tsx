@@ -1,6 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-
-import { BodyShort, HStack, Spacer } from '@navikt/ds-react';
+import { FormattedMessage } from 'react-intl';
 
 import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
@@ -40,21 +39,20 @@ export const AksjonspunktBehandlerAT = ({
   return (
     <>
       {relevanteAndelerAT.map((andel, index) => (
-        <HStack wrap={false} key={andel.andelsnr}>
-          <BodyShort size="small">{formaterAndel(andel)}</BodyShort>
-          <Spacer />
-          <RhfTextField
-            name={`${formName}.${fieldIndex}.inntekt${index}`}
-            control={control}
-            validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
-            readOnly={readOnly || andel.skalFastsetteGrunnlag !== true}
-            parse={parseCurrencyInput}
-            htmlSize={12}
-            style={{ textAlign: 'right' }}
-            hideLabel
-            isEdited={readOnly && (!!andel.overstyrtPrAar || andel.overstyrtPrAar === 0)}
-          />
-        </HStack>
+        <RhfTextField
+          key={andel.andelsnr}
+          label={
+            <FormattedMessage id="AksjonspunktBehandlerAT.Label" values={{ arbeidsgiver: formaterAndel(andel) }} />
+          }
+          name={`${formName}.${fieldIndex}.inntekt${index}`}
+          control={control}
+          validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
+          readOnly={readOnly || andel.skalFastsetteGrunnlag !== true}
+          parse={parseCurrencyInput}
+          htmlSize={12}
+          style={{ textAlign: 'right' }}
+          isEdited={readOnly && (!!andel.overstyrtPrAar || andel.overstyrtPrAar === 0)}
+        />
       ))}
     </>
   );
