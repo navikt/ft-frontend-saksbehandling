@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-plattform-komponenter",
   "description": "Pakke som tilbyr sammensatte komponenter som f.eks. menyer",
-  "version": "10.3.3",
+  "version": "10.3.4",
   "license": "MIT",
   "type": "module",
   "module": "./dist/index.es.js",
@@ -26,7 +26,7 @@
   "dependencies": {
     "@navikt/aksel-icons": "7.40.0",
     "@navikt/ds-react": "7.40.0",
-    "@navikt/ft-utils": "workspace:^",
+    "@navikt/ft-utils": "^3.10.4",
     "classnames": "2.5.1",
     "dayjs": "1.11.19"
   },
@@ -43,9 +43,9 @@
     "react-dom": "19.1.0"
   },
   "devDependencies": {
-    "@navikt/ft-config-eslint": "workspace:^",
-    "@navikt/ft-config-typescript": "workspace:^",
-    "@navikt/ft-config-vite": "workspace:^",
+    "@navikt/ft-config-eslint": "^1.2.4",
+    "@navikt/ft-config-typescript": "^1.2.4",
+    "@navikt/ft-config-vite": "^1.2.4",
     "@testing-library/dom": "10.4.1",
     "@testing-library/react": "16.3.1",
     "classnames": "2.5.1",
@@ -70,5 +70,6 @@
       "types": "./dist/index.d.ts"
     },
     "./dist/style.css": "./dist/style.css"
-  }
+  },
+  "gitHead": "931e5e78bcf1b529187962e7dc5fd226e0076b9f"
 }
