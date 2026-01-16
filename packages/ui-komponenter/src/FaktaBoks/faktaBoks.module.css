@@ -1,7 +1,7 @@
 .faktaBox {
   background-color: var(--ax-bg-neutral-soft);
   border: none;
-  border-radius: 0;
+  border-radius: var(--ax-border-radius-medium);
   box-shadow: none;
   flex-basis: 0;
   flex-grow: 1;
@@ -17,7 +17,7 @@
   > div:first-child {
     &:hover {
       border: none;
-      border-radius: 0;
+      border-radius: var(--ax-border-radius-medium) var(--ax-border-radius-medium) 0 0;
     }
 
     &:after {
