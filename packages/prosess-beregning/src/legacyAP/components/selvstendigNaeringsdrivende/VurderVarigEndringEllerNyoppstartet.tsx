@@ -1,13 +1,19 @@
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, HStack, Radio, VStack } from '@navikt/ds-react';
+import { Radio, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup, RhfTextarea, RhfTextField } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, maxValueFormatted, minLength, required } from '@navikt/ft-form-validators';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
-import { formatCurrencyNoKr, isAksjonspunktOpen, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import {
+  BTag,
+  formatCurrencyNoKr,
+  isAksjonspunktOpen,
+  parseCurrencyInput,
+  removeSpacesFromNumber,
+} from '@navikt/ft-utils';
 
 import { AksjonspunktKode, medAPKode } from '../../../utils/aksjonspunkt';
 import type { BeregningFormValues, FormNameType } from '../../types/BeregningFormValues';
@@ -84,20 +90,23 @@ export const VurderVarigEndringEllerNyoppstartet = ({
         </Radio>
       </RhfRadioGroup>
       {varigEndringBekreftetVerdi && (
-        <HStack gap="space-16" align="center">
-          <BodyShort size="small">{inntektFastsettesText(erVarigEndretArbeidssituasjon)}</BodyShort>
-          <RhfTextField
-            name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
-            control={formMethods.control}
-            validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
-            parse={parseCurrencyInput}
-            hideLabel
-            htmlSize={12}
-            style={{ textAlign: 'right' }}
-            readOnly={readOnly}
-            isEdited={readOnly && isAksjonspunktClosed}
-          />
-        </HStack>
+        <RhfTextField
+          label={
+            erVarigEndretArbeidssituasjon ? (
+              <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.VarigEndretInntektFastsettesTil" />
+            ) : (
+              <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.BruttoBerGr2" />
+            )
+          }
+          name={`${formName}.${fieldIndex}.${fastsettInntektFieldname}`}
+          control={formMethods.control}
+          validate={skalValideres ? [required, maxValueFormatted(178956970)] : []}
+          parse={parseCurrencyInput}
+          htmlSize={12}
+          style={{ textAlign: 'right' }}
+          readOnly={readOnly}
+          isEdited={readOnly && isAksjonspunktClosed}
+        />
       )}
       <RhfTextarea
         name={`${formName}.${fieldIndex}.${begrunnelseFieldname}`}
@@ -152,13 +161,6 @@ VurderVarigEndringEllerNyoppstartet.transformValues = (
   };
 };
 
-const inntektFastsettesText = (erVarigEndretArbeidssituasjon: boolean | undefined) =>
-  erVarigEndretArbeidssituasjon ? (
-    <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.VarigEndretInntektFastsettesTil" />
-  ) : (
-    <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.BruttoBerGr2" />
-  );
-
 const hentRadioTekster = (
   erNyoppstartet: boolean | undefined,
   erVarigEndring: boolean | undefined,
@@ -167,7 +169,7 @@ const hentRadioTekster = (
   let radioOption1 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.IngenEndring" />;
   let radioOption2 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.EndretNaering" />;
   if (erNyoppstartet && !erVarigEndring) {
-    radioOption1 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.IkkeNyoppstartet" />;
+    radioOption1 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.IkkeNyoppstartet" values={{ b: BTag }} />;
     radioOption2 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.Nyoppstartet" />;
   }
   if (erVarigEndring && !erNyoppstartet) {
