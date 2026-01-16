@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-beregning",
   "description": "Faktaavklaringer rundt aktiviteter og andeler som skal bidra til beregningsgrunnlaget",
-  "version": "12.3.7",
+  "version": "12.3.8",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -26,10 +26,10 @@
     "@navikt/aksel-icons": "7.40.0",
     "@navikt/ds-css": "7.40.0",
     "@navikt/ds-react": "7.40.0",
-    "@navikt/ft-form-hooks": "^10.3.6",
-    "@navikt/ft-form-validators": "^4.4.4",
-    "@navikt/ft-ui-komponenter": "^6.5.6",
-    "@navikt/ft-utils": "^3.10.4",
+    "@navikt/ft-form-hooks": "^10.3.7",
+    "@navikt/ft-form-validators": "^4.4.5",
+    "@navikt/ft-ui-komponenter": "^6.5.7",
+    "@navikt/ft-utils": "^3.10.5",
     "core-js": "3.47.0",
     "dayjs": "1.11.19",
     "react": "19.2.3",
@@ -57,11 +57,11 @@
     "react-intl": "6.x"
   },
   "devDependencies": {
-    "@navikt/ft-config-eslint": "^1.2.4",
-    "@navikt/ft-config-typescript": "^1.2.4",
-    "@navikt/ft-config-vite": "^1.2.4",
-    "@navikt/ft-frontend-storybook-utils": "^5.4.7",
-    "@navikt/ft-frontend-utils-test": "^3.5.4",
+    "@navikt/ft-config-eslint": "^1.2.5",
+    "@navikt/ft-config-typescript": "^1.2.5",
+    "@navikt/ft-config-vite": "^1.2.5",
+    "@navikt/ft-frontend-storybook-utils": "^5.4.8",
+    "@navikt/ft-frontend-utils-test": "^3.5.5",
     "@testing-library/dom": "10.4.1",
     "@testing-library/react": "16.3.1",
     "@testing-library/user-event": "14.6.1",
@@ -85,5 +85,5 @@
     },
     "./dist/style.css": "./dist/style.css"
   },
-  "gitHead": "931e5e78bcf1b529187962e7dc5fd226e0076b9f"
+  "gitHead": "32d80ac587d63dc0407049ffa40bad580e88e3f4"
 }
