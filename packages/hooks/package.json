@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-hooks",
-  "version": "2.4.1",
+  "version": "2.4.10",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -24,9 +24,9 @@
     "react": "19.1.0"
   },
   "devDependencies": {
-    "@navikt/ft-config-eslint": "workspace:^",
-    "@navikt/ft-config-typescript": "workspace:^",
-    "@navikt/ft-config-vite": "workspace:^",
+    "@navikt/ft-config-eslint": "^1.2.10",
+    "@navikt/ft-config-typescript": "^1.2.10",
+    "@navikt/ft-config-vite": "^1.2.10",
     "@testing-library/react": "16.3.1",
     "eslint": "9.39.2",
     "typescript": "5.9.3",
@@ -45,5 +45,6 @@
       "import": "./dist/index.es.js",
       "types": "./dist/index.d.ts"
     }
-  }
+  },
+  "gitHead": "39ecc3847e615a89f26fc0f255a1c5587d7a931b"
 }

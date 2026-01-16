@@ -2252,7 +2252,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/ft-config-eslint@workspace:^, @navikt/ft-config-eslint@workspace:packages/internal/config-eslint":
+"@navikt/ft-config-eslint@npm:^1.2.10, @navikt/ft-config-eslint@workspace:^, @navikt/ft-config-eslint@workspace:packages/internal/config-eslint":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-config-eslint@workspace:packages/internal/config-eslint"
   dependencies:
@@ -2273,7 +2273,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-config-typescript@workspace:^, @navikt/ft-config-typescript@workspace:packages/internal/config-typescript":
+"@navikt/ft-config-typescript@npm:^1.2.10, @navikt/ft-config-typescript@workspace:^, @navikt/ft-config-typescript@workspace:packages/internal/config-typescript":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-config-typescript@workspace:packages/internal/config-typescript"
   dependencies:
@@ -2283,7 +2283,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-config-vite@workspace:^, @navikt/ft-config-vite@workspace:packages/internal/config-vite":
+"@navikt/ft-config-vite@npm:^1.2.10, @navikt/ft-config-vite@workspace:^, @navikt/ft-config-vite@workspace:packages/internal/config-vite":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-config-vite@workspace:packages/internal/config-vite"
   dependencies:
@@ -2303,15 +2303,15 @@ __metadata:
     "@navikt/aksel-icons": "npm:7.40.0"
     "@navikt/ds-css": "npm:7.40.0"
     "@navikt/ds-react": "npm:7.40.0"
-    "@navikt/ft-config-eslint": "workspace:^"
-    "@navikt/ft-config-typescript": "workspace:^"
-    "@navikt/ft-config-vite": "workspace:^"
-    "@navikt/ft-form-hooks": "workspace:^"
-    "@navikt/ft-form-validators": "workspace:^"
-    "@navikt/ft-frontend-storybook-utils": "workspace:^"
-    "@navikt/ft-frontend-utils-test": "workspace:^"
-    "@navikt/ft-ui-komponenter": "workspace:^"
-    "@navikt/ft-utils": "workspace:^"
+    "@navikt/ft-config-eslint": "npm:^1.2.10"
+    "@navikt/ft-config-typescript": "npm:^1.2.10"
+    "@navikt/ft-config-vite": "npm:^1.2.10"
+    "@navikt/ft-form-hooks": "npm:^10.3.12"
+    "@navikt/ft-form-validators": "npm:^4.4.10"
+    "@navikt/ft-frontend-storybook-utils": "npm:^5.4.13"
+    "@navikt/ft-frontend-utils-test": "npm:^3.5.10"
+    "@navikt/ft-ui-komponenter": "npm:^6.5.12"
+    "@navikt/ft-utils": "npm:^3.10.10"
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.1"
     "@testing-library/user-event": "npm:14.6.1"
@@ -2354,15 +2354,15 @@ __metadata:
     "@navikt/aksel-icons": "npm:7.40.0"
     "@navikt/ds-css": "npm:7.40.0"
     "@navikt/ds-react": "npm:7.40.0"
-    "@navikt/ft-config-eslint": "workspace:^"
-    "@navikt/ft-config-typescript": "workspace:^"
-    "@navikt/ft-config-vite": "workspace:^"
-    "@navikt/ft-form-hooks": "workspace:^"
-    "@navikt/ft-form-validators": "workspace:^"
-    "@navikt/ft-frontend-storybook-utils": "workspace:^"
-    "@navikt/ft-frontend-utils-test": "workspace:^"
-    "@navikt/ft-ui-komponenter": "workspace:^"
-    "@navikt/ft-utils": "workspace:^"
+    "@navikt/ft-config-eslint": "npm:^1.2.10"
+    "@navikt/ft-config-typescript": "npm:^1.2.10"
+    "@navikt/ft-config-vite": "npm:^1.2.10"
+    "@navikt/ft-form-hooks": "npm:^10.3.12"
+    "@navikt/ft-form-validators": "npm:^4.4.10"
+    "@navikt/ft-frontend-storybook-utils": "npm:^5.4.13"
+    "@navikt/ft-frontend-utils-test": "npm:^3.5.10"
+    "@navikt/ft-ui-komponenter": "npm:^6.5.12"
+    "@navikt/ft-utils": "npm:^3.10.10"
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.1"
     "@testing-library/user-event": "npm:14.6.1"
@@ -2403,14 +2403,14 @@ __metadata:
   dependencies:
     "@navikt/ds-css": "npm:7.40.0"
     "@navikt/ds-react": "npm:7.40.0"
-    "@navikt/ft-config-eslint": "workspace:^"
-    "@navikt/ft-config-typescript": "workspace:^"
-    "@navikt/ft-config-vite": "workspace:^"
-    "@navikt/ft-form-hooks": "workspace:^"
-    "@navikt/ft-form-validators": "workspace:^"
-    "@navikt/ft-frontend-storybook-utils": "workspace:^"
-    "@navikt/ft-ui-komponenter": "workspace:^"
-    "@navikt/ft-utils": "workspace:^"
+    "@navikt/ft-config-eslint": "npm:^1.2.10"
+    "@navikt/ft-config-typescript": "npm:^1.2.10"
+    "@navikt/ft-config-vite": "npm:^1.2.10"
+    "@navikt/ft-form-hooks": "npm:^10.3.12"
+    "@navikt/ft-form-validators": "npm:^4.4.10"
+    "@navikt/ft-frontend-storybook-utils": "npm:^5.4.13"
+    "@navikt/ft-ui-komponenter": "npm:^6.5.12"
+    "@navikt/ft-utils": "npm:^3.10.10"
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.1"
     "@testing-library/user-event": "npm:14.6.1"
@@ -2437,18 +2437,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-form-hooks@workspace:^, @navikt/ft-form-hooks@workspace:packages/form-hooks":
+"@navikt/ft-form-hooks@npm:^10.3.12, @navikt/ft-form-hooks@workspace:^, @navikt/ft-form-hooks@workspace:packages/form-hooks":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-form-hooks@workspace:packages/form-hooks"
   dependencies:
     "@navikt/aksel-icons": "npm:7.40.0"
     "@navikt/ds-css": "npm:7.40.0"
     "@navikt/ds-react": "npm:7.40.0"
-    "@navikt/ft-config-eslint": "workspace:^"
-    "@navikt/ft-config-typescript": "workspace:^"
-    "@navikt/ft-config-vite": "workspace:^"
-    "@navikt/ft-ui-komponenter": "workspace:^"
-    "@navikt/ft-utils": "workspace:^"
+    "@navikt/ft-config-eslint": "npm:^1.2.10"
+    "@navikt/ft-config-typescript": "npm:^1.2.10"
+    "@navikt/ft-config-vite": "npm:^1.2.10"
+    "@navikt/ft-ui-komponenter": "npm:^6.5.12"
+    "@navikt/ft-utils": "npm:^3.10.10"
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.1"
     "@testing-library/user-event": "npm:14.6.1"
@@ -2479,14 +2479,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-form-validators@workspace:^, @navikt/ft-form-validators@workspace:packages/form-validators":
+"@navikt/ft-form-validators@npm:^4.4.10, @navikt/ft-form-validators@workspace:packages/form-validators":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-form-validators@workspace:packages/form-validators"
   dependencies:
-    "@navikt/ft-config-eslint": "workspace:^"
-    "@navikt/ft-config-typescript": "workspace:^"
-    "@navikt/ft-config-vite": "workspace:^"
-    "@navikt/ft-utils": "workspace:^"
+    "@navikt/ft-config-eslint": "npm:^1.2.10"
+    "@navikt/ft-config-typescript": "npm:^1.2.10"
+    "@navikt/ft-config-vite": "npm:^1.2.10"
+    "@navikt/ft-utils": "npm:^3.10.10"
     dayjs: "npm:1.11.19"
     eslint: "npm:9.39.2"
     typescript: "npm:5.9.3"
@@ -2498,7 +2498,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-frontend-storybook-utils@workspace:^, @navikt/ft-frontend-storybook-utils@workspace:packages/internal/storybook-utils":
+"@navikt/ft-frontend-storybook-utils@npm:^5.4.13, @navikt/ft-frontend-storybook-utils@workspace:^, @navikt/ft-frontend-storybook-utils@workspace:packages/internal/storybook-utils":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-frontend-storybook-utils@workspace:packages/internal/storybook-utils"
   dependencies:
@@ -2514,7 +2514,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-frontend-utils-test@workspace:^, @navikt/ft-frontend-utils-test@workspace:packages/internal/utils-test":
+"@navikt/ft-frontend-utils-test@npm:^3.5.10, @navikt/ft-frontend-utils-test@workspace:packages/internal/utils-test":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-frontend-utils-test@workspace:packages/internal/utils-test"
   dependencies:
@@ -2531,9 +2531,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-hooks@workspace:packages/hooks"
   dependencies:
-    "@navikt/ft-config-eslint": "workspace:^"
-    "@navikt/ft-config-typescript": "workspace:^"
-    "@navikt/ft-config-vite": "workspace:^"
+    "@navikt/ft-config-eslint": "npm:^1.2.10"
+    "@navikt/ft-config-typescript": "npm:^1.2.10"
+    "@navikt/ft-config-vite": "npm:^1.2.10"
     "@testing-library/react": "npm:16.3.1"
     eslint: "npm:9.39.2"
     typescript: "npm:5.9.3"
@@ -2564,10 +2564,10 @@ __metadata:
   dependencies:
     "@navikt/aksel-icons": "npm:7.40.0"
     "@navikt/ds-react": "npm:7.40.0"
-    "@navikt/ft-config-eslint": "workspace:^"
-    "@navikt/ft-config-typescript": "workspace:^"
-    "@navikt/ft-config-vite": "workspace:^"
-    "@navikt/ft-utils": "workspace:^"
+    "@navikt/ft-config-eslint": "npm:^1.2.10"
+    "@navikt/ft-config-typescript": "npm:^1.2.10"
+    "@navikt/ft-config-vite": "npm:^1.2.10"
+    "@navikt/ft-utils": "npm:^3.10.10"
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.1"
     classnames: "npm:2.5.1"
@@ -2600,14 +2600,14 @@ __metadata:
     "@navikt/aksel-icons": "npm:7.40.0"
     "@navikt/ds-css": "npm:7.40.0"
     "@navikt/ds-react": "npm:7.40.0"
-    "@navikt/ft-config-eslint": "workspace:^"
-    "@navikt/ft-config-typescript": "workspace:^"
-    "@navikt/ft-config-vite": "workspace:^"
-    "@navikt/ft-form-hooks": "workspace:^"
-    "@navikt/ft-form-validators": "workspace:^"
-    "@navikt/ft-frontend-storybook-utils": "workspace:^"
-    "@navikt/ft-ui-komponenter": "workspace:^"
-    "@navikt/ft-utils": "workspace:^"
+    "@navikt/ft-config-eslint": "npm:^1.2.10"
+    "@navikt/ft-config-typescript": "npm:^1.2.10"
+    "@navikt/ft-config-vite": "npm:^1.2.10"
+    "@navikt/ft-form-hooks": "npm:^10.3.12"
+    "@navikt/ft-form-validators": "npm:^4.4.10"
+    "@navikt/ft-frontend-storybook-utils": "npm:^5.4.13"
+    "@navikt/ft-ui-komponenter": "npm:^6.5.12"
+    "@navikt/ft-utils": "npm:^3.10.10"
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.1"
     "@testing-library/user-event": "npm:14.6.1"
@@ -2647,14 +2647,14 @@ __metadata:
     "@navikt/aksel-icons": "npm:7.40.0"
     "@navikt/ds-css": "npm:7.40.0"
     "@navikt/ds-react": "npm:7.40.0"
-    "@navikt/ft-config-eslint": "workspace:^"
-    "@navikt/ft-config-typescript": "workspace:^"
-    "@navikt/ft-config-vite": "workspace:^"
-    "@navikt/ft-form-hooks": "workspace:^"
-    "@navikt/ft-form-validators": "workspace:^"
-    "@navikt/ft-frontend-storybook-utils": "workspace:^"
-    "@navikt/ft-ui-komponenter": "workspace:^"
-    "@navikt/ft-utils": "workspace:^"
+    "@navikt/ft-config-eslint": "npm:^1.2.10"
+    "@navikt/ft-config-typescript": "npm:^1.2.10"
+    "@navikt/ft-config-vite": "npm:^1.2.10"
+    "@navikt/ft-form-hooks": "npm:^10.3.12"
+    "@navikt/ft-form-validators": "npm:^4.4.10"
+    "@navikt/ft-frontend-storybook-utils": "npm:^5.4.13"
+    "@navikt/ft-ui-komponenter": "npm:^6.5.12"
+    "@navikt/ft-utils": "npm:^3.10.10"
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.1"
     "@testing-library/user-event": "npm:14.6.1"
@@ -2696,13 +2696,13 @@ __metadata:
     "@navikt/aksel-icons": "npm:7.40.0"
     "@navikt/ds-css": "npm:7.40.0"
     "@navikt/ds-react": "npm:7.40.0"
-    "@navikt/ft-config-eslint": "workspace:^"
-    "@navikt/ft-config-typescript": "workspace:^"
-    "@navikt/ft-config-vite": "workspace:^"
-    "@navikt/ft-form-hooks": "workspace:^"
-    "@navikt/ft-form-validators": "workspace:^"
-    "@navikt/ft-ui-komponenter": "workspace:^"
-    "@navikt/ft-utils": "workspace:^"
+    "@navikt/ft-config-eslint": "npm:^1.2.10"
+    "@navikt/ft-config-typescript": "npm:^1.2.10"
+    "@navikt/ft-config-vite": "npm:^1.2.10"
+    "@navikt/ft-form-hooks": "npm:^10.3.12"
+    "@navikt/ft-form-validators": "npm:^4.4.10"
+    "@navikt/ft-ui-komponenter": "npm:^6.5.12"
+    "@navikt/ft-utils": "npm:^3.10.10"
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.1"
     "@testing-library/user-event": "npm:14.6.1"
@@ -2739,14 +2739,14 @@ __metadata:
     "@navikt/aksel-icons": "npm:7.40.0"
     "@navikt/ds-css": "npm:7.40.0"
     "@navikt/ds-react": "npm:7.40.0"
-    "@navikt/ft-config-eslint": "workspace:^"
-    "@navikt/ft-config-typescript": "workspace:^"
-    "@navikt/ft-config-vite": "workspace:^"
-    "@navikt/ft-form-hooks": "workspace:^"
-    "@navikt/ft-form-validators": "workspace:^"
-    "@navikt/ft-frontend-storybook-utils": "workspace:^"
-    "@navikt/ft-ui-komponenter": "workspace:^"
-    "@navikt/ft-utils": "workspace:^"
+    "@navikt/ft-config-eslint": "npm:^1.2.10"
+    "@navikt/ft-config-typescript": "npm:^1.2.10"
+    "@navikt/ft-config-vite": "npm:^1.2.10"
+    "@navikt/ft-form-hooks": "npm:^10.3.12"
+    "@navikt/ft-form-validators": "npm:^4.4.10"
+    "@navikt/ft-frontend-storybook-utils": "npm:^5.4.13"
+    "@navikt/ft-ui-komponenter": "npm:^6.5.12"
+    "@navikt/ft-utils": "npm:^3.10.10"
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.1"
     "@testing-library/user-event": "npm:14.6.1"
@@ -2783,14 +2783,14 @@ __metadata:
     "@navikt/aksel-icons": "npm:7.40.0"
     "@navikt/ds-css": "npm:7.40.0"
     "@navikt/ds-react": "npm:7.40.0"
-    "@navikt/ft-config-eslint": "workspace:^"
-    "@navikt/ft-config-typescript": "workspace:^"
-    "@navikt/ft-config-vite": "workspace:^"
-    "@navikt/ft-form-hooks": "workspace:^"
-    "@navikt/ft-form-validators": "workspace:^"
-    "@navikt/ft-frontend-storybook-utils": "workspace:^"
-    "@navikt/ft-ui-komponenter": "workspace:^"
-    "@navikt/ft-utils": "workspace:^"
+    "@navikt/ft-config-eslint": "npm:^1.2.10"
+    "@navikt/ft-config-typescript": "npm:^1.2.10"
+    "@navikt/ft-config-vite": "npm:^1.2.10"
+    "@navikt/ft-form-hooks": "npm:^10.3.12"
+    "@navikt/ft-form-validators": "npm:^4.4.10"
+    "@navikt/ft-frontend-storybook-utils": "npm:^5.4.13"
+    "@navikt/ft-ui-komponenter": "npm:^6.5.12"
+    "@navikt/ft-utils": "npm:^3.10.10"
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.1"
     "@testing-library/user-event": "npm:14.6.1"
@@ -2824,9 +2824,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-types@workspace:packages/types"
   dependencies:
-    "@navikt/ft-config-eslint": "workspace:^"
-    "@navikt/ft-config-typescript": "workspace:^"
-    "@navikt/ft-config-vite": "workspace:^"
+    "@navikt/ft-config-eslint": "npm:^1.2.10"
+    "@navikt/ft-config-typescript": "npm:^1.2.10"
+    "@navikt/ft-config-vite": "npm:^1.2.10"
     eslint: "npm:9.39.2"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.1"
@@ -2834,16 +2834,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-ui-komponenter@workspace:^, @navikt/ft-ui-komponenter@workspace:packages/ui-komponenter":
+"@navikt/ft-ui-komponenter@npm:^6.5.12, @navikt/ft-ui-komponenter@workspace:packages/ui-komponenter":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-ui-komponenter@workspace:packages/ui-komponenter"
   dependencies:
     "@navikt/aksel-icons": "npm:7.40.0"
     "@navikt/ds-react": "npm:7.40.0"
-    "@navikt/ft-config-eslint": "workspace:^"
-    "@navikt/ft-config-typescript": "workspace:^"
-    "@navikt/ft-config-vite": "workspace:^"
-    "@navikt/ft-utils": "workspace:^"
+    "@navikt/ft-config-eslint": "npm:^1.2.10"
+    "@navikt/ft-config-typescript": "npm:^1.2.10"
+    "@navikt/ft-config-vite": "npm:^1.2.10"
+    "@navikt/ft-utils": "npm:^3.10.10"
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.1"
     "@testing-library/user-event": "npm:14.6.1"
@@ -2869,13 +2869,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-utils@workspace:^, @navikt/ft-utils@workspace:packages/utils":
+"@navikt/ft-utils@npm:^3.10.10, @navikt/ft-utils@workspace:packages/utils":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-utils@workspace:packages/utils"
   dependencies:
-    "@navikt/ft-config-eslint": "workspace:^"
-    "@navikt/ft-config-typescript": "workspace:^"
-    "@navikt/ft-config-vite": "workspace:^"
+    "@navikt/ft-config-eslint": "npm:^1.2.10"
+    "@navikt/ft-config-typescript": "npm:^1.2.10"
+    "@navikt/ft-config-vite": "npm:^1.2.10"
     dayjs: "npm:1.11.19"
     eslint: "npm:9.39.2"
     react-intl: "npm:8.0.11"

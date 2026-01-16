@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-prosess-beregningsgrunnlag",
   "description": "Oversikt over ulike andeler i beregningsgrunnlaget og hva disse er fastsatt til. Aksjonspunkter relatert til avvik for arbeid, frilans og næring",
-  "version": "11.4.5",
+  "version": "11.4.14",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -26,10 +26,10 @@
     "@navikt/aksel-icons": "7.40.0",
     "@navikt/ds-css": "7.40.0",
     "@navikt/ds-react": "7.40.0",
-    "@navikt/ft-form-hooks": "workspace:^",
-    "@navikt/ft-form-validators": "workspace:^",
-    "@navikt/ft-ui-komponenter": "workspace:^",
-    "@navikt/ft-utils": "workspace:^",
+    "@navikt/ft-form-hooks": "^10.3.12",
+    "@navikt/ft-form-validators": "^4.4.10",
+    "@navikt/ft-ui-komponenter": "^6.5.12",
+    "@navikt/ft-utils": "^3.10.10",
     "classnames": "2.5.1",
     "dayjs": "1.11.19",
     "echarts": "6.0.0",
@@ -56,10 +56,10 @@
     "react-intl": "6.x"
   },
   "devDependencies": {
-    "@navikt/ft-config-eslint": "workspace:^",
-    "@navikt/ft-config-typescript": "workspace:^",
-    "@navikt/ft-config-vite": "workspace:^",
-    "@navikt/ft-frontend-storybook-utils": "workspace:^",
+    "@navikt/ft-config-eslint": "^1.2.10",
+    "@navikt/ft-config-typescript": "^1.2.10",
+    "@navikt/ft-config-vite": "^1.2.10",
+    "@navikt/ft-frontend-storybook-utils": "^5.4.13",
     "@testing-library/dom": "10.4.1",
     "@testing-library/react": "16.3.1",
     "@testing-library/user-event": "14.6.1",
@@ -78,5 +78,6 @@
       "types": "./dist/index.d.ts"
     },
     "./dist/style.css": "./dist/style.css"
-  }
+  },
+  "gitHead": "39ecc3847e615a89f26fc0f255a1c5587d7a931b"
 }
