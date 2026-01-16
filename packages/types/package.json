@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-types",
   "description": "Pakke som har typer som blir brukt på tvers av applikasjoner",
-  "version": "5.3.9",
+  "version": "5.3.10",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -18,9 +18,9 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "devDependencies": {
-    "@navikt/ft-config-eslint": "^1.2.9",
-    "@navikt/ft-config-typescript": "^1.2.9",
-    "@navikt/ft-config-vite": "^1.2.9",
+    "@navikt/ft-config-eslint": "^1.2.10",
+    "@navikt/ft-config-typescript": "^1.2.10",
+    "@navikt/ft-config-vite": "^1.2.10",
     "eslint": "9.39.2",
     "typescript": "5.9.3",
     "vite": "7.3.1",
@@ -39,5 +39,5 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "gitHead": "dcd4d6226d9343481deec3cf4af0b6b364f0f56c"
+  "gitHead": "39ecc3847e615a89f26fc0f255a1c5587d7a931b"
 }
