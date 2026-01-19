@@ -1,13 +1,6 @@
 .table {
   width: fit-content;
 
-  thead tr:nth-child(2) th:not(:first-child),
-  tbody tr td:not(:first-child),
-  tfoot tr th:not(:first-child) {
-    border-inline: 1px solid var(--ax-border-neutral-subtleA);
-    width: 120px;
-  }
-
   input {
     text-align: right;
   }

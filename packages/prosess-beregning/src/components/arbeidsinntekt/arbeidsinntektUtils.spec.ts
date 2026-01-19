@@ -21,6 +21,7 @@ describe('arbeidsinntektUtils', () => {
       expect(resultat[0]).toEqual({
         andelsnr: 1,
         andelsLabel: 'INTERESSANT INTUITIV KATT DIAMETER (444444444)',
+        erTidsbegrensetArbeidsforhold: false,
         beregningsgrunnlagMånedinntekt: 10592,
         beregningsgrunnlagÅrsinntekt: 127104,
         ansattPeriode: {
@@ -36,6 +37,7 @@ describe('arbeidsinntektUtils', () => {
       expect(resultat[1]).toEqual({
         andelsnr: 2,
         andelsLabel: 'TROSSIG NATURSTRIDIG TIGER AS (222222222)',
+        erTidsbegrensetArbeidsforhold: false,
         beregningsgrunnlagMånedinntekt: 30000,
         beregningsgrunnlagÅrsinntekt: 360000,
         ansattPeriode: {

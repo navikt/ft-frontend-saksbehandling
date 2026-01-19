@@ -22,3 +22,7 @@
     border-top: 2px solid var(--ax-border-neutral-strong);
   }
 }
+
+.tidsbegrensetTag {
+  margin-left: 8px;
+}

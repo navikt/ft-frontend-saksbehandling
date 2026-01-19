@@ -231,7 +231,7 @@ const Rows = ({
               isEdited={readOnly && finnesAlleredeLøstPeriode}
               hideLabel
               parse={parseCurrencyInput}
-              htmlSize={12}
+              htmlSize={10}
             />
           </Table.DataCell>
         );
@@ -313,7 +313,9 @@ export const AksjonspunktBehandlerTidsbegrenset = ({
           </Table.HeaderCell>
         </Table.Row>
         <Table.Row shadeOnHover={false}>
-          <Table.HeaderCell scope="col" />
+          <Table.HeaderCell scope="col" textSize="small">
+            <FormattedMessage id="AksjonspunktBehandlerTB.ArbeidsforholdSomSkalFastsettes" />
+          </Table.HeaderCell>
           {bruttoPrPeriodeList.map(({ periodeFom }) => (
             <Table.HeaderCell key={`periodetittel${periodeFom}`} textSize="small" align="center">
               <DateLabel dateString={periodeFom} />
@@ -332,7 +334,7 @@ export const AksjonspunktBehandlerTidsbegrenset = ({
           control={formMethods.control}
         />
       </Table.Body>
-      {bruttoPrPeriodeList.length > 1 && (
+      {Object.entries(tabellData).length > 1 && (
         <tfoot>
           <Table.Row shadeOnHover={false}>
             <Table.HeaderCell textSize="small">
