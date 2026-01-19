@@ -11,6 +11,7 @@
   "Arbeidsinntekt.Table.Inntektsmelding": "Inntektsmelding",
   "Arbeidsinntekt.Table.Beregningsgrunnlag": "A-Ordningen § 8-28",
 
+  "Arbeidsinntekt.Tidsbegrenset": "Tidsbegrenset",
   "Arbeidsinntekt.Ansettelsesperiode": "Ansettelsesperiode",
   "Arbeidsinntekt.SistEndretLonn": "Sist endret lønn:",
   "Arbeidsinntekt.Stillingsprosent": "Stillingsprosent:",
@@ -68,6 +69,7 @@
   "VurderVarigEndringEllerNyoppstartet.VarigEndretInntektFastsettesTil": "Varig endret årsinntekt fastsettes til",
 
   "AksjonspunktBehandlerTB.SumPeriode": "Total årsinntekt per periode",
+  "AksjonspunktBehandlerTB.ArbeidsforholdSomSkalFastsettes": "Arbeidsforhold som skal fastsettes",
   "AksjonspunktBehandlerTB.OmberegnetAar": "Beregnet år",
   "AksjonspunktBehandlerFL.Label": "Frilansinntekt fastsettes til",
   "AksjonspunktBehandlerAT.Label": "Arbeidsinntekt fra {arbeidsgiver} fastsettes til",

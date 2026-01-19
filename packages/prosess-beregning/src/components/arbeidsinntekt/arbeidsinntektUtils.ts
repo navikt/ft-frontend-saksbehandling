@@ -37,6 +37,7 @@ const finnAndelerSomSkalVises = (andeler: BeregningsgrunnlagAndel[]): Beregnings
 
 type ArbeidsinntektVisning = {
   andelsLabel: string;
+  erTidsbegrensetArbeidsforhold: boolean;
   andelsnr: number;
   ansattPeriode?: {
     fom: string | undefined;
@@ -69,6 +70,7 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
     const arbeidsgiverIdent = andel.arbeidsforhold?.arbeidsgiverIdent;
     return {
       andelsLabel: formaterVisningsnavnForAndel(andel),
+      erTidsbegrensetArbeidsforhold: andel.erTidsbegrensetArbeidsforhold ?? false,
       andelsnr: andel.andelsnr,
       ansattPeriode: andel.arbeidsforhold
         ? {

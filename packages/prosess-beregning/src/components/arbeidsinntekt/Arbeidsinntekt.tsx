@@ -1,6 +1,6 @@
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { BodyShort, Table, Tooltip } from '@navikt/ds-react';
+import { BodyShort, Table, Tag, Tooltip } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel, DateLabel, FaktaBoks, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
@@ -113,7 +113,14 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
                 </div>
               }
             >
-              <Table.DataCell textSize="small">{visning.andelsLabel}</Table.DataCell>
+              <Table.DataCell textSize="small">
+                <span>{visning.andelsLabel}</span>
+                {visning.erTidsbegrensetArbeidsforhold && (
+                  <Tag variant="info" size="xsmall" className={styles.tidsbegrensetTag}>
+                    <FormattedMessage id="Arbeidsinntekt.Tidsbegrenset" />
+                  </Tag>
+                )}
+              </Table.DataCell>
               <Table.DataCell textSize="small" align="right">
                 <BeløpLabel beløp={visning.inntektsmeldingMånedinntekt} kr />
               </Table.DataCell>
