@@ -114,7 +114,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
               }
             >
               <Table.DataCell textSize="small">
-                <span>{visning.andelsLabel}</span>
+                {visning.andelsLabel}
                 {visning.erTidsbegrensetArbeidsforhold && (
                   <Tag variant="info" size="xsmall" className={styles.tidsbegrensetTag}>
                     <FormattedMessage id="Arbeidsinntekt.Tidsbegrenset" />
