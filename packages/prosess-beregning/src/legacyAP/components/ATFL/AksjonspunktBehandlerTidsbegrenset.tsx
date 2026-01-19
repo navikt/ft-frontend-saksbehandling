@@ -2,7 +2,7 @@ import { type ReactElement } from 'react';
 import { type Control, useFormContext, type UseFormReturn } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { Detail, HStack, Spacer, Table } from '@navikt/ds-react';
+import { Table } from '@navikt/ds-react';
 
 import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
@@ -34,6 +34,8 @@ import type {
   TidsbegrensetArbeidsforholdInntektResultat,
   TidsbegrensetArbeidsforholdPeriodeResultat,
 } from '../../types/BeregningsgrunnlagAP';
+
+import styles from './aksjonspunktBehandlerTidsbegrenset.module.css';
 
 const formPrefix = 'inntektField';
 
@@ -181,8 +183,8 @@ const createTableData = (
       const newMapValue = createMapValueObject();
       newMapValue.tabellInnhold =
         andel.overstyrtPrAar !== undefined && andel.overstyrtPrAar !== null
-          ? formatCurrencyNoKr(andel.overstyrtPrAar)
-          : '';
+          ? andel.overstyrtPrAar.toString()
+          : undefined;
       newMapValue.erTidsbegrenset = false;
       newMapValue.isEditable = erTidsbegrensetAndel ? true : erFørstePeriode;
       newMapValue.inputfieldKey = createInputFieldKey(andel, periode);
@@ -191,35 +193,6 @@ const createTableData = (
   });
   return arbeidsforholdPeriodeMap;
 };
-
-const SummaryTableRow = ({ bruttoPrPeriodeList }: { bruttoPrPeriodeList: BruttoPrPeriode[] }): ReactElement => (
-  <Table.Row shadeOnHover={false}>
-    <Table.HeaderCell textSize="small">
-      <FormattedMessage id="AksjonspunktBehandlerTB.SumPeriode" />
-    </Table.HeaderCell>
-    {bruttoPrPeriodeList.map(({ periodeFom, brutto }) => (
-      <Table.HeaderCell key={periodeFom} textSize="small" align="right">
-        <BeløpLabel beløp={brutto} kr />
-      </Table.HeaderCell>
-    ))}
-  </Table.Row>
-);
-
-const HeaderRow = ({ bruttoPrPeriodeList }: { bruttoPrPeriodeList: BruttoPrPeriode[] }): ReactElement => (
-  <Table.Row shadeOnHover={false}>
-    <Table.HeaderCell scope="col" />
-    {bruttoPrPeriodeList.map(({ periodeFom }) => {
-      return (
-        <Table.HeaderCell key={`periodetittel${periodeFom}`} textSize="small" align="right">
-          <DateLabel dateString={periodeFom} />
-          <Detail>
-            <FormattedMessage id="AksjonspunktBehandlerTB.OmberegnetAar" key={`Tittel_${periodeFom}`} />
-          </Detail>
-        </Table.HeaderCell>
-      );
-    })}
-  </Table.Row>
-);
 
 const Rows = ({
   tabellData,
@@ -250,20 +223,16 @@ const Rows = ({
         }
         return (
           <Table.DataCell key={`Col-${element.inputfieldKey}`} align="right">
-            <HStack>
-              <Spacer />
-              <RhfTextField
-                name={`${formName}.${fieldIndex}.${element.inputfieldKey}`}
-                control={control}
-                validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
-                readOnly={readOnly}
-                isEdited={readOnly && finnesAlleredeLøstPeriode}
-                hideLabel
-                parse={parseCurrencyInput}
-                htmlSize={12}
-                style={{ textAlign: 'right' }}
-              />
-            </HStack>
+            <RhfTextField
+              name={`${formName}.${fieldIndex}.${element.inputfieldKey}`}
+              control={control}
+              validate={skalValideres ? [required, maxValueFormatted(178956970)] : undefined}
+              readOnly={readOnly}
+              isEdited={readOnly && finnesAlleredeLøstPeriode}
+              hideLabel
+              parse={parseCurrencyInput}
+              htmlSize={12}
+            />
           </Table.DataCell>
         );
       })}
@@ -335,9 +304,22 @@ export const AksjonspunktBehandlerTidsbegrenset = ({
   const formMethods = useFormContext<BeregningFormValues>();
   const bruttoPrPeriodeList = lagBruttoPrPeriodeListe(beregningsgrunnlagPeriode, formMethods, fieldIndex, formName);
   return (
-    <Table>
+    <Table size="small" className={styles.table}>
       <Table.Header>
-        <HeaderRow bruttoPrPeriodeList={bruttoPrPeriodeList} />
+        <Table.Row shadeOnHover={false}>
+          <Table.HeaderCell scope="col" />
+          <Table.HeaderCell colSpan={bruttoPrPeriodeList.length} textSize="small" align="center">
+            <FormattedMessage id="AksjonspunktBehandlerTB.OmberegnetAar" />
+          </Table.HeaderCell>
+        </Table.Row>
+        <Table.Row shadeOnHover={false}>
+          <Table.HeaderCell scope="col" />
+          {bruttoPrPeriodeList.map(({ periodeFom }) => (
+            <Table.HeaderCell key={`periodetittel${periodeFom}`} textSize="small" align="center">
+              <DateLabel dateString={periodeFom} />
+            </Table.HeaderCell>
+          ))}
+        </Table.Row>
       </Table.Header>
       <Table.Body>
         <Rows
@@ -350,9 +332,20 @@ export const AksjonspunktBehandlerTidsbegrenset = ({
           control={formMethods.control}
         />
       </Table.Body>
-      <tfoot>
-        <SummaryTableRow bruttoPrPeriodeList={bruttoPrPeriodeList} />
-      </tfoot>
+      {bruttoPrPeriodeList.length > 1 && (
+        <tfoot>
+          <Table.Row shadeOnHover={false}>
+            <Table.HeaderCell textSize="small">
+              <FormattedMessage id="AksjonspunktBehandlerTB.SumPeriode" />
+            </Table.HeaderCell>
+            {bruttoPrPeriodeList.map(({ periodeFom, brutto }) => (
+              <Table.HeaderCell key={periodeFom} textSize="small" align="right">
+                <BeløpLabel beløp={brutto} kr />
+              </Table.HeaderCell>
+            ))}
+          </Table.Row>
+        </tfoot>
+      )}
     </Table>
   );
 };

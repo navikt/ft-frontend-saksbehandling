@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-prosess-tilbakekreving-foreldelse",
   "description": "Aksjonspunktet oppstår fordi første periode med feilutbetaling er 2,5 år tilbake i tid eller mer. Saksbehandler tar stilling til om hele eller deler av perioden med feilutbetaling er foreldet. Uten aksjonspunkt: Feilutbetalt(e) periode(r) er under 2,5 år tilbake i tid",
-  "version": "8.3.6",
+  "version": "8.4.13",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -23,17 +23,17 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "7.37.0",
-    "@navikt/ds-css": "7.37.0",
-    "@navikt/ds-react": "7.37.0",
+    "@navikt/aksel-icons": "7.40.0",
+    "@navikt/ds-css": "7.40.0",
+    "@navikt/ds-react": "7.40.0",
     "@navikt/ft-form-hooks": "workspace:^",
     "@navikt/ft-form-validators": "workspace:^",
     "@navikt/ft-ui-komponenter": "workspace:^",
     "@navikt/ft-utils": "workspace:^",
     "dayjs": "1.11.19",
     "react": "19.2.3",
-    "react-hook-form": "7.69.0",
-    "react-intl": "8.0.9"
+    "react-hook-form": "7.71.1",
+    "react-intl": "8.0.11"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "7.x",
@@ -60,8 +60,8 @@
     "eslint": "9.39.2",
     "stylelint": "16.26.1",
     "typescript": "5.9.3",
-    "vite": "7.3.0",
-    "vitest": "4.0.16"
+    "vite": "7.3.1",
+    "vitest": "4.0.17"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

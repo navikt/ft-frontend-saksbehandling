@@ -7,6 +7,12 @@ import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId, InntektsgrunnlagInntekt, InntektsgrunnlagMåned } from '@navikt/ft-types';
 import { capitalizeFirstLetter, formaterArbeidsgiver, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
+export type SammenligningsgrunnlagData = {
+  datapunkter: number[];
+  inntektAktivitetType: InntektAktivitetType;
+  label: string;
+};
+
 const mapDataPunkt =
   (inntektAType: InntektAktivitetType, arbeidsgiverIdent?: string) =>
   ({ inntekter }: InntektsgrunnlagMåned): number => {
@@ -60,29 +66,31 @@ const mapDataForFrilansEllerYtelse = (
   sammenligningsgrunnlagInntekter: InntektsgrunnlagMåned[],
   inntektAType: InntektAktivitetType.FRILANS | InntektAktivitetType.YTELSE,
   intl: IntlShape,
-): { [label: string]: number[] } => {
+): SammenligningsgrunnlagData[] => {
   if (!finnesInntektAvType(sammenligningsgrunnlagInntekter, inntektAType)) {
-    return {};
+    return [];
   }
 
-  const label =
-    inntektAType === 'FRILANSINNTEKT'
-      ? intl.formatMessage({ id: 'SammenligningsgrunnlagGraf.Frilans' })
-      : intl.formatMessage({ id: 'SammenligningsgrunnlagGraf.Ytelse' });
-
-  return {
-    [label]: sammenligningsgrunnlagInntekter.map(mapDataPunkt(inntektAType)),
-  };
+  return [
+    {
+      label:
+        inntektAType === 'FRILANSINNTEKT'
+          ? intl.formatMessage({ id: 'SammenligningsgrunnlagGraf.Frilans' })
+          : intl.formatMessage({ id: 'SammenligningsgrunnlagGraf.Ytelse' }),
+      datapunkter: sammenligningsgrunnlagInntekter.map(mapDataPunkt(inntektAType)),
+      inntektAktivitetType: inntektAType,
+    },
+  ];
 };
 
 const mapDataForArbeid = (
   sammenligningsgrunnlagInntekter: InntektsgrunnlagMåned[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-) => {
+): SammenligningsgrunnlagData[] => {
   const inntektAType = InntektAktivitetType.ARBEID;
 
   if (!finnesInntektAvType(sammenligningsgrunnlagInntekter, inntektAType)) {
-    return {};
+    return [];
   }
 
   const arbeidsgiverer = new Set(
@@ -91,15 +99,19 @@ const mapDataForArbeid = (
       .flatMap(i => ('arbeidsgiverIdent' in i ? [i.arbeidsgiverIdent] : [])),
   );
 
-  const inntektPerAg = new Map<string, number[]>();
-  for (const arbeidsgiverIdent of arbeidsgiverer) {
-    const label = formaterArbeidsgiver(arbeidsgiverOpplysningerPerId[arbeidsgiverIdent]);
-    inntektPerAg.set(label, sammenligningsgrunnlagInntekter.map(mapDataPunkt(inntektAType, arbeidsgiverIdent)));
-  }
-  return Object.fromEntries(inntektPerAg);
+  return arbeidsgiverer
+    .values()
+    .map(arbeidsgiverIdent => ({
+      datapunkter: sammenligningsgrunnlagInntekter.map(mapDataPunkt(inntektAType, arbeidsgiverIdent)),
+      inntektAktivitetType: InntektAktivitetType.ARBEID,
+      label: formaterArbeidsgiver(arbeidsgiverOpplysningerPerId[arbeidsgiverIdent]),
+    }))
+    .toArray();
 };
 
-export const transformerGrafData = (
+export type TransformertSammenligningsgrunnlag = ReturnType<typeof transformerSammenligningsgrunnlag>;
+
+export const transformerSammenligningsgrunnlag = (
   sammenligningsgrunnlagInntekter: InntektsgrunnlagMåned[],
   sammenligningsgrunnlagFom: string,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
@@ -110,16 +122,20 @@ export const transformerGrafData = (
     sammenligningsgrunnlagFom,
   );
 
-  const dataForFrilans = mapDataForFrilansEllerYtelse(
-    utvidetSammenligningsgrunnlag,
-    InntektAktivitetType.FRILANS,
-    intl,
-  );
-  const dataForYtelse = mapDataForFrilansEllerYtelse(utvidetSammenligningsgrunnlag, InntektAktivitetType.YTELSE, intl);
-  const dataForArbeid = mapDataForArbeid(utvidetSammenligningsgrunnlag, arbeidsgiverOpplysningerPerId);
-  const periodeData = utvidetSammenligningsgrunnlag.map(periode => periode.fom);
-  return { periodeData, dataForFrilans, dataForYtelse, dataForArbeid };
+  const periodeData = utvidetSammenligningsgrunnlag.map(periode => formaterMåned(periode.fom));
+
+  const alleInntektskilder = [
+    mapDataForArbeid(utvidetSammenligningsgrunnlag, arbeidsgiverOpplysningerPerId),
+    mapDataForFrilansEllerYtelse(utvidetSammenligningsgrunnlag, InntektAktivitetType.FRILANS, intl),
+    mapDataForFrilansEllerYtelse(utvidetSammenligningsgrunnlag, InntektAktivitetType.YTELSE, intl),
+  ].flat();
+
+  const totalInntekt = alleInntektskilder
+    .flatMap(({ datapunkter }) => datapunkter)
+    .reduce((acc, beløp) => acc + beløp, 0);
+
+  return { periodeData, alleInntektskilder, totalInntekt };
 };
 
-export const formaterMåned = (dato: string): string =>
+const formaterMåned = (dato: string): string =>
   capitalizeFirstLetter(dayjs(dato).locale(norskFormat).format('MMM YY').replace('.', ''));

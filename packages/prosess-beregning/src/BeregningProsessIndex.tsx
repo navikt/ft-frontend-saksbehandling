@@ -9,6 +9,7 @@ import { createIntl } from '@navikt/ft-utils';
 import { TabInnhold } from './components/TabInnhold';
 import { useSkjæringstidspunktTabs } from './hooks/useSkjæringstidspunktTabs';
 import { FastsettBeregningAksjonspunktContainer } from './legacyAP/components/FastsettBeregningAksjonspunktContainer';
+import { LegacyAksjonspunktTittel } from './legacyAP/LegacyAksjonspunktTittel';
 import type { BeregningFormValues } from './legacyAP/types/BeregningFormValues';
 import type { BeregningAksjonspunktSubmitType } from './legacyAP/types/BeregningsgrunnlagAP';
 import type { KodeverkForPanel } from './types/KodeverkForPanel';
@@ -51,7 +52,7 @@ export const BeregningProsessIndex = ({
     );
     return (
       <RawIntlProvider value={intl}>
-        <VStack gap="space-8">
+        <VStack gap="space-12">
           <Heading size="medium" level="2">
             <FormattedMessage id="BeregningsgrunnlagProsessIndex.Title" />
           </Heading>
@@ -71,9 +72,17 @@ export const BeregningProsessIndex = ({
 
   return (
     <RawIntlProvider value={intl}>
-      <VStack gap="space-8">
-        <Tabs value={currentSkjæringstidspunkt} onChange={onTabChange}>
-          {tabOptions.length > 1 && (
+      <VStack gap="space-12">
+        <Heading size="medium" level="2">
+          <FormattedMessage id="BeregningProsessIndex.Tittel" />
+        </Heading>
+
+        {beregningsgrunnlagListe.map(bg => (
+          <LegacyAksjonspunktTittel key={bg.vilkårsperiodeFom} beregningsgrunnlag={bg} />
+        ))}
+
+        {tabOptions.length > 1 && (
+          <Tabs value={currentSkjæringstidspunkt} onChange={onTabChange}>
             <Tabs.List>
               {tabOptions.map(o => (
                 <Tabs.Tab
@@ -90,8 +99,9 @@ export const BeregningProsessIndex = ({
                 />
               ))}
             </Tabs.List>
-          )}
-        </Tabs>
+          </Tabs>
+        )}
+
         {tabOptions.map(o => (
           <div
             role="tabpanel"
@@ -100,14 +110,17 @@ export const BeregningProsessIndex = ({
             id={`${o.optionLabel}-panel`}
             aria-labelledby={`${o.optionLabel}-tab`}
           >
-            <TabInnhold
-              beregningsgrunnlag={o.beregningsgrunnlag}
-              beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
-              kodeverkSamling={kodeverkSamling}
-              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            />
+            <VStack gap="space-12">
+              <TabInnhold
+                beregningsgrunnlag={o.beregningsgrunnlag}
+                beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
+                kodeverkSamling={kodeverkSamling}
+                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+              />
+            </VStack>
           </div>
         ))}
+
         <FastsettBeregningAksjonspunktContainer
           readOnly={isReadOnly}
           isSubmittable={isSubmittable}

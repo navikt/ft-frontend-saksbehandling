@@ -1,41 +1,22 @@
 import { Fragment } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { Table } from '@navikt/ds-react';
 
-import type { ArbeidsgiverOpplysningerPerId, InntektsgrunnlagMåned } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
-import { formaterMåned, transformerGrafData } from './sammenligningsgrunnlagUtils';
+import { type TransformertSammenligningsgrunnlag } from './sammenligningsgrunnlagUtils';
 
 import styles from './sammenligningsgrunnlagTabell.module.css';
 
 interface Props {
-  sammenligningsgrunnlagFom: string;
-  sammenligningsgrunnlagInntekter: InntektsgrunnlagMåned[];
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  transformertSammenligningsgrunnlag: TransformertSammenligningsgrunnlag;
 }
 export const SammenligningsgrunnlagTabell = ({
-  sammenligningsgrunnlagFom,
-  sammenligningsgrunnlagInntekter,
-  arbeidsgiverOpplysningerPerId,
+  transformertSammenligningsgrunnlag: { periodeData, alleInntektskilder, totalInntekt },
 }: Props) => {
-  const intl = useIntl();
-
-  const { periodeData, dataForFrilans, dataForYtelse, dataForArbeid } = transformerGrafData(
-    sammenligningsgrunnlagInntekter,
-    sammenligningsgrunnlagFom,
-    arbeidsgiverOpplysningerPerId,
-    intl,
-  );
-  const alleInntektskilder = [
-    ...Object.entries(dataForArbeid),
-    ...Object.entries(dataForFrilans),
-    ...Object.entries(dataForYtelse),
-  ].map(([inntektspostNavn, inntekter]) => ({ inntektspostNavn, inntekter }));
-
   return (
-    <Table size="small" zebraStripes className={styles.table}>
+    <Table size="small" className={styles.table}>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell scope="col" textSize="small">
@@ -51,20 +32,20 @@ export const SammenligningsgrunnlagTabell = ({
       </Table.Header>
       <Table.Body>
         {periodeData
-          .map((periode, periodeIndex) => {
+          .map((formatertPeriode, periodeIndex) => {
             const inntektskilderForRad = alleInntektskilder
-              .map(({ inntektspostNavn, inntekter }) => ({ inntektspostNavn, beløp: inntekter[periodeIndex] }))
+              .map(({ label, datapunkter }) => ({ label, beløp: datapunkter[periodeIndex] }))
               .filter(({ beløp }) => beløp !== 0);
 
             return (
-              <Table.Row key={periode}>
+              <Table.Row key={formatertPeriode}>
                 <Table.HeaderCell scope="row" textSize="small">
-                  {formaterMåned(periode)}
+                  {formatertPeriode}
                 </Table.HeaderCell>
                 <Table.DataCell textSize="small">
-                  {inntektskilderForRad.map(({ inntektspostNavn }, index) => (
-                    <Fragment key={inntektspostNavn}>
-                      {inntektspostNavn}
+                  {inntektskilderForRad.map(({ label }, index) => (
+                    <Fragment key={label}>
+                      {label}
                       {index < inntektskilderForRad.length - 1 && <br />}
                     </Fragment>
                   ))}
@@ -76,6 +57,7 @@ export const SammenligningsgrunnlagTabell = ({
                       {index < inntektskilderForRad.length - 1 && <br />}
                     </Fragment>
                   ))}
+                  {inntektskilderForRad.length === 0 && '-'}
                 </Table.DataCell>
               </Table.Row>
             );
@@ -83,18 +65,24 @@ export const SammenligningsgrunnlagTabell = ({
           .reverse()}
       </Table.Body>
       <tfoot>
+        {alleInntektskilder.length > 1 &&
+          alleInntektskilder.map(({ label, datapunkter }, index) => (
+            <Table.Row key={label}>
+              <Table.HeaderCell scope="row" textSize="small">
+                {index === 0 && <FormattedMessage id="Tabell.Subtotal" />}
+              </Table.HeaderCell>
+              <Table.DataCell textSize="small">{label}</Table.DataCell>
+              <Table.DataCell align="right" textSize="small">
+                <BeløpLabel beløp={datapunkter.reduce((acc, beløp) => acc + beløp, 0)} kr />
+              </Table.DataCell>
+            </Table.Row>
+          ))}
         <Table.Row>
           <Table.HeaderCell scope="row" colSpan={2} textSize="small">
-            <FormattedMessage id="Tabell.Total" />
+            <FormattedMessage id="Sammenligningsgrunnlag.TotalSammenligningsgrunnlag" />
           </Table.HeaderCell>
           <Table.HeaderCell scope="row" align="right" textSize="small">
-            <BeløpLabel
-              beløp={alleInntektskilder.reduce(
-                (acc, { inntekter }) => acc + inntekter.reduce((sum, beløp) => sum + beløp, 0),
-                0,
-              )}
-              kr
-            />
+            <BeløpLabel beløp={totalInntekt} kr />
           </Table.HeaderCell>
         </Table.Row>
       </tfoot>

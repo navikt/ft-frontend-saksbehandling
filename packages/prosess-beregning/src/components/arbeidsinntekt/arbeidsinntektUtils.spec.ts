@@ -30,6 +30,7 @@ describe('arbeidsinntektUtils', () => {
         inntektsmeldingMånedinntekt: 50000,
         inntektsmeldingÅrsinntekt: 600000,
         formatertStillingsprosenter: '61%',
+        naturalytelser: [],
         sisteLønnsendringsdato: '2005-12-15',
       });
       expect(resultat[1]).toEqual({
@@ -44,6 +45,7 @@ describe('arbeidsinntektUtils', () => {
         inntektsmeldingMånedinntekt: 40000,
         inntektsmeldingÅrsinntekt: 480000,
         formatertStillingsprosenter: '100%',
+        naturalytelser: [],
         sisteLønnsendringsdato: '2010-10-01',
       });
     });

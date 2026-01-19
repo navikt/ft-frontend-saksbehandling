@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-frontend-utils-test",
-  "version": "3.4.10",
+  "version": "3.5.10",
   "license": "MIT",
   "type": "module",
   "private": true,
@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "react": "19.2.3",
-    "react-intl": "8.0.9"
+    "react-intl": "8.0.11"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",

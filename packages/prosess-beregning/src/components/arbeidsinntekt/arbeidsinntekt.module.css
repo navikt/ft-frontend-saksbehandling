@@ -1,0 +1,24 @@
+.table {
+  width: 100%;
+
+  thead tr:nth-child(2) th:not(:first-child):not(:last-child),
+  tbody tr td:not(:first-child):not(:last-child),
+  tfoot tr th:not(:first-child):not(:last-child) {
+    border-inline: 1px solid var(--ax-border-neutral-subtleA);
+    padding-right: 16px;
+    width: 120px;
+
+    &:nth-child(4) {
+      width: 160px;
+    }
+  }
+
+  tr[data-state='open'] td > div > div {
+    padding-top: 0;
+  }
+
+  tfoot {
+    border-bottom: 3px double var(--ax-border-neutral-strong);
+    border-top: 2px solid var(--ax-border-neutral-strong);
+  }
+}

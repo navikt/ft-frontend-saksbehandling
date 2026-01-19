@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-frontend-storybook-utils",
-  "version": "5.3.7",
+  "version": "5.4.14",
   "license": "MIT",
   "type": "module",
   "private": true,
@@ -11,11 +11,11 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ds-react": "7.37.0",
+    "@navikt/ds-react": "7.40.0",
     "@navikt/ft-form-hooks": "workspace:^",
     "react": "19.2.3",
-    "react-hook-form": "7.69.0",
-    "react-intl": "8.0.9"
+    "react-hook-form": "7.71.1",
+    "react-intl": "8.0.11"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",

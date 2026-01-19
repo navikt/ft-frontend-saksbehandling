@@ -33,24 +33,32 @@ const cx = classNames.bind(styles);
 
 const intl = createIntl(messages);
 
-const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkår | null) => {
+const avslagKodeTekst = (beregningsgrunnlagsvilkar: Vilkår | null) => {
   const ikkeTilstrekkeligInntektsgrunnlag = beregningsgrunnlagsvilkar?.perioder?.some(
     periode => periode.avslagKode === '1043',
   );
+  if (ikkeTilstrekkeligInntektsgrunnlag) {
+    return 'BeregningsgrunnlagProsessIndex.IkkeTilstrekkeligInntektsgrunnlag';
+  }
 
+  const ikkeDokumentertInntektstap = beregningsgrunnlagsvilkar?.perioder?.some(
+    periode => periode.avslagKode === '1044',
+  );
+  if (ikkeDokumentertInntektstap) {
+    return 'BeregningsgrunnlagProsessIndex.IkkeDokumentertInntektstap';
+  }
+
+  return 'BeregningsgrunnlagProsessIndex.HarIkkeBeregningsregler';
+};
+
+const visningForManglendeBG = (beregningsgrunnlagsvilkar: Vilkår | null) => {
   return (
     <VStack gap="space-8">
       <Heading size="medium" level="2">
         <FormattedMessage id="BeregningsgrunnlagProsessIndex.Title" />
       </Heading>
       <BodyShort size="small">
-        <FormattedMessage
-          id={
-            ikkeTilstrekkeligInntektsgrunnlag
-              ? 'BeregningsgrunnlagProsessIndex.IkkeTilstrekkeligInntektsgrunnlag'
-              : 'BeregningsgrunnlagProsessIndex.HarIkkeBeregningsregler'
-          }
-        />
+        <FormattedMessage id={avslagKodeTekst(beregningsgrunnlagsvilkar)} />
       </BodyShort>
     </VStack>
   );

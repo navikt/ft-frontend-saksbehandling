@@ -2,7 +2,7 @@ import { HStack, Tag } from '@navikt/ds-react';
 
 import type { AktivitetStatus, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 
-import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import type { KodeverkForPanel } from '../types/KodeverkForPanel';
 
 interface Props {
   beregningsgrunnlagPeriode: BeregningsgrunnlagPeriodeProp[];
@@ -18,7 +18,7 @@ export const AktivitetStatusTags = ({ beregningsgrunnlagPeriode, kodeverkSamling
   return (
     <HStack gap="space-8">
       {tagsList.map(({ visningsNavn, kode, tagType }) => (
-        <Tag key={kode} variant={tagType} title={visningsNavn}>
+        <Tag key={kode} size="small" variant={tagType} title={visningsNavn}>
           {visningsNavn}
         </Tag>
       ))}

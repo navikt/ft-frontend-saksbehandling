@@ -8,6 +8,7 @@ import type {
 import { dateFormat, sortPeriodsBy } from '@navikt/ft-utils';
 
 import { finnAlleAndelerIFørstePeriode } from '../../utils/beregningsgrunnlagUtils';
+import { finnEndringerINaturalytelserForArbeidsgiver } from './naturalytelserUtils';
 
 const grupperSummerteInntekterPerArbeidsgiver = (
   inntekterMnd: InntektsgrunnlagMåned[] | undefined,
@@ -34,10 +35,29 @@ const grupperSummerteInntekterPerArbeidsgiver = (
 const finnAndelerSomSkalVises = (andeler: BeregningsgrunnlagAndel[]): BeregningsgrunnlagAndel[] =>
   andeler.filter(andel => andel.aktivitetStatus === 'AT').filter(andel => andel.erTilkommetAndel === false);
 
+type ArbeidsinntektVisning = {
+  andelsLabel: string;
+  andelsnr: number;
+  ansattPeriode?: {
+    fom: string | undefined;
+    tom: string | undefined;
+  };
+  sisteLønnsendringsdato?: string;
+  formatertStillingsprosenter?: string;
+  naturalytelser?: ReturnType<typeof finnEndringerINaturalytelserForArbeidsgiver>;
+} & ArbeidsinntektVisningBeløp;
+
+export type ArbeidsinntektVisningBeløp = {
+  inntektsmeldingMånedinntekt?: number;
+  inntektsmeldingÅrsinntekt?: number;
+  beregningsgrunnlagMånedinntekt?: number;
+  beregningsgrunnlagÅrsinntekt?: number;
+};
+
 export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
   { inntektsgrunnlag, beregningsgrunnlagPeriode }: Beregningsgrunnlag,
   formaterVisningsnavnForAndel: (andel: BeregningsgrunnlagAndel) => string,
-) => {
+): ArbeidsinntektVisning[] => {
   const andelerIFørstePeriode = finnAlleAndelerIFørstePeriode(beregningsgrunnlagPeriode);
   const relevanteAndeler = finnAndelerSomSkalVises(andelerIFørstePeriode);
 
@@ -45,7 +65,7 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
     inntektsgrunnlag?.beregningsgrunnlagInntekter,
   );
 
-  return relevanteAndeler.map(andel => {
+  return relevanteAndeler.map<ArbeidsinntektVisning>(andel => {
     const arbeidsgiverIdent = andel.arbeidsforhold?.arbeidsgiverIdent;
     return {
       andelsLabel: formaterVisningsnavnForAndel(andel),
@@ -64,10 +84,17 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
       inntektsmeldingÅrsinntekt: andel.arbeidsforhold?.belopFraInntektsmeldingPrMnd
         ? andel.arbeidsforhold.belopFraInntektsmeldingPrMnd * 12
         : undefined,
-      beregningsgrunnlagMånedinntekt: arbeidsgiverIdent ? (beregningsgrunnlagInntekter[arbeidsgiverIdent] ?? 0) / 3 : 0,
-      beregningsgrunnlagÅrsinntekt: arbeidsgiverIdent
-        ? ((beregningsgrunnlagInntekter[arbeidsgiverIdent] ?? 0) / 3) * 12
-        : 0,
+      beregningsgrunnlagMånedinntekt:
+        arbeidsgiverIdent && beregningsgrunnlagInntekter[arbeidsgiverIdent]
+          ? beregningsgrunnlagInntekter[arbeidsgiverIdent] / 3
+          : undefined,
+      beregningsgrunnlagÅrsinntekt:
+        arbeidsgiverIdent && beregningsgrunnlagInntekter[arbeidsgiverIdent]
+          ? (beregningsgrunnlagInntekter[arbeidsgiverIdent] / 3) * 12
+          : undefined,
+      naturalytelser: arbeidsgiverIdent
+        ? finnEndringerINaturalytelserForArbeidsgiver(arbeidsgiverIdent, beregningsgrunnlagPeriode)
+        : undefined,
     };
   });
 };
