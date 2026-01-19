@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-frontend-utils-test",
-  "version": "3.5.10",
+  "version": "3.5.11",
   "license": "MIT",
   "type": "module",
   "private": true,

@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-types",
   "description": "Pakke som har typer som blir brukt på tvers av applikasjoner",
-  "version": "5.3.11",
+  "version": "5.3.12",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
