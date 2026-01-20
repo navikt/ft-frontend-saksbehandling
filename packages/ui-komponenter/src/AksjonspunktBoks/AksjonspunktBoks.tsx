@@ -17,15 +17,10 @@ interface Props {
 
 export const AksjonspunktBoks = ({ tittel, beskrivelse, aksjonspunkt, children }: Props) => {
   const aksjonspunkter = !aksjonspunkt || Array.isArray(aksjonspunkt) ? aksjonspunkt : [aksjonspunkt];
-  const { dataColor, headerBackground, bodyBackground, icon } = getStateProps(aksjonspunkter);
+  const { headerBackground, bodyBackground, icon } = getStateProps(aksjonspunkter);
   const aksjonspunktIder = aksjonspunkter?.map(ap => `AksjonspunktBoks-${ap.definisjon}`).join(',');
   return (
-    <Box
-      borderRadius="4"
-      background={bodyBackground}
-      data-testid={aksjonspunktIder ?? 'AksjonspunktBoks'}
-      data-color={dataColor}
-    >
+    <Box borderRadius="4" background={bodyBackground} data-testid={aksjonspunktIder ?? 'AksjonspunktBoks'}>
       <Box
         paddingInline={icon ? 'space-16' : 'space-48'}
         paddingBlock="space-16"
