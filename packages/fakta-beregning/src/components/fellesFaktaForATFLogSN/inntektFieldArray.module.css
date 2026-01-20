@@ -2,29 +2,20 @@
   color: var(--ax-danger-600);
 }
 
-.rightAlign {
-  text-align: right;
-}
+.table {
+  .alignRight > div:first-of-type {
+    align-items: end;
+    justify-content: end;
 
-.rightAlignInput {
-  text-align: right;
-}
+    input,
+    select {
+      direction: rtl;
+    }
+  }
 
-.rightAlignInput > div > div {
-  justify-content: end;
-}
-
-.rightAlignInput > div > input {
-  margin-right: 0;
-  text-align: right;
-}
-
-.rightAlignInput > div > div > div > p {
-  text-align: right;
-}
-
-.buttonRow {
-  margin-top: 0;
+  tfoot {
+    border-block: 2px solid var(--ax-border-neutral-strong);
+  }
 }
 
 .addPeriode,
@@ -48,23 +39,6 @@
   margin-bottom: 16px;
   padding-bottom: 0.45rem;
   white-space: pre-wrap;
-}
-
-.storBredde {
-  width: 150px;
-}
-
-.mediumBredde {
-  width: 100px;
-}
-
-.litenBredde {
-  width: 70px;
-}
-
-.inntekt {
-  display: flex;
-  justify-content: flex-end;
 }
 
 .inntektNew {

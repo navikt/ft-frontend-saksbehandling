@@ -2,9 +2,10 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { Box, Label, List, ReadMore, VStack } from '@navikt/ds-react';
+import { Label, List, ReadMore, type TextFieldProps } from '@navikt/ds-react';
 
-import type { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, FaktaOmBeregningAndel } from '@navikt/ft-types';
+import { formaterArbeidsgiver } from '@navikt/ft-utils';
 
 import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningTilfelle';
 import type { KodeverkForPanel } from '../../../../typer/KodeverkForPanel';
@@ -31,24 +32,6 @@ interface Props {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   kodeverkSamling: KodeverkForPanel;
 }
-
-const KunstigAndelLabel = () => (
-  <VStack gap="space-8">
-    <FormattedMessage id="BeregningInfoPanel.KunstigArbeidsforhold.FastsettKunstigArbeidsforhold" />
-    <ReadMore size="small" header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}>
-      <Box marginBlock="space-12" asChild>
-        <List size="small">
-          <List.Item>
-            <FormattedMessage id="BeregningInfoPanel.KunstigArbeidsforhold.HvordanGarJegFrem1" />
-          </List.Item>
-          <List.Item>
-            <FormattedMessage id="BeregningInfoPanel.KunstigArbeidsforhold.HvordanGarJegFrem2" />
-          </List.Item>
-        </List>
-      </Box>
-    </ReadMore>
-  </VStack>
-);
 
 /**
  * InntektInputFields
@@ -195,53 +178,39 @@ export const InntektInputFields = ({
 
   /**
    * Viser label med fremgangsmåte for innfylling for inntektsfelter. Dersom man har flere tilfeller med ulik fremgangsmåte vises en enklere label.
-   *
    */
-  const getArbeidsinntektInputLabel = (andel: AndelForFaktaOmBeregning) => {
-    const arbeidsgiverNavn = andel.arbeidsforhold?.arbeidsgiverIdent
-      ? arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent]?.navn
-      : undefined;
-    if (
-      getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${lonnsendringField}`) &&
-      skalRedigereArbeidsinntektRadioValues.filter(value => value === true).length === 1
-    ) {
-      return (
-        <VStack gap="space-8">
-          <FormattedMessage
-            id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift"
-            values={{
-              bedrift: `${arbeidsgiverNavn} (${andel.arbeidsforhold?.arbeidsgiverIdent})`,
-            }}
-          />
+  const getArbeidsinntektInputLabel = (andel: FaktaOmBeregningAndel): TextFieldProps => {
+    const arbeidsgiverIdent = andel.arbeidsforhold?.arbeidsgiverIdent;
+    const bedrift = arbeidsgiverIdent
+      ? formaterArbeidsgiver(arbeidsgiverOpplysningerPerId[arbeidsgiverIdent])
+      : 'Ukjent bedrift';
+
+    return {
+      label: <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift" values={{ bedrift }} />,
+      description:
+        getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${lonnsendringField}`) &&
+        skalRedigereArbeidsinntektRadioValues.filter(value => value === true).length === 1 ? (
           <ReadMore
             size="small"
             header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
           >
-            <Box marginBlock="space-12" asChild>
-              <List size="small">
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate1" />
-                </List.Item>
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate2" />
-                </List.Item>
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate3" />
-                </List.Item>
-              </List>
-            </Box>
+            <List size="small">
+              <FormattedMessage
+                tagName={List.Item}
+                id="BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate1"
+              />
+              <FormattedMessage
+                tagName={List.Item}
+                id="BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate2"
+              />
+              <FormattedMessage
+                tagName={List.Item}
+                id="BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate3"
+              />
+            </List>
           </ReadMore>
-        </VStack>
-      );
-    }
-    return (
-      <FormattedMessage
-        id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift"
-        values={{
-          bedrift: `${arbeidsgiverNavn} (${andel.arbeidsforhold?.arbeidsgiverIdent})`,
-        }}
-      />
-    );
+        ) : undefined,
+    };
   };
 
   /**
@@ -258,111 +227,106 @@ export const InntektInputFields = ({
       `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`,
     ]).includes(true);
     if (erATFLSammeOrg(tilfeller) || harFlereTilfellerMedFrilansinntektSomSkalFastsettes || erBesteberegning) {
-      return <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" />;
+      return { label: <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" /> };
     }
     if (
       getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${frilansFieldName}`)
     ) {
-      return (
-        <VStack gap="space-8">
-          <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" />
+      return {
+        label: <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" />,
+        description: (
           <ReadMore
             size="small"
             header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
           >
-            <Box marginBlock="space-12" asChild>
-              <List size="small">
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.InntektInputFields.FrilanserFremgangsmate1" />
-                </List.Item>
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.InntektInputFields.FrilanserFremgangsmate2" />
-                </List.Item>
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.InntektInputFields.FrilanserFremgangsmate3" />
-                </List.Item>
-              </List>
-            </Box>
+            <List size="small">
+              <FormattedMessage
+                tagName={List.Item}
+                id="BeregningInfoPanel.InntektInputFields.FrilanserFremgangsmate1"
+              />
+              <FormattedMessage
+                tagName={List.Item}
+                id="BeregningInfoPanel.InntektInputFields.FrilanserFremgangsmate2"
+              />
+              <FormattedMessage
+                tagName={List.Item}
+                id="BeregningInfoPanel.InntektInputFields.FrilanserFremgangsmate3"
+              />
+            </List>
           </ReadMore>
-        </VStack>
-      );
+        ),
+      };
     }
     if (erNyoppstartetFrilanser) {
-      return (
-        <VStack gap="space-8">
-          <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" />
+      return {
+        label: <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" />,
+        description: (
           <ReadMore
             size="small"
             header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
           >
-            <Box marginBlock="space-12" asChild>
-              <List size="small">
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.InntektInputFields.NyoppstartetFrilansFremgangsmate1" />
-                </List.Item>
-                <List.Item>
-                  <FormattedMessage
-                    id="BeregningInfoPanel.InntektInputFields.NyoppstartetFrilansFremgangsmate2"
-                    values={{
-                      br: <br />,
-                    }}
-                  />
-                </List.Item>
-              </List>
-            </Box>
+            <List size="small">
+              <FormattedMessage
+                tagName={List.Item}
+                id="BeregningInfoPanel.InntektInputFields.NyoppstartetFrilansFremgangsmate1"
+              />
+              <FormattedMessage
+                tagName={List.Item}
+                id="BeregningInfoPanel.InntektInputFields.NyoppstartetFrilansFremgangsmate2"
+                values={{
+                  br: <br />,
+                }}
+              />
+            </List>
           </ReadMore>
-        </VStack>
-      );
+        ),
+      };
     }
-    return null;
+    return { label: undefined, hideLabel: true };
   };
 
   return (
     <>
       {erATFLSammeOrg(tilfeller) && (
         <>
-          <VStack gap="space-8" color="red">
+          <div>
             <Label>
-              <FormattedMessage
-                id={
-                  atflSammeOrgHarInntektsmelding
-                    ? 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLFrilans'
-                    : 'BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLSamlet'
-                }
-              />
+              {atflSammeOrgHarInntektsmelding ? (
+                <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLFrilans" />
+              ) : (
+                <FormattedMessage id="BeregningInfoPanel.VurderOgFastsettATFL.FastsettATFLSamlet" />
+              )}
             </Label>
             <ReadMore
               size="small"
               header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
             >
-              <Box marginBlock="space-12" asChild>
-                <List size="small">
-                  <List.Item>
-                    <FormattedMessage
-                      id={
-                        atflSammeOrgHarInntektsmelding
-                          ? 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1MedIM'
-                          : 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1'
-                      }
-                      values={{
-                        br: <br />,
-                      }}
-                    />
-                  </List.Item>
-                  <List.Item>
-                    <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate2" />
-                  </List.Item>
-                </List>
-              </Box>
+              <List size="small">
+                <FormattedMessage
+                  tagName={List.Item}
+                  id={
+                    atflSammeOrgHarInntektsmelding
+                      ? 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1MedIM'
+                      : 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1'
+                  }
+                  values={{
+                    br: <br />,
+                  }}
+                />
+                <FormattedMessage
+                  tagName={List.Item}
+                  id="BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate2"
+                />
+              </List>
             </ReadMore>
-          </VStack>
+          </div>
           {atflOgSammeOrgArbeidsgivere?.map(arbeidsgiver => (
             <ArbeidsinntektInput
               key={arbeidsgiver.arbeidsforhold?.arbeidsgiverIdent}
               arbeidsgiver={arbeidsgiver}
               readOnly={readOnly}
               isAksjonspunktClosed={isAksjonspunktClosed}
-              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+              {...getArbeidsinntektInputLabel(arbeidsgiver)}
             />
           ))}
         </>
@@ -372,7 +336,24 @@ export const InntektInputFields = ({
           name={kunstigAndelFieldName}
           readOnly={readOnly}
           isAksjonspunktClosed={isAksjonspunktClosed}
-          label={<KunstigAndelLabel />}
+          label={<FormattedMessage id="BeregningInfoPanel.KunstigArbeidsforhold.FastsettKunstigArbeidsforhold" />}
+          description={
+            <ReadMore
+              size="small"
+              header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+            >
+              <List size="small">
+                <FormattedMessage
+                  tagName={List.Item}
+                  id="BeregningInfoPanel.KunstigArbeidsforhold.HvordanGarJegFrem1"
+                />
+                <FormattedMessage
+                  tagName={List.Item}
+                  id="BeregningInfoPanel.KunstigArbeidsforhold.HvordanGarJegFrem2"
+                />
+              </List>
+            </ReadMore>
+          }
         />
       )}
       {skalRedigereFrilansinntekt() && (
@@ -380,7 +361,7 @@ export const InntektInputFields = ({
           name={frilanserInntektFieldName}
           readOnly={readOnly}
           isAksjonspunktClosed={isAksjonspunktClosed}
-          label={getFrilansinntektInputLabel()}
+          {...getFrilansinntektInputLabel()}
         />
       )}
       {skalRedigereArbeidsinntekt || skalRedigereEtterlønnSluttpakke
@@ -397,8 +378,7 @@ export const InntektInputFields = ({
                 arbeidsgiver={andel}
                 readOnly={readOnly}
                 isAksjonspunktClosed={isAksjonspunktClosed}
-                label={getArbeidsinntektInputLabel(andel)}
-                arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                {...getArbeidsinntektInputLabel(andel)}
               />
             ))
         : arbeidstakerAndelerUtenIM?.map(andel => (
@@ -407,8 +387,7 @@ export const InntektInputFields = ({
               arbeidsgiver={andel}
               readOnly={readOnly}
               isAksjonspunktClosed={isAksjonspunktClosed}
-              label={getArbeidsinntektInputLabel(andel)}
-              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+              {...getArbeidsinntektInputLabel(andel)}
             />
           ))}
 

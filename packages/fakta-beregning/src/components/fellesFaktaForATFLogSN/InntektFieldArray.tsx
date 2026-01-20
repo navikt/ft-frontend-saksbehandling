@@ -49,6 +49,8 @@ import { validateMinstEnFastsatt, validateUlikeAndeler } from './ValidateAndeler
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 import { erKunstigAndel } from './vurderOgFastsettATFL/forms/KunstigArbeidsforhold';
 
+import styles from './inntektFieldArray.module.css';
+
 const lagNyMS = (aktivitetStatuser: KodeverkMedNavn<'AktivitetStatus'>[]): AndelFieldValue => ({
   andel: finnStatus(aktivitetStatuser, 'MS'),
   aktivitetStatus: 'MS',
@@ -246,7 +248,7 @@ export const InntektFieldArray = ({
 
   return (
     <VStack gap="space-8">
-      <Table size="small">
+      <Table size="small" className={styles.table}>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell scope="col" textSize="small">
@@ -290,12 +292,14 @@ export const InntektFieldArray = ({
               )}
             />
           ))}
+        </Table.Body>
+        <tfoot>
           <SummaryRow
             skalVisePeriode={skalVisePeriodeKolonne}
             skalViseRefusjon={skalViseRefusjonsKolonne}
             beregningsgrunnlag={beregningsgrunnlag}
           />
-        </Table.Body>
+        </tfoot>
       </Table>
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </VStack>

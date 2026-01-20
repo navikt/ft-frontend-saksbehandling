@@ -1,3 +1,14 @@
 .table {
   table-layout: fixed;
+  width: stretch;
+
+  th:nth-last-child(2),
+  td:nth-last-child(2) {
+    width: 70px;
+  }
+
+  th:nth-last-child(1),
+  td:nth-last-child(1) {
+    width: 100px;
+  }
 }

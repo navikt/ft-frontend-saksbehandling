@@ -164,7 +164,7 @@ export const InntektFieldArrayAndelRow = ({
         )}
       </Table.DataCell>
       {!skalViseOverstyrtInntektInput && (
-        <Table.DataCell align="right">
+        <Table.DataCell align="right" className={styles.alignRight}>
           <div className={styles.inntekt}>
             <div className={harEndretInntekt ? styles.inntektOldStrikethrough : styles.inntektOld}>
               {visMåFastsettesText ? (
@@ -177,7 +177,7 @@ export const InntektFieldArrayAndelRow = ({
                   name={`${rowName}.belopReadOnly`}
                   control={control}
                   size="small"
-                  className={styles.mediumBredde}
+                  htmlSize={10}
                   parse={parseCurrencyInput}
                   readOnly
                 />
@@ -191,7 +191,7 @@ export const InntektFieldArrayAndelRow = ({
                     name={getInputFieldName()}
                     control={control}
                     size="small"
-                    className={styles.mediumBredde}
+                    htmlSize={10}
                     parse={parseCurrencyInput}
                     readOnly
                   />
@@ -203,7 +203,7 @@ export const InntektFieldArrayAndelRow = ({
         </Table.DataCell>
       )}
       {skalViseOverstyrtInntektInput && (
-        <Table.DataCell align="right" className={styles.rightAlignInput}>
+        <Table.DataCell align="right" className={styles.alignRight}>
           <RhfTextField
             // @ts-expect-error Fiks
             name={`${rowName}.fastsattBelop`}
@@ -216,7 +216,7 @@ export const InntektFieldArrayAndelRow = ({
               { andel: field.andel },
             )}
             parse={parseCurrencyInput}
-            className={styles.mediumBredde}
+            htmlSize={10}
             validate={skalFastsetteInntektForAndel(field) ? [required, maxValueFormatted(178956970)] : []}
             hideLabel
           />
@@ -224,7 +224,7 @@ export const InntektFieldArrayAndelRow = ({
       )}
 
       {skalViseRefusjon && (
-        <Table.DataCell align="right">
+        <Table.DataCell align="right" className={styles.alignRight}>
           <RhfTextField
             // @ts-expect-error Fiks
             name={`${rowName}.refusjonskrav`}
@@ -235,7 +235,7 @@ export const InntektFieldArrayAndelRow = ({
           />
         </Table.DataCell>
       )}
-      <Table.DataCell align="right">
+      <Table.DataCell align="right" className={styles.alignRight}>
         <RhfSelect
           // @ts-expect-error Fiks
           name={`${rowName}.inntektskategori`}

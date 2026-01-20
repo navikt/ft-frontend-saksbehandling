@@ -85,22 +85,22 @@ export const TidsbegrensetArbeidsforholdForm = ({
             control={control}
             validate={[required]}
             legend={
-              <VStack gap="space-8">
-                <FormattedMessage
-                  id="BeregningInfoPanel.TidsbegrensetArbFor.Arbeidsforhold"
-                  values={{
-                    navn: visningsNavn,
-                    fom: arbeidsforhold.startdato ? dateFormat(arbeidsforhold?.startdato) : '',
-                    tom: arbeidsforhold.opphoersdato ? dateFormat(arbeidsforhold.opphoersdato) : '',
-                  }}
-                />
-                <ReadMore
-                  size="small"
-                  header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
-                >
-                  <FormattedMessage id="BeregningInfoPanel.TidsbegrensetArbeidsforholdForm.ReadMore" />
-                </ReadMore>
-              </VStack>
+              <FormattedMessage
+                id="BeregningInfoPanel.TidsbegrensetArbFor.Arbeidsforhold"
+                values={{
+                  navn: visningsNavn,
+                  fom: arbeidsforhold.startdato ? dateFormat(arbeidsforhold?.startdato) : '',
+                  tom: arbeidsforhold.opphoersdato ? dateFormat(arbeidsforhold.opphoersdato) : '',
+                }}
+              />
+            }
+            description={
+              <ReadMore
+                size="small"
+                header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+              >
+                <FormattedMessage id="BeregningInfoPanel.TidsbegrensetArbeidsforholdForm.ReadMore" />
+              </ReadMore>
             }
             readOnly={readOnly}
           >

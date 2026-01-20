@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
 // TODO (SAFIR) PFP-6021 Ta i bruk InntektFieldArray i staden for BrukersAndelFieldArray
-import { BodyShort, HStack, Label, Link, Radio, VStack } from '@navikt/ds-react';
+import { BodyShort, Label, Link, Radio, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -56,14 +56,12 @@ export const KunYtelseBesteberegning = ({
         legend={<FormattedMessage id="KunYtelsePanel.HarBesteberegning" />}
         validate={readOnly ? [] : [required]}
       >
-        <HStack gap="space-16">
-          <Radio value={true} size="small">
-            <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />
-          </Radio>
-          <Radio value={false} size="small">
-            <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />
-          </Radio>
-        </HStack>
+        <Radio value={true} size="small">
+          <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Ja" />
+        </Radio>
+        <Radio value={false} size="small">
+          <FormattedMessage id="BeregningInfoPanel.FormAlternativ.Nei" />
+        </Radio>
       </RhfRadioGroup>
       {erBesteberegning !== undefined && erBesteberegning !== null && (
         <ArrowBox alignOffset={erBesteberegning ? 0 : 60}>

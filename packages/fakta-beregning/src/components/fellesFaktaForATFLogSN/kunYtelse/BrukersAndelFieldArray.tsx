@@ -1,4 +1,4 @@
-import React, { type ReactElement } from 'react';
+import React from 'react';
 import { type FieldArrayWithId, useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
@@ -21,6 +21,8 @@ import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaB
 import { formNameVurderFaktaBeregning } from '../../../utils/BeregningFormUtils';
 import { type SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
+
+import styles from './brukersAndelFieldArray.module.css';
 
 const defaultBGFordeling = (aktivitetStatuser: string[], kodeverkSamling: KodeverkForPanel) => ({
   andel: kodeverkSamling['AktivitetStatus'].find(as => as.kode === aktivitetStatuser.find(kode => kode === 'BA'))?.navn,
@@ -45,26 +47,13 @@ const summerFordeling = (fields: BrukersAndelValues[]): string | undefined => {
   return sum > 0 ? formatCurrencyNoKr(sum) : '';
 };
 
-function skalViseSletteknapp(
+const skalViseSletteknapp = (
   index: number,
   fields: FieldArrayWithId<VurderFaktaBeregningFormValues, 'vurderFaktaBeregningForm.0.brukersAndelBG', 'id'>[],
   readOnly: boolean,
-) {
+) => {
   return (fields[index].nyAndel || fields[index].lagtTilAvSaksbehandler) && !readOnly;
-}
-
-const createBruttoBGSummaryRow = (sumFordeling: string | undefined): ReactElement => (
-  <Table.Row>
-    <Table.HeaderCell textSize="small">
-      <FormattedMessage id="BeregningInfoPanel.FordelingBG.Sum" />
-    </Table.HeaderCell>
-    <Table.DataCell textSize="small" align="right">
-      {sumFordeling}
-    </Table.DataCell>
-    <Table.DataCell />
-    <Table.DataCell />
-  </Table.Row>
-);
+};
 
 const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: KodeverkForPanel) =>
   kodeverkSamling['Inntektskategori'].slice().sort((a, b) => a.navn.localeCompare(b.navn));
@@ -120,7 +109,7 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
 
   return (
     <VStack gap="space-8">
-      <Table size="small">
+      <Table size="small" className={styles.table}>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell scope="col" textSize="small">
@@ -141,7 +130,7 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
               <Table.DataCell textSize="small">
                 <FormattedMessage id="BeregningInfoPanel.FordelingBG.Ytelse" />
               </Table.DataCell>
-              <Table.DataCell align="right">
+              <Table.DataCell align="right" className={styles.alignRight}>
                 <RhfTextField
                   // @ts-expect-error fiks! Dynamisk navn
                   name={`${fieldArrayName}.${index}.fastsattBelop`}
@@ -160,7 +149,7 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
                   size="small"
                 />
               </Table.DataCell>
-              <Table.DataCell align="right">
+              <Table.DataCell align="right" className={styles.alignRight}>
                 <RhfSelect
                   // @ts-expect-error fiks! Dynamisk navn
                   name={`${fieldArrayName}.${index}.inntektskategori`}
@@ -188,7 +177,16 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
               </Table.DataCell>
             </Table.Row>
           ))}
-          {createBruttoBGSummaryRow(sumFordeling)}
+          <Table.Row>
+            <Table.HeaderCell textSize="small">
+              <FormattedMessage id="BeregningInfoPanel.FordelingBG.Sum" />
+            </Table.HeaderCell>
+            <Table.DataCell textSize="small" align="right">
+              {sumFordeling}
+            </Table.DataCell>
+            <Table.DataCell />
+            <Table.DataCell />
+          </Table.Row>
         </Table.Body>
       </Table>
       <div>

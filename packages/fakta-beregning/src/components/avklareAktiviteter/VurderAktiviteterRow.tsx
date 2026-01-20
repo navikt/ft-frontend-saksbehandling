@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { HStack, Radio, Table } from '@navikt/ds-react';
 import dayjs from 'dayjs';
@@ -60,7 +60,6 @@ export const VurderAktiviteterTabellRad = ({
   arbeidsgiverOpplysningerPerId,
   fieldId,
 }: Props) => {
-  const intl = useIntl();
   const erValgtSkjæringstidspunktLikEllerFørTomDato = isSameOrBefore(
     valgtSkjæringstidspunkt,
     tomDatoForAktivitetGruppe,
@@ -94,7 +93,7 @@ export const VurderAktiviteterTabellRad = ({
         <RhfRadioGroup
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
           control={control}
-          legend={intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.Benytt' })}
+          legend={<FormattedMessage id="VurderAktiviteterTabell.Header.Benytt" />}
           validate={[required]}
           readOnly={
             readOnly ||
@@ -117,7 +116,7 @@ export const VurderAktiviteterTabellRad = ({
         <RhfRadioGroup
           name={`avklarAktiviteterForm.${fieldId}.aktiviteterValues.${lagAktivitetFieldId(aktivitet)}.skalBrukes`}
           control={control}
-          legend={intl.formatMessage({ id: 'VurderAktiviteterTabell.Header.IkkeBenytt' })}
+          legend={<FormattedMessage id="VurderAktiviteterTabell.Header.IkkeBenytt" />}
           validate={[required]}
           readOnly={
             readOnly ||
@@ -136,17 +135,17 @@ export const VurderAktiviteterTabellRad = ({
           </Radio>
         </RhfRadioGroup>
       </Table.DataCell>
-      <Table.DataCell>
-        {isAvklaringsbehovClosed &&
-          readOnly &&
-          skalVurdereAktivitet(
+      {isAvklaringsbehovClosed && readOnly && (
+        <Table.DataCell>
+          {skalVurdereAktivitet(
             aktivitet,
             erOverstyrt,
             harAvklaringsbehov,
             erValgtSkjæringstidspunktLikEllerFørTomDato,
             ingenAktiviterErBrukt,
           ) && <EditedIcon />}
-      </Table.DataCell>
+        </Table.DataCell>
+      )}
     </Table.Row>
   );
 };
