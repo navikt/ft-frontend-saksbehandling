@@ -51,14 +51,12 @@ const getStateProps = (aksjonspunkter: Aksjonspunkt[] | undefined) => {
     return {
       bodyBackground: 'warning-soft',
       headerBackground: 'warning-moderateA',
-      dataColor: 'warning',
       icon: <ExclamationmarkTriangleFillIcon aria-hidden color="var(--ax-text-warning-subtle)" fontSize="1.5rem" />,
     } as const;
   } else {
     return {
       bodyBackground: 'neutral-soft',
       headerBackground: 'neutral-moderateA',
-      dataColor: 'neutral',
       icon: null,
     } as const;
   }
