@@ -1,7 +1,7 @@
 import type { ReactElement, ReactNode } from 'react';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { Box, type BoxNewProps, Detail, Heading, HStack } from '@navikt/ds-react';
+import { Box, type BoxProps, Detail, Heading, HStack } from '@navikt/ds-react';
 
 type Aksjonspunkt = {
   status: 'OPPR' | 'UTFO' | 'AVBR';
@@ -17,20 +17,20 @@ interface Props {
 
 export const AksjonspunktBoks = ({ tittel, beskrivelse, aksjonspunkt, children }: Props) => {
   const aksjonspunkter = !aksjonspunkt || Array.isArray(aksjonspunkt) ? aksjonspunkt : [aksjonspunkt];
-  const { headerBackground, bodyBackground, icon } = getStateProps(aksjonspunkter);
+  const { icon } = getStateProps(aksjonspunkter);
   const aksjonspunktIder = aksjonspunkter?.map(ap => `AksjonspunktBoks-${ap.definisjon}`).join(',');
   return (
     <Box
       borderRadius="4"
-      background={bodyBackground}
+      background="warning-soft"
       data-testid={aksjonspunktIder ?? 'AksjonspunktBoks'}
-      data-color={bodyBackground}
+      data-color="warning-soft"
     >
       <Box
         paddingInline={icon ? 'space-4' : 'space-12'}
         paddingBlock="space-16"
         borderRadius="4 4 0 0"
-        background={headerBackground}
+        background="warning-moderateA"
       >
         <HStack gap="space-8" wrap={false}>
           {icon && <span>{icon}</span>}
@@ -51,11 +51,7 @@ export const AksjonspunktBoks = ({ tittel, beskrivelse, aksjonspunkt, children }
 
 const getStateProps = (
   aksjonspunkter: Aksjonspunkt[] | undefined,
-): {
-  headerBackground: BoxNewProps['background'];
-  bodyBackground: BoxNewProps['background'];
-  icon: ReactElement | null;
-} => {
+) => {
   const erOpprettetAksjonspunkt = aksjonspunkter?.some(ap => ap.status === 'OPPR');
 
   if (erOpprettetAksjonspunkt) {
@@ -63,12 +59,12 @@ const getStateProps = (
       bodyBackground: 'warning-soft',
       headerBackground: 'warning-moderateA',
       icon: <ExclamationmarkTriangleFillIcon aria-hidden color="var(--ax-text-warning-subtle)" fontSize="1.5rem" />,
-    };
+    } as const;
   } else {
     return {
       bodyBackground: 'neutral-soft',
       headerBackground: 'neutral-moderateA',
       icon: null,
-    };
+    } as const;
   }
 };
