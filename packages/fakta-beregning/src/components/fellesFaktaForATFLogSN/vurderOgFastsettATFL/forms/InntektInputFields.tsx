@@ -302,17 +302,18 @@ export const InntektInputFields = ({
               header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
             >
               <List size="small">
-                <FormattedMessage
-                  tagName={List.Item}
-                  id={
-                    atflSammeOrgHarInntektsmelding
-                      ? 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1MedIM'
-                      : 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1'
-                  }
-                  values={{
-                    br: <br />,
-                  }}
-                />
+                {atflSammeOrgHarInntektsmelding ? (
+                  <FormattedMessage
+                    tagName={List.Item}
+                    id="BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1MedIM"
+                    values={{ br: <br /> }}
+                  />
+                ) : (
+                  <FormattedMessage
+                    tagName={List.Item}
+                    id="BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1"
+                  />
+                )}
                 <FormattedMessage
                   tagName={List.Item}
                   id="BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate2"
