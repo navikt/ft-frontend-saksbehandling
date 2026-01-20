@@ -22,7 +22,7 @@ export const AksjonspunktBoks = ({ tittel, beskrivelse, aksjonspunkt, children }
   return (
     <Box borderRadius="4" background={bodyBackground} data-testid={aksjonspunktIder ?? 'AksjonspunktBoks'}>
       <Box
-        paddingInline={icon ? 'space-4' : 'space-12'}
+        paddingInline={icon ? 'space-16' : 'space-48'}
         paddingBlock="space-16"
         borderRadius="4 4 0 0"
         background={headerBackground}
