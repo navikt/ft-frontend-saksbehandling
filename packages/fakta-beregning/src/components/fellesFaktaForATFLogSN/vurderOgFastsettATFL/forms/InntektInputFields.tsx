@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { Label, List, ReadMore, VStack } from '@navikt/ds-react';
+import { Box,Label, List, ReadMore, VStack } from '@navikt/ds-react';
 
 import type { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 
@@ -36,14 +36,16 @@ const KunstigAndelLabel = () => (
   <VStack gap="space-8">
     <FormattedMessage id="BeregningInfoPanel.KunstigArbeidsforhold.FastsettKunstigArbeidsforhold" />
     <ReadMore size="small" header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}>
-      <List size="small">
-        <List.Item>
-          <FormattedMessage id="BeregningInfoPanel.KunstigArbeidsforhold.HvordanGarJegFrem1" />
-        </List.Item>
-        <List.Item>
-          <FormattedMessage id="BeregningInfoPanel.KunstigArbeidsforhold.HvordanGarJegFrem2" />
-        </List.Item>
-      </List>
+      <Box marginBlock="space-12" asChild>
+        <List size="small">
+          <List.Item>
+            <FormattedMessage id="BeregningInfoPanel.KunstigArbeidsforhold.HvordanGarJegFrem1" />
+          </List.Item>
+          <List.Item>
+            <FormattedMessage id="BeregningInfoPanel.KunstigArbeidsforhold.HvordanGarJegFrem2" />
+          </List.Item>
+        </List>
+      </Box>
     </ReadMore>
   </VStack>
 );
@@ -215,17 +217,19 @@ export const InntektInputFields = ({
             size="small"
             header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
           >
-            <List size="small">
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate1" />
-              </List.Item>
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate2" />
-              </List.Item>
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate3" />
-              </List.Item>
-            </List>
+            <Box marginBlock="space-12" asChild>
+              <List size="small">
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate1" />
+                </List.Item>
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate2" />
+                </List.Item>
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.InntektInputFields.LonnsendringFremgangsmate3" />
+                </List.Item>
+              </List>
+            </Box>
           </ReadMore>
         </VStack>
       );
@@ -266,17 +270,19 @@ export const InntektInputFields = ({
             size="small"
             header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
           >
-            <List size="small">
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.FrilanserFremgangsmate1" />
-              </List.Item>
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.FrilanserFremgangsmate2" />
-              </List.Item>
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.FrilanserFremgangsmate3" />
-              </List.Item>
-            </List>
+            <Box marginBlock="space-12" asChild>
+              <List size="small">
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.InntektInputFields.FrilanserFremgangsmate1" />
+                </List.Item>
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.InntektInputFields.FrilanserFremgangsmate2" />
+                </List.Item>
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.InntektInputFields.FrilanserFremgangsmate3" />
+                </List.Item>
+              </List>
+            </Box>
           </ReadMore>
         </VStack>
       );
@@ -289,19 +295,21 @@ export const InntektInputFields = ({
             size="small"
             header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
           >
-            <List size="small">
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.InntektInputFields.NyoppstartetFrilansFremgangsmate1" />
-              </List.Item>
-              <List.Item>
-                <FormattedMessage
-                  id="BeregningInfoPanel.InntektInputFields.NyoppstartetFrilansFremgangsmate2"
-                  values={{
-                    br: <br />,
-                  }}
-                />
-              </List.Item>
-            </List>
+            <Box marginBlock="space-12" asChild>
+              <List size="small">
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.InntektInputFields.NyoppstartetFrilansFremgangsmate1" />
+                </List.Item>
+                <List.Item>
+                  <FormattedMessage
+                    id="BeregningInfoPanel.InntektInputFields.NyoppstartetFrilansFremgangsmate2"
+                    values={{
+                      br: <br />,
+                    }}
+                  />
+                </List.Item>
+              </List>
+            </Box>
           </ReadMore>
         </VStack>
       );
@@ -327,23 +335,25 @@ export const InntektInputFields = ({
               size="small"
               header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
             >
-              <List size="small">
-                <List.Item>
-                  <FormattedMessage
-                    id={
-                      atflSammeOrgHarInntektsmelding
-                        ? 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1MedIM'
-                        : 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1'
-                    }
-                    values={{
-                      br: <br />,
-                    }}
-                  />
-                </List.Item>
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate2" />
-                </List.Item>
-              </List>
+              <Box marginBlock="space-12" asChild>
+                <List size="small">
+                  <List.Item>
+                    <FormattedMessage
+                      id={
+                        atflSammeOrgHarInntektsmelding
+                          ? 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1MedIM'
+                          : 'BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate1'
+                      }
+                      values={{
+                        br: <br />,
+                      }}
+                    />
+                  </List.Item>
+                  <List.Item>
+                    <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ATFLSammeOrgFremgangsmate2" />
+                  </List.Item>
+                </List>
+              </Box>
             </ReadMore>
           </VStack>
           {atflOgSammeOrgArbeidsgivere?.map(arbeidsgiver => (

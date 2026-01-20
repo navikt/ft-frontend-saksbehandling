@@ -155,38 +155,42 @@ export const TilbakekrevingTimeline = ({
       </Timeline>
       <HStack justify="end">
         <Button
+          data-color="neutral"
           className={styles.margin}
           size="small"
           icon={<PlusIcon aria-hidden />}
           onClick={zoomIn}
-          variant="primary-neutral"
+          variant="primary"
           type="button"
           title={intl.formatMessage({ id: 'TilbakekrevingTimeline.ZoomInn' })}
         />
         <Button
+          data-color="neutral"
           className={styles.margin}
           size="small"
           icon={<MinusIcon aria-hidden />}
           onClick={zoomOut}
-          variant="primary-neutral"
+          variant="primary"
           type="button"
           title={intl.formatMessage({ id: 'TilbakekrevingTimeline.ZoomUt' })}
         />
         <Button
+          data-color="neutral"
           className={styles.margin}
           size="small"
           icon={<ArrowLeftIcon aria-hidden />}
           onClick={goBackward}
-          variant="primary-neutral"
+          variant="primary"
           type="button"
           title={intl.formatMessage({ id: 'TilbakekrevingTimeline.ScrollTilVenstre' })}
         />
         <Button
+          data-color="neutral"
           className={styles.margin}
           size="small"
           icon={<ArrowRightIcon aria-hidden />}
           onClick={goForward}
-          variant="primary-neutral"
+          variant="primary"
           type="button"
           title={intl.formatMessage({ id: 'TilbakekrevingTimeline.ScrollTilHogre' })}
         />

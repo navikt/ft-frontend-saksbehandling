@@ -9,7 +9,7 @@ const meta = {
   args: {
     tittel: 'Dette er en tittel på aksjonspunktboksen',
     children: (
-      <VStack gap="4">
+      <VStack gap="space-16">
         <TextField label="Fødselsdato" htmlSize={20} />
         <TextField label="Begrunnelse" htmlSize={50} />
       </VStack>

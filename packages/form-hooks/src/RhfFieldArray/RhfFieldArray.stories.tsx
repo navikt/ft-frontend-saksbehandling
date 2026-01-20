@@ -64,7 +64,7 @@ export const Default: Story = {
         readOnly={readOnly}
       >
         {(field, index, removeButton) => (
-          <HStack gap="2" key={field.id} align="end">
+          <HStack gap="space-8" key={field.id} align="end">
             <RhfDatepicker
               size={size}
               readOnly={readOnly}
@@ -108,7 +108,7 @@ export const MedAnnenType: Story = {
         emptyTemplate={{ fornavn: '', etternavn: '', adresse: '' }}
       >
         {(field, index, removeButton) => (
-          <HStack gap="2" key={field.id} align="end">
+          <HStack gap="space-8" key={field.id} align="end">
             <RhfTextField
               name={`personer.${index}.fornavn`}
               control={control}

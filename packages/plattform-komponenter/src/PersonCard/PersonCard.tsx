@@ -106,7 +106,8 @@ export const PersonCard = ({
             {!!renderMenuContent && (
               <>
                 <Button
-                  variant="tertiary-neutral"
+                  data-color="neutral"
+                  variant="tertiary"
                   icon={<MenuElipsisHorizontalCircleIcon />}
                   ref={menuRef}
                   onClick={() => setIsMenuOpen(!isMenuOpen)}

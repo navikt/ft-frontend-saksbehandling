@@ -13,7 +13,7 @@ export const VisittKort = ({ children, active, icon }: CardProps) => (
     gap="space-16"
     align="center"
     wrap={false}
-    padding="4"
+    padding="space-16"
     style={{
       zIndex: 2,
       overflow: 'hidden',

@@ -9,7 +9,7 @@ interface ProcessMenuProps {
 }
 
 export const ProcessMenu = ({ steps, onClick, stepArrowContainerStyle }: ProcessMenuProps) => (
-  <HStack as="ol" justify="space-between" padding="0" align="end" gap="space-16">
+  <HStack as="ol" justify="space-between" padding="space-0" align="end" gap="space-16">
     {steps.map((step, index) => (
       <Step
         key={step.label}

@@ -10,7 +10,7 @@ const meta = {
   args: {
     tittel: 'Sammenligningsgrunnlag § 8-30 fra A-ordningen',
     children: (
-      <VStack gap="4">
+      <VStack gap="space-16">
         <LabeledValue label="Fødselsdato" value="20.02.2025" />
         <LabeledValue label="Begrunnelse" value="Blablabla godkjent heihei" />
       </VStack>

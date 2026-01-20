@@ -20,19 +20,19 @@ export const AksjonspunktBoks = ({ tittel, beskrivelse, aksjonspunkt, children }
   const { headerBackground, bodyBackground, icon } = getStateProps(aksjonspunkter);
   const aksjonspunktIder = aksjonspunkter?.map(ap => `AksjonspunktBoks-${ap.definisjon}`).join(',');
   return (
-    <Box.New
+    <Box
       borderRadius="medium"
       background={bodyBackground}
       data-testid={aksjonspunktIder ?? 'AksjonspunktBoks'}
       data-color={bodyBackground}
     >
-      <Box.New
+      <Box
         paddingInline={icon ? '4' : '12'}
-        paddingBlock="4"
+        paddingBlock="space-16"
         borderRadius="medium medium 0 0"
         background={headerBackground}
       >
-        <HStack gap="2" wrap={false}>
+        <HStack gap="space-8" wrap={false}>
           {icon && <span>{icon}</span>}
           <div>
             <Heading as="span" size="small" level="3">
@@ -41,11 +41,11 @@ export const AksjonspunktBoks = ({ tittel, beskrivelse, aksjonspunkt, children }
             {beskrivelse && <Detail>{beskrivelse}</Detail>}
           </div>
         </HStack>
-      </Box.New>
-      <Box.New paddingInline="12" paddingBlock="6">
+      </Box>
+      <Box paddingInline="space-48" paddingBlock="space-24">
         {children}
-      </Box.New>
-    </Box.New>
+      </Box>
+    </Box>
   );
 };
 

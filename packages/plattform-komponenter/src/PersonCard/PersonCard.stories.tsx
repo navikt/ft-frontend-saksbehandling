@@ -57,7 +57,7 @@ const meta = {
           gender={Gender.female}
           fodselsnummer="12345612346"
           renderLabelContent={() => (
-            <Tag variant="neutral" size="small">
+            <Tag data-color="neutral" variant="outline" size="small">
               Under 18
             </Tag>
           )}

@@ -119,11 +119,12 @@ export const PeriodeController = ({
         <>
           <Spacer />
           <Button
+            data-color="neutral"
             className={styles.margin}
             size="xsmall"
             icon={<ScissorsIcon aria-hidden />}
             onClick={showModal}
-            variant="tertiary-neutral"
+            variant="tertiary"
             type="button"
             title={intl.formatMessage({ id: 'PeriodeController.DelOppPerioden' })}
           >
@@ -142,22 +143,24 @@ export const PeriodeController = ({
       )}
       <Spacer />
       <Button
+        data-color="neutral"
         className={styles.margin}
         size="xsmall"
         icon={<ArrowLeftIcon aria-hidden />}
         onClick={setForrigePeriode}
-        variant="secondary-neutral"
+        variant="secondary"
         type="button"
         title={intl.formatMessage({ id: 'PeriodeController.prevPeriod' })}
       >
         <FormattedMessage id="PeriodeController.prevPeriodShort" />
       </Button>
       <Button
+        data-color="neutral"
         className={styles.margin}
         size="xsmall"
         icon={<ArrowRightIcon aria-hidden />}
         onClick={setNestePeriode}
-        variant="secondary-neutral"
+        variant="secondary"
         type="button"
         title={intl.formatMessage({ id: 'PeriodeController.nextPeriod' })}
         iconPosition="right"
@@ -165,10 +168,11 @@ export const PeriodeController = ({
         <FormattedMessage id="PeriodeController.nextPeriodShort" />
       </Button>
       <Button
+        data-color="neutral"
         size="xsmall"
         icon={<XMarkIcon aria-hidden />}
         onClick={lukkPeriode}
-        variant="tertiary-neutral"
+        variant="tertiary"
         type="button"
         title={intl.formatMessage({ id: 'PeriodeController.LukkPeriode' })}
       />

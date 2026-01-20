@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { List, Radio, ReadMore, VStack } from '@navikt/ds-react';
+import { Box,List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -45,14 +45,16 @@ export const NyoppstartetFLForm = ({ readOnly }: Props) => {
             size="small"
             header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
           >
-            <List size="small">
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.NyoppstartetFLForm.HvordanGarJegFrem1" />
-              </List.Item>
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.NyoppstartetFLForm.HvordanGarJegFrem2" />
-              </List.Item>
-            </List>
+            <Box marginBlock="space-12" asChild>
+              <List size="small">
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.NyoppstartetFLForm.HvordanGarJegFrem1" />
+                </List.Item>
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.NyoppstartetFLForm.HvordanGarJegFrem2" />
+                </List.Item>
+              </List>
+            </Box>
           </ReadMore>
         </VStack>
       }
