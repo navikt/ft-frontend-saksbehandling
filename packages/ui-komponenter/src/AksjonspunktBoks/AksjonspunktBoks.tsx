@@ -21,15 +21,15 @@ export const AksjonspunktBoks = ({ tittel, beskrivelse, aksjonspunkt, children }
   const aksjonspunktIder = aksjonspunkter?.map(ap => `AksjonspunktBoks-${ap.definisjon}`).join(',');
   return (
     <Box
-      borderRadius="medium"
+      borderRadius="4"
       background={bodyBackground}
       data-testid={aksjonspunktIder ?? 'AksjonspunktBoks'}
       data-color={bodyBackground}
     >
       <Box
-        paddingInline={icon ? '4' : '12'}
+        paddingInline={icon ? 'space-4' : 'space-12'}
         paddingBlock="space-16"
-        borderRadius="medium medium 0 0"
+        borderRadius="4 4 0 0"
         background={headerBackground}
       >
         <HStack gap="space-8" wrap={false}>

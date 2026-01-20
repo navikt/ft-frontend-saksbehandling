@@ -6,7 +6,7 @@ import { withThemeDecorator } from '@navikt/ft-frontend-storybook-utils';
 
 import './global.module.css';
 
-import '@navikt/ds-css/darkside';
+import '@navikt/ds-css';
 
 export const globalTypes = {
   theme: {
