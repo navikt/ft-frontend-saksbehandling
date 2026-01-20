@@ -1,7 +1,7 @@
-import type { ReactElement, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { Box, type BoxNewProps, Detail, Heading, HStack } from '@navikt/ds-react';
+import { Box, Detail, Heading, HStack } from '@navikt/ds-react';
 
 type Aksjonspunkt = {
   status: 'OPPR' | 'UTFO' | 'AVBR';
@@ -17,22 +17,22 @@ interface Props {
 
 export const AksjonspunktBoks = ({ tittel, beskrivelse, aksjonspunkt, children }: Props) => {
   const aksjonspunkter = !aksjonspunkt || Array.isArray(aksjonspunkt) ? aksjonspunkt : [aksjonspunkt];
-  const { headerBackground, bodyBackground, icon } = getStateProps(aksjonspunkter);
+  const { dataColor, headerBackground, bodyBackground, icon } = getStateProps(aksjonspunkter);
   const aksjonspunktIder = aksjonspunkter?.map(ap => `AksjonspunktBoks-${ap.definisjon}`).join(',');
   return (
-    <Box.New
-      borderRadius="medium"
+    <Box
+      borderRadius="4"
       background={bodyBackground}
       data-testid={aksjonspunktIder ?? 'AksjonspunktBoks'}
-      data-color={bodyBackground}
+      data-color={dataColor}
     >
-      <Box.New
-        paddingInline={icon ? '4' : '12'}
-        paddingBlock="4"
-        borderRadius="medium medium 0 0"
+      <Box
+        paddingInline={icon ? 'space-16' : 'space-48'}
+        paddingBlock="space-16"
+        borderRadius="4 4 0 0"
         background={headerBackground}
       >
-        <HStack gap="2" wrap={false}>
+        <HStack gap="space-8" wrap={false}>
           {icon && <span>{icon}</span>}
           <div>
             <Heading as="span" size="small" level="3">
@@ -41,34 +41,30 @@ export const AksjonspunktBoks = ({ tittel, beskrivelse, aksjonspunkt, children }
             {beskrivelse && <Detail>{beskrivelse}</Detail>}
           </div>
         </HStack>
-      </Box.New>
-      <Box.New paddingInline="12" paddingBlock="6">
+      </Box>
+      <Box paddingInline="space-48" paddingBlock="space-24">
         {children}
-      </Box.New>
-    </Box.New>
+      </Box>
+    </Box>
   );
 };
 
-const getStateProps = (
-  aksjonspunkter: Aksjonspunkt[] | undefined,
-): {
-  headerBackground: BoxNewProps['background'];
-  bodyBackground: BoxNewProps['background'];
-  icon: ReactElement | null;
-} => {
+const getStateProps = (aksjonspunkter: Aksjonspunkt[] | undefined) => {
   const erOpprettetAksjonspunkt = aksjonspunkter?.some(ap => ap.status === 'OPPR');
 
   if (erOpprettetAksjonspunkt) {
     return {
       bodyBackground: 'warning-soft',
       headerBackground: 'warning-moderateA',
+      dataColor: 'warning',
       icon: <ExclamationmarkTriangleFillIcon aria-hidden color="var(--ax-text-warning-subtle)" fontSize="1.5rem" />,
-    };
+    } as const;
   } else {
     return {
       bodyBackground: 'neutral-soft',
       headerBackground: 'neutral-moderateA',
+      dataColor: 'neutral',
       icon: null,
-    };
+    } as const;
   }
 };

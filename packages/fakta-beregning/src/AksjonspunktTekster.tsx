@@ -1,7 +1,7 @@
 import { type ReactElement, type ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Alert, Heading, List, ReadMore, VStack } from '@navikt/ds-react';
+import { Alert, Box, Heading, List, ReadMore, VStack } from '@navikt/ds-react';
 
 import type {
   ArbeidsgiverOpplysningerPerId,
@@ -143,45 +143,49 @@ export const AksjonspunktTekster = ({ beregningsgrunnlag, arbeidsgiverOpplysning
               <FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFremForFastsetteManedsinntekt" />
             }
           >
-            <List size="small">
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt1" />
-              </List.Item>
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt2" />
-              </List.Item>
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt3" />
-              </List.Item>
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt4" />
-              </List.Item>
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt5" />
-              </List.Item>
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt6" />
-              </List.Item>
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt7" />
-              </List.Item>
-            </List>
+            <Box marginBlock="space-12" asChild>
+              <List size="small">
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt1" />
+                </List.Item>
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt2" />
+                </List.Item>
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt3" />
+                </List.Item>
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt4" />
+                </List.Item>
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt5" />
+                </List.Item>
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt6" />
+                </List.Item>
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvordanGarJegFremForFastsetteManedsinntekt7" />
+                </List.Item>
+              </List>
+            </Box>
           </ReadMore>
           <ReadMore
             size="small"
             header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvaBetyrInntektskategori" />}
           >
-            <List size="small">
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori1" />
-              </List.Item>
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori2" />
-              </List.Item>
-              <List.Item>
-                <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori3" />
-              </List.Item>
-            </List>
+            <Box marginBlock="space-12" asChild>
+              <List size="small">
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori1" />
+                </List.Item>
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori2" />
+                </List.Item>
+                <List.Item>
+                  <FormattedMessage id="BeregningInfoPanel.VurderFaktaBeregningField.FastsettBGKunYtelse.HvaBetyrInntektskategori3" />
+                </List.Item>
+              </List>
+            </Box>
           </ReadMore>
         </VStack>
       </Alert>,

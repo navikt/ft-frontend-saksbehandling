@@ -64,10 +64,11 @@ interface RemoveButtonProps {
 export const RhfFieldArrayRemoveButton = ({ index, remove, size, skjul }: RemoveButtonProps): ReactNode | null =>
   index > 0 && !skjul ? (
     <Button
+      data-color="neutral"
       icon={<XMarkIcon aria-hidden />}
       title="Fjern element"
       type="button"
-      variant="tertiary-neutral"
+      variant="tertiary"
       size={size}
       onClick={() => {
         remove(index);

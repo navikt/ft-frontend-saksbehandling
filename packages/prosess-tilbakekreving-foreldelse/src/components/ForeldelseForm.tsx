@@ -246,7 +246,7 @@ export const ForeldelseForm = ({
                 id="panel-tilbakekreving-foreldelse"
                 aria-controls={valgtPeriodeFormatertForTidslinje?.id.toString()}
               >
-                <Box.New borderWidth="1" padding="4">
+                <Box borderWidth="1" padding="space-16">
                   <VStack gap="space-16">
                     <PeriodeController
                       setNestePeriode={setNestePeriode}
@@ -272,7 +272,7 @@ export const ForeldelseForm = ({
                       kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
                     />
                   </VStack>
-                </Box.New>
+                </Box>
               </div>
             )}
             <HStack>
