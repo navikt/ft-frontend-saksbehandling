@@ -9,21 +9,21 @@ const { OpprettetAksjonspunkt, UtførtAksjonspunkt, ReturnertAksjonspunkt, UtenA
 describe('AksjonspunktBoks', () => {
   it('Skal vise warning-tilstand for åpent aksjonspunkt', async () => {
     render(<OpprettetAksjonspunkt />);
-    expect(screen.getByTestId('AksjonspunktBoks-1234')).toHaveAttribute('data-color', 'warning-soft');
+    expect(screen.getByTestId('AksjonspunktBoks-1234')).toHaveAttribute('data-color', 'warning');
   });
 
   it('Skal vise nøytral-tilstand for utført aksjonspunkt', async () => {
     render(<UtførtAksjonspunkt />);
-    expect(screen.queryByTestId('AksjonspunktBoks-1234')).toHaveAttribute('data-color', 'neutral-soft');
+    expect(screen.queryByTestId('AksjonspunktBoks-1234')).toHaveAttribute('data-color', 'neutral');
   });
 
   it('Skal vise warning-tilstand ved retur fra beslutter', async () => {
     render(<ReturnertAksjonspunkt />);
-    expect(screen.getByTestId('AksjonspunktBoks-1234')).toHaveAttribute('data-color', 'warning-soft');
+    expect(screen.getByTestId('AksjonspunktBoks-1234')).toHaveAttribute('data-color', 'warning');
   });
 
   it('Skal vise nøytral-tilstand ved ingen aksjonspunkt (overstyring)', async () => {
     render(<UtenAksjonspunkt />);
-    expect(screen.getByTestId('AksjonspunktBoks')).toHaveAttribute('data-color', 'neutral-soft');
+    expect(screen.getByTestId('AksjonspunktBoks')).toHaveAttribute('data-color', 'neutral');
   });
 });
