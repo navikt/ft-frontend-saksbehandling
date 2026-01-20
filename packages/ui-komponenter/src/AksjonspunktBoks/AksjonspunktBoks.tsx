@@ -1,7 +1,7 @@
-import type { ReactElement, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { Box, type BoxProps, Detail, Heading, HStack } from '@navikt/ds-react';
+import { Box, Detail, Heading, HStack } from '@navikt/ds-react';
 
 type Aksjonspunkt = {
   status: 'OPPR' | 'UTFO' | 'AVBR';
@@ -17,20 +17,15 @@ interface Props {
 
 export const AksjonspunktBoks = ({ tittel, beskrivelse, aksjonspunkt, children }: Props) => {
   const aksjonspunkter = !aksjonspunkt || Array.isArray(aksjonspunkt) ? aksjonspunkt : [aksjonspunkt];
-  const { icon } = getStateProps(aksjonspunkter);
+  const { headerBackground, bodyBackground, icon } = getStateProps(aksjonspunkter);
   const aksjonspunktIder = aksjonspunkter?.map(ap => `AksjonspunktBoks-${ap.definisjon}`).join(',');
   return (
-    <Box
-      borderRadius="4"
-      background="warning-soft"
-      data-testid={aksjonspunktIder ?? 'AksjonspunktBoks'}
-      data-color="warning-soft"
-    >
+    <Box borderRadius="4" background={bodyBackground} data-testid={aksjonspunktIder ?? 'AksjonspunktBoks'}>
       <Box
         paddingInline={icon ? 'space-4' : 'space-12'}
         paddingBlock="space-16"
         borderRadius="4 4 0 0"
-        background="warning-moderateA"
+        background={headerBackground}
       >
         <HStack gap="space-8" wrap={false}>
           {icon && <span>{icon}</span>}
@@ -49,9 +44,7 @@ export const AksjonspunktBoks = ({ tittel, beskrivelse, aksjonspunkt, children }
   );
 };
 
-const getStateProps = (
-  aksjonspunkter: Aksjonspunkt[] | undefined,
-) => {
+const getStateProps = (aksjonspunkter: Aksjonspunkt[] | undefined) => {
   const erOpprettetAksjonspunkt = aksjonspunkter?.some(ap => ap.status === 'OPPR');
 
   if (erOpprettetAksjonspunkt) {

@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { Box,Label, List, ReadMore, VStack } from '@navikt/ds-react';
+import { Box, Label, List, ReadMore, VStack } from '@navikt/ds-react';
 
 import type { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 

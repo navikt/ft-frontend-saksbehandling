@@ -12,7 +12,7 @@ interface Props {
 
 export const LabeledValue = ({ label, value, horizontal = false, size = 'small', fieldType = 'text' }: Props) => {
   const StackComponent = horizontal ? HStack : VStack;
-  const gap = horizontal ? 'space-8' : '0';
+  const gap = horizontal ? 'space-8' : 'space-0';
   return (
     <StackComponent gap={gap} align="baseline">
       <Label size={size}>{label}</Label>

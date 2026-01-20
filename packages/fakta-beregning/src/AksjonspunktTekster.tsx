@@ -1,7 +1,7 @@
 import { type ReactElement, type ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Alert, Box,Heading, List, ReadMore, VStack } from '@navikt/ds-react';
+import { Alert, Box, Heading, List, ReadMore, VStack } from '@navikt/ds-react';
 
 import type {
   ArbeidsgiverOpplysningerPerId,
