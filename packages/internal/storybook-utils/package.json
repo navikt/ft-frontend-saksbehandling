@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-frontend-storybook-utils",
-  "version": "5.4.15",
+  "version": "5.5.0",
   "license": "MIT",
   "type": "module",
   "private": true,
