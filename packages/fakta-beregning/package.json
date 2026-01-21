@@ -30,7 +30,6 @@
     "@navikt/ft-form-validators": "workspace:^",
     "@navikt/ft-ui-komponenter": "workspace:^",
     "@navikt/ft-utils": "workspace:^",
-    "core-js": "3.47.0",
     "dayjs": "1.11.19",
     "react": "19.2.3",
     "react-dom": "19.2.3",

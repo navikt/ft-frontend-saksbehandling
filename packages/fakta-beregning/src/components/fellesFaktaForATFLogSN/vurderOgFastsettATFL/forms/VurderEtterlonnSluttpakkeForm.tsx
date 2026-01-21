@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { Radio, ReadMore, VStack } from '@navikt/ds-react';
+import { Radio, ReadMore } from '@navikt/ds-react';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -18,8 +18,6 @@ import type { InntektTransformed } from '../../../../typer/FieldValues';
 import type { FaktaBeregningTransformedValues } from '../../../../typer/interface/BeregningFaktaAP';
 import type { VurderFaktaBeregningFormValues } from '../../../../typer/VurderFaktaBeregningFormValues';
 import { BeregningsgrunnlagIndexContext } from '../../VurderFaktaContext';
-
-import 'core-js/features/array/flat-map';
 
 /**
  * VurderEtterlønnSluttpakkeForm
@@ -42,16 +40,14 @@ export const VurderEtterlonnSluttpakkeForm = ({ readOnly }: Props) => {
       <RhfRadioGroup
         name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${harEtterlonnSluttpakkeField}`}
         control={control}
-        legend={
-          <VStack gap="space-8">
-            <FormattedMessage id="BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt" />
-            <ReadMore
-              size="small"
-              header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
-            >
-              <FormattedMessage id="BeregningInfoPanel.EtterlønnSluttpakke.HvordanGarJegFrem1" />
-            </ReadMore>
-          </VStack>
+        legend={<FormattedMessage id="BeregningInfoPanel.EtterlønnSluttpakke.HarSøkerInntekt" />}
+        description={
+          <ReadMore
+            size="small"
+            header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+          >
+            <FormattedMessage id="BeregningInfoPanel.EtterlønnSluttpakke.HvordanGarJegFrem1" />
+          </ReadMore>
         }
         validate={[required]}
         readOnly={readOnly}

@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { Box, List, Radio, ReadMore, VStack } from '@navikt/ds-react';
+import { List, Radio, ReadMore, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -86,25 +86,25 @@ const MottarYtelseArbeidsforholdRadioAndInputs = ({
       name={`vurderFaktaBeregningForm.${aktivtBeregningsgrunnlagIndeks}.vurderMottarYtelseValues.${key}`}
       control={control}
       legend={
-        <VStack gap="space-8">
-          {andel.arbeidsforhold &&
-            utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, kodeverkSamling, arbeidsgiverOpplysningerPerId)}
-          <ReadMore
-            size="small"
-            header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
-          >
-            <Box marginBlock="space-12" asChild>
-              <List size="small">
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.MottarYtelseArbeidsforhold.HvordanGarJegFrem1" />
-                </List.Item>
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.MottarYtelseArbeidsforhold.HvordanGarJegFrem2" />
-                </List.Item>
-              </List>
-            </Box>
-          </ReadMore>
-        </VStack>
+        andel.arbeidsforhold &&
+        utledArbeidsforholdUtenIMRadioTekst(andel.arbeidsforhold, kodeverkSamling, arbeidsgiverOpplysningerPerId)
+      }
+      description={
+        <ReadMore
+          size="small"
+          header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+        >
+          <List size="small">
+            <FormattedMessage
+              tagName={List.Item}
+              id="BeregningInfoPanel.VurderMottarYtelse.MottarYtelseArbeidsforhold.HvordanGarJegFrem1"
+            />
+            <FormattedMessage
+              tagName={List.Item}
+              id="BeregningInfoPanel.VurderMottarYtelse.MottarYtelseArbeidsforhold.HvordanGarJegFrem2"
+            />
+          </List>
+        </ReadMore>
       }
       validate={readOnly ? [] : [required]}
       readOnly={readOnly}
@@ -171,25 +171,23 @@ export const VurderMottarYtelseForm = ({
         <RhfRadioGroup
           name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${frilansFieldName}`}
           control={control}
-          legend={
-            <VStack gap="space-8">
-              <FormattedMessage id={finnFrilansTekstKode(tilfeller)} />
-              <ReadMore
-                size="small"
-                header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
-              >
-                <Box marginBlock="space-12" asChild>
-                  <List size="small">
-                    <List.Item>
-                      <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.Frilans.HvordanGarJegFrem1" />
-                    </List.Item>
-                    <List.Item>
-                      <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.Frilans.HvordanGarJegFrem2" />
-                    </List.Item>
-                  </List>
-                </Box>
-              </ReadMore>
-            </VStack>
+          legend={<FormattedMessage id={finnFrilansTekstKode(tilfeller)} />}
+          description={
+            <ReadMore
+              size="small"
+              header={<FormattedMessage id="BeregningInfoPanel.InntektInputFields.HvordanGarJegFrem" />}
+            >
+              <List size="small">
+                <FormattedMessage
+                  tagName={List.Item}
+                  id="BeregningInfoPanel.VurderMottarYtelse.Frilans.HvordanGarJegFrem1"
+                />
+                <FormattedMessage
+                  tagName={List.Item}
+                  id="BeregningInfoPanel.VurderMottarYtelse.Frilans.HvordanGarJegFrem2"
+                />
+              </List>
+            </ReadMore>
           }
           validate={readOnly ? [] : [required]}
           readOnly={readOnly}

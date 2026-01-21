@@ -2,7 +2,6 @@ import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
 import { Heading, Table } from '@navikt/ds-react';
 import dayjs from 'dayjs';
-import norskFormat from 'dayjs/locale/nb';
 
 import { InntektAktivitetType } from '@navikt/ft-kodeverk';
 import type {
@@ -12,7 +11,7 @@ import type {
   InntektsgrunnlagInntekt,
 } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
-import { formaterArbeidsgiver, sortPeriodsByFom } from '@navikt/ft-utils';
+import { capitalizeFirstLetter, formaterArbeidsgiver, sortPeriodsByFom } from '@navikt/ft-utils';
 
 interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
@@ -68,16 +67,14 @@ export const RegisterinntektTabell = ({ beregningsgrunnlag, arbeidsgiverOpplysni
                     <FormattedMessage id={finnAktivitetNavn(intl, inntekt, arbeidsgiverOpplysningerPerId)} />
                   </Table.DataCell>
                   <Table.DataCell textSize="small" align="right">
-                    <BeløpLabel beløp={inntekt.beløp} />
+                    <BeløpLabel beløp={inntekt.beløp} kr />
                   </Table.DataCell>
                   <Table.DataCell textSize="small">
-                    <FormattedMessage
-                      id={
-                        erAktivVedStp(inntekt, andelerVedSkjæringstidspunkt)
-                          ? 'Registerinntekt.Tabell.Ja'
-                          : 'Registerinntekt.Tabell.Nei'
-                      }
-                    />
+                    {erAktivVedStp(inntekt, andelerVedSkjæringstidspunkt) ? (
+                      <FormattedMessage id="Registerinntekt.Tabell.Ja" />
+                    ) : (
+                      <FormattedMessage id="Registerinntekt.Tabell.Nei" />
+                    )}
                   </Table.DataCell>
                 </Table.Row>
               ))}
@@ -104,8 +101,8 @@ const erAktivVedStp = (
 
 const finnMåned = (dato: string): string => {
   const date = dayjs(dato);
-  const maanedNavn = date.locale(norskFormat).format('MMM');
-  return maanedNavn.charAt(0).toUpperCase() + maanedNavn.slice(1, 3);
+  const maanedNavn = date.format('MMM');
+  return capitalizeFirstLetter(maanedNavn);
 };
 
 const finnAktivitetNavn = (
