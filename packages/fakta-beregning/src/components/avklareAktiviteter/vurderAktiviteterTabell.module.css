@@ -1,5 +1,10 @@
 .table {
   table-layout: fixed;
+  /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
+  width: auto;
+  /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
+  width: -webkit-fill-available;
+  /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
   width: stretch;
 
   th:nth-last-child(2),
