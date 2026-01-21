@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { Box, List, Radio, ReadMore, VStack } from '@navikt/ds-react';
+import { List, Radio, ReadMore } from '@navikt/ds-react';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -37,25 +37,15 @@ export const LonnsendringForm = ({ readOnly }: Props) => {
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.lonnsendringField`}
       control={control}
       validate={[required]}
-      legend={
-        <VStack gap="space-8">
-          <FormattedMessage id="BeregningInfoPanel.LonnsendringForm.HarSokerEndring" />
-          <ReadMore size="small" header={<FormattedMessage id="BeregningInfoPanel.LonnsendringForm.HvaBetyrDette" />}>
-            <Box marginBlock="space-12" asChild>
-              <List size="small">
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.LonnsendringForm.HvaBetyrDette1" />
-                </List.Item>
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.LonnsendringForm.HvaBetyrDette2" />
-                </List.Item>
-                <List.Item>
-                  <FormattedMessage id="BeregningInfoPanel.LonnsendringForm.HvaBetyrDette3" />
-                </List.Item>
-              </List>
-            </Box>
-          </ReadMore>
-        </VStack>
+      legend={<FormattedMessage id="BeregningInfoPanel.LonnsendringForm.HarSokerEndring" />}
+      description={
+        <ReadMore size="small" header={<FormattedMessage id="BeregningInfoPanel.LonnsendringForm.HvaBetyrDette" />}>
+          <List size="small">
+            <FormattedMessage tagName={List.Item} id="BeregningInfoPanel.LonnsendringForm.HvaBetyrDette1" />
+            <FormattedMessage tagName={List.Item} id="BeregningInfoPanel.LonnsendringForm.HvaBetyrDette2" />
+            <FormattedMessage tagName={List.Item} id="BeregningInfoPanel.LonnsendringForm.HvaBetyrDette3" />
+          </List>
+        </ReadMore>
       }
       readOnly={readOnly}
     >

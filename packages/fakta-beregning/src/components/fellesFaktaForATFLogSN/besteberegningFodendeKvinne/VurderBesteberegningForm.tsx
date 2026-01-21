@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Label, Link, Radio, VStack } from '@navikt/ds-react';
+import { Link, Radio } from '@navikt/ds-react';
 
 import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -49,17 +49,11 @@ export const VurderBesteberegningForm = ({ readOnly, erOverstyrt }: Props) => {
     <RhfRadioGroup
       name={`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`}
       control={control}
-      legend={
-        <VStack gap="space-8" justify="space-between">
-          <Label size="small">
-            <FormattedMessage id="BeregningInfoPanel.VurderBestebergning.HarBesteberegning" />
-          </Label>
-          <BodyShort>
-            <Link href={LINK_TIL_BESTE_BEREGNING_REGNEARK} target="_blank" rel="noopener noreferrer">
-              <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
-            </Link>
-          </BodyShort>
-        </VStack>
+      legend={<FormattedMessage id="BeregningInfoPanel.VurderBestebergning.HarBesteberegning" />}
+      description={
+        <Link href={LINK_TIL_BESTE_BEREGNING_REGNEARK} target="_blank" rel="noopener noreferrer">
+          <FormattedMessage id="BeregningInfoPanel.FastsettBBFodendeKvinne.RegnarkNavet" />
+        </Link>
       }
       readOnly={isReadOnly}
       validate={isReadOnly ? [] : [required]}

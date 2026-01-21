@@ -75,7 +75,7 @@ export const VurderAktiviteterTabell = ({
           <Table.HeaderCell textSize="small">
             <FormattedMessage id="VurderAktiviteterTabell.Header.IkkeBenytt" />
           </Table.HeaderCell>
-          <Table.HeaderCell />
+          {isAvklaringsbehovClosed && readOnly && <Table.HeaderCell />}
         </Table.Row>
       </Table.Header>
       <Table.Body>

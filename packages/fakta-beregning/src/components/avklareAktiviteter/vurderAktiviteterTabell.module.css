@@ -1,3 +1,19 @@
 .table {
   table-layout: fixed;
+  /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
+  width: auto;
+  /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
+  width: -webkit-fill-available;
+  /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
+  width: stretch;
+
+  th:nth-last-child(2),
+  td:nth-last-child(2) {
+    width: 70px;
+  }
+
+  th:nth-last-child(1),
+  td:nth-last-child(1) {
+    width: 100px;
+  }
 }

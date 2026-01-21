@@ -1,34 +1,27 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FormattedMessage } from 'react-intl';
 
-import type { AndelForFaktaOmBeregning, ArbeidsgiverOpplysningerPerId, ATFLSammeOrgAndel } from '@navikt/ft-types';
+import { type TextFieldProps } from '@navikt/ds-react';
+
+import type { AndelForFaktaOmBeregning, ATFLSammeOrgAndel } from '@navikt/ft-types';
 
 import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 import { BeregningsgrunnlagIndexContext } from '../fellesFaktaForATFLogSN/VurderFaktaContext';
 import { getArbeidsgiverIndex } from './arbeidsinntektInputUtils';
 import { InntektInput } from './InntektInput';
 
-interface Props {
+type Props = {
   arbeidsgiver: ATFLSammeOrgAndel;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
-  label?: React.ReactNode;
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-}
+} & TextFieldProps;
 
 type FormValues = {
   fastsattBelop: number | undefined;
   arbeidsgiverIdent: string | undefined;
 };
 
-export const ArbeidsinntektInput = ({
-  arbeidsgiver,
-  readOnly,
-  isAksjonspunktClosed,
-  label,
-  arbeidsgiverOpplysningerPerId,
-}: Props) => {
+export const ArbeidsinntektInput = ({ arbeidsgiver, readOnly, isAksjonspunktClosed, ...textfieldProps }: Props) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues`);
@@ -39,23 +32,13 @@ export const ArbeidsinntektInput = ({
   const arbeidsgiverIndex = getArbeidsgiverIndex(formValues, agIdent);
 
   const fieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues.${arbeidsgiverIndex}.fastsattBelop`;
-  const arbeidsgiverNavn = agIdent ? arbeidsgiverOpplysningerPerId[agIdent]?.navn : undefined;
 
   return (
     <InntektInput
       name={fieldName}
       readOnly={readOnly}
       isAksjonspunktClosed={isAksjonspunktClosed}
-      label={
-        label ?? (
-          <FormattedMessage
-            id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift"
-            values={{
-              bedrift: `${arbeidsgiverNavn} (${agIdent})`,
-            }}
-          />
-        )
-      }
+      {...textfieldProps}
     />
   );
 };
