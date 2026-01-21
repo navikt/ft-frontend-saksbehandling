@@ -6,6 +6,8 @@ import { Select, type SelectProps } from '@navikt/ds-react';
 import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
+import styles from './rhfSelect.module.css';
+
 type Props<T extends FieldValues> = {
   isEdited?: boolean;
   onChange?: (event: any) => void;
@@ -13,6 +15,7 @@ type Props<T extends FieldValues> = {
   selectValues: React.ReactElement<any>[];
   hideValueOnDisable?: boolean;
   control: UseControllerProps<T>['control'];
+  align?: 'left' | 'right';
 } & Omit<UseControllerProps<T>, 'control'> &
   Omit<SelectProps, 'children' | 'value' | 'defaultValue' | 'onChange'>;
 
@@ -29,6 +32,7 @@ export const RhfSelect = <T extends FieldValues>({
   name,
   control,
   disabled,
+  align,
   ...rest
 }: Props<T>) => {
   const {
@@ -43,10 +47,21 @@ export const RhfSelect = <T extends FieldValues>({
     },
   });
 
+  const className = align === 'right' ? styles.alignRight : undefined;
+
   if (readOnly) {
     const option = selectValues.map(sv => sv.props).find(o => o.value === field.value);
     const value = option ? option.children : undefined;
-    return <ReadOnlyField value={value} label={label} hideLabel={hideLabel} isEdited={isEdited} size={size} />;
+    return (
+      <ReadOnlyField
+        value={value}
+        label={label}
+        hideLabel={hideLabel}
+        isEdited={isEdited}
+        size={size}
+        className={className}
+      />
+    );
   }
 
   const n = field.value || '';
@@ -61,6 +76,7 @@ export const RhfSelect = <T extends FieldValues>({
       size={size}
       error={getError(errors, name)}
       label={label}
+      className={className}
       value={(hideValueOnDisable && disabled) || noCorrespondingOptionFound ? '' : field.value}
       onChange={evt => {
         if (onChange) {

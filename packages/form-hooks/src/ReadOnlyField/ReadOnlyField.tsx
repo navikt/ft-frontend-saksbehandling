@@ -15,16 +15,17 @@ interface Props {
   type?: string;
   hideLabel?: boolean;
   size?: 'medium' | 'small';
+  align?: 'left' | 'right';
 }
 
-export const ReadOnlyField = ({ label, value, isEdited = false, type, hideLabel, size }: Props) => {
+export const ReadOnlyField = ({ label, value, isEdited = false, type, hideLabel, size, align }: Props) => {
   if (!hasValue(value)) {
     return null;
   }
   return (
     <VStack gap="space-4">
       {label && !hideLabel && <Label size={size}>{label}</Label>}
-      <HStack gap="space-8" align="center" wrap={false}>
+      <HStack gap="space-8" align="center" wrap={false} justify={align === 'right' ? 'end' : undefined}>
         <BodyLong className={type === 'textarea' ? styles.textarea : styles.readOnlyField} size={size}>
           {value}
         </BodyLong>

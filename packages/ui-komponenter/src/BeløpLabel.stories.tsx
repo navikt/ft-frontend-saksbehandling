@@ -17,6 +17,18 @@ export const Default: Story = {
   args: {},
 };
 
+export const MedAvrundetDesimal: Story = {
+  args: {
+    beløp: 2345678.359999,
+  },
+};
+
+export const MedAvrundetNagativDesimal: Story = {
+  args: {
+    beløp: '-96164.456',
+  },
+};
+
 export const MedKroner: Story = {
   args: {
     kr: true,

@@ -73,10 +73,9 @@ const summerBeregnet = (
     } else {
       belop = field.belopReadOnly;
     }
-
     sum += belop ? removeSpacesFromNumber(belop) : 0;
   });
-  return sum > 0 ? sum : 0;
+  return Number.isNaN(sum) ? undefined : sum;
 };
 
 interface Props {

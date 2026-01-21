@@ -9,6 +9,7 @@ const meta = {
   decorators: rhfDecorator({ testSelectFieldpre: 'value3' }),
   args: {
     control: undefined, // This will be provided by the decorator
+    align: undefined,
   },
 } satisfies Meta<typeof RhfSelect>;
 
@@ -60,5 +61,12 @@ export const ReadOnly: Story = {
         Test 4
       </option>,
     ],
+  },
+};
+
+export const Høyrestilt: Story = {
+  args: {
+    ...MedVerdi.args,
+    align: 'right',
   },
 };

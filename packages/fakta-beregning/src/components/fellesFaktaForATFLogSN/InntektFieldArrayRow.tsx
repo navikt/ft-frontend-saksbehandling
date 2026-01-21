@@ -3,7 +3,7 @@ import { type FieldArrayWithId, useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { PersonPencilFillIcon, XMarkIcon } from '@navikt/aksel-icons';
-import { Button, ErrorMessage, Table } from '@navikt/ds-react';
+import { Button, ErrorMessage, HStack, Table } from '@navikt/ds-react';
 
 import { RhfSelect, RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
@@ -164,50 +164,52 @@ export const InntektFieldArrayAndelRow = ({
         )}
       </Table.DataCell>
       {!skalViseOverstyrtInntektInput && (
-        <Table.DataCell align="right" className={styles.alignRight}>
-          <div className={styles.inntekt}>
-            <div className={harEndretInntekt ? styles.inntektOldStrikethrough : styles.inntektOld}>
-              {visMåFastsettesText ? (
-                <ErrorMessage size="small">
-                  <FormattedMessage id="InntektFieldArrayRow.MåFastsettes" />
-                </ErrorMessage>
-              ) : (
+        <Table.DataCell align="right">
+          <HStack wrap={false} gap="space-8" justify="end">
+            {visMåFastsettesText ? (
+              <ErrorMessage size="small">
+                <FormattedMessage id="InntektFieldArrayRow.MåFastsettes" />
+              </ErrorMessage>
+            ) : (
+              <span className={harEndretInntekt ? styles.inntektOldStrikethrough : undefined}>
                 <RhfTextField
                   // @ts-expect-error Fiks
                   name={`${rowName}.belopReadOnly`}
                   control={control}
+                  align="right"
                   size="small"
                   htmlSize={10}
                   parse={parseCurrencyInput}
                   readOnly
                 />
-              )}
-            </div>
+              </span>
+            )}
             {harEndretInntekt && (
               <>
-                <div className={styles.inntektNew}>
-                  <RhfTextField
-                    // @ts-expect-error Fiks
-                    name={getInputFieldName()}
-                    control={control}
-                    size="small"
-                    htmlSize={10}
-                    parse={parseCurrencyInput}
-                    readOnly
-                  />
-                </div>
+                <RhfTextField
+                  // @ts-expect-error Fiks
+                  name={getInputFieldName()}
+                  control={control}
+                  align="right"
+                  size="small"
+                  hideLabel
+                  htmlSize={10}
+                  parse={parseCurrencyInput}
+                  readOnly
+                />
                 <PersonPencilFillIcon title="Endret av saksbehandler" className={styles.saksbehandlerIcon} />
               </>
             )}
-          </div>
+          </HStack>
         </Table.DataCell>
       )}
       {skalViseOverstyrtInntektInput && (
-        <Table.DataCell align="right" className={styles.alignRight}>
+        <Table.DataCell align="right">
           <RhfTextField
             // @ts-expect-error Fiks
             name={`${rowName}.fastsattBelop`}
             control={control}
+            align="right"
             size="small"
             label={intl.formatMessage(
               {
@@ -224,18 +226,19 @@ export const InntektFieldArrayAndelRow = ({
       )}
 
       {skalViseRefusjon && (
-        <Table.DataCell align="right" className={styles.alignRight}>
+        <Table.DataCell align="right">
           <RhfTextField
             // @ts-expect-error Fiks
             name={`${rowName}.refusjonskrav`}
             control={control}
+            align="right"
             size="small"
             readOnly
             parse={parseCurrencyInput}
           />
         </Table.DataCell>
       )}
-      <Table.DataCell align="right" className={styles.alignRight}>
+      <Table.DataCell align="right">
         <RhfSelect
           // @ts-expect-error Fiks
           name={`${rowName}.inntektskategori`}
@@ -244,6 +247,7 @@ export const InntektFieldArrayAndelRow = ({
           selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
           validate={readOnly ? [] : [required]}
           readOnly={readOnly || !skalRedigereInntektskategori}
+          align="right"
           size="small"
           hideLabel
         />

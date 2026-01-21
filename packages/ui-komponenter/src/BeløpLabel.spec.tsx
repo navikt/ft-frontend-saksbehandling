@@ -5,6 +5,8 @@ import { BeløpLabel } from './BeløpLabel';
 describe('BeløpLabel', () => {
   it.each([
     [12345, '12 345'],
+    [1234567.89, '1 234 568'],
+    ['-96163.613', '−96 164'],
     ['1234', '1 234'],
     ['-1234', '−1 234'],
     [-1234, '−1 234'],
@@ -17,7 +19,7 @@ describe('BeløpLabel', () => {
   });
 
   it('skal ha kr-postfix', () => {
-    render(<BeløpLabel beløp={'1'} kr />);
+    render(<BeløpLabel beløp="1" kr />);
     expect(screen.getByText('1 kr')).toBeInTheDocument();
   });
 });

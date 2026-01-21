@@ -3,16 +3,6 @@
 }
 
 .table {
-  .alignRight > div:first-of-type {
-    align-items: end;
-    justify-content: end;
-
-    input,
-    select {
-      direction: rtl;
-    }
-  }
-
   tfoot {
     border-block: 2px solid var(--ax-border-neutral-strong);
   }
@@ -41,19 +31,6 @@
   white-space: pre-wrap;
 }
 
-.inntektNew {
-  margin-left: 0.5rem;
-  margin-right: 0.25rem;
-}
-
-.inntektOld {
-  display: inline-block;
-}
-
-.inntektOldStrikethrough {
-  display: inline-block;
-}
-
 .inntektOldStrikethrough p {
   color: var(--ax-text-neutral);
   text-decoration: line-through;
@@ -62,5 +39,4 @@
 .saksbehandlerIcon {
   color: var(--ax-warning-500);
   font-size: 1.5rem;
-  margin-right: -1.75rem;
 }

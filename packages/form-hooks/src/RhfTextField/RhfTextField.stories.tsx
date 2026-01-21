@@ -9,6 +9,7 @@ const meta = {
   decorators: rhfDecorator({ testinputpre: 'Hei hei' }),
   args: {
     control: undefined, // This will be provided by the decorator
+    align: undefined,
   },
 } satisfies Meta<typeof RhfTextField>;
 
@@ -35,5 +36,12 @@ export const ReadOnly: Story = {
     label: 'Dette er et inputfelt som er readonly',
     name: 'testinputpre',
     readOnly: true,
+  },
+};
+
+export const Høyrestilt: Story = {
+  args: {
+    ...MedVerdi.args,
+    align: 'right',
   },
 };
