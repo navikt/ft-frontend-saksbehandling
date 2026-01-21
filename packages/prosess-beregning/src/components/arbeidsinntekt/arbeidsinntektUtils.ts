@@ -22,10 +22,9 @@ type ArbeidsinntektVisning = {
 } & ArbeidsinntektVisningBeløp;
 
 export type ArbeidsinntektVisningBeløp = {
-  inntektsmeldingMånedinntekt?: number;
-  inntektsmeldingÅrsinntekt?: number;
-  beregningsgrunnlagMånedinntekt?: number;
-  beregningsgrunnlagÅrsinntekt?: number;
+  fastsattAvSBH: { månedinntekt: number; årsinntekt: number } | undefined;
+  inntektsmelding: { månedinntekt: number; årsinntekt: number } | undefined;
+  beregningsgrunnlag: { månedinntekt: number; årsinntekt: number } | undefined;
 };
 
 export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
@@ -53,19 +52,24 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
         : undefined,
       sisteLønnsendringsdato: andel.arbeidsforhold?.sisteLønnsendringsdato,
       formatertStillingsprosenter: formaterStillingsprosenter(andel.arbeidsforhold?.stillingsprosenter),
-      inntektsmeldingMånedinntekt: andel.arbeidsforhold?.belopFraInntektsmeldingPrMnd
-        ? andel.arbeidsforhold.belopFraInntektsmeldingPrMnd
+      fastsattAvSBH: andel.overstyrtPrAar
+        ? {
+            månedinntekt: andel.overstyrtPrAar / 12,
+            årsinntekt: andel.overstyrtPrAar,
+          }
         : undefined,
-      inntektsmeldingÅrsinntekt: andel.arbeidsforhold?.belopFraInntektsmeldingPrMnd
-        ? andel.arbeidsforhold.belopFraInntektsmeldingPrMnd * 12
+      inntektsmelding: andel.arbeidsforhold?.belopFraInntektsmeldingPrMnd
+        ? {
+            månedinntekt: andel.arbeidsforhold.belopFraInntektsmeldingPrMnd,
+            årsinntekt: andel.arbeidsforhold.belopFraInntektsmeldingPrMnd * 12,
+          }
         : undefined,
-      beregningsgrunnlagMånedinntekt:
+      beregningsgrunnlag:
         arbeidsgiverIdent && beregningsgrunnlagInntekter[arbeidsgiverIdent]
-          ? beregningsgrunnlagInntekter[arbeidsgiverIdent] / 3
-          : undefined,
-      beregningsgrunnlagÅrsinntekt:
-        arbeidsgiverIdent && beregningsgrunnlagInntekter[arbeidsgiverIdent]
-          ? (beregningsgrunnlagInntekter[arbeidsgiverIdent] / 3) * 12
+          ? {
+              månedinntekt: beregningsgrunnlagInntekter[arbeidsgiverIdent] / 3,
+              årsinntekt: (beregningsgrunnlagInntekter[arbeidsgiverIdent] / 3) * 12,
+            }
           : undefined,
       naturalytelser: arbeidsgiverIdent
         ? finnEndringerINaturalytelserForArbeidsgiver(arbeidsgiverIdent, beregningsgrunnlagPeriode)

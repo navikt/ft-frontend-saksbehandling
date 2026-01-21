@@ -29,9 +29,10 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
   if (arbeidsinntektVisninger.length === 0) {
     return null;
   }
+  const inneholderInntektSomErFastsattAvSBH = true;
 
-  const summerInntektForKey = (key: keyof ArbeidsinntektVisningBeløp) => {
-    const inntekterSomSkalSummeres = arbeidsinntektVisninger.flatMap(av => (av[key] ? [av[key]] : []));
+  const summerInntektForKey = (fn: (value: ArbeidsinntektVisningBeløp) => number | undefined) => {
+    const inntekterSomSkalSummeres = arbeidsinntektVisninger.flatMap(fn).filter(inntekt => inntekt !== undefined);
     return inntekterSomSkalSummeres.length > 0
       ? inntekterSomSkalSummeres.reduce((acc, inntekt) => acc + inntekt, 0)
       : undefined;
@@ -43,6 +44,11 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell />
+            {inneholderInntektSomErFastsattAvSBH && (
+              <Table.HeaderCell scope="colgroup" textSize="small" align="center" colSpan={2}>
+                <FormattedMessage id="Arbeidsinntekt.Table.FastsattAvSBH" />
+              </Table.HeaderCell>
+            )}
             <Table.HeaderCell scope="colgroup" textSize="small" align="center" colSpan={2}>
               <FormattedMessage id="Arbeidsinntekt.Table.Inntektsmelding" />
             </Table.HeaderCell>
@@ -55,6 +61,16 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
             <Table.HeaderCell scope="col" textSize="small">
               <FormattedMessage id="Arbeidsinntekt.Table.Arbeidsgiver" />
             </Table.HeaderCell>
+            {inneholderInntektSomErFastsattAvSBH && (
+              <>
+                <Table.HeaderCell scope="col" textSize="small" align="right">
+                  <FormattedMessage id="Tabell.Måned" />
+                </Table.HeaderCell>
+                <Table.HeaderCell scope="col" textSize="small" align="right">
+                  <FormattedMessage id="Tabell.År" />
+                </Table.HeaderCell>
+              </>
+            )}
             <Table.HeaderCell scope="col" textSize="small" align="right">
               <FormattedMessage id="Tabell.Måned" />
             </Table.HeaderCell>
@@ -121,17 +137,27 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
                   </Tag>
                 )}
               </Table.DataCell>
+              {inneholderInntektSomErFastsattAvSBH && (
+                <>
+                  <Table.DataCell textSize="small" align="right">
+                    <BeløpLabel beløp={visning.fastsattAvSBH?.månedinntekt} kr />
+                  </Table.DataCell>
+                  <Table.DataCell textSize="small" align="right">
+                    <BeløpLabel beløp={visning.fastsattAvSBH?.årsinntekt} kr />
+                  </Table.DataCell>
+                </>
+              )}
               <Table.DataCell textSize="small" align="right">
-                <BeløpLabel beløp={visning.inntektsmeldingMånedinntekt} kr />
+                <BeløpLabel beløp={visning.inntektsmelding?.månedinntekt} kr />
               </Table.DataCell>
               <Table.DataCell textSize="small" align="right">
-                <BeløpLabel beløp={visning.inntektsmeldingÅrsinntekt} kr />
+                <BeløpLabel beløp={visning.inntektsmelding?.årsinntekt} kr />
               </Table.DataCell>
               <Table.DataCell textSize="small" align="right">
-                <BeløpLabel beløp={visning.beregningsgrunnlagMånedinntekt} kr />
+                <BeløpLabel beløp={visning.beregningsgrunnlag?.månedinntekt} kr />
               </Table.DataCell>
               <Table.DataCell textSize="small" align="right">
-                <BeløpLabel beløp={visning.beregningsgrunnlagÅrsinntekt} kr />
+                <BeløpLabel beløp={visning.beregningsgrunnlag?.årsinntekt} kr />
               </Table.DataCell>
             </Table.ExpandableRow>
           ))}
@@ -142,17 +168,27 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
               <Table.HeaderCell textSize="small">
                 <FormattedMessage id="Tabell.Total" />
               </Table.HeaderCell>
+              {inneholderInntektSomErFastsattAvSBH && (
+                <>
+                  <Table.HeaderCell textSize="small" align="right">
+                    <BeløpLabel beløp={summerInntektForKey(a => a.fastsattAvSBH?.månedinntekt)} kr />
+                  </Table.HeaderCell>
+                  <Table.HeaderCell textSize="small" align="right">
+                    <BeløpLabel beløp={summerInntektForKey(a => a.fastsattAvSBH?.årsinntekt)} kr />
+                  </Table.HeaderCell>
+                </>
+              )}
               <Table.HeaderCell textSize="small" align="right">
-                <BeløpLabel beløp={summerInntektForKey('inntektsmeldingMånedinntekt')} kr />
+                <BeløpLabel beløp={summerInntektForKey(a => a.inntektsmelding?.månedinntekt)} kr />
               </Table.HeaderCell>
               <Table.HeaderCell textSize="small" align="right">
-                <BeløpLabel beløp={summerInntektForKey('inntektsmeldingÅrsinntekt')} kr />
+                <BeløpLabel beløp={summerInntektForKey(a => a.inntektsmelding?.årsinntekt)} kr />
               </Table.HeaderCell>
               <Table.HeaderCell textSize="small" align="right">
-                <BeløpLabel beløp={summerInntektForKey('beregningsgrunnlagMånedinntekt')} kr />
+                <BeløpLabel beløp={summerInntektForKey(a => a.beregningsgrunnlag?.månedinntekt)} kr />
               </Table.HeaderCell>
               <Table.HeaderCell textSize="small" align="right">
-                <BeløpLabel beløp={summerInntektForKey('beregningsgrunnlagÅrsinntekt')} kr />
+                <BeløpLabel beløp={summerInntektForKey(a => a.inntektsmelding?.årsinntekt)} kr />
               </Table.HeaderCell>
               <Table.HeaderCell />
             </Table.Row>
