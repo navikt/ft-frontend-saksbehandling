@@ -179,11 +179,13 @@ export const InntektInputFields = ({
   /**
    * Viser label med fremgangsmåte for innfylling for inntektsfelter. Dersom man har flere tilfeller med ulik fremgangsmåte vises en enklere label.
    */
-  const getArbeidsinntektInputLabel = (andel: FaktaOmBeregningAndel): TextFieldProps => {
-    const arbeidsgiverIdent = andel.arbeidsforhold?.arbeidsgiverIdent;
-    const bedrift = arbeidsgiverIdent
-      ? formaterArbeidsgiver(arbeidsgiverOpplysningerPerId[arbeidsgiverIdent])
-      : 'Ukjent bedrift';
+  const getArbeidsinntektInputLabel = ({ arbeidsforhold }: FaktaOmBeregningAndel): TextFieldProps => {
+    const arbeidsgiverOpplysninger = arbeidsforhold?.arbeidsgiverIdent
+      ? arbeidsgiverOpplysningerPerId[arbeidsforhold?.arbeidsgiverIdent]
+      : undefined;
+    const bedrift = arbeidsgiverOpplysninger
+      ? formaterArbeidsgiver(arbeidsgiverOpplysninger)
+      : `Ukjent bedrift (${arbeidsforhold?.arbeidsgiverIdent})`;
 
     return {
       label: <FormattedMessage id="BeregningInfoPanel.InntektInputFields.ManedsinntektBedrift" values={{ bedrift }} />,
@@ -282,7 +284,10 @@ export const InntektInputFields = ({
         ),
       };
     }
-    return { label: undefined, hideLabel: true };
+    return {
+      label: <FormattedMessage id="BeregningInfoPanel.VurderMottarYtelse.FastsettManedsinntektFrilans" />,
+      hideLabel: true,
+    };
   };
 
   return (
