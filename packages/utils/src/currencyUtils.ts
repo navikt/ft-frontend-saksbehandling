@@ -31,8 +31,8 @@ export const formatCurrencyNoKr = (value: string | number | undefined | null): s
     .replaceAll(/\s/g, ' ');
 };
 
-export const removeSpacesFromNumber = (input: number | string | undefined): number => {
-  if (input === undefined || input === Number(input)) {
+export const removeSpacesFromNumber = (input: number | string | undefined | null): number => {
+  if (!input || input === Number(input)) {
     return input as number;
   }
 
@@ -55,7 +55,7 @@ export const parseCurrencyInput = (input: string | number): string => {
     .replaceAll(NEGATIVE_SIGN, DASH_SIGN)
     .replaceAll(/[a-zA-ZæøåÆØÅ]/g, '');
 
-  if (Number.isNaN(Number(inputNoSpace))) {
+  if (inputNoSpace === '' || Number.isNaN(Number(inputNoSpace))) {
     return inputNoSpace;
   }
   const formattedValue = formatCurrencyNoKr(inputNoSpace);
