@@ -1,6 +1,6 @@
-export const formatCurrencyWithKr = (value: number | string): string => {
+export const formatCurrencyWithKr = (value: number | string): string | undefined => {
   const formattedValue = formatCurrencyNoKr(value);
-  return `${formattedValue} kr`;
+  return formattedValue ? `${formattedValue} kr` : undefined;
 };
 
 const NEGATIVE_SIGN = '\u2212';
@@ -18,13 +18,13 @@ export const formatCurrencyNoKr = (value: string | number | undefined | null): s
     .replaceAll(NEGATIVE_SIGN, DASH_SIGN)
     .replaceAll(/[a-zA-ZæøåÆØÅ]/g, '');
 
-  if (Number.isNaN(newVal)) {
+  if (Number.isNaN(Number(newVal))) {
     return undefined;
   }
+
   return Number(newVal)
     .toLocaleString('nb-NO', {
       style: 'decimal',
-      currency: 'NOK',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     })
@@ -32,7 +32,7 @@ export const formatCurrencyNoKr = (value: string | number | undefined | null): s
 };
 
 export const removeSpacesFromNumber = (input: number | string | undefined): number => {
-  if (!input || input === Number(input)) {
+  if (input === undefined || input === Number(input)) {
     return input as number;
   }
 

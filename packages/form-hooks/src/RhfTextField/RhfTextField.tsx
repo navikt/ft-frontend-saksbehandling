@@ -58,7 +58,6 @@ export const RhfTextField = <T extends FieldValues>({
       validate: useMemo(() => getValidationRules(validate), [validate]),
     },
   });
-  const className = align === 'right' ? styles.alignRight : undefined;
 
   if (readOnly) {
     return (
@@ -75,7 +74,7 @@ export const RhfTextField = <T extends FieldValues>({
 
   return (
     <TextField
-      className={className}
+      className={align === 'right' ? styles.alignRight : undefined}
       size={size}
       hideLabel={hideLabel}
       label={label}

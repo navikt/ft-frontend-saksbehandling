@@ -47,20 +47,11 @@ export const RhfSelect = <T extends FieldValues>({
     },
   });
 
-  const className = align === 'right' ? styles.alignRight : undefined;
-
   if (readOnly) {
     const option = selectValues.map(sv => sv.props).find(o => o.value === field.value);
     const value = option ? option.children : undefined;
     return (
-      <ReadOnlyField
-        value={value}
-        label={label}
-        hideLabel={hideLabel}
-        isEdited={isEdited}
-        size={size}
-        className={className}
-      />
+      <ReadOnlyField value={value} label={label} hideLabel={hideLabel} isEdited={isEdited} size={size} align={align} />
     );
   }
 
@@ -76,7 +67,7 @@ export const RhfSelect = <T extends FieldValues>({
       size={size}
       error={getError(errors, name)}
       label={label}
-      className={className}
+      className={align === 'right' ? styles.alignRight : undefined}
       value={(hideValueOnDisable && disabled) || noCorrespondingOptionFound ? '' : field.value}
       onChange={evt => {
         if (onChange) {
