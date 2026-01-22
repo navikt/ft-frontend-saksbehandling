@@ -73,7 +73,7 @@ export const FordelBeregningsgrunnlagFaktaIndex = ({
 
   return (
     <RawIntlProvider value={intl}>
-      <VStack gap="space-8" maxWidth="800px">
+      <VStack gap="space-8" maxWidth="fit-content">
         {skalBrukeTabs && (
           <Tabs
             value={aktivtBeregningsgrunnlagIndeks.toString()}

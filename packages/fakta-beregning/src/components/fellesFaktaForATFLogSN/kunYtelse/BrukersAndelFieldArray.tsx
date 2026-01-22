@@ -22,8 +22,6 @@ import { formNameVurderFaktaBeregning } from '../../../utils/BeregningFormUtils'
 import { type SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
-import styles from './brukersAndelFieldArray.module.css';
-
 const defaultBGFordeling = (aktivitetStatuser: string[], kodeverkSamling: KodeverkForPanel) => ({
   andel: kodeverkSamling['AktivitetStatus'].find(as => as.kode === aktivitetStatuser.find(kode => kode === 'BA'))?.navn,
   fastsattBelop: '',
@@ -109,7 +107,7 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
 
   return (
     <VStack gap="space-8">
-      <Table size="small" className={styles.table}>
+      <Table size="small">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell scope="col" textSize="small">
@@ -130,7 +128,7 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
               <Table.DataCell textSize="small">
                 <FormattedMessage id="BeregningInfoPanel.FordelingBG.Ytelse" />
               </Table.DataCell>
-              <Table.DataCell align="right" className={styles.alignRight}>
+              <Table.DataCell align="right">
                 <RhfTextField
                   // @ts-expect-error fiks! Dynamisk navn
                   name={`${fieldArrayName}.${index}.fastsattBelop`}
@@ -146,10 +144,11 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
                     { andel: `ytelse ${index + 1}` },
                   )}
                   hideLabel
+                  align="right"
                   size="small"
                 />
               </Table.DataCell>
-              <Table.DataCell align="right" className={styles.alignRight}>
+              <Table.DataCell align="right">
                 <RhfSelect
                   // @ts-expect-error fiks! Dynamisk navn
                   name={`${fieldArrayName}.${index}.inntektskategori`}
@@ -164,6 +163,7 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
                   readOnly={readOnly}
                   validate={readOnly ? [] : [required]}
                   hideLabel
+                  align="right"
                   size="small"
                 />
               </Table.DataCell>

@@ -6,6 +6,8 @@ import { TextField, type TextFieldProps } from '@navikt/ds-react';
 import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
+import styles from './rhfTextField.module.css';
+
 type Props<T extends FieldValues> = {
   name: string;
   label?: ReactNode;
@@ -20,6 +22,7 @@ type Props<T extends FieldValues> = {
   format?: (value: string) => string;
   normalizeOnBlur?: (value: string | number) => string | number;
   control: UseControllerProps<T>['control'];
+  align?: 'left' | 'right';
 } & Omit<TextFieldProps, 'value' | 'defaultValue' | 'onChange' | 'label'> &
   Omit<UseControllerProps<T>, 'control'>;
 
@@ -40,6 +43,7 @@ export const RhfTextField = <T extends FieldValues>({
   isEdited,
   autoComplete = 'off',
   size = 'small',
+  align,
   ...props
 }: Props<T>) => {
   const {
@@ -56,11 +60,21 @@ export const RhfTextField = <T extends FieldValues>({
   });
 
   if (readOnly) {
-    return <ReadOnlyField label={label} value={field.value} isEdited={isEdited} hideLabel={hideLabel} size={size} />;
+    return (
+      <ReadOnlyField
+        label={label}
+        value={field.value}
+        isEdited={isEdited}
+        hideLabel={hideLabel}
+        size={size}
+        align={align}
+      />
+    );
   }
 
   return (
     <TextField
+      className={align === 'right' ? styles.alignRight : undefined}
       size={size}
       hideLabel={hideLabel}
       label={label}

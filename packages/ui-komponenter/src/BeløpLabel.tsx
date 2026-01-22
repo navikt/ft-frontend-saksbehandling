@@ -11,12 +11,12 @@ interface Props {
 }
 
 export const BeløpLabel = ({ beløp, kr = false, rød = false }: Props) => {
-  const formattedBeløp = beløp?.toString().replace(/\s/g, '');
+  const formattedBeløp = formatCurrencyNoKr(beløp);
 
   return (
     <KopierbarTekst tekst={formattedBeløp}>
       <span className={rød ? styles.rød : styles.default}>
-        {formattedBeløp ? formatCurrencyNoKr(formattedBeløp) : '-'}
+        {formattedBeløp || '-'}
         {formattedBeløp && kr && ' kr'}
       </span>
     </KopierbarTekst>

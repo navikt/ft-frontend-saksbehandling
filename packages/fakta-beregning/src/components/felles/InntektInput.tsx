@@ -21,10 +21,10 @@ export const InntektInput = ({ name, readOnly, isAksjonspunktClosed, ...textfiel
 
   return (
     <RhfTextField
-      dir="rtl"
       // @ts-expect-error fiks
       name={name}
       control={control}
+      align="right"
       htmlSize={10}
       parse={parseCurrencyInput}
       readOnly={readOnly}

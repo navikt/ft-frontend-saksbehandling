@@ -103,7 +103,7 @@ const summerFordeling = (fields: FordelBeregningsgrunnlagAndelValues[]) => {
   const sum = fields.reduce((acc, { fastsattBelop, readOnlyBelop, skalRedigereInntekt }) => {
     const parsedValue = removeSpacesFromNumber(fastsattBelop);
     if (skalRedigereInntekt) {
-      return acc + (Number(parsedValue) || 0);
+      return acc + (parsedValue || 0);
     } else {
       return acc + (readOnlyBelop ? parsedValue : 0);
     }
@@ -312,7 +312,7 @@ export const FordelPeriodeFieldArray = ({
   };
   return (
     <VStack gap="space-16">
-      <Table className={styles.tableMedInput}>
+      <Table className={styles.table}>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell scope="col" textSize="small">
@@ -332,7 +332,7 @@ export const FordelPeriodeFieldArray = ({
             <Table.HeaderCell scope="col" align="right" textSize="small">
               <FormattedMessage id="BeregningInfoPanel.FordelBG.Fordeling" />
             </Table.HeaderCell>
-            <Table.HeaderCell scope="col" textSize="small">
+            <Table.HeaderCell scope="col" align="right" textSize="small">
               <FormattedMessage id="BeregningInfoPanel.FordelBG.Inntektskategori" />
             </Table.HeaderCell>
             <Table.HeaderCell scope="col" />
@@ -363,15 +363,13 @@ export const FordelPeriodeFieldArray = ({
                     <RhfTextField control={control} name={`${feltNavnForRad}.andel`} size="small" hideLabel readOnly />
                   )}
                   {!isSelvstendigOrFrilanser(fields[index]) && (
-                    <div className={styles.wordwrap}>
-                      <RhfTextField
-                        control={control}
-                        name={`${feltNavnForRad}.arbeidsperiodeFom - ${feltNavnForRad}.arbeidsperiodeTom`}
-                        size="small"
-                        hideLabel
-                        readOnly
-                      />
-                    </div>
+                    <RhfTextField
+                      control={control}
+                      name={`${feltNavnForRad}.arbeidsperiodeFom - ${feltNavnForRad}.arbeidsperiodeTom`}
+                      size="small"
+                      hideLabel
+                      readOnly
+                    />
                   )}
                 </Table.DataCell>
                 {gjelderGradering && (
@@ -380,9 +378,10 @@ export const FordelPeriodeFieldArray = ({
                       control={control}
                       name={`${feltNavnForRad}.andelIArbeid`}
                       size="small"
+                      align="right"
                       hideLabel
                       readOnly
-                      className={styles.litenBredde}
+                      htmlSize={10}
                       normalizeOnBlur={value =>
                         Number.isNaN(value) ? value : Number.parseFloat(value.toString()).toFixed(2)
                       }
@@ -394,10 +393,11 @@ export const FordelPeriodeFieldArray = ({
                     control={control}
                     name={`${feltNavnForRad}.refusjonskrav`}
                     size="small"
+                    align="right"
                     hideLabel
                     readOnly={skalIkkeEndres || !fields[index].skalKunneEndreRefusjon}
                     parse={parseCurrencyInput}
-                    className={styles.litenBredde}
+                    htmlSize={10}
                     validate={fields[index].skalKunneEndreRefusjon ? [required, maxValueFormatted(178956970)] : []}
                   />
                 </Table.DataCell>
@@ -406,19 +406,23 @@ export const FordelPeriodeFieldArray = ({
                     control={control}
                     name={`${feltNavnForRad}.beregningsgrunnlagPrAar`}
                     size="small"
+                    align="right"
                     hideLabel
-                    className={styles.litenBredde}
+                    htmlSize={10}
                     parse={parseCurrencyInput}
                     readOnly
                   />
                 </Table.DataCell>
 
-                <Table.DataCell>
+                <Table.DataCell align="right" textSize="small">
                   {skalIkkeRedigereInntekt ? (
                     <RhfTextField
                       control={control}
                       name={`${feltNavnForRad}.readOnlyBelop`}
                       hideLabel
+                      size="small"
+                      align="right"
+                      htmlSize={10}
                       parse={parseCurrencyInput}
                       readOnly
                       isEdited={false}
@@ -428,6 +432,9 @@ export const FordelPeriodeFieldArray = ({
                       control={control}
                       name={`${feltNavnForRad}.fastsattBelop`}
                       hideLabel
+                      size="small"
+                      align="right"
+                      htmlSize={10}
                       parse={parseCurrencyInput}
                       readOnly={readOnly}
                       validate={[required, maxValueFormatted(178956970)]}
@@ -435,14 +442,14 @@ export const FordelPeriodeFieldArray = ({
                     />
                   )}
                 </Table.DataCell>
-                <Table.DataCell textSize="small">
+                <Table.DataCell textSize="small" align="right">
                   <RhfSelect
                     control={control}
                     name={`${feltNavnForRad}.inntektskategori`}
                     size="small"
-                    label=""
+                    label={<FormattedMessage id="BeregningInfoPanel.FordelBG.Inntektskategori" />}
+                    align="right"
                     hideLabel
-                    className={styles.storBredde}
                     validate={skalIkkeEndres ? [] : [required]}
                     selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
                     readOnly={skalIkkeEndres}
