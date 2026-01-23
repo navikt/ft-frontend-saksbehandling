@@ -1,17 +1,30 @@
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { Table, Tag } from '@navikt/ds-react';
+import { HelpText, HStack, Table, Tag } from '@navikt/ds-react';
 
-import type { SammenligningsgrunlagProp } from '@navikt/ft-types';
+import type { Beregningsgrunnlag, BeregningsgrunnlagAndel, SammenligningsgrunlagProp } from '@navikt/ft-types';
 import { BeløpLabel, FaktaBoks } from '@navikt/ft-ui-komponenter';
+
+import {
+  finnAlleAndelerIFørstePeriode,
+  finnAndelerSomSkalVises,
+  grupperSummerteInntekterPerArbeidsgiver,
+} from '../../utils/beregningsgrunnlagUtils';
+import { finnKilderForAndeler } from './avviksberegningUtils';
 
 import styles from './avviksberegning.module.css';
 
 interface Props {
+  beregningsgrunnlag: Beregningsgrunnlag;
   sammenligningsgrunnlag: SammenligningsgrunlagProp;
+  formaterVisningsnavnForAndel: (andel: BeregningsgrunnlagAndel) => string;
 }
 
-export const AvviksberegningForSammenligningsgrunnlagType = ({ sammenligningsgrunnlag }: Props) => {
+export const AvviksberegningForSammenligningsgrunnlagType = ({
+  beregningsgrunnlag,
+  sammenligningsgrunnlag,
+  formaterVisningsnavnForAndel,
+}: Props) => {
   const { differanseBeregnet, rapportertPrAar, avvikProsent, sammenligningsgrunnlagType } = sammenligningsgrunnlag;
   const intl = useIntl();
 
@@ -19,13 +32,34 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({ sammenligningsgru
 
   const årsinntekt = rapportertPrAar + differanseBeregnet;
 
+  const kilderForAndeler = finnKilderForAndeler(
+    finnAndelerSomSkalVises(finnAlleAndelerIFørstePeriode(beregningsgrunnlag.beregningsgrunnlagPeriode)),
+    grupperSummerteInntekterPerArbeidsgiver(beregningsgrunnlag.inntektsgrunnlag?.beregningsgrunnlagInntekter),
+    formaterVisningsnavnForAndel,
+  );
+
   return (
     <FaktaBoks tittel={intl.formatMessage({ id: 'Avviksberegning.Tittel' }, { type: sammenligningsgrunnlagType })}>
       <Table size="small" className={styles.table}>
         <Table.Body>
           <Table.Row>
             <Table.DataCell textSize="small">
-              <FormattedMessage id="Avviksberegning.BeregnetÅrsinntekt" />
+              <HStack align="center" gap="space-4">
+                <FormattedMessage id="Avviksberegning.BeregnetÅrsinntekt" />
+                <HelpText>
+                  {kilderForAndeler.map(andel => (
+                    <FormattedMessage
+                      key={andel.andelsnr}
+                      id="Avviksberegning.HelpText"
+                      values={{
+                        arbeidsgiver: andel.arbeidsgiver,
+                        kilde: andel.beregnetPrÅrKilde,
+                        br: kilderForAndeler.length > 1 ? <br /> : undefined,
+                      }}
+                    />
+                  ))}
+                </HelpText>
+              </HStack>
             </Table.DataCell>
             <Table.DataCell textSize="small" align="right">
               <BeløpLabel beløp={årsinntekt} kr />

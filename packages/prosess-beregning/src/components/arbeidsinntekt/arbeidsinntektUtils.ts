@@ -1,39 +1,12 @@
-import type {
-  Beregningsgrunnlag,
-  BeregningsgrunnlagAndel,
-  InntektsgrunnlagInntektAT,
-  InntektsgrunnlagMåned,
-  Stillingsprosent,
-} from '@navikt/ft-types';
+import type { Beregningsgrunnlag, BeregningsgrunnlagAndel, Stillingsprosent } from '@navikt/ft-types';
 import { dateFormat, sortPeriodsBy } from '@navikt/ft-utils';
 
-import { finnAlleAndelerIFørstePeriode } from '../../utils/beregningsgrunnlagUtils';
+import {
+  finnAlleAndelerIFørstePeriode,
+  finnAndelerSomSkalVises,
+  grupperSummerteInntekterPerArbeidsgiver,
+} from '../../utils/beregningsgrunnlagUtils';
 import { finnEndringerINaturalytelserForArbeidsgiver } from './naturalytelserUtils';
-
-const grupperSummerteInntekterPerArbeidsgiver = (
-  inntekterMnd: InntektsgrunnlagMåned[] | undefined,
-): Record<string, number> => {
-  if (!inntekterMnd) {
-    return {};
-  }
-
-  return inntekterMnd
-    .flatMap(({ inntekter }) => inntekter)
-    .filter<InntektsgrunnlagInntektAT>(inntekt => inntekt.inntektAktivitetType === 'ARBEIDSTAKERINNTEKT')
-    .reduce(
-      (acc, inntekt) => {
-        acc[inntekt.arbeidsgiverIdent] = (acc[inntekt.arbeidsgiverIdent] || 0) + inntekt.beløp;
-        return acc;
-      },
-      {} as Record<string, number>,
-    );
-};
-
-/**
- * Andeler som er tilkommen andel skal ikke vises i arbeidsinntektsoversikten
- */
-const finnAndelerSomSkalVises = (andeler: BeregningsgrunnlagAndel[]): BeregningsgrunnlagAndel[] =>
-  andeler.filter(andel => andel.aktivitetStatus === 'AT').filter(andel => andel.erTilkommetAndel === false);
 
 type ArbeidsinntektVisning = {
   andelsLabel: string;

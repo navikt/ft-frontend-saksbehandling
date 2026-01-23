@@ -87,6 +87,7 @@ export type BeregningsgrunnlagAndel = Readonly<{
   lagtTilAvSaksbehandler?: boolean;
   erTilkommetAndel?: boolean;
   næringer?: Næring[];
+  fastsattAvSaksbehandler?: boolean;
 }>;
 
 type ForeldrepengerGrunnlag = Readonly<{

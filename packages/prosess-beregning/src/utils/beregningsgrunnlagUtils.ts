@@ -1,4 +1,9 @@
-import type { BeregningsgrunnlagAndel, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
+import type {
+  BeregningsgrunnlagAndel,
+  BeregningsgrunnlagPeriodeProp,
+  InntektsgrunnlagInntektAT,
+  InntektsgrunnlagMåned,
+} from '@navikt/ft-types';
 
 import type { Vilkår } from '../types/Vilkår';
 
@@ -23,4 +28,26 @@ export const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagA
     return true;
   }
   return andel.erTilkommetAndel === false && andel.lagtTilAvSaksbehandler === false;
+};
+
+export const finnAndelerSomSkalVises = (andeler: BeregningsgrunnlagAndel[]): BeregningsgrunnlagAndel[] =>
+  andeler.filter(andel => andel.aktivitetStatus === 'AT').filter(andel => andel.erTilkommetAndel === false);
+
+export const grupperSummerteInntekterPerArbeidsgiver = (
+  inntekterMnd: InntektsgrunnlagMåned[] | undefined,
+): Record<string, number> => {
+  if (!inntekterMnd) {
+    return {};
+  }
+
+  return inntekterMnd
+    .flatMap(({ inntekter }) => inntekter)
+    .filter<InntektsgrunnlagInntektAT>(inntekt => inntekt.inntektAktivitetType === 'ARBEIDSTAKERINNTEKT')
+    .reduce(
+      (acc, inntekt) => {
+        acc[inntekt.arbeidsgiverIdent] = (acc[inntekt.arbeidsgiverIdent] || 0) + inntekt.beløp;
+        return acc;
+      },
+      {} as Record<string, number>,
+    );
 };
