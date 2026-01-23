@@ -15,7 +15,6 @@ import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBere
 import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { formNameVurderFaktaBeregning } from '../../utils/BeregningFormUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
-import { RegisterinntektTabell } from '../registerinntekt/RegisterinntektTabell';
 import { getBuildInitialValuesFaktaForATFLOgSN } from './faktaForATFLOgSNPanelUtils';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { transformValuesVurderFaktaBeregning } from './transformValuesHjelpefunksjoner';
