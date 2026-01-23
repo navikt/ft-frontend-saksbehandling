@@ -191,17 +191,9 @@ export const VurderFaktaBeregningPanel = ({
             if (!vilkårsperiode) {
               throw new Error(`Filler ikke vilkårsperiode med fom ${valgtBeregningsgrunnlag.vilkårsperiodeFom}`);
             }
-            // Må lage ny logikk for visning her
-            const skalViseInntektabell = false;
             return (
               <BeregningsgrunnlagIndexContext.Provider key={field.id} value={index}>
                 <VStack gap="space-24">
-                  {skalViseInntektabell && (
-                    <RegisterinntektTabell
-                      arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-                      beregningsgrunnlag={valgtBeregningsgrunnlag}
-                    />
-                  )}
                   <VurderFaktaBeregningField
                     key={field.id}
                     vilkarsperiode={vilkårsperiode}
