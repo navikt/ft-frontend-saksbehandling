@@ -15,7 +15,6 @@ import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBere
 import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { formNameVurderFaktaBeregning } from '../../utils/BeregningFormUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
-import { RegisterinntektTabell } from '../registerinntekt/RegisterinntektTabell';
 import { getBuildInitialValuesFaktaForATFLOgSN } from './faktaForATFLOgSNPanelUtils';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { transformValuesVurderFaktaBeregning } from './transformValuesHjelpefunksjoner';
@@ -191,17 +190,9 @@ export const VurderFaktaBeregningPanel = ({
             if (!vilkårsperiode) {
               throw new Error(`Filler ikke vilkårsperiode med fom ${valgtBeregningsgrunnlag.vilkårsperiodeFom}`);
             }
-            // Må lage ny logikk for visning her
-            const skalViseInntektabell = false;
             return (
               <BeregningsgrunnlagIndexContext.Provider key={field.id} value={index}>
                 <VStack gap="space-24">
-                  {skalViseInntektabell && (
-                    <RegisterinntektTabell
-                      arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-                      beregningsgrunnlag={valgtBeregningsgrunnlag}
-                    />
-                  )}
                   <VurderFaktaBeregningField
                     key={field.id}
                     vilkarsperiode={vilkårsperiode}
