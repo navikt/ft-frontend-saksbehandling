@@ -29,6 +29,12 @@ export const finnKilderForAndeler = (
   });
 };
 
+/**
+ * Denne metoden finner kilden som er brukt til å utlede beregnerPrAar for andelen.
+ * Verdien fastsattAvSaksbehandler er ikke til å stole på, da den blir satt for alle andeler når én av de blir fastsatt.
+ * Derfor må man sammenlikne beløpene først for å avklare om kilden kan være inntektsmelding/a-ordning, selv om
+ * fastsattAvSaksbehandler kan være true.
+ */
 const finnKildeForAndel = (
   andel: BeregningsgrunnlagAndel,
   inntektsmeldingÅrsinntekt?: number,

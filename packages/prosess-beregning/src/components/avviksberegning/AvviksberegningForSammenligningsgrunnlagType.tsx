@@ -47,14 +47,15 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({
               <HStack align="center" gap="space-4">
                 <FormattedMessage id="Avviksberegning.BeregnetÅrsinntekt" />
                 <HelpText>
+                  <FormattedMessage key="Avviksberegning.HelpText.Tittel" id="Avviksberegning.HelpText.Tittel" />
                   {kilderForAndeler.map(andel => (
                     <FormattedMessage
                       key={andel.andelsnr}
-                      id="Avviksberegning.HelpText"
+                      id="Avviksberegning.HelpText.Innhold"
                       values={{
                         arbeidsgiver: andel.arbeidsgiver,
                         kilde: andel.beregnetPrÅrKilde,
-                        br: kilderForAndeler.length > 1 ? <br /> : undefined,
+                        br: <br />,
                       }}
                     />
                   ))}
