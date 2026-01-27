@@ -3,7 +3,7 @@ import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 type KildeForAndel = Readonly<{
   andelsnr: number;
   arbeidsgiver: string;
-  beregnetPrÅrKilde: 'SAKSBEHANDLER' | 'INNTEKTSMELDING' | 'A_ORDNING' | 'INGEN' | 'UKJENT';
+  beregnetPrÅrKilde: 'SAKSBEHANDLER' | 'INNTEKTSMELDING' | 'A_ORDNING' | 'INGEN';
 }>;
 
 export const finnKilderForAndeler = (

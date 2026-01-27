@@ -8,7 +8,7 @@ import { BTag, dateFormat } from '@navikt/ft-utils';
 import type { KodeverkForPanel } from '../types/KodeverkForPanel';
 import type { Vilkår } from '../types/Vilkår';
 import { AksjonspunktKode, medAPKode } from '../utils/aksjonspunkt';
-import { createVisningsnavnForAndel } from '../utils/createVisningsnavnForAktivitet.ts';
+import { createVisningsnavnForAndel } from '../utils/createVisningsnavnForAktivitet';
 import { ReadonlyAPGraderingUtenBG } from './aksjonspunkt/utgåttAP/ReadonlyAPGraderingUtenBG';
 import { AktivitetStatusTags } from './AktivitetStatusTags';
 import { Arbeidsinntekt } from './arbeidsinntekt/Arbeidsinntekt';
