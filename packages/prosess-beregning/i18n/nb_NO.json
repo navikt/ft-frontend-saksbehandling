@@ -32,6 +32,8 @@
   "Avviksberegning.RapportertAarsinntekt": "Sammenligningsgrunnlag § 8-30",
   "Avviksberegning.BeregnetAvvik": "Beregnet avvik",
   "Avviksberegning.Tittel": "Avviksberegning for {type, select, SAMMENLIGNING_AT {arbeidstaker} SAMMENLIGNING_FL {frilans} SAMMENLIGNING_AT_FL {arbeidstaker og frilans} SAMMENLIGNING_SN {selvstendig næring} SAMMENLIGNING_ATFL_SN {arbeidstaker, frilans og selvstendig næring} SAMMENLIGNING_MIDL_INAKTIV {midlertidig inaktiv} other {ukjent}}",
+  "Avviksberegning.HelpText.Tittel": "Beregnet årsinntekt for:",
+  "Avviksberegning.HelpText.Innhold": "{br}{arbeidsgiver} {kilde, select, SAKSBEHANDLER {er fastsatt av saksbehandler.} INNTEKTSMELDING {kommer fra inntektsmeldingen.} A_ORDNING {kommer fra A-ordningen.} INGEN {finnes ikke.} other {er ukjent.}}",
 
   "BeregningsgrunnlagProsessIndex.Title": "Beregning",
   "BeregningsgrunnlagProsessIndex.IkkeTilstrekkeligInntektsgrunnlag": "Ikke tilstrekkelig inntektsgrunnlag",
