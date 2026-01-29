@@ -18,7 +18,7 @@ jobs:
           cache: 'yarn'
 
       - name: Installere dependencies
-        run: yarn install --immutable --ignore-scripts
+        run: yarn install --immutable
 
       - name: Bygg
         run: yarn build
