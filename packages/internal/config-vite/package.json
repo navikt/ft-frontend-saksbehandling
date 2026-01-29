@@ -6,7 +6,7 @@
   "main": "vite.config.mjs",
   "private": true,
   "dependencies": {
-    "@storybook/react": "10.1.11",
+    "@storybook/react": "10.2.0",
     "@vitejs/plugin-react": "5.1.2",
     "@vitest/browser-playwright": "4.0.17",
     "playwright": "1.57.0",
