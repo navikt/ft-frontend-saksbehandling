@@ -1,9 +1,11 @@
 name: Publish Packages
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    tags:
+      - @navikt/*
+  workflow_dispatch:
+
 
 jobs:
   publish:
@@ -14,8 +16,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
 
       - uses: navikt/fp-gha-workflows/.github/actions/setup-yarnrc@main
         with:
@@ -38,7 +38,7 @@ jobs:
       - name: Build packages
         run: yarn build
 
-      - name: Publish packages
-        run: lerna publish from-package --yes
+      - name: Publish packages from existing tags
+        run: lerna publish from-git --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
