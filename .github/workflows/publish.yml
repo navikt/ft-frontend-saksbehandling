@@ -3,9 +3,8 @@ name: Publish Packages
 on:
   release:
     tags:
-      - @navikt/*
+      - '@navikt/*'
   workflow_dispatch:
-
 
 jobs:
   publish:
@@ -24,8 +23,8 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 22.17.1
-          cache: "yarn"
-          registry-url: "https://npm.pkg.github.com"
+          cache: 'yarn'
+          registry-url: 'https://npm.pkg.github.com'
 
       - name: Installere dependencies
         run: yarn install --immutable
