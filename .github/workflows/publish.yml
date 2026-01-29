@@ -1,9 +1,9 @@
 name: Publish Packages
 
 on:
-  release:
+  push:
     tags:
-      - '@navikt/*'
+      - '*'
   workflow_dispatch:
 
 jobs:
