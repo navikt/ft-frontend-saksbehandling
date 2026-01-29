@@ -1,9 +1,9 @@
-name: Publish Packages
+name: Publish packages from tags
 
 on:
   push:
     tags:
-      - '*'
+      - '**'
   workflow_dispatch:
 
 jobs:
@@ -27,6 +27,9 @@ jobs:
 
       - name: Installere dependencies
         run: yarn install --immutable
+
+      - name: Build packages
+        run: yarn build
 
       - name: Publish packages from existing tags
         run: lerna publish from-git --yes
