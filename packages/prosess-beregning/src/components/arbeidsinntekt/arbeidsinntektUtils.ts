@@ -58,7 +58,7 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
       sisteLønnsendringsdato: andel.arbeidsforhold?.sisteLønnsendringsdato,
       formatertStillingsprosenter: formaterStillingsprosenter(andel.arbeidsforhold?.stillingsprosenter),
       fastsattAvSBH:
-        kilderForBergenetPrÅr.find(a => a.andelsnr === andel.andelsnr && a.beregnetPrÅrKilde === 'SAKSBEHANDLER') &&
+        kilderForBergenetPrÅr.some(a => a.andelsnr === andel.andelsnr && a.beregnetPrÅrKilde === 'SAKSBEHANDLER') &&
         andel.beregnetPrAar
           ? {
               månedinntekt: andel.beregnetPrAar / 12,
