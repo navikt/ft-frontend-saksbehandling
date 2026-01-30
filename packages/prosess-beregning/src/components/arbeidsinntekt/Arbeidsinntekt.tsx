@@ -190,7 +190,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
                 <BeløpLabel beløp={summerInntektForKey(a => a.beregningsgrunnlag?.månedinntekt)} kr />
               </Table.HeaderCell>
               <Table.HeaderCell textSize="small" align="right">
-                <BeløpLabel beløp={summerInntektForKey(a => a.inntektsmelding?.årsinntekt)} kr />
+                <BeløpLabel beløp={summerInntektForKey(a => a.beregningsgrunnlag?.årsinntekt)} kr />
               </Table.HeaderCell>
               <Table.HeaderCell />
             </Table.Row>
