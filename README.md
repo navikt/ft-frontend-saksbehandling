@@ -32,12 +32,13 @@ En publiser pakker på denne måten:
 
 1. `git checkout main`
 2. `git pull`
-3. `yarn publish` (dette scriptet installere deps, bygger pakkene, versjonerer, tagger og pusher signerte tags til
-   GitHub)
+3. `yarn`
+4. `yarn version` (dette scriptet skjører interactive versjonering vha. lerna som oppretter tagger og pusher signerte
+   tags til GitHub)
 
 Når disse stegene er gjennomført skal du finne de nye tagsene
 dine [her](https://github.com/navikt/ft-frontend-saksbehandling/tags).
-Siden det er pushet nye tags trigges
+Siden det er pushet nye tags til `main` trigges
 det [en automatisk publisering av pakkene](https://github.com/navikt/ft-frontend-saksbehandling/actions/workflows/publish.yml)
 via Github Actions.
 Når workflowen er ferdig finner du de nye pakkene

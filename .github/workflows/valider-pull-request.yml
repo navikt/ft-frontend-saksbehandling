@@ -8,10 +8,6 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: navikt/fp-gha-workflows/.github/actions/setup-yarnrc@main
-        with:
-          npmAuthToken: ${{ secrets.READER_TOKEN }}
-
       - uses: actions/setup-node@v6
         with:
           node-version: 22.17.1
@@ -19,6 +15,8 @@ jobs:
 
       - name: Installere dependencies
         run: yarn install --immutable
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Bygg
         run: yarn build
@@ -45,10 +43,6 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: navikt/fp-gha-workflows/.github/actions/setup-yarnrc@main
-        with:
-          npmAuthToken: ${{ secrets.READER_TOKEN }}
-
       - uses: actions/setup-node@v6
         with:
           node-version: 22.17.1
@@ -56,6 +50,8 @@ jobs:
 
       - name: Installere dependencies
         run: yarn install --immutable
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Run knip
         run: |
