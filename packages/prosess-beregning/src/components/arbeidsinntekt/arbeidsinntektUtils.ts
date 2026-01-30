@@ -34,13 +34,13 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
 ): ArbeidsinntektVisning[] => {
   const andelerIFørstePeriode = finnAlleAndelerIFørstePeriode(beregningsgrunnlagPeriode);
   const relevanteAndeler = finnAndelerSomSkalVises(andelerIFørstePeriode);
-  const kilderForBergenetPrÅr = finnKilderForAndeler(
-    relevanteAndeler,
-    grupperSummerteInntekterPerArbeidsgiver(inntektsgrunnlag?.beregningsgrunnlagInntekter),
-    formaterVisningsnavnForAndel,
-  );
   const beregningsgrunnlagInntekter = grupperSummerteInntekterPerArbeidsgiver(
     inntektsgrunnlag?.beregningsgrunnlagInntekter,
+  );
+  const kilderForBergenetPrÅr = finnKilderForAndeler(
+    relevanteAndeler,
+    beregningsgrunnlagInntekter,
+    formaterVisningsnavnForAndel,
   );
 
   return relevanteAndeler.map<ArbeidsinntektVisning>(andel => {
