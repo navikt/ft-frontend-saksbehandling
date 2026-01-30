@@ -66,5 +66,5 @@ const erBeregnetPrAarOppdatert = (
   beregnetPrAar !== 0 || inntektsmeldingÅrsinntekt !== undefined || beregningsgrunnlagÅrsinntekt !== undefined;
 
 const erLikMedToDesimaler = (a: number, b?: number): boolean => {
-  return b !== undefined && a.toFixed(2) === b.toFixed(2);
+  return a.toFixed(2) === b?.toFixed(2);
 };

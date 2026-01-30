@@ -1,6 +1,7 @@
 import type { Beregningsgrunnlag, BeregningsgrunnlagAndel, Stillingsprosent } from '@navikt/ft-types';
 import { dateFormat, sortPeriodsBy } from '@navikt/ft-utils';
 
+import { finnKilderForAndeler } from '../../utils/beregnetPrÅrKildeUtils';
 import {
   finnAlleAndelerIFørstePeriode,
   finnAndelerSomSkalVises,
@@ -22,10 +23,9 @@ type ArbeidsinntektVisning = {
 } & ArbeidsinntektVisningBeløp;
 
 export type ArbeidsinntektVisningBeløp = {
-  inntektsmeldingMånedinntekt?: number;
-  inntektsmeldingÅrsinntekt?: number;
-  beregningsgrunnlagMånedinntekt?: number;
-  beregningsgrunnlagÅrsinntekt?: number;
+  fastsattAvSBH: { månedinntekt: number; årsinntekt: number } | undefined;
+  inntektsmelding: { månedinntekt: number; årsinntekt: number } | undefined;
+  beregningsgrunnlag: { månedinntekt: number; årsinntekt: number } | undefined;
 };
 
 export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
@@ -34,9 +34,13 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
 ): ArbeidsinntektVisning[] => {
   const andelerIFørstePeriode = finnAlleAndelerIFørstePeriode(beregningsgrunnlagPeriode);
   const relevanteAndeler = finnAndelerSomSkalVises(andelerIFørstePeriode);
-
   const beregningsgrunnlagInntekter = grupperSummerteInntekterPerArbeidsgiver(
     inntektsgrunnlag?.beregningsgrunnlagInntekter,
+  );
+  const kilderForBergenetPrÅr = finnKilderForAndeler(
+    relevanteAndeler,
+    beregningsgrunnlagInntekter,
+    formaterVisningsnavnForAndel,
   );
 
   return relevanteAndeler.map<ArbeidsinntektVisning>(andel => {
@@ -53,19 +57,26 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
         : undefined,
       sisteLønnsendringsdato: andel.arbeidsforhold?.sisteLønnsendringsdato,
       formatertStillingsprosenter: formaterStillingsprosenter(andel.arbeidsforhold?.stillingsprosenter),
-      inntektsmeldingMånedinntekt: andel.arbeidsforhold?.belopFraInntektsmeldingPrMnd
-        ? andel.arbeidsforhold.belopFraInntektsmeldingPrMnd
-        : undefined,
-      inntektsmeldingÅrsinntekt: andel.arbeidsforhold?.belopFraInntektsmeldingPrMnd
-        ? andel.arbeidsforhold.belopFraInntektsmeldingPrMnd * 12
-        : undefined,
-      beregningsgrunnlagMånedinntekt:
-        arbeidsgiverIdent && beregningsgrunnlagInntekter[arbeidsgiverIdent]
-          ? beregningsgrunnlagInntekter[arbeidsgiverIdent] / 3
+      fastsattAvSBH:
+        kilderForBergenetPrÅr.some(a => a.andelsnr === andel.andelsnr && a.beregnetPrÅrKilde === 'SAKSBEHANDLER') &&
+        andel.beregnetPrAar
+          ? {
+              månedinntekt: andel.beregnetPrAar / 12,
+              årsinntekt: andel.beregnetPrAar,
+            }
           : undefined,
-      beregningsgrunnlagÅrsinntekt:
+      inntektsmelding: andel.arbeidsforhold?.belopFraInntektsmeldingPrMnd
+        ? {
+            månedinntekt: andel.arbeidsforhold.belopFraInntektsmeldingPrMnd,
+            årsinntekt: andel.arbeidsforhold.belopFraInntektsmeldingPrMnd * 12,
+          }
+        : undefined,
+      beregningsgrunnlag:
         arbeidsgiverIdent && beregningsgrunnlagInntekter[arbeidsgiverIdent]
-          ? (beregningsgrunnlagInntekter[arbeidsgiverIdent] / 3) * 12
+          ? {
+              månedinntekt: beregningsgrunnlagInntekter[arbeidsgiverIdent] / 3,
+              årsinntekt: (beregningsgrunnlagInntekter[arbeidsgiverIdent] / 3) * 12,
+            }
           : undefined,
       naturalytelser: arbeidsgiverIdent
         ? finnEndringerINaturalytelserForArbeidsgiver(arbeidsgiverIdent, beregningsgrunnlagPeriode)
