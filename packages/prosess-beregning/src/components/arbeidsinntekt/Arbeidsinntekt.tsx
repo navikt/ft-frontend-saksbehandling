@@ -29,7 +29,9 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
   if (arbeidsinntektVisninger.length === 0) {
     return null;
   }
-  const inneholderInntektSomErFastsattAvSBH = true;
+  const inneholderInntektSomErFastsattAvSBH = arbeidsinntektVisninger.some(
+    visning => visning.fastsattAvSBH !== undefined,
+  );
 
   const summerInntektForKey = (fn: (value: ArbeidsinntektVisningBeløp) => number | undefined) => {
     const inntekterSomSkalSummeres = arbeidsinntektVisninger.flatMap(fn).filter(inntekt => inntekt !== undefined);

@@ -5,12 +5,12 @@ import { HelpText, HStack, Table, Tag } from '@navikt/ds-react';
 import type { Beregningsgrunnlag, BeregningsgrunnlagAndel, SammenligningsgrunlagProp } from '@navikt/ft-types';
 import { BeløpLabel, FaktaBoks } from '@navikt/ft-ui-komponenter';
 
+import { finnKilderForAndeler } from '../../utils/beregnetPrÅrKildeUtils';
 import {
   finnAlleAndelerIFørstePeriode,
   finnAndelerSomSkalVises,
   grupperSummerteInntekterPerArbeidsgiver,
 } from '../../utils/beregningsgrunnlagUtils';
-import { finnKilderForAndeler } from './avviksberegningUtils';
 
 import styles from './avviksberegning.module.css';
 

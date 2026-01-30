@@ -1,6 +1,7 @@
 import type { Beregningsgrunnlag, BeregningsgrunnlagAndel, Stillingsprosent } from '@navikt/ft-types';
 import { dateFormat, sortPeriodsBy } from '@navikt/ft-utils';
 
+import { finnKilderForAndeler } from '../../utils/beregnetPrÅrKildeUtils';
 import {
   finnAlleAndelerIFørstePeriode,
   finnAndelerSomSkalVises,
@@ -33,7 +34,11 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
 ): ArbeidsinntektVisning[] => {
   const andelerIFørstePeriode = finnAlleAndelerIFørstePeriode(beregningsgrunnlagPeriode);
   const relevanteAndeler = finnAndelerSomSkalVises(andelerIFørstePeriode);
-
+  const kilderForBergenetPrÅr = finnKilderForAndeler(
+    relevanteAndeler,
+    grupperSummerteInntekterPerArbeidsgiver(inntektsgrunnlag?.beregningsgrunnlagInntekter),
+    formaterVisningsnavnForAndel,
+  );
   const beregningsgrunnlagInntekter = grupperSummerteInntekterPerArbeidsgiver(
     inntektsgrunnlag?.beregningsgrunnlagInntekter,
   );
@@ -52,12 +57,14 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
         : undefined,
       sisteLønnsendringsdato: andel.arbeidsforhold?.sisteLønnsendringsdato,
       formatertStillingsprosenter: formaterStillingsprosenter(andel.arbeidsforhold?.stillingsprosenter),
-      fastsattAvSBH: andel.overstyrtPrAar
-        ? {
-            månedinntekt: andel.overstyrtPrAar / 12,
-            årsinntekt: andel.overstyrtPrAar,
-          }
-        : undefined,
+      fastsattAvSBH:
+        kilderForBergenetPrÅr.find(a => a.andelsnr === andel.andelsnr && a.beregnetPrÅrKilde === 'SAKSBEHANDLER') &&
+        andel.beregnetPrAar
+          ? {
+              månedinntekt: andel.beregnetPrAar / 12,
+              årsinntekt: andel.beregnetPrAar,
+            }
+          : undefined,
       inntektsmelding: andel.arbeidsforhold?.belopFraInntektsmeldingPrMnd
         ? {
             månedinntekt: andel.arbeidsforhold.belopFraInntektsmeldingPrMnd,
