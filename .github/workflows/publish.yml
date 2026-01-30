@@ -62,4 +62,4 @@ jobs:
       - name: Publish packages from existing tags
         run: lerna publish from-git --yes
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
