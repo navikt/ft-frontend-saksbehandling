@@ -1,5 +1,13 @@
 import { type ReactElement, type ReactNode, useMemo } from 'react';
-import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
+import {
+  type FieldPath,
+  type FieldPathValue,
+  type FieldValues,
+  type PathValue,
+  useController,
+  type UseControllerProps,
+  useFormContext,
+} from 'react-hook-form';
 
 import { Checkbox, CheckboxGroup, type CheckboxGroupProps, HStack } from '@navikt/ds-react';
 import classnames from 'classnames';
@@ -17,18 +25,18 @@ export interface CheckboxProps {
   element?: ReactElement;
 }
 
-type Props<T extends FieldValues> = {
-  validate?: ((values: (string | number)[]) => ValidationReturnType)[];
-  onChange?: (value: any) => void;
+type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>> = {
+  validate?: Array<(value: FieldPathValue<TFieldValues, TName>) => ValidationReturnType>;
+  onChange?: (value: FieldPathValue<TFieldValues, TName>) => void;
   hideLegend?: boolean;
   isEdited?: boolean;
   size?: 'medium' | 'small';
   children?: ReactElement<typeof Checkbox>[];
-  control: UseControllerProps<T>['control'];
-} & Omit<UseControllerProps<T>, 'control'> &
+  control: UseControllerProps<TFieldValues, TName>['control'];
+} & Omit<UseControllerProps<TFieldValues, TName>, 'control'> &
   Omit<CheckboxGroupProps, 'value' | 'defaultValue' | 'onChange'>;
 
-export const RhfCheckboxGroup = <T extends FieldValues>({
+export const RhfCheckboxGroup = <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>>({
   legend,
   validate = [],
   onChange,
@@ -40,7 +48,7 @@ export const RhfCheckboxGroup = <T extends FieldValues>({
   control,
   className,
   ...rest
-}: Props<T>) => {
+}: Props<TFieldValues, TName>) => {
   const {
     formState: { errors },
   } = useFormContext();
@@ -59,7 +67,7 @@ export const RhfCheckboxGroup = <T extends FieldValues>({
       value={field.value !== undefined ? field.value : []}
       onChange={value => {
         if (onChange) {
-          onChange(value);
+          onChange(value as PathValue<TFieldValues, TName>);
         }
         field.onChange(value);
       }}
