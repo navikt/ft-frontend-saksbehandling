@@ -33,7 +33,7 @@ En publiser pakker på denne måten:
 1. `git checkout main`
 2. `git pull`
 3. `yarn`
-4. `yarn version` (dette scriptet skjører interactive versjonering vha. lerna som oppretter tagger og pusher signerte
+4. `yarn tag` (dette scriptet skjører interactive versjonering vha. lerna som oppretter tagger og pusher signerte
    tags til GitHub)
 
 Når disse stegene er gjennomført skal du finne de nye tagsene
