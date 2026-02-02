@@ -4,6 +4,7 @@ import { alleKodeverk, getIntlDecorator } from '@navikt/ft-frontend-storybook-ut
 import { TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { arbeidstakerFPFlereArbeidsforhold } from '../../../testdata/arbeidstakerFPFlereArbeidsforhold';
+import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { Dagsatser } from './Dagsatser';
 
 import messages from '../../../i18n/nb_NO.json';
@@ -14,7 +15,7 @@ const meta = {
   component: Dagsatser,
   decorators: [withIntl],
   args: {
-    kodeverkSamling: alleKodeverk,
+    kodeverkSamling: alleKodeverk as KodeverkForPanel,
   },
 } satisfies Meta<typeof Dagsatser>;
 
@@ -37,7 +38,6 @@ export const FastsattBGMedUtregnetDagsatser: Story = {
         },
       ],
       skjaeringstidspunktBeregning: '2024-10-16',
-      skjæringstidspunkt: '2024-10-16',
       aktivitetStatus: ['SN'],
       beregningsgrunnlagPeriode: [
         {
@@ -52,7 +52,6 @@ export const FastsattBGMedUtregnetDagsatser: Story = {
           dagsats: 625,
           beregningsgrunnlagPrStatusOgAndel: [
             {
-              dtoType: 'SN',
               aktivitetStatus: 'SN',
               beregningsperiodeFom: '2021-01-01',
               beregningsperiodeTom: '2023-12-31',
@@ -66,9 +65,7 @@ export const FastsattBGMedUtregnetDagsatser: Story = {
               arbeidsforhold: {
                 arbeidsforholdType: 'NÆRING',
               },
-              fastsattAvSaksbehandler: false,
               lagtTilAvSaksbehandler: false,
-              dagsats: 625,
               erTilkommetAndel: false,
               skalFastsetteGrunnlag: true,
               pgiSnitt: 322157,
@@ -119,7 +116,6 @@ export const FastsattBGMedUtregnetDagsatser: Story = {
       grunnbeløp: 124028,
       faktaOmBeregning: {
         saksopplysninger: {
-          arbeidsforholdMedLønnsendring: [],
           lønnsendringSaksopplysning: [],
           kortvarigeArbeidsforhold: [],
         },
@@ -168,14 +164,12 @@ export const FastsattBGMedUtregnetDagsatser: Story = {
                   aktivitetStatus: 'SN',
                   kilde: 'PROSESS_START',
                   lagtTilAvSaksbehandler: false,
-                  fastsattAvSaksbehandler: false,
                   andelIArbeid: [0],
                   refusjonskravPrAar: 0,
                   nyttArbeidsforhold: false,
                   arbeidsforholdType: 'NÆRING',
                 },
               ],
-              harPeriodeAarsakGraderingEllerRefusjon: false,
               skalRedigereInntekt: false,
               skalPreutfyllesMedBeregningsgrunnlag: false,
               skalKunneEndreRefusjon: false,
@@ -190,7 +184,6 @@ export const FastsattBGMedUtregnetDagsatser: Story = {
       },
       erOverstyrtInntekt: false,
       inntektsgrunnlag: {
-        måneder: [],
         pgiGrunnlag: [
           {
             år: 2023,
@@ -235,7 +228,6 @@ export const FastsattBGMedUtregnetDagsatser: Story = {
     },
     beregningsgrunnlagsvilkår: {
       vilkarType: 'FP_VK_41',
-      vilkarStatus: 'OPPFYLT',
       overstyrbar: true,
       perioder: [
         {
