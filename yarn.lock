@@ -2339,23 +2339,23 @@ __metadata:
     vite: "npm:7.3.1"
     vitest: "npm:4.0.18"
   peerDependencies:
-    "@navikt/aksel-icons": 7.x
-    "@navikt/ds-css": 7.x
-    "@navikt/ds-react": 7.x
-    "@navikt/ft-form-hooks": 5.x
-    "@navikt/ft-form-validators": 2.x
+    "@navikt/aksel-icons": 8.x
+    "@navikt/ds-css": 8.x
+    "@navikt/ds-react": 8.x
+    "@navikt/ft-form-hooks": 10.x
+    "@navikt/ft-form-validators": 4.x
     "@navikt/ft-kodeverk": 4.x
-    "@navikt/ft-plattform-komponenter": 5.x
-    "@navikt/ft-types": 3.x
-    "@navikt/ft-ui-komponenter": 2.x
-    "@navikt/ft-utils": 2.x
+    "@navikt/ft-plattform-komponenter": 10.x
+    "@navikt/ft-types": 5.x
+    "@navikt/ft-ui-komponenter": 6.x
+    "@navikt/ft-utils": 3.x
     core-js: 3.37.1
     dayjs: 1.11.x
     dayjs-plugin-utc: 0.1.2
     react: 19.1.0
     react-dom: 19.1.0
     react-hook-form: 7.x
-    react-intl: 6.x
+    react-intl: 8.x
   languageName: unknown
   linkType: soft
 
@@ -2389,22 +2389,22 @@ __metadata:
     vite: "npm:7.3.1"
     vitest: "npm:4.0.18"
   peerDependencies:
-    "@navikt/aksel-icons": 7.x
-    "@navikt/ds-css": 7.x
-    "@navikt/ds-react": 7.x
-    "@navikt/ft-form-hooks": 5.x
-    "@navikt/ft-form-validators": 2.x
+    "@navikt/aksel-icons": 8.x
+    "@navikt/ds-css": 8.x
+    "@navikt/ds-react": 8.x
+    "@navikt/ft-form-hooks": 10.x
+    "@navikt/ft-form-validators": 4.x
     "@navikt/ft-kodeverk": 4.x
-    "@navikt/ft-plattform-komponenter": 5.x
-    "@navikt/ft-types": 3.x
-    "@navikt/ft-ui-komponenter": 2.x
-    "@navikt/ft-utils": 2.x
+    "@navikt/ft-plattform-komponenter": 10.x
+    "@navikt/ft-types": 5.x
+    "@navikt/ft-ui-komponenter": 6.x
+    "@navikt/ft-utils": 3.x
     classnames: 2.5.1
     core-js: 3.37.1
     dayjs: 1.11.x
     react: 19.1.0
     react-hook-form: 7.x
-    react-intl: 6.x
+    react-intl: 8.x
     uuid: 9.0.1
   languageName: unknown
   linkType: soft
@@ -2435,17 +2435,17 @@ __metadata:
     vite: "npm:7.3.1"
     vitest: "npm:4.0.18"
   peerDependencies:
-    "@navikt/ds-css": 7.x
-    "@navikt/ds-react": 7.x
-    "@navikt/ft-form-hooks": 5.x
-    "@navikt/ft-form-validators": 2.x
+    "@navikt/ds-css": 8.x
+    "@navikt/ds-react": 8.x
+    "@navikt/ft-form-hooks": 10.x
+    "@navikt/ft-form-validators": 4.x
     "@navikt/ft-kodeverk": 4.x
-    "@navikt/ft-types": 3.x
-    "@navikt/ft-ui-komponenter": 2.x
-    "@navikt/ft-utils": 2.x
+    "@navikt/ft-types": 5.x
+    "@navikt/ft-ui-komponenter": 6.x
+    "@navikt/ft-utils": 3.x
     react: 19.1.0
     react-hook-form: 7.x
-    react-intl: 6.x
+    react-intl: 8.x
   languageName: unknown
   linkType: soft
 
@@ -2475,13 +2475,13 @@ __metadata:
     vite: "npm:7.3.1"
     vitest: "npm:4.0.18"
   peerDependencies:
-    "@navikt/aksel-icons": 7.x
-    "@navikt/ds-css": 7.x
-    "@navikt/ds-react": 7.x
-    "@navikt/ft-form-validators": 2.x
-    "@navikt/ft-types": 3.x
-    "@navikt/ft-ui-komponenter": 2.x
-    "@navikt/ft-utils": 2.x
+    "@navikt/aksel-icons": 8.x
+    "@navikt/ds-css": 8.x
+    "@navikt/ds-react": 8.x
+    "@navikt/ft-form-validators": 4.x
+    "@navikt/ft-types": 5.x
+    "@navikt/ft-ui-komponenter": 6.x
+    "@navikt/ft-utils": 3.x
     classnames: 2.5.1
     dayjs: 1.11.x
     lodash.throttle: 4.1.1
@@ -2505,7 +2505,7 @@ __metadata:
     vite: "npm:7.3.1"
     vitest: "npm:4.0.18"
   peerDependencies:
-    "@navikt/ft-utils": 2.x
+    "@navikt/ft-utils": 3.x
     dayjs: 1.11.x
   languageName: unknown
   linkType: soft
@@ -2592,9 +2592,9 @@ __metadata:
     vite: "npm:7.3.1"
     vitest: "npm:4.0.18"
   peerDependencies:
-    "@navikt/aksel-icons": 7.x
-    "@navikt/ds-css": 7.x
-    "@navikt/ds-react": 7.x
+    "@navikt/aksel-icons": 8.x
+    "@navikt/ds-css": 8.x
+    "@navikt/ds-react": 8.x
     "@popperjs/core": 2.11.8
     classnames: 2.5.1
     dayjs: 1.11.x
@@ -2634,21 +2634,21 @@ __metadata:
     vite: "npm:7.3.1"
     vitest: "npm:4.0.18"
   peerDependencies:
-    "@navikt/aksel-icons": 7.x
-    "@navikt/ds-css": 7.x
-    "@navikt/ds-react": 7.x
-    "@navikt/ft-form-hooks": 5.x
-    "@navikt/ft-form-validators": 2.x
+    "@navikt/aksel-icons": 8.x
+    "@navikt/ds-css": 8.x
+    "@navikt/ds-react": 8.x
+    "@navikt/ft-form-hooks": 10.x
+    "@navikt/ft-form-validators": 4.x
     "@navikt/ft-kodeverk": 4.x
-    "@navikt/ft-plattform-komponenter": 5.x
-    "@navikt/ft-types": 3.x
-    "@navikt/ft-ui-komponenter": 2.x
-    "@navikt/ft-utils": 2.x
+    "@navikt/ft-plattform-komponenter": 10.x
+    "@navikt/ft-types": 5.x
+    "@navikt/ft-ui-komponenter": 6.x
+    "@navikt/ft-utils": 3.x
     dayjs: 1.11.x
     echarts: 6.x
     react: 19.1.0
     react-hook-form: 7.x
-    react-intl: 6.x
+    react-intl: 8.x
   languageName: unknown
   linkType: soft
 
@@ -2682,22 +2682,22 @@ __metadata:
     vite: "npm:7.3.1"
     vitest: "npm:4.0.18"
   peerDependencies:
-    "@navikt/aksel-icons": 7.x
-    "@navikt/ds-css": 7.x
-    "@navikt/ds-react": 7.x
-    "@navikt/ft-form-hooks": 5.x
-    "@navikt/ft-form-validators": 2.x
+    "@navikt/aksel-icons": 8.x
+    "@navikt/ds-css": 8.x
+    "@navikt/ds-react": 8.x
+    "@navikt/ft-form-hooks": 10.x
+    "@navikt/ft-form-validators": 4.x
     "@navikt/ft-kodeverk": 4.x
-    "@navikt/ft-plattform-komponenter": 5.x
-    "@navikt/ft-types": 3.x
-    "@navikt/ft-ui-komponenter": 2.x
-    "@navikt/ft-utils": 2.x
+    "@navikt/ft-plattform-komponenter": 10.x
+    "@navikt/ft-types": 5.x
+    "@navikt/ft-ui-komponenter": 6.x
+    "@navikt/ft-utils": 3.x
     classnames: 2.5.1
     dayjs: 1.11.x
     echarts: 6.x
     react: 19.1.0
     react-hook-form: 7.x
-    react-intl: 6.x
+    react-intl: 8.x
   languageName: unknown
   linkType: soft
 
@@ -2728,19 +2728,19 @@ __metadata:
     vite: "npm:7.3.1"
     vitest: "npm:4.0.18"
   peerDependencies:
-    "@navikt/aksel-icons": 7.x
-    "@navikt/ds-css": 7.x
-    "@navikt/ds-react": 7.x
-    "@navikt/ft-form-hooks": 5.x
-    "@navikt/ft-form-validators": 2.x
+    "@navikt/aksel-icons": 8.x
+    "@navikt/ds-css": 8.x
+    "@navikt/ds-react": 8.x
+    "@navikt/ft-form-hooks": 10.x
+    "@navikt/ft-form-validators": 4.x
     "@navikt/ft-kodeverk": 4.x
-    "@navikt/ft-types": 3.x
-    "@navikt/ft-ui-komponenter": 2.x
-    "@navikt/ft-utils": 2.x
+    "@navikt/ft-types": 5.x
+    "@navikt/ft-ui-komponenter": 6.x
+    "@navikt/ft-utils": 3.x
     dayjs: 1.11.x
     react: 19.1.0
     react-hook-form: 7.x
-    react-intl: 6.x
+    react-intl: 8.x
   languageName: unknown
   linkType: soft
 
@@ -2772,19 +2772,19 @@ __metadata:
     vite: "npm:7.3.1"
     vitest: "npm:4.0.18"
   peerDependencies:
-    "@navikt/aksel-icons": 7.x
-    "@navikt/ds-css": 7.x
-    "@navikt/ds-react": 7.x
-    "@navikt/ft-form-hooks": 5.x
-    "@navikt/ft-form-validators": 2.x
+    "@navikt/aksel-icons": 8.x
+    "@navikt/ds-css": 8.x
+    "@navikt/ds-react": 8.x
+    "@navikt/ft-form-hooks": 10.x
+    "@navikt/ft-form-validators": 4.x
     "@navikt/ft-kodeverk": 4.x
-    "@navikt/ft-types": 3.x
-    "@navikt/ft-ui-komponenter": 2.x
-    "@navikt/ft-utils": 2.x
+    "@navikt/ft-types": 5.x
+    "@navikt/ft-ui-komponenter": 6.x
+    "@navikt/ft-utils": 3.x
     classnames: 2.5.1
     react: 19.1.0
     react-hook-form: 7.x
-    react-intl: 6.x
+    react-intl: 8.x
   languageName: unknown
   linkType: soft
 
@@ -2816,19 +2816,19 @@ __metadata:
     vite: "npm:7.3.1"
     vitest: "npm:4.0.18"
   peerDependencies:
-    "@navikt/aksel-icons": 7.x
-    "@navikt/ds-css": 7.x
-    "@navikt/ds-react": 7.x
-    "@navikt/ft-form-hooks": 5.x
-    "@navikt/ft-form-validators": 2.x
+    "@navikt/aksel-icons": 8.x
+    "@navikt/ds-css": 8.x
+    "@navikt/ds-react": 8.x
+    "@navikt/ft-form-hooks": 10.x
+    "@navikt/ft-form-validators": 4.x
     "@navikt/ft-kodeverk": 4.x
-    "@navikt/ft-types": 3.x
-    "@navikt/ft-ui-komponenter": 2.x
-    "@navikt/ft-utils": 2.x
+    "@navikt/ft-types": 5.x
+    "@navikt/ft-ui-komponenter": 6.x
+    "@navikt/ft-utils": 3.x
     dayjs: 1.11.x
     react: 19.1.0
     react-hook-form: 7.53.0
-    react-intl: 6.x
+    react-intl: 8.x
   languageName: unknown
   linkType: soft
 
@@ -2869,14 +2869,14 @@ __metadata:
     vite: "npm:7.3.1"
     vitest: "npm:4.0.18"
   peerDependencies:
-    "@navikt/aksel-icons": 7.x
-    "@navikt/ds-css": 7.x
-    "@navikt/ds-react": 7.x
-    "@navikt/ft-utils": 2.x
+    "@navikt/aksel-icons": 8.x
+    "@navikt/ds-css": 8.x
+    "@navikt/ds-react": 8.x
+    "@navikt/ft-utils": 3.x
     classnames: 2.5.1
     react: 19.1.0
     react-dom: 19.1.0
-    react-intl: 6.x
+    react-intl: 8.x
     react-modal: 3.16.1
   languageName: unknown
   linkType: soft
@@ -2897,7 +2897,7 @@ __metadata:
   peerDependencies:
     dayjs: 1.11.x
     react: "*"
-    react-intl: 6.x
+    react-intl: 8.x
   languageName: unknown
   linkType: soft
 

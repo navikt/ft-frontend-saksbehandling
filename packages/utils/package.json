@@ -27,7 +27,7 @@
   "peerDependencies": {
     "dayjs": "1.11.x",
     "react": "*",
-    "react-intl": "6.x"
+    "react-intl": "8.x"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
