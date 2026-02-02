@@ -4,7 +4,7 @@ import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
 import type { AktivitetStatus } from '@navikt/ft-types';
 import { TIDENES_ENDE } from '@navikt/ft-utils';
 
-import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import type { KodeverkForPanel } from '../types/KodeverkForPanel';
 import { AktivitetStatusTags } from './AktivitetStatusTags';
 
 const meta = {
