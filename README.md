@@ -21,70 +21,133 @@ Utviklingsmiljø i Storybook kan kjøres opp ved å kjøre `yarn storybook` i de
 
 En skal alltid utvikle på branch og lage pull request på GitHub. Denne kan mergest til main når testene har gått grønt.
 
+## Autentisering
+
+Dette prosjektet bruker GitHub Package Registry for npm-pakker. For å installere dependencies og publisere pakker trenger du å autentisere mot GitHub Package Registry.
+
+### Oppsett
+
+Du kan autentisere på en av følgende måter:
+
+#### Alternativ 1: Environment variabel (anbefalt)
+
+Sett environment variabelen `NPM_AUTH_TOKEN` med en GitHub Personal Access Token (PAT):
+
+```bash
+export NPM_AUTH_TOKEN=<din-token>
+```
+
+#### Alternativ 2: .yarnrc.yml i hjemmemappen
+
+Legg til følgende i `~/.yarnrc.yml`:
+
+```yaml
+npmScopes:
+  navikt:
+    npmAlwaysAuth: true
+    npmRegistryServer: 'https://npm.pkg.github.com'
+    npmAuthToken: "<din-token>"
+```
+
+### Opprett GitHub PAT
+
+1. Gå til [GitHub Settings > Developer settings > Personal access tokens](https://github.com/settings/tokens)
+2. Opprett en token med `read:packages`-tilgang (eller `write:packages` hvis du skal publisere)
+3. Enable SSO for NAV-organisasjonen
+
+**Viktig:** Tokens skal _ikke_ sjekkes inn i versjonskontroll.
+
+Se [GitHubs dokumentasjon](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry) for mer informasjon.
+
 ## Publisering av moduler
 
-Det er satt opp automatisk publisering av npm-moduler når det publiseres nye tags. Men du må publisere tags lokalt.
-Grunnen til at det
-er delt opp i tagging(lokalt) og publisering(gjennom GHA) er at man ønsker å kunne gjøre semantisk versjonering av
-pakke-endringer(vha. `lerna version`) samtidig som vi ønsker at utviklere skal behøve et npm-token med `write` access.
+Publisering av npm-moduler skjer automatisk via GitHub Actions når nye tags pushes til `main`. 
 
-En publiser pakker på denne måten:
+### Hvorfor er det delt i to steg?
 
-1. `git checkout main`
-2. `git pull`
-3. `yarn`
-4. `yarn tag` (dette scriptet skjører interactive versjonering vha. lerna som oppretter tagger og pusher signerte
-   tags til GitHub)
+Prosessen er delt i tagging (lokalt) og publisering (gjennom GitHub Actions) for å:
+- Tillate semantisk versjonering av pakke-endringer med `lerna version`
+- Unngå at utviklere trenger et npm-token med `write` access
 
-Når disse stegene er gjennomført skal du finne de nye tagsene
-dine [her](https://github.com/navikt/ft-frontend-saksbehandling/tags).
-Siden det er pushet nye tags til `main` trigges
-det [en automatisk publisering av pakkene](https://github.com/navikt/ft-frontend-saksbehandling/actions/workflows/publish.yml)
-via Github Actions.
-Når workflowen er ferdig finner du de nye pakkene
-dine [her](https://github.com/orgs/navikt/packages?repo_name=ft-frontend-saksbehandling)
+### Steg-for-steg publisering
 
-Hvis du ønsker å ta i bruk de nye pakkene i [fp-frontend](https://github.com/orgs/navikt/fp-frontend)
-eller [k9-sak-web](https://github.com/orgs/navikt/k9-sak-web) kan du på rot i de repoene kjøre
-`yarn upgrade-interactive` som er en interactive måte å velge hvilke pakker du skal oppgradere.
+1. **Hent siste endringer fra main**
+   ```bash
+   git checkout main
+   git pull
+   ```
 
-### Autentisering
+2. **Installer dependencies**
+   ```bash
+   yarn
+   ```
 
-Pakkene publiseres på GitHub Package Registry, og krever derfor at man har satt opp lokal `npm` med en PAT (Personal
-Access Token) med `write:packages`-tilgang, med en bruker som har tilgang til å publisere pakker på repoet. GitHub har
-dokumentert
-oppsett [her](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#publishing-a-package).
+3. **Opprett og push tags**
+   ```bash
+   yarn tag
+   ```
+   Dette kjører interaktiv versjonering via Lerna som:
+   - Lar deg velge versjonsnummer for endrede pakker
+   - Oppretter signerte Git-tags
+   - Pusher tags til GitHub
 
-TLDR er å opprette en GitHub PAT med kun `write:packages`-tilgang, enable SSO, og putte det i en egen ~/.yarnrc.yml-fil
-slik:
+4. **Verifiser publisering**
+   - Nye tags finner du [her](https://github.com/navikt/ft-frontend-saksbehandling/tags)
+   - GitHub Actions workflow starter automatisk og publiserer pakkene: [Se publish workflow](https://github.com/navikt/ft-frontend-saksbehandling/actions/workflows/publish.yml)
+   - Publiserte pakker finner du [her](https://github.com/orgs/navikt/packages?repo_name=ft-frontend-saksbehandling)
 
+### Ta i bruk nye pakker
+
+For å bruke de nye pakkene i [fp-frontend](https://github.com/navikt/fp-frontend) eller [k9-sak-web](https://github.com/navikt/k9-sak-web):
+
+```bash
+yarn upgrade-interactive
 ```
-npmRegistries:
-  https://npm.pkg.github.com:
-    npmAlwaysAuth: true
-    npmAuthToken: <token>
-```
 
-Merk at dette _ikke_ skal sjekkes inn i versjonskontroll.
+Dette gir deg en interaktiv meny for å velge hvilke pakker som skal oppgraderes.
 
 ---
 
-### Utvikling mot lokal kode i ft-frontend-saksbehandling fra annet repo
+## Utvikling mot lokal kode i ft-frontend-saksbehandling fra konsumerende repo
 
-1. Kjør `yarn transform-to-semver` i ft-frontend-saksbehandling. Dette endrer "workspace:^" til semantisk versjon i
-   packages.json-filene.
-2. Kjør `yarn install`.
-3. Gå så til aktuell pakke og kjør `yarn dev`. Dette vil bygge pakken på nytt ved endringer og legge resultatet i
-   dist-folder. Portalen en setter opp i neste steg vil se i denne folderen.
-4. Gå så til repoet du vil bruke pakken i. Endre dependency i package.json til å bruke portal, dvs endre til en direkte
-   peker til aktuell pakke. For eksempel: "@navikt/ft-prosess-beregningsgrunnlag": "portal:
-   ../../../ft-frontend-saksbehandling/packages/prosess-beregningsgrunnlag".
-5. Kjør `yarn install` i dette repoet.
-6. Start opp applikasjon.
+Dette gir deg mulighet til å teste lokale endringer i ft-frontend-saksbehandling før publisering.
 
-Da er det klart for utvikling.
+### Oppsett
 
-NB! Husk å ikke sjekke inn endringene fra steg 1. Kjør `yarn transform-to-workspace` for å reversere desse endringene.
+1. **Konverter workspace dependencies**
+   ```bash
+   yarn transform-to-semver
+   ```
+   Dette endrer "workspace:^" til semantisk versjon i package.json-filene
+
+2. **Installer dependencies**
+   ```bash
+   yarn install
+   ```
+
+3. **Start lokal pakke-utvikling**
+   - Gå til aktuell pakke
+   - Kjør `yarn dev`
+   - Dette bygger pakken automatisk ved endringer og legger resultatet i dist-folderen
+
+4. **Koble pakken til konsument-repoet**
+   - I konsument-repoet (f.eks. fp-frontend eller k9-sak-web), rediger `package.json`
+   - Endre dependency til å bruke portal:
+     ```json
+     "@navikt/ft-prosess-beregningsgrunnlag": "portal:../../../ft-frontend-saksbehandling/packages/prosess-beregningsgrunnlag"
+     ```
+   - Kjør `yarn install` i konsument-repoet
+
+5. **Start applikasjon**
+   - Start opp applikasjonen som normalt
+   - Endringer i ft-frontend-saksbehandling vil nå reflekteres automatisk
+
+### Rydding
+
+**Viktig:** Husk å reversere endringene før du committer:
+```bash
+yarn transform-to-workspace
+```
 
 # Henvendelser
 
