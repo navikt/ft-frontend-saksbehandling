@@ -32,14 +32,14 @@
     "react-intl": "8.1.1"
   },
   "peerDependencies": {
-    "@navikt/aksel-icons": "7.x",
-    "@navikt/ds-css": "7.x",
-    "@navikt/ds-react": "7.x",
-    "@navikt/ft-utils": "2.x",
+    "@navikt/aksel-icons": "8.x",
+    "@navikt/ds-css": "8.x",
+    "@navikt/ds-react": "8.x",
+    "@navikt/ft-utils": "3.x",
     "classnames": "2.5.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "react-intl": "6.x",
+    "react-intl": "8.x",
     "react-modal": "3.16.1"
   },
   "devDependencies": {
