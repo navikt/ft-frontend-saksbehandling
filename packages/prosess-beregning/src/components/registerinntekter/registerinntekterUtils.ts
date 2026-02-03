@@ -145,11 +145,12 @@ export const transformerRegisterinntekter = (
   const grunnlag_8_28 = buildGrunnlagForType(inntekterMedPeriode_8_28, kilder, perioder, '8-28');
 
   // Build combined tabellData with both 8-30 and 8-28 data
+  // Build combined tabellData with both 8-30 and 8-28 data
   const tabellData = perioder.toReversed().map(periode => {
     const kilderForRad = fjernDuplisertKilder(
       Object.keys({
-        ...(grunnlag_8_30.tabellData.find(t => t.formatertPeriode === formaterMåned(periode))?.månedinntekt ?? {}),
-        ...(grunnlag_8_28.tabellData.find(t => t.formatertPeriode === formaterMåned(periode))?.månedinntekt ?? {}),
+        ...grunnlag_8_30.tabellData.find(t => t.formatertPeriode === formaterMåned(periode))?.månedinntekt,
+        ...grunnlag_8_28.tabellData.find(t => t.formatertPeriode === formaterMåned(periode))?.månedinntekt,
       }),
     );
 
