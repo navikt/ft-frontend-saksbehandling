@@ -1,6 +1,7 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 
-import { lagStoriesEntriesForPakker } from './lagStoriesEntriesForPakker';
+// @ts-expect-error må ha .ts
+import { lagStoriesEntriesForPakker } from './lagStoriesEntriesForPakker.ts';
 
 const config: StorybookConfig = {
   addons: ['@storybook/addon-links', '@storybook/addon-a11y', '@storybook/addon-docs'],

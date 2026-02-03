@@ -6272,7 +6272,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:1.11.19":
+"dayjs@npm:1.11.19, dayjs@npm:^1.11.19":
   version: 1.11.19
   resolution: "dayjs@npm:1.11.19"
   checksum: 10/185b820d68492b83a3ce2b8ddc7543034edc1dfd1423183f6ae4707b29929a3cc56503a81826309279f9084680c15966b99456e74cf41f7d1f6a2f98f9c7196f
@@ -7963,6 +7963,7 @@ __metadata:
     "@types/node": "npm:25.0.3"
     "@types/react": "npm:19.2.8"
     "@types/react-dom": "npm:19.2.3"
+    dayjs: "npm:^1.11.19"
     eslint: "npm:9.39.2"
     fast-glob: "npm:3.3.3"
     husky: "npm:9.1.7"

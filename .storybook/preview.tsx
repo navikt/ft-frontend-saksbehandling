@@ -1,14 +1,16 @@
-import React from 'react';
-
-import { Preview } from '@storybook/react-vite';
+import type { Preview } from '@storybook/react-vite';
+import dayjs from 'dayjs';
 
 import { withThemeDecorator } from '@navikt/ft-frontend-storybook-utils';
 
 import './global.module.css';
 
+import 'dayjs/locale/nb.js';
 import '@navikt/ds-css';
 
-export const globalTypes = {
+dayjs.locale('nb');
+
+const globalTypes: Preview['globalTypes'] = {
   theme: {
     name: 'Tema',
     description: 'Aksel tema',
@@ -19,7 +21,6 @@ export const globalTypes = {
         { value: 'light', icon: 'circlehollow', title: 'Lys' },
         { value: 'dark', icon: 'circle', title: 'Mørk' },
       ],
-      showName: true,
     },
   },
 };
