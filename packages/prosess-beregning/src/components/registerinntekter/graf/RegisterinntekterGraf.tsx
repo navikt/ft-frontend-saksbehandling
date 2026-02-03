@@ -82,7 +82,11 @@ export const RegisterinntekterGraf = ({
       <LabeledValue
         horizontal
         size="small"
-        label={<FormattedMessage id="Sammenligningsgrunnlag.TotalSammenligningsgrunnlag" />}
+        label={
+          <>
+            <FormattedMessage id="Registerinntekt.8-30" />:
+          </>
+        }
         value={<BeløpLabel beløp={transformertGrunnlag_8_30.total} kr />}
       />
     </>

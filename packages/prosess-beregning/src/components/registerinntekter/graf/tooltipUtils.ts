@@ -7,9 +7,9 @@ import { formatCurrencyWithKr } from '@navikt/ft-utils';
 const getGrunnlagTypeLabel = (intl: IntlShape, seriesId: string | undefined): string => {
   const type = seriesId?.split(':')[0];
   if (type === '8-28') {
-    return intl.formatMessage({ id: 'Register.8-28' });
+    return intl.formatMessage({ id: 'Registerinntekt.8-28' });
   } else if (type === '8-30') {
-    return intl.formatMessage({ id: 'Register.8-30' });
+    return intl.formatMessage({ id: 'Registerinntekt.8-30' });
   }
   throw new Error(`Ukjent grunnlagstype: ${type}`);
 };
@@ -29,7 +29,7 @@ const lagMarkør = (color: CallbackDataParams['color'], borderColor: CallbackDat
 };
 
 const markørLabelOgVerdiRad = (markør: string | null, label: string, value: CallbackDataParams['value']): string => `
-  <div style="display:flex; column-gap: 8px;  align-items: center; ">
+  <div style="display:flex;column-gap:8px; align-items:center;">
     ${markør ?? `<div style="width:24px;"></div>`} 
     <span>${label}</span>
     <div style="margin-left:auto;width:70px;text-align:end;">${getValue(value)}</div>

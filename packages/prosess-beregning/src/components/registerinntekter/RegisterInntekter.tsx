@@ -30,14 +30,17 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
     vis_8_28,
   );
 
-  if (inntektsgrunnlag.sammenligningsgrunnlagInntekter.length === 0) {
+  if (
+    inntektsgrunnlag.sammenligningsgrunnlagInntekter.length === 0 &&
+    inntektsgrunnlag.beregningsgrunnlagInntekter.length === 0
+  ) {
     return null;
   }
 
   return (
     <FaktaBoks
-      tittel={intl.formatMessage({ id: 'Sammenligningsgrunnlag.ExpansionCard.Header' })}
-      beskrivelse={<FormattedMessage id="Sammenligningsgrunnlag.ExpansionCard.Description" />}
+      tittel={intl.formatMessage({ id: 'Registerinntekt.Header' })}
+      beskrivelse={<FormattedMessage id="Registerinntekt.Description" />}
     >
       <VStack gap="space-16">
         <HStack gap="space-16">

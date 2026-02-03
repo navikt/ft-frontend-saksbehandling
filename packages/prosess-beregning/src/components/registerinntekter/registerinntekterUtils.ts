@@ -190,12 +190,12 @@ const formaterAkivitetLabel =
       };
     } else if (inntekt.inntektAktivitetType === InntektAktivitetType.FRILANS) {
       return {
-        label: intl.formatMessage({ id: 'SammenligningsgrunnlagGraf.Frilans' }),
+        label: intl.formatMessage({ id: 'Registerinntekt.Frilans' }),
         inntektAktivitetType: inntekt.inntektAktivitetType,
       };
     } else {
       return {
-        label: intl.formatMessage({ id: 'SammenligningsgrunnlagGraf.Ytelse' }),
+        label: intl.formatMessage({ id: 'Registerinntekt.Ytelse' }),
         inntektAktivitetType: inntekt.inntektAktivitetType,
       };
     }
