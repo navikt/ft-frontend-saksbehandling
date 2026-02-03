@@ -89,6 +89,18 @@ export const RegisterinntekterGraf = ({
         }
         value={<BeløpLabel beløp={grunnlag_8_30.total} kr />}
       />
+      {vis_8_28 && (
+        <LabeledValue
+          horizontal
+          size="small"
+          label={
+            <>
+              <FormattedMessage id="Registerinntekt.8-28" />:
+            </>
+          }
+          value={<BeløpLabel beløp={grunnlag_8_28.total} kr />}
+        />
+      )}
     </>
   );
 };
