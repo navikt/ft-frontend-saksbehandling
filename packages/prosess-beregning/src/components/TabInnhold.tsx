@@ -14,7 +14,7 @@ import { AktivitetStatusTags } from './AktivitetStatusTags';
 import { Arbeidsinntekt } from './arbeidsinntekt/Arbeidsinntekt';
 import { Avviksberegninger } from './avviksberegning/Avviksberegninger';
 import { Dagsatser } from './dagsats/Dagsatser';
-import { Sammenligningsgrunnlag } from './sammenligningsgrunnlag/Sammenligningsgrunnlag';
+import { RegisterInntekter } from './registerinntekter/RegisterInntekter';
 
 interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
@@ -52,15 +52,12 @@ export const TabInnhold = ({
         kodeverkSamling={kodeverkSamling}
       />
 
-      {sammenligningsgrunnlagPrStatus.length > 0 &&
-        inntektsgrunnlag &&
-        inntektsgrunnlag.sammenligningsgrunnlagInntekter.length > 0 && (
-          <Sammenligningsgrunnlag
-            sammenligningsgrunnlagFom={sammenligningsgrunnlagPrStatus[0].sammenligningsgrunnlagFom}
-            sammenligningsgrunnlagInntekter={inntektsgrunnlag.sammenligningsgrunnlagInntekter}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          />
-        )}
+      {sammenligningsgrunnlagPrStatus.length > 0 && inntektsgrunnlag && (
+        <RegisterInntekter
+          inntektsgrunnlag={inntektsgrunnlag}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        />
+      )}
 
       <HStack gap="space-12">
         <Avviksberegninger
