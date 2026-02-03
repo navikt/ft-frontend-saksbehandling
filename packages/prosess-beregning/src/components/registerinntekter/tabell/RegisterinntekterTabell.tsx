@@ -50,7 +50,7 @@ export const RegisterinntekterTabell = ({
             {kilderForRad.map((kilde, index) => (
               <Fragment key={kilde}>
                 {kilde}
-                {index < kilder.length - 1 && <br />}
+                {index < kilderForRad.length - 1 && <br />}
               </Fragment>
             ))}
           </Table.DataCell>

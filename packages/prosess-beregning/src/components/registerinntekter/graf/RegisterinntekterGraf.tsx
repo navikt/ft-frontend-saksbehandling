@@ -77,7 +77,7 @@ export const RegisterinntekterGraf = ({
             ...(vis_8_28 ? transformertGrunnlag_8_28.inntektskilder.map(createBar(vis_8_28, '8-28: ')) : []),
           ],
         }}
-        style={vis_8_28 ? { height: '600px' } : { height: '400px' }}
+        style={{ height: `calc(${periodeData.length} * ${vis_8_28 ? 48 : 28}px + 96px)` }}
       />
       <LabeledValue
         horizontal

@@ -38,6 +38,9 @@ const beregnSubtotalPerKilde = (inntekter: RegisterinntekteMedDato[]): Map<strin
 };
 
 const finnAlleMåneder = (inntekter: InntektsgrunnlagMåned[]): string[] => {
+  if (inntekter.length === 0) {
+    return [];
+  }
   const { maxDato, minDato } = inntekter.reduce(
     (acc, periode) => ({
       maxDato: dayjs(periode.fom).isAfter(dayjs(acc.maxDato)) ? periode.fom : acc.maxDato,
@@ -74,7 +77,7 @@ const mapInntekterMedPeriode = (
     inntektsPeriode.inntekter.map<RegisterinntekteMedDato>(inntekt => ({
       beløp: inntekt.beløp,
       fom: inntektsPeriode.fom,
-      ...formaterAkivitetLabel(arbeidsgiverOpplysningerPerId, intl)(inntekt),
+      ...formaterAktivitetLabel(arbeidsgiverOpplysningerPerId, intl)(inntekt),
     })),
   );
 
@@ -181,7 +184,7 @@ export const transformerRegisterinntekter = (
     vis_8_28,
   };
 };
-const formaterAkivitetLabel =
+const formaterAktivitetLabel =
   (arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId, intl: IntlShape) =>
   (inntekt: InntektsgrunnlagInntekt) => {
     if (inntekt.inntektAktivitetType === InntektAktivitetType.ARBEID) {
