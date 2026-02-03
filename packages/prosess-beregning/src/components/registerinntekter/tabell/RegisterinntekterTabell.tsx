@@ -13,13 +13,7 @@ interface Props {
   transformerteRegisterinntekter: TransformertRegisterinntekter;
 }
 export const RegisterinntekterTabell = ({
-  transformerteRegisterinntekter: {
-    kilder,
-    transformertGrunnlag_8_30,
-    transformertGrunnlag_8_28,
-    tabellData,
-    vis_8_28,
-  },
+  transformerteRegisterinntekter: { kilder, grunnlag_8_30, grunnlag_8_28, tabellData, vis_8_28 },
 }: Props) => (
   <Table size="small" className={styles.table}>
     <Table.Header>
@@ -85,11 +79,11 @@ export const RegisterinntekterTabell = ({
             </Table.HeaderCell>
             <Table.DataCell textSize="small">{kilde.label}</Table.DataCell>
             <Table.DataCell align="right" textSize="small">
-              <BeløpLabel beløp={transformertGrunnlag_8_30.subtotal.get(kilde.label)} kr />
+              <BeløpLabel beløp={grunnlag_8_30.subtotal.get(kilde.label)} kr />
             </Table.DataCell>
             {vis_8_28 && (
               <Table.DataCell align="right" textSize="small">
-                <BeløpLabel beløp={transformertGrunnlag_8_28.subtotal.get(kilde.label)} kr />
+                <BeløpLabel beløp={grunnlag_8_28.subtotal.get(kilde.label)} kr />
               </Table.DataCell>
             )}
           </Table.Row>
@@ -99,11 +93,11 @@ export const RegisterinntekterTabell = ({
           <FormattedMessage id="Tabell.Total" />
         </Table.HeaderCell>
         <Table.HeaderCell scope="row" align="right" textSize="small">
-          <BeløpLabel beløp={transformertGrunnlag_8_30.total} kr />
+          <BeløpLabel beløp={grunnlag_8_30.total} kr />
         </Table.HeaderCell>
         {vis_8_28 && (
           <Table.HeaderCell scope="row" align="right" textSize="small">
-            <BeløpLabel beløp={transformertGrunnlag_8_28.total} kr />
+            <BeløpLabel beløp={grunnlag_8_28.total} kr />
           </Table.HeaderCell>
         )}
       </Table.Row>

@@ -29,7 +29,7 @@ export const TabInnhold = ({
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
 }: Props) => {
-  const { sammenligningsgrunnlagPrStatus = [], inntektsgrunnlag, avklaringsbehov } = beregningsgrunnlag;
+  const { inntektsgrunnlag, avklaringsbehov } = beregningsgrunnlag;
   return (
     <>
       <HStack align="center" gap="space-12">
@@ -52,7 +52,7 @@ export const TabInnhold = ({
         kodeverkSamling={kodeverkSamling}
       />
 
-      {sammenligningsgrunnlagPrStatus.length > 0 && inntektsgrunnlag && (
+      {inntektsgrunnlag && (
         <RegisterInntekter
           inntektsgrunnlag={inntektsgrunnlag}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}

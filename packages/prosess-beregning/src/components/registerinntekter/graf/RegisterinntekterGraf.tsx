@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const RegisterinntekterGraf = ({
-  transformerteRegisterinntekter: { transformertGrunnlag_8_30, transformertGrunnlag_8_28, periodeData, vis_8_28 },
+  transformerteRegisterinntekter: { grunnlag_8_30, grunnlag_8_28, periodeData, vis_8_28 },
 }: Props) => {
   const intl = useIntl();
   const fontSize = getAkselVariable('--ax-font-size-small');
@@ -73,8 +73,8 @@ export const RegisterinntekterGraf = ({
             formatter: formatTooltip(intl),
           },
           series: [
-            ...transformertGrunnlag_8_30.inntektskilder.map(createBar(vis_8_28, '8-30: ')),
-            ...(vis_8_28 ? transformertGrunnlag_8_28.inntektskilder.map(createBar(vis_8_28, '8-28: ')) : []),
+            ...grunnlag_8_30.inntektskilder.map(createBar(vis_8_28, '8-30: ')),
+            ...(vis_8_28 ? grunnlag_8_28.inntektskilder.map(createBar(vis_8_28, '8-28: ')) : []),
           ],
         }}
         style={{ height: `calc(${periodeData.length} * ${vis_8_28 ? 48 : 28}px + 96px)` }}
@@ -87,7 +87,7 @@ export const RegisterinntekterGraf = ({
             <FormattedMessage id="Registerinntekt.8-30" />:
           </>
         }
-        value={<BeløpLabel beløp={transformertGrunnlag_8_30.total} kr />}
+        value={<BeløpLabel beløp={grunnlag_8_30.total} kr />}
       />
     </>
   );

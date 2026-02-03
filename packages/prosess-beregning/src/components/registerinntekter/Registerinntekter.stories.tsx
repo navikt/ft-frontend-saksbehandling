@@ -44,11 +44,6 @@ export const VisningAvSammenligningsgrunnlag: Story = {
           tom: '2025-10-31',
           inntekter: [
             {
-              inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-              arbeidsgiverIdent: '555555555',
-              beløp: 0,
-            },
-            {
               inntektAktivitetType: 'YTELSEINNTEKT',
               beløp: 48237,
             },
@@ -87,11 +82,6 @@ export const VisningAvSammenligningsgrunnlag: Story = {
           fom: '2025-09-01',
           tom: '2025-09-30',
           inntekter: [
-            {
-              inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
-              arbeidsgiverIdent: '222222222',
-              beløp: 0,
-            },
             {
               inntektAktivitetType: 'YTELSEINNTEKT',
               beløp: 50791,

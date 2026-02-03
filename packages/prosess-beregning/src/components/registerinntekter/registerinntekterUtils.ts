@@ -97,7 +97,7 @@ const buildRegisterinntekterPerKilde = (
     };
   });
 
-const buildGrunnlagForType = (
+const byggGrunnlagForType = (
   inntekter: RegisterinntekteMedDato[],
   kilder: RegisterinntekteMedDato[],
   perioder: string[],
@@ -108,10 +108,6 @@ const buildGrunnlagForType = (
 
   return {
     inntektskilder: buildRegisterinntekterPerKilde(kilder, inntekter, perioder, typeGrunnlag),
-    tabellData: perioder.toReversed().map(periode => ({
-      formatertPeriode: formaterMåned(periode),
-      månedinntekt: Object.fromEntries(inntekter.filter(i => i.fom === periode).map(i => [i.label, i])),
-    })),
     subtotal,
     total,
   };
@@ -144,26 +140,24 @@ export const transformerRegisterinntekter = (
     ).values(),
   ).sort((a, b) => a.inntektAktivitetType.localeCompare(b.inntektAktivitetType));
 
-  const grunnlag_8_30 = buildGrunnlagForType(inntekterMedPeriode_8_30, kilder, perioder, '8-30');
-  const grunnlag_8_28 = buildGrunnlagForType(inntekterMedPeriode_8_28, kilder, perioder, '8-28');
+  const grunnlag_8_30 = byggGrunnlagForType(inntekterMedPeriode_8_30, kilder, perioder, '8-30');
+  const grunnlag_8_28 = byggGrunnlagForType(inntekterMedPeriode_8_28, kilder, perioder, '8-28');
 
-  // Build combined tabellData with both 8-30 and 8-28 data
-  // Build combined tabellData with both 8-30 and 8-28 data
   const tabellData = perioder.toReversed().map(periode => {
-    const kilderForRad = fjernDuplisertKilder(
-      Object.keys({
-        ...grunnlag_8_30.tabellData.find(t => t.formatertPeriode === formaterMåned(periode))?.månedinntekt,
-        ...grunnlag_8_28.tabellData.find(t => t.formatertPeriode === formaterMåned(periode))?.månedinntekt,
-      }),
-    );
+    const kilderForRad = fjernDuplisertKilder([
+      ...inntekterMedPeriode_8_30.filter(i => i.fom === periode).map(i => i.label),
+      ...inntekterMedPeriode_8_28.filter(i => i.fom === periode).map(i => i.label),
+    ]);
 
     return {
       formatertPeriode: formaterMåned(periode),
       kilderForRad,
-      månedinntekt_8_30:
-        grunnlag_8_30.tabellData.find(t => t.formatertPeriode === formaterMåned(periode))?.månedinntekt ?? {},
-      månedinntekt_8_28:
-        grunnlag_8_28.tabellData.find(t => t.formatertPeriode === formaterMåned(periode))?.månedinntekt ?? {},
+      månedinntekt_8_30: Object.fromEntries(
+        inntekterMedPeriode_8_30.filter(i => i.fom === periode).map(i => [i.label, i]),
+      ),
+      månedinntekt_8_28: Object.fromEntries(
+        inntekterMedPeriode_8_28.filter(i => i.fom === periode).map(i => [i.label, i]),
+      ),
     };
   });
 
@@ -171,16 +165,8 @@ export const transformerRegisterinntekter = (
     tabellData,
     kilder,
     periodeData: perioder.map(formaterMåned),
-    transformertGrunnlag_8_28: {
-      inntektskilder: grunnlag_8_28.inntektskilder,
-      subtotal: grunnlag_8_28.subtotal,
-      total: grunnlag_8_28.total,
-    },
-    transformertGrunnlag_8_30: {
-      inntektskilder: grunnlag_8_30.inntektskilder,
-      subtotal: grunnlag_8_30.subtotal,
-      total: grunnlag_8_30.total,
-    },
+    grunnlag_8_28,
+    grunnlag_8_30,
     vis_8_28,
   };
 };

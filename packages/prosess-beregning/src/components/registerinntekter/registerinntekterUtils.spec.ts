@@ -47,12 +47,12 @@ describe('registerinntekterUtils', () => {
         lagInntektsgrunnlagMåned('2025-01-01', [lagFrilansInntekt(2)]),
       ]);
 
-      const { periodeData, transformertGrunnlag_8_30 } = transformerRegisterinntekter(inntektsgrunnlag, {}, intl, true);
+      const { periodeData, grunnlag_8_30 } = transformerRegisterinntekter(inntektsgrunnlag, {}, intl, true);
 
       expect(periodeData[0]).toBe('Sep 24');
       expect(periodeData[7]).toBe('April 25');
 
-      expect(transformertGrunnlag_8_30.inntektskilder).toEqual([
+      expect(grunnlag_8_30.inntektskilder).toEqual([
         {
           label: FRILANS_LABEL,
           datapunkter: [1, undefined, undefined, undefined, 2, undefined, undefined, 3],
@@ -60,7 +60,7 @@ describe('registerinntekterUtils', () => {
           typeGrunnlag: '8-30',
         },
       ]);
-      expect(transformertGrunnlag_8_30.total).toEqual(6);
+      expect(grunnlag_8_30.total).toEqual(6);
     });
     it('skal utvide og sortere perioder til antall måneder for maks og min datoer i grunnlag', () => {
       const inntektsgrunnlag = lagInntektsgrunnlag(
@@ -76,8 +76,12 @@ describe('registerinntekterUtils', () => {
         ],
       );
 
-      const { periodeData, transformertGrunnlag_8_28, transformertGrunnlag_8_30, tabellData } =
-        transformerRegisterinntekter(inntektsgrunnlag, {}, intl, true);
+      const { periodeData, grunnlag_8_28, grunnlag_8_30, tabellData } = transformerRegisterinntekter(
+        inntektsgrunnlag,
+        {},
+        intl,
+        true,
+      );
 
       expect(periodeData).toEqual(['Des 25', 'Jan 26', 'Feb 26', 'Mars 26', 'April 26', 'Mai 26', 'Juni 26']);
       expect(tabellData).toHaveLength(7);
@@ -168,8 +172,8 @@ describe('registerinntekterUtils', () => {
           },
         },
       ]);
-      expect(transformertGrunnlag_8_28.total).toEqual(60);
-      expect(transformertGrunnlag_8_30.total).toEqual(6);
+      expect(grunnlag_8_28.total).toEqual(60);
+      expect(grunnlag_8_30.total).toEqual(6);
     });
 
     it('skal håndtere arbeidsinntekt fra flere arbeidsgivere', () => {
@@ -178,7 +182,7 @@ describe('registerinntekterUtils', () => {
         lagInntektsgrunnlagMåned('2025-03-01', [lagArbeidInntekt(20000, ARBEIDSGIVER_B)]),
       ]);
 
-      const { periodeData, transformertGrunnlag_8_30 } = transformerRegisterinntekter(
+      const { periodeData, grunnlag_8_30 } = transformerRegisterinntekter(
         inntektsgrunnlag,
         arbeidsgiverOpplysningerPerId,
         intl,
@@ -186,7 +190,7 @@ describe('registerinntekterUtils', () => {
       );
 
       expect(periodeData).toHaveLength(3);
-      expect(transformertGrunnlag_8_30.inntektskilder).toEqual([
+      expect(grunnlag_8_30.inntektskilder).toEqual([
         {
           label: BEDRIFT_A_MED_IDENT,
           datapunkter: [30000, undefined, undefined],
@@ -200,7 +204,7 @@ describe('registerinntekterUtils', () => {
           typeGrunnlag: '8-30',
         },
       ]);
-      expect(transformertGrunnlag_8_30.total).toEqual(50000);
+      expect(grunnlag_8_30.total).toEqual(50000);
     });
 
     it('skal returnere undefined for måneder uten inntekt for blandet inntektstyper', () => {
@@ -222,14 +226,14 @@ describe('registerinntekterUtils', () => {
         ],
       );
 
-      const { transformertGrunnlag_8_28, transformertGrunnlag_8_30, tabellData } = transformerRegisterinntekter(
+      const { grunnlag_8_28, grunnlag_8_30, tabellData } = transformerRegisterinntekter(
         inntektsgrunnlag,
         arbeidsgiverOpplysningerPerId,
         intl,
         true,
       );
 
-      expect(transformertGrunnlag_8_30.inntektskilder).toEqual([
+      expect(grunnlag_8_30.inntektskilder).toEqual([
         {
           label: BEDRIFT_A_MED_IDENT,
           datapunkter: [undefined, 30000, undefined],
@@ -249,7 +253,7 @@ describe('registerinntekterUtils', () => {
           typeGrunnlag: '8-30',
         },
       ]);
-      expect(transformertGrunnlag_8_28.inntektskilder).toEqual([
+      expect(grunnlag_8_28.inntektskilder).toEqual([
         {
           label: BEDRIFT_A_MED_IDENT,
           datapunkter: [undefined, undefined, 26000],
@@ -327,12 +331,12 @@ describe('registerinntekterUtils', () => {
           månedinntekt_8_30: {},
         },
       ]);
-      expect(Object.fromEntries(transformertGrunnlag_8_30.subtotal)).toEqual({
+      expect(Object.fromEntries(grunnlag_8_30.subtotal)).toEqual({
         [BEDRIFT_A_MED_IDENT]: 30000,
         [FRILANS_LABEL]: 10000,
         [YTELSE_LABEL]: 5000,
       });
-      expect(transformertGrunnlag_8_30.total).toEqual(45000);
+      expect(grunnlag_8_30.total).toEqual(45000);
     });
 
     it('skal summere arbeidsinntekt korrekt for flere arbeidsgivere over flere måneder', () => {
@@ -351,14 +355,14 @@ describe('registerinntekterUtils', () => {
         lagInntektsgrunnlagMåned('2025-05-01', []),
       ]);
 
-      const { transformertGrunnlag_8_30 } = transformerRegisterinntekter(
+      const { grunnlag_8_30 } = transformerRegisterinntekter(
         inntektsgrunnlag,
         arbeidsgiverOpplysningerPerId,
         intl,
         true,
       );
 
-      expect(transformertGrunnlag_8_30.inntektskilder).toEqual([
+      expect(grunnlag_8_30.inntektskilder).toEqual([
         {
           label: BEDRIFT_A_MED_IDENT,
           datapunkter: [25000, 25000, 27000, undefined, undefined],
@@ -372,23 +376,23 @@ describe('registerinntekterUtils', () => {
           typeGrunnlag: '8-30',
         },
       ]);
-      expect(transformertGrunnlag_8_30.total).toEqual(112000);
+      expect(grunnlag_8_30.total).toEqual(112000);
     });
 
     it('skal returnere tomme datastrukturer når inntektsgrunnlaget er tomt', () => {
-      const { transformertGrunnlag_8_30 } = transformerRegisterinntekter(lagInntektsgrunnlag([]), {}, intl, true);
+      const { grunnlag_8_30 } = transformerRegisterinntekter(lagInntektsgrunnlag([]), {}, intl, true);
 
-      expect(transformertGrunnlag_8_30.inntektskilder).toEqual([]);
-      expect(transformertGrunnlag_8_30.total).toEqual(0);
+      expect(grunnlag_8_30.inntektskilder).toEqual([]);
+      expect(grunnlag_8_30.total).toEqual(0);
     });
 
     it('skal ikke inkludere inntektstyper som ikke finnes i inntektsgrunnlaget', () => {
       const inntektsgrunnlag = lagInntektsgrunnlag([lagInntektsgrunnlagMåned('2025-01-01', [])]);
 
-      const { transformertGrunnlag_8_30 } = transformerRegisterinntekter(inntektsgrunnlag, {}, intl, true);
+      const { grunnlag_8_30 } = transformerRegisterinntekter(inntektsgrunnlag, {}, intl, true);
 
-      expect(transformertGrunnlag_8_30.inntektskilder).toEqual([]);
-      expect(transformertGrunnlag_8_30.total).toEqual(0);
+      expect(grunnlag_8_30.inntektskilder).toEqual([]);
+      expect(grunnlag_8_30.total).toEqual(0);
     });
   });
 });
