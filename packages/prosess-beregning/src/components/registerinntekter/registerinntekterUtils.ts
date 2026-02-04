@@ -17,8 +17,10 @@ import {
   TIDENES_MORGEN,
 } from '@navikt/ft-utils';
 
+export type TypeGrunnlag = '8-30' | '8-28';
+
 export type RegisterinntekterPerKilde = {
-  typeGrunnlag: '8-30' | '8-28';
+  typeGrunnlag: TypeGrunnlag;
   label: string;
   inntektAktivitetType: InntektsgrunnlagInntekt['inntektAktivitetType'];
   datapunkter: (number | undefined)[];
@@ -85,7 +87,7 @@ const buildRegisterinntekterPerKilde = (
   kilder: RegisterinntekteMedDato[],
   inntekter: RegisterinntekteMedDato[],
   perioder: string[],
-  typeGrunnlag: '8-30' | '8-28',
+  typeGrunnlag: TypeGrunnlag,
 ): RegisterinntekterPerKilde[] =>
   kilder.map(kilde => {
     const inntekterForKilde = inntekter.filter(i => i.label === kilde.label);
@@ -101,7 +103,7 @@ const byggGrunnlagForType = (
   inntekter: RegisterinntekteMedDato[],
   kilder: RegisterinntekteMedDato[],
   perioder: string[],
-  typeGrunnlag: '8-30' | '8-28',
+  typeGrunnlag: TypeGrunnlag,
 ) => {
   const subtotal = beregnSubtotalPerKilde(inntekter);
   const total = Array.from(subtotal.values()).reduce(sumBeløp, 0);

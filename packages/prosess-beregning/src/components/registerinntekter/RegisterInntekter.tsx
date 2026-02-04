@@ -55,7 +55,7 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
             checked={vis_8_28}
             onChange={() => setVis_8_28(s => !s)}
           >
-            Vis § 8-28
+            <FormattedMessage id="Registerinntekt.Vis8-28" />
           </Checkbox>
         </HStack>
         {valgtVisning === 'graf' && (
