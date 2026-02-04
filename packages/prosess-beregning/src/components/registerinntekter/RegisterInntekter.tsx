@@ -38,10 +38,7 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
   }
 
   return (
-    <FaktaBoks
-      tittel={intl.formatMessage({ id: 'Registerinntekt.Header' })}
-      beskrivelse={<FormattedMessage id="Registerinntekt.Description" />}
-    >
+    <FaktaBoks tittel={intl.formatMessage({ id: 'Registerinntekt.Header' })}>
       <VStack gap="space-16">
         <HStack gap="space-16">
           <ToggleGroup size="small" value={valgtVisning} onChange={value => setValgtVisning(value as Visning)}>
