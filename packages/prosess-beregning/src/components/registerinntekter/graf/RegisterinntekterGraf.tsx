@@ -1,5 +1,7 @@
 import { FormattedMessage, useIntl } from 'react-intl';
 
+import { VStack } from '@navikt/ds-react';
+
 import { BeløpLabel, LabeledValue } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
@@ -23,7 +25,7 @@ export const RegisterinntekterGraf = ({
   const textStyle = {
     fontFamily: getAkselVariable('--ax-font-family'),
     color: getAkselVariable('--ax-text-neutral'),
-    fontSize: '14px',
+    fontSize,
   };
   return (
     <>
@@ -79,28 +81,30 @@ export const RegisterinntekterGraf = ({
         }}
         style={{ height: `calc(${periodeData.length} * ${vis_8_28 ? 48 : 28}px + 96px)` }}
       />
-      <LabeledValue
-        horizontal
-        size="small"
-        label={
-          <>
-            <FormattedMessage id="Registerinntekt.8-30" />:
-          </>
-        }
-        value={<BeløpLabel beløp={grunnlag_8_30.total} kr />}
-      />
-      {vis_8_28 && (
+      <VStack gap="space-4">
         <LabeledValue
           horizontal
           size="small"
           label={
             <>
-              <FormattedMessage id="Registerinntekt.8-28" />:
+              <FormattedMessage id="Registerinntekt.8-30" />:
             </>
           }
-          value={<BeløpLabel beløp={grunnlag_8_28.total} kr />}
+          value={<BeløpLabel beløp={grunnlag_8_30.total} kr />}
         />
-      )}
+        {vis_8_28 && (
+          <LabeledValue
+            horizontal
+            size="small"
+            label={
+              <>
+                <FormattedMessage id="Registerinntekt.8-28" />:
+              </>
+            }
+            value={<BeløpLabel beløp={grunnlag_8_28.total} kr />}
+          />
+        )}
+      </VStack>
     </>
   );
 };

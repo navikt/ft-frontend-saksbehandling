@@ -45,6 +45,7 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
 
   return relevanteAndeler.map<ArbeidsinntektVisning>(andel => {
     const arbeidsgiverIdent = andel.arbeidsforhold?.arbeidsgiverIdent;
+    const kildeForAndel = kilderForBergenetPrÅr.find(a => a.andelsnr === andel.andelsnr);
     return {
       andelsLabel: formaterVisningsnavnForAndel(andel),
       erTidsbegrensetArbeidsforhold: andel.erTidsbegrensetArbeidsforhold ?? false,
@@ -58,8 +59,7 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
       sisteLønnsendringsdato: andel.arbeidsforhold?.sisteLønnsendringsdato,
       formatertStillingsprosenter: formaterStillingsprosenter(andel.arbeidsforhold?.stillingsprosenter),
       fastsattAvSBH:
-        kilderForBergenetPrÅr.some(a => a.andelsnr === andel.andelsnr && a.beregnetPrÅrKilde === 'SAKSBEHANDLER') &&
-        andel.beregnetPrAar
+        kildeForAndel?.beregnetPrÅrKilde === 'SAKSBEHANDLER' && andel.beregnetPrAar
           ? {
               månedinntekt: andel.beregnetPrAar / 12,
               årsinntekt: andel.beregnetPrAar,

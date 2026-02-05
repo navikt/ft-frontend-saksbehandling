@@ -1,9 +1,9 @@
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { HelpText, HStack, Table, Tag } from '@navikt/ds-react';
+import { HelpText, HStack, List, Table, Tag, VStack } from '@navikt/ds-react';
 
 import type { Beregningsgrunnlag, BeregningsgrunnlagAndel, SammenligningsgrunlagProp } from '@navikt/ft-types';
-import { BeløpLabel, FaktaBoks } from '@navikt/ft-ui-komponenter';
+import { BeløpLabel, FaktaBoks, LabeledValue } from '@navikt/ft-ui-komponenter';
 
 import { finnKilderForAndeler } from '../../utils/beregnetPrÅrKildeUtils';
 import {
@@ -46,19 +46,34 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({
             <Table.DataCell textSize="small">
               <HStack align="center" gap="space-4">
                 <FormattedMessage id="Avviksberegning.BeregnetÅrsinntekt" />
-                <HelpText>
-                  <FormattedMessage key="Avviksberegning.HelpText.Tittel" id="Avviksberegning.HelpText.Tittel" />
-                  {kilderForAndeler.map(andel => (
-                    <FormattedMessage
-                      key={andel.andelsnr}
-                      id="Avviksberegning.HelpText.Innhold"
-                      values={{
-                        arbeidsgiver: andel.arbeidsgiver,
-                        kilde: andel.beregnetPrÅrKilde,
-                        br: <br />,
-                      }}
+                <HelpText title={intl.formatMessage({ id: 'Avviksberegning.BeregnetÅrsinntekt.HelpText' })}>
+                  <VStack gap="space-8">
+                    <LabeledValue
+                      size="small"
+                      label={<FormattedMessage id="Avviksberegning.BeregnetÅrsinntekt.HelpText.Tittel" />}
+                      value={<FormattedMessage id="Avviksberegning.BeregnetÅrsinntekt.HelpText.Beskrivelse" />}
                     />
-                  ))}
+                    <List size="small">
+                      {kilderForAndeler.map(andel => (
+                        <List.Item key={andel.andelsnr}>
+                          <FormattedMessage
+                            id="Avviksberegning.BeregnetÅrsinntekt.HelpText.Andel"
+                            values={{ arbeidsgiver: andel.arbeidsgiver }}
+                          />
+                          <br />
+                          <FormattedMessage
+                            id="Avviksberegning.BeregnetÅrsinntekt.HelpText.Beløp"
+                            values={{ beløp: <BeløpLabel beløp={andel.beregnetPrAar} kr /> }}
+                          />
+                          <br />
+                          <FormattedMessage
+                            id="Avviksberegning.BeregnetÅrsinntekt.HelpText.Kilde"
+                            values={{ kilde: andel.beregnetPrÅrKilde }}
+                          />
+                        </List.Item>
+                      ))}
+                    </List>
+                  </VStack>
                 </HelpText>
               </HStack>
             </Table.DataCell>

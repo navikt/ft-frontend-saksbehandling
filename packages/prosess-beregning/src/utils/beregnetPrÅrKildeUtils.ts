@@ -1,16 +1,10 @@
 import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
-type KildeForAndel = Readonly<{
-  andelsnr: number;
-  arbeidsgiver: string;
-  beregnetPrÅrKilde: 'SAKSBEHANDLER' | 'INNTEKTSMELDING' | 'A_ORDNING' | 'INGEN';
-}>;
-
 export const finnKilderForAndeler = (
   andeler: BeregningsgrunnlagAndel[],
   beregningsgrunnlagInntekter: Record<string, number>,
   formaterVisningsnavnForAndel: (andel: BeregningsgrunnlagAndel) => string,
-): KildeForAndel[] => {
+) => {
   return andeler.map(andel => {
     const arbeidsgiverIdent = andel.arbeidsforhold?.arbeidsgiverIdent;
     const inntektsmeldingÅrsinntekt = andel.arbeidsforhold?.belopFraInntektsmeldingPrMnd
@@ -25,6 +19,7 @@ export const finnKilderForAndeler = (
       andelsnr: andel.andelsnr,
       arbeidsgiver: formaterVisningsnavnForAndel(andel),
       beregnetPrÅrKilde: finnKildeForAndel(andel, inntektsmeldingÅrsinntekt, beregningsgrunnlagÅrsinntekt),
+      beregnetPrAar: andel.beregnetPrAar,
     };
   });
 };
@@ -39,7 +34,7 @@ const finnKildeForAndel = (
   andel: BeregningsgrunnlagAndel,
   inntektsmeldingÅrsinntekt?: number,
   beregningsgrunnlagÅrsinntekt?: number,
-): KildeForAndel['beregnetPrÅrKilde'] => {
+): 'SAKSBEHANDLER' | 'INNTEKTSMELDING' | 'A_ORDNING' | 'INGEN' => {
   if (andel.beregnetPrAar === undefined) {
     return 'INGEN';
   }
