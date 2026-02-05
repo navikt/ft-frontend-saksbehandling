@@ -66,6 +66,11 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/navikt/ft-frontend-saksbehandling",
+    "directory": "packages/prosess-tilbakekreving-foreldelse"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.es.js",
