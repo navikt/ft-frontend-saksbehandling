@@ -32,7 +32,7 @@ jobs:
         run: yarn build
 
       - name: Publish packages from existing tags
-        run: lerna publish from-package --yes --summary-file /tmp/lerna-summary.json
+        run: lerna publish from-git --yes --no-private --summary-file /tmp/lerna-summary.json
         env:
           NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         continue-on-error: true

@@ -60,7 +60,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/navikt/ft-frontend-saksbehandling"
+    "url": "https://github.com/navikt/ft-frontend-saksbehandling",
+    "directory": "packages/ui-komponenter"
   },
   "exports": {
     ".": {

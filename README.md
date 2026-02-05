@@ -46,7 +46,7 @@ npmScopes:
   navikt:
     npmAlwaysAuth: true
     npmRegistryServer: 'https://npm.pkg.github.com'
-    npmAuthToken: "<din-token>"
+    npmAuthToken: '<din-token>'
 ```
 
 ### Opprett GitHub PAT
@@ -61,31 +61,36 @@ Se [GitHubs dokumentasjon](https://docs.github.com/en/packages/working-with-a-gi
 
 ## Publisering av moduler
 
-Publisering av npm-moduler skjer automatisk via GitHub Actions når nye tags pushes til `main`. 
+Publisering av npm-moduler skjer automatisk via GitHub Actions når nye tags pushes til `main`.
 
 ### Hvorfor er det delt i to steg?
 
 Prosessen er delt i tagging (lokalt) og publisering (gjennom GitHub Actions) for å:
+
 - Tillate semantisk versjonering av pakke-endringer med `lerna version`
 - Unngå at utviklere trenger et npm-token med `write` access
 
 ### Steg-for-steg publisering
 
 1. **Hent siste endringer fra main**
+
    ```bash
    git checkout main
    git pull
    ```
 
 2. **Installer dependencies**
+
    ```bash
    yarn
    ```
 
 3. **Opprett og push tags**
+
    ```bash
    yarn tag
    ```
+
    Dette kjører interaktiv versjonering via Lerna som:
    - Lar deg velge versjonsnummer for endrede pakker
    - Oppretter signerte Git-tags
@@ -95,6 +100,8 @@ Prosessen er delt i tagging (lokalt) og publisering (gjennom GitHub Actions) for
    - Nye tags finner du [her](https://github.com/navikt/ft-frontend-saksbehandling/tags)
    - GitHub Actions workflow starter automatisk og publiserer pakkene: [Se publish workflow](https://github.com/navikt/ft-frontend-saksbehandling/actions/workflows/publish.yml)
    - Publiserte pakker finner du [her](https://github.com/orgs/navikt/packages?repo_name=ft-frontend-saksbehandling)
+
+   - Tips: Hvis du skal publisere en ny pakke kan det hende at workflowen feiler å publisere. I såfall sjekk opp pakken på https://github.com/orgs/navikt/packages > finn pakken > Package settings > Pacakge visibility > Endre til _public_
 
 ### Ta i bruk nye pakker
 
@@ -115,12 +122,15 @@ Dette gir deg mulighet til å teste lokale endringer i ft-frontend-saksbehandlin
 ### Oppsett
 
 1. **Konverter workspace dependencies**
+
    ```bash
    yarn transform-to-semver
    ```
+
    Dette endrer "workspace:^" til semantisk versjon i package.json-filene
 
 2. **Installer dependencies**
+
    ```bash
    yarn install
    ```
@@ -145,6 +155,7 @@ Dette gir deg mulighet til å teste lokale endringer i ft-frontend-saksbehandlin
 ### Rydding
 
 **Viktig:** Husk å reversere endringene før du committer:
+
 ```bash
 yarn transform-to-workspace
 ```
