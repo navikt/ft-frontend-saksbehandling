@@ -6,8 +6,8 @@
   "private": true,
   "scripts": {
     "tsc": "tsc --pretty",
-    "eslint": "eslint \"src/**/*.ts*\" --color",
-    "eslint:fix": "eslint --fix \"src/**/*.ts*\" --color",
+    "eslint": "eslint src/**/*.ts* --color",
+    "eslint:fix": "eslint --fix src/**/*.ts* --color",
     "prettier": "prettier --write src",
     "clean": "rm -rf ./dist ./node_modules"
   },
