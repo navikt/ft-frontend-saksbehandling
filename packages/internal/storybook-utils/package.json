@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "tsc": "tsc --pretty",
-    "eslint": "eslint \"decorators/**/*.ts*\" --color",
+    "eslint": "eslint {decorators,mocks}/**/*.ts* --color",
     "eslint:fix": "eslint --fix {decorators,mocks}/**/*.ts* --color",
     "clean": "rm -rf ./dist ./node_modules"
   },
