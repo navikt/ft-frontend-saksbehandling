@@ -2,51 +2,92 @@ import type { BarSeriesOption } from 'echarts';
 
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
-import type { RegisterinntekterPerKilde } from '../registerinntekterUtils';
+import { formaterParagraf, type RegisterinntekterPerKilde } from '../registerinntekterUtils';
 import { getGrafFarger } from './grafFarger';
 
 export const createBar =
-  (vis_8_28: boolean, labelPrefix: string) =>
+  (skalVises: boolean = true) =>
   (
     { label, inntektAktivitetType, typeGrunnlag, datapunkter }: RegisterinntekterPerKilde,
     index: number,
-  ): BarSeriesOption => {
+  ): BarSeriesOption[] => {
+    if (!skalVises) {
+      return [];
+    }
     const [color, borderColor] = getGrafFarger(inntektAktivitetType, index);
-    return {
-      id: vis_8_28 ? labelPrefix + label : label,
-      name: label,
-      color,
-      itemStyle: {
-        borderWidth: 1,
-        borderRadius: 4,
-        borderColor,
-        decal:
-          typeGrunnlag === '8-28'
-            ? {
-                color: borderColor,
-                dashArrayX: [1, 0],
-                dashArrayY: [2, 10],
-                symbolSize: 1,
-                rotation: Math.PI / 5,
-              }
-            : { symbol: 'none' },
-      },
-      data: datapunkter,
-      stack: typeGrunnlag,
-      type: 'bar',
-      emphasis: {
-        focus: 'series',
-      },
-      label: {
-        show: true,
-        backgroundColor: color,
-        formatter: params => {
-          const value = params.value as number;
-          if (value > 3000) {
-            return formatCurrencyNoKr(value) || '';
-          }
-          return '';
+    return [
+      {
+        id: typeGrunnlag + ':' + label,
+        name: label,
+        color,
+        itemStyle: {
+          borderWidth: 1,
+          borderRadius: 4,
+          borderColor,
+          decal:
+            typeGrunnlag === '8-28'
+              ? {
+                  color: borderColor,
+                  dashArrayX: [1, 0],
+                  dashArrayY: [1, 10],
+                  symbolSize: 2,
+                  rotation: Math.PI / 5,
+                }
+              : { symbol: 'none' },
+        },
+        data: datapunkter,
+        stack: typeGrunnlag,
+        type: 'bar',
+        emphasis: {
+          itemStyle: {
+            color,
+            borderColor,
+          },
+        },
+        label: {
+          show: true,
+          backgroundColor: color,
+          formatter: params => {
+            const value = params.value as number;
+            if (value > 3000) {
+              return formatCurrencyNoKr(value) || '';
+            }
+            return '';
+          },
         },
       },
-    };
+    ];
   };
+
+/**
+ * Denne oppretter en usynlig stolpe som viser navnet på stacken i en label.
+ * det gjøres ved å lage en bar med datapunkter som er enten 0 eller undefined avhengig av om det finnes minst en
+ * inntekt i den perioden. Siden datapunktene er 0 eller undefined vil det ikke vises noen bar, men ved 0 vises label,
+ * og ved undefined skjules labelen (echarts logikk).
+ */
+export const createStackLabel = (
+  inntektskilder: RegisterinntekterPerKilde[],
+  skalViseLabel: boolean = true,
+): BarSeriesOption[] => {
+  const førsteElement = inntektskilder.at(0);
+  if (!førsteElement || !skalViseLabel) {
+    return [];
+  }
+  return [
+    {
+      type: 'bar',
+      stack: førsteElement.typeGrunnlag,
+      data: førsteElement.datapunkter.map((_value, index) =>
+        inntektskilder.map(ik => ik.datapunkter[index]).find(value => !!value) ? 0 : undefined,
+      ),
+      label: {
+        show: true,
+        position: 'right',
+        formatter: formaterParagraf(førsteElement.typeGrunnlag),
+      },
+      tooltip: {
+        show: false,
+      },
+    },
+  ];
+};
