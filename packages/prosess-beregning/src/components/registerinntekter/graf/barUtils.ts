@@ -61,9 +61,9 @@ export const createBar =
 
 /**
  * Denne oppretter en usynlig stolpe som viser navnet på stacken i en label.
- * det gjøres ved å lage en bar med datapunkter som er enten 0 eller undefined avhengig av om det finnes minst en
+ * Det gjøres ved å lage en bar med datapunkter som er enten 0 eller undefined avhengig av om det finnes minst en
  * inntekt i den perioden. Siden datapunktene er 0 eller undefined vil det ikke vises noen bar, men ved 0 vises label,
- * og ved undefined skjules labelen (echarts logikk).
+ * og ved undefined skjules labelen (echarts-logikk).
  */
 export const createStackLabel = (
   inntektskilder: RegisterinntekterPerKilde[],
@@ -78,7 +78,7 @@ export const createStackLabel = (
       type: 'bar',
       stack: førsteElement.typeGrunnlag,
       data: førsteElement.datapunkter.map((_value, index) =>
-        inntektskilder.map(ik => ik.datapunkter[index]).find(value => !!value) ? 0 : undefined,
+        inntektskilder.some(ik => ik.datapunkter[index] !== undefined) ? 0 : undefined,
       ),
       label: {
         show: true,
