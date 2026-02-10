@@ -18,6 +18,10 @@ jobs:
         with:
           fetch-depth: 0
 
+      - uses: navikt/fp-gha-workflows/.github/actions/setup-yarnrc@main
+        with:
+          npmAuthToken: ${{ secrets.READER_TOKEN }}
+
       - uses: actions/setup-node@v6
         with:
           node-version: 22.17.1
@@ -27,8 +31,6 @@ jobs:
 
       - name: Installere dependencies
         run: yarn install --immutable
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Build packages
         run: yarn build
@@ -36,4 +38,4 @@ jobs:
       - name: Publish packages from existing tags
         run: lerna publish from-git --yes --no-private
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }} }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
