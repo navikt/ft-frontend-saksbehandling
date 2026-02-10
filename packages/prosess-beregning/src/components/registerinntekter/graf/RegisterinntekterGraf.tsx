@@ -6,7 +6,7 @@ import { BeløpLabel, LabeledValue } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import { type TransformertRegisterinntekter } from '../registerinntekterUtils';
-import { createBar } from './barUtils';
+import { createBar, createStackLabel } from './barUtils';
 import { ReactECharts } from './ReactECharts';
 import { formatTooltip } from './tooltipUtils';
 
@@ -27,6 +27,7 @@ export const RegisterinntekterGraf = ({
     color: getAkselVariable('--ax-text-neutral'),
     fontSize,
   };
+
   return (
     <>
       <ReactECharts
@@ -48,7 +49,7 @@ export const RegisterinntekterGraf = ({
             top: '8%',
             left: '0%',
             bottom: '0%',
-            right: '0%',
+            right: '4%',
           },
           xAxis: {
             type: 'value',
@@ -75,9 +76,11 @@ export const RegisterinntekterGraf = ({
             formatter: formatTooltip(intl),
           },
           series: [
-            ...grunnlag_8_30.inntektskilder.map(createBar(vis_8_28, '8-30: ')),
-            ...(vis_8_28 ? grunnlag_8_28.inntektskilder.map(createBar(vis_8_28, '8-28: ')) : []),
-          ],
+            grunnlag_8_30.inntektskilder.flatMap(createBar()),
+            grunnlag_8_28.inntektskilder.flatMap(createBar(vis_8_28)),
+            createStackLabel(grunnlag_8_30.inntektskilder, vis_8_28),
+            createStackLabel(grunnlag_8_28.inntektskilder, vis_8_28),
+          ].flat(),
         }}
         style={{ height: `calc(${periodeData.length} * ${vis_8_28 ? 48 : 28}px + 96px)` }}
       />

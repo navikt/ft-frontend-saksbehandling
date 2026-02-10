@@ -30,7 +30,7 @@ const lagMarkør = (color: CallbackDataParams['color'], borderColor: CallbackDat
 
 const markørLabelOgVerdiRad = (markør: string | null, label: string, value: CallbackDataParams['value']): string => `
   <div style="display:flex;column-gap:8px; align-items:center;">
-    ${markør ?? `<div style="width:24px;"></div>`} 
+    ${markør ?? `<div style="width:24px;"></div>`}
     <span>${label}</span>
     <div style="margin-left:auto;width:70px;text-align:end;">${getValue(value)}</div>
   </div>
