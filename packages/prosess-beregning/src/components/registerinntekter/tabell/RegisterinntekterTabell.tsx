@@ -5,7 +5,7 @@ import { Table } from '@navikt/ds-react';
 
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
-import { type TransformertRegisterinntekter } from '../registerinntekterUtils';
+import { formaterParagraf, type TransformertRegisterinntekter } from '../registerinntekterUtils';
 
 import styles from './registerinntekterTabell.module.css';
 
@@ -25,11 +25,11 @@ export const RegisterinntekterTabell = ({
           <FormattedMessage id="RegisterinntektTabell.Inntektskilde" />
         </Table.HeaderCell>
         <Table.HeaderCell scope="col" textSize="small" align="right">
-          <FormattedMessage id="RegisterinntektTabell.8-30" />
+          {formaterParagraf('8-30')}
         </Table.HeaderCell>
         {vis_8_28 && (
           <Table.HeaderCell scope="col" textSize="small" align="right">
-            <FormattedMessage id="RegisterinntektTabell.8-28" />
+            {formaterParagraf('8-28')}
           </Table.HeaderCell>
         )}
       </Table.Row>

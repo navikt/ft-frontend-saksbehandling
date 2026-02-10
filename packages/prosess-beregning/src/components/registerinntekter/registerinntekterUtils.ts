@@ -194,3 +194,4 @@ const formaterAktivitetLabel =
   };
 
 const formaterMåned = (dato: string): string => capitalizeFirstLetter(dayjs(dato).format('MMM YY').replace('.', ''));
+export const formaterParagraf = (typeGrunnlag: TypeGrunnlag) => `§ ${typeGrunnlag}`;
