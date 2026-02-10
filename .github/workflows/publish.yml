@@ -32,6 +32,9 @@ jobs:
       - name: Installere dependencies
         run: yarn install --immutable
 
+      - name: Restore .yarnrc.yml
+        run: git restore .yarnrc.yml
+
       - name: Build packages
         run: yarn build
 
