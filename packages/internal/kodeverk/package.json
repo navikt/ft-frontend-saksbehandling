@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-kodeverk",
-  "version": "4.2.18",
+  "version": "4.2.19",
   "license": "MIT",
   "type": "module",
   "private": true,
