@@ -1,14 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { alleKodeverk } from '@navikt/ft-frontend-storybook-utils';
-import type { AktivitetStatus, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import type { AktivitetStatus } from '@navikt/ft-types';
+import { TIDENES_ENDE } from '@navikt/ft-utils';
 
+import type { KodeverkForPanel } from '../types/KodeverkForPanel';
 import { AktivitetStatusTags } from './AktivitetStatusTags';
 
 const meta = {
   component: AktivitetStatusTags,
   args: {
-    kodeverkSamling: alleKodeverk,
+    kodeverkSamling: alleKodeverk as KodeverkForPanel,
   },
 } satisfies Meta<typeof AktivitetStatusTags>;
 
@@ -41,9 +43,12 @@ export const AlleStatuser: Story = {
   args: {
     beregningsgrunnlagPeriode: [
       {
-        beregningsgrunnlagPrStatusOgAndel: alleAktivitetStatuser.map(
-          aktivitetStatus => ({ aktivitetStatus }) as BeregningsgrunnlagAndel,
-        ),
+        beregningsgrunnlagPrStatusOgAndel: alleAktivitetStatuser.map((aktivitetStatus, index) => ({
+          aktivitetStatus,
+          andelsnr: index,
+        })),
+        beregningsgrunnlagPeriodeFom: '2025-01-01',
+        beregningsgrunnlagPeriodeTom: TIDENES_ENDE,
       },
     ],
   },

@@ -32,7 +32,6 @@ const BAR_COLORS_YTELSE_DARK: ColorPair = ['#0F2E1F', '#6FE3A3'];
 export const getGrafFarger = (inntektAktivitetType: InntektsgrunnlagInntekt['inntektAktivitetType'], index: number) => {
   // TODO: fiks context for darkmode slik at det funker for k9 også (de har foreløpig ikke darkmode ennå)
   const isDarkmode = localStorage.getItem('fp-frontend-theme') === 'dark';
-
   switch (inntektAktivitetType) {
     case 'ARBEIDSTAKERINNTEKT':
       return isDarkmode

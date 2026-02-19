@@ -17,6 +17,7 @@ dayjs.extend(duration);
 
 const intl = createIntl(messages);
 
+export const TIDENES_MORGEN = '1000-01-01';
 export const TIDENES_ENDE = '9999-12-31';
 
 type WeekAndDay = {

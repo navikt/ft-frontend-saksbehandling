@@ -12,6 +12,7 @@ export {
   calcDaysAndWeeks,
   calcDaysAndWeeksWithWeekends,
   findDifferenceInMonthsAndDays,
+  TIDENES_MORGEN,
   TIDENES_ENDE,
   getRangeOfMonths,
   getDateAndTime,

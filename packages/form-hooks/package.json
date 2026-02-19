@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-form-hooks",
   "description": "Overbygg over react-hook-form. Tilbyr form-komponenter som radioknapp og textarea",
-  "version": "10.6.1",
+  "version": "10.6.11",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -14,34 +14,34 @@
     "test:browser": "vitest --project=browser",
     "test:browser:watch": "vitest --project=browser --watch=true",
     "tsc": "tsc --pretty",
-    "eslint": "eslint \"src/**/*.ts*\" --color",
-    "eslint:fix": "eslint --fix \"src/**/*.ts*\" --color",
-    "stylelint": "stylelint \"src/**/*.module.css\"",
+    "eslint": "eslint src/**/*.ts* --color",
+    "eslint:fix": "eslint --fix src/**/*.ts* --color",
+    "stylelint": "stylelint src/**/*.module.css",
     "prettier": "prettier --write src",
     "dev": "vite build --watch --mode development",
     "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "8.1.0",
-    "@navikt/ds-css": "8.1.0",
-    "@navikt/ds-react": "8.1.0",
+    "@navikt/aksel-icons": "8.2.2",
+    "@navikt/ds-css": "8.2.2",
+    "@navikt/ds-react": "8.2.2",
     "@navikt/ft-ui-komponenter": "workspace:^",
     "@navikt/ft-utils": "workspace:^",
     "classnames": "2.5.1",
     "dayjs": "1.11.19",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
     "react-hook-form": "7.71.1"
   },
   "peerDependencies": {
-    "@navikt/aksel-icons": "7.x",
-    "@navikt/ds-css": "7.x",
-    "@navikt/ds-react": "7.x",
-    "@navikt/ft-form-validators": "2.x",
-    "@navikt/ft-types": "3.x",
-    "@navikt/ft-ui-komponenter": "2.x",
-    "@navikt/ft-utils": "2.x",
+    "@navikt/aksel-icons": "8.x",
+    "@navikt/ds-css": "8.x",
+    "@navikt/ds-react": "8.x",
+    "@navikt/ft-form-validators": "4.x",
+    "@navikt/ft-types": "5.x",
+    "@navikt/ft-ui-komponenter": "6.x",
+    "@navikt/ft-utils": "3.x",
     "classnames": "2.5.1",
     "dayjs": "1.11.x",
     "lodash.throttle": "4.1.1",
@@ -57,17 +57,18 @@
     "@testing-library/react": "16.3.2",
     "@testing-library/user-event": "14.6.1",
     "eslint": "9.39.2",
-    "stylelint": "17.0.0",
+    "stylelint": "17.1.1",
     "typescript": "5.9.3",
     "vite": "7.3.1",
-    "vitest": "4.0.17"
+    "vitest": "4.0.18"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/navikt/ft-frontend-saksbehandling"
+    "url": "https://github.com/navikt/ft-frontend-saksbehandling",
+    "directory": "packages/form-hooks"
   },
   "exports": {
     ".": {

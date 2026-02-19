@@ -1,6 +1,6 @@
 import fg from 'fast-glob';
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const STORYBOOK_FILE_PATTERN = '**/*.stories.@(ts|tsx)';
 

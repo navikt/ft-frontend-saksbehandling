@@ -4,16 +4,17 @@ registries:
     type: npm-registry
     url: https://npm.pkg.github.com
     token: ${{secrets.READER_TOKEN}}
+
 updates:
   - package-ecosystem: npm
     directory: '/'
-    schedule:
-      interval: daily
-    cooldown:
-      default-days: 7
-    open-pull-requests-limit: 50
     registries:
       - npm-github
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 10
     groups:
       patch-and-minor:
         patterns:
@@ -38,5 +39,11 @@ updates:
   - package-ecosystem: github-actions
     directory: '/'
     schedule:
-      interval: daily
-    open-pull-requests-limit: 50
+      interval: weekly
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 10
+    groups:
+      github:
+        patterns:
+          - '*'

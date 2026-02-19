@@ -13,7 +13,6 @@ lerna-debug.log
 ssh.exe.stackdump
 .DS_Store
 .eslintcache
-.npmrc
 .pnp.*
 .yarn/*
 !.yarn/patches

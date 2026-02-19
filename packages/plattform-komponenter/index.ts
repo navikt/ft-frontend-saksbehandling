@@ -1,6 +1,5 @@
 /** Vanlige react-komponenter * */
 export { Autocomplete } from './src/Autocomplete/Autocomplete';
-export { ContentWithTooltip } from './src/ContentWithTooltip/ContentWithTooltip';
 export { InteractiveList } from './src/InteractiveList/InteractiveList';
 
 export { StepType as ProcessMenuStepType } from './src/ProcessMenu/components/StepType';

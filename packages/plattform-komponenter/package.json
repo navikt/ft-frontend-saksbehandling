@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-plattform-komponenter",
   "description": "Pakke som tilbyr sammensatte komponenter som f.eks. menyer",
-  "version": "10.5.1",
+  "version": "10.5.10",
   "license": "MIT",
   "type": "module",
   "module": "./dist/index.es.js",
@@ -15,25 +15,25 @@
     "test:browser": "vitest --project=browser",
     "test:browser:watch": "vitest --project=browser --watch=true",
     "tsc": "tsc --pretty",
-    "eslint": "eslint \"src/**/*.ts*\" --color",
-    "eslint:fix": "eslint --fix \"src/**/*.ts*\" --color",
-    "stylelint": "stylelint \"src/**/*.module.css\"",
+    "eslint": "eslint src/**/*.ts* --color",
+    "eslint:fix": "eslint --fix src/**/*.ts* --color",
+    "stylelint": "stylelint src/**/*.module.css",
     "prettier": "prettier --write src",
     "dev": "vite build --watch --mode development",
     "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "8.1.0",
-    "@navikt/ds-react": "8.1.0",
+    "@navikt/aksel-icons": "8.2.2",
+    "@navikt/ds-react": "8.2.2",
     "@navikt/ft-utils": "workspace:^",
     "classnames": "2.5.1",
     "dayjs": "1.11.19"
   },
   "peerDependencies": {
-    "@navikt/aksel-icons": "7.x",
-    "@navikt/ds-css": "7.x",
-    "@navikt/ds-react": "7.x",
+    "@navikt/aksel-icons": "8.x",
+    "@navikt/ds-css": "8.x",
+    "@navikt/ds-react": "8.x",
     "@popperjs/core": "2.11.8",
     "classnames": "2.5.1",
     "dayjs": "1.11.x",
@@ -50,19 +50,20 @@
     "@testing-library/react": "16.3.2",
     "classnames": "2.5.1",
     "eslint": "9.39.2",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "stylelint": "17.0.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "stylelint": "17.1.1",
     "typescript": "5.9.3",
     "vite": "7.3.1",
-    "vitest": "4.0.17"
+    "vitest": "4.0.18"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/navikt/ft-frontend-saksbehandling"
+    "url": "https://github.com/navikt/ft-frontend-saksbehandling",
+    "directory": "packages/plattform-komponenter"
   },
   "exports": {
     ".": {
