@@ -223,15 +223,15 @@ describe('TilbakekrevingProsessIndex', () => {
     );
     await userEvent.click(screen.getByText('Ja'));
     await userEvent.type(screen.getByLabelText('Angi beløp som skal tilbakekreves'), '10');
-    await userEvent.click(screen.getByText('Oppdater'));
+    await userEvent.click(screen.getByRole('button', { name: 'Oppdater' }));
 
     expect(await screen.findByText('12.03.2019 - 01.04.2019')).toBeInTheDocument();
     await userEvent.selectOptions(screen.getByRole('combobox', { hidden: true }), '2019-01-01_2019-03-11');
-    await userEvent.click(screen.getByText('Oppdater'));
+    await userEvent.click(screen.getByRole('button', { name: 'Oppdater' }));
 
     await waitFor(() => expect(screen.queryByText('Ok')).not.toBeInTheDocument());
 
-    await userEvent.click(screen.getByText('Bekreft og fortsett'));
+    await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
@@ -287,22 +287,22 @@ describe('TilbakekrevingProsessIndex', () => {
     );
     await userEvent.click(screen.getByText('Burde ha forstått'));
     expect(
-      await screen.findByText('Totalbeløpet er under 4 rettsgebyr (6. ledd). Skal det tilbakekreves?'),
+      screen.getByText('Totalbeløpet er under 4 rettsgebyr (6. ledd). Skal det tilbakekreves?'),
     ).toBeInTheDocument();
     await userEvent.click(screen.getByText('Nei'));
-    expect(await screen.findByText('Når 6. ledd anvendes må alle perioder behandles likt')).toBeInTheDocument();
+    expect(screen.getByText('Når 6. ledd anvendes må alle perioder behandles likt')).toBeInTheDocument();
 
-    await userEvent.click(screen.getByText('Oppdater'));
+    await userEvent.click(screen.getByRole('button', { name: 'Oppdater' }));
 
     expect(
-      await screen.findByText(
+      screen.getByText(
         'Totalbeløpet er under 4 rettsgebyr. Dersom 6.ledd skal anvendes for å frafalle tilbakekrevingen, må denne anvendes likt på alle periodene.',
       ),
     ).toBeInTheDocument();
     await userEvent.click(screen.getByText('OK'));
 
     expect(
-      await screen.findByText(
+      screen.getByText(
         'Totalbeløpet er under 4 rettsgebyr. Dersom 6.ledd skal anvendes for å frafalle tilbakekrevingen, må denne anvendes likt på alle periodene.',
       ),
     ).toBeInTheDocument();
@@ -315,22 +315,22 @@ describe('TilbakekrevingProsessIndex', () => {
     await userEvent.type(screen.getByLabelText('Begrunn hvorfor mottaker er i god tro'), 'Begrunnelse for god tro');
     await userEvent.click(screen.getByText('Nei'));
 
-    await userEvent.click(screen.getByText('Oppdater'));
+    await userEvent.click(screen.getByRole('button', { name: 'Oppdater' }));
 
-    await waitFor(() => expect(screen.queryByText('Oppdater')).not.toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByRole('button', { name: 'Oppdater' })).not.toBeInTheDocument());
 
     expect(
       screen.getByText(
         'Totalbeløpet er under 4 rettsgebyr. Dersom 6.ledd skal anvendes for å frafalle tilbakekrevingen, må denne anvendes likt på alle periodene.',
       ),
     ).toBeInTheDocument();
-    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeDisabled();
 
     // Trykk på første periode
-    await userEvent.click(screen.getAllByRole('button')[0]);
+    await userEvent.click(screen.getByRole('button', { name: 'Suksess fra 01.01.2019 til 01.04.2019' }));
 
     expect(await screen.findByText('13 uker')).toBeInTheDocument();
-    const nestePeriodeKnapp = screen.getByText('Neste');
+    const nestePeriodeKnapp = screen.getByRole('button', { name: 'Neste' });
     await userEvent.click(nestePeriodeKnapp);
 
     await userEvent.click(
@@ -355,9 +355,9 @@ describe('TilbakekrevingProsessIndex', () => {
     expect(await screen.findByText('OK')).toBeInTheDocument();
 
     await userEvent.click(screen.getByText('OK'));
-    expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeEnabled();
+    expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeEnabled();
 
-    await userEvent.click(screen.getByText('Bekreft og fortsett'));
+    await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
