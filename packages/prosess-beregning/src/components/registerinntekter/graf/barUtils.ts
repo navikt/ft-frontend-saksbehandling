@@ -17,6 +17,8 @@ export const createBar =
     const [color, borderColor] = getGrafFarger(inntektAktivitetType, index);
     return [
       {
+        type: 'bar',
+        barMaxWidth: 30,
         id: typeGrunnlag + ':' + label,
         name: label,
         color,
@@ -37,7 +39,6 @@ export const createBar =
         },
         data: datapunkter,
         stack: typeGrunnlag,
-        type: 'bar',
         emphasis: {
           itemStyle: {
             color,
