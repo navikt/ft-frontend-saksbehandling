@@ -18,7 +18,7 @@ type Props<T extends FieldValues> = {
   description?: ReactNode;
   size?: 'medium' | 'small';
   readOnly?: boolean;
-  onChange?: (value: any) => void;
+  onChange?: (value: string) => void;
   disabledDays?: DatePickerProps['disabled'];
   isEdited?: boolean;
   validate?: ((value: string) => ValidationReturnType)[];
