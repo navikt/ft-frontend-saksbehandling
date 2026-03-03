@@ -21,7 +21,7 @@
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "@navikt/ft-config-vite": "workspace:^",
-    "eslint": "9.39.2",
+    "eslint": "10.0.2",
     "typescript": "5.9.3",
     "vite": "7.3.1",
     "vitest": "4.0.18"
