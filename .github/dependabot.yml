@@ -16,17 +16,6 @@ updates:
       default-days: 7
     open-pull-requests-limit: 10
     groups:
-      patch-and-minor:
-        patterns:
-          - '*'
-        update-types:
-          - 'patch'
-          - 'minor'
-        exclude-patterns:
-          - 'react'
-          - 'react-dom'
-          - '@types/react'
-          - '@navikt*'
       react:
         patterns:
           - 'react'
@@ -36,6 +25,26 @@ updates:
         patterns:
           - '@navikt/aksel-*'
           - '@navikt/ds-*'
+      storybook:
+        labels:
+          - 'storybook' # Denne labelen brukes til å trigge build:storybook i valider-pull-request.yml
+        patterns:
+          - 'storybook'
+          - '@storybook/*'
+      linting:
+        patterns:
+          - 'eslint'
+          - '@eslint/*'
+          - 'eslint-config-*'
+          - 'eslint-plugin-*'
+          - 'prettier'
+          - 'stylelint*'
+          - 'lint-staged'
+          - 'knip'
+      other:
+        patterns:
+          - '*'
+
   - package-ecosystem: github-actions
     directory: '/'
     schedule:

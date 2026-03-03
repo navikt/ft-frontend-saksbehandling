@@ -35,6 +35,10 @@ jobs:
       - name: Run test
         run: yarn test
 
+      - name: Bygg storybook
+        if: contains(github.event.pull_request.labels.*.name, 'storybook')
+        run: yarn build:storybook
+
   knip-it:
     name: Kjør knip
     runs-on: ubuntu-latest
