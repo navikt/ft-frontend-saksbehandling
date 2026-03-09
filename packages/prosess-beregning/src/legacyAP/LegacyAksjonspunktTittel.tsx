@@ -4,7 +4,7 @@ import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
 import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
-import { AksjonspunktKode } from '../utils/aksjonspunkt';
+import { AksjonspunktKode, erBeregningsAP } from '../utils/aksjonspunkt';
 import { finnAlleAndelerIFørstePeriode } from '../utils/beregningsgrunnlagUtils';
 
 const {
@@ -32,7 +32,7 @@ export const LegacyAksjonspunktTittel = ({
   beregningsgrunnlag: { avklaringsbehov, beregningsgrunnlagPeriode },
 }: Props) => {
   const andelerIFørstePeriode = finnAlleAndelerIFørstePeriode(beregningsgrunnlagPeriode);
-  const åpneAksjonspunkter = avklaringsbehov.filter(isAksjonspunktOpen);
+  const åpneAksjonspunkter = avklaringsbehov.filter(isAksjonspunktOpen).filter(erBeregningsAP);
 
   if (andelerIFørstePeriode.length === 0) {
     return null;
