@@ -3,7 +3,6 @@ import {
   type FieldPath,
   type FieldPathValue,
   type FieldValues,
-  type PathValue,
   useController,
   type UseControllerProps,
   useFormContext,
@@ -67,7 +66,7 @@ export const RhfCheckboxGroup = <TFieldValues extends FieldValues, TName extends
       value={field.value !== undefined ? field.value : []}
       onChange={value => {
         if (onChange) {
-          onChange(value as PathValue<TFieldValues, TName>);
+          onChange(value as FieldPathValue<TFieldValues, TName>);
         }
         field.onChange(value);
       }}
