@@ -1,5 +1,12 @@
 import { type ReactElement } from 'react';
-import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
+import {
+  type FieldPath,
+  type FieldPathValue,
+  type FieldValues,
+  useController,
+  type UseControllerProps,
+  useFormContext,
+} from 'react-hook-form';
 
 import { HStack, RadioGroup, type RadioGroupProps } from '@navikt/ds-react';
 import classnames from 'classnames';
@@ -10,17 +17,17 @@ import { getError, getValidationRules, type ValidationReturnType } from '../form
 
 import styles from '../readOnlyIcon.module.css';
 
-type Props<T extends FieldValues> = {
+type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>> = {
   isEdited?: boolean;
-  validate?: Array<(value: string | number | boolean) => ValidationReturnType>;
-  onChange?: (value: string | boolean | number) => void;
+  validate?: Array<(value: FieldPathValue<TFieldValues, TName>) => ValidationReturnType>;
+  onChange?: (value: FieldPathValue<TFieldValues, TName>) => void;
   children: ReactElement | ReactElement[];
   className?: string;
-  control: UseControllerProps<T>['control'];
-} & Omit<UseControllerProps<T>, 'control'> &
+  control: UseControllerProps<TFieldValues, TName>['control'];
+} & Omit<UseControllerProps<TFieldValues, TName>, 'control'> &
   Omit<RadioGroupProps, 'defaultValue' | 'defaultChecked' | 'onChange'>;
 
-export const RhfRadioGroup = <T extends FieldValues>({
+export const RhfRadioGroup = <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>>({
   legend,
   validate = [],
   onChange,
@@ -32,7 +39,7 @@ export const RhfRadioGroup = <T extends FieldValues>({
   name,
   control,
   ...rest
-}: Props<T>) => {
+}: Props<TFieldValues, TName>) => {
   const {
     formState: { errors },
   } = useFormContext();
