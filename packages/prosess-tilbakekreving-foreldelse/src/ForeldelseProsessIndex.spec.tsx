@@ -6,14 +6,6 @@ import * as stories from './ForeldelseProsessIndex.stories';
 
 const { Default, UtenAksjonspunkt } = composeStories(stories);
 
-class MockResizeObserver {
-  disconnect = vi.fn();
-  observe = vi.fn();
-  unobserve = vi.fn();
-}
-
-globalThis.ResizeObserver = globalThis.ResizeObserver || MockResizeObserver;
-
 describe('ForeldelseProsessIndex', () => {
   it('skal vurdere to perioder og så bekrefte', async () => {
     const lagre = vi.fn(() => Promise.resolve());

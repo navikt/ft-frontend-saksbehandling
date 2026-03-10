@@ -6,14 +6,6 @@ import * as stories from './TilbakekrevingProsessIndex.stories';
 
 const { Default, MedToPerioder } = composeStories(stories);
 
-class MockResizeObserver {
-  disconnect = vi.fn();
-  observe = vi.fn();
-  unobserve = vi.fn();
-}
-
-globalThis.ResizeObserver = globalThis.ResizeObserver || MockResizeObserver;
-
 describe('TilbakekrevingProsessIndex', () => {
   it('skal vurdere perioden som God Tro og så bekrefte', async () => {
     const lagre = vi.fn(() => Promise.resolve());
@@ -21,14 +13,14 @@ describe('TilbakekrevingProsessIndex', () => {
 
     expect(await screen.findByText('Tilbakekreving')).toBeInTheDocument();
     expect(
-      screen.getByText('Fastsett tilbakekreving etter §22-15. Del opp perioden ved behov for ulik vurdering'),
+      screen.getByText('Fastsett tilbakekreving etter § 22-15. Del opp perioden ved behov for ulik vurdering'),
     ).toBeInTheDocument();
     expect(screen.getByText('Detaljer for valgt periode')).toBeInTheDocument();
     expect(screen.getByText('01.01.2019 - 01.04.2019')).toBeInTheDocument();
     expect(screen.getByText('13 uker')).toBeInTheDocument();
     expect(screen.getByText('Feilutbetaling:')).toBeInTheDocument();
     expect(screen.getByText('10')).toBeInTheDocument();
-    expect(screen.getByText('§14-2 Medlemskap')).toBeInTheDocument();
+    expect(screen.getByText('§ 14-2 Medlemskap')).toBeInTheDocument();
 
     expect(screen.getByText('Aktivitet')).toBeInTheDocument();
     expect(screen.getByText('Arbeidstaker')).toBeInTheDocument();
@@ -36,11 +28,11 @@ describe('TilbakekrevingProsessIndex', () => {
     expect(screen.getByText('1 050')).toBeInTheDocument();
 
     await userEvent.type(
-      screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 1. ledd som skal benyttes'),
+      screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 første ledd som skal benyttes'),
       'Dette er en vurdering',
     );
 
-    await userEvent.click(screen.getByText('Nei, mottaker har mottatt beløpet i god tro (1. ledd)'));
+    await userEvent.click(screen.getByText('Nei, mottaker har mottatt beløpet i god tro (første ledd)'));
 
     await userEvent.type(
       screen.getByLabelText('Begrunn hvorfor mottaker er i god tro'),
@@ -92,14 +84,14 @@ describe('TilbakekrevingProsessIndex', () => {
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
     await userEvent.type(
-      screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 1. ledd som skal benyttes'),
+      screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 første ledd som skal benyttes'),
       'Dette er en vurdering',
     );
 
     // Velg først 'Feil opplysninger' for å sjekke at denne informasjonen blir resatt når en bytter
     await userEvent.click(
       screen.getByText(
-        'Ja, mottaker har forårsaket feilutbetalingen ved forsett eller uaktsomt gitt mangelfulle opplysninger (1. ledd, 2 punkt)',
+        'Ja, mottaker har forårsaket feilutbetalingen ved forsett eller uaktsomt gitt mangelfulle opplysninger (første ledd, andre punkt)',
       ),
     );
     await userEvent.click(screen.getByText('Forsett'));
@@ -109,7 +101,9 @@ describe('TilbakekrevingProsessIndex', () => {
 
     // Velg så 'Forsto eller burde forstått'
     await userEvent.click(
-      screen.getByText('Ja, mottaker forsto eller burde forstått at utbetalingen skyldtes en feil (1. ledd, 1. punkt)'),
+      screen.getByText(
+        'Ja, mottaker forsto eller burde forstått at utbetalingen skyldtes en feil (første ledd, første punkt)',
+      ),
     );
 
     // Velg først 'Forsto' får å sjekk at dette blir resatt korrekt ved bytte
@@ -118,9 +112,9 @@ describe('TilbakekrevingProsessIndex', () => {
     await userEvent.click(screen.getByText('Ja'));
 
     await userEvent.click(screen.getByText('Må ha forstått'));
-    expect(await screen.findByText('Særlige grunner 4. ledd')).toBeInTheDocument();
+    expect(await screen.findByText('Særlige grunner fjerde ledd')).toBeInTheDocument();
     expect(
-      screen.queryByText('Totalbeløpet er under 4 rettsgebyr (6. ledd). Skal det tilbakekreves?'),
+      screen.queryByText('Totalbeløpet er under 4 rettsgebyr (sjette ledd). Skal det tilbakekreves?'),
     ).not.toBeInTheDocument();
 
     await userEvent.type(
@@ -132,7 +126,7 @@ describe('TilbakekrevingProsessIndex', () => {
 
     await userEvent.click(screen.getByText('Burde ha forstått'));
     expect(
-      await screen.findByText('Totalbeløpet er under 4 rettsgebyr (6. ledd). Skal det tilbakekreves?'),
+      await screen.findByText('Totalbeløpet er under 4 rettsgebyr (sjette ledd). Skal det tilbakekreves?'),
     ).toBeInTheDocument();
     await userEvent.click(screen.getByText('Ja'));
 
@@ -213,10 +207,10 @@ describe('TilbakekrevingProsessIndex', () => {
 
     expect(await screen.findByText('01.01.2019 - 11.03.2019')).toBeInTheDocument();
     await userEvent.type(
-      screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 1. ledd som skal benyttes'),
+      screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 første ledd som skal benyttes'),
       'Dette er en vurdering',
     );
-    await userEvent.click(screen.getByText('Nei, mottaker har mottatt beløpet i god tro (1. ledd)'));
+    await userEvent.click(screen.getByText('Nei, mottaker har mottatt beløpet i god tro (første ledd)'));
     await userEvent.type(
       screen.getByLabelText('Begrunn hvorfor mottaker er i god tro'),
       'Dette er en vurdering a god tro',
@@ -265,7 +259,7 @@ describe('TilbakekrevingProsessIndex', () => {
     });
   });
 
-  it('skal vurdere at totalbeløpet er over 4 rettsgebyr, og ved bruk av 6.ledd må alle periodene behandles likt', async () => {
+  it('skal vurdere at totalbeløpet er over 4 rettsgebyr, og ved bruk av sjette ledd må alle periodene behandles likt', async () => {
     const lagre = vi.fn(() => Promise.resolve());
 
     render(<MedToPerioder submitCallback={lagre} />);
@@ -273,11 +267,13 @@ describe('TilbakekrevingProsessIndex', () => {
     expect(await screen.findByText('Tilbakekreving')).toBeInTheDocument();
 
     await userEvent.type(
-      screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 1. ledd som skal benyttes'),
+      screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 første ledd som skal benyttes'),
       'Dette er en vurdering',
     );
     await userEvent.click(
-      screen.getByText('Ja, mottaker forsto eller burde forstått at utbetalingen skyldtes en feil (1. ledd, 1. punkt)'),
+      screen.getByText(
+        'Ja, mottaker forsto eller burde forstått at utbetalingen skyldtes en feil (første ledd, første punkt)',
+      ),
     );
     await userEvent.type(
       screen.getByLabelText(
@@ -287,31 +283,31 @@ describe('TilbakekrevingProsessIndex', () => {
     );
     await userEvent.click(screen.getByText('Burde ha forstått'));
     expect(
-      await screen.findByText('Totalbeløpet er under 4 rettsgebyr (6. ledd). Skal det tilbakekreves?'),
+      await screen.findByText('Totalbeløpet er under 4 rettsgebyr (sjette ledd). Skal det tilbakekreves?'),
     ).toBeInTheDocument();
     await userEvent.click(screen.getByText('Nei'));
-    expect(await screen.findByText('Når 6. ledd anvendes må alle perioder behandles likt')).toBeInTheDocument();
+    expect(await screen.findByText('Når sjette ledd anvendes må alle perioder behandles likt')).toBeInTheDocument();
 
     await userEvent.click(screen.getByText('Oppdater'));
 
     expect(
       await screen.findByText(
-        'Totalbeløpet er under 4 rettsgebyr. Dersom 6.ledd skal anvendes for å frafalle tilbakekrevingen, må denne anvendes likt på alle periodene.',
+        'Totalbeløpet er under 4 rettsgebyr. Dersom sjette ledd skal anvendes for å frafalle tilbakekrevingen, må denne anvendes likt på alle periodene.',
       ),
     ).toBeInTheDocument();
     await userEvent.click(screen.getByText('OK'));
 
     expect(
       await screen.findByText(
-        'Totalbeløpet er under 4 rettsgebyr. Dersom 6.ledd skal anvendes for å frafalle tilbakekrevingen, må denne anvendes likt på alle periodene.',
+        'Totalbeløpet er under 4 rettsgebyr. Dersom sjette ledd skal anvendes for å frafalle tilbakekrevingen, må denne anvendes likt på alle periodene.',
       ),
     ).toBeInTheDocument();
 
     await userEvent.type(
-      screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 1. ledd som skal benyttes'),
+      screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 første ledd som skal benyttes'),
       'Dette er en vurdering',
     );
-    await userEvent.click(screen.getByText('Nei, mottaker har mottatt beløpet i god tro (1. ledd)'));
+    await userEvent.click(screen.getByText('Nei, mottaker har mottatt beløpet i god tro (første ledd)'));
     await userEvent.type(screen.getByLabelText('Begrunn hvorfor mottaker er i god tro'), 'Begrunnelse for god tro');
     await userEvent.click(screen.getByText('Nei'));
 
@@ -321,7 +317,7 @@ describe('TilbakekrevingProsessIndex', () => {
 
     expect(
       screen.getByText(
-        'Totalbeløpet er under 4 rettsgebyr. Dersom 6.ledd skal anvendes for å frafalle tilbakekrevingen, må denne anvendes likt på alle periodene.',
+        'Totalbeløpet er under 4 rettsgebyr. Dersom sjette ledd skal anvendes for å frafalle tilbakekrevingen, må denne anvendes likt på alle periodene.',
       ),
     ).toBeInTheDocument();
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
@@ -334,7 +330,9 @@ describe('TilbakekrevingProsessIndex', () => {
     await userEvent.click(nestePeriodeKnapp);
 
     await userEvent.click(
-      screen.getByText('Ja, mottaker forsto eller burde forstått at utbetalingen skyldtes en feil (1. ledd, 1. punkt)'),
+      screen.getByText(
+        'Ja, mottaker forsto eller burde forstått at utbetalingen skyldtes en feil (første ledd, første punkt)',
+      ),
     );
     await userEvent.type(
       screen.getByLabelText(
@@ -344,11 +342,11 @@ describe('TilbakekrevingProsessIndex', () => {
     );
     await userEvent.click(screen.getByText('Burde ha forstått'));
     expect(
-      await screen.findByText('Totalbeløpet er under 4 rettsgebyr (6. ledd). Skal det tilbakekreves?'),
+      await screen.findByText('Totalbeløpet er under 4 rettsgebyr (sjette ledd). Skal det tilbakekreves?'),
     ).toBeInTheDocument();
 
     await userEvent.click(screen.getByText('Nei'));
-    expect(await screen.findByText('Når 6. ledd anvendes må alle perioder behandles likt')).toBeInTheDocument();
+    expect(await screen.findByText('Når sjette ledd anvendes må alle perioder behandles likt')).toBeInTheDocument();
 
     await userEvent.click(screen.getByText('Oppdater'));
 

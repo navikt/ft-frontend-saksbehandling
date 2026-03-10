@@ -352,11 +352,11 @@ export const alleTilbakekrevingKodeverk = {
     },
     {
       kode: 'SVP_OPPTJENING_TYPE',
-      navn: '§ 14-4 3. ledd Opptjening/ inntekt',
+      navn: '§ 14-4 tredje ledd Opptjening/ inntekt',
     },
     {
       kode: 'SVP_BEREGNING_TYPE',
-      navn: '§ 14-4 5. ledd Beregning ',
+      navn: '§ 14-4 femte ledd Beregning ',
     },
     {
       kode: 'SVP_FAKTA_TYPE',
