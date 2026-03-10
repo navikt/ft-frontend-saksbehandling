@@ -36,11 +36,11 @@
     "@navikt/ds-react": "8.x",
     "@popperjs/core": "2.11.8",
     "classnames": "2.5.1",
-    "dayjs": "1.11.x",
+    "dayjs": "^1.11.0",
     "lodash.throttle": "4.1.1",
     "prop-types": "15.8.1",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
