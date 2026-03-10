@@ -48,7 +48,7 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "dayjs": "^1.11.19",
-    "eslint": "9.39.2",
+    "eslint": "9.39.3",
     "fast-glob": "3.3.3",
     "husky": "9.1.7",
     "jsdom": "28.0.0",

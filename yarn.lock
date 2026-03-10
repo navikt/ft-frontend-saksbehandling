@@ -1503,10 +1503,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:9.39.2":
-  version: 9.39.2
-  resolution: "@eslint/js@npm:9.39.2"
-  checksum: 10/6b7f676746f3111b5d1b23715319212ab9297868a0fa9980d483c3da8965d5841673aada2d5653e85a3f7156edee0893a7ae7035211b4efdcb2848154bb947f2
+"@eslint/js@npm:9.39.3":
+  version: 9.39.3
+  resolution: "@eslint/js@npm:9.39.3"
+  checksum: 10/91a1a1822cfeb2eb8a89aae86be5dfabad0b66b0915946516690a8485ddd80b91f43eee346789313fea1acbb7390a4958119ca7dc9a684a5c4014f12fcb3aaf3
   languageName: node
   linkType: hard
 
@@ -2405,17 +2405,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-config-eslint@workspace:packages/internal/config-eslint"
   dependencies:
-    "@eslint/js": "npm:9.39.2"
-    eslint: "npm:9.39.2"
+    "@eslint/js": "npm:9.39.3"
+    eslint: "npm:9.39.3"
     eslint-config-prettier: "npm:10.1.8"
     eslint-plugin-import: "npm:2.32.0"
     eslint-plugin-jsx-a11y: "npm:6.10.2"
     eslint-plugin-react: "npm:7.37.5"
     eslint-plugin-react-hooks: "npm:7.0.1"
-    eslint-plugin-react-refresh: "npm:0.5.0"
-    eslint-plugin-react-you-might-not-need-an-effect: "npm:0.8.5"
+    eslint-plugin-react-refresh: "npm:0.5.2"
+    eslint-plugin-react-you-might-not-need-an-effect: "npm:0.9.1"
     eslint-plugin-simple-import-sort: "npm:12.1.1"
-    eslint-plugin-storybook: "npm:10.2.6"
+    eslint-plugin-storybook: "npm:10.2.14"
     eslint-plugin-vitest: "npm:0.5.4"
     globals: "npm:17.4.0"
     typescript-eslint: "npm:8.56.1"
@@ -2464,7 +2464,7 @@ __metadata:
     "@testing-library/react": "npm:16.3.2"
     "@testing-library/user-event": "npm:14.6.1"
     dayjs: "npm:1.11.19"
-    eslint: "npm:9.39.2"
+    eslint: "npm:9.39.3"
     react: "npm:19.2.4"
     react-dom: "npm:19.2.4"
     react-hook-form: "npm:7.71.2"
@@ -2515,7 +2515,7 @@ __metadata:
     "@testing-library/user-event": "npm:14.6.1"
     classnames: "npm:2.5.1"
     dayjs: "npm:1.11.19"
-    eslint: "npm:9.39.2"
+    eslint: "npm:9.39.3"
     react: "npm:19.2.4"
     react-hook-form: "npm:7.71.2"
     react-intl: "npm:8.1.3"
@@ -2561,7 +2561,7 @@ __metadata:
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.2"
     "@testing-library/user-event": "npm:14.6.1"
-    eslint: "npm:9.39.2"
+    eslint: "npm:9.39.3"
     react: "npm:19.2.4"
     react-hook-form: "npm:7.71.2"
     react-intl: "npm:8.1.3"
@@ -2601,7 +2601,7 @@ __metadata:
     "@testing-library/user-event": "npm:14.6.1"
     classnames: "npm:2.5.1"
     dayjs: "npm:1.11.19"
-    eslint: "npm:9.39.2"
+    eslint: "npm:9.39.3"
     react: "npm:19.2.4"
     react-dom: "npm:19.2.4"
     react-hook-form: "npm:7.71.2"
@@ -2635,7 +2635,7 @@ __metadata:
     "@navikt/ft-config-vite": "workspace:^"
     "@navikt/ft-utils": "workspace:^"
     dayjs: "npm:1.11.19"
-    eslint: "npm:9.39.2"
+    eslint: "npm:9.39.3"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.1"
     vitest: "npm:4.0.18"
@@ -2653,7 +2653,7 @@ __metadata:
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-form-hooks": "workspace:^"
-    eslint: "npm:9.39.2"
+    eslint: "npm:9.39.3"
     react: "npm:19.2.4"
     react-hook-form: "npm:7.71.2"
     react-intl: "npm:8.1.3"
@@ -2667,7 +2667,7 @@ __metadata:
   dependencies:
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
-    eslint: "npm:9.39.2"
+    eslint: "npm:9.39.3"
     react: "npm:19.2.4"
     react-intl: "npm:8.1.3"
     typescript: "npm:5.9.3"
@@ -2682,7 +2682,7 @@ __metadata:
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
     "@testing-library/react": "npm:16.3.2"
-    eslint: "npm:9.39.2"
+    eslint: "npm:9.39.3"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.1"
     vitest: "npm:4.0.18"
@@ -2698,7 +2698,7 @@ __metadata:
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
-    eslint: "npm:9.39.2"
+    eslint: "npm:9.39.3"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.1"
     vitest: "npm:4.0.18"
@@ -2719,7 +2719,7 @@ __metadata:
     "@testing-library/react": "npm:16.3.2"
     classnames: "npm:2.5.1"
     dayjs: "npm:1.11.19"
-    eslint: "npm:9.39.2"
+    eslint: "npm:9.39.3"
     react: "npm:19.2.4"
     react-dom: "npm:19.2.4"
     stylelint: "npm:17.4.0"
@@ -2760,7 +2760,7 @@ __metadata:
     "@testing-library/user-event": "npm:14.6.1"
     dayjs: "npm:1.11.19"
     echarts: "npm:6.0.0"
-    eslint: "npm:9.39.2"
+    eslint: "npm:9.39.3"
     react: "npm:19.2.4"
     react-hook-form: "npm:7.71.2"
     react-intl: "npm:8.1.3"
@@ -2808,7 +2808,7 @@ __metadata:
     classnames: "npm:2.5.1"
     dayjs: "npm:1.11.19"
     echarts: "npm:6.0.0"
-    eslint: "npm:9.39.2"
+    eslint: "npm:9.39.3"
     react: "npm:19.2.4"
     react-hook-form: "npm:7.71.2"
     react-intl: "npm:8.1.3"
@@ -2854,7 +2854,7 @@ __metadata:
     "@testing-library/react": "npm:16.3.2"
     "@testing-library/user-event": "npm:14.6.1"
     dayjs: "npm:1.11.19"
-    eslint: "npm:9.39.2"
+    eslint: "npm:9.39.3"
     react: "npm:19.2.4"
     react-hook-form: "npm:7.71.2"
     react-intl: "npm:8.1.3"
@@ -2898,7 +2898,7 @@ __metadata:
     "@testing-library/react": "npm:16.3.2"
     "@testing-library/user-event": "npm:14.6.1"
     classnames: "npm:2.5.1"
-    eslint: "npm:9.39.2"
+    eslint: "npm:9.39.3"
     react: "npm:19.2.4"
     react-hook-form: "npm:7.71.2"
     react-intl: "npm:8.1.3"
@@ -2942,7 +2942,7 @@ __metadata:
     "@testing-library/react": "npm:16.3.2"
     "@testing-library/user-event": "npm:14.6.1"
     dayjs: "npm:1.11.19"
-    eslint: "npm:9.39.2"
+    eslint: "npm:9.39.3"
     react: "npm:19.2.4"
     react-hook-form: "npm:7.71.2"
     react-intl: "npm:8.1.3"
@@ -2974,7 +2974,7 @@ __metadata:
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
-    eslint: "npm:9.39.2"
+    eslint: "npm:9.39.3"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.1"
     vitest: "npm:4.0.18"
@@ -2995,7 +2995,7 @@ __metadata:
     "@testing-library/react": "npm:16.3.2"
     "@testing-library/user-event": "npm:14.6.1"
     classnames: "npm:2.5.1"
-    eslint: "npm:9.39.2"
+    eslint: "npm:9.39.3"
     react: "npm:19.2.4"
     react-dom: "npm:19.2.4"
     react-intl: "npm:8.1.3"
@@ -3024,7 +3024,7 @@ __metadata:
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
     dayjs: "npm:1.11.19"
-    eslint: "npm:9.39.2"
+    eslint: "npm:9.39.3"
     react-intl: "npm:8.1.3"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.1"
@@ -7460,23 +7460,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-refresh@npm:0.5.0":
-  version: 0.5.0
-  resolution: "eslint-plugin-react-refresh@npm:0.5.0"
+"eslint-plugin-react-refresh@npm:0.5.2":
+  version: 0.5.2
+  resolution: "eslint-plugin-react-refresh@npm:0.5.2"
   peerDependencies:
-    eslint: ">=9"
-  checksum: 10/4808dee9ac4e34eff8e28cc314e132f19cd479ac47067ebbd5cabe820848f16abadf759fc7360938e2f3fc851eb85357def1d139a8bcc1eec64ac2d9e2b4d499
+    eslint: ^9 || ^10
+  checksum: 10/155a2e66d74866352f023b2a2d9b0daf1fb3033638851321caafa48fe9c9984830acc089d3832348ff2df2848791db96d17bd43639860b045b9f7ee4e5f86dcc
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-you-might-not-need-an-effect@npm:0.8.5":
-  version: 0.8.5
-  resolution: "eslint-plugin-react-you-might-not-need-an-effect@npm:0.8.5"
+"eslint-plugin-react-you-might-not-need-an-effect@npm:0.9.1":
+  version: 0.9.1
+  resolution: "eslint-plugin-react-you-might-not-need-an-effect@npm:0.9.1"
   dependencies:
     globals: "npm:^16.2.0"
   peerDependencies:
     eslint: ">=8.40.0"
-  checksum: 10/0487a199c4effb9b7917a3c22282cadf99929e51cb9641e46f8dc1258fcf8356fe3b73e1b82e48990ef4ac17777a800626b8a78dcb45d57b7355a9adf2f5b3cc
+  checksum: 10/ecf25e4962b8249c19a8727720842054cfcd3b364340f962b8860093997c2ec8a05ad9b18912c1d7ab30ce76591da00eadbfff8eeafca715c08a9c323d1db6a1
   languageName: node
   linkType: hard
 
@@ -7517,15 +7517,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-storybook@npm:10.2.6":
-  version: 10.2.6
-  resolution: "eslint-plugin-storybook@npm:10.2.6"
+"eslint-plugin-storybook@npm:10.2.14":
+  version: 10.2.14
+  resolution: "eslint-plugin-storybook@npm:10.2.14"
   dependencies:
     "@typescript-eslint/utils": "npm:^8.48.0"
   peerDependencies:
     eslint: ">=8"
-    storybook: ^10.2.6
-  checksum: 10/f487ce86b739c1b988fa6c15d639e3b385046acf6a2633d480405c94734534bb1831c6cceec3dc1affb3b91c0e002478b3a35eb45f189105b9af31fee728293d
+    storybook: ^10.2.14
+  checksum: 10/21b8130667a734c8b898a74f0b91a6844126050b8b413292f1dbce9a8ba48a82e5c1eb00e78353f57139c490b6a351aa5089c9f8683b75d14cecad4ba2a2c5bd
   languageName: node
   linkType: hard
 
@@ -7584,9 +7584,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:9.39.2":
-  version: 9.39.2
-  resolution: "eslint@npm:9.39.2"
+"eslint@npm:9.39.3":
+  version: 9.39.3
+  resolution: "eslint@npm:9.39.3"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.8.0"
     "@eslint-community/regexpp": "npm:^4.12.1"
@@ -7594,7 +7594,7 @@ __metadata:
     "@eslint/config-helpers": "npm:^0.4.2"
     "@eslint/core": "npm:^0.17.0"
     "@eslint/eslintrc": "npm:^3.3.1"
-    "@eslint/js": "npm:9.39.2"
+    "@eslint/js": "npm:9.39.3"
     "@eslint/plugin-kit": "npm:^0.4.1"
     "@humanfs/node": "npm:^0.16.6"
     "@humanwhocodes/module-importer": "npm:^1.0.1"
@@ -7629,7 +7629,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 10/53ff0e9c8264e7e8d40d50fdc0c0df0b701cfc5289beedfb686c214e3e7b199702f894bbd1bb48653727bb1ecbd1147cf5f555a4ae71e1daf35020cdc9072d9f
+  checksum: 10/1c95c92983ddf435e7f7d54edd06d703a15773a7d189583d3388e5b5ac714f0a2450b91c0b3bb9b9ccec9bd20994fd8e48d231ed6dabca0be56ef314b32820ff
   languageName: node
   linkType: hard
 
@@ -8122,7 +8122,7 @@ __metadata:
     "@types/react": "npm:19.2.14"
     "@types/react-dom": "npm:19.2.3"
     dayjs: "npm:^1.11.19"
-    eslint: "npm:9.39.2"
+    eslint: "npm:9.39.3"
     fast-glob: "npm:3.3.3"
     husky: "npm:9.1.7"
     jsdom: "npm:28.0.0"
