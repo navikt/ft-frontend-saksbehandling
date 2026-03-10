@@ -26,8 +26,6 @@ updates:
           - '@navikt/aksel-*'
           - '@navikt/ds-*'
       storybook:
-        labels:
-          - 'storybook' # Denne labelen brukes til å trigge build:storybook i valider-pull-request.yml
         patterns:
           - 'storybook'
           - '@storybook/*'
