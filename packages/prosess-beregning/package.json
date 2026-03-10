@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-prosess-beregning",
   "description": "Prosesspanel for beregningsgrunnlaget med aksjonspunkter relatert til avvik for arbeid, frilans og næring",
-  "version": "0.5.10",
+  "version": "0.5.11",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -23,9 +23,9 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "8.5.2",
-    "@navikt/ds-css": "8.5.2",
-    "@navikt/ds-react": "8.5.2",
+    "@navikt/aksel-icons": "8.6.0",
+    "@navikt/ds-css": "8.6.0",
+    "@navikt/ds-react": "8.6.0",
     "@navikt/ft-form-hooks": "workspace:^",
     "@navikt/ft-form-validators": "workspace:^",
     "@navikt/ft-ui-komponenter": "workspace:^",
