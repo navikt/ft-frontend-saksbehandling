@@ -1,7 +1,7 @@
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
-import { Table } from '@navikt/ds-react';
+import { Table, VStack } from '@navikt/ds-react';
 
 import { RhfSelect } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
@@ -13,12 +13,9 @@ import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 
 const FIELD_ARRAY_NAME = 'perioder';
 
-const getHendelseUndertyper = (
-  årsaker: FeilutbetalingÅrsak['hendelseTyper'],
-  årsakNavn?: string,
-): string[] | undefined => {
+const getHendelseUndertyper = (årsaker: FeilutbetalingÅrsak['hendelseTyper'], årsakNavn?: string): string[] => {
   const årsak = årsaker.find(a => a.hendelseType === årsakNavn);
-  return årsak?.hendelseUndertyper && årsak.hendelseUndertyper.length > 0 ? årsak.hendelseUndertyper : undefined;
+  return årsak?.hendelseUndertyper && årsak.hendelseUndertyper.length > 0 ? årsak.hendelseUndertyper : [];
 };
 
 export type FormValues = {
@@ -26,6 +23,7 @@ export type FormValues = {
     fom: string;
     tom: string;
     årsak?: string;
+    underÅrsak?: string;
   }[];
 };
 
@@ -44,24 +42,24 @@ export const FeilutbetalingPerioderFieldArray = ({
   behandlePerioderSamlet,
   kodeverkSamlingFpTilbake,
 }: Props) => {
+  const intl = useIntl();
   const { control, watch, setValue, getValues } = useFormContext<FormValues>();
   const { fields } = useFieldArray({
     control,
     name: FIELD_ARRAY_NAME,
   });
 
-  const settAndreFelter = (verdi: string, index: number, årsak?: string) => {
+  const settAndreFelter = (årsak: string | undefined, underårsak: string | undefined, index: number) => {
     if (behandlePerioderSamlet) {
       fields.forEach((_f, fieldIndex) => {
         if (index !== fieldIndex) {
-          if (årsak) {
+          if (underårsak) {
             const feltÅrsak = getValues(`${FIELD_ARRAY_NAME}.${fieldIndex}.årsak`);
             if (feltÅrsak === årsak) {
-              // @ts-expect-error Fiks. Må legge til årsak.underÅrsak i FormValues
-              setValue(`${FIELD_ARRAY_NAME}.${fieldIndex}.${årsak}.underÅrsak`, verdi);
+              setValue(`${FIELD_ARRAY_NAME}.${fieldIndex}.underÅrsak`, underårsak);
             }
           } else {
-            setValue(`${FIELD_ARRAY_NAME}.${fieldIndex}.årsak`, verdi);
+            setValue(`${FIELD_ARRAY_NAME}.${fieldIndex}.årsak`, årsak);
           }
         }
       });
@@ -73,7 +71,7 @@ export const FeilutbetalingPerioderFieldArray = ({
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell scope="col">
-            <FormattedMessage id="FeilutbetalingInfoPanel.Period" />
+            <FormattedMessage id="FeilutbetalingInfoPanel.Periode" />
           </Table.HeaderCell>
           <Table.HeaderCell scope="col">
             <FormattedMessage id="FeilutbetalingInfoPanel.Hendelse" />
@@ -93,38 +91,40 @@ export const FeilutbetalingPerioderFieldArray = ({
                 <PeriodLabel dateStringFom={periode.fom} dateStringTom={periode.tom} />
               </Table.DataCell>
               <Table.DataCell>
-                <RhfSelect
-                  name={`${FIELD_ARRAY_NAME}.${index}.årsak`}
-                  control={control}
-                  selectValues={årsaker.map(a => (
-                    <option key={a.hendelseType} value={a.hendelseType}>
-                      {kodeverkSamlingFpTilbake['HendelseType'].find(ht => ht.kode === a.hendelseType)?.navn}
-                    </option>
-                  ))}
-                  validate={[required]}
-                  disabled={readOnly}
-                  onChange={event => settAndreFelter(event.target.value, index)}
-                  label=""
-                />
-                {hendelseUndertyper && (
+                <VStack gap="space-8">
                   <RhfSelect
-                    // @ts-expect-error Fiks. Må legge til årsak.underÅrsak i FormValues
-                    name={`${FIELD_ARRAY_NAME}.${index}.${årsak}.underÅrsak`}
+                    name={`${FIELD_ARRAY_NAME}.${index}.årsak`}
                     control={control}
-                    selectValues={hendelseUndertyper.map(a => (
+                    selectValues={årsaker.map(a => (
+                      <option key={a.hendelseType} value={a.hendelseType}>
+                        {kodeverkSamlingFpTilbake['HendelseType'].find(ht => ht.kode === a.hendelseType)?.navn}
+                      </option>
+                    ))}
+                    validate={[required]}
+                    readOnly={readOnly}
+                    onChange={event => settAndreFelter(event.target.value, undefined, index)}
+                    label={intl.formatMessage({ id: 'FeilutbetalingInfoPanel.HendelseÅrsak' })}
+                    hideLabel
+                  />
+
+                  <RhfSelect
+                    name={`${FIELD_ARRAY_NAME}.${index}.underÅrsak`}
+                    control={control}
+                    selectValues={hendelseUndertyper?.map(a => (
                       <option key={a} value={a}>
                         {kodeverkSamlingFpTilbake['HendelseUnderType'].find(hu => hu.kode === a)?.navn}
                       </option>
                     ))}
                     validate={[required]}
-                    disabled={readOnly}
-                    onChange={event => settAndreFelter(event.target.value, index, årsak)}
-                    label=""
+                    readOnly={readOnly || !årsak}
+                    onChange={event => settAndreFelter(årsak, event.target.value, index)}
+                    label={intl.formatMessage({ id: 'FeilutbetalingInfoPanel.HendelseUnderårsak' })}
+                    hideLabel
                   />
-                )}
+                </VStack>
               </Table.DataCell>
               <Table.DataCell align="right">
-                {perioder ? <BeløpLabel rød beløp={perioder[index].belop} /> : null}
+                {perioder ? <BeløpLabel rød beløp={perioder[index].belop} kr /> : null}
               </Table.DataCell>
             </Table.Row>
           );

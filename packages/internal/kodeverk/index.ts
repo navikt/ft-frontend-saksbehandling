@@ -6,7 +6,6 @@ export { PeriodeÅrsak } from './src/periodeÅrsak';
 export { FagsakYtelseType } from './src/fagsakYtelseType';
 export { BehandlingResultatType } from './src/behandlingResultatType';
 export { BehandlingArsakType } from './src/behandlingArsakType';
-export { TilbakekrevingVidereBehandling } from './src/tilbakekrevingVidereBehandling';
 export { BehandlingStatus } from './src/behandlingStatus';
 export { ForeldelseVurderingType } from './src/foreldelseVurderingType';
 export { FagsakStatus } from './src/fagsakStatus';
