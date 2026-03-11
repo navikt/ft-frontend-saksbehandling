@@ -11,7 +11,14 @@ interface Props {
 
 export const AksjonspunktBox = ({ erAksjonspunktApent, erIkkeGodkjentAvBeslutter, className, children }: Props) => (
   <div
-    className={[className, styles.aksjonspunkt, (erAksjonspunktApent && !erIkkeGodkjentAvBeslutter) && styles.erAksjonspunktApent, erIkkeGodkjentAvBeslutter && styles.erIkkeGodkjentAvBeslutter].filter(Boolean).join(' ')}
+    className={[
+      className,
+      styles.aksjonspunkt,
+      erAksjonspunktApent && !erIkkeGodkjentAvBeslutter && styles.erAksjonspunktApent,
+      erIkkeGodkjentAvBeslutter && styles.erIkkeGodkjentAvBeslutter,
+    ]
+      .filter(Boolean)
+      .join(' ')}
   >
     {children}
   </div>
