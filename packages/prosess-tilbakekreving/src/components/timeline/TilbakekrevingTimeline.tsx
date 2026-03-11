@@ -97,8 +97,14 @@ export const TilbakekrevingTimeline = ({
     }
   };
 
-  const originalFomDato = dayjs(formatertePerioder[0].fom);
-  const originalTomDato = dayjs(formatertePerioder.at(-1)!.tom);
+  const førstePeriode = formatertePerioder.at(0);
+  const sistePeriode = formatertePerioder.at(-1);
+  if (!førstePeriode || !sistePeriode) {
+    return null;
+  }
+
+  const originalFomDato = dayjs(førstePeriode.fom);
+  const originalTomDato = dayjs(sistePeriode.tom);
 
   const [fomDato, setFomDato] = useState(originalFomDato);
   const [tomDato, setTomDato] = useState(originalTomDato);

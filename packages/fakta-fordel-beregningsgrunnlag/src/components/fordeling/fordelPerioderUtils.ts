@@ -161,7 +161,10 @@ const harPeriodeSomKanKombineresMedForrige = (
   periodeList: FordelBeregningsgrunnlagPeriode[],
   forlengelseperioder?: ForlengelsePeriodeProp[],
 ): boolean => {
-  const forrigeFordelPeriode = periodeList.at(-1)!;
+  const forrigeFordelPeriode = periodeList.at(-1);
+  if (!forrigeFordelPeriode) {
+    return false;
+  }
   const harLikeMangeAndeler =
     fordelPeriode.fordelBeregningsgrunnlagAndeler?.length ===
     forrigeFordelPeriode.fordelBeregningsgrunnlagAndeler?.length;
