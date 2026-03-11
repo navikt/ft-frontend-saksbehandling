@@ -2484,11 +2484,9 @@ __metadata:
     "@navikt/ft-types": 5.x
     "@navikt/ft-ui-komponenter": 6.x
     "@navikt/ft-utils": 3.x
-    core-js: 3.37.1
-    dayjs: 1.11.x
-    dayjs-plugin-utc: 0.1.2
-    react: 19.1.0
-    react-dom: 19.1.0
+    dayjs: ^1.11.0
+    react: ^19.0.0
+    react-dom: ^19.0.0
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2535,12 +2533,10 @@ __metadata:
     "@navikt/ft-ui-komponenter": 6.x
     "@navikt/ft-utils": 3.x
     classnames: 2.5.1
-    core-js: 3.37.1
-    dayjs: 1.11.x
-    react: 19.1.0
+    dayjs: ^1.11.0
+    react: ^19.0.0
     react-hook-form: 7.x
     react-intl: 8.x
-    uuid: 9.0.1
   languageName: unknown
   linkType: soft
 
@@ -2578,7 +2574,7 @@ __metadata:
     "@navikt/ft-types": 5.x
     "@navikt/ft-ui-komponenter": 6.x
     "@navikt/ft-utils": 3.x
-    react: 19.1.0
+    react: ^19.0.0
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2618,10 +2614,10 @@ __metadata:
     "@navikt/ft-ui-komponenter": 6.x
     "@navikt/ft-utils": 3.x
     classnames: 2.5.1
-    dayjs: 1.11.x
+    dayjs: ^1.11.0
     lodash.throttle: 4.1.1
-    react: 19.1.0
-    react-dom: 19.1.0
+    react: ^19.0.0
+    react-dom: ^19.0.0
     react-hook-form: 7.x
   languageName: unknown
   linkType: soft
@@ -2641,7 +2637,7 @@ __metadata:
     vitest: "npm:4.0.18"
   peerDependencies:
     "@navikt/ft-utils": 3.x
-    dayjs: 1.11.x
+    dayjs: ^1.11.0
   languageName: unknown
   linkType: soft
 
@@ -2687,7 +2683,7 @@ __metadata:
     vite: "npm:7.3.1"
     vitest: "npm:4.0.18"
   peerDependencies:
-    react: 19.1.0
+    react: ^19.0.0
   languageName: unknown
   linkType: soft
 
@@ -2732,11 +2728,11 @@ __metadata:
     "@navikt/ds-react": 8.x
     "@popperjs/core": 2.11.8
     classnames: 2.5.1
-    dayjs: 1.11.x
+    dayjs: ^1.11.0
     lodash.throttle: 4.1.1
     prop-types: 15.8.1
-    react: 19.1.0
-    react-dom: 19.1.0
+    react: ^19.0.0
+    react-dom: ^19.0.0
   languageName: unknown
   linkType: soft
 
@@ -2779,9 +2775,9 @@ __metadata:
     "@navikt/ft-types": 5.x
     "@navikt/ft-ui-komponenter": 6.x
     "@navikt/ft-utils": 3.x
-    dayjs: 1.11.x
+    dayjs: ^1.11.0
     echarts: 6.x
-    react: 19.1.0
+    react: ^19.0.0
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2828,9 +2824,9 @@ __metadata:
     "@navikt/ft-ui-komponenter": 6.x
     "@navikt/ft-utils": 3.x
     classnames: 2.5.1
-    dayjs: 1.11.x
+    dayjs: ^1.11.0
     echarts: 6.x
-    react: 19.1.0
+    react: ^19.0.0
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2872,8 +2868,8 @@ __metadata:
     "@navikt/ft-types": 5.x
     "@navikt/ft-ui-komponenter": 6.x
     "@navikt/ft-utils": 3.x
-    dayjs: 1.11.x
-    react: 19.1.0
+    dayjs: ^1.11.0
+    react: ^19.0.0
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2917,7 +2913,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": 6.x
     "@navikt/ft-utils": 3.x
     classnames: 2.5.1
-    react: 19.1.0
+    react: ^19.0.0
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2960,9 +2956,9 @@ __metadata:
     "@navikt/ft-types": 5.x
     "@navikt/ft-ui-komponenter": 6.x
     "@navikt/ft-utils": 3.x
-    dayjs: 1.11.x
-    react: 19.1.0
-    react-hook-form: 7.53.0
+    dayjs: ^1.11.0
+    react: ^19.0.0
+    react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
   linkType: soft
@@ -3009,8 +3005,8 @@ __metadata:
     "@navikt/ds-react": 8.x
     "@navikt/ft-utils": 3.x
     classnames: 2.5.1
-    react: 19.1.0
-    react-dom: 19.1.0
+    react: ^19.0.0
+    react-dom: ^19.0.0
     react-intl: 8.x
     react-modal: 3.16.1
   languageName: unknown
@@ -3030,7 +3026,7 @@ __metadata:
     vite: "npm:7.3.1"
     vitest: "npm:4.0.18"
   peerDependencies:
-    dayjs: 1.11.x
+    dayjs: ^1.11.0
     react: "*"
     react-intl: 8.x
   languageName: unknown
