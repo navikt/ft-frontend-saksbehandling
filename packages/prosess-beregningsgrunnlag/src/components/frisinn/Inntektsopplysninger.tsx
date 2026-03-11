@@ -21,7 +21,7 @@ export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
   const kronologiskePerioder = beregningsgrunnlag.beregningsgrunnlagPeriode.toSorted((a, b) =>
     a.beregningsgrunnlagPeriodeFom.localeCompare(b.beregningsgrunnlagPeriodeFom),
   );
-  const gjeldendePeriode = kronologiskePerioder[kronologiskePerioder.length - 2];
+  const gjeldendePeriode = kronologiskePerioder.at(-2)!;
   const bruttoSN = finnBruttoForStatusIPeriode('SN', beregningsgrunnlag, gjeldendePeriode);
   const bruttoFL = finnBruttoForStatusIPeriode('FL', beregningsgrunnlag, gjeldendePeriode);
   const bruttoAT = finnBruttoForStatusIPeriode('AT', beregningsgrunnlag, gjeldendePeriode);

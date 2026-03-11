@@ -90,7 +90,7 @@ export const TilbakekrevingTimeline = ({
   };
 
   const originalFomDato = dayjs(formatertePerioder[0].fom);
-  const originalTomDato = dayjs(formatertePerioder[formatertePerioder.length - 1].tom);
+  const originalTomDato = dayjs(formatertePerioder.at(-1)!.tom);
 
   const [fomDato, setFomDato] = useState(originalFomDato);
   const [tomDato, setTomDato] = useState(originalTomDato);
