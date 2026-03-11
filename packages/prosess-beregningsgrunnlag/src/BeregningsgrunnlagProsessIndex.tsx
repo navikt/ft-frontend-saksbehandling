@@ -3,6 +3,7 @@ import { FormattedMessage, RawIntlProvider } from 'react-intl';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { BodyShort, Heading, VStack } from '@navikt/ds-react';
+
 import { SideMenu } from '@navikt/ft-plattform-komponenter';
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl, dateFormat } from '@navikt/ft-utils';
@@ -117,7 +118,9 @@ export const BeregningsgrunnlagProsessIndex = ({
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
 
   const menyProps = lagMenyProps(listeMedGrunnlag, beregningsgrunnlagsvilkar);
-  const mainContainerClassnames = [styles.mainContainer, skalBrukeSidemeny && styles['mainContainer--withSideMenu']].filter(Boolean).join(' ');
+  const mainContainerClassnames = [styles.mainContainer, skalBrukeSidemeny && styles['mainContainer--withSideMenu']]
+    .filter(Boolean)
+    .join(' ');
 
   useEffect(() => {
     const førsteSkjæringstidspunktMedAksjonspunktIndex = menyProps.findIndex(
