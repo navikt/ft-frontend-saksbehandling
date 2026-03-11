@@ -27,37 +27,29 @@ const maxLength4000 = maxLength(MAX_LENGTH);
 
 export type FormValues = {
   begrunnelse?: string;
-  behandlePerioderSamlet?: boolean;
+  behandlePerioderSamlet: boolean;
 } & PeriodeFormValues;
 
 const sorterPerioder = (feilutbetalingFakta: FeilutbetalingFakta) =>
-  feilutbetalingFakta.behandlingFakta.perioder
-    ? [...feilutbetalingFakta.behandlingFakta.perioder].sort(sortPeriodsByFom)
-    : [];
+  (feilutbetalingFakta.behandlingFakta.perioder ?? []).toSorted(sortPeriodsByFom);
 
 const buildInitialValues = (feilutbetalingFakta: FeilutbetalingFakta): FormValues => {
   const {
     behandlingFakta: { begrunnelse },
   } = feilutbetalingFakta;
   return {
+    behandlePerioderSamlet: false,
     begrunnelse: decodeHtmlEntity(begrunnelse),
-    perioder: sorterPerioder(feilutbetalingFakta).map(p => {
-      const { fom, tom, feilutbetalingÅrsakDto } = p;
-
-      const period = { fom, tom };
-
+    perioder: sorterPerioder(feilutbetalingFakta).map(({ fom, tom, feilutbetalingÅrsakDto }) => {
       if (!feilutbetalingÅrsakDto) {
-        return period;
+        return { fom, tom };
       }
 
-      const { hendelseType, hendelseUndertype } = feilutbetalingÅrsakDto;
-
       return {
-        ...period,
-        årsak: hendelseType,
-        [hendelseType]: {
-          underÅrsak: hendelseUndertype || null,
-        },
+        fom,
+        tom,
+        årsak: feilutbetalingÅrsakDto.hendelseType,
+        underÅrsak: feilutbetalingÅrsakDto.hendelseUndertype ?? undefined,
       };
     }),
   };
@@ -70,9 +62,7 @@ const transformValues = (
   const feilutbetalingFakta = values.perioder.map(periode => {
     const feilutbetalingÅrsak = årsaker.find(el => el.hendelseType === periode.årsak);
     const feilutbetalingUnderÅrsak = feilutbetalingÅrsak?.hendelseUndertyper
-      ? feilutbetalingÅrsak.hendelseUndertyper
-          // @ts-expect-error Fiks
-          .find(el => el === periode[periode.årsak]?.underÅrsak)
+      ? feilutbetalingÅrsak.hendelseUndertyper.find(el => el === periode?.underÅrsak)
       : undefined;
 
     return {
@@ -96,16 +86,11 @@ const getSortedFeilutbetalingArsaker = (
   feilutbetalingArsaker: FeilutbetalingÅrsak,
   kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel,
 ): FeilutbetalingÅrsak['hendelseTyper'] => {
-  const { hendelseTyper } = feilutbetalingArsaker;
-  return hendelseTyper.sort((ht1, ht2) => {
+  const collator = new Intl.Collator('nb-NO', { numeric: true });
+  return feilutbetalingArsaker.hendelseTyper.toSorted((ht1, ht2) => {
     const hendelseType1 = kodeverkSamlingFpTilbake['HendelseType'].find(h => h.kode === ht1.hendelseType)?.navn || '';
     const hendelseType2 = kodeverkSamlingFpTilbake['HendelseType'].find(h => h.kode === ht2.hendelseType)?.navn || '';
-    const hendelseType1ErParagraf = hendelseType1.startsWith('§');
-    const hendelseType2ErParagraf = hendelseType2.startsWith('§');
-    const ht1v = hendelseType1ErParagraf ? hendelseType1.replace(/\D/g, '') : hendelseType1;
-    const ht2v = hendelseType2ErParagraf ? hendelseType2.replace(/\D/g, '') : hendelseType2;
-    // @ts-expect-error Kan ein ikkje alltid bruka localeCompare?
-    return hendelseType1ErParagraf && hendelseType2ErParagraf ? ht1v - ht2v : ht1v.localeCompare(ht2v);
+    return collator.compare(hendelseType1, hendelseType2);
   });
 };
 
@@ -144,9 +129,10 @@ export const FeilutbetalingInfoPanel = ({
     defaultValues: formData || initialValues,
   });
 
-  const behandlePerioderSamlet = formMethods.watch('behandlePerioderSamlet') || false;
+  const behandlePerioderSamlet = formMethods.watch('behandlePerioderSamlet');
 
   const årsaker = getSortedFeilutbetalingArsaker(feilutbetalingAarsak, kodeverkSamlingFpTilbake);
+  const perioder = sorterPerioder(feilutbetalingFakta);
 
   return (
     <VStack gap="space-16">
@@ -161,12 +147,12 @@ export const FeilutbetalingInfoPanel = ({
         setDataOnUnmount={setFormData}
       >
         <VStack gap="space-16">
-          <HStack gap="space-40" wrap>
+          <HStack gap="space-48">
             <VStack gap="space-16">
-              <Label size="small">
+              <Label size="medium">
                 <FormattedMessage id="FeilutbetalingInfoPanel.Feilutbetaling" />
               </Label>
-              <HStack justify="space-between">
+              <HStack gap="space-32">
                 <VStack gap="space-4">
                   <Detail>
                     <FormattedMessage id="FeilutbetalingInfoPanel.PeriodeMedFeilutbetaling" />
@@ -183,7 +169,7 @@ export const FeilutbetalingInfoPanel = ({
                     <FormattedMessage id="FeilutbetalingInfoPanel.FeilutbetaltBeløp" />
                   </Detail>
                   <BodyShort size="small">
-                    <BeløpLabel rød beløp={feilutbetaling.aktuellFeilUtbetaltBeløp} />
+                    <BeløpLabel rød beløp={feilutbetaling.aktuellFeilUtbetaltBeløp} kr />
                   </BodyShort>
                 </VStack>
                 <VStack gap="space-4">
@@ -192,19 +178,21 @@ export const FeilutbetalingInfoPanel = ({
                   </Detail>
                   <BodyShort size="small">
                     {feilutbetaling.tidligereVarseltBeløp ? (
-                      <BeløpLabel beløp={feilutbetaling.tidligereVarseltBeløp} />
+                      <BeløpLabel beløp={feilutbetaling.tidligereVarseltBeløp} kr />
                     ) : (
                       <FormattedMessage id="FeilutbetalingInfoPanel.IkkeVarslet" />
                     )}
                   </BodyShort>
                 </VStack>
               </HStack>
-              <RhfCheckbox
-                name="behandlePerioderSamlet"
-                control={formMethods.control}
-                label={intl.formatMessage({ id: 'FeilutbetalingInfoPanel.BehandlePerioderSamlet' })}
-                readOnly={readOnly}
-              />
+              {perioder.length > 1 && !readOnly && (
+                <RhfCheckbox
+                  name="behandlePerioderSamlet"
+                  control={formMethods.control}
+                  label={intl.formatMessage({ id: 'FeilutbetalingInfoPanel.BehandlePerioderSamlet' })}
+                  readOnly={readOnly}
+                />
+              )}
               <FaktaGruppe
                 merknaderFraBeslutter={
                   alleMerknaderFraBeslutter[FeilutbetalingAksjonspunktCode.AVKLAR_FAKTA_FOR_FEILUTBETALING]
@@ -212,7 +200,7 @@ export const FeilutbetalingInfoPanel = ({
                 withoutBorder
               >
                 <FeilutbetalingPerioderFieldArray
-                  perioder={sorterPerioder(feilutbetalingFakta)}
+                  perioder={perioder}
                   behandlePerioderSamlet={behandlePerioderSamlet}
                   årsaker={årsaker}
                   readOnly={readOnly}
@@ -221,15 +209,15 @@ export const FeilutbetalingInfoPanel = ({
               </FaktaGruppe>
             </VStack>
             <VStack gap="space-16">
-              <Label size="small">
+              <Label size="medium">
                 <FormattedMessage id="FeilutbetalingInfoPanel.Revurdering" />
               </Label>
               <HStack gap="space-16">
-                <VStack gap="space-4">
-                  <Detail>
-                    <FormattedMessage id="FeilutbetalingInfoPanel.Årsaker" />
-                  </Detail>
-                  {feilutbetaling.behandlingÅrsaker && (
+                {feilutbetaling.behandlingÅrsaker && (
+                  <VStack gap="space-4">
+                    <Detail>
+                      <FormattedMessage id="FeilutbetalingInfoPanel.Årsaker" />
+                    </Detail>
                     <BodyShort size="small">
                       {feilutbetaling.behandlingÅrsaker
                         .map(
@@ -239,8 +227,8 @@ export const FeilutbetalingInfoPanel = ({
                         )
                         .join(', ')}
                     </BodyShort>
-                  )}
-                </VStack>
+                  </VStack>
+                )}
                 {feilutbetaling.datoForRevurderingsvedtak && (
                   <VStack gap="space-4">
                     <Detail>
@@ -252,11 +240,11 @@ export const FeilutbetalingInfoPanel = ({
                   </VStack>
                 )}
               </HStack>
-              <VStack gap="space-4">
-                <Detail>
-                  <FormattedMessage id="FeilutbetalingInfoPanel.Resultat" />
-                </Detail>
-                {feilutbetaling.behandlingsresultat && (
+              {feilutbetaling.behandlingsresultat && (
+                <VStack gap="space-4">
+                  <Detail>
+                    <FormattedMessage id="FeilutbetalingInfoPanel.Resultat" />
+                  </Detail>
                   <BodyShort size="small">
                     {
                       kodeverkSamlingFpsak['BehandlingResultatType'].find(
@@ -264,25 +252,25 @@ export const FeilutbetalingInfoPanel = ({
                       )?.navn
                     }
                   </BodyShort>
-                )}
-              </VStack>
-              <VStack gap="space-4">
-                <Detail>
-                  <FormattedMessage id="FeilutbetalingInfoPanel.Konsekvens" />
-                </Detail>
-                {feilutbetaling.behandlingsresultat && (
+                </VStack>
+              )}
+              {feilutbetaling.behandlingsresultat && (
+                <VStack gap="space-4">
+                  <Detail>
+                    <FormattedMessage id="FeilutbetalingInfoPanel.Konsekvens" />
+                  </Detail>
                   <BodyShort size="small">
                     {feilutbetaling.behandlingsresultat.konsekvenserForYtelsen
                       .map(ba => kodeverkSamlingFpsak['KonsekvensForYtelsen'].find(k => k.kode === ba)?.navn)
                       .join(', ')}
                   </BodyShort>
-                )}
-              </VStack>
-              <VStack gap="space-4">
-                <Detail>
-                  <FormattedMessage id="FeilutbetalingInfoPanel.Tilbakekrevingsvalg" />
-                </Detail>
-                {feilutbetaling.tilbakekrevingValg && (
+                </VStack>
+              )}
+              {feilutbetaling.tilbakekrevingValg && (
+                <VStack gap="space-4">
+                  <Detail>
+                    <FormattedMessage id="FeilutbetalingInfoPanel.Tilbakekrevingsvalg" />
+                  </Detail>
                   <BodyShort size="small">
                     {
                       kodeverkSamlingFpTilbake['VidereBehandling'].find(
@@ -290,8 +278,8 @@ export const FeilutbetalingInfoPanel = ({
                       )?.navn
                     }
                   </BodyShort>
-                )}
-              </VStack>
+                </VStack>
+              )}
             </VStack>
           </HStack>
           <div className={styles.textarea}>
@@ -304,16 +292,18 @@ export const FeilutbetalingInfoPanel = ({
               readOnly={readOnly}
             />
           </div>
-          <div>
-            <Button
-              variant="primary"
-              size="small"
-              disabled={readOnly || !formMethods.formState.isDirty || formMethods.formState.isSubmitting}
-              loading={formMethods.formState.isSubmitting}
-            >
-              <FormattedMessage id="FeilutbetalingInfoPanel.Confirm" />
-            </Button>
-          </div>
+          {!readOnly && (
+            <div>
+              <Button
+                variant="primary"
+                size="small"
+                disabled={!formMethods.formState.isDirty || formMethods.formState.isSubmitting}
+                loading={formMethods.formState.isSubmitting}
+              >
+                <FormattedMessage id="FeilutbetalingInfoPanel.Confirm" />
+              </Button>
+            </div>
+          )}
         </VStack>
       </RhfForm>
     </VStack>
