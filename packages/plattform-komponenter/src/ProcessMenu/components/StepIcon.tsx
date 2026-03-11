@@ -1,5 +1,4 @@
 import { CheckmarkIcon, ExclamationmarkTriangleFillIcon, XMarkOctagonFillIcon } from '@navikt/aksel-icons';
-import classnames from 'classnames';
 
 import { StepType } from './StepType';
 
@@ -15,7 +14,7 @@ export const StepIcon = ({ type, usePartialStatus }: StepIconProps) => {
   const isDanger = type === StepType.danger;
   const isSuccess = type === StepType.success;
 
-  const classes = classnames(`${styles.icon}`);
+  const classes = styles.icon;
 
   if (usePartialStatus && (isDanger || isSuccess)) {
     return <div className={classes} />;

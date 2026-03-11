@@ -3,8 +3,6 @@ import { FormattedMessage, RawIntlProvider } from 'react-intl';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
 import { BodyShort, Heading, VStack } from '@navikt/ds-react';
-import classNames from 'classnames/bind';
-
 import { SideMenu } from '@navikt/ft-plattform-komponenter';
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl, dateFormat } from '@navikt/ft-utils';
@@ -28,8 +26,6 @@ const beregningAksjonspunkter = [
   ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
 ];
-
-const cx = classNames.bind(styles);
 
 const intl = createIntl(messages);
 
@@ -121,7 +117,7 @@ export const BeregningsgrunnlagProsessIndex = ({
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
 
   const menyProps = lagMenyProps(listeMedGrunnlag, beregningsgrunnlagsvilkar);
-  const mainContainerClassnames = cx('mainContainer', { 'mainContainer--withSideMenu': skalBrukeSidemeny });
+  const mainContainerClassnames = [styles.mainContainer, skalBrukeSidemeny && styles['mainContainer--withSideMenu']].filter(Boolean).join(' ');
 
   useEffect(() => {
     const førsteSkjæringstidspunktMedAksjonspunktIndex = menyProps.findIndex(

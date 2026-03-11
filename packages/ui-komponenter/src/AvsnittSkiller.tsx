@@ -1,8 +1,4 @@
-import classnames from 'classnames/bind';
-
 import styles from './avsnittSkiller.module.css';
-
-const classNames = classnames.bind(styles);
 
 type Props = {
   spaceUnder?: boolean;
@@ -24,10 +20,7 @@ export const AvsnittSkiller = ({
   <>
     {spaceAbove && <div style={{ marginBottom: '32px' }} />}
     <div
-      className={classNames(className, {
-        leftPanel,
-        rightPanel,
-      })}
+      className={[className, leftPanel && styles.leftPanel, rightPanel && styles.rightPanel].filter(Boolean).join(' ')}
     >
       <div className={dividerParagraf ? styles.dividerParagraf : styles.divider} />
     </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { ChevronRightIcon } from '@navikt/aksel-icons';
-import classnames from 'classnames';
 
 import styles from './interactiveList.module.css';
 
@@ -18,10 +17,7 @@ interface InteractiveListProps {
 // TODO (TOR) Kan denne erstattast med noko i Aksel?
 const InteractiveListElement = (props: InteractiveListElement) => {
   const { content, active, onClick } = props;
-  const cls = classnames(styles.interactiveListElement, {
-    [styles['interactiveListElement--active']]: active,
-    [styles['interactiveListElement--inactive']]: !active,
-  });
+  const cls = `${styles.interactiveListElement} ${active ? styles['interactiveListElement--active'] : styles['interactiveListElement--inactive']}`;
 
   return (
     <li className={cls}>

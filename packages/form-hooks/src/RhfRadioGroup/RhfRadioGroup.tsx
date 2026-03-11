@@ -9,7 +9,6 @@ import {
 } from 'react-hook-form';
 
 import { HStack, RadioGroup, type RadioGroupProps } from '@navikt/ds-react';
-import classnames from 'classnames';
 
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
@@ -71,7 +70,7 @@ export const RhfRadioGroup = <TFieldValues extends FieldValues, TName extends Fi
         }
         field.onChange(value);
       }}
-      className={classnames(className, styles.noReadOnlyIcon)}
+      className={[className, styles.noReadOnlyIcon].filter(Boolean).join(' ')}
       {...rest}
     >
       {children}

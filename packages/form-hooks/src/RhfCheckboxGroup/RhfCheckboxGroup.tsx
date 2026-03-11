@@ -9,7 +9,6 @@ import {
 } from 'react-hook-form';
 
 import { Checkbox, CheckboxGroup, type CheckboxGroupProps, HStack } from '@navikt/ds-react';
-import classnames from 'classnames';
 
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
 
@@ -79,7 +78,7 @@ export const RhfCheckboxGroup = <TFieldValues extends FieldValues, TName extends
       }
       readOnly={readOnly}
       error={getError(errors, name)}
-      className={classnames(className, styles.noReadOnlyIcon)}
+      className={[className, styles.noReadOnlyIcon].filter(Boolean).join(' ')}
       {...rest}
     >
       {children}

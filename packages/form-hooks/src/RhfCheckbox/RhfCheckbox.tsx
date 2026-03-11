@@ -2,7 +2,6 @@ import { type ReactNode, useMemo } from 'react';
 import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
 
 import { Checkbox, type CheckboxProps, ErrorMessage } from '@navikt/ds-react';
-import classnames from 'classnames';
 
 import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 
@@ -61,7 +60,7 @@ export const RhfCheckbox = <T extends FieldValues>({
             onClick();
           }
         }}
-        className={classnames(className, styles.noReadOnlyIcon)}
+        className={[className, styles.noReadOnlyIcon].filter(Boolean).join(' ')}
         {...rest}
       >
         {label}

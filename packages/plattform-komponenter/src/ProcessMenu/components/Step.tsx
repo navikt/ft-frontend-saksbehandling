@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { BodyShort, Tooltip } from '@navikt/ds-react';
-import classnames from 'classnames';
 
 import { StepIcon } from './StepIcon';
 import { StepType } from './StepType';
@@ -37,10 +36,7 @@ export const Step = ({
     }
   };
 
-  const stepIndicatorCls = classnames(`${styles.step__button} ${styles[type]}`, {
-    [styles['active']]: isActive,
-    [styles['partial']]: usePartialStatus,
-  });
+  const stepIndicatorCls = [styles.step__button, styles[type], isActive && styles['active'], usePartialStatus && styles['partial']].filter(Boolean).join(' ');
 
   return (
     <li key={label} className={styles.step} aria-current={isActive ? 'step' : undefined}>
@@ -52,7 +48,7 @@ export const Step = ({
           </BodyShort>
         </button>
       </Tooltip>
-      {isActive && <div className={classnames(stepArrowContainerStyle, `${styles['step__arrow-container']}`)} />}
+      {isActive && <div className={[stepArrowContainerStyle, styles['step__arrow-container']].filter(Boolean).join(' ')} />}
     </li>
   );
 };
