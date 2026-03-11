@@ -49,7 +49,7 @@ const buildInitialValues = (feilutbetalingFakta: FeilutbetalingFakta): FormValue
         fom,
         tom,
         årsak: feilutbetalingÅrsakDto.hendelseType,
-        underÅrsak: feilutbetalingÅrsakDto.hendelseUndertype ?? undefined,
+        underårsak: feilutbetalingÅrsakDto.hendelseUndertype ?? undefined,
       };
     }),
   };
@@ -62,7 +62,7 @@ const transformValues = (
   const feilutbetalingFakta = values.perioder.map(periode => {
     const feilutbetalingÅrsak = årsaker.find(el => el.hendelseType === periode.årsak);
     const feilutbetalingUnderÅrsak = feilutbetalingÅrsak?.hendelseUndertyper
-      ? feilutbetalingÅrsak.hendelseUndertyper.find(el => el === periode?.underÅrsak)
+      ? feilutbetalingÅrsak.hendelseUndertyper.find(el => el === periode?.underårsak)
       : undefined;
 
     return {

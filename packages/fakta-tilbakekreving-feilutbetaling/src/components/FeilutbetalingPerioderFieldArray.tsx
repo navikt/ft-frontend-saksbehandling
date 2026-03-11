@@ -23,7 +23,7 @@ export type FormValues = {
     fom: string;
     tom: string;
     årsak?: string;
-    underÅrsak?: string;
+    underårsak?: string;
   }[];
 };
 
@@ -50,16 +50,20 @@ export const FeilutbetalingPerioderFieldArray = ({
   });
 
   const settAndreFelter = (årsak: string | undefined, underårsak: string | undefined, index: number) => {
+    if (underårsak === undefined) {
+      setValue(`${FIELD_ARRAY_NAME}.${index}.underårsak`, underårsak);
+    }
+
     if (behandlePerioderSamlet) {
       fields.forEach((_f, fieldIndex) => {
         if (index !== fieldIndex) {
-          if (underårsak) {
-            const feltÅrsak = getValues(`${FIELD_ARRAY_NAME}.${fieldIndex}.årsak`);
-            if (feltÅrsak === årsak) {
-              setValue(`${FIELD_ARRAY_NAME}.${fieldIndex}.underÅrsak`, underårsak);
-            }
-          } else {
+          const feltÅrsak = getValues(`${FIELD_ARRAY_NAME}.${fieldIndex}.årsak`);
+          const feltUnderårsak = getValues(`${FIELD_ARRAY_NAME}.${fieldIndex}.underårsak`);
+          if (feltÅrsak !== årsak) {
             setValue(`${FIELD_ARRAY_NAME}.${fieldIndex}.årsak`, årsak);
+          }
+          if (underårsak !== feltUnderårsak) {
+            setValue(`${FIELD_ARRAY_NAME}.${fieldIndex}.underårsak`, underårsak);
           }
         }
       });
@@ -107,20 +111,22 @@ export const FeilutbetalingPerioderFieldArray = ({
                     hideLabel
                   />
 
-                  <RhfSelect
-                    name={`${FIELD_ARRAY_NAME}.${index}.underÅrsak`}
-                    control={control}
-                    selectValues={hendelseUndertyper?.map(a => (
-                      <option key={a} value={a}>
-                        {kodeverkSamlingFpTilbake['HendelseUnderType'].find(hu => hu.kode === a)?.navn}
-                      </option>
-                    ))}
-                    validate={[required]}
-                    readOnly={readOnly || !årsak}
-                    onChange={event => settAndreFelter(årsak, event.target.value, index)}
-                    label={intl.formatMessage({ id: 'FeilutbetalingInfoPanel.HendelseUnderårsak' })}
-                    hideLabel
-                  />
+                  {årsak && (
+                    <RhfSelect
+                      name={`${FIELD_ARRAY_NAME}.${index}.underårsak`}
+                      control={control}
+                      selectValues={hendelseUndertyper?.map(a => (
+                        <option key={a} value={a}>
+                          {kodeverkSamlingFpTilbake['HendelseUnderType'].find(hu => hu.kode === a)?.navn}
+                        </option>
+                      ))}
+                      validate={[required]}
+                      readOnly={readOnly}
+                      onChange={event => settAndreFelter(årsak, event.target.value, index)}
+                      label={intl.formatMessage({ id: 'FeilutbetalingInfoPanel.HendelseUnderårsak' })}
+                      hideLabel
+                    />
+                  )}
                 </VStack>
               </Table.DataCell>
               <Table.DataCell align="right">
