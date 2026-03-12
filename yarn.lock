@@ -2532,8 +2532,8 @@ __metadata:
     "@navikt/ft-ui-komponenter": 6.x
     "@navikt/ft-utils": 3.x
     classnames: 2.5.1
-    dayjs: 1.11.x
-    react: 19.1.0
+    dayjs: ^1.11.0
+    react: ^19.0.0
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2612,7 +2612,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": 6.x
     "@navikt/ft-utils": 3.x
     classnames: 2.5.1
-    dayjs: 1.11.x
+    dayjs: ^1.11.0
     lodash.throttle: 4.1.1
     react: ^19.0.0
     react-dom: ^19.0.0
@@ -2725,7 +2725,7 @@ __metadata:
     "@navikt/ds-react": 8.x
     "@popperjs/core": 2.11.8
     classnames: 2.5.1
-    dayjs: 1.11.x
+    dayjs: ^1.11.0
     lodash.throttle: 4.1.1
     prop-types: 15.8.1
     react: ^19.0.0
@@ -2820,7 +2820,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": 6.x
     "@navikt/ft-utils": 3.x
     classnames: 2.5.1
-    dayjs: 1.11.x
+    dayjs: ^1.11.0
     echarts: 6.x
     react: ^19.0.0
     react-hook-form: 7.x
@@ -2908,7 +2908,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": 6.x
     "@navikt/ft-utils": 3.x
     classnames: 2.5.1
-    react: 19.1.0
+    react: ^19.0.0
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2999,8 +2999,8 @@ __metadata:
     "@navikt/ds-react": 8.x
     "@navikt/ft-utils": 3.x
     classnames: 2.5.1
-    react: 19.1.0
-    react-dom: 19.1.0
+    react: ^19.0.0
+    react-dom: ^19.0.0
     react-intl: 8.x
     react-modal: 3.16.1
   languageName: unknown

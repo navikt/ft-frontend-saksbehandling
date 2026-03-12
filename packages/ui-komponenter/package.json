@@ -36,8 +36,8 @@
     "@navikt/ds-react": "8.x",
     "@navikt/ft-utils": "3.x",
     "classnames": "2.5.1",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-intl": "8.x",
     "react-modal": "3.16.1"
   },
