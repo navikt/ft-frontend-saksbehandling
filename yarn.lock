@@ -2413,9 +2413,9 @@ __metadata:
     eslint-plugin-react: "npm:7.37.5"
     eslint-plugin-react-hooks: "npm:7.0.1"
     eslint-plugin-react-refresh: "npm:0.5.2"
-    eslint-plugin-react-you-might-not-need-an-effect: "npm:0.9.1"
+    eslint-plugin-react-you-might-not-need-an-effect: "npm:0.9.2"
     eslint-plugin-simple-import-sort: "npm:12.1.1"
-    eslint-plugin-storybook: "npm:10.2.14"
+    eslint-plugin-storybook: "npm:10.2.15"
     eslint-plugin-vitest: "npm:0.5.4"
     globals: "npm:17.4.0"
     typescript-eslint: "npm:8.56.1"
@@ -7452,14 +7452,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-you-might-not-need-an-effect@npm:0.9.1":
-  version: 0.9.1
-  resolution: "eslint-plugin-react-you-might-not-need-an-effect@npm:0.9.1"
+"eslint-plugin-react-you-might-not-need-an-effect@npm:0.9.2":
+  version: 0.9.2
+  resolution: "eslint-plugin-react-you-might-not-need-an-effect@npm:0.9.2"
   dependencies:
     globals: "npm:^16.2.0"
   peerDependencies:
     eslint: ">=8.40.0"
-  checksum: 10/ecf25e4962b8249c19a8727720842054cfcd3b364340f962b8860093997c2ec8a05ad9b18912c1d7ab30ce76591da00eadbfff8eeafca715c08a9c323d1db6a1
+  checksum: 10/0f1059e491d5414afb561e26d4229945939478758bcf91b8e2a826c347f5b45c6f2937ee654a6029bd379dc49e839223cfbf8595a155682346915462cb368b79
   languageName: node
   linkType: hard
 
@@ -7500,15 +7500,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-storybook@npm:10.2.14":
-  version: 10.2.14
-  resolution: "eslint-plugin-storybook@npm:10.2.14"
+"eslint-plugin-storybook@npm:10.2.15":
+  version: 10.2.15
+  resolution: "eslint-plugin-storybook@npm:10.2.15"
   dependencies:
     "@typescript-eslint/utils": "npm:^8.48.0"
   peerDependencies:
     eslint: ">=8"
-    storybook: ^10.2.14
-  checksum: 10/21b8130667a734c8b898a74f0b91a6844126050b8b413292f1dbce9a8ba48a82e5c1eb00e78353f57139c490b6a351aa5089c9f8683b75d14cecad4ba2a2c5bd
+    storybook: ^10.2.15
+  checksum: 10/1fff0a2cf46366952e697b28a88d4803db926a497800cd68542545df7e54f1ff9283df573b72262fa61376c0f0b9791a21f3e8a5bf5801ff92c9a2c880856fdb
   languageName: node
   linkType: hard
 
@@ -8111,7 +8111,7 @@ __metadata:
     jsdom: "npm:28.0.0"
     knip: "npm:5.85.0"
     lerna: "npm:9.0.5"
-    lint-staged: "npm:16.3.1"
+    lint-staged: "npm:16.3.2"
     prettier: "npm:3.8.1"
     storybook: "npm:10.2.15"
     stylelint: "npm:17.4.0"
@@ -9867,9 +9867,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:16.3.1":
-  version: 16.3.1
-  resolution: "lint-staged@npm:16.3.1"
+"lint-staged@npm:16.3.2":
+  version: 16.3.2
+  resolution: "lint-staged@npm:16.3.2"
   dependencies:
     commander: "npm:^14.0.3"
     listr2: "npm:^9.0.5"
@@ -9879,7 +9879,7 @@ __metadata:
     yaml: "npm:^2.8.2"
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: 10/4eaebcfcf7cc37c163e3b365da4b35c3403b6e6184039ff0256e2d1765e01aea28a5ffd8726ee4964b10ea6aecd4cbb1790e08964597bafe608bd8126ed4700d
+  checksum: 10/41497d746e625b969a4a80466284ecdb56f55d97832e191ea2f4c3bca2894c468450f8508eebe7c4e293691bd1d1a9a4e1bc7843aba91c28e4fd22bfa9355367
   languageName: node
   linkType: hard
 
