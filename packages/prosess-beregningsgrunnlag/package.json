@@ -47,7 +47,6 @@
     "@navikt/ft-types": "5.x",
     "@navikt/ft-ui-komponenter": "6.x",
     "@navikt/ft-utils": "3.x",
-    "classnames": "2.5.1",
     "dayjs": "^1.11.0",
     "echarts": "6.x",
     "react": "^19.0.0",
