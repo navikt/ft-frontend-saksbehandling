@@ -23,7 +23,7 @@ export const StepIcon = ({ type, usePartialStatus, locked }: StepIconProps) => {
   const classes = styles.icon;
 
   if (locked) {
-    return <PadlockLockedFillIcon className={styles.lockedIcon} title="Låst for saksbehandling" />;
+    return <PadlockLockedFillIcon className={styles.lockedIcon} title="Låst" />;
   }
 
   if (usePartialStatus && (isDanger || isSuccess)) {
