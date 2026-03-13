@@ -22,14 +22,14 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "peerDependencies": {
-    "@navikt/ft-utils": "3.11.12",
-    "dayjs": "1.11.19"
+    "@navikt/ft-utils": "workspace:^",
+    "dayjs": "1.x"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "@navikt/ft-config-vite": "workspace:^",
-    "@navikt/ft-utils": "3.11.12",
+    "@navikt/ft-utils": "workspace:^",
     "dayjs": "1.11.19",
     "eslint": "9.39.3",
     "typescript": "5.9.3",

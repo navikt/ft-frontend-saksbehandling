@@ -29,13 +29,13 @@
     "prop-types": "15.8.1"
   },
   "peerDependencies": {
-    "@navikt/aksel-icons": "8.6.0",
-    "@navikt/ds-css": "8.6.0",
-    "@navikt/ds-react": "8.6.0",
-    "@navikt/ft-utils": "3.11.12",
-    "dayjs": "1.11.19",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "@navikt/aksel-icons": "8.x",
+    "@navikt/ds-css": "8.x",
+    "@navikt/ds-react": "8.x",
+    "@navikt/ft-utils": "workspace:^",
+    "dayjs": "1.x",
+    "react": "19.x",
+    "react-dom": "19.x"
   },
   "devDependencies": {
     "@navikt/aksel-icons": "8.6.0",
@@ -44,7 +44,7 @@
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "@navikt/ft-config-vite": "workspace:^",
-    "@navikt/ft-utils": "3.11.12",
+    "@navikt/ft-utils": "workspace:^",
     "@testing-library/dom": "10.4.1",
     "@testing-library/react": "16.3.2",
     "dayjs": "1.11.19",
