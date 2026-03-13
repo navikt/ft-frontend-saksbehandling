@@ -21,7 +21,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "peerDependencies": {
-    "react": "^19.0.0"
+    "react": "19.2.4"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
@@ -29,6 +29,7 @@
     "@navikt/ft-config-vite": "workspace:^",
     "@testing-library/react": "16.3.2",
     "eslint": "9.39.3",
+    "react": "19.2.4",
     "typescript": "5.9.3",
     "vite": "7.3.1",
     "vitest": "4.0.18"
