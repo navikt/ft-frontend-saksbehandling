@@ -3,4 +3,5 @@ export enum StepType {
   success = 'success',
   danger = 'danger',
   default = 'default',
+  locked = 'locked',
 }

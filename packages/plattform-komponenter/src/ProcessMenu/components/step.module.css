@@ -88,6 +88,12 @@
   }
 }
 
+.lockedIcon {
+  color: black;
+  composes: icon;
+  margin-right: 5px;
+}
+
 .partial:not(.warning) {
   > .icon {
     background: linear-gradient(
