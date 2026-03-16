@@ -35,7 +35,6 @@ export { assertUnreachable } from './src/switchCaseUtils';
 export { guid } from './src/guid';
 export { replaceNorwegianCharacters, getLanguageFromSprakkode } from './src/languageUtils';
 export { notNull, isObjectEmpty, diff, isEqual, isObject, omit, omitOne, omitMany } from './src/objectUtils';
-export { parseQueryString, buildPath, formatQueryString } from './src/urlUtils';
 
 export { createIntl } from './src/createIntl';
 export { BTag } from './src/createTags';
