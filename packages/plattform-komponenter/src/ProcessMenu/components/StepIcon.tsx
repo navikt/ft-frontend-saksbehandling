@@ -1,4 +1,9 @@
-import { CheckmarkIcon, ExclamationmarkTriangleFillIcon, XMarkOctagonFillIcon } from '@navikt/aksel-icons';
+import {
+  CheckmarkIcon,
+  ExclamationmarkTriangleFillIcon,
+  PadlockLockedFillIcon,
+  XMarkOctagonFillIcon,
+} from '@navikt/aksel-icons';
 
 import { StepType } from './StepType';
 
@@ -7,14 +12,19 @@ import styles from './step.module.css';
 interface StepIconProps {
   type: string;
   usePartialStatus: boolean;
+  locked?: boolean;
 }
 
-export const StepIcon = ({ type, usePartialStatus }: StepIconProps) => {
+export const StepIcon = ({ type, usePartialStatus, locked }: StepIconProps) => {
   const isWarning = type === StepType.warning;
   const isDanger = type === StepType.danger;
   const isSuccess = type === StepType.success;
 
   const classes = styles.icon;
+
+  if (locked) {
+    return <PadlockLockedFillIcon className={styles.lockedIcon} title="Låst" />;
+  }
 
   if (usePartialStatus && (isDanger || isSuccess)) {
     return <div className={classes} />;

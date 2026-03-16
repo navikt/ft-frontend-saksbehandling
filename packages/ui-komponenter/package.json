@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-ui-komponenter",
   "description": "Pakke som tilbyr generelle komponenter som grid og tabell",
-  "version": "6.8.14",
+  "version": "6.8.15",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -35,7 +35,6 @@
     "@navikt/ds-css": "8.x",
     "@navikt/ds-react": "8.x",
     "@navikt/ft-utils": "3.x",
-    "classnames": "2.5.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-intl": "8.x",

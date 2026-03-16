@@ -9,7 +9,7 @@ import styles from '../readOnlyIcon.module.css';
 
 type Props<T extends FieldValues> = {
   label: ReactNode;
-  validate?: Array<(value: string) => ValidationReturnType>;
+  validate?: Array<(value: boolean) => ValidationReturnType>;
   onChange?: (isChecked: boolean) => void;
   onClick?: () => void;
   control: UseControllerProps<T>['control'];

@@ -82,6 +82,14 @@ export const DangerStepWithPartialStatus: Story = {
   },
 };
 
+export const LockedStep: Story = {
+  args: {
+    label: 'Beregning',
+    type: StepType.success,
+    locked: true,
+  },
+};
+
 export const DefaultStep: Story = {
   args: {
     label: 'Simulering',

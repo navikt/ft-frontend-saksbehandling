@@ -13,6 +13,7 @@ export interface StepProps {
   isActive?: boolean;
   type?: StepType;
   onClick?: (index: number) => void;
+  locked?: boolean;
 }
 
 interface ComponentProps {
@@ -28,6 +29,7 @@ export const Step = ({
   usePartialStatus = false,
   onClick,
   stepArrowContainerStyle,
+  locked = false,
 }: StepProps & ComponentProps) => {
   const handleButtonClick = (event: React.FormEvent<HTMLButtonElement>): void => {
     event.preventDefault();
@@ -36,19 +38,28 @@ export const Step = ({
     }
   };
 
-  const stepIndicatorCls = [styles.step__button, styles[type], isActive && styles['active'], usePartialStatus && styles['partial']].filter(Boolean).join(' ');
+  const stepIndicatorCls = [
+    styles.step__button,
+    styles[type],
+    isActive && styles['active'],
+    usePartialStatus && styles['partial'],
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <li key={label} className={styles.step} aria-current={isActive ? 'step' : undefined}>
       <Tooltip content={label} placement="bottom">
         <button className={stepIndicatorCls} type="button" onClick={handleButtonClick}>
-          <StepIcon type={type} usePartialStatus={usePartialStatus} />
+          <StepIcon type={type} usePartialStatus={usePartialStatus} locked={locked} />
           <BodyShort as="span" size="small" className={styles.step__text}>
             {label}
           </BodyShort>
         </button>
       </Tooltip>
-      {isActive && <div className={[stepArrowContainerStyle, styles['step__arrow-container']].filter(Boolean).join(' ')} />}
+      {isActive && (
+        <div className={[stepArrowContainerStyle, styles['step__arrow-container']].filter(Boolean).join(' ')} />
+      )}
     </li>
   );
 };
