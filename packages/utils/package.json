@@ -8,16 +8,14 @@
     "dist"
   ],
   "scripts": {
+    "build": "vite build",
     "test": "vitest --project=jsdom",
-    "test:watch": "vitest --project=jsdom --watch=true",
     "test:browser": "vitest --project=browser",
-    "test:browser:watch": "vitest --project=browser --watch=true",
-    "tsc": "tsc --pretty",
     "eslint": "eslint src/**/*.ts* --color",
     "eslint:fix": "eslint --fix src/**/*.ts* --color",
-    "prettier": "prettier --write src",
+    "prettier:fix": "prettier --write src",
+    "tsc": "tsc --pretty",
     "dev": "vite build --watch --mode development",
-    "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {

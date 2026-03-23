@@ -9,17 +9,15 @@
     "dist"
   ],
   "scripts": {
+    "build": "vite build",
     "test": "vitest --project=jsdom",
-    "test:watch": "vitest --project=jsdom --watch=true",
     "test:browser": "vitest --project=browser",
-    "test:browser:watch": "vitest --project=browser --watch=true",
-    "tsc": "tsc --pretty",
     "eslint": "eslint {src,testdata}/**/*.ts* --color",
     "eslint:fix": "eslint --fix {src,testdata}/**/*.ts* --color",
-    "prettier": "prettier --write {src,testdata}",
+    "prettier:fix": "prettier --write {src,testdata}",
+    "tsc": "tsc --pretty",
     "stylelint": "stylelint src/**/*.module.css",
     "dev": "vite build --watch --mode development",
-    "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
