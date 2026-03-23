@@ -22,8 +22,8 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "8.6.0",
-    "@navikt/ds-react": "8.6.0",
+    "@navikt/aksel-icons": "8.7.0",
+    "@navikt/ds-react": "8.7.0",
     "@navikt/ft-utils": "workspace:^",
     "dayjs": "1.11.19"
   },
