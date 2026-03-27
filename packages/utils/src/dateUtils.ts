@@ -4,8 +4,8 @@ import isoWeek from 'dayjs/plugin/isoWeek';
 import utc from 'dayjs/plugin/utc';
 
 import { createIntl } from './createIntl';
-import { dateFormat, timeFormat } from './dateFormat';
-import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, YYYY_MM_FORMAT } from './formats';
+import { dateFormat } from './dateFormat';
+import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from './formats';
 
 import messages from '../i18n/nb_NO.json';
 
@@ -163,32 +163,11 @@ export const findDifferenceInMonthsAndDays = (
   };
 };
 
-export const getRangeOfMonths = (fom: string, tom: string): { month: string; year: string }[] => {
-  dayjs.locale('nb');
-  const fraMåned = initializeDate(fom, YYYY_MM_FORMAT);
-  const tilMåned = initializeDate(tom, YYYY_MM_FORMAT);
-  let currentMonth = fraMåned;
-  const range = [
-    {
-      month: currentMonth.format('MMMM'),
-      year: currentMonth.format('YY'),
-    },
-  ];
-
-  while (currentMonth.isBefore(tilMåned)) {
-    currentMonth = currentMonth.add(1, 'month');
-    range.push({
-      month: currentMonth.format('MMMM'),
-      year: currentMonth.format('YY'),
-    });
-  }
-
-  return range;
-};
-
+/**
+ * @deprecated Bruk dateFormat istedenfor
+ */
 export const prettifyDateString = (dateString: string) => {
-  const dateObject = initializeDate(dateString);
-  return dateObject.format(DDMMYYYY_DATE_FORMAT);
+  return dateFormat(dateString);
 };
 
 export const isSameOrBefore = (date: string | Dayjs | Date, otherDate: string | Dayjs | Date) => {
@@ -196,15 +175,4 @@ export const isSameOrBefore = (date: string | Dayjs | Date, otherDate: string | 
   const dateInQuestion = initializeDate(date, dateFormats);
   const formattedOtherDate = initializeDate(otherDate, dateFormats);
   return dateInQuestion.isBefore(formattedOtherDate) || dateInQuestion.isSame(formattedOtherDate);
-};
-
-export const isValidDate = (date: any) => !Number.isNaN(new Date(date).valueOf());
-
-export const getDateAndTime = (tidspunkt?: string): { date: string; time: string } | undefined => {
-  if (!tidspunkt) {
-    return undefined;
-  }
-  const date = dateFormat(tidspunkt);
-  const time = timeFormat(tidspunkt);
-  return { date, time };
 };

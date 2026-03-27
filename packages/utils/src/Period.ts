@@ -1,6 +1,10 @@
-import { initializeDate, isSameOrBefore, isValidDate, prettifyDateString } from './dateUtils';
+import { initializeDate, isSameOrBefore } from './dateUtils';
+import { ISO_DATE_FORMAT } from './formats';
+import { periodFormat, sortPeriodsByFom } from './periodUtils';
 
-// @deprecated Bruk Periode fra fpsak-frontend(k9) eller andre utils i denne pakken
+/**
+ * @deprecated Bruk Periode fra fpsak-frontend(k9) eller andre utils i denne pakken
+ */
 export class Period {
   fom: string;
 
@@ -13,7 +17,7 @@ export class Period {
   }
 
   prettifyPeriod() {
-    return `${prettifyDateString(this.fom)} - ${prettifyDateString(this.tom)}`;
+    return periodFormat(this.fom, this.tom);
   }
 
   includesDate(dateString: string) {
@@ -70,7 +74,7 @@ export class Period {
 
     const list = [];
     for (let currentDate = fomDayjs; isSameOrBefore(currentDate, tomDayjs); currentDate = currentDate.add(1, 'day')) {
-      list.push(currentDate.format('YYYY-MM-DD'));
+      list.push(currentDate.format(ISO_DATE_FORMAT));
     }
 
     return list;
@@ -88,12 +92,9 @@ export class Period {
   }
 }
 
-export const sortPeriodsByFomDate = (period1: Period, period2: Period): number => {
-  if (period1.startsBefore(period2)) {
-    return -1;
-  }
-  if (period2.startsBefore(period1)) {
-    return 1;
-  }
-  return 0;
-};
+/**
+ * @deprecated Bruk sortPeriodsByFom eller sortPeriodsBy fra @navikt/ft-utils istedenfor
+ */
+export const sortPeriodsByFomDate = (period1: Period, period2: Period): number => sortPeriodsByFom(period1, period2);
+
+const isValidDate = (date: any) => !Number.isNaN(new Date(date).valueOf());

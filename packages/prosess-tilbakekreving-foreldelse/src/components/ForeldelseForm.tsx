@@ -8,7 +8,13 @@ import { SubmitButton } from '@navikt/ft-form-hooks';
 import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 import type { Aksjonspunkt } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
-import { DDMMYYYY_DATE_FORMAT, decodeHtmlEntity, isAksjonspunktOpen, omitOne } from '@navikt/ft-utils';
+import {
+  DDMMYYYY_DATE_FORMAT,
+  decodeHtmlEntity,
+  isAksjonspunktOpen,
+  omitOne,
+  sortPeriodsByFom,
+} from '@navikt/ft-utils';
 
 import { ForeldelseAksjonspunktCodes } from '../ForeldelseAksjonspunktCodes';
 import type { FeilutbetalingPeriode, FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
@@ -72,20 +78,10 @@ const transformValues = (values: PeriodeFormValues[]): VurderForeldelseAp => {
   };
 };
 
-const sorterPerioder = (periode1: FeilutbetalingPeriode, periode2: FeilutbetalingPeriode) => {
-  if (periode1.fom < periode2.fom) {
-    return -1;
-  }
-  if (periode1.fom > periode2.fom) {
-    return 1;
-  }
-  return 0;
-};
-
 const lagForeldelsesresultatAktiviteter = (
   foreldelsePerioder: FeilutbetalingPeriode[],
 ): ForeldelsesresultatActivity[] =>
-  [...foreldelsePerioder].sort(sorterPerioder).map(p => ({
+  [...foreldelsePerioder].sort(sortPeriodsByFom).map(p => ({
     ...p,
     feilutbetaling: p.belop,
     foreldet: p.foreldelseVurderingType === ForeldelseVurderingType.UDEFINERT ? undefined : p.foreldelseVurderingType,

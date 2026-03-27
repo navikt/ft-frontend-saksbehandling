@@ -14,8 +14,6 @@ export {
   findDifferenceInMonthsAndDays,
   TIDENES_MORGEN,
   TIDENES_ENDE,
-  getRangeOfMonths,
-  getDateAndTime,
 } from './src/dateUtils';
 export { dateFormat, dateTimeFormat, timeFormat } from './src/dateFormat';
 export type { DateFormatOptions, DateTimeFormatOptions } from './src/dateFormat';
