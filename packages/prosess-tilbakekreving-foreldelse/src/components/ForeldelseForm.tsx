@@ -81,7 +81,7 @@ const transformValues = (values: PeriodeFormValues[]): VurderForeldelseAp => {
 const lagForeldelsesresultatAktiviteter = (
   foreldelsePerioder: FeilutbetalingPeriode[],
 ): ForeldelsesresultatActivity[] =>
-  [...foreldelsePerioder].sort(sortPeriodsByFom).map(p => ({
+  foreldelsePerioder.toSorted(sortPeriodsByFom).map(p => ({
     ...p,
     feilutbetaling: p.belop,
     foreldet: p.foreldelseVurderingType === ForeldelseVurderingType.UDEFINERT ? undefined : p.foreldelseVurderingType,

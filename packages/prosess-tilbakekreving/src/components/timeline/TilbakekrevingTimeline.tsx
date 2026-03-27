@@ -43,7 +43,7 @@ const finnStatus = (periode: TidslinjePeriode): 'success' | 'danger' | 'warning'
 };
 
 const formaterPerioder = (periodItems: TidslinjePeriode[] = []): Periode[] =>
-  [...periodItems].sort(sortPeriodsByFom).map(p => ({
+  periodItems.toSorted(sortPeriodsByFom).map(p => ({
     ...p,
     status: finnStatus(p),
   }));
