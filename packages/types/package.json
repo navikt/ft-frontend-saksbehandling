@@ -22,9 +22,9 @@
     "@navikt/ft-config-typescript": "workspace:^",
     "@navikt/ft-config-vite": "workspace:^",
     "eslint": "9.39.4",
-    "typescript": "5.9.3",
-    "vite": "7.3.1",
-    "vitest": "4.0.18"
+    "typescript": "6.0.2",
+    "vite": "8.0.3",
+    "vitest": "4.1.2"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
