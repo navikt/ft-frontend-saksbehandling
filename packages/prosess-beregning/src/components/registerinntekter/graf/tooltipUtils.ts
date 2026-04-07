@@ -1,6 +1,6 @@
 import type { IntlShape } from 'react-intl';
 
-import type { CallbackDataParams, TooltipOption } from 'echarts/types/dist/shared';
+import type { DefaultLabelFormatterCallbackParams as CallbackDataParams, TooltipComponentOption as TooltipOption } from 'echarts';
 
 import { formatCurrencyWithKr } from '@navikt/ft-utils';
 
