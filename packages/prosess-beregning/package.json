@@ -41,7 +41,6 @@
   },
   "devDependencies": {
     "@navikt/aksel-icons": "8.9.1",
-    "@navikt/ds-css": "8.9.1",
     "@navikt/ds-react": "8.9.1",
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
@@ -58,7 +57,6 @@
     "@testing-library/react": "16.3.2",
     "@testing-library/user-event": "14.6.1",
     "dayjs": "1.11.20",
-    "echarts": "6.0.0",
     "eslint": "9.39.4",
     "react": "19.2.5",
     "react-hook-form": "7.72.1",

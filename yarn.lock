@@ -2218,7 +2218,6 @@ __metadata:
   resolution: "@navikt/ft-fakta-beregning@workspace:packages/fakta-beregning"
   dependencies:
     "@navikt/aksel-icons": "npm:8.9.1"
-    "@navikt/ds-css": "npm:8.9.1"
     "@navikt/ds-react": "npm:8.9.1"
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
@@ -2269,7 +2268,6 @@ __metadata:
   resolution: "@navikt/ft-fakta-fordel-beregningsgrunnlag@workspace:packages/fakta-fordel-beregningsgrunnlag"
   dependencies:
     "@navikt/aksel-icons": "npm:8.9.1"
-    "@navikt/ds-css": "npm:8.9.1"
     "@navikt/ds-react": "npm:8.9.1"
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
@@ -2317,7 +2315,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-tilbakekreving-feilutbetaling@workspace:packages/fakta-tilbakekreving-feilutbetaling"
   dependencies:
-    "@navikt/ds-css": "npm:8.9.1"
     "@navikt/ds-react": "npm:8.9.1"
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
@@ -2505,7 +2502,6 @@ __metadata:
   resolution: "@navikt/ft-prosess-beregning@workspace:packages/prosess-beregning"
   dependencies:
     "@navikt/aksel-icons": "npm:8.9.1"
-    "@navikt/ds-css": "npm:8.9.1"
     "@navikt/ds-react": "npm:8.9.1"
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
@@ -2554,7 +2550,6 @@ __metadata:
   resolution: "@navikt/ft-prosess-beregningsgrunnlag@workspace:packages/prosess-beregningsgrunnlag"
   dependencies:
     "@navikt/aksel-icons": "npm:8.9.1"
-    "@navikt/ds-css": "npm:8.9.1"
     "@navikt/ds-react": "npm:8.9.1"
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
@@ -2603,7 +2598,6 @@ __metadata:
   resolution: "@navikt/ft-prosess-tilbakekreving-foreldelse@workspace:packages/prosess-tilbakekreving-foreldelse"
   dependencies:
     "@navikt/aksel-icons": "npm:8.9.1"
-    "@navikt/ds-css": "npm:8.9.1"
     "@navikt/ds-react": "npm:8.9.1"
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
@@ -2648,7 +2642,6 @@ __metadata:
   resolution: "@navikt/ft-prosess-tilbakekreving-vedtak@workspace:packages/prosess-tilbakekreving-vedtak"
   dependencies:
     "@navikt/aksel-icons": "npm:8.9.1"
-    "@navikt/ds-css": "npm:8.9.1"
     "@navikt/ds-react": "npm:8.9.1"
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
@@ -2690,7 +2683,6 @@ __metadata:
   resolution: "@navikt/ft-prosess-tilbakekreving@workspace:packages/prosess-tilbakekreving"
   dependencies:
     "@navikt/aksel-icons": "npm:8.9.1"
-    "@navikt/ds-css": "npm:8.9.1"
     "@navikt/ds-react": "npm:8.9.1"
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
