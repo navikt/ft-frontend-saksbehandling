@@ -29,9 +29,6 @@
     "react-dom": "19.x",
     "react-intl": "8.x"
   },
-  "dependencies": {
-    "react-modal": "3.16.1"
-  },
   "devDependencies": {
     "@navikt/aksel-icons": "8.6.0",
     "@navikt/ds-css": "8.6.0",

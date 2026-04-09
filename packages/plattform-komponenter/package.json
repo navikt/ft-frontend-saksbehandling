@@ -21,11 +21,6 @@
     "dev": "vite build --watch --mode development",
     "clean": "rm -rf ./dist ./node_modules"
   },
-  "dependencies": {
-    "@popperjs/core": "2.11.8",
-    "lodash.throttle": "4.1.1",
-    "prop-types": "15.8.1"
-  },
   "peerDependencies": {
     "@navikt/aksel-icons": "8.x",
     "@navikt/ds-css": "8.x",
