@@ -22,7 +22,6 @@
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "8.x",
-    "@navikt/ds-css": "8.x",
     "@navikt/ds-react": "8.x",
     "@navikt/ft-ui-komponenter": "workspace:^",
     "@navikt/ft-utils": "workspace:^",
@@ -33,7 +32,6 @@
   },
   "devDependencies": {
     "@navikt/aksel-icons": "8.6.0",
-    "@navikt/ds-css": "8.6.0",
     "@navikt/ds-react": "8.6.0",
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
