@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-types",
   "description": "Pakke som har typer som blir brukt på tvers av applikasjoner",
-  "version": "5.3.25",
+  "version": "5.4.0",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -9,22 +9,22 @@
     "dist"
   ],
   "scripts": {
-    "tsc": "tsc --pretty",
+    "build": "vite build",
     "eslint": "eslint src/**/*.ts* --color",
     "eslint:fix": "eslint --fix src/**/*.ts* --color",
-    "prettier": "prettier --write src",
+    "prettier:fix": "prettier --write src",
+    "tsc": "tsc --pretty",
     "dev": "vite build --watch --mode development",
-    "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "@navikt/ft-config-vite": "workspace:^",
-    "eslint": "9.39.3",
+    "eslint": "9.39.4",
     "typescript": "5.9.3",
-    "vite": "7.3.1",
-    "vitest": "4.0.18"
+    "vite": "7.3.2",
+    "vitest": "4.1.2"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

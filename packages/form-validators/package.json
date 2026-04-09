@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-form-validators",
   "description": "Valideringsregler for bruk i forms",
-  "version": "4.4.26",
+  "version": "4.5.0",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -9,16 +9,14 @@
     "dist"
   ],
   "scripts": {
+    "build": "vite build",
     "test": "vitest --project=jsdom",
-    "test:watch": "vitest --project=jsdom --watch=true",
     "test:browser": "vitest --project=browser",
-    "test:browser:watch": "vitest --project=browser --watch=true",
-    "tsc": "tsc --pretty",
     "eslint": "eslint src/**/*.ts* --color",
     "eslint:fix": "eslint --fix src/**/*.ts* --color",
-    "prettier": "prettier --write src",
+    "prettier:fix": "prettier --write src",
+    "tsc": "tsc --pretty",
     "dev": "vite build --watch --mode development",
-    "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules"
   },
   "peerDependencies": {
@@ -31,10 +29,10 @@
     "@navikt/ft-config-vite": "workspace:^",
     "@navikt/ft-utils": "workspace:^",
     "dayjs": "1.11.19",
-    "eslint": "9.39.3",
+    "eslint": "9.39.4",
     "typescript": "5.9.3",
-    "vite": "7.3.1",
-    "vitest": "4.0.18"
+    "vite": "7.3.2",
+    "vitest": "4.1.2"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

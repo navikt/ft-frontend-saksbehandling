@@ -1,26 +1,26 @@
 {
   "name": "@navikt/ft-frontend-storybook-utils",
-  "version": "5.6.15",
+  "version": "5.7.0",
   "license": "MIT",
   "type": "module",
   "private": true,
   "scripts": {
-    "tsc": "tsc --pretty",
     "eslint": "eslint {decorators,mocks}/**/*.ts* --color",
     "eslint:fix": "eslint --fix {decorators,mocks}/**/*.ts* --color",
+    "tsc": "tsc --pretty",
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ds-react": "8.6.0",
+    "@navikt/ds-react": "8.9.0",
     "@navikt/ft-form-hooks": "workspace:^",
     "react": "19.2.4",
-    "react-hook-form": "7.71.2",
+    "react-hook-form": "7.72.1",
     "react-intl": "8.1.3"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
-    "eslint": "9.39.3",
+    "eslint": "9.39.4",
     "typescript": "5.9.3"
   }
 }

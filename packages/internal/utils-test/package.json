@@ -1,14 +1,14 @@
 {
   "name": "@navikt/ft-frontend-utils-test",
-  "version": "3.5.22",
+  "version": "3.6.0",
   "license": "MIT",
   "type": "module",
   "private": true,
   "scripts": {
-    "tsc": "tsc --pretty",
     "eslint": "eslint src/**/*.ts* --color",
     "eslint:fix": "eslint --fix src/**/*.ts* --color",
-    "prettier": "prettier --write src",
+    "prettier:fix": "prettier --write src",
+    "tsc": "tsc --pretty",
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
@@ -18,7 +18,7 @@
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
-    "eslint": "9.39.3",
+    "eslint": "9.39.4",
     "typescript": "5.9.3"
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-plattform-komponenter",
   "description": "Pakke som tilbyr sammensatte komponenter som f.eks. menyer",
-  "version": "10.5.14",
+  "version": "10.6.0",
   "license": "MIT",
   "type": "module",
   "module": "./dist/index.es.js",
@@ -10,17 +10,15 @@
     "dist"
   ],
   "scripts": {
+    "build": "vite build",
     "test": "vitest --project=jsdom",
-    "test:watch": "vitest --project=jsdom --watch=true",
     "test:browser": "vitest --project=browser",
-    "test:browser:watch": "vitest --project=browser --watch=true",
-    "tsc": "tsc --pretty",
     "eslint": "eslint src/**/*.ts* --color",
     "eslint:fix": "eslint --fix src/**/*.ts* --color",
+    "prettier:fix": "prettier --write src",
+    "tsc": "tsc --pretty",
     "stylelint": "stylelint src/**/*.module.css",
-    "prettier": "prettier --write src",
     "dev": "vite build --watch --mode development",
-    "build": "vite build",
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
@@ -48,13 +46,13 @@
     "@testing-library/dom": "10.4.1",
     "@testing-library/react": "16.3.2",
     "dayjs": "1.11.19",
-    "eslint": "9.39.3",
+    "eslint": "9.39.4",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "stylelint": "17.4.0",
+    "stylelint": "17.6.0",
     "typescript": "5.9.3",
-    "vite": "7.3.1",
-    "vitest": "4.0.18"
+    "vite": "7.3.2",
+    "vitest": "4.1.2"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
