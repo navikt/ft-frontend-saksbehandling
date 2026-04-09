@@ -2444,7 +2444,6 @@ __metadata:
   resolution: "@navikt/ft-form-hooks@workspace:packages/form-hooks"
   dependencies:
     "@navikt/aksel-icons": "npm:8.6.0"
-    "@navikt/ds-css": "npm:8.6.0"
     "@navikt/ds-react": "npm:8.6.0"
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
@@ -2465,7 +2464,6 @@ __metadata:
     vitest: "npm:4.1.2"
   peerDependencies:
     "@navikt/aksel-icons": 8.x
-    "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
     "@navikt/ft-ui-komponenter": "workspace:^"
     "@navikt/ft-utils": "workspace:^"
