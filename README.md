@@ -23,7 +23,8 @@ En skal alltid utvikle på branch og lage pull request på GitHub. Denne kan mer
 
 ## Autentisering
 
-Dette prosjektet bruker GitHub Package Registry for npm-pakker. For å installere dependencies og publisere pakker trenger du å autentisere mot GitHub Package Registry.
+Dette prosjektet bruker GitHub Package Registry for npm-pakker. For å installere dependencies og publisere pakker
+trenger du å autentisere mot GitHub Package Registry.
 
 ### Oppsett
 
@@ -57,11 +58,23 @@ npmScopes:
 
 **Viktig:** Tokens skal _ikke_ sjekkes inn i versjonskontroll.
 
-Se [GitHubs dokumentasjon](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry) for mer informasjon.
+Se [GitHubs dokumentasjon](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry)
+for mer informasjon.
 
 ## Publisering av moduler
 
 Publisering av npm-moduler skjer automatisk via GitHub Actions når nye tags pushes til `main`.
+
+### GitHub Copilot-skill
+
+Du kan publisere pakker ved hjelp av GitHub Copilot-agenten og skillen [
+`publiser-pakker`](.github/skills/publiser-pakker.md). Åpne Copilot Chat og skriv f.eks.:
+
+> «Publiser pakker» eller «release ft-frontend-saksbehandling»
+
+Copilot vil da kjøre gjennom alle stegene automatisk: hente siste main, installere avhengigheter,
+bygge pakkene, starte interaktiv versjonering og vente på at GitHub Actions fullfører publiseringen.
+Skillen `publiser-pakker` håndterer også feilsituasjoner og viser relevante logger ved behov.
 
 ### Hvorfor er det delt i to steg?
 
@@ -70,7 +83,7 @@ Prosessen er delt i tagging (lokalt) og publisering (gjennom GitHub Actions) for
 - Tillate semantisk versjonering av pakke-endringer med `lerna version`
 - Unngå at utviklere trenger et npm-token med `write` access
 
-### Steg-for-steg publisering
+### Steg-for-steg publisering (manuelt)
 
 1. **Hent siste endringer fra main**
 
@@ -92,20 +105,24 @@ Prosessen er delt i tagging (lokalt) og publisering (gjennom GitHub Actions) for
    ```
 
    Dette kjører interaktiv versjonering via Lerna som:
-   - Lar deg velge versjonsnummer for endrede pakker
-   - Oppretter signerte Git-tags
-   - Pusher tags til GitHub
+  - Lar deg velge versjonsnummer for endrede pakker
+  - Oppretter signerte Git-tags
+  - Pusher tags til GitHub
 
 4. **Verifiser publisering**
-   - Nye tags finner du [her](https://github.com/navikt/ft-frontend-saksbehandling/tags)
-   - GitHub Actions workflow starter automatisk og publiserer pakkene: [Se publish workflow](https://github.com/navikt/ft-frontend-saksbehandling/actions/workflows/publish.yml)
-   - Publiserte pakker finner du [her](https://github.com/orgs/navikt/packages?repo_name=ft-frontend-saksbehandling)
+  - Nye tags finner du [her](https://github.com/navikt/ft-frontend-saksbehandling/tags)
+  - GitHub Actions workflow starter automatisk og publiserer
+    pakkene: [Se publish workflow](https://github.com/navikt/ft-frontend-saksbehandling/actions/workflows/publish.yml)
+  - Publiserte pakker finner du [her](https://github.com/orgs/navikt/packages?repo_name=ft-frontend-saksbehandling)
 
-   - Tips: Hvis du skal publisere en ny pakke kan det hende at workflowen feiler å publisere. I såfall sjekk opp pakken på https://github.com/orgs/navikt/packages > finn pakken > Package settings > Pacakge visibility > Endre til _public_
+  - Tips: Hvis du skal publisere en ny pakke kan det hende at workflowen feiler å publisere. I såfall sjekk opp pakken
+    på https://github.com/orgs/navikt/packages > finn pakken > Package settings > Pacakge visibility > Endre til
+    _public_
 
 ### Ta i bruk nye pakker
 
-For å bruke de nye pakkene i [fp-frontend](https://github.com/navikt/fp-frontend) eller [k9-sak-web](https://github.com/navikt/k9-sak-web):
+For å bruke de nye pakkene i [fp-frontend](https://github.com/navikt/fp-frontend)
+eller [k9-sak-web](https://github.com/navikt/k9-sak-web):
 
 ```bash
 yarn upgrade-interactive
@@ -136,21 +153,21 @@ Dette gir deg mulighet til å teste lokale endringer i ft-frontend-saksbehandlin
    ```
 
 3. **Start lokal pakke-utvikling**
-   - Gå til aktuell pakke
-   - Kjør `yarn dev`
-   - Dette bygger pakken automatisk ved endringer og legger resultatet i dist-folderen
+  - Gå til aktuell pakke
+  - Kjør `yarn dev`
+  - Dette bygger pakken automatisk ved endringer og legger resultatet i dist-folderen
 
 4. **Koble pakken til konsument-repoet**
-   - I konsument-repoet (f.eks. fp-frontend eller k9-sak-web), rediger `package.json`
-   - Endre dependency til å bruke portal:
-     ```json
-     "@navikt/ft-prosess-beregningsgrunnlag": "portal:../../../ft-frontend-saksbehandling/packages/prosess-beregningsgrunnlag"
-     ```
-   - Kjør `yarn install` i konsument-repoet
+  - I konsument-repoet (f.eks. fp-frontend eller k9-sak-web), rediger `package.json`
+  - Endre dependency til å bruke portal:
+    ```json
+    "@navikt/ft-prosess-beregningsgrunnlag": "portal:../../../ft-frontend-saksbehandling/packages/prosess-beregningsgrunnlag"
+    ```
+  - Kjør `yarn install` i konsument-repoet
 
 5. **Start applikasjon**
-   - Start opp applikasjonen som normalt
-   - Endringer i ft-frontend-saksbehandling vil nå reflekteres automatisk
+  - Start opp applikasjonen som normalt
+  - Endringer i ft-frontend-saksbehandling vil nå reflekteres automatisk
 
 ### Rydding
 
