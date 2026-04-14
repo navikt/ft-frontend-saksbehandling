@@ -4,7 +4,6 @@ import isoWeek from 'dayjs/plugin/isoWeek';
 import utc from 'dayjs/plugin/utc';
 
 import { createIntl } from './createIntl';
-import { dateFormat } from './dateFormat';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from './formats';
 
 import messages from '../i18n/nb_NO.json';
@@ -30,11 +29,7 @@ type WeekAndDay = {
   days?: number;
 };
 
-export const initializeDate = (
-  dateString?: string | Dayjs | Date,
-  dateStringFormat?: string | string[],
-  strict?: boolean,
-) => {
+const initializeDate = (dateString?: string | Dayjs | Date, dateStringFormat?: string | string[], strict?: boolean) => {
   const supportedFormats = dateStringFormat || [ISO_DATE_FORMAT, DDMMYYYY_DATE_FORMAT];
   return dayjs(dateString, supportedFormats, strict).utc(true).startOf('day');
 };
@@ -144,35 +139,16 @@ export const findDifferenceInMonthsAndDays = (
     return undefined;
   }
 
-  let months = 0;
-  let days = 0;
-
   // Calculate the full months between the two dates
-  months = tDate.diff(fDate, 'month');
+  const months = tDate.diff(fDate, 'month');
   const remainingDays = tDate.subtract(months, 'month');
 
   // Calculate the remaining days after full months are taken out
-  days = remainingDays.diff(fDate, 'day');
-
   // Include both the start and end date
-  days += 1;
+  const days = remainingDays.diff(fDate, 'day') + 1;
 
   return {
     months,
     days,
   };
-};
-
-/**
- * @deprecated Bruk dateFormat istedenfor
- */
-export const prettifyDateString = (dateString: string) => {
-  return dateFormat(dateString);
-};
-
-export const isSameOrBefore = (date: string | Dayjs | Date, otherDate: string | Dayjs | Date) => {
-  const dateFormats = [ISO_DATE_FORMAT, DDMMYYYY_DATE_FORMAT];
-  const dateInQuestion = initializeDate(date, dateFormats);
-  const formattedOtherDate = initializeDate(otherDate, dateFormats);
-  return dateInQuestion.isBefore(formattedOtherDate) || dateInQuestion.isSame(formattedOtherDate);
 };
