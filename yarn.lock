@@ -2248,6 +2248,7 @@ __metadata:
     "@navikt/ft-ui-komponenter": "workspace:^"
     "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
+    react: 19.x
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
