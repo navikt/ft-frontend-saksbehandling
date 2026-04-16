@@ -2176,6 +2176,8 @@ __metadata:
     eslint-plugin-simple-import-sort: "npm:12.1.1"
     eslint-plugin-storybook: "npm:10.3.5"
     globals: "npm:17.4.0"
+    storybook: "npm:10.3.5"
+    typescript: "npm:5.9.3"
     typescript-eslint: "npm:8.58.1"
   languageName: unknown
   linkType: soft
@@ -2223,6 +2225,7 @@ __metadata:
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.2"
     "@testing-library/user-event": "npm:14.6.1"
+    "@types/react": "npm:19.2.14"
     dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
     react: "npm:19.2.5"
@@ -2273,9 +2276,11 @@ __metadata:
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.2"
     "@testing-library/user-event": "npm:14.6.1"
+    "@types/react": "npm:19.2.14"
     dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
     react: "npm:19.2.5"
+    react-dom: "npm:19.2.5"
     react-hook-form: "npm:7.72.1"
     react-intl: "npm:8.1.4"
     stylelint: "npm:17.6.0"
@@ -2295,6 +2300,7 @@ __metadata:
     "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
+    react-dom: 19.x
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2304,6 +2310,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-tilbakekreving-feilutbetaling@workspace:packages/fakta-tilbakekreving-feilutbetaling"
   dependencies:
+    "@navikt/aksel-icons": "npm:8.9.1"
     "@navikt/ds-react": "npm:8.9.1"
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
@@ -2318,8 +2325,11 @@ __metadata:
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.2"
     "@testing-library/user-event": "npm:14.6.1"
+    "@types/react": "npm:19.2.14"
+    dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
     react: "npm:19.2.5"
+    react-dom: "npm:19.2.5"
     react-hook-form: "npm:7.72.1"
     react-intl: "npm:8.1.4"
     stylelint: "npm:17.6.0"
@@ -2327,6 +2337,7 @@ __metadata:
     vite: "npm:7.3.2"
     vitest: "npm:4.1.4"
   peerDependencies:
+    "@navikt/aksel-icons": 8.x
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
     "@navikt/ft-form-hooks": "workspace:^"
@@ -2335,7 +2346,9 @@ __metadata:
     "@navikt/ft-types": "workspace:^"
     "@navikt/ft-ui-komponenter": "workspace:^"
     "@navikt/ft-utils": "workspace:^"
+    dayjs: 1.x
     react: 19.x
+    react-dom: 19.x
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2355,6 +2368,7 @@ __metadata:
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.2"
     "@testing-library/user-event": "npm:14.6.1"
+    "@types/react": "npm:19.2.14"
     dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
     react: "npm:19.2.5"
@@ -2403,8 +2417,10 @@ __metadata:
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-form-hooks": "workspace:^"
+    "@types/react": "npm:19.2.14"
     eslint: "npm:9.39.4"
     react: "npm:19.2.5"
+    react-dom: "npm:19.2.5"
     react-hook-form: "npm:7.72.1"
     react-intl: "npm:8.1.4"
     typescript: "npm:5.9.3"
@@ -2417,6 +2433,7 @@ __metadata:
   dependencies:
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
+    "@types/react": "npm:19.2.14"
     eslint: "npm:9.39.4"
     react: "npm:19.2.5"
     react-intl: "npm:8.1.4"
@@ -2431,9 +2448,11 @@ __metadata:
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
+    "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.2"
     eslint: "npm:9.39.4"
     react: "npm:19.2.5"
+    react-dom: "npm:19.2.5"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.2"
     vitest: "npm:4.1.4"
@@ -2468,6 +2487,7 @@ __metadata:
     "@navikt/ft-utils": "workspace:^"
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.2"
+    "@types/react": "npm:19.2.14"
     dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
     react: "npm:19.2.5"
@@ -2506,10 +2526,12 @@ __metadata:
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.2"
     "@testing-library/user-event": "npm:14.6.1"
+    "@types/react": "npm:19.2.14"
     dayjs: "npm:1.11.20"
     echarts: "npm:6.0.0"
     eslint: "npm:9.39.4"
     react: "npm:19.2.5"
+    react-dom: "npm:19.2.5"
     react-hook-form: "npm:7.72.1"
     react-intl: "npm:8.1.4"
     stylelint: "npm:17.6.0"
@@ -2529,6 +2551,7 @@ __metadata:
     "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
+    react-dom: 19.x
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2554,10 +2577,12 @@ __metadata:
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.2"
     "@testing-library/user-event": "npm:14.6.1"
+    "@types/react": "npm:19.2.14"
     dayjs: "npm:1.11.20"
     echarts: "npm:6.0.0"
     eslint: "npm:9.39.4"
     react: "npm:19.2.5"
+    react-dom: "npm:19.2.5"
     react-hook-form: "npm:7.72.1"
     react-intl: "npm:8.1.4"
     stylelint: "npm:17.6.0"
@@ -2577,6 +2602,7 @@ __metadata:
     "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
+    react-dom: 19.x
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2600,9 +2626,11 @@ __metadata:
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.2"
     "@testing-library/user-event": "npm:14.6.1"
+    "@types/react": "npm:19.2.14"
     dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
     react: "npm:19.2.5"
+    react-dom: "npm:19.2.5"
     react-hook-form: "npm:7.72.1"
     react-intl: "npm:8.1.4"
     stylelint: "npm:17.6.0"
@@ -2621,6 +2649,7 @@ __metadata:
     "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
+    react-dom: 19.x
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2644,8 +2673,11 @@ __metadata:
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.2"
     "@testing-library/user-event": "npm:14.6.1"
+    "@types/react": "npm:19.2.14"
+    dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
     react: "npm:19.2.5"
+    react-dom: "npm:19.2.5"
     react-hook-form: "npm:7.72.1"
     react-intl: "npm:8.1.4"
     stylelint: "npm:17.6.0"
@@ -2661,7 +2693,9 @@ __metadata:
     "@navikt/ft-types": "workspace:^"
     "@navikt/ft-ui-komponenter": "workspace:^"
     "@navikt/ft-utils": "workspace:^"
+    dayjs: 1.x
     react: 19.x
+    react-dom: 19.x
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2686,9 +2720,11 @@ __metadata:
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.2"
     "@testing-library/user-event": "npm:14.6.1"
+    "@types/react": "npm:19.2.14"
     dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
     react: "npm:19.2.5"
+    react-dom: "npm:19.2.5"
     react-hook-form: "npm:7.72.1"
     react-intl: "npm:8.1.4"
     stylelint: "npm:17.6.0"
@@ -2707,6 +2743,7 @@ __metadata:
     "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
+    react-dom: 19.x
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2739,6 +2776,8 @@ __metadata:
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.2"
     "@testing-library/user-event": "npm:14.6.1"
+    "@types/react": "npm:19.2.14"
+    dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
     react: "npm:19.2.5"
     react-dom: "npm:19.2.5"
@@ -2751,6 +2790,7 @@ __metadata:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-react": 8.x
     "@navikt/ft-utils": "workspace:^"
+    dayjs: 1.x
     react: 19.x
     react-dom: 19.x
     react-intl: 8.x
@@ -2764,6 +2804,7 @@ __metadata:
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
+    "@types/react": "npm:19.2.14"
     dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
     react: "npm:19.2.5"
@@ -2773,7 +2814,6 @@ __metadata:
     vitest: "npm:4.1.4"
   peerDependencies:
     dayjs: 1.x
-    react: 19.x
     react-intl: 8.x
   languageName: unknown
   linkType: soft
@@ -8037,6 +8077,8 @@ __metadata:
     lerna: "npm:9.0.7"
     lint-staged: "npm:16.4.0"
     prettier: "npm:3.8.1"
+    react: "npm:19.2.5"
+    react-dom: "npm:19.2.5"
     storybook: "npm:10.3.5"
     stylelint: "npm:17.6.0"
     stylelint-order: "npm:8.1.1"
@@ -8044,6 +8086,7 @@ __metadata:
     vite: "npm:7.3.2"
     vite-plugin-circular-dependency: "npm:0.5.0"
     vite-plugin-dts: "npm:4.5.4"
+    vitest: "npm:4.1.4"
     vitest-canvas-mock: "npm:1.1.4"
   languageName: unknown
   linkType: soft
