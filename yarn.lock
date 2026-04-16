@@ -2502,6 +2502,7 @@ __metadata:
     "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
+    react-dom: 19.x
   languageName: unknown
   linkType: soft
 

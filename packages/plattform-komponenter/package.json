@@ -26,7 +26,8 @@
     "@navikt/ds-react": "8.x",
     "@navikt/ft-utils": "workspace:^",
     "dayjs": "1.x",
-    "react": "19.x"
+    "react": "19.x",
+    "react-dom": "19.x"
   },
   "devDependencies": {
     "@navikt/aksel-icons": "8.9.1",
