@@ -27,6 +27,7 @@
     "@navikt/ft-utils": "workspace:^",
     "dayjs": "1.x",
     "react": "19.x",
+    "react-dom": "19.x",
     "react-hook-form": "7.x"
   },
   "devDependencies": {

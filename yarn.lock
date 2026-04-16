@@ -2249,6 +2249,7 @@ __metadata:
     "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
+    react-dom: 19.x
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2299,6 +2300,7 @@ __metadata:
     "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
+    react-dom: 19.x
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2346,6 +2348,7 @@ __metadata:
     "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
+    react-dom: 19.x
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2382,6 +2385,7 @@ __metadata:
     "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
+    react-dom: 19.x
     react-hook-form: 7.x
   languageName: unknown
   linkType: soft
@@ -2546,6 +2550,7 @@ __metadata:
     "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
+    react-dom: 19.x
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2596,6 +2601,7 @@ __metadata:
     "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
+    react-dom: 19.x
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2642,6 +2648,7 @@ __metadata:
     "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
+    react-dom: 19.x
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2687,6 +2694,7 @@ __metadata:
     "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
+    react-dom: 19.x
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2734,6 +2742,7 @@ __metadata:
     "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
+    react-dom: 19.x
     react-hook-form: 7.x
     react-intl: 8.x
   languageName: unknown
@@ -2782,6 +2791,7 @@ __metadata:
     "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
+    react-dom: 19.x
     react-intl: 8.x
   languageName: unknown
   linkType: soft

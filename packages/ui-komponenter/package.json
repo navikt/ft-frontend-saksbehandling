@@ -26,6 +26,7 @@
     "@navikt/ft-utils": "workspace:^",
     "dayjs": "1.x",
     "react": "19.x",
+    "react-dom": "19.x",
     "react-intl": "8.x"
   },
   "devDependencies": {
