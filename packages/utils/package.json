@@ -20,13 +20,13 @@
   },
   "peerDependencies": {
     "dayjs": "1.x",
-    "react": "19.x",
     "react-intl": "8.x"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "@navikt/ft-config-vite": "workspace:^",
+    "@types/react": "19.2.14",
     "dayjs": "1.11.20",
     "eslint": "9.39.4",
     "react": "19.2.5",
