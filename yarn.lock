@@ -2173,7 +2173,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:7.0.1"
     eslint-plugin-react-refresh: "npm:0.5.2"
     eslint-plugin-react-you-might-not-need-an-effect: "npm:0.9.3"
-    eslint-plugin-simple-import-sort: "npm:12.1.1"
+    eslint-plugin-simple-import-sort: "npm:13.0.0"
     eslint-plugin-storybook: "npm:10.3.5"
     globals: "npm:17.4.0"
     storybook: "npm:10.3.5"
@@ -7472,12 +7472,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-simple-import-sort@npm:12.1.1":
-  version: 12.1.1
-  resolution: "eslint-plugin-simple-import-sort@npm:12.1.1"
+"eslint-plugin-simple-import-sort@npm:13.0.0":
+  version: 13.0.0
+  resolution: "eslint-plugin-simple-import-sort@npm:13.0.0"
   peerDependencies:
     eslint: ">=5.0.0"
-  checksum: 10/2a690cea9243fbefa70345687bca8952f5e185fa459b7a8db687a908cc31082435cfee236c619d5245548fa5f89a2f2c4f8499f80512e048d2bedc60e3662d5a
+  checksum: 10/4ef64b0e13e6c22d929b4d8f4c68dcb001ecc273b0be7ef1318278bafef4942dcb1454f099e506dcf8bcf729311ad3f7c255a688ab06e71265f5dec4111cb71d
   languageName: node
   linkType: hard
 
@@ -8073,7 +8073,7 @@ __metadata:
     fast-glob: "npm:3.3.3"
     husky: "npm:9.1.7"
     jsdom: "npm:29.0.2"
-    knip: "npm:6.2.0"
+    knip: "npm:6.3.1"
     lerna: "npm:9.0.7"
     lint-staged: "npm:16.4.0"
     prettier: "npm:3.8.1"
@@ -9630,9 +9630,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:6.2.0":
-  version: 6.2.0
-  resolution: "knip@npm:6.2.0"
+"knip@npm:6.3.1":
+  version: 6.3.1
+  resolution: "knip@npm:6.3.1"
   dependencies:
     "@nodelib/fs.walk": "npm:^1.2.3"
     fast-glob: "npm:^3.3.3"
@@ -9652,7 +9652,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/a8e624437209d3011697b45f30ee3643ff756565b2434cdc07cc6d58850a5a06f85d3a6586912b39fded7c56eb8f1e3298c4008df2ef396617d0e38cccc0b35b
+  checksum: 10/575949d918259b05f464b2fe89076fa0c6c31905dda5f857b6843c65412f35d0ec55dd19abf151f190bc32fe3dd8cb74cccb91b3d6257e1dc43f204d1731e8f6
   languageName: node
   linkType: hard
 
