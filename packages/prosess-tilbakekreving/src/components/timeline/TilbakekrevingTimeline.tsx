@@ -16,6 +16,8 @@ import {
 import { Button, HStack, Timeline, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
+import { sortPeriodsByFom } from '@navikt/ft-utils';
+
 import type { KodeverkMedNavn } from '../../types/kodeverkMedNavn';
 import type { RelasjonsRolleType } from '../../types/RelasjonsRolleType';
 import type { TidslinjePeriode } from '../../types/TidslinjePeriode';
@@ -35,23 +37,13 @@ const PERIODE_STATUS_IKON_MAP = {
   warning: <ExclamationmarkTriangleIcon />,
 } as Record<string, ReactElement>;
 
-const sortByDate = (a: TidslinjePeriode, b: TidslinjePeriode) => {
-  if (a.fom < b.fom) {
-    return -1;
-  }
-  if (a.fom > b.fom) {
-    return 1;
-  }
-  return 0;
-};
-
 const finnStatus = (periode: TidslinjePeriode): 'success' | 'danger' | 'warning' => {
   const status = periode.isGodkjent ? 'success' : 'danger';
   return periode.isAksjonspunktOpen ? 'warning' : status;
 };
 
 const formaterPerioder = (periodItems: TidslinjePeriode[] = []): Periode[] =>
-  [...periodItems].sort(sortByDate).map(p => ({
+  periodItems.toSorted(sortPeriodsByFom).map(p => ({
     ...p,
     status: finnStatus(p),
   }));

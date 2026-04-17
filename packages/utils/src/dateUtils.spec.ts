@@ -6,7 +6,6 @@ import {
   calcDaysAndWeeksWithWeekends,
   createWeekAndDay,
   findDifferenceInMonthsAndDays,
-  isValidDate,
 } from './dateUtils';
 
 describe('dateUtils', () => {
@@ -140,25 +139,6 @@ describe('dateUtils', () => {
         months: 2,
         days: 22,
       });
-    });
-  });
-
-  describe('isValidDate', () => {
-    it.each([
-      '12-07-12',
-      '2012-07-12',
-      '2012-07',
-      '2012',
-      '2012-07-12T12:27:34.653Z',
-      '2012.07.12',
-      '2012.07',
-      1342051200000,
-    ])('skal validere gyldig dato %s', date => {
-      expect(isValidDate(date)).toBeTruthy();
-    });
-
-    it.each(['22-07-2012', '2. mai', undefined])('skal validere ugyldig dato %s', date => {
-      expect(isValidDate(date)).toBeFalsy();
     });
   });
 });

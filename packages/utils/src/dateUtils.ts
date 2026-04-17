@@ -4,8 +4,7 @@ import isoWeek from 'dayjs/plugin/isoWeek';
 import utc from 'dayjs/plugin/utc';
 
 import { createIntl } from './createIntl';
-import { dateFormat, timeFormat } from './dateFormat';
-import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT, YYYY_MM_FORMAT } from './formats';
+import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from './formats';
 
 import messages from '../i18n/nb_NO.json';
 
@@ -30,11 +29,7 @@ type WeekAndDay = {
   days?: number;
 };
 
-export const initializeDate = (
-  dateString?: string | Dayjs | Date,
-  dateStringFormat?: string | string[],
-  strict?: boolean,
-) => {
+const initializeDate = (dateString?: string | Dayjs | Date, dateStringFormat?: string | string[], strict?: boolean) => {
   const supportedFormats = dateStringFormat || [ISO_DATE_FORMAT, DDMMYYYY_DATE_FORMAT];
   return dayjs(dateString, supportedFormats, strict).utc(true).startOf('day');
 };
@@ -144,67 +139,16 @@ export const findDifferenceInMonthsAndDays = (
     return undefined;
   }
 
-  let months = 0;
-  let days = 0;
-
   // Calculate the full months between the two dates
-  months = tDate.diff(fDate, 'month');
+  const months = tDate.diff(fDate, 'month');
   const remainingDays = tDate.subtract(months, 'month');
 
   // Calculate the remaining days after full months are taken out
-  days = remainingDays.diff(fDate, 'day');
-
   // Include both the start and end date
-  days += 1;
+  const days = remainingDays.diff(fDate, 'day') + 1;
 
   return {
     months,
     days,
   };
-};
-
-export const getRangeOfMonths = (fom: string, tom: string): { month: string; year: string }[] => {
-  dayjs.locale('nb');
-  const fraMåned = initializeDate(fom, YYYY_MM_FORMAT);
-  const tilMåned = initializeDate(tom, YYYY_MM_FORMAT);
-  let currentMonth = fraMåned;
-  const range = [
-    {
-      month: currentMonth.format('MMMM'),
-      year: currentMonth.format('YY'),
-    },
-  ];
-
-  while (currentMonth.isBefore(tilMåned)) {
-    currentMonth = currentMonth.add(1, 'month');
-    range.push({
-      month: currentMonth.format('MMMM'),
-      year: currentMonth.format('YY'),
-    });
-  }
-
-  return range;
-};
-
-export const prettifyDateString = (dateString: string) => {
-  const dateObject = initializeDate(dateString);
-  return dateObject.format(DDMMYYYY_DATE_FORMAT);
-};
-
-export const isSameOrBefore = (date: string | Dayjs | Date, otherDate: string | Dayjs | Date) => {
-  const dateFormats = [ISO_DATE_FORMAT, DDMMYYYY_DATE_FORMAT];
-  const dateInQuestion = initializeDate(date, dateFormats);
-  const formattedOtherDate = initializeDate(otherDate, dateFormats);
-  return dateInQuestion.isBefore(formattedOtherDate) || dateInQuestion.isSame(formattedOtherDate);
-};
-
-export const isValidDate = (date: any) => !Number.isNaN(new Date(date).valueOf());
-
-export const getDateAndTime = (tidspunkt?: string): { date: string; time: string } | undefined => {
-  if (!tidspunkt) {
-    return undefined;
-  }
-  const date = dateFormat(tidspunkt);
-  const time = timeFormat(tidspunkt);
-  return { date, time };
 };
