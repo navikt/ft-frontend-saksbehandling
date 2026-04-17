@@ -14,8 +14,6 @@ export {
   findDifferenceInMonthsAndDays,
   TIDENES_MORGEN,
   TIDENES_ENDE,
-  getRangeOfMonths,
-  getDateAndTime,
 } from './src/dateUtils';
 export { dateFormat, dateTimeFormat, timeFormat } from './src/dateFormat';
 export type { DateFormatOptions, DateTimeFormatOptions } from './src/dateFormat';
@@ -39,8 +37,6 @@ export { notNull, isObjectEmpty, diff, isEqual, isObject, omit, omitOne, omitMan
 export { createIntl } from './src/createIntl';
 export { BTag } from './src/createTags';
 
-export { Period, sortPeriodsByFomDate } from './src/Period';
-export { prettifyDateString } from './src/dateUtils';
 export { sortPeriodsByFom, sortPeriodsBy, periodFormat } from './src/periodUtils';
 export { formaterArbeidsgiver } from './src/arbeidsgiverUtils';
 export { isAksjonspunktOpen, hasAksjonspunkt } from './src/aksjonspunktUtils';

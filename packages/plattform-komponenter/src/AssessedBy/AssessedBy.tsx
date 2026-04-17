@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { PersonPencilFillIcon } from '@navikt/aksel-icons';
 import { BodyShort } from '@navikt/ds-react';
 
-import { prettifyDateString } from '@navikt/ft-utils';
+import { dateFormat } from '@navikt/ft-utils';
 
 import { SaksbehandlernavnContext } from './SaksbehandlernavnContext';
 
@@ -22,7 +22,7 @@ export const AssessedBy = ({ ident, date }: IAssessedByProps) => {
     return null;
   }
   const name = saksbehandlernavn[ident] ?? ident;
-  const formattedDate = date ? `, ${prettifyDateString(date)}` : '';
+  const formattedDate = date ? `, ${dateFormat(date)}` : '';
 
   return (
     <div className={styles['assessed-by']}>
