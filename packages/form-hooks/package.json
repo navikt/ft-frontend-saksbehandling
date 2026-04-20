@@ -47,7 +47,7 @@
     "react": "19.2.5",
     "react-dom": "19.2.5",
     "react-hook-form": "7.72.1",
-    "stylelint": "17.6.0",
+    "stylelint": "17.7.0",
     "typescript": "5.9.3",
     "vite": "7.3.2",
     "vitest": "4.1.4"
