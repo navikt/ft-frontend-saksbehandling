@@ -68,7 +68,7 @@ Publisering av npm-moduler skjer automatisk via GitHub Actions når nye tags pus
 ### GitHub Copilot-skill
 
 Du kan publisere pakker ved hjelp av GitHub Copilot-agenten og skillen [
-`publiser-pakker`](.github/skills/publiser-pakker.md). Åpne Copilot Chat og skriv f.eks.:
+`publiser-pakker`](.github/skills/SKILL.md). Åpne Copilot Chat og skriv f.eks.:
 
 > «Publiser pakker» eller «release ft-frontend-saksbehandling»
 
