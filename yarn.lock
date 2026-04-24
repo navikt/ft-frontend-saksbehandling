@@ -2208,7 +2208,7 @@ __metadata:
     react-dom: "npm:19.2.5"
     react-hook-form: "npm:7.72.1"
     react-intl: "npm:10.1.2"
-    stylelint: "npm:17.7.0"
+    stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.2"
     vitest: "npm:4.1.4"
@@ -2259,7 +2259,7 @@ __metadata:
     react-dom: "npm:19.2.5"
     react-hook-form: "npm:7.72.1"
     react-intl: "npm:10.1.2"
-    stylelint: "npm:17.7.0"
+    stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.2"
     vitest: "npm:4.1.4"
@@ -2308,7 +2308,7 @@ __metadata:
     react-dom: "npm:19.2.5"
     react-hook-form: "npm:7.72.1"
     react-intl: "npm:10.1.2"
-    stylelint: "npm:17.7.0"
+    stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.2"
     vitest: "npm:4.1.4"
@@ -2350,7 +2350,7 @@ __metadata:
     react: "npm:19.2.5"
     react-dom: "npm:19.2.5"
     react-hook-form: "npm:7.72.1"
-    stylelint: "npm:17.7.0"
+    stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.2"
     vitest: "npm:4.1.4"
@@ -2468,7 +2468,7 @@ __metadata:
     eslint: "npm:9.39.4"
     react: "npm:19.2.5"
     react-dom: "npm:19.2.5"
-    stylelint: "npm:17.7.0"
+    stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.2"
     vitest: "npm:4.1.4"
@@ -2510,7 +2510,7 @@ __metadata:
     react-dom: "npm:19.2.5"
     react-hook-form: "npm:7.72.1"
     react-intl: "npm:10.1.2"
-    stylelint: "npm:17.7.0"
+    stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.2"
     vitest: "npm:4.1.4"
@@ -2561,7 +2561,7 @@ __metadata:
     react-dom: "npm:19.2.5"
     react-hook-form: "npm:7.72.1"
     react-intl: "npm:10.1.2"
-    stylelint: "npm:17.7.0"
+    stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.2"
     vitest: "npm:4.1.4"
@@ -2609,7 +2609,7 @@ __metadata:
     react-dom: "npm:19.2.5"
     react-hook-form: "npm:7.72.1"
     react-intl: "npm:10.1.2"
-    stylelint: "npm:17.7.0"
+    stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.2"
     vitest: "npm:4.1.4"
@@ -2656,7 +2656,7 @@ __metadata:
     react-dom: "npm:19.2.5"
     react-hook-form: "npm:7.72.1"
     react-intl: "npm:10.1.2"
-    stylelint: "npm:17.7.0"
+    stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.2"
     vitest: "npm:4.1.4"
@@ -2703,7 +2703,7 @@ __metadata:
     react-dom: "npm:19.2.5"
     react-hook-form: "npm:7.72.1"
     react-intl: "npm:10.1.2"
-    stylelint: "npm:17.7.0"
+    stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.2"
     vitest: "npm:4.1.4"
@@ -2758,7 +2758,7 @@ __metadata:
     react: "npm:19.2.5"
     react-dom: "npm:19.2.5"
     react-intl: "npm:10.1.2"
-    stylelint: "npm:17.7.0"
+    stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.2"
     vitest: "npm:4.1.4"
@@ -8026,11 +8026,11 @@ __metadata:
     knip: "npm:6.4.1"
     lerna: "npm:9.0.7"
     lint-staged: "npm:16.4.0"
-    prettier: "npm:3.8.2"
+    prettier: "npm:3.8.3"
     react: "npm:19.2.5"
     react-dom: "npm:19.2.5"
     storybook: "npm:10.3.5"
-    stylelint: "npm:17.7.0"
+    stylelint: "npm:17.8.0"
     stylelint-order: "npm:8.1.1"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.2"
@@ -11783,6 +11783,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss@npm:^8.5.9":
+  version: 8.5.10
+  resolution: "postcss@npm:8.5.10"
+  dependencies:
+    nanoid: "npm:^3.3.11"
+    picocolors: "npm:^1.1.1"
+    source-map-js: "npm:^1.2.1"
+  checksum: 10/7eac6169e535b63c8412e94d4f6047fc23efa3e9dde804b541940043c831b25f1cd867d83cd2c4371ad2450c8abcb42c208aa25668c1f0f3650d7f72faf711a8
+  languageName: node
+  linkType: hard
+
 "prelude-ls@npm:^1.2.1":
   version: 1.2.1
   resolution: "prelude-ls@npm:1.2.1"
@@ -11790,12 +11801,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.8.2":
-  version: 3.8.2
-  resolution: "prettier@npm:3.8.2"
+"prettier@npm:3.8.3":
+  version: 3.8.3
+  resolution: "prettier@npm:3.8.3"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10/fd784175bc600c07eb2c44d7ec4ee7133f95f26492adad61b6a15c06f438b858181faf096ab74163d7f49500ad80cff4479c6abb084e161a2e85a9df5974ecd1
+  checksum: 10/4b3b12cbb29e4c96bed936e5d070167552500c18d37676fb3e0caae6199c42860662608e4dc116230698f6e2bb0267ef2548158224c92d40f188d309d72fdd6f
   languageName: node
   linkType: hard
 
@@ -13317,9 +13328,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:17.7.0":
-  version: 17.7.0
-  resolution: "stylelint@npm:17.7.0"
+"stylelint@npm:17.8.0":
+  version: 17.8.0
+  resolution: "stylelint@npm:17.8.0"
   dependencies:
     "@csstools/css-calc": "npm:^3.1.1"
     "@csstools/css-parser-algorithms": "npm:^4.0.0"
@@ -13348,7 +13359,7 @@ __metadata:
     micromatch: "npm:^4.0.8"
     normalize-path: "npm:^3.0.0"
     picocolors: "npm:^1.1.1"
-    postcss: "npm:^8.5.8"
+    postcss: "npm:^8.5.9"
     postcss-safe-parser: "npm:^7.0.1"
     postcss-selector-parser: "npm:^7.1.1"
     postcss-value-parser: "npm:^4.2.0"
@@ -13359,7 +13370,7 @@ __metadata:
     write-file-atomic: "npm:^7.0.1"
   bin:
     stylelint: bin/stylelint.mjs
-  checksum: 10/0a3ec47ee872b363394a4f4d120b32ae0942ef1cee53da3007fdb1afd585fe32175568e0e8be6795175f1ec5f348293087baf31145542d8aaff2568ebdee849d
+  checksum: 10/960fa9f4c12e8cb87821a17d7d983a365ed5459d0a04560dc026d7f4b07cc7ad81aaeb82fde60599bae4753cb8c9600082563b77a1a53a3df2b8468a0a23ef2d
   languageName: node
   linkType: hard
 
