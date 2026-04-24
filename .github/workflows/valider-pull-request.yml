@@ -12,7 +12,7 @@ jobs:
         with:
           npmAuthToken: ${{ secrets.READER_TOKEN }}
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v6.3.0
         with:
           node-version: 22.17.1
           cache: 'yarn'
@@ -53,7 +53,7 @@ jobs:
         with:
           npmAuthToken: ${{ secrets.READER_TOKEN }}
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v6.3.0
         with:
           node-version: 22.17.1
           cache: 'yarn'
