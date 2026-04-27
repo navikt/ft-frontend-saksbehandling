@@ -39,6 +39,14 @@ jobs:
         if: contains(github.event.pull_request.title, 'storybook')
         run: yarn build:storybook
 
+  sif-code-scan:
+    runs-on: ubuntu-latest
+    name: "SIF Code Scan"
+    steps:
+      - uses: actions/checkout@v6
+      - uses: navikt/sif-gha-workflows/.github/actions/sif-code-scan@v1
+
+
   knip-it:
     name: Kjør knip
     runs-on: ubuntu-latest
@@ -80,10 +88,3 @@ jobs:
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  sif-code-scan:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: navikt/sif-gha-workflows/.github/actions/sif-code-scan@v1
-
