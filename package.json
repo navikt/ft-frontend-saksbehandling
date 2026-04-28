@@ -69,7 +69,8 @@
     "vitest-canvas-mock": "1.1.4"
   },
   "resolutions": {
-    "tmp": "^0.2.5"
+    "tmp": "^0.2.5",
+    "@microsoft/api-extractor/minimatch": "^3.1.4"
   },
   "workspaces": {
     "packages": [
