@@ -14,7 +14,7 @@
     "@navikt/ds-react": "8.9.1",
     "@navikt/ft-form-hooks": "workspace:^",
     "react": "19.2.5",
-    "react-hook-form": "7.72.1",
+    "react-hook-form": "7.73.1",
     "react-intl": "10.1.2"
   },
   "devDependencies": {
@@ -23,6 +23,6 @@
     "@types/react": "19.2.14",
     "eslint": "9.39.4",
     "react-dom": "19.2.5",
-    "typescript": "5.9.3"
+    "typescript": "6.0.3"
   }
 }
