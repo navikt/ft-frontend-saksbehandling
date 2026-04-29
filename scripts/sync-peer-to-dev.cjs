@@ -27,7 +27,8 @@ for (const f of pkgFiles) {
 const isPrepublish = process.argv.includes('--prepublish');
 
 if (isPrepublish) {
-  // Pre-publish mode: replace workspace:^ in peerDependencies with real major-wildcard versions
+  // Pre-publish mode: replace workspace:^ and exact versions in peerDependencies
+  // with major-wildcard versions (e.g. 5.x) for all workspace packages,
   // so consumers don't receive unresolvable workspace: protocol references in published packages.
   for (const pkgPath of pkgFiles) {
     const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
@@ -35,15 +36,17 @@ if (isPrepublish) {
     if (!peers) continue;
 
     let changed = false;
-    for (const [name, ver] of Object.entries(peers)) {
-      if (!ver.startsWith('workspace:')) continue;
+    for (const [name] of Object.entries(peers)) {
+      if (!wsNames.has(name)) continue;
       const version = wsVersions[name];
       if (!version) {
         console.warn(`⚠️  No version found for workspace package ${name} in ${pkgPath}`);
         continue;
       }
       const major = version.replace(/^(\d+)\..*$/, '$1.x');
-      console.log(`${pkg.name}:\t peerDependencies ${name} "${ver}" -> "${major}"`);
+      const current = peers[name];
+      if (current === major) continue;
+      console.log(`${pkg.name}:\t peerDependencies ${name} "${current}" -> "${major}"`);
       peers[name] = major;
       changed = true;
     }
