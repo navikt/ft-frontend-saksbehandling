@@ -35,6 +35,9 @@ jobs:
       - name: Restore .yarnrc.yml
         run: git restore .yarnrc.yml
 
+      - name: Replace workspace:^ in peerDependencies before publish
+        run: node scripts/sync-peer-to-dev.cjs --prepublish
+
       - name: Build packages
         run: yarn build
 
