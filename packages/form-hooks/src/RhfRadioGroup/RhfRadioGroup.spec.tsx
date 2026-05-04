@@ -25,7 +25,7 @@ describe('RhfRadioGroup', () => {
 
   it('skal vise readonly verdier', async () => {
     await ReadOnlyMedOverstyrtMarkering.run();
-    expect(screen.getByRole('group')).toHaveAttribute('aria-readonly', 'true');
+    expect(screen.getByRole('radiogroup')).toHaveAttribute('aria-readonly', 'true');
     expect(screen.getByLabelText('Oppfylt')).not.toBeChecked();
     await userEvent.click(screen.getByText('Oppfylt'));
     expect(screen.getByLabelText('Oppfylt')).not.toBeChecked();
