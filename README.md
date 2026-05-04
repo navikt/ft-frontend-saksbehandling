@@ -116,7 +116,7 @@ Prosessen er delt i tagging (lokalt) og publisering (gjennom GitHub Actions) for
   - Publiserte pakker finner du [her](https://github.com/orgs/navikt/packages?repo_name=ft-frontend-saksbehandling)
 
   - Tips: Hvis du skal publisere en ny pakke kan det hende at workflowen feiler å publisere. I såfall sjekk opp pakken
-    på https://github.com/orgs/navikt/packages > finn pakken > Package settings > Pacakge visibility > Endre til
+    på https://github.com/orgs/navikt/packages > finn pakken > Package settings > Package visibility > Endre til
     _public_
 
 ### Ta i bruk nye pakker

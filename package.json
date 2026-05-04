@@ -32,7 +32,8 @@
     "storybook-build-all": "yarn build",
     "storybook": "storybook dev --quiet -p 7001",
     "transform-to-semver": "node scripts/replace-workspace-deps.js",
-    "transform-to-workspace": "node scripts/restore-workspace-deps.js"
+    "transform-to-workspace": "node scripts/replace-workspace-deps.js --restore",
+    "transform-peer-to-major": "node scripts/replace-workspace-deps.js --peer-only"
   },
   "devDependencies": {
     "@navikt/aksel-stylelint": "8.9.1",
