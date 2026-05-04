@@ -63,7 +63,7 @@ describe('BeregningFaktaIndex', () => {
 
     // Bytter tab
     await userEvent.click(screen.getByRole('tab', { name: '13.02.2022 - 20.02.2022' }));
-    expect(screen.getAllByRole('group')[0]).toHaveAttribute('aria-readonly', 'true');
+    expect(screen.getAllByRole('radiogroup')[0]).toHaveAttribute('aria-readonly', 'true');
     await userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
     await userEvent.type(screen.getAllByLabelText('Begrunnelse')[0], 'Test');
     await userEvent.click(screen.getByRole('button', { name: 'Overstyr' }));
@@ -92,7 +92,7 @@ describe('BeregningFaktaIndex', () => {
   it('skal vise read only dersom ikke overstyrer men har overstyringsaksjonspunkt', () => {
     render(<VisningAvOverstyrtAvklarAktiviteterUtenOverstyringsrettighet />);
     expect(screen.getAllByTestId('overstyringsknapp')[0]).toHaveAttribute('aria-disabled', 'true');
-    expect(screen.getAllByRole('group')[0]).toHaveAttribute('aria-readonly', 'true');
+    expect(screen.getAllByRole('radiogroup')[0]).toHaveAttribute('aria-readonly', 'true');
   });
 
   it('skal ikke vise redigertikon dersom arbeid og AAP med utført aksjonspunkt', () => {
@@ -201,7 +201,7 @@ describe('BeregningFaktaIndex', () => {
   it('skal håndtere at aktiviteter i beregning er overstyrt og SB ikke er overstyrer', () => {
     render(<VisningAvOverstyrtAvklarAktiviteterUtenOverstyringsrettighet />);
     expect(screen.queryByTestId('overstyringsknapp')).toHaveAttribute('aria-disabled', 'true');
-    const radioGruppe = screen.getAllByRole('group');
+    const radioGruppe = screen.getAllByRole('radiogroup');
     expect(radioGruppe[0]).toHaveAttribute('aria-readonly', 'true');
     expect(radioGruppe[1]).toHaveAttribute('aria-readonly', 'true');
   });
