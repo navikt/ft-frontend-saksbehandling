@@ -35,9 +35,6 @@ jobs:
       - name: Restore .yarnrc.yml
         run: git restore .yarnrc.yml
 
-      - name: Replace workspace:^ in peerDependencies before publish
-        run: yarn transform-peer-to-major
-
       - name: Build packages
         run: yarn build
 

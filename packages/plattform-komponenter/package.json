@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-plattform-komponenter",
   "description": "Pakke som tilbyr sammensatte komponenter som f.eks. menyer",
-  "version": "12.0.2",
+  "version": "12.0.3",
   "license": "MIT",
   "type": "module",
   "module": "./dist/index.es.js",
@@ -24,7 +24,7 @@
   "peerDependencies": {
     "@navikt/aksel-icons": "8.x",
     "@navikt/ds-react": "8.x",
-    "@navikt/ft-utils": "workspace:^",
+    "@navikt/ft-utils": "5.x",
     "dayjs": "1.x",
     "react": "19.x",
     "react-dom": "19.x"

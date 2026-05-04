@@ -22,8 +22,9 @@
     "tsc:changed": "lerna run tsc --stream --since origin/main",
     "eslint:changed": "lerna run eslint --stream --since origin/main",
     "stylelint": "lerna run stylelint --stream",
-    "tag": "yarn && lerna version --sign-git-tag",
-    "tag:force": "yarn && lerna version --sign-git-tag --force-publish ",
+    "tag": "lerna version --sign-git-tag",
+    "tag:force": "lerna version --sign-git-tag --force-publish",
+    "version": "node scripts/replace-workspace-deps.js --peer-only",
     "lerna-changed": "lerna changed",
     "clean": "lerna run clean",
     "prepare": "husky install",
@@ -32,8 +33,7 @@
     "storybook-build-all": "yarn build",
     "storybook": "storybook dev --quiet -p 7001",
     "transform-to-semver": "node scripts/replace-workspace-deps.js",
-    "transform-to-workspace": "node scripts/replace-workspace-deps.js --restore",
-    "transform-peer-to-major": "node scripts/replace-workspace-deps.js --peer-only"
+    "transform-to-workspace": "node scripts/replace-workspace-deps.js --restore"
   },
   "devDependencies": {
     "@navikt/aksel-stylelint": "8.10.2",
