@@ -9,9 +9,8 @@
  *   node scripts/replace-workspace-deps.js [options]
  *
  * Options:
- *   -t, --transformation <type>  Transformation type: "semver" | "workspace" (default: "semver")
- *   -p, --peer-only              Only transform peerDependencies
- *   -d, --dry-run                Show what would change without writing
+ *   -p, --peer-only  Only transform peerDependencies
+ *   -r, --restore    Restore workspace dependencies instead of replacing them with real versions
  */
 
 import fs from 'node:fs';

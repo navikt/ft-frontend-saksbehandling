@@ -1,12 +1,15 @@
 #!/usr/bin/env node
 /**
- * Replace all "workspace:^" dependencies with the real versions
- * for local packages under ./packages/*.
+ * Transform local @navikt/ft-* dependencies using versions from packages under ./packages/*.
  *
- * ✅ Updates dependencies, devDependencies, and peerDependencies
+ * ✅ Updates matching entries in dependencies, devDependencies, and peerDependencies
+ * ✅ Only updates dependencies that exist in the local packageVersions map
+ * ✅ Writes the exact local version for dependencies and devDependencies
+ * ✅ Writes a major wildcard version like "5.x" for peerDependencies
+ * ✅ Restores matching entries to "workspace:^" when run in restore mode
  *
  * Usage:
- *   node scripts/replace-workspace-deps.js
+ *   node scripts/transform-deps.js
  */
 
 import fs from 'node:fs';
