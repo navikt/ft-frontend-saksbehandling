@@ -67,10 +67,12 @@ export const transformDeps = (deps, dependencyType, packageVersions, shouldResto
     if (!localVersion) continue;
 
     let newVersion;
-    if (shouldRestore) {
+    if (dependencyType === 'peerDependencies') {
+      newVersion = localVersion.replace(/^(\d+)\..*$/, '$1.x');
+    } else if (shouldRestore) {
       newVersion = `workspace:^`;
     } else {
-      newVersion = dependencyType === 'peerDependencies' ? localVersion.replace(/^(\d+)\..*$/, '$1.x') : localVersion;
+      newVersion = localVersion;
     }
     deps[dep] = newVersion;
     changed[dep] = version === newVersion ? newVersion : `${version} -> ${newVersion}`;
