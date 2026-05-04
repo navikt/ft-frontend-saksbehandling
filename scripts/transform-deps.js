@@ -64,16 +64,16 @@ export const transformDeps = (deps, dependencyType, packageVersions, shouldResto
     if (!dep.startsWith('@navikt/ft-')) continue;
 
     const localVersion = packageVersions[dep];
-    if (localVersion) {
-      let newVersion;
-      if (shouldRestore) {
-        newVersion = `workspace:^`;
-      } else {
-        newVersion = dependencyType === 'peerDependencies' ? localVersion.replace(/^(\d+)\..*$/, '$1.x') : localVersion;
-      }
-      deps[dep] = newVersion;
-      changed[dep] = version === newVersion ? newVersion : `${version} -> ${newVersion}`;
+    if (!localVersion) continue;
+
+    let newVersion;
+    if (shouldRestore) {
+      newVersion = `workspace:^`;
+    } else {
+      newVersion = dependencyType === 'peerDependencies' ? localVersion.replace(/^(\d+)\..*$/, '$1.x') : localVersion;
     }
+    deps[dep] = newVersion;
+    changed[dep] = version === newVersion ? newVersion : `${version} -> ${newVersion}`;
   }
   console.log(`- ${dependencyType}:\t`, Object.keys(changed).length > 0 ? changed : 'No changes');
   return deps;
