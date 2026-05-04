@@ -6,65 +6,42 @@
  * ✅ Updates dependencies, devDependencies, and peerDependencies
  *
  * Usage:
- *   node scripts/replace-workspace-deps.js
+ *   node scripts/replace-workspace-deps.js [options]
+ *
+ * Options:
+ *   -t, --transformation <type>  Transformation type: "semver" | "workspace" (default: "semver")
+ *   -p, --peer-only              Only transform peerDependencies
+ *   -d, --dry-run                Show what would change without writing
  */
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { parseArgs } from 'node:util';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import { getPackageDirs, getPackageVersions, packagesDir, transformDeps } from './transform-deps.js';
 
-// Go up one level from ./scripts to repo root
-const repoRoot = path.resolve(__dirname, '..');
-const packagesDir = path.join(repoRoot, 'packages');
-
-// Find all package directories with package.json
-const packageDirs = fs.readdirSync(packagesDir).filter(name => {
-  const dirPath = path.join(packagesDir, name);
-  return fs.existsSync(path.join(dirPath, 'package.json'));
+const { values } = parseArgs({
+  options: {
+    'peer-only': { type: 'boolean', short: 'p' },
+    restore: { type: 'boolean', short: 'r', default: false },
+  },
 });
 
-// Build a map of local package names → versions
-const packageVersions = {};
+const packageDirs = getPackageDirs();
+const packageVersions = getPackageVersions();
+
 for (const dir of packageDirs) {
   const pkgPath = path.join(packagesDir, dir, 'package.json');
   const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
-  packageVersions[pkg.name] = pkg.version;
-}
 
-console.log('📦 Found local packages:');
-console.table(packageVersions);
-
-function replaceWorkspaceDeps(deps) {
-  if (!deps) return deps;
-  for (const [dep, version] of Object.entries(deps)) {
-    if (version.startsWith('workspace:')) {
-      const localVersion = packageVersions[dep];
-      if (localVersion) {
-        deps[dep] = localVersion;
-        console.log(`  ✅ ${dep}: ${version} → ${localVersion}`);
-      } else {
-        console.warn(`  ⚠️  No local version found for ${dep} (${version})`);
-      }
-    }
+  console.log(`\nProcessing ${pkg.name}...`);
+  if (!values['peer-only']) {
+    pkg.dependencies = transformDeps(pkg.dependencies, 'dependencies', packageVersions, values.restore);
+    pkg.devDependencies = transformDeps(pkg.devDependencies, 'devDependencies', packageVersions, values.restore);
   }
-  return deps;
-}
-
-for (const dir of packageDirs) {
-  const pkgPath = path.join(packagesDir, dir, 'package.json');
-  const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
-
-  console.log(`\n🔧 Updating ${pkg.name}...`);
-
-  pkg.dependencies = replaceWorkspaceDeps(pkg.dependencies);
-  pkg.devDependencies = replaceWorkspaceDeps(pkg.devDependencies);
-  pkg.peerDependencies = replaceWorkspaceDeps(pkg.peerDependencies);
+  pkg.peerDependencies = transformDeps(pkg.peerDependencies, 'peerDependencies', packageVersions, values.restore);
 
   fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
-  console.log('  💾 Saved', pkgPath);
 }
 
-console.log('\n✅ Done replacing workspace:^ with real versions!');
+console.log('\n✅ Done');
