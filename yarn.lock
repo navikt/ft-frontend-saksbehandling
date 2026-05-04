@@ -2200,13 +2200,13 @@ __metadata:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-form-hooks": 12.x
-    "@navikt/ft-form-validators": 6.x
+    "@navikt/ft-form-hooks": "workspace:^"
+    "@navikt/ft-form-validators": "workspace:^"
     "@navikt/ft-kodeverk": "workspace:^"
-    "@navikt/ft-plattform-komponenter": 12.x
-    "@navikt/ft-types": 6.x
-    "@navikt/ft-ui-komponenter": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-plattform-komponenter": "workspace:^"
+    "@navikt/ft-types": "workspace:^"
+    "@navikt/ft-ui-komponenter": "workspace:^"
+    "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -2251,13 +2251,13 @@ __metadata:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-form-hooks": 12.x
-    "@navikt/ft-form-validators": 6.x
+    "@navikt/ft-form-hooks": "workspace:^"
+    "@navikt/ft-form-validators": "workspace:^"
     "@navikt/ft-kodeverk": "workspace:^"
-    "@navikt/ft-plattform-komponenter": 12.x
-    "@navikt/ft-types": 6.x
-    "@navikt/ft-ui-komponenter": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-plattform-komponenter": "workspace:^"
+    "@navikt/ft-types": "workspace:^"
+    "@navikt/ft-ui-komponenter": "workspace:^"
+    "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -2300,12 +2300,12 @@ __metadata:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-form-hooks": 12.x
-    "@navikt/ft-form-validators": 6.x
+    "@navikt/ft-form-hooks": "workspace:^"
+    "@navikt/ft-form-validators": "workspace:^"
     "@navikt/ft-kodeverk": "workspace:^"
-    "@navikt/ft-types": 6.x
-    "@navikt/ft-ui-komponenter": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-types": "workspace:^"
+    "@navikt/ft-ui-komponenter": "workspace:^"
+    "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -2341,8 +2341,8 @@ __metadata:
   peerDependencies:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-ui-komponenter": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-ui-komponenter": "workspace:^"
+    "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -2364,7 +2364,7 @@ __metadata:
     vite: "npm:7.3.2"
     vitest: "npm:4.1.4"
   peerDependencies:
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
   languageName: unknown
   linkType: soft
@@ -2459,7 +2459,7 @@ __metadata:
   peerDependencies:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -2502,13 +2502,13 @@ __metadata:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-form-hooks": 12.x
-    "@navikt/ft-form-validators": 6.x
+    "@navikt/ft-form-hooks": "workspace:^"
+    "@navikt/ft-form-validators": "workspace:^"
     "@navikt/ft-kodeverk": "workspace:^"
-    "@navikt/ft-plattform-komponenter": 12.x
-    "@navikt/ft-types": 6.x
-    "@navikt/ft-ui-komponenter": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-plattform-komponenter": "workspace:^"
+    "@navikt/ft-types": "workspace:^"
+    "@navikt/ft-ui-komponenter": "workspace:^"
+    "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -2553,13 +2553,13 @@ __metadata:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-form-hooks": 12.x
-    "@navikt/ft-form-validators": 6.x
+    "@navikt/ft-form-hooks": "workspace:^"
+    "@navikt/ft-form-validators": "workspace:^"
     "@navikt/ft-kodeverk": "workspace:^"
-    "@navikt/ft-plattform-komponenter": 12.x
-    "@navikt/ft-types": 6.x
-    "@navikt/ft-ui-komponenter": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-plattform-komponenter": "workspace:^"
+    "@navikt/ft-types": "workspace:^"
+    "@navikt/ft-ui-komponenter": "workspace:^"
+    "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -2601,12 +2601,12 @@ __metadata:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-form-hooks": 12.x
-    "@navikt/ft-form-validators": 6.x
+    "@navikt/ft-form-hooks": "workspace:^"
+    "@navikt/ft-form-validators": "workspace:^"
     "@navikt/ft-kodeverk": "workspace:^"
-    "@navikt/ft-types": 6.x
-    "@navikt/ft-ui-komponenter": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-types": "workspace:^"
+    "@navikt/ft-ui-komponenter": "workspace:^"
+    "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -2648,11 +2648,11 @@ __metadata:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-form-hooks": 12.x
-    "@navikt/ft-form-validators": 6.x
-    "@navikt/ft-types": 6.x
-    "@navikt/ft-ui-komponenter": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-form-hooks": "workspace:^"
+    "@navikt/ft-form-validators": "workspace:^"
+    "@navikt/ft-types": "workspace:^"
+    "@navikt/ft-ui-komponenter": "workspace:^"
+    "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -2695,12 +2695,12 @@ __metadata:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-form-hooks": 12.x
-    "@navikt/ft-form-validators": 6.x
+    "@navikt/ft-form-hooks": "workspace:^"
+    "@navikt/ft-form-validators": "workspace:^"
     "@navikt/ft-kodeverk": "workspace:^"
-    "@navikt/ft-types": 6.x
-    "@navikt/ft-ui-komponenter": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-types": "workspace:^"
+    "@navikt/ft-ui-komponenter": "workspace:^"
+    "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -2749,7 +2749,7 @@ __metadata:
   peerDependencies:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-utils": "workspace:^"
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
