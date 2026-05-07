@@ -22,7 +22,7 @@
     "typescript-eslint": "8.58.1"
   },
   "devDependencies": {
-    "storybook": "10.3.5",
+    "storybook": "10.3.6",
     "typescript": "5.9.3"
   }
 }
