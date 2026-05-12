@@ -17,7 +17,7 @@ import {
   TIDENES_MORGEN,
 } from '@navikt/ft-utils';
 
-export type TypeGrunnlag = '8-30' | '8-28';
+type TypeGrunnlag = '8-30' | '8-28';
 
 export type RegisterinntekterPerKilde = {
   typeGrunnlag: TypeGrunnlag;
