@@ -61,7 +61,7 @@
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "react-hook-form": "7.75.0",
-    "react-intl": "10.1.4",
+    "react-intl": "10.1.5",
     "stylelint": "17.8.0",
     "typescript": "5.9.3",
     "vite": "7.3.2",
