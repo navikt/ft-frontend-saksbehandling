@@ -56,6 +56,7 @@ interface Props {
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
   renderTextFieldAndSubmitButton: () => React.ReactNode;
   vilkarsperiodeSkalVurderesIBehandlingen: boolean;
+  skalKunneAvbryteOverstyring: boolean;
 }
 
 /**
@@ -79,6 +80,7 @@ export const VurderOgFastsettATFL = ({
   renderTextFieldAndSubmitButton,
   arbeidsgiverOpplysningerPerId,
   vilkarsperiodeSkalVurderesIBehandlingen,
+  skalKunneAvbryteOverstyring,
 }: Props) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
@@ -226,6 +228,7 @@ export const VurderOgFastsettATFL = ({
         avklaringsbehov={avklaringsbehov}
         updateOverstyring={updateOverstyring}
         erOverstyrt={erOverstyrt}
+        skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
       />
       {byggForms()}
     </VStack>

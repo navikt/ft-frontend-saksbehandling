@@ -30,6 +30,7 @@ interface Props {
   erOverstyrer: boolean;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
   erOverstyrt: boolean;
+  skalKunneAvbryteOverstyring: boolean;
 }
 
 export const InntektstabellPanel = ({
@@ -41,6 +42,7 @@ export const InntektstabellPanel = ({
   updateOverstyring,
   erOverstyrer,
   erOverstyrt,
+  skalKunneAvbryteOverstyring,
 }: Props) => {
   const [erTabellOverstyrt, setOverstyring] = useState(erOverstyrt);
 
@@ -74,7 +76,7 @@ export const InntektstabellPanel = ({
             </Label>
           )}
           {tabell}
-          {erTabellOverstyrt && !readOnly && (
+          {erTabellOverstyrt && !readOnly && skalKunneAvbryteOverstyring && (
             <HStack>
               <Button size="small" onClick={toggleOverstyring} variant="secondary">
                 <FormattedMessage id="InntektstabellPanel.Avbryt" />
