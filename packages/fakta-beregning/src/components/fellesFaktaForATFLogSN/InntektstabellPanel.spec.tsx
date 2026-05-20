@@ -22,7 +22,6 @@ describe('InntektstabellPanel', () => {
           erOverstyrer
           updateOverstyring={vi.fn()}
           erOverstyrt={false}
-          skalKunneAvbryteOverstyring={false}
         />
       </IntlProvider>,
     );
@@ -47,7 +46,6 @@ describe('InntektstabellPanel', () => {
           erOverstyrer
           updateOverstyring={vi.fn()}
           erOverstyrt={false}
-          skalKunneAvbryteOverstyring={false}
         />
       </IntlProvider>,
     );

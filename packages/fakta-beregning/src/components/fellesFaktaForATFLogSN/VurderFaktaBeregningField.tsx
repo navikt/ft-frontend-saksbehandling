@@ -36,7 +36,6 @@ interface Props {
   vilkarsperiode: Vilkårperiode;
   verdiForAvklarAktivitetErEndret: boolean;
   submitDisabled: boolean;
-  skalKunneAvbryteOverstyring: boolean;
 }
 
 const erOverstyrt = (index: number, getValues: UseFormGetValues<VurderFaktaBeregningFormValues>) => {
@@ -60,7 +59,6 @@ export const VurderFaktaBeregningField = ({
   vilkarsperiode,
   verdiForAvklarAktivitetErEndret,
   submitDisabled,
-  skalKunneAvbryteOverstyring,
 }: Props) => {
   const {
     getValues,
@@ -132,7 +130,6 @@ export const VurderFaktaBeregningField = ({
         updateOverstyring={updateOverstyring}
         renderTextFieldAndSubmitButton={() => renderTextFieldAndSubmitButton()}
         vilkarsperiodeSkalVurderesIBehandlingen={skalVurderes}
-        skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
       />
     </div>
   );

@@ -205,7 +205,6 @@ export const VurderFaktaBeregningPanel = ({
                     updateOverstyring={updateOverstyring}
                     submitDisabled={submitDisabled}
                     verdiForAvklarAktivitetErEndret={verdiForAvklarAktivitetErEndret}
-                    skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
                   />
                 </VStack>
               </BeregningsgrunnlagIndexContext.Provider>

@@ -17,7 +17,6 @@ interface Props {
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
   renderTextFieldAndSubmitButton: () => React.ReactNode;
   vilkarsperiodeSkalVurderesIBehandlingen: boolean;
-  skalKunneAvbryteOverstyring: boolean;
 }
 
 /**
@@ -35,7 +34,6 @@ export const FaktaForATFLOgSNPanel = ({
   updateOverstyring,
   renderTextFieldAndSubmitButton,
   vilkarsperiodeSkalVurderesIBehandlingen,
-  skalKunneAvbryteOverstyring,
 }: Props) => {
   const { avklaringsbehov } = beregningsgrunnlag;
   const tilfeller = getFaktaOmBeregningTilfellerKoder(beregningsgrunnlag);
@@ -63,7 +61,6 @@ export const FaktaForATFLOgSNPanel = ({
         renderTextFieldAndSubmitButton={renderTextFieldAndSubmitButton}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         vilkarsperiodeSkalVurderesIBehandlingen={vilkarsperiodeSkalVurderesIBehandlingen}
-        skalKunneAvbryteOverstyring={skalKunneAvbryteOverstyring}
       />
     </div>
   );
