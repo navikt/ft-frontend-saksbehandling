@@ -27,7 +27,12 @@ export const KopierbarTekst = ({ tekst, children }: Props) => {
   };
   return (
     <Tooltip content={intl.formatMessage({ id: skalViseKopiert ? 'KopierbarTekst.Kopiert' : 'KopierbarTekst.Kopier' })}>
-      <span aria-hidden="true" onClick={copy}>
+      <span role="button" tabIndex={0} onClick={copy} onKeyDown={e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          copy(e as unknown as React.MouseEvent<HTMLSpanElement>);
+        }
+      }}>
         {children ?? tekst}
       </span>
     </Tooltip>
