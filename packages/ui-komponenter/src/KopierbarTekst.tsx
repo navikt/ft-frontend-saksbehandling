@@ -16,7 +16,7 @@ export const KopierbarTekst = ({ tekst, children }: Props) => {
   if (!tekst) {
     return children;
   }
-  const copy: React.MouseEventHandler<HTMLSpanElement> = async (e): Promise<void> => {
+  const copy = async (e: React.SyntheticEvent<HTMLSpanElement>): Promise<void> => {
     e.stopPropagation();
     await navigator.clipboard.writeText(tekst);
     setSkalViseKopiert(true);
@@ -30,7 +30,7 @@ export const KopierbarTekst = ({ tekst, children }: Props) => {
       <span role="button" tabIndex={0} onClick={copy} onKeyDown={e => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          copy(e as unknown as React.MouseEvent<HTMLSpanElement>);
+          copy(e);
         }
       }}>
         {children ?? tekst}
