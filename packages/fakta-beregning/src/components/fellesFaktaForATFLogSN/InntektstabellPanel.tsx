@@ -46,6 +46,9 @@ export const InntektstabellPanel = ({
 
   const beregningsgrunnlagIndeks = React.useContext(BeregningsgrunnlagIndexContext);
   const kanOverstyre = getSkalKunneOverstyre(erOverstyrer, avklaringsbehov);
+  const harLøstOverstyringAksjonspunkt = avklaringsbehov.some(
+    ap => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG && !isAksjonspunktOpen(ap),
+  );
 
   const toggleOverstyring = () => {
     setOverstyring(!erTabellOverstyrt);
@@ -74,7 +77,7 @@ export const InntektstabellPanel = ({
             </Label>
           )}
           {tabell}
-          {erTabellOverstyrt && !readOnly && (
+          {erTabellOverstyrt && !readOnly && !harLøstOverstyringAksjonspunkt && (
             <HStack>
               <Button size="small" onClick={toggleOverstyring} variant="secondary">
                 <FormattedMessage id="InntektstabellPanel.Avbryt" />
