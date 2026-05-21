@@ -1,4 +1,3 @@
-import fg from 'fast-glob';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -16,9 +15,7 @@ const getPackageJson = (folderPath: string) => {
 };
 
 const harStories = async (folderPath: string) => {
-  return await fg(STORYBOOK_FILE_PATTERN, { cwd: folderPath, absolute: true }).then(files => {
-    return files.length > 0;
-  });
+  return fs.globSync(STORYBOOK_FILE_PATTERN, { cwd: folderPath }).length > 0;
 };
 
 type Config = {
