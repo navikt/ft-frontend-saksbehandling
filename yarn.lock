@@ -7638,7 +7638,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:3.3.3, fast-glob@npm:^3.3.3":
+"fast-glob@npm:^3.3.3":
   version: 3.3.3
   resolution: "fast-glob@npm:3.3.3"
   dependencies:
@@ -7989,7 +7989,6 @@ __metadata:
     "@types/react-dom": "npm:19.2.3"
     dayjs: "npm:^1.11.20"
     eslint: "npm:9.39.4"
-    fast-glob: "npm:3.3.3"
     husky: "npm:9.1.7"
     jsdom: "npm:29.0.2"
     knip: "npm:6.4.1"
