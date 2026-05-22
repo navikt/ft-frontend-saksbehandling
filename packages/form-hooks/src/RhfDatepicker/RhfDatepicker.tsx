@@ -81,11 +81,9 @@ export const RhfDatepicker = <T extends FieldValues>({
   const onChangeInput = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const parserFormats = inputFormats.length > 0 ? inputFormats : [DDMMYYYY_DATE_FORMAT];
-      const parsedDate = parserFormats
-        .map(format => dayjs(event.target.value, format, true))
-        .find(parsed => parsed.isValid());
-      const verdi = parsedDate ? parsedDate.format(ISO_DATE_FORMAT) : event.target.value;
-      const validDate = parsedDate !== undefined;
+      const parsedDate = dayjs(event.target.value, parserFormats, true);
+      const validDate = parsedDate.isValid();
+      const verdi = validDate ? parsedDate.format(ISO_DATE_FORMAT) : event.target.value;
 
       setFieldValue(event.target.value);
       if (onChange) {
