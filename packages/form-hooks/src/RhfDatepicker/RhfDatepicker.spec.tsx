@@ -1,7 +1,7 @@
 import { composeStories } from '@storybook/react-vite';
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useForm } from 'react-hook-form';
+import { type SubmitHandler, useForm } from 'react-hook-form';
 import { expect, vi } from 'vitest';
 
 import { RhfForm } from '../RhfForm';
@@ -11,7 +11,7 @@ import * as stories from './RhfDatepicker.stories';
 
 export const { Default } = composeStories(stories);
 
-const TestForm = ({ onSubmit }: { onSubmit: ReturnType<typeof vi.fn> }) => {
+const TestForm = ({ onSubmit }: { onSubmit: SubmitHandler<{ dato: string }> }) => {
   const formMethods = useForm<{ dato: string }>({
     defaultValues: {
       dato: '',
