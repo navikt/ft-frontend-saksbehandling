@@ -87,9 +87,9 @@ export const RhfDatepicker = <T extends FieldValues>({
 
       setFieldValue(event.target.value);
       if (onChange) {
-        onChange(validDate ? verdi : event.target.value);
+        onChange(verdi);
       }
-      field.onChange(validDate ? verdi : event.target.value);
+      field.onChange(verdi);
     },
     [setFieldValue, onChange, field, inputFormats],
   );
