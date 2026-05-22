@@ -16,7 +16,7 @@ export const KopierbarTekst = ({ tekst, children }: Props) => {
   if (!tekst) {
     return children;
   }
-  const copy = async (e: React.SyntheticEvent<HTMLSpanElement>): Promise<void> => {
+  const copy: React.MouseEventHandler<HTMLSpanElement> = async (e): Promise<void> => {
     e.stopPropagation();
     await navigator.clipboard.writeText(tekst);
     setSkalViseKopiert(true);
@@ -27,14 +27,7 @@ export const KopierbarTekst = ({ tekst, children }: Props) => {
   };
   return (
     <Tooltip content={intl.formatMessage({ id: skalViseKopiert ? 'KopierbarTekst.Kopiert' : 'KopierbarTekst.Kopier' })}>
-      <span role="button" tabIndex={0} onClick={copy} onKeyDown={e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          copy(e);
-        }
-      }}>
-        {children ?? tekst}
-      </span>
+      <span onClick={copy}>{children ?? tekst}</span>
     </Tooltip>
   );
 };
