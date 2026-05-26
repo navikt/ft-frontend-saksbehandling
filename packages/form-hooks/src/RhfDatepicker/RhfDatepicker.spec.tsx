@@ -1,12 +1,12 @@
+import { type SubmitHandler, useForm } from 'react-hook-form';
+
 import { composeStories } from '@storybook/react-vite';
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { type SubmitHandler, useForm } from 'react-hook-form';
 import { expect, vi } from 'vitest';
 
 import { RhfForm } from '../RhfForm';
 import { RhfDatepicker } from './RhfDatepicker';
-
 import * as stories from './RhfDatepicker.stories';
 
 export const { Default } = composeStories(stories);
