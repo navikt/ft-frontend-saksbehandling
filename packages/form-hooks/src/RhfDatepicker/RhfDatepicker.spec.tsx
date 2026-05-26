@@ -31,6 +31,19 @@ const TestForm = ({ onSubmit }: { onSubmit: SubmitHandler<{ dato: string }> }) =
   );
 };
 
+const submitDatoOgHentPayload = async (datoInput: string) => {
+  const onSubmit = vi.fn();
+  const { container } = render(<TestForm onSubmit={onSubmit} />);
+
+  const input = within(container).getByLabelText('Dato');
+  await userEvent.type(input, datoInput);
+  fireEvent.blur(input);
+  await userEvent.click(within(container).getByRole('button', { name: 'Submit' }));
+
+  expect(onSubmit).toHaveBeenCalled();
+  return onSubmit.mock.calls[0][0];
+};
+
 describe('RhfDatepicker', () => {
   it('skal sette verdi', async () => {
     await Default.run();
@@ -43,32 +56,13 @@ describe('RhfDatepicker', () => {
     expect(screen.getByLabelText('Dette er en datepicker')).toHaveValue('01.02.2020');
   });
 
-  it('skal parse DD-MM-YYYY til ISO ved submit', async () => {
-    const onSubmit = vi.fn();
-    const { container } = render(<TestForm onSubmit={onSubmit} />);
+  it.each([
+    ['DD-MM-YYYY', '01-02-2020'],
+    ['DDMMYY', '010220'],
+  ])('skal parse %s til ISO ved submit', async (_, datoInput) => {
+    const payload = await submitDatoOgHentPayload(datoInput);
 
-    const input = within(container).getByLabelText('Dato');
-    await userEvent.type(input, '01-02-2020');
-    fireEvent.blur(input);
-    await userEvent.click(within(container).getByRole('button', { name: 'Submit' }));
-
-    expect(onSubmit).toHaveBeenCalled();
-    expect(onSubmit.mock.calls[0][0]).toEqual({
-      dato: '2020-02-01',
-    });
-  });
-
-  it('skal parse DDMMYY til ISO ved submit', async () => {
-    const onSubmit = vi.fn();
-    const { container } = render(<TestForm onSubmit={onSubmit} />);
-
-    const input = within(container).getByLabelText('Dato');
-    await userEvent.type(input, '010220');
-    fireEvent.blur(input);
-    await userEvent.click(within(container).getByRole('button', { name: 'Submit' }));
-
-    expect(onSubmit).toHaveBeenCalled();
-    expect(onSubmit.mock.calls[0][0]).toEqual({
+    expect(payload).toEqual({
       dato: '2020-02-01',
     });
   });
