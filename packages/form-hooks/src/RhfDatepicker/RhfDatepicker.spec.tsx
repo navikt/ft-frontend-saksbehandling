@@ -1,11 +1,48 @@
-import { composeStories } from '@storybook/react-vite';
-import { fireEvent, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { expect } from 'vitest';
+import { type SubmitHandler, useForm } from 'react-hook-form';
 
+import { composeStories } from '@storybook/react-vite';
+import { fireEvent, render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { expect, vi } from 'vitest';
+
+import { RhfForm } from '../RhfForm';
+import { RhfDatepicker } from './RhfDatepicker';
 import * as stories from './RhfDatepicker.stories';
 
 export const { Default } = composeStories(stories);
+
+const TestForm = ({ onSubmit }: { onSubmit: SubmitHandler<{ dato: string }> }) => {
+  const formMethods = useForm<{ dato: string }>({
+    defaultValues: {
+      dato: '',
+    },
+  });
+
+  return (
+    <RhfForm formMethods={formMethods} onSubmit={onSubmit}>
+      <RhfDatepicker
+        control={formMethods.control}
+        name="dato"
+        label="Dato"
+        inputFormats={['DD-MM-YYYY', 'DDMMYY']}
+      />
+      <button type="submit">Submit</button>
+    </RhfForm>
+  );
+};
+
+const submitDatoOgHentPayload = async (datoInput: string) => {
+  const onSubmit = vi.fn();
+  const { container } = render(<TestForm onSubmit={onSubmit} />);
+
+  const input = within(container).getByLabelText('Dato');
+  await userEvent.type(input, datoInput);
+  fireEvent.blur(input);
+  await userEvent.click(within(container).getByRole('button', { name: 'Submit' }));
+
+  expect(onSubmit).toHaveBeenCalled();
+  return onSubmit.mock.calls[0][0];
+};
 
 describe('RhfDatepicker', () => {
   it('skal sette verdi', async () => {
@@ -17,5 +54,16 @@ describe('RhfDatepicker', () => {
     fireEvent.blur(datofelt);
 
     expect(screen.getByLabelText('Dette er en datepicker')).toHaveValue('01.02.2020');
+  });
+
+  it.each([
+    ['DD-MM-YYYY', '01-02-2020'],
+    ['DDMMYY', '010220'],
+  ])('skal parse %s til ISO ved submit', async (_, datoInput) => {
+    const payload = await submitDatoOgHentPayload(datoInput);
+
+    expect(payload).toEqual({
+      dato: '2020-02-01',
+    });
   });
 });
