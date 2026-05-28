@@ -21,7 +21,7 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "echarts": "6.0.0"
+    "echarts": "6.1.0"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "8.x",
@@ -62,12 +62,12 @@
     "eslint": "9.39.4",
     "react": "19.2.6",
     "react-dom": "19.2.6",
-    "react-hook-form": "7.75.0",
-    "react-intl": "10.1.6",
+    "react-hook-form": "7.76.0",
+    "react-intl": "10.1.8",
     "stylelint": "17.8.0",
     "typescript": "5.9.3",
     "vite": "7.3.2",
-    "vitest": "4.1.6"
+    "vitest": "4.1.7"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
