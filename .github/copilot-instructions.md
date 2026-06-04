@@ -1,6 +1,6 @@
 # ft-frontend-saksbehandling
 
-Shared frontend packages used by Foreldrepenger and k9.
+Shared frontend packages used by Foreldrepenger and K9.
 
 ## Shared context
 
