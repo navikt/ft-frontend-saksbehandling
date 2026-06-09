@@ -188,7 +188,7 @@ FordelBeregningsgrunnlagPeriodePanel.buildInitialValues = (
           ? formatCurrencyNoKr(andel.refusjonskravPrAar)
           : '',
       skalKunneEndreRefusjon:
-        periode.skalKunneEndreRefusjon && !andel.lagtTilAvSaksbehandler && andel.refusjonskravFraInntektsmeldingPrAar
+        periode.skalKunneEndreRefusjon && !andel.lagtTilAvSaksbehandler
           ? periode.skalKunneEndreRefusjon
           : false,
       belopFraInntektsmelding: andel.belopFraInntektsmeldingPrAar,
@@ -200,6 +200,7 @@ FordelBeregningsgrunnlagPeriodePanel.buildInitialValues = (
       forrigeArbeidsinntektPrAar: finnFastsattPrAar(andel.fordeltPrAar),
       beregningsperiodeFom: bgAndel.beregningsperiodeFom,
       beregningsperiodeTom: bgAndel.beregningsperiodeTom,
+      utbetalingsgrad: andel.utbetalingsgrad,
     };
   });
 };

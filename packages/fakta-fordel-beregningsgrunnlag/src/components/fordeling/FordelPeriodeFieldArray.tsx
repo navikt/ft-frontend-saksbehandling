@@ -329,6 +329,11 @@ export const FordelPeriodeFieldArray = ({
             <Table.HeaderCell scope="col" align="right" textSize="small">
               <FormattedMessage id="BeregningInfoPanel.FordelBG.Beregningsgrunnlag" />
             </Table.HeaderCell>
+            {!gjelderGradering && (
+              <Table.HeaderCell scope="col" align="right" textSize="small">
+                <FormattedMessage id="BeregningInfoPanel.FordelBG.Utbetalingsgrad" />
+              </Table.HeaderCell>
+            )}
             <Table.HeaderCell scope="col" align="right" textSize="small">
               <FormattedMessage id="BeregningInfoPanel.FordelBG.Fordeling" />
             </Table.HeaderCell>
@@ -413,7 +418,11 @@ export const FordelPeriodeFieldArray = ({
                     readOnly
                   />
                 </Table.DataCell>
-
+                {!gjelderGradering && (
+                  <Table.DataCell align="right" textSize="small">
+                    {field.utbetalingsgrad}%
+                  </Table.DataCell>
+                )}
                 <Table.DataCell align="right" textSize="small">
                   {skalIkkeRedigereInntekt ? (
                     <RhfTextField
@@ -477,6 +486,7 @@ export const FordelPeriodeFieldArray = ({
             <Table.HeaderCell align="right" textSize="small">
               {summerBeregningsgrunnlagPrÅr(watchedArray)}
             </Table.HeaderCell>
+            {!gjelderGradering && <Table.DataCell />}
             <Table.HeaderCell align="right" textSize="small">
               {summerFordeling(watchedArray)}
             </Table.HeaderCell>
