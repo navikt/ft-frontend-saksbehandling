@@ -27,7 +27,7 @@
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "@navikt/ft-config-vite": "workspace:^",
-    "@navikt/ft-utils": "5.0.7",
+    "@navikt/ft-utils": "workspace:^",
     "dayjs": "1.11.20",
     "eslint": "9.39.4",
     "typescript": "5.9.3",
