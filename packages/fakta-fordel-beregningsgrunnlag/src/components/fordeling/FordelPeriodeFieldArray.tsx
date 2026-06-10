@@ -248,6 +248,7 @@ export const FordelPeriodeFieldArray = ({
   const arbeidsforholdList = finnUnikeArbeidsforhold(beregningsgrunnlag);
 
   const gjelderGradering = getGjelderGradering(beregningsgrunnlag);
+  const gjelderSVP = beregningsgrunnlag.ytelsesspesifiktGrunnlag?.ytelsetype === 'SVP';
   const inntektskategoriKoder = kodeverkSamling['Inntektskategori'];
   const intl = useIntl();
   const selectVals = harKunYtelse
@@ -329,7 +330,7 @@ export const FordelPeriodeFieldArray = ({
             <Table.HeaderCell scope="col" align="right" textSize="small">
               <FormattedMessage id="BeregningInfoPanel.FordelBG.Beregningsgrunnlag" />
             </Table.HeaderCell>
-            {!gjelderGradering && (
+            {gjelderSVP && (
               <Table.HeaderCell scope="col" align="right" textSize="small">
                 <FormattedMessage id="BeregningInfoPanel.FordelBG.Utbetalingsgrad" />
               </Table.HeaderCell>
@@ -418,7 +419,7 @@ export const FordelPeriodeFieldArray = ({
                     readOnly
                   />
                 </Table.DataCell>
-                {!gjelderGradering && (
+                {gjelderSVP && (
                   <Table.DataCell align="right" textSize="small">
                     {field.utbetalingsgrad}%
                   </Table.DataCell>
@@ -486,7 +487,7 @@ export const FordelPeriodeFieldArray = ({
             <Table.HeaderCell align="right" textSize="small">
               {summerBeregningsgrunnlagPrÅr(watchedArray)}
             </Table.HeaderCell>
-            {!gjelderGradering && <Table.DataCell />}
+            {gjelderSVP && <Table.DataCell />}
             <Table.HeaderCell align="right" textSize="small">
               {summerFordeling(watchedArray)}
             </Table.HeaderCell>
