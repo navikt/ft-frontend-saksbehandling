@@ -73,6 +73,7 @@ export type FordelBeregningsgrunnlagAndel = Readonly<{
   nyttArbeidsforhold?: boolean;
   refusjonskravFraInntektsmeldingPrAar?: number;
   refusjonskravPrAar?: number;
+  utbetalingsgrad?: number;
   kilde?: string;
 }>;
 
