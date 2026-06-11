@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-config-eslint",
-  "version": "2.1.7",
+  "version": "2.1.8",
   "license": "MIT",
   "type": "module",
   "main": "eslint.config.mjs",
