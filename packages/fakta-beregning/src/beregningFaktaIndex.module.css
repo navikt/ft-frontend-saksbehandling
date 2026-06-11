@@ -5,3 +5,15 @@
 .container {
   width: fit-content;
 }
+
+@media (width >= 1336px) {
+  .tabScroll {
+    width: clamp(670px, 50vw, 1220px);
+  }
+}
+
+@media (width < 1336px) {
+  .tabScroll {
+    max-width: 80vw;
+  }
+}
