@@ -1,24 +1,24 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
 
 import { TextField, type TextFieldProps } from '@navikt/ds-react';
 
+import { sanitizeNumericString } from '@navikt/ft-utils';
+
 import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
-const TWO_DECIMALS_REGEXP = /^(\d+[,]?(\d{1,2})?)$/;
-const DECIMAL_REGEXP = /^(\d{1,20}[,.]?(\d{1,10})?)$/;
+import styles from './rhfNumericField.module.css';
 
 type Props<T extends FieldValues> = {
-  validate?: ((value: string) => ValidationReturnType)[] | ((value: number) => ValidationReturnType)[];
-  autoFocus?: boolean;
+  validate?: ((value: any) => ValidationReturnType)[];
   isEdited?: boolean;
-  forceTwoDecimalDigits?: boolean;
-  returnAsNumber?: boolean;
-  onChange?: (value: any) => void;
+  onChange?: (value: string) => void;
+  onBlur?: (value: string) => void;
+  align?: 'left' | 'right';
   control: UseControllerProps<T>['control'];
 } & Omit<UseControllerProps<T>, 'control'> &
-  Omit<TextFieldProps, 'value' | 'defaultValue' | 'type' | 'inputMode' | 'onChange'>;
+  Omit<TextFieldProps, 'value' | 'defaultValue' | 'type' | 'inputMode'>;
 
 export const RhfNumericField = <T extends FieldValues>({
   label,
@@ -27,21 +27,21 @@ export const RhfNumericField = <T extends FieldValues>({
   readOnly,
   description,
   isEdited,
-  forceTwoDecimalDigits = false,
-  returnAsNumber = false,
   onChange,
-  autoComplete = 'off',
+  onBlur,
   size = 'small',
+  align,
   name,
   control,
   disabled,
+  autoFocus,
+  maxLength,
   ...rest
 }: Props<T>) => {
-  const [hasFocus, setHasFocus] = useState(false);
-
   const {
     formState: { errors },
   } = useFormContext();
+
   const { field } = useController({
     name,
     control,
@@ -51,57 +51,51 @@ export const RhfNumericField = <T extends FieldValues>({
   });
 
   if (readOnly) {
-    return <ReadOnlyField label={label} value={field.value} isEdited={isEdited} hideLabel={hideLabel} size={size} />;
+    return (
+      <ReadOnlyField
+        align={align}
+        label={label}
+        value={field.value}
+        isEdited={isEdited}
+        hideLabel={hideLabel}
+        size={size}
+      />
+    );
   }
-
-  const regex = forceTwoDecimalDigits ? TWO_DECIMALS_REGEXP : DECIMAL_REGEXP;
-
-  const value = field.value !== undefined && field.value !== null ? field.value.toString() : '';
-  const formattedValue =
-    !hasFocus && forceTwoDecimalDigits && value !== '' && !Number.isNaN(value) ? parseFloat(value).toFixed(2) : value;
 
   return (
     <TextField
-      size={size}
-      description={description}
       label={label}
-      error={getError(errors, name)}
-      {...field}
-      value={formattedValue.replace('.', ',')}
-      autoComplete={autoComplete}
-      disabled={disabled}
-      type="text"
-      hideLabel={hideLabel}
+      description={description}
+      type="number"
       inputMode="decimal"
-      onChange={event => {
-        setHasFocus(true);
-        const targetValue = event.currentTarget.value;
-        let newValue;
-        if (targetValue === '') {
-          newValue = null;
-        } else if (regex.test(targetValue)) {
-          newValue = targetValue.replace(',', '.');
-        } else {
-          newValue = field.value;
-        }
-
-        if (onChange) {
-          onChange(newValue);
-        }
-
-        if (newValue && returnAsNumber) {
-          newValue = parseFloat(newValue);
-          if (Number.isNaN(newValue)) newValue = null;
-        }
-
-        return field.onChange(newValue);
-      }}
-      onBlur={() => {
-        setHasFocus(false);
+      error={getError(errors, name)}
+      autoFocus={autoFocus}
+      autoComplete="off"
+      maxLength={maxLength}
+      disabled={disabled}
+      size={size}
+      className={align === 'right' ? styles.alignRight : undefined}
+      {...field}
+      value={field.value ?? ''}
+      onBlur={event => {
         field.onBlur();
-
-        if (forceTwoDecimalDigits && value.slice(-1) === '.') {
-          field.onChange(value + 0);
+        onBlur?.(event.currentTarget.value);
+      }}
+      onChange={event => {
+        const raw = event.currentTarget.value;
+        const value = raw === '' ? null : Number(raw);
+        field.onChange(Number.isNaN(value) ? null : value);
+        onChange?.(raw);
+      }}
+      onPaste={event => {
+        const text = event.clipboardData.getData('text');
+        const normalized = sanitizeNumericString(text);
+        const num = normalized === '' ? null : Number(normalized);
+        if (num === null || !Number.isNaN(num)) {
+          event.preventDefault();
+          field.onChange(num);
+          onChange?.(normalized);
         }
       }}
       {...rest}

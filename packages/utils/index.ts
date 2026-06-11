@@ -4,6 +4,7 @@ export {
   formatCurrencyNoKr,
   removeSpacesFromNumber,
   parseCurrencyInput,
+  sanitizeNumericString,
 } from './src/currencyUtils';
 export {
   addDaysToDate,
