@@ -1921,7 +1921,7 @@ __metadata:
   resolution: "@navikt/ft-config-typescript@workspace:packages/internal/config-typescript"
   dependencies:
     "@testing-library/jest-dom": "npm:6.9.1"
-    vite: "npm:7.3.2"
+    vite: "npm:7.3.5"
     vitest: "npm:4.1.7"
   languageName: unknown
   linkType: soft
@@ -1933,7 +1933,7 @@ __metadata:
     "@vitejs/plugin-react": "npm:5.2.0"
     "@vitest/browser-playwright": "npm:4.1.7"
     playwright: "npm:1.60.0"
-    vite: "npm:7.3.2"
+    vite: "npm:7.3.5"
     vitest: "npm:4.1.7"
   languageName: unknown
   linkType: soft
@@ -1968,7 +1968,7 @@ __metadata:
     react-intl: "npm:10.1.8"
     stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
-    vite: "npm:7.3.2"
+    vite: "npm:7.3.5"
     vitest: "npm:4.1.7"
   peerDependencies:
     "@navikt/aksel-icons": 8.x
@@ -2019,7 +2019,7 @@ __metadata:
     react-intl: "npm:10.1.8"
     stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
-    vite: "npm:7.3.2"
+    vite: "npm:7.3.5"
     vitest: "npm:4.1.7"
   peerDependencies:
     "@navikt/aksel-icons": 8.x
@@ -2068,7 +2068,7 @@ __metadata:
     react-intl: "npm:10.1.8"
     stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
-    vite: "npm:7.3.2"
+    vite: "npm:7.3.5"
     vitest: "npm:4.1.7"
   peerDependencies:
     "@navikt/aksel-icons": 8.x
@@ -2110,7 +2110,7 @@ __metadata:
     react-hook-form: "npm:7.76.0"
     stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
-    vite: "npm:7.3.2"
+    vite: "npm:7.3.5"
     vitest: "npm:4.1.7"
   peerDependencies:
     "@navikt/aksel-icons": 8.x
@@ -2135,7 +2135,7 @@ __metadata:
     dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
     typescript: "npm:5.9.3"
-    vite: "npm:7.3.2"
+    vite: "npm:7.3.5"
     vitest: "npm:4.1.7"
   peerDependencies:
     "@navikt/ft-utils": 5.x
@@ -2188,7 +2188,7 @@ __metadata:
     react: "npm:19.2.6"
     react-dom: "npm:19.2.6"
     typescript: "npm:5.9.3"
-    vite: "npm:7.3.2"
+    vite: "npm:7.3.5"
     vitest: "npm:4.1.7"
   peerDependencies:
     react: 19.x
@@ -2204,7 +2204,7 @@ __metadata:
     "@navikt/ft-config-vite": "workspace:^"
     eslint: "npm:9.39.4"
     typescript: "npm:5.9.3"
-    vite: "npm:7.3.2"
+    vite: "npm:7.3.5"
     vitest: "npm:4.1.7"
   languageName: unknown
   linkType: soft
@@ -2228,7 +2228,7 @@ __metadata:
     react-dom: "npm:19.2.6"
     stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
-    vite: "npm:7.3.2"
+    vite: "npm:7.3.5"
     vitest: "npm:4.1.7"
   peerDependencies:
     "@navikt/aksel-icons": 8.x
@@ -2270,7 +2270,7 @@ __metadata:
     react-intl: "npm:10.1.8"
     stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
-    vite: "npm:7.3.2"
+    vite: "npm:7.3.5"
     vitest: "npm:4.1.7"
   peerDependencies:
     "@navikt/aksel-icons": 8.x
@@ -2321,7 +2321,7 @@ __metadata:
     react-intl: "npm:10.1.8"
     stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
-    vite: "npm:7.3.2"
+    vite: "npm:7.3.5"
     vitest: "npm:4.1.7"
   peerDependencies:
     "@navikt/aksel-icons": 8.x
@@ -2369,7 +2369,7 @@ __metadata:
     react-intl: "npm:10.1.8"
     stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
-    vite: "npm:7.3.2"
+    vite: "npm:7.3.5"
     vitest: "npm:4.1.7"
   peerDependencies:
     "@navikt/aksel-icons": 8.x
@@ -2416,7 +2416,7 @@ __metadata:
     react-intl: "npm:10.1.8"
     stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
-    vite: "npm:7.3.2"
+    vite: "npm:7.3.5"
     vitest: "npm:4.1.7"
   peerDependencies:
     "@navikt/aksel-icons": 8.x
@@ -2463,7 +2463,7 @@ __metadata:
     react-intl: "npm:10.1.8"
     stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
-    vite: "npm:7.3.2"
+    vite: "npm:7.3.5"
     vitest: "npm:4.1.7"
   peerDependencies:
     "@navikt/aksel-icons": 8.x
@@ -2492,7 +2492,7 @@ __metadata:
     "@navikt/ft-config-vite": "workspace:^"
     eslint: "npm:9.39.4"
     typescript: "npm:5.9.3"
-    vite: "npm:7.3.2"
+    vite: "npm:7.3.5"
     vitest: "npm:4.1.7"
   languageName: unknown
   linkType: soft
@@ -2518,7 +2518,7 @@ __metadata:
     react-intl: "npm:10.1.8"
     stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
-    vite: "npm:7.3.2"
+    vite: "npm:7.3.5"
     vitest: "npm:4.1.7"
   peerDependencies:
     "@navikt/aksel-icons": 8.x
@@ -2544,7 +2544,7 @@ __metadata:
     react: "npm:19.2.6"
     react-intl: "npm:10.1.8"
     typescript: "npm:5.9.3"
-    vite: "npm:7.3.2"
+    vite: "npm:7.3.5"
     vitest: "npm:4.1.7"
   peerDependencies:
     dayjs: 1.x
@@ -7698,7 +7698,7 @@ __metadata:
     stylelint: "npm:17.8.0"
     stylelint-order: "npm:8.1.1"
     typescript: "npm:5.9.3"
-    vite: "npm:7.3.2"
+    vite: "npm:7.3.5"
     vite-plugin-circular-dependency: "npm:0.6.0"
     vite-plugin-dts: "npm:5.0.1"
     vitest: "npm:4.1.7"
@@ -13776,9 +13776,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:7.3.2":
-  version: 7.3.2
-  resolution: "vite@npm:7.3.2"
+"vite@npm:7.3.5":
+  version: 7.3.5
+  resolution: "vite@npm:7.3.5"
   dependencies:
     esbuild: "npm:^0.27.0"
     fdir: "npm:^6.5.0"
@@ -13827,7 +13827,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10/c5f7a9a60011c41c836cedf31c8ee7624102aff9b6a7f3aab2ff47639721bba0916f81994c3a3ea6577a16c4f0dfee1e7dbd244e0da8edd5954e3c6d48daaaa2
+  checksum: 10/2e1337510d6b81948b035f8b096c9be22daf1101fc52ad3d06cad9e090057ba1c1396e5e12cbaac2485f9c6cdcc854f978fe862280bdfe1a9a4149c60734c125
   languageName: node
   linkType: hard
 
