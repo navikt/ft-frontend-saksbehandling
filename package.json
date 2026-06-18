@@ -36,8 +36,8 @@
     "transform-to-workspace": "node scripts/replace-workspace-deps.js --restore"
   },
   "devDependencies": {
-    "@navikt/aksel-stylelint": "8.11.0",
-    "@navikt/ds-css": "8.11.0",
+    "@navikt/aksel-stylelint": "8.11.1",
+    "@navikt/ds-css": "8.11.1",
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-frontend-storybook-utils": "workspace:^",
     "@storybook/addon-a11y": "10.4.0",
@@ -62,7 +62,7 @@
     "stylelint": "17.8.0",
     "stylelint-order": "8.1.1",
     "typescript": "5.9.3",
-    "vite": "7.3.2",
+    "vite": "7.3.5",
     "vite-plugin-circular-dependency": "0.6.0",
     "vite-plugin-dts": "5.0.1",
     "vitest": "4.1.7",
