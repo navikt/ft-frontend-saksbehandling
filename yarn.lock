@@ -1737,8 +1737,8 @@ __metadata:
     "@types/react": "npm:19.2.14"
     dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
-    react: "npm:19.2.6"
-    react-dom: "npm:19.2.6"
+    react: "npm:19.2.7"
+    react-dom: "npm:19.2.7"
     react-hook-form: "npm:7.76.0"
     react-intl: "npm:10.1.8"
     stylelint: "npm:17.8.0"
@@ -1788,8 +1788,8 @@ __metadata:
     "@types/react": "npm:19.2.14"
     dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
-    react: "npm:19.2.6"
-    react-dom: "npm:19.2.6"
+    react: "npm:19.2.7"
+    react-dom: "npm:19.2.7"
     react-hook-form: "npm:7.76.0"
     react-intl: "npm:10.1.8"
     stylelint: "npm:17.8.0"
@@ -1837,8 +1837,8 @@ __metadata:
     "@types/react": "npm:19.2.14"
     dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
-    react: "npm:19.2.6"
-    react-dom: "npm:19.2.6"
+    react: "npm:19.2.7"
+    react-dom: "npm:19.2.7"
     react-hook-form: "npm:7.76.0"
     react-intl: "npm:10.1.8"
     stylelint: "npm:17.8.0"
@@ -1880,8 +1880,8 @@ __metadata:
     "@types/react": "npm:19.2.14"
     dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
-    react: "npm:19.2.6"
-    react-dom: "npm:19.2.6"
+    react: "npm:19.2.7"
+    react-dom: "npm:19.2.7"
     react-hook-form: "npm:7.76.0"
     stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
@@ -1928,8 +1928,8 @@ __metadata:
     "@navikt/ft-form-hooks": "workspace:^"
     "@types/react": "npm:19.2.14"
     eslint: "npm:9.39.4"
-    react: "npm:19.2.6"
-    react-dom: "npm:19.2.6"
+    react: "npm:19.2.7"
+    react-dom: "npm:19.2.7"
     react-hook-form: "npm:7.76.0"
     react-intl: "npm:10.1.8"
     typescript: "npm:5.9.3"
@@ -1944,7 +1944,7 @@ __metadata:
     "@navikt/ft-config-typescript": "workspace:^"
     "@types/react": "npm:19.2.14"
     eslint: "npm:9.39.4"
-    react: "npm:19.2.6"
+    react: "npm:19.2.7"
     react-intl: "npm:10.1.8"
     typescript: "npm:5.9.3"
   languageName: unknown
@@ -1960,8 +1960,8 @@ __metadata:
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/react": "npm:16.3.2"
     eslint: "npm:9.39.4"
-    react: "npm:19.2.6"
-    react-dom: "npm:19.2.6"
+    react: "npm:19.2.7"
+    react-dom: "npm:19.2.7"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.5"
     vitest: "npm:4.1.7"
@@ -1999,8 +1999,8 @@ __metadata:
     "@types/react": "npm:19.2.14"
     dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
-    react: "npm:19.2.6"
-    react-dom: "npm:19.2.6"
+    react: "npm:19.2.7"
+    react-dom: "npm:19.2.7"
     stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.5"
@@ -2039,8 +2039,8 @@ __metadata:
     dayjs: "npm:1.11.20"
     echarts: "npm:6.1.0"
     eslint: "npm:9.39.4"
-    react: "npm:19.2.6"
-    react-dom: "npm:19.2.6"
+    react: "npm:19.2.7"
+    react-dom: "npm:19.2.7"
     react-hook-form: "npm:7.76.0"
     react-intl: "npm:10.1.8"
     stylelint: "npm:17.8.0"
@@ -2090,8 +2090,8 @@ __metadata:
     dayjs: "npm:1.11.20"
     echarts: "npm:6.1.0"
     eslint: "npm:9.39.4"
-    react: "npm:19.2.6"
-    react-dom: "npm:19.2.6"
+    react: "npm:19.2.7"
+    react-dom: "npm:19.2.7"
     react-hook-form: "npm:7.76.0"
     react-intl: "npm:10.1.8"
     stylelint: "npm:17.8.0"
@@ -2138,8 +2138,8 @@ __metadata:
     "@types/react": "npm:19.2.14"
     dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
-    react: "npm:19.2.6"
-    react-dom: "npm:19.2.6"
+    react: "npm:19.2.7"
+    react-dom: "npm:19.2.7"
     react-hook-form: "npm:7.76.0"
     react-intl: "npm:10.1.8"
     stylelint: "npm:17.8.0"
@@ -2185,8 +2185,8 @@ __metadata:
     "@types/react": "npm:19.2.14"
     dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
-    react: "npm:19.2.6"
-    react-dom: "npm:19.2.6"
+    react: "npm:19.2.7"
+    react-dom: "npm:19.2.7"
     react-hook-form: "npm:7.76.0"
     react-intl: "npm:10.1.8"
     stylelint: "npm:17.8.0"
@@ -2232,8 +2232,8 @@ __metadata:
     "@types/react": "npm:19.2.14"
     dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
-    react: "npm:19.2.6"
-    react-dom: "npm:19.2.6"
+    react: "npm:19.2.7"
+    react-dom: "npm:19.2.7"
     react-hook-form: "npm:7.76.0"
     react-intl: "npm:10.1.8"
     stylelint: "npm:17.8.0"
@@ -2288,8 +2288,8 @@ __metadata:
     "@types/react": "npm:19.2.14"
     dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
-    react: "npm:19.2.6"
-    react-dom: "npm:19.2.6"
+    react: "npm:19.2.7"
+    react-dom: "npm:19.2.7"
     react-intl: "npm:10.1.8"
     stylelint: "npm:17.8.0"
     typescript: "npm:5.9.3"
@@ -2316,7 +2316,7 @@ __metadata:
     "@types/react": "npm:19.2.14"
     dayjs: "npm:1.11.20"
     eslint: "npm:9.39.4"
-    react: "npm:19.2.6"
+    react: "npm:19.2.7"
     react-intl: "npm:10.1.8"
     typescript: "npm:5.9.3"
     vite: "npm:7.3.5"
@@ -7467,8 +7467,8 @@ __metadata:
     lerna: "npm:9.0.7"
     lint-staged: "npm:16.4.0"
     prettier: "npm:3.8.3"
-    react: "npm:19.2.6"
-    react-dom: "npm:19.2.6"
+    react: "npm:19.2.7"
+    react-dom: "npm:19.2.7"
     storybook: "npm:10.4.0"
     stylelint: "npm:17.8.0"
     stylelint-order: "npm:8.1.1"
@@ -11449,14 +11449,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:19.2.6":
-  version: 19.2.6
-  resolution: "react-dom@npm:19.2.6"
+"react-dom@npm:19.2.7":
+  version: 19.2.7
+  resolution: "react-dom@npm:19.2.7"
   dependencies:
     scheduler: "npm:^0.27.0"
   peerDependencies:
-    react: ^19.2.6
-  checksum: 10/695122e37dec3460311231ff1f9a96368d74457d4ccf60010eaebc08c3e1c47b054c9267b40d98c689ae99d0c29a340acacfd405016a954a4f11613146191e68
+    react: ^19.2.7
+  checksum: 10/9564f4b83843ca5518ed5f807c93cb1663706559cde52f3ef814b41e60b63b16e684d849926458f0ba436745d7eabf822cba1c528be370e7b2f35a4c91e35941
   languageName: node
   linkType: hard
 
@@ -11522,10 +11522,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:19.2.6":
-  version: 19.2.6
-  resolution: "react@npm:19.2.6"
-  checksum: 10/205f0db93bd6c6485f94471d1c3437ae1d410f322297c76186fe4f658f88a6786bb0805e3cf8f330f24d1daa923b6b610ec63960d2461e9201bca64ca8361db9
+"react@npm:19.2.7":
+  version: 19.2.7
+  resolution: "react@npm:19.2.7"
+  checksum: 10/2939997e87d7f0ee0d9d2bb556866b616b999dfb7916283647034eda867a045a39c4f7a736c8ea6beffffcd78397fc30f63a7a3aaf8425b683c3060670859560
   languageName: node
   linkType: hard
 
