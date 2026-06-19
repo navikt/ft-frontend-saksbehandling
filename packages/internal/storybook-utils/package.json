@@ -14,8 +14,8 @@
     "@navikt/ds-react": "8.12.1",
     "@navikt/ft-form-hooks": "workspace:^",
     "react": "19.2.7",
-    "react-hook-form": "7.76.0",
-    "react-intl": "10.1.8"
+    "react-hook-form": "7.78.0",
+    "react-intl": "10.1.13"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
