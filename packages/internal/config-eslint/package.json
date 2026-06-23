@@ -23,6 +23,6 @@
   },
   "devDependencies": {
     "storybook": "10.4.4",
-    "typescript": "5.9.3"
+    "typescript": "6.0.3"
   }
 }
