@@ -243,11 +243,12 @@ describe('FordelBeregningsgrunnlagFaktaIndex', () => {
     expect(leggTilKnapper[1]).toBeEnabled();
 
     const inputfeltITab1 = screen.getAllByRole('textbox');
-    expect(inputfeltITab1).toHaveLength(4);
-    const fordelingAAP = inputfeltITab1[0];
-    const refkravAT = inputfeltITab1[1];
-    const fordelingAT = inputfeltITab1[2];
-    const begrunnelseFelt = inputfeltITab1[3];
+    expect(inputfeltITab1).toHaveLength(5);
+    // inputfeltITab1[0] er refusjonskrav for AAP (editerbar, men vi endrer den ikke)
+    const fordelingAAP = inputfeltITab1[1];
+    const refkravAT = inputfeltITab1[2];
+    const fordelingAT = inputfeltITab1[3];
+    const begrunnelseFelt = inputfeltITab1[4];
 
     await userEvent.type(fordelingAAP, '200 000');
     await userEvent.clear(refkravAT);
@@ -278,11 +279,12 @@ describe('FordelBeregningsgrunnlagFaktaIndex', () => {
     expect(screen.getByText('Feltet må fylles ut')).toBeInTheDocument();
 
     const inputfeltITab2 = screen.getAllByRole('textbox');
-    expect(inputfeltITab2).toHaveLength(4);
-    const fordelingAAP2 = inputfeltITab2[0];
-    const refkravAT2 = inputfeltITab2[1];
-    const fordelingAT2 = inputfeltITab2[2];
-    const begrunnelseFelt2 = inputfeltITab2[3];
+    expect(inputfeltITab2).toHaveLength(5);
+    // inputfeltITab2[0] er refusjonskrav for AAP (editerbar, men vi endrer den ikke)
+    const fordelingAAP2 = inputfeltITab2[1];
+    const refkravAT2 = inputfeltITab2[2];
+    const fordelingAT2 = inputfeltITab2[3];
+    const begrunnelseFelt2 = inputfeltITab2[4];
 
     await userEvent.type(fordelingAAP2, '200 000');
     await userEvent.clear(refkravAT2);
@@ -317,7 +319,7 @@ describe('FordelBeregningsgrunnlagFaktaIndex', () => {
                   fastsatteVerdier: {
                     fastsattÅrsbeløpInklNaturalytelse: 100000,
                     inntektskategori: 'ARBEIDSAVKLARINGSPENGER',
-                    refusjonPrÅr: undefined,
+                    refusjonPrÅr: 0,
                   },
                   forrigeArbeidsinntektPrÅr: 0,
                   forrigeInntektskategori: 'ARBEIDSAVKLARINGSPENGER',
@@ -372,7 +374,7 @@ describe('FordelBeregningsgrunnlagFaktaIndex', () => {
                   fastsatteVerdier: {
                     fastsattÅrsbeløpInklNaturalytelse: 200000,
                     inntektskategori: 'ARBEIDSAVKLARINGSPENGER',
-                    refusjonPrÅr: undefined,
+                    refusjonPrÅr: 0,
                   },
                   forrigeArbeidsinntektPrÅr: 0,
                   forrigeInntektskategori: 'ARBEIDSAVKLARINGSPENGER',

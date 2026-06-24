@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-ui-komponenter",
   "description": "Pakke som tilbyr generelle komponenter som grid og tabell",
-  "version": "8.0.1",
+  "version": "8.0.12",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -23,15 +23,15 @@
   "peerDependencies": {
     "@navikt/aksel-icons": "8.x",
     "@navikt/ds-react": "8.x",
-    "@navikt/ft-utils": "workspace:^",
+    "@navikt/ft-utils": "5.x",
     "dayjs": "1.x",
     "react": "19.x",
     "react-dom": "19.x",
     "react-intl": "10.x"
   },
   "devDependencies": {
-    "@navikt/aksel-icons": "8.9.1",
-    "@navikt/ds-react": "8.9.1",
+    "@navikt/aksel-icons": "8.12.1",
+    "@navikt/ds-react": "8.12.1",
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "@navikt/ft-config-vite": "workspace:^",
@@ -42,13 +42,13 @@
     "@types/react": "19.2.14",
     "dayjs": "1.11.20",
     "eslint": "9.39.4",
-    "react": "19.2.5",
-    "react-dom": "19.2.5",
-    "react-intl": "10.1.2",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "react-intl": "10.1.8",
     "stylelint": "17.8.0",
-    "typescript": "5.9.3",
-    "vite": "7.3.2",
-    "vitest": "4.1.4"
+    "typescript": "6.0.3",
+    "vite": "7.3.5",
+    "vitest": "4.1.7"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

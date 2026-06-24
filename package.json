@@ -22,8 +22,9 @@
     "tsc:changed": "lerna run tsc --stream --since origin/main",
     "eslint:changed": "lerna run eslint --stream --since origin/main",
     "stylelint": "lerna run stylelint --stream",
-    "tag": "yarn && lerna version --sign-git-tag",
-    "tag:force": "yarn && lerna version --sign-git-tag --force-publish ",
+    "tag": "lerna version --sign-git-tag",
+    "tag:force": "lerna version --sign-git-tag --force-publish",
+    "version": "node scripts/replace-workspace-deps.js --peer-only",
     "lerna-changed": "lerna changed",
     "clean": "lerna run clean",
     "prepare": "husky install",
@@ -32,44 +33,44 @@
     "storybook-build-all": "yarn build",
     "storybook": "storybook dev --quiet -p 7001",
     "transform-to-semver": "node scripts/replace-workspace-deps.js",
-    "transform-to-workspace": "node scripts/restore-workspace-deps.js"
+    "transform-to-workspace": "node scripts/replace-workspace-deps.js --restore"
   },
   "devDependencies": {
-    "@navikt/aksel-stylelint": "8.9.1",
-    "@navikt/ds-css": "8.9.1",
+    "@navikt/aksel-stylelint": "8.12.1",
+    "@navikt/ds-css": "8.12.1",
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-frontend-storybook-utils": "workspace:^",
-    "@storybook/addon-a11y": "10.3.5",
-    "@storybook/addon-docs": "10.3.5",
-    "@storybook/addon-links": "10.3.5",
-    "@storybook/react-vite": "10.3.5",
+    "@storybook/addon-a11y": "10.4.4",
+    "@storybook/addon-docs": "10.4.4",
+    "@storybook/addon-links": "10.4.4",
+    "@storybook/react-vite": "10.4.4",
     "@testing-library/jest-dom": "6.9.1",
     "@types/node": "25.5.2",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "dayjs": "^1.11.20",
     "eslint": "9.39.4",
-    "fast-glob": "3.3.3",
     "husky": "9.1.7",
     "jsdom": "29.0.2",
     "knip": "6.4.1",
     "lerna": "9.0.7",
     "lint-staged": "16.4.0",
     "prettier": "3.8.3",
-    "react": "19.2.5",
-    "react-dom": "19.2.5",
-    "storybook": "10.3.5",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "storybook": "10.4.4",
     "stylelint": "17.8.0",
     "stylelint-order": "8.1.1",
-    "typescript": "5.9.3",
-    "vite": "7.3.2",
-    "vite-plugin-circular-dependency": "0.5.0",
-    "vite-plugin-dts": "4.5.4",
-    "vitest": "4.1.4",
+    "typescript": "6.0.3",
+    "vite": "7.3.5",
+    "vite-plugin-circular-dependency": "0.6.0",
+    "vite-plugin-dts": "5.0.1",
+    "vitest": "4.1.7",
     "vitest-canvas-mock": "1.1.4"
   },
   "resolutions": {
-    "tmp": "^0.2.5"
+    "tmp": "^0.2.7",
+    "@microsoft/api-extractor/minimatch": "^3.1.4"
   },
   "workspaces": {
     "packages": [
@@ -82,5 +83,5 @@
     "packages/**/*.css": "stylelint --fix",
     "packages/**/*.{ts,tsx,js,jsx, css}": "prettier --write"
   },
-  "packageManager": "yarn@4.14.1"
+  "packageManager": "yarn@4.17.0"
 }

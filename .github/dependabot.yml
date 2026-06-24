@@ -21,14 +21,23 @@ updates:
           - 'react'
           - 'react-dom'
           - '@types/react'
+        update-types:
+          - 'minor'
+          - 'patch'
       designsystem:
         patterns:
           - '@navikt/aksel-*'
           - '@navikt/ds-*'
+        update-types:
+          - 'minor'
+          - 'patch'
       storybook:
         patterns:
           - 'storybook'
           - '@storybook/*'
+        update-types:
+          - 'minor'
+          - 'patch'
       linting:
         patterns:
           - 'eslint'
@@ -39,9 +48,15 @@ updates:
           - 'stylelint*'
           - 'lint-staged'
           - 'knip'
+        update-types:
+          - 'minor'
+          - 'patch'
       other:
         patterns:
           - '*'
+        update-types:
+          - 'minor'
+          - 'patch'
 
   - package-ecosystem: github-actions
     directory: '/'
@@ -54,3 +69,6 @@ updates:
       github:
         patterns:
           - '*'
+        update-types:
+          - 'minor'
+          - 'patch'

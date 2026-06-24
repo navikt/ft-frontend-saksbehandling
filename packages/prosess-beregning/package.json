@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-prosess-beregning",
   "description": "Prosesspanel for beregningsgrunnlaget med aksjonspunkter relatert til avvik for arbeid, frilans og næring",
-  "version": "2.0.1",
+  "version": "2.0.12",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -21,19 +21,19 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "echarts": "6.0.0"
+    "echarts": "6.1.0"
   },
   "peerDependencies": {
     "@navikt/aksel-icons": "8.x",
     "@navikt/ds-css": "8.x",
     "@navikt/ds-react": "8.x",
-    "@navikt/ft-form-hooks": "workspace:^",
-    "@navikt/ft-form-validators": "workspace:^",
+    "@navikt/ft-form-hooks": "12.x",
+    "@navikt/ft-form-validators": "6.x",
     "@navikt/ft-kodeverk": "workspace:^",
-    "@navikt/ft-plattform-komponenter": "workspace:^",
-    "@navikt/ft-types": "workspace:^",
-    "@navikt/ft-ui-komponenter": "workspace:^",
-    "@navikt/ft-utils": "workspace:^",
+    "@navikt/ft-plattform-komponenter": "12.x",
+    "@navikt/ft-types": "6.x",
+    "@navikt/ft-ui-komponenter": "8.x",
+    "@navikt/ft-utils": "5.x",
     "dayjs": "1.x",
     "react": "19.x",
     "react-dom": "19.x",
@@ -41,8 +41,8 @@
     "react-intl": "10.x"
   },
   "devDependencies": {
-    "@navikt/aksel-icons": "8.9.1",
-    "@navikt/ds-react": "8.9.1",
+    "@navikt/aksel-icons": "8.12.1",
+    "@navikt/ds-react": "8.12.1",
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "@navikt/ft-config-vite": "workspace:^",
@@ -60,14 +60,14 @@
     "@types/react": "19.2.14",
     "dayjs": "1.11.20",
     "eslint": "9.39.4",
-    "react": "19.2.5",
-    "react-dom": "19.2.5",
-    "react-hook-form": "7.72.1",
-    "react-intl": "10.1.2",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "react-hook-form": "7.76.0",
+    "react-intl": "10.1.8",
     "stylelint": "17.8.0",
-    "typescript": "5.9.3",
-    "vite": "7.3.2",
-    "vitest": "4.1.4"
+    "typescript": "6.0.3",
+    "vite": "7.3.5",
+    "vitest": "4.1.7"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

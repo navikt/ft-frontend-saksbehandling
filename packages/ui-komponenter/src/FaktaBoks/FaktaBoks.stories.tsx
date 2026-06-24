@@ -1,3 +1,4 @@
+import { PlantIcon } from '@navikt/aksel-icons';
 import { VStack } from '@navikt/ds-react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
@@ -27,6 +28,19 @@ export const Basic: Story = {
 };
 export const MedBeskrivelse: Story = {
   args: {
+    beskrivelse: 'Inntekt og ytelser etter kap. 8, 9 og 14 de 12 siste månedene',
+  },
+};
+
+export const MedIkon: Story = {
+  args: {
+    ikon: <PlantIcon fontSize="3rem" />,
+  },
+};
+
+export const MedBeskrivelseOgIkon: Story = {
+  args: {
+    ikon: <PlantIcon fontSize="3rem" />,
     beskrivelse: 'Inntekt og ytelser etter kap. 8, 9 og 14 de 12 siste månedene',
   },
 };

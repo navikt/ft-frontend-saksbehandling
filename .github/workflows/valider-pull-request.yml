@@ -6,15 +6,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.3
 
       - uses: navikt/fp-gha-workflows/.github/actions/setup-yarnrc@main
         with:
           npmAuthToken: ${{ secrets.READER_TOKEN }}
 
-      - uses: actions/setup-node@v6.3.0
+      - uses: actions/setup-node@v6.4.0
         with:
-          node-version: 22.17.1
+          node-version: 26.1.0
           cache: 'yarn'
 
       - name: Installere dependencies
@@ -55,36 +55,10 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - uses: actions/checkout@v6
-
-      - uses: navikt/fp-gha-workflows/.github/actions/setup-yarnrc@main
-        with:
-          npmAuthToken: ${{ secrets.READER_TOKEN }}
-
-      - uses: actions/setup-node@v6.3.0
-        with:
-          node-version: 22.17.1
-          cache: 'yarn'
-
-      - name: Installere dependencies
-        run: yarn install --immutable
-
       - name: Run knip
-        run: |
-          yarn knip --no-exit-code --reporter=markdown > knip-report.md
-          cat knip-report.md > $GITHUB_STEP_SUMMARY
-
-      - name: Delete previous comments from knip
-        continue-on-error: true
-        run: gh pr comment ${{ github.event.pull_request.number }} --delete-last --yes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Post knip report
-        run: |
-          number_of_words=$(wc -w < knip-report.md)
-          if [ $number_of_words -gt 3 ]; then
-            gh pr comment ${{ github.event.pull_request.number }} --body-file knip-report.md
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: navikt/fp-gha-workflows/.github/actions/knip-it@main
+        with:
+          npm-auth-token: ${{ secrets.READER_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          package-manager: 'yarn'
+          node-version: 26.1.0

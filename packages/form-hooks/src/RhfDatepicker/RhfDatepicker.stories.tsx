@@ -50,3 +50,11 @@ export const ReadOnly: Story = {
     isEdited: true,
   },
 };
+
+export const MedEgneInputFormat: Story = {
+  args: {
+    name: 'datepickerFieldCustomInputFormat',
+    label: 'Dette er en datepicker med egne inputformat',
+    inputFormats: ['DD-MM-YYYY', 'DDMMYY'],
+  },
+};

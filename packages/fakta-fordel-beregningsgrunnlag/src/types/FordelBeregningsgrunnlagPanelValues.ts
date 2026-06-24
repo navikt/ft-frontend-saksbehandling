@@ -57,6 +57,7 @@ export type FordelBeregningsgrunnlagAndelValues = FordelBeregningsgrunnlagGenere
     forrigeArbeidsinntektPrAar?: number;
     beregningsperiodeFom?: string;
     beregningsperiodeTom?: string;
+    utbetalingsgrad?: number;
     id?: string;
   };
 

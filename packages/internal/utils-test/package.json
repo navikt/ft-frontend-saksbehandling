@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-frontend-utils-test",
-  "version": "5.0.1",
+  "version": "5.0.9",
   "license": "MIT",
   "type": "module",
   "private": true,
@@ -12,14 +12,14 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "react": "19.2.5",
-    "react-intl": "10.1.2"
+    "react": "19.2.7",
+    "react-intl": "10.1.8"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "@types/react": "19.2.14",
     "eslint": "9.39.4",
-    "typescript": "5.9.3"
+    "typescript": "6.0.3"
   }
 }

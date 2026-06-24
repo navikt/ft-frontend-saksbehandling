@@ -25,6 +25,7 @@ type Props<T extends FieldValues> = {
   defaultMonth?: Date;
   fromDate?: Date;
   toDate?: Date;
+  inputFormats?: string[];
   control: UseControllerProps<T>['control'];
 } & Omit<UseControllerProps<T>, 'control'>;
 
@@ -41,6 +42,7 @@ export const RhfDatepicker = <T extends FieldValues>({
   defaultMonth,
   fromDate,
   toDate,
+  inputFormats = [DDMMYYYY_DATE_FORMAT],
   ...controllerProps
 }: Props<T>) => {
   const { name, control, disabled } = controllerProps;
@@ -78,16 +80,18 @@ export const RhfDatepicker = <T extends FieldValues>({
 
   const onChangeInput = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const verdi = dayjs(event.target.value, DDMMYYYY_DATE_FORMAT, true).format(ISO_DATE_FORMAT);
-      const validDate = verdi !== 'Invalid Date';
+      const parserFormats = inputFormats.length > 0 ? inputFormats : [DDMMYYYY_DATE_FORMAT];
+      const parsedDate = dayjs(event.target.value, parserFormats, true);
+      const validDate = parsedDate.isValid();
+      const verdi = validDate ? parsedDate.format(ISO_DATE_FORMAT) : event.target.value;
 
       setFieldValue(event.target.value);
       if (onChange) {
-        onChange(validDate ? verdi : event.target.value);
+        onChange(verdi);
       }
-      field.onChange(validDate ? verdi : event.target.value);
+      field.onChange(verdi);
     },
-    [setFieldValue, onChange, field],
+    [setFieldValue, onChange, field, inputFormats],
   );
 
   if (readOnly) {

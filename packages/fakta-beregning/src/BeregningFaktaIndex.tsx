@@ -123,6 +123,7 @@ export const BeregningFaktaIndex = ({
   const aktivtBeregningsgrunnlag = beregningsgrunnlag[aktivtBeregningsgrunnlagIndeks];
 
   const aktiveAvklaringsBehov = aktivtBeregningsgrunnlag.avklaringsbehov;
+  const komprimerTabs = skalBrukeTabs && beregningsgrunnlag.length > 5;
 
   return (
     <RawIntlProvider value={intl}>
@@ -143,6 +144,8 @@ export const BeregningFaktaIndex = ({
             <Tabs
               value={aktivtBeregningsgrunnlagIndeks.toString()}
               onChange={(clickedIndex: string) => setAktivtBeregningsgrunnlagIndeks(Number(clickedIndex))}
+              size={komprimerTabs ? 'small' : 'medium'}
+              className={komprimerTabs ? styles.tabScroll : undefined}
             >
               <Tabs.List>
                 {beregningsgrunnlag.map((currentBeregningsgrunnlag, currentBeregningsgrunnlagIndex) => (

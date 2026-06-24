@@ -248,6 +248,7 @@ export const FordelPeriodeFieldArray = ({
   const arbeidsforholdList = finnUnikeArbeidsforhold(beregningsgrunnlag);
 
   const gjelderGradering = getGjelderGradering(beregningsgrunnlag);
+  const gjelderSVP = beregningsgrunnlag.ytelsesspesifiktGrunnlag?.ytelsetype === 'SVP';
   const inntektskategoriKoder = kodeverkSamling['Inntektskategori'];
   const intl = useIntl();
   const selectVals = harKunYtelse
@@ -329,6 +330,11 @@ export const FordelPeriodeFieldArray = ({
             <Table.HeaderCell scope="col" align="right" textSize="small">
               <FormattedMessage id="BeregningInfoPanel.FordelBG.Beregningsgrunnlag" />
             </Table.HeaderCell>
+            {gjelderSVP && (
+              <Table.HeaderCell scope="col" align="right" textSize="small">
+                <FormattedMessage id="BeregningInfoPanel.FordelBG.Utbetalingsgrad" />
+              </Table.HeaderCell>
+            )}
             <Table.HeaderCell scope="col" align="right" textSize="small">
               <FormattedMessage id="BeregningInfoPanel.FordelBG.Fordeling" />
             </Table.HeaderCell>
@@ -413,7 +419,11 @@ export const FordelPeriodeFieldArray = ({
                     readOnly
                   />
                 </Table.DataCell>
-
+                {gjelderSVP && (
+                  <Table.DataCell align="right" textSize="small">
+                    {field.utbetalingsgrad}%
+                  </Table.DataCell>
+                )}
                 <Table.DataCell align="right" textSize="small">
                   {skalIkkeRedigereInntekt ? (
                     <RhfTextField
@@ -477,6 +487,7 @@ export const FordelPeriodeFieldArray = ({
             <Table.HeaderCell align="right" textSize="small">
               {summerBeregningsgrunnlagPrÅr(watchedArray)}
             </Table.HeaderCell>
+            {gjelderSVP && <Table.DataCell />}
             <Table.HeaderCell align="right" textSize="small">
               {summerFordeling(watchedArray)}
             </Table.HeaderCell>
