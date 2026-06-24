@@ -19,7 +19,7 @@ export {
 export { dateFormat, dateTimeFormat, timeFormat } from './src/dateFormat';
 export type { DateFormatOptions, DateTimeFormatOptions } from './src/dateFormat';
 export { decodeHtmlEntity } from './src/decodeHtmlEntity';
-export { fodselsnummerPattern, isValidFodselsnummer } from './src/fodselsnummerUtils';
+export { fodselsnummerPattern, isValidFodselsnummer, formaterFødselsnummer } from './src/fodselsnummerUtils';
 export {
   ISO_DATE_FORMAT,
   DDMMYYYY_DATE_FORMAT,
