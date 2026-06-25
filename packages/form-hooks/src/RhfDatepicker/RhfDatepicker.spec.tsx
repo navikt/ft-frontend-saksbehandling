@@ -84,4 +84,16 @@ describe('RhfDatepicker', () => {
       dato: '2025-08-26',
     });
   });
+
+  it('skal formatere på nytt når samme 8 sifre erstatter en allerede formatert dato', async () => {
+    const { container } = render(<TestForm onSubmit={vi.fn()} />);
+
+    const input = within(container).getByLabelText('Dato');
+    await userEvent.type(input, '26082025');
+    expect(input).toHaveValue('26.08.2025');
+
+    // Bruker markerer alt og limer inn den samme sifferrekken – skal fortsatt få punktum
+    fireEvent.change(input, { target: { value: '26082025' } });
+    expect(input).toHaveValue('26.08.2025');
+  });
 });

@@ -146,10 +146,9 @@ const formatDateInput = ({
     return { inputVerdi: nyVerdi, dato: direkteParset.format(ISO_DATE_FORMAT) };
   }
 
-  // Setter automatisk inn punktum når brukeren skriver 8 sifre: "26082025" -> "26.08.2025"
+  // Setter automatisk inn punktum når brukeren skriver/limer inn 8 sifre: "26082025" -> "26.08.2025"
   const tall = nyVerdi.replace(/\D/g, '');
-  const forrigeTall = forrigeVerdi.replace(/\D/g, '');
-  if (tall.length === 8 && tall !== forrigeTall) {
+  if (tall.length === 8 && nyVerdi !== forrigeVerdi) {
     const formatert = `${tall.slice(0, 2)}.${tall.slice(2, 4)}.${tall.slice(4, 8)}`;
     const parset = dayjs(formatert, DDMMYYYY_DATE_FORMAT, true);
     if (parset.isValid()) {
