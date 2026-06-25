@@ -2,6 +2,7 @@ import { type ReactNode, useMemo } from 'react';
 import { type FieldValues, useController, type UseControllerProps, useFormContext } from 'react-hook-form';
 
 import { Checkbox, type CheckboxProps, ErrorMessage } from '@navikt/ds-react';
+
 import { classNames } from '@navikt/ft-utils';
 
 import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';

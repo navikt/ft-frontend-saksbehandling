@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 
 import { Box } from '@navikt/ds-react';
+
 import { classNames } from '@navikt/ft-utils';
 
 import styles from './borderBox.module.css';

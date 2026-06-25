@@ -6,7 +6,7 @@ import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 
 import { SideMenu } from '@navikt/ft-plattform-komponenter';
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps } from '@navikt/ft-types';
-import { createIntl, classNames, dateFormat } from '@navikt/ft-utils';
+import { classNames, createIntl, dateFormat } from '@navikt/ft-utils';
 
 import { BeregningFP } from './components/BeregningFP';
 import type { BeregningFormValues } from './types/BeregningFormValues';
