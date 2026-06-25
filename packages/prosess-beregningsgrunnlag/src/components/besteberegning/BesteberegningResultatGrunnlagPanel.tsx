@@ -52,30 +52,24 @@ export const BesteberegningResultatGrunnlagPanel = ({ periode, besteMåneder }: 
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell scope="col" />
-              <Table.HeaderCell scope="col">
+              <Table.HeaderCell scope="col" textSize="small">
                 <FormattedMessage id="BesteberegningResultatGrunnlagPanel.BeregningEtterKap8" />
               </Table.HeaderCell>
-              <Table.HeaderCell scope="col">
+              <Table.HeaderCell scope="col" textSize="small">
                 <FormattedMessage id="BesteberegningResultatGrunnlagPanel.BeregningEtterBesteberegning" />
               </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
             <Table.Row>
-              <Table.DataCell>
-                <BodyShort size="small">
-                  <FormattedMessage id="BesteberegningResultatGrunnlagPanel.BruttoBeregningsgrunnlag" />
-                </BodyShort>
+              <Table.DataCell textSize="small">
+                <FormattedMessage id="BesteberegningResultatGrunnlagPanel.BruttoBeregningsgrunnlag" />
               </Table.DataCell>
-              <Table.DataCell>
-                <BodyShort size="small">
-                  <BeløpLabel beløp={kap8Beregning} />
-                </BodyShort>
+              <Table.DataCell textSize="small">
+                <BeløpLabel beløp={kap8Beregning} />
               </Table.DataCell>
-              <Table.DataCell>
-                <BodyShort size="small">
-                  <BeløpLabel beløp={besteberegnet} />
-                </BodyShort>
+              <Table.DataCell textSize="small">
+                <BeløpLabel beløp={besteberegnet} />
               </Table.DataCell>
             </Table.Row>
           </Table.Body>

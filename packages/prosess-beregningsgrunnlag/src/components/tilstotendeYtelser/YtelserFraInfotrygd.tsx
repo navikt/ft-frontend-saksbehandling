@@ -20,7 +20,7 @@ export const YtelserFraInfotrygd = ({ bruttoPrAar }: Props) => {
         <Heading size="medium" level="4">
           <FormattedMessage id="YtelserFraInfotrygd.Tittel" />
         </Heading>
-        <Table>
+        <Table size="small">
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell />

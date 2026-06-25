@@ -90,12 +90,12 @@ const createSummaryRow = (relevanteAndeler: BeregningsgrunnlagAndel[]): ReactEle
   return (
     <tfoot>
       <Table.Row>
-        <Table.DataCell>
+        <Table.HeaderCell textSize="small">
           <FormattedMessage id="GrunnlagForAarsinntektPanelAT.TotaltArbeidsinntekt" />
-        </Table.DataCell>
-        <Table.DataCell align="right" textSize="small">
+        </Table.HeaderCell>
+        <Table.HeaderCell align="right" textSize="small">
           <BeløpLabel beløp={beregnetMaanedsinntekt} />
-        </Table.DataCell>
+        </Table.HeaderCell>
         <Table.HeaderCell align="right" textSize="small">
           <BeløpLabel beløp={beregnetAarsinntekt} />
         </Table.HeaderCell>
