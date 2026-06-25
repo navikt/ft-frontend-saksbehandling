@@ -2,6 +2,8 @@ import React from 'react';
 
 import { BodyShort, Tooltip } from '@navikt/ds-react';
 
+import { classNames } from '@navikt/ft-utils';
+
 import { StepIcon } from './StepIcon';
 import { StepType } from './StepType';
 
@@ -38,14 +40,12 @@ export const Step = ({
     }
   };
 
-  const stepIndicatorCls = [
+  const stepIndicatorCls = classNames(
     styles.step__button,
     styles[type],
     isActive && styles['active'],
     usePartialStatus && styles['partial'],
-  ]
-    .filter(Boolean)
-    .join(' ');
+  );
 
   return (
     <li key={label} className={styles.step} aria-current={isActive ? 'step' : undefined}>
@@ -58,7 +58,7 @@ export const Step = ({
         </button>
       </Tooltip>
       {isActive && (
-        <div className={[stepArrowContainerStyle, styles['step__arrow-container']].filter(Boolean).join(' ')} />
+        <div className={classNames(stepArrowContainerStyle, styles['step__arrow-container'])} />
       )}
     </li>
   );

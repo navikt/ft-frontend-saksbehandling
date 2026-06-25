@@ -11,6 +11,7 @@ import {
 import { HStack, RadioGroup, type RadioGroupProps } from '@navikt/ds-react';
 
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
+import { classNames } from '@navikt/ft-utils';
 
 import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 
@@ -70,7 +71,7 @@ export const RhfRadioGroup = <TFieldValues extends FieldValues, TName extends Fi
         }
         field.onChange(value);
       }}
-      className={[className, styles.noReadOnlyIcon].filter(Boolean).join(' ')}
+      className={classNames(className, styles.noReadOnlyIcon)}
       {...rest}
     >
       {children}

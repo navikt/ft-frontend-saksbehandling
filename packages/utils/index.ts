@@ -1,4 +1,5 @@
 export { forhandsvisDokument } from './src/browserUtils';
+export { classNames } from './src/classNames';
 export {
   formatCurrencyWithKr,
   formatCurrencyNoKr,

@@ -11,6 +11,7 @@ import {
 import { Checkbox, CheckboxGroup, type CheckboxGroupProps, HStack } from '@navikt/ds-react';
 
 import { EditedIcon } from '@navikt/ft-ui-komponenter';
+import { classNames } from '@navikt/ft-utils';
 
 import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 
@@ -78,7 +79,7 @@ export const RhfCheckboxGroup = <TFieldValues extends FieldValues, TName extends
       }
       readOnly={readOnly}
       error={getError(errors, name)}
-      className={[className, styles.noReadOnlyIcon].filter(Boolean).join(' ')}
+      className={classNames(className, styles.noReadOnlyIcon)}
       {...rest}
     >
       {children}
