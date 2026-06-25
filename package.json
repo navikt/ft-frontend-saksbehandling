@@ -62,7 +62,7 @@
     "stylelint": "17.13.0",
     "stylelint-order": "8.1.1",
     "typescript": "6.0.3",
-    "vite": "7.3.5",
+    "vite": "7.3.6",
     "vite-plugin-circular-dependency": "0.6.0",
     "vite-plugin-dts": "5.0.1",
     "vitest": "4.1.9",
