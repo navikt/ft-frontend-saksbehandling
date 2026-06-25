@@ -81,17 +81,19 @@ export const RhfDatepicker = <T extends FieldValues>({
   const onChangeInput = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const parserFormats = inputFormats.length > 0 ? inputFormats : [DDMMYYYY_DATE_FORMAT];
-      const parsedDate = dayjs(event.target.value, parserFormats, true);
-      const validDate = parsedDate.isValid();
-      const verdi = validDate ? parsedDate.format(ISO_DATE_FORMAT) : event.target.value;
+      const { inputVerdi, dato } = formatDateInput({
+        nyVerdi: event.target.value,
+        forrigeVerdi: fieldValue,
+        parserFormats,
+      });
 
-      setFieldValue(event.target.value);
+      setFieldValue(inputVerdi);
       if (onChange) {
-        onChange(verdi);
+        onChange(dato);
       }
-      field.onChange(verdi);
+      field.onChange(dato);
     },
-    [setFieldValue, onChange, field, inputFormats],
+    [setFieldValue, onChange, field, inputFormats, fieldValue],
   );
 
   if (readOnly) {
@@ -128,4 +130,31 @@ export const RhfDatepicker = <T extends FieldValues>({
       />
     </DatePicker>
   );
+};
+
+const formatDateInput = ({
+  nyVerdi,
+  forrigeVerdi,
+  parserFormats,
+}: {
+  nyVerdi: string;
+  forrigeVerdi: string;
+  parserFormats: string[];
+}): { inputVerdi: string; dato: string } => {
+  const direkteParset = dayjs(nyVerdi, parserFormats, true);
+  if (direkteParset.isValid()) {
+    return { inputVerdi: nyVerdi, dato: direkteParset.format(ISO_DATE_FORMAT) };
+  }
+
+  // Setter automatisk inn punktum når brukeren skriver/limer inn 8 sifre: "26082025" -> "26.08.2025"
+  const tall = nyVerdi.replace(/\D/g, '');
+  if (tall.length === 8 && nyVerdi !== forrigeVerdi) {
+    const formatert = `${tall.slice(0, 2)}.${tall.slice(2, 4)}.${tall.slice(4, 8)}`;
+    const parset = dayjs(formatert, DDMMYYYY_DATE_FORMAT, true);
+    if (parset.isValid()) {
+      return { inputVerdi: formatert, dato: parset.format(ISO_DATE_FORMAT) };
+    }
+  }
+
+  return { inputVerdi: nyVerdi, dato: nyVerdi };
 };
