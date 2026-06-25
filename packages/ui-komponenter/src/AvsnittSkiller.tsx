@@ -1,3 +1,5 @@
+import { classNames } from '@navikt/ft-utils';
+
 import styles from './avsnittSkiller.module.css';
 
 type Props = {
@@ -20,7 +22,7 @@ export const AvsnittSkiller = ({
   <>
     {spaceAbove && <div style={{ marginBottom: '32px' }} />}
     <div
-      className={[className, leftPanel && styles.leftPanel, rightPanel && styles.rightPanel].filter(Boolean).join(' ')}
+      className={classNames(className, leftPanel && styles.leftPanel, rightPanel && styles.rightPanel)}
     >
       <div className={dividerParagraf ? styles.dividerParagraf : styles.divider} />
     </div>

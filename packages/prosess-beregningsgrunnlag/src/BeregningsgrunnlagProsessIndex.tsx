@@ -6,7 +6,7 @@ import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 
 import { SideMenu } from '@navikt/ft-plattform-komponenter';
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps } from '@navikt/ft-types';
-import { createIntl, dateFormat } from '@navikt/ft-utils';
+import { createIntl, classNames, dateFormat } from '@navikt/ft-utils';
 
 import { BeregningFP } from './components/BeregningFP';
 import type { BeregningFormValues } from './types/BeregningFormValues';
@@ -118,9 +118,10 @@ export const BeregningsgrunnlagProsessIndex = ({
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
 
   const menyProps = lagMenyProps(listeMedGrunnlag, beregningsgrunnlagsvilkar);
-  const mainContainerClassnames = [styles.mainContainer, skalBrukeSidemeny && styles['mainContainer--withSideMenu']]
-    .filter(Boolean)
-    .join(' ');
+  const mainContainerClassnames = classNames(
+    styles.mainContainer,
+    skalBrukeSidemeny && styles['mainContainer--withSideMenu'],
+  );
 
   useEffect(() => {
     const førsteSkjæringstidspunktMedAksjonspunktIndex = menyProps.findIndex(
