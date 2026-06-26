@@ -1722,7 +1722,7 @@ __metadata:
   resolution: "@navikt/ft-config-eslint@workspace:packages/internal/config-eslint"
   dependencies:
     "@eslint/js": "npm:9.39.4"
-    "@vitest/eslint-plugin": "npm:1.6.17"
+    "@vitest/eslint-plugin": "npm:1.6.20"
     eslint: "npm:9.39.4"
     eslint-config-prettier: "npm:10.1.8"
     eslint-plugin-import: "npm:2.32.0"
@@ -4697,9 +4697,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/eslint-plugin@npm:1.6.17":
-  version: 1.6.17
-  resolution: "@vitest/eslint-plugin@npm:1.6.17"
+"@vitest/eslint-plugin@npm:1.6.20":
+  version: 1.6.20
+  resolution: "@vitest/eslint-plugin@npm:1.6.20"
   dependencies:
     "@typescript-eslint/scope-manager": "npm:^8.58.0"
     "@typescript-eslint/utils": "npm:^8.58.0"
@@ -4715,7 +4715,7 @@ __metadata:
       optional: true
     vitest:
       optional: true
-  checksum: 10/3b30fd27321aa44ff64ff77f6b96a1a658844462f71739a0ae300f9657f3e6d39225a2aa27903ec69606bd824fa7a1ecdecacaae2e00453cfdca872439919d55
+  checksum: 10/a1e9b613d29d3efe1c5dd35d6481a9efc0d39c34d423dcf24a4b4d4f34a43c69cb37e8228fb8a2440007753366ceab9f444cb848396f3d6a3a9ba04b1aa7bc37
   languageName: node
   linkType: hard
 
@@ -7649,7 +7649,7 @@ __metadata:
     typescript: "npm:6.0.3"
     vite: "npm:7.3.6"
     vite-plugin-circular-dependency: "npm:0.6.0"
-    vite-plugin-dts: "npm:5.0.1"
+    vite-plugin-dts: "npm:5.0.2"
     vitest: "npm:4.1.9"
     vitest-canvas-mock: "npm:1.1.4"
   languageName: unknown
@@ -13662,9 +13662,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unplugin-dts@npm:1.0.1":
-  version: 1.0.1
-  resolution: "unplugin-dts@npm:1.0.1"
+"unplugin-dts@npm:1.0.2":
+  version: 1.0.2
+  resolution: "unplugin-dts@npm:1.0.2"
   dependencies:
     "@rollup/pluginutils": "npm:^5.1.4"
     "@volar/typescript": "npm:^2.4.26"
@@ -13701,7 +13701,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10/b6be5a9a6ab20b11f405c34136130feb1a0738bbc96387c607cc0239625bb99053c4779077b4210f29dacc2e093b8caf5ef4a9d5f38d904a0480b8f4c06557db
+  checksum: 10/8c8eadf927933f5d2bf6b25dffc773f6c212a1e7bccac764a7396934bc8bda0be20650038b843654be8e4b74102c308235034ebcbe519a776245465f4d779ee3
   languageName: node
   linkType: hard
 
@@ -13802,11 +13802,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-dts@npm:5.0.1":
-  version: 5.0.1
-  resolution: "vite-plugin-dts@npm:5.0.1"
+"vite-plugin-dts@npm:5.0.2":
+  version: 5.0.2
+  resolution: "vite-plugin-dts@npm:5.0.2"
   dependencies:
-    unplugin-dts: "npm:1.0.1"
+    unplugin-dts: "npm:1.0.2"
   peerDependencies:
     "@microsoft/api-extractor": ">=7"
     rollup: ">=3"
@@ -13818,7 +13818,7 @@ __metadata:
       optional: true
     vite:
       optional: true
-  checksum: 10/9d6b45394903b43041164f840795167caffdad190f30619a9f193379711d91393e232a1b3b5bd824c505727fbbe71416b750a33015528d235fa5fbe577c00385
+  checksum: 10/2acaf42defbd132ee53df629b1b9541a482c9bed38b4e0763d9b7a96541722db4ce37edc54bdbd38f124ef706f9a345f389d4782b001ff210f43539673dc8e81
   languageName: node
   linkType: hard
 
