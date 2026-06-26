@@ -1,18 +1,26 @@
-import { isValidFodselsnummer } from './fodselsnummerUtils';
+import { formaterFødselsnummer, isValidFodselsnummer } from './fodselsnummerUtils';
 
 const validFodselsnummer = '17420373147';
 
 describe('Fødselsnummer-utils', () => {
-  it('skal godkjenne gyldig fødselsnummer', () => {
-    expect(isValidFodselsnummer(validFodselsnummer)).toBe(true);
+  describe('isValidFodselsnummer', () => {
+    it('skal godkjenne gyldig fødselsnummer', () => {
+      expect(isValidFodselsnummer(validFodselsnummer)).toBe(true);
+    });
+
+    it('skal underkjenne ugyldig fødselsnummer', () => {
+      let invalidFodselsnummer = '31048518434';
+      expect(isValidFodselsnummer(invalidFodselsnummer)).toBe(false);
+      invalidFodselsnummer = '9999999999';
+      expect(isValidFodselsnummer(invalidFodselsnummer)).toBe(false);
+      invalidFodselsnummer = `${validFodselsnummer}1`;
+      expect(isValidFodselsnummer(invalidFodselsnummer)).toBe(false);
+    });
   });
 
-  it('skal underkjenne ugyldig fødselsnummer', () => {
-    let invalidFodselsnummer = '31048518434';
-    expect(isValidFodselsnummer(invalidFodselsnummer)).toBe(false);
-    invalidFodselsnummer = '9999999999';
-    expect(isValidFodselsnummer(invalidFodselsnummer)).toBe(false);
-    invalidFodselsnummer = `${validFodselsnummer}1`;
-    expect(isValidFodselsnummer(invalidFodselsnummer)).toBe(false);
+  describe('formaterFødselsnummer', () => {
+    it('skal formatere fødselsnummer', () => {
+      expect(formaterFødselsnummer(validFodselsnummer)).toBe('174203 73147');
+    });
   });
 });

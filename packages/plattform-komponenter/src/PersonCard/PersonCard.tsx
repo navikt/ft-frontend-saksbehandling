@@ -5,6 +5,8 @@ import { BodyShort, Button, CopyButton, HStack, Link, Popover, Tooltip } from '@
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
+import { formaterFødselsnummer } from '@navikt/ft-utils';
+
 import { Gender } from './Gender';
 import { GenderIcon } from './GenderIcon';
 import { VisittKort } from './VisittKort';
@@ -23,10 +25,6 @@ interface Props {
   childAge?: string | React.ReactNode;
   showPersonAge?: boolean;
   age?: number;
-}
-
-function formaterFnr(fnr: string) {
-  return fnr.slice(0, 6) + ' ' + fnr.slice(6);
 }
 
 const getPersonAge = (fnr: string, age?: number) => {
@@ -97,7 +95,7 @@ export const PersonCard = ({
         <>
           <HStack align="center" wrap={false} gap="space-8">
             <BodyShort textColor="subtle" style={{ whiteSpace: 'nowrap' }}>
-              {formaterFnr(fodselsnummer)}
+              {formaterFødselsnummer(fodselsnummer)}
             </BodyShort>
             <Tooltip content={`Kopier ${name}s fødselsnummer til utklippstavlen`}>
               <CopyButton copyText={fodselsnummer} style={{ padding: 0 }} />

@@ -25,3 +25,7 @@ export const isValidFodselsnummer = (input: string): boolean => {
   }
   return checksumOne === parseInt(fodselsnummer[9], 10) && checksumTwo === parseInt(fodselsnummer[10], 10);
 };
+
+export const formaterFødselsnummer = (fnr: string) => {
+  return fnr.slice(0, 6) + ' ' + fnr.slice(6);
+};
