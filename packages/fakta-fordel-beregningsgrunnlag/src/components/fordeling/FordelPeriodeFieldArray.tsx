@@ -220,6 +220,7 @@ export const FordelPeriodeFieldArray = ({
     name: fieldArrayName,
   });
 
+  /* eslint-disable react-you-might-not-need-an-effect/no-event-handler -- kopierer feltverdier mellom field arrays */
   useEffect(() => {
     if (fieldArrayToRepeat && fieldArrayToRepeat !== fieldArrayName && !readOnly && !skalIkkeRedigereInntekt) {
       const formValues = getValues(fieldArrayToRepeat as `FORDEL_BEREGNING_FORM.${number}.${string}`);
@@ -242,6 +243,7 @@ export const FordelPeriodeFieldArray = ({
       });
     }
   }, [fieldArrayToRepeat]);
+  /* eslint-enable react-you-might-not-need-an-effect/no-event-handler */
 
   const harKunYtelse =
     !!beregningsgrunnlag.aktivitetStatus && beregningsgrunnlag.aktivitetStatus.includes('KUN_YTELSE');

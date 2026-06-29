@@ -18,6 +18,7 @@ export const RhfForm = <FormValues extends FieldValues>({
 }: Props<FormValues>) => {
   const { handleSubmit, getValues } = formMethods;
 
+  /* eslint-disable react-you-might-not-need-an-effect/no-event-handler -- lagrer skjemadata ved unmount */
   useEffect(
     () => () => {
       if (setDataOnUnmount) {
@@ -26,6 +27,7 @@ export const RhfForm = <FormValues extends FieldValues>({
     },
     [],
   );
+  /* eslint-enable react-you-might-not-need-an-effect/no-event-handler */
 
   return (
     <FormProvider {...formMethods}>

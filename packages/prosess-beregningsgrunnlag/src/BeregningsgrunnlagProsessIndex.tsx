@@ -123,6 +123,7 @@ export const BeregningsgrunnlagProsessIndex = ({
     skalBrukeSidemeny && styles['mainContainer--withSideMenu'],
   );
 
+  /* eslint-disable react-you-might-not-need-an-effect/no-adjust-state-on-prop-change -- velger aktivt grunnlag når lista endres */
   useEffect(() => {
     const førsteSkjæringstidspunktMedAksjonspunktIndex = menyProps.findIndex(
       menyProp => menyProp.skalVurderes && menyProp.harAvklaringsbehov,
@@ -132,6 +133,7 @@ export const BeregningsgrunnlagProsessIndex = ({
       setAktivtBeregningsgrunnlagIndeks(førsteSkjæringstidspunktMedAksjonspunktIndex);
     }
   }, [beregningsgrunnlagListe]);
+  /* eslint-enable react-you-might-not-need-an-effect/no-adjust-state-on-prop-change */
 
   if (
     !beregningsgrunnlagsvilkar ||

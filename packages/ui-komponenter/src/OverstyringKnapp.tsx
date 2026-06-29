@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { KeyVerticalFillIcon, KeyVerticalIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
@@ -15,17 +15,14 @@ interface Props {
 }
 
 export const OverstyringKnapp = ({ onClick = () => undefined, erOverstyrt = false }: Props) => {
-  const [isOverstyrt, setOverstyrt] = useState(erOverstyrt);
+  const [lokaltOverstyrt, setLokaltOverstyrt] = useState(false);
+  const isOverstyrt = erOverstyrt || lokaltOverstyrt;
   const setOverstyrtFn = () => {
     if (!isOverstyrt) {
-      setOverstyrt(true);
+      setLokaltOverstyrt(true);
       onClick(true);
     }
   };
-
-  useEffect(() => {
-    setOverstyrt(erOverstyrt);
-  }, [erOverstyrt]);
 
   return (
     <Button
