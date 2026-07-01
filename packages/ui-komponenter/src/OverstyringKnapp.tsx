@@ -16,6 +16,11 @@ interface Props {
 
 export const OverstyringKnapp = ({ onClick = () => undefined, erOverstyrt = false }: Props) => {
   const [lokaltOverstyrt, setLokaltOverstyrt] = useState(false);
+  const [forrigeErOverstyrt, setForrigeErOverstyrt] = useState(erOverstyrt);
+  if (forrigeErOverstyrt !== erOverstyrt) {
+    setForrigeErOverstyrt(erOverstyrt);
+    setLokaltOverstyrt(false);
+  }
   const isOverstyrt = erOverstyrt || lokaltOverstyrt;
   const setOverstyrtFn = () => {
     if (!isOverstyrt) {
