@@ -94,6 +94,8 @@ export const FordelBeregningsgrunnlagForm = ({
 }: Props) => {
   const [openPanels, setOpenPanels] = useState<string[]>([]);
   const [fieldArrayToRepeat, setFieldArrayToRepeat] = useState('');
+  /* eslint-disable react-you-might-not-need-an-effect/no-pass-data-to-parent */
+  /* eslint-disable react-you-might-not-need-an-effect/no-derived-state -- åpne paneler resettes ved endring i perioder */
   useEffect(() => {
     const åpnePaneler = perioder
       .filter(periode => filtrerForlengelse(beregningsgrunnlag, periode))
@@ -103,6 +105,8 @@ export const FordelBeregningsgrunnlagForm = ({
     // eslint-disable-next-line react-hooks/set-state-in-effect -- OK, trur denne er grei
     setOpenPanels(åpnePaneler);
   }, [perioder]);
+  /* eslint-enable react-you-might-not-need-an-effect/no-pass-data-to-parent */
+  /* eslint-enable react-you-might-not-need-an-effect/no-derived-state */
 
   const showPanel = (fom: string) => {
     if (openPanels.includes(fom)) {

@@ -181,15 +181,19 @@ export const FordelingForm = ({
     trigger,
   } = formMethods;
 
+  /* eslint-disable react-you-might-not-need-an-effect/no-pass-data-to-parent -- speiler skjematilstand til forelder */
   useEffect(() => {
     setFordelingFormIsDirty(isDirty);
   }, [isDirty]);
+  /* eslint-enable react-you-might-not-need-an-effect/no-pass-data-to-parent */
 
+  /* eslint-disable react-you-might-not-need-an-effect/no-event-handler -- trigger validering ved bytte av grunnlag */
   useEffect(() => {
     if (isSubmitted && dirtyFields[FORM_NAME]?.[aktivtBeregningsgrunnlagIndeks]) {
       trigger();
     }
   }, [aktivtBeregningsgrunnlagIndeks]);
+  /* eslint-enable react-you-might-not-need-an-effect/no-event-handler */
 
   const { fields } = useFieldArray({
     name: FORM_NAME,

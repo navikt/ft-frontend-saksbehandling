@@ -107,6 +107,7 @@ export const AksjonspunktBehandler = ({
 
   const forrigeAntallAvklaringsbehov = usePrevious(totaltAntallAvklaringsbehov);
 
+  /* eslint-disable react-you-might-not-need-an-effect/no-event-handler -- reagerer på endring i antall avklaringsbehov */
   useEffect(() => {
     if (forrigeAntallAvklaringsbehov !== undefined && totaltAntallAvklaringsbehov !== forrigeAntallAvklaringsbehov) {
       setSubmitting(false);
@@ -115,6 +116,7 @@ export const AksjonspunktBehandler = ({
       }
     }
   }, [totaltAntallAvklaringsbehov, formData, resetForm, setSubmitting, forrigeAntallAvklaringsbehov]);
+  /* eslint-enable react-you-might-not-need-an-effect/no-event-handler */
 
   const { control } = formMethods;
 
