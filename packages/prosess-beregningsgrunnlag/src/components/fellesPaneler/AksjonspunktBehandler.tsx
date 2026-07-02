@@ -495,6 +495,7 @@ export const AksjonspunktBehandler = ({
 
   const forrigeAntallAvklaringsbehov = usePrevious(totaltAntallAvklaringsbehov);
 
+  /* eslint-disable react-you-might-not-need-an-effect/no-event-handler -- reagerer på endring i antall avklaringsbehov */
   useEffect(() => {
     if (forrigeAntallAvklaringsbehov !== undefined && totaltAntallAvklaringsbehov !== forrigeAntallAvklaringsbehov) {
       setSubmitting(false);
@@ -503,6 +504,7 @@ export const AksjonspunktBehandler = ({
       }
     }
   }, [totaltAntallAvklaringsbehov, formData, resetForm, setSubmitting, forrigeAntallAvklaringsbehov]);
+  /* eslint-enable react-you-might-not-need-an-effect/no-event-handler */
 
   const {
     formState: { dirtyFields },
@@ -516,6 +518,7 @@ export const AksjonspunktBehandler = ({
   });
 
   const panelRef = useRef<HTMLDivElement>(null);
+  /* eslint-disable react-you-might-not-need-an-effect/no-event-handler -- trigger validering og scroll ved bytte av grunnlag */
   useEffect(() => {
     if (finnesFormSomSubmittes && dirtyFields[formName]?.[aktivIndex]) {
       trigger();
@@ -525,6 +528,7 @@ export const AksjonspunktBehandler = ({
       panelRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
     }
   }, [aktivIndex]);
+  /* eslint-enable react-you-might-not-need-an-effect/no-event-handler */
 
   const finnAvklaringsbehov = (
     avklaringsbehovForBG: BeregningAvklaringsbehov[],

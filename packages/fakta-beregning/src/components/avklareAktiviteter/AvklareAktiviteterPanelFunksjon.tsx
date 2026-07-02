@@ -164,11 +164,13 @@ export const AvklareAktiviteterPanel = ({
     }
   }, [dirtyFields]);
 
+  /* eslint-disable react-you-might-not-need-an-effect/no-event-handler -- trigger validering ved bytte av grunnlag */
   useEffect(() => {
     if (isSubmitted && dirtyFields.avklarAktiviteterForm?.[aktivtBeregningsgrunnlagIndeks]) {
       trigger();
     }
   }, [aktivtBeregningsgrunnlagIndeks]);
+  /* eslint-enable react-you-might-not-need-an-effect/no-event-handler */
 
   const avklaringsbehov = beregningsgrunnlag.flatMap(bg => bg.avklaringsbehov);
 

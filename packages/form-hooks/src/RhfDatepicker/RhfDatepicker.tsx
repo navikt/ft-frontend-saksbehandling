@@ -113,6 +113,7 @@ export const RhfDatepicker = <T extends FieldValues>({
     fromDate: fromDate,
     toDate: toDate,
     dropdownCaption: fromDate && toDate ? true : undefined,
+    fixedWeeks: true,
   };
 
   return (

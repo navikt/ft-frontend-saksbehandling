@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Alert, Box, Heading, VStack } from '@navikt/ds-react';
@@ -354,11 +354,7 @@ export const TilbakekrevingForm = ({
     vilkårsvurdertePerioder?.find(harApentAksjonspunkt),
   );
   const [isSubmitting, setSubmitting] = useState(false);
-  const [valideringsmeldingId, setValideringsmeldingId] = useState<string | undefined>();
-
-  useEffect(() => {
-    setValideringsmeldingId(validerOm6LeddBrukesPåAllePerioder(vilkårsvurdertePerioder));
-  }, [vilkårsvurdertePerioder]);
+  const valideringsmeldingId = validerOm6LeddBrukesPåAllePerioder(vilkårsvurdertePerioder);
 
   const dataForDetailForm = settOppPeriodeDataForDetailForm(sammenslåttePerioder, vilkårsvurdertePerioder);
   const antallPerioderMedAksjonspunkt = vilkårsvurdertePerioder.reduce(
