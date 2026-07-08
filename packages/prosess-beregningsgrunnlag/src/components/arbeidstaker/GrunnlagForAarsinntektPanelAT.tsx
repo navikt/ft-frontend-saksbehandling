@@ -49,7 +49,7 @@ const createArbeidinntektRows = (
   return relevanteAndeler.map(andel => {
     const visningsNavn = createVisningsnavnForAndel(andel, arbeidsgiverOpplysningerPerId, kodeverkSamling);
     return (
-      <Table.Body key={`ArbInntektWrapper${visningsNavn}`}>
+      <Table.Body key={`ArbInntektWrapper${visningsNavn}_${andel.andelsnr}`}>
         <Table.Row shadeOnHover={false}>
           <Table.HeaderCell textSize="small" colSpan={3}>
             {visningsNavn}
