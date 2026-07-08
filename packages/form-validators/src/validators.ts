@@ -128,7 +128,7 @@ export const hasValidOrgNumber = (number: string | number): FormValidationResult
   if (Number.isNaN(Number(trimmedNumber))) {
     return invalidOrgNumberMessage();
   }
-  return trimmedNumber.length === 9 ? null : invalidOrgNumberMessage();
+  return /^\d{9}$/.test(trimmedNumber) ? null : invalidOrgNumberMessage();
 };
 
 export const hasValidOrgNumberOrFodselsnr = (number: string | number): FormValidationResult =>

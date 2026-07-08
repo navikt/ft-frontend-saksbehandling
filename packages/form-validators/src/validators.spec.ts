@@ -519,5 +519,15 @@ describe('Validators', () => {
       const result = hasValidOrgNumber(undefined as unknown as string);
       expect(result).toEqual('Ugyldig organisasjonsnummer. Organisasjonsnummer må være 9 siffer.');
     });
+
+    it('skal feile når organisasjonsnummer er negativt tall', () => {
+      const result = hasValidOrgNumber(-12345678);
+      expect(result).toEqual('Ugyldig organisasjonsnummer. Organisasjonsnummer må være 9 siffer.');
+    });
+
+    it('skal feile når organisasjonsnummer er negativ streng', () => {
+      const result = hasValidOrgNumber('-12345678');
+      expect(result).toEqual('Ugyldig organisasjonsnummer. Organisasjonsnummer må være 9 siffer.');
+    });
   });
 });
