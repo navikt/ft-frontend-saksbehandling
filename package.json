@@ -64,8 +64,8 @@
     "typescript": "6.0.3",
     "vite": "7.3.6",
     "vite-plugin-circular-dependency": "0.6.0",
-    "vite-plugin-dts": "5.0.2",
-    "vitest": "4.1.9",
+    "vite-plugin-dts": "5.0.3",
+    "vitest": "4.1.10",
     "vitest-canvas-mock": "1.1.4"
   },
   "resolutions": {
