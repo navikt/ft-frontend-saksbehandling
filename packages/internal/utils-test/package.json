@@ -13,13 +13,13 @@
   },
   "dependencies": {
     "react": "19.2.7",
-    "react-intl": "10.1.13"
+    "react-intl": "10.1.15"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "@types/react": "19.2.17",
-    "eslint": "9.39.4",
+    "eslint": "9.39.5",
     "typescript": "6.0.3"
   }
 }
