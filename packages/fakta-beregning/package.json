@@ -38,8 +38,8 @@
     "react-intl": "10.x"
   },
   "devDependencies": {
-    "@navikt/aksel-icons": "8.14.0",
-    "@navikt/ds-react": "8.14.0",
+    "@navikt/aksel-icons": "8.15.0",
+    "@navikt/ds-react": "8.15.0",
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "@navikt/ft-config-vite": "workspace:^",
