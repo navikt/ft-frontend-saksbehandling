@@ -1751,7 +1751,7 @@ __metadata:
     eslint-plugin-react-refresh: "npm:0.5.3"
     eslint-plugin-react-you-might-not-need-an-effect: "npm:1.0.1"
     eslint-plugin-simple-import-sort: "npm:13.0.0"
-    eslint-plugin-storybook: "npm:10.5.0"
+    eslint-plugin-storybook: "npm:10.5.1"
     globals: "npm:17.7.0"
     storybook: "npm:10.4.6"
     typescript: "npm:6.0.3"
@@ -7077,16 +7077,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-storybook@npm:10.5.0":
-  version: 10.5.0
-  resolution: "eslint-plugin-storybook@npm:10.5.0"
+"eslint-plugin-storybook@npm:10.5.1":
+  version: 10.5.1
+  resolution: "eslint-plugin-storybook@npm:10.5.1"
   dependencies:
     "@typescript-eslint/types": "npm:^8.48.0"
     "@typescript-eslint/utils": "npm:^8.48.0"
   peerDependencies:
     eslint: ">=8"
-    storybook: ^10.5.0
-  checksum: 10/4104b0ac259f98d79900d3a15f6dc7c7fecdd406ad9bd9bea48cf260057e1494d9b1c696360fc085e47bf29c9cc15a21a28bea9746237c8c8bb47b781e4726e8
+    storybook: ^10.5.1
+  checksum: 10/897ba1644efee2ecc4a4068a0089e37ec522014ca1f9ba86057aff416a645f791661c5e7df89a3de318cc9dc82d9670fa9f16d9b75bd892569f5bb800646e644
   languageName: node
   linkType: hard
 
