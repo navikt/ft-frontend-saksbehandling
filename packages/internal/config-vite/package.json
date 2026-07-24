@@ -6,7 +6,7 @@
   "main": "vite.config.mjs",
   "private": true,
   "dependencies": {
-    "@vitejs/plugin-react": "5.2.0",
+    "@vitejs/plugin-react": "6.0.3",
     "@vitest/browser-playwright": "4.1.10",
     "playwright": "1.61.1",
     "vite": "7.3.6",
