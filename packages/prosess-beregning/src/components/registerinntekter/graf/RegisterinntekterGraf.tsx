@@ -68,6 +68,7 @@ export const RegisterinntekterGraf = ({
           tooltip: {
             axisPointer: { type: 'shadow' },
             trigger: 'axis',
+            appendToBody: true,
             textStyle,
             borderColor: getAkselVariable('--ax-border-neutral-subtleA'),
             borderRadius: 12,
