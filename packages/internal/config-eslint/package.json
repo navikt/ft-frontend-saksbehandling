@@ -19,7 +19,7 @@
     "eslint-plugin-simple-import-sort": "13.0.0",
     "eslint-plugin-storybook": "10.5.1",
     "globals": "17.7.0",
-    "typescript-eslint": "8.64.0"
+    "typescript-eslint": "8.65.0"
   },
   "devDependencies": {
     "storybook": "10.5.1",
