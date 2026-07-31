@@ -19,8 +19,10 @@ export const rhfDecorator =
       control: formMethods.control,
     };
 
+    const onSubmit = (context.parameters?.['onSubmit'] ?? action('submit')) as (data: unknown) => Promise<unknown>;
+
     return (
-      <RhfForm formMethods={formMethods} onSubmit={action('submit') as (data: unknown) => Promise<unknown>}>
+      <RhfForm formMethods={formMethods} onSubmit={onSubmit}>
         <VStack gap="space-16">
           <Story />
           <div>

@@ -6,17 +6,19 @@ export const formatCurrencyWithKr = (value: number | string): string | undefined
 const NEGATIVE_SIGN = '\u2212';
 const DASH_SIGN = '-';
 
+export const sanitizeNumericString = (value: string): string =>
+  value
+    .replaceAll(/\s/g, '')
+    .replaceAll(',', '.')
+    .replaceAll(NEGATIVE_SIGN, DASH_SIGN)
+    .replaceAll(/[a-zA-ZæøåÆØÅ]/g, '');
+
 export const formatCurrencyNoKr = (value: string | number | undefined | null): string | undefined => {
   if (value === null || value === undefined) {
     return undefined;
   }
   // Fjerner mellomrom i tilfelle vi får inn tall med det
-  const newVal = value
-    .toString()
-    .replaceAll(/\s/g, '')
-    .replaceAll(',', '.')
-    .replaceAll(NEGATIVE_SIGN, DASH_SIGN)
-    .replaceAll(/[a-zA-ZæøåÆØÅ]/g, '');
+  const newVal = sanitizeNumericString(value.toString());
 
   if (Number.isNaN(Number(newVal))) {
     return undefined;
@@ -48,12 +50,7 @@ export const removeSpacesFromNumber = (input: number | string | undefined | null
 };
 
 export const parseCurrencyInput = (input: string | number): string => {
-  const inputNoSpace = input
-    .toString()
-    .replaceAll(/\s/g, '')
-    .replaceAll(',', '.')
-    .replaceAll(NEGATIVE_SIGN, DASH_SIGN)
-    .replaceAll(/[a-zA-ZæøåÆØÅ]/g, '');
+  const inputNoSpace = sanitizeNumericString(input.toString());
 
   if (inputNoSpace === '' || Number.isNaN(Number(inputNoSpace))) {
     return inputNoSpace;
