@@ -1,6 +1,5 @@
 import { type ReactNode } from 'react';
 import type {
-  FieldArray,
   FieldArrayPath,
   FieldArrayWithId,
   FieldValues,
@@ -24,7 +23,7 @@ interface Props<
   readOnly?: boolean;
   titleText?: string;
   addButtonText: string;
-  emptyTemplate: FieldArray<TFieldValues, TFieldArrayName>;
+  emptyTemplate: Parameters<UseFieldArrayAppend<TFieldValues, TFieldArrayName>>[0];
   remove: UseFieldArrayRemove;
   append: UseFieldArrayAppend<TFieldValues, TFieldArrayName>;
   size?: 'small' | 'medium';
@@ -81,7 +80,7 @@ interface AppendButtonProps<
   TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>,
 > {
   append: UseFieldArrayAppend<TFieldValues, TFieldArrayName>;
-  emptyTemplate: FieldArray<TFieldValues, TFieldArrayName>;
+  emptyTemplate: Parameters<UseFieldArrayAppend<TFieldValues, TFieldArrayName>>[0];
   size?: 'small' | 'medium';
   children: ReactNode;
   skjul?: boolean;
