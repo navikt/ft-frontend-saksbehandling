@@ -36,6 +36,8 @@ describe('FeilutbetalingFaktaIndex', () => {
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
+      '@type': '7003',
+      kode: '7003',
       begrunnelse: 'Dette er en forklaring',
       feilutbetalingFakta: [
         {
@@ -63,7 +65,6 @@ describe('FeilutbetalingFaktaIndex', () => {
           },
         },
       ],
-      kode: '7003',
     });
   });
 
@@ -122,6 +123,7 @@ describe('FeilutbetalingFaktaIndex', () => {
         },
       ],
       kode: '7003',
+      '@type': '7003',
     });
   });
 });

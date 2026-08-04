@@ -41,6 +41,7 @@ const harFritekstOppsummeringPakrevdMenIkkeUtfylt = (
   );
 
 const transformValues = (values: FormValues): ForeslaVedtakTilbakekrevingAp => ({
+  '@type': VedtakAksjonspunktCode.FORESLA_VEDTAK,
   kode: VedtakAksjonspunktCode.FORESLA_VEDTAK,
   ...formatVedtakData(values),
 });

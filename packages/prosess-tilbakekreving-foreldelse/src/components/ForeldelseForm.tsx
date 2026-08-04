@@ -73,8 +73,9 @@ const transformValues = (values: PeriodeFormValues[]): VurderForeldelseAp => {
     oppdagelsesDato: period.oppdagelsesDato,
   }));
   return {
-    foreldelsePerioder,
+    '@type': ForeldelseAksjonspunktCodes.VURDER_FORELDELSE,
     kode: ForeldelseAksjonspunktCodes.VURDER_FORELDELSE,
+    foreldelsePerioder,
   };
 };
 

@@ -269,6 +269,7 @@ const transformValues = (
   vilkarsVurdertePerioder: CustomVilkarsVurdertePeriode[],
   sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[],
 ): VilkårsvurderingAp => ({
+  '@type': TilbakekrevingAksjonspunktCodes.VURDER_TILBAKEKREVING,
   kode: TilbakekrevingAksjonspunktCodes.VURDER_TILBAKEKREVING,
   vilkarsVurdertePerioder: vilkarsVurdertePerioder
     .filter((p: CustomVilkarsVurdertePeriode) => !p.erForeldet)
