@@ -54,6 +54,8 @@ describe('ForeldelseProsessIndex', () => {
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
+      '@type': '5003',
+      kode: '5003',
       foreldelsePerioder: [
         {
           begrunnelse: 'Foreldet',
@@ -88,8 +90,6 @@ describe('ForeldelseProsessIndex', () => {
           tilDato: '2019-04-30',
         },
       ],
-      kode: '5003',
-      '@type': '5003',
     });
   });
 
@@ -163,6 +163,8 @@ describe('ForeldelseProsessIndex', () => {
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
+      '@type': '5003',
+      kode: '5003',
       foreldelsePerioder: [
         {
           begrunnelse: 'Foreldet',
@@ -205,8 +207,6 @@ describe('ForeldelseProsessIndex', () => {
           tilDato: '2019-04-30',
         },
       ],
-      kode: '5003',
-      '@type': '5003',
     });
   });
 
