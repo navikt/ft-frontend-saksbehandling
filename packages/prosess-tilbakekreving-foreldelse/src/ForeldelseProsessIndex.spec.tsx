@@ -89,6 +89,7 @@ describe('ForeldelseProsessIndex', () => {
         },
       ],
       kode: '5003',
+      '@type': '5003',
     });
   });
 
@@ -205,6 +206,7 @@ describe('ForeldelseProsessIndex', () => {
         },
       ],
       kode: '5003',
+      '@type': '5003',
     });
   });
 

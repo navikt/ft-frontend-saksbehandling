@@ -57,6 +57,7 @@ describe('TilbakekrevingProsessIndex', () => {
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
+      '@type': '5002',
       kode: '5002',
       vilkarsVurdertePerioder: [
         {
@@ -151,6 +152,7 @@ describe('TilbakekrevingProsessIndex', () => {
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
+      '@type': '5002',
       kode: '5002',
       vilkarsVurdertePerioder: [
         {
@@ -230,6 +232,7 @@ describe('TilbakekrevingProsessIndex', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
       kode: '5002',
+      '@type': '5002',
       vilkarsVurdertePerioder: [
         {
           begrunnelse: 'Dette er en vurdering',
@@ -359,6 +362,7 @@ describe('TilbakekrevingProsessIndex', () => {
 
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
     expect(lagre).toHaveBeenNthCalledWith(1, {
+      '@type': '5002',
       kode: '5002',
       vilkarsVurdertePerioder: [
         {

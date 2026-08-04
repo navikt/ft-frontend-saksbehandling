@@ -42,6 +42,7 @@ describe('VedtakTilbakekrevingProsessIndex', () => {
     await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
 
     expect(lagre).toHaveBeenNthCalledWith(1, {
+      '@type': '5004',
       kode: '5004',
       oppsummeringstekst: undefined,
       perioderMedTekst: [

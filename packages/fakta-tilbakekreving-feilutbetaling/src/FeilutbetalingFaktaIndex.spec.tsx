@@ -64,6 +64,7 @@ describe('FeilutbetalingFaktaIndex', () => {
         },
       ],
       kode: '7003',
+      '@type': '7003',
     });
   });
 
@@ -122,6 +123,7 @@ describe('FeilutbetalingFaktaIndex', () => {
         },
       ],
       kode: '7003',
+      '@type': '7003',
     });
   });
 });

@@ -76,6 +76,7 @@ const transformValues = (
   });
 
   return {
+    '@type': FeilutbetalingAksjonspunktCode.AVKLAR_FAKTA_FOR_FEILUTBETALING,
     kode: FeilutbetalingAksjonspunktCode.AVKLAR_FAKTA_FOR_FEILUTBETALING,
     begrunnelse: values.begrunnelse,
     feilutbetalingFakta,
