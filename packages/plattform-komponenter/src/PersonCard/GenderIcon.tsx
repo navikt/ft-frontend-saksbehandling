@@ -20,6 +20,12 @@ export const GenderIcon = ({ gender, isChild = false, size = 30 }: Props) => {
   if (isChild) {
     Icon = FigureChildFillIcon;
     title = 'Barn';
+    backgroundColor =
+      gender === Gender.female
+        ? 'var(--ax-danger-500)'
+        : gender === Gender.male
+          ? 'var(--ax-accent-500)'
+          : 'var(--ax-neutral-500)';
   } else if (gender === Gender.male) {
     Icon = SilhouetteFillIcon;
     backgroundColor = 'var(--ax-accent-500)';
