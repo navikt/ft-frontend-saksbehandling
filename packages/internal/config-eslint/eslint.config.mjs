@@ -1,7 +1,6 @@
 import pluginJs from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
-import jsxA11y from 'eslint-plugin-jsx-a11y';
 import pluginReact from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
@@ -34,7 +33,6 @@ export default [
   ...storybook.configs['flat/recommended'],
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
-  jsxA11y.flatConfigs.recommended,
   importPlugin.flatConfigs.recommended,
   reactRefresh.configs.vite,
   reactHooks.configs.flat.recommended,
@@ -54,7 +52,6 @@ export default [
         },
       ],
       'react/prop-types': OFF,
-      'jsx-a11y/no-autofocus': OFF,
       'react/react-in-jsx-scope': OFF,
       'import/no-unresolved': OFF,
       'import/named': OFF,
