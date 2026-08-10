@@ -24,7 +24,6 @@ export {
   maxValueFormatted,
   maxLength,
   minLength,
-  requiredIfCustomFunctionIsTrue,
   requiredIfCustomFunctionIsTrueNew,
   notDash,
   required,

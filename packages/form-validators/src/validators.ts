@@ -72,19 +72,6 @@ export const required = (value?: InputValue): FormValidationResult =>
   isEmpty(value) ? isRequiredMessage() : undefined;
 export const notDash = (value: InputValue): FormValidationResult => (value === '-' ? isRequiredMessage() : undefined);
 
-export const requiredIfCustomFunctionIsTrue =
-  (
-    // @ts-expect-error Fiks
-    isRequiredFunction: (values?: InputValue | null, props: { pristine: boolean }) => any,
-  ) =>
-  (
-    value?: InputValue | null, // NOSONAR
-    allValues?: InputValue | null, // NOSONAR
-    // @ts-expect-error Fiks
-    props: { pristine: boolean },
-  ): FormValidationResult =>
-    isEmpty(value) && isRequiredFunction(allValues, props) ? isRequiredMessage() : undefined;
-
 export const requiredIfCustomFunctionIsTrueNew =
   (isRequiredFunction: (value?: InputValue) => boolean) =>
   (value?: InputValue): FormValidationResult =>
