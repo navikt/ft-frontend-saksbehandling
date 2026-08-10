@@ -27,7 +27,6 @@ import {
   minLength,
   minValue,
   required,
-  requiredIfCustomFunctionIsTrue,
 } from './validators';
 import { today } from './validatorsHelper';
 
@@ -49,30 +48,6 @@ describe('Validators', () => {
 
     it('skal ikke gi feilmelding når verdi er ulik null og undefined', () => {
       const result = required('test');
-      expect(result).toBeUndefined();
-    });
-  });
-
-  describe('requiredIfCustomFunctionIsTrue', () => {
-    const isRequiredFunc = (_allValues: unknown, props: { pristine: boolean }) => !props.pristine;
-
-    it('skal ikke gi feilmelding når ingen formverdier er endret', () => {
-      const result = requiredIfCustomFunctionIsTrue(isRequiredFunc)(null, null, { pristine: true });
-      expect(result).toBeUndefined();
-    });
-
-    it('skal gi feilmelding når formverdier er endret og verdi er null', () => {
-      const result = requiredIfCustomFunctionIsTrue(isRequiredFunc)(null, null, { pristine: false });
-      expect(result).toEqual('Feltet må fylles ut');
-    });
-
-    it('skal gi feilmelding når formverdier er endret og verdi er undefined', () => {
-      const result = requiredIfCustomFunctionIsTrue(isRequiredFunc)(undefined, null, { pristine: false });
-      expect(result).toEqual('Feltet må fylles ut');
-    });
-
-    it('skal ikke gi feilmelding når formverdier er endret men verdi er ulik null og undefined', () => {
-      const result = requiredIfCustomFunctionIsTrue(isRequiredFunc)('test', null, { pristine: false });
       expect(result).toBeUndefined();
     });
   });
