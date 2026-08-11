@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -24,8 +24,19 @@ const maxLength1500 = maxLength(1500);
 
 export type FormValues = ForeldelsesresultatActivity;
 
+// Mellomlagret, men ikke bekreftet (dvs. ikke trykt "Oppdater" på), skjemadata for perioden som til enhver tid
+// er åpen i detaljpanelet. periodeKey brukes for å vite hvilken periode kladden gjelder for.
+export type PeriodeKladd = {
+  periodeKey: string;
+  verdier: FormValues;
+};
+
+const periodeNøkkel = (periode: { fom: string; tom: string }): string => `${periode.fom}_${periode.tom}`;
+
 interface Props {
   periode: ForeldelsesresultatActivity;
+  periodeKladd?: PeriodeKladd;
+  setPeriodeKladd: (kladd: PeriodeKladd | undefined) => void;
   kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   oppdaterPeriode: (values: FormValues) => void;
   skjulPeriode: (event: React.MouseEvent) => void;
@@ -46,13 +57,31 @@ export const ForeldelsePeriodeForm = ({
   skjulPeriode,
   readOnly,
   periode,
+  periodeKladd,
+  setPeriodeKladd,
   oppdaterPeriode,
   kodeverkSamlingFpTilbake,
 }: Props) => {
   const intl = useIntl();
+
+  const harKladdForPeriode = periodeKladd?.periodeKey === periodeNøkkel(periode);
   const formMethods = useForm<FormValues>({
-    defaultValues: buildInitialValues(periode),
+    defaultValues: harKladdForPeriode ? periodeKladd.verdier : buildInitialValues(periode),
   });
+
+  // Brukes for å hindre at kladd blir lagret på nytt når vi allerede har bekreftet (Oppdater) eller
+  // eksplisitt forkastet (Avbryt) endringene.
+  const kladdErHåndtertRef = useRef(false);
+
+  const forkastKladd = () => {
+    kladdErHåndtertRef.current = true;
+    setPeriodeKladd(undefined);
+  };
+
+  const avbrytOgSkjulPeriode = (event: React.MouseEvent) => {
+    forkastKladd();
+    skjulPeriode(event);
+  };
 
   const foreldet = formMethods.watch('foreldet');
 
@@ -63,7 +92,22 @@ export const ForeldelsePeriodeForm = ({
   );
 
   return (
-    <RhfForm formMethods={formMethods} onSubmit={(values: FormValues) => oppdaterPeriode(values)}>
+    <RhfForm
+      formMethods={formMethods}
+      onSubmit={(values: FormValues) => {
+        forkastKladd();
+        oppdaterPeriode(values);
+      }}
+      setDataOnUnmount={verdier => {
+        // Kladden er allerede forkastet/erstattet ved eksplisitt Oppdater/Avbryt - ikke skriv den tilbake her.
+        if (kladdErHåndtertRef.current) {
+          return;
+        }
+        if (formMethods.formState.isDirty) {
+          setPeriodeKladd({ periodeKey: periodeNøkkel(periode), verdier });
+        }
+      }}
+    >
       <VStack gap="space-16">
         <RhfTextarea
           name="begrunnelse"
@@ -119,7 +163,7 @@ export const ForeldelsePeriodeForm = ({
           >
             <FormattedMessage id="ForeldelsePeriodeForm.Oppdater" />
           </Button>
-          <Button size="small" variant="secondary" onClick={skjulPeriode} type="button">
+          <Button size="small" variant="secondary" onClick={avbrytOgSkjulPeriode} type="button">
             <FormattedMessage id="ForeldelsePeriodeForm.Avbryt" />
           </Button>
         </HStack>

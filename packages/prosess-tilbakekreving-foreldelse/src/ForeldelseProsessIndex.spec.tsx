@@ -2,6 +2,7 @@ import { composeStories } from '@storybook/react-vite';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import type { ForeldelseFormData } from './components/ForeldelseForm';
 import * as stories from './ForeldelseProsessIndex.stories';
 
 const { Default, UtenAksjonspunkt } = composeStories(stories);
@@ -214,5 +215,51 @@ describe('ForeldelseProsessIndex', () => {
     render(<UtenAksjonspunkt />);
     expect(await screen.findByText('Foreldelsesloven §§ 2 og 3')).toBeInTheDocument();
     expect(screen.getByText('Automatisk vurdert')).toBeInTheDocument();
+  });
+
+  it('skal mellomlagre kladd for åpent detaljpanel ved unmount, og gjenopprette den ved remount', async () => {
+    const lagre = vi.fn(() => Promise.resolve());
+    let lagretFormData: ForeldelseFormData | undefined;
+    const setFormData = vi.fn((data: ForeldelseFormData) => {
+      lagretFormData = data;
+    });
+
+    const { unmount } = render(<Default submitCallback={lagre} setFormData={setFormData} />);
+
+    expect(await screen.findByText('01.03.2019 - 31.03.2019')).toBeInTheDocument();
+
+    // Skriver inn tekst i det åpne detaljpanelet, men trykker ikke "Oppdater".
+    await userEvent.type(screen.getByLabelText('Vurdering'), 'Ikke bekreftet ennå');
+
+    // Simulerer at brukeren bytter fane - hele komponenttreet unmountes.
+    unmount();
+
+    expect(lagretFormData?.kladd).toEqual({
+      periodeKey: '2019-03-01_2019-03-31',
+      verdier: expect.objectContaining({ begrunnelse: 'Ikke bekreftet ennå' }),
+    });
+
+    render(<Default submitCallback={lagre} formData={lagretFormData} setFormData={setFormData} />);
+
+    expect(await screen.findByText('01.03.2019 - 31.03.2019')).toBeInTheDocument();
+    expect(screen.getByLabelText('Vurdering')).toHaveValue('Ikke bekreftet ennå');
+  });
+
+  it('skal ikke mellomlagre kladd når "Avbryt" trykkes', async () => {
+    const lagre = vi.fn(() => Promise.resolve());
+    let lagretFormData: ForeldelseFormData | undefined;
+    const setFormData = vi.fn((data: ForeldelseFormData) => {
+      lagretFormData = data;
+    });
+
+    render(<Default submitCallback={lagre} setFormData={setFormData} />);
+
+    expect(await screen.findByText('01.03.2019 - 31.03.2019')).toBeInTheDocument();
+
+    await userEvent.type(screen.getByLabelText('Vurdering'), 'Skal forkastes');
+
+    await userEvent.click(screen.getByText('Avbryt'));
+
+    expect(lagretFormData?.kladd).toBeUndefined();
   });
 });

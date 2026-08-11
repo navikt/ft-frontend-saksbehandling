@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -70,9 +70,18 @@ export type CustomVilkarsVurdertePeriode = {
   feilutbetaling?: number;
 } & InitialValuesDetailForm;
 
+// Mellomlagret, men ikke bekreftet (dvs. ikke trykt "Oppdater" på), skjemadata for perioden som til enhver tid er
+// åpen i detaljpanelet. periodeKey brukes for å vite hvilken periode kladden gjelder for.
+export type PeriodeKladd = {
+  periodeKey: string;
+  verdier: Record<string, any>;
+};
+
 interface Props {
   data: DataForPeriode;
   periode?: CustomVilkarsVurdertePeriode;
+  periodeKladd?: PeriodeKladd;
+  setPeriodeKladd: (kladd: PeriodeKladd | undefined) => void;
   skjulPeriode: () => void;
   readOnly: boolean;
   oppdaterPeriode: (values: CustomVilkarsVurdertePeriode) => void;
@@ -81,9 +90,13 @@ interface Props {
   antallPerioderMedAksjonspunkt: number;
 }
 
+const periodeNøkkel = (periode: { fom: string; tom: string }): string => `${periode.fom}_${periode.tom}`;
+
 export const TilbakekrevingPeriodeForm = ({
   data,
   periode,
+  periodeKladd,
+  setPeriodeKladd,
   skjulPeriode,
   readOnly,
   oppdaterPeriode,
@@ -94,10 +107,22 @@ export const TilbakekrevingPeriodeForm = ({
   const intl = useIntl();
   const [showModal, setShowModal] = useState(false);
 
+  const harKladdForPeriode = periode && periodeKladd?.periodeKey === periodeNøkkel(periode);
+
   // TODO (TOR) Fiks type for form
   const formMethods = useForm<any>({
-    defaultValues: periode,
+    defaultValues: harKladdForPeriode ? periodeKladd.verdier : periode,
   });
+
+  // Brukes for å hindre at kladd blir lagret på nytt når vi allerede har bekreftet (Oppdater) eller
+  // eksplisitt forkastet (Avbryt) endringene. 🔴 Rød sone: se forklaring i PR/kommentar om hvorfor dette
+  // trengs i tillegg til toppnivå-mellomlagringen.
+  const kladdErHåndtertRef = useRef(false);
+
+  const forkastKladd = () => {
+    kladdErHåndtertRef.current = true;
+    setPeriodeKladd(undefined);
+  };
 
   const valgtVilkarResultatType = formMethods.watch('valgtVilkarResultatType') as VilkårResultat;
   const handletUaktsomhetsgrad = formMethods.watch(`${valgtVilkarResultatType}.handletUaktsomhetGrad`);
@@ -154,6 +179,7 @@ export const TilbakekrevingPeriodeForm = ({
 
   const saveForm = () => {
     setShowModal(!showModal);
+    forkastKladd();
     oppdaterPeriode(formMethods.getValues());
   };
 
@@ -163,10 +189,17 @@ export const TilbakekrevingPeriodeForm = ({
       data.erTotalBelopUnder4Rettsgebyr &&
       tilbakekrevSelvOmBeloepErUnder4Rettsgebyr === false
     ) {
+      // Kladden skal ikke forkastes ennå her - brukeren har ikke bekreftet i varselmodalen (TotalbelopetUnder4RettsgebyrModal).
       setShowModal(!showModal);
     } else {
+      forkastKladd();
       oppdaterPeriode(values);
     }
+  };
+
+  const avbrytOgSkjulPeriode = () => {
+    forkastKladd();
+    skjulPeriode();
   };
 
   const resetVilkarresultatType = () => {
@@ -185,7 +218,19 @@ export const TilbakekrevingPeriodeForm = ({
     per => !per.erForeldet && per.valgtVilkarResultatType != null,
   );
   return (
-    <RhfForm formMethods={formMethods} onSubmit={saveOrToggleModal}>
+    <RhfForm
+      formMethods={formMethods}
+      onSubmit={saveOrToggleModal}
+      setDataOnUnmount={verdier => {
+        // Kladden er allerede forkastet/erstattet ved eksplisitt Oppdater/Avbryt - ikke skriv den tilbake her.
+        if (kladdErHåndtertRef.current) {
+          return;
+        }
+        if (formMethods.formState.isDirty && periode) {
+          setPeriodeKladd({ periodeKey: periodeNøkkel(periode), verdier });
+        }
+      }}
+    >
       <VStack gap="space-16">
         <VStack gap="space-8">
           {reduserteBelop &&
@@ -318,7 +363,7 @@ export const TilbakekrevingPeriodeForm = ({
           <Button size="small" variant="primary" disabled={!formMethods.formState.isDirty || readOnly}>
             <FormattedMessage id="TilbakekrevingPeriodeForm.Oppdater" />
           </Button>
-          <Button size="small" variant="secondary" onClick={skjulPeriode} type="button">
+          <Button size="small" variant="secondary" onClick={avbrytOgSkjulPeriode} type="button">
             <FormattedMessage id="TilbakekrevingPeriodeForm.Avbryt" />
           </Button>
         </HStack>

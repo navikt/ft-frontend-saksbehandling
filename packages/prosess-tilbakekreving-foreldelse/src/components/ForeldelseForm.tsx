@@ -24,7 +24,7 @@ import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 import type { RelasjonsRolleType } from '../types/RelasjonsRolleType';
 import type { TidslinjePeriode } from '../types/TidslinjePeriode';
 import type { VurderForeldelseAp } from '../types/VurderForeldelseAp';
-import { ForeldelsePeriodeForm, type FormValues as PeriodeFormValues } from './ForeldelsePeriodeForm';
+import { ForeldelsePeriodeForm, type FormValues as PeriodeFormValues, type PeriodeKladd } from './ForeldelsePeriodeForm';
 import {
   type BeregnBeløpParams,
   type BeregnBeløpResultat,
@@ -100,9 +100,16 @@ interface Props {
   relasjonsRolleTypeKodeverk: KodeverkMedNavn<RelasjonsRolleType>[];
   readOnly: boolean;
   beregnBelop: (data: BeregnBeløpParams) => Promise<BeregnBeløpResultat>;
-  formData?: ForeldelsesresultatActivity[];
-  setFormData: (data: ForeldelsesresultatActivity[]) => void;
+  formData?: ForeldelseFormData;
+  setFormData: (data: ForeldelseFormData) => void;
 }
+
+// Mellomlagret data for panelet. `kladd` holder skjemadata for perioden som eventuelt står åpen i
+// detaljpanelet, men som ikke er bekreftet med "Oppdater" ennå - se PeriodeKladd i ForeldelsePeriodeForm.
+export type ForeldelseFormData = {
+  perioder: ForeldelsesresultatActivity[];
+  kladd?: PeriodeKladd;
+};
 
 export const ForeldelseForm = ({
   submitCallback,
@@ -121,14 +128,15 @@ export const ForeldelseForm = ({
   const alleForeldelseresultatAktiviteter = lagForeldelsesresultatAktiviteter(perioderForeldelse.perioder);
 
   const [foreldelseresultatAktiviteter, setForeldelseresultatAktiviteter] = useState(
-    formData || alleForeldelseresultatAktiviteter,
+    formData?.perioder || alleForeldelseresultatAktiviteter,
   );
+  const [periodeKladd, setPeriodeKladdState] = useState<PeriodeKladd | undefined>(formData?.kladd);
 
   const [valgtPeriode, setValgtPeriode] = useState<ForeldelsesresultatActivity | undefined>(
     foreldelseresultatAktiviteter?.find(harApentAksjonspunkt),
   );
   const [isSubmitting, setSubmitting] = useState(false);
-  const [isDirty, setDirty] = useState(!!formData);
+  const [isDirty, setDirty] = useState(!!formData?.perioder);
 
   const setPeriode = (periode?: TidslinjePeriode | ForeldelsesresultatActivity): void => {
     const valgt = periode
@@ -157,13 +165,24 @@ export const ForeldelseForm = ({
     setPeriode(undefined);
   };
 
+  // Kladden i detaljpanelet er kun gyldig for perioden den ble laget for. Alt som endrer toppnivå-perioder
+  // (oppdaterPeriode/oppdaterSplittedePerioder) skal derfor også nullstille en eventuell kladd, siden den
+  // uansett er innhentet/erstattet av den nye, bekreftede staten.
+  const setPeriodeKladd = (
+    kladd: PeriodeKladd | undefined,
+    perioder: ForeldelsesresultatActivity[] = foreldelseresultatAktiviteter,
+  ): void => {
+    setPeriodeKladdState(kladd);
+    setFormData({ perioder, kladd });
+  };
+
   const oppdaterPeriode = (values: PeriodeFormValues): void => {
     const verdier = omitOne(values, 'erSplittet');
 
     const otherThanUpdated = foreldelseresultatAktiviteter.filter(o => o.fom !== verdier.fom && o.tom !== verdier.tom);
     const sortedActivities = otherThanUpdated.concat(verdier).sort(sortPeriods);
     setForeldelseresultatAktiviteter(sortedActivities);
-    setFormData(sortedActivities);
+    setPeriodeKladd(undefined, sortedActivities);
     setDirty(true);
     lukkPeriode();
 
@@ -192,7 +211,7 @@ export const ForeldelseForm = ({
     const sortedActivities = otherThanUpdated.concat(nyePerioder).sort(sortPeriods);
 
     setForeldelseresultatAktiviteter(sortedActivities);
-    setFormData(sortedActivities);
+    setPeriodeKladd(undefined, sortedActivities);
     setDirty(true);
     lukkPeriode();
     setPeriode(nyePerioder[0]);
@@ -263,6 +282,8 @@ export const ForeldelseForm = ({
                     <ForeldelsePeriodeForm
                       key={valgtPeriode.fom}
                       periode={valgtPeriode}
+                      periodeKladd={periodeKladd}
+                      setPeriodeKladd={setPeriodeKladd}
                       oppdaterPeriode={oppdaterPeriode}
                       skjulPeriode={lukkPeriode}
                       readOnly={readOnly}

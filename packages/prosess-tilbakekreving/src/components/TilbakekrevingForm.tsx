@@ -31,6 +31,7 @@ import {
   type CustomPerioder,
   type CustomVilkarsVurdertePeriode,
   type InitialValuesDetailForm,
+  type PeriodeKladd,
   TilbakekrevingPeriodeForm,
 } from './TilbakekrevingPeriodeForm';
 import { AktsomhetFormPanel } from './tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetFormPanel';
@@ -306,6 +307,13 @@ const validerOm6LeddBrukesPåAllePerioder = (vilkarsVurdertePerioder: CustomVilk
   return undefined;
 };
 
+// Mellomlagret data for panelet. `kladd` holder skjemadata for perioden som eventuelt står åpen i
+// detaljpanelet, men som ikke er bekreftet med "Oppdater" ennå - se PeriodeKladd i TilbakekrevingPeriodeForm.
+export type TilbakekrevingFormData = {
+  perioder: CustomVilkarsVurdertePeriode[];
+  kladd?: PeriodeKladd;
+};
+
 interface Props {
   perioderForeldelse: FeilutbetalingPerioderWrapper;
   kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
@@ -318,8 +326,8 @@ interface Props {
   relasjonsRolleTypeKodeverk: KodeverkMedNavn<RelasjonsRolleType>[];
   beregnBelop: (params: BeregnBeløpParams) => Promise<{ perioder: { belop: number }[] }>;
   behandlingUuid: string;
-  formData?: CustomVilkarsVurdertePeriode[];
-  setFormData: (data: CustomVilkarsVurdertePeriode[]) => void;
+  formData?: TilbakekrevingFormData;
+  setFormData: (data: TilbakekrevingFormData) => void;
 }
 
 /**
@@ -347,10 +355,11 @@ export const TilbakekrevingForm = ({
 
   const sammenslåttePerioder = slaSammenOriginaleOgLagredePeriode(perioder, vilkarvurdering, rettsgebyr);
   const [vilkårsvurdertePerioder, setVilkårsvurdertePerioder] = useState<CustomVilkarsVurdertePeriode[]>(
-    formData || buildInitialValues(sammenslåttePerioder, perioderForeldelse),
+    formData?.perioder || buildInitialValues(sammenslåttePerioder, perioderForeldelse),
   );
+  const [periodeKladd, setPeriodeKladdState] = useState<PeriodeKladd | undefined>(formData?.kladd);
 
-  const [isDirty, setDirty] = useState(!!formData);
+  const [isDirty, setDirty] = useState(!!formData?.perioder);
   const [valgtPeriode, setValgtPeriode] = useState<CustomVilkarsVurdertePeriode | undefined>(
     vilkårsvurdertePerioder?.find(harApentAksjonspunkt),
   );
@@ -398,13 +407,24 @@ export const TilbakekrevingForm = ({
     setPeriode(undefined);
   };
 
+  // Kladden i detaljpanelet er kun gyldig for perioden den ble laget for. Alt som endrer toppnivå-perioder
+  // (oppdaterPeriode/oppdaterSplittedePerioder) skal derfor også nullstille en eventuell kladd, siden den
+  // uansett er innhentet/erstattet av den nye, bekreftede staten.
+  const setPeriodeKladd = (
+    kladd: PeriodeKladd | undefined,
+    oppdaterteVilkårsvurdertePerioder: CustomVilkarsVurdertePeriode[] = vilkårsvurdertePerioder,
+  ) => {
+    setPeriodeKladdState(kladd);
+    setFormData({ perioder: oppdaterteVilkårsvurdertePerioder, kladd });
+  };
+
   const oppdaterPeriode = (values: CustomVilkarsVurdertePeriode) => {
     const verdier = omitOne(values, 'erSplittet');
 
     const otherThanUpdated = vilkårsvurdertePerioder.filter(o => o.fom !== verdier.fom && o.tom !== verdier.tom);
     const sortedActivities = otherThanUpdated.concat(verdier).sort(sortPeriods);
     setVilkårsvurdertePerioder(sortedActivities);
-    setFormData(sortedActivities);
+    setPeriodeKladd(undefined, sortedActivities);
     setDirty(true);
     lukkPeriode();
 
@@ -431,7 +451,7 @@ export const TilbakekrevingForm = ({
       lukkPeriode();
       setDirty(true);
       setVilkårsvurdertePerioder(sortedActivities);
-      setFormData(sortedActivities);
+      setPeriodeKladd(undefined, sortedActivities);
       setPeriode(nyePerioder[0]);
     }
   };
@@ -486,6 +506,8 @@ export const TilbakekrevingForm = ({
                     <TilbakekrevingPeriodeForm
                       key={valgtPeriodeFormatertForTidslinje?.id}
                       periode={valgtPeriode}
+                      periodeKladd={periodeKladd}
+                      setPeriodeKladd={setPeriodeKladd}
                       data={valgtData}
                       antallPerioderMedAksjonspunkt={antallPerioderMedAksjonspunkt}
                       readOnly={isReadOnly || valgtPeriode?.erForeldet === true}

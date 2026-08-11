@@ -4,6 +4,7 @@ import { action } from 'storybook/actions';
 import { alleTilbakekrevingKodeverk, getIntlDecorator } from '@navikt/ft-frontend-storybook-utils';
 import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 
+import type { TilbakekrevingFormData } from './components/TilbakekrevingForm';
 import { TilbakekrevingProsessIndex } from './TilbakekrevingProsessIndex';
 import type { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
 import type { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
@@ -64,7 +65,7 @@ const meta = {
     behandlingUuid: '1',
     kodeverkSamlingFpTilbake: alleTilbakekrevingKodeverk as unknown as KodeverkTilbakeForPanel,
     isReadOnly: false,
-    setFormData: () => undefined,
+    setFormData: (() => undefined) as (data: TilbakekrevingFormData) => void,
     perioderForeldelse,
     vilkarvurdering: {
       vilkarsVurdertePerioder: [],
