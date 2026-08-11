@@ -1,7 +1,9 @@
-import type { ReactNode } from 'react';
+import { type ReactNode, useId } from 'react';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { Box, Detail, Heading, HStack } from '@navikt/ds-react';
+import { ExpansionCard, HStack } from '@navikt/ds-react';
+
+import styles from './aksjonpunktBoks.module.css';
 
 type Aksjonspunkt = {
   status: 'OPPR' | 'UTFO' | 'AVBR';
@@ -17,30 +19,29 @@ interface Props {
 
 export const AksjonspunktBoks = ({ tittel, beskrivelse, aksjonspunkt, children }: Props) => {
   const aksjonspunkter = !aksjonspunkt || Array.isArray(aksjonspunkt) ? aksjonspunkt : [aksjonspunkt];
-  const { headerBackground, bodyBackground, icon } = getStateProps(aksjonspunkter);
-  const aksjonspunktIder = aksjonspunkter?.map(ap => `AksjonspunktBoks-${ap.definisjon}`).join(',');
+  const { color, icon } = getStateProps(aksjonspunkter);
+  const tittelId = useId();
   return (
-    <Box borderRadius="4" background={bodyBackground} data-testid={aksjonspunktIder ?? 'AksjonspunktBoks'}>
-      <Box
-        paddingInline={icon ? 'space-16' : 'space-48'}
-        paddingBlock="space-16"
-        borderRadius="4 4 0 0"
-        background={headerBackground}
-      >
-        <HStack gap="space-8" wrap={false}>
-          {icon && <span>{icon}</span>}
+    <ExpansionCard
+      defaultOpen
+      size="small"
+      aria-labelledby={tittelId}
+      className={styles.aksjonspunktBoks}
+      data-color={color}
+    >
+      <ExpansionCard.Header>
+        <HStack wrap={false} gap="space-16" align="center">
+          {icon && <div>{icon}</div>}
           <div>
-            <Heading as="span" size="small" level="3">
+            <ExpansionCard.Title id={tittelId} size="small">
               {tittel}
-            </Heading>
-            {beskrivelse && <Detail>{beskrivelse}</Detail>}
+            </ExpansionCard.Title>
+            {beskrivelse && <ExpansionCard.Description>{beskrivelse}</ExpansionCard.Description>}
           </div>
         </HStack>
-      </Box>
-      <Box paddingInline="space-48" paddingBlock="space-24">
-        {children}
-      </Box>
-    </Box>
+      </ExpansionCard.Header>
+      <ExpansionCard.Content>{children}</ExpansionCard.Content>
+    </ExpansionCard>
   );
 };
 
@@ -49,14 +50,12 @@ const getStateProps = (aksjonspunkter: Aksjonspunkt[] | undefined) => {
 
   if (erOpprettetAksjonspunkt) {
     return {
-      bodyBackground: 'warning-soft',
-      headerBackground: 'warning-moderateA',
-      icon: <ExclamationmarkTriangleFillIcon aria-hidden color="var(--ax-text-warning-subtle)" fontSize="1.5rem" />,
+      color: 'warning',
+      icon: <ExclamationmarkTriangleFillIcon aria-hidden color="var(--ax-text-warning-subtle)" fontSize="2rem" />,
     } as const;
   } else {
     return {
-      bodyBackground: 'neutral-soft',
-      headerBackground: 'neutral-moderateA',
+      color: 'neutral',
       icon: null,
     } as const;
   }

@@ -35,10 +35,13 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({
             <Table.DataCell textSize="small">
               <HStack align="center" gap="space-4">
                 <FormattedMessage id="Avviksberegning.BeregnetÅrsinntekt" />
-                <BeregnetÅrsinntektHelpText
-                  beregningsgrunnlag={beregningsgrunnlag}
-                  formaterVisningsnavnForAndel={formaterVisningsnavnForAndel}
-                />
+                {(sammenligningsgrunnlagType === 'SAMMENLIGNING_AT_FL' ||
+                  sammenligningsgrunnlagType === 'SAMMENLIGNING_AT') && (
+                  <BeregnetÅrsinntektHelpText
+                    beregningsgrunnlag={beregningsgrunnlag}
+                    formaterVisningsnavnForAndel={formaterVisningsnavnForAndel}
+                  />
+                )}
               </HStack>
             </Table.DataCell>
             <Table.DataCell textSize="small" align="right">

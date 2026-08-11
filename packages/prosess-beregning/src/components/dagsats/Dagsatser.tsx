@@ -1,4 +1,4 @@
-import { useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { VStack } from '@navikt/ds-react';
 
@@ -18,11 +18,16 @@ interface Props {
 }
 
 export const Dagsatser = ({ beregningsgrunnlag, beregningsgrunnlagsvilkår, kodeverkSamling }: Props) => {
-  const vilkårsperiode = finnVilkårperiode(beregningsgrunnlagsvilkår, beregningsgrunnlag.vilkårsperiodeFom);
   const tabellData = utledTabellData(beregningsgrunnlag);
-  const intl = useIntl();
+
+  if (tabellData.length === 0 || !tabellData.every(td => td.dagsats)) {
+    return null;
+  }
+
+  const vilkårsperiode = finnVilkårperiode(beregningsgrunnlagsvilkår, beregningsgrunnlag.vilkårsperiodeFom);
+
   return (
-    <FaktaBoks tittel={intl.formatMessage({ id: 'Dagsats.Tittel' })}>
+    <FaktaBoks tittel={<FormattedMessage id="Dagsats.Tittel" />}>
       <VStack gap="space-24">
         {tabellData.map(tabellPeriode => (
           <Dagsats

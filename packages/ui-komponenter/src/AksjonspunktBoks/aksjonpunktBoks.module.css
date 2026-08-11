@@ -1,0 +1,42 @@
+.aksjonspunktBoks {
+    --aksjonspunkt-body-bg: var(--ax-bg-neutral-soft);
+    --aksjonspunkt-header-bg: var(--ax-bg-neutral-moderateA);
+    --aksjonspunkt-header-hover-bg: var(--ax-bg-neutral-moderate-hoverA);
+
+    &[data-color='warning'] {
+        --aksjonspunkt-body-bg: var(--ax-bg-warning-soft);
+        --aksjonspunkt-header-bg: var(--ax-bg-warning-moderateA);
+        --aksjonspunkt-header-hover-bg: var(--ax-bg-warning-moderate-hoverA);
+    }
+
+    background-color: var(--aksjonspunkt-body-bg);
+    border: none;
+    border-radius: var(--ax-radius-4);
+    box-shadow: none;
+
+    &:has(> div:first-child[data-open='false']) {
+        height: fit-content;
+    }
+
+    &:has(> div:first-child[data-open='true']) {
+        height: unset;
+    }
+
+    > div:first-child {
+        background-color: var(--aksjonspunkt-header-bg);
+        border-radius: var(--ax-radius-4);
+
+        &[data-open='true'] {
+            border-radius: var(--ax-radius-4) var(--ax-radius-4) 0 0;
+        }
+
+        &:hover {
+            background-color: var(--aksjonspunkt-header-hover-bg);
+            border: none;
+        }
+
+        &:after {
+            content: none;
+        }
+    }
+}
