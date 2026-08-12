@@ -1,4 +1,4 @@
-import { TextField, VStack } from '@navikt/ds-react';
+import { HStack, TextField, VStack } from '@navikt/ds-react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { AksjonspunktBoks } from './AksjonspunktBoks';
@@ -61,5 +61,21 @@ export const ReturnertAksjonspunkt: Story = {
 export const UtenAksjonspunkt: Story = {
   args: {
     aksjonspunkt: undefined,
+  },
+};
+
+export const MedSidestillingIHStack: Story = {
+  args: {
+    aksjonspunkt: undefined,
+  },
+  decorators: Story => {
+    return (
+      <HStack gap="space-16">
+        <Story />
+        <Story />
+        <Story />
+        <Story />
+      </HStack>
+    );
   },
 };

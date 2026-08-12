@@ -28,11 +28,10 @@ describe('LegacyAPForms', () => {
     expect(screen.getByText('28.11.2019 - 31.12.2070')).toBeInTheDocument();
 
     // Aksjonspunkt avvik
-    const aksjonspunktBoks_FASTSETT_BG_AT_FL = within(screen.getByTestId('AksjonspunktBoks-FASTSETT_BG_AT_FL'));
+    const aksjonspunktBoks_FASTSETT_BG_AT_FL = within(
+      screen.getByRole('region', { name: 'Fastsett årsinntekt skjønnsmessig for arbeidstaker' }),
+    );
 
-    expect(
-      aksjonspunktBoks_FASTSETT_BG_AT_FL.getByText('Fastsett årsinntekt skjønnsmessig for arbeidstaker'),
-    ).toBeInTheDocument();
     const arbeidsinntektInput = aksjonspunktBoks_FASTSETT_BG_AT_FL.getByLabelText(
       'Arbeidsinntekt fra TROSSIG NATURSTRIDIG TIGER AS (222222222) fastsettes til',
     );
@@ -265,10 +264,14 @@ describe('LegacyAPForms', () => {
     const lagre = vi.fn();
 
     render(<AvvikNæringEtterLøstAvvikArbeid5038Og5039 submitCallback={lagre} />);
-    const aksjonspunktBoks_FASTSETT_BG_AT_FL = within(screen.getByTestId('AksjonspunktBoks-FASTSETT_BG_AT_FL'));
+    const aksjonspunktBoks_FASTSETT_BG_AT_FL = within(
+      screen.getByRole('region', { name: 'Fastsett årsinntekt skjønnsmessig for arbeidstaker og frilans' }),
+    );
 
     const aksjonspunktBoks_VURDER_VARIG_ENDRT_NYOPPSTR_NAERNG_SN = within(
-      screen.getByTestId('AksjonspunktBoks-VURDER_VARIG_ENDRT_NYOPPSTR_NAERNG_SN'),
+      screen.getByRole('region', {
+        name: 'Vurder om det er varig endring i næringen og/eller arbeidssituasjonen, som gjør at inntekten skal fastsettes skjønnsmessig',
+      }),
     );
 
     expect(await screen.getAllByText('Bekreft og fortsett')).toHaveLength(2);
@@ -284,9 +287,6 @@ describe('LegacyAPForms', () => {
     expect(screen.getByText('TROSSIG NATURSTRIDIG TIGER AS (222222222)')).toBeInTheDocument();
 
     // Avvik arbeid og frilans
-    expect(
-      aksjonspunktBoks_FASTSETT_BG_AT_FL.getByText('Fastsett årsinntekt skjønnsmessig for arbeidstaker og frilans'),
-    ).toBeInTheDocument();
     expect(
       aksjonspunktBoks_FASTSETT_BG_AT_FL.getByText(
         'Det er mer enn 25% avvik mellom beregnet årsinntekt og sammenligningsgrunnlaget',

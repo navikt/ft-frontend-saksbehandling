@@ -1,6 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, HStack, Spacer } from '@navikt/ds-react';
+import { BodyShort, HGrid, HStack, Spacer } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { BTag, dateFormat } from '@navikt/ft-utils';
@@ -46,9 +46,21 @@ export const TabInnhold = ({
         </BodyShort>
       </HStack>
 
-      <Arbeidsinntekt
+      <HGrid columns={{ sm: 1, xl: 2 }} gap="space-12">
+        <Arbeidsinntekt
+          beregningsgrunnlag={beregningsgrunnlag}
+          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          kodeverkSamling={kodeverkSamling}
+        />
+        <Avviksberegninger
+          beregningsgrunnlag={beregningsgrunnlag}
+          formaterVisningsnavnForAndel={createVisningsnavnForAndel(arbeidsgiverOpplysningerPerId, kodeverkSamling)}
+        />
+      </HGrid>
+
+      <Dagsatser
         beregningsgrunnlag={beregningsgrunnlag}
-        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
         kodeverkSamling={kodeverkSamling}
       />
 
@@ -58,18 +70,6 @@ export const TabInnhold = ({
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
         />
       )}
-
-      <HStack gap="space-12">
-        <Avviksberegninger
-          beregningsgrunnlag={beregningsgrunnlag}
-          formaterVisningsnavnForAndel={createVisningsnavnForAndel(arbeidsgiverOpplysningerPerId, kodeverkSamling)}
-        />
-        <Dagsatser
-          beregningsgrunnlag={beregningsgrunnlag}
-          beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
-          kodeverkSamling={kodeverkSamling}
-        />
-      </HStack>
 
       <ReadonlyAPGraderingUtenBG
         avklaringsbehov={avklaringsbehov.find(medAPKode(AksjonspunktKode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG))}

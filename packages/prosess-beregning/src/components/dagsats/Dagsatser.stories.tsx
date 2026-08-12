@@ -244,7 +244,7 @@ export const FastsattBGMedUtregnetDagsatser: Story = {
   },
 };
 
-export const IkkeFastsatt: Story = {
+export const VisesIkkeForIkkeFastsatt: Story = {
   args: {
     beregningsgrunnlag: arbeidstakerFPFlereArbeidsforhold.beregningsgrunnlagListe[0],
     beregningsgrunnlagsvilkår: arbeidstakerFPFlereArbeidsforhold.beregningsgrunnlagsvilkår,
