@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Alert, Box, Heading, VStack } from '@navikt/ds-react';
@@ -24,6 +24,7 @@ import type { RelasjonsRolleType } from '../types/RelasjonsRolleType';
 import type { TidslinjePeriode } from '../types/TidslinjePeriode';
 import type { VilkårsvurderingAp } from '../types/VilkårsvurderingAp';
 import type { VilkårsvurdertePerioderWrapper, VilkårsvurdertPeriode } from '../types/VilkårsvurdertePerioder';
+import { periodeNøkkel } from './periodeNøkkel';
 import { type BeregnBeløpParams, PeriodeController, type SplittetPeriode } from './splittePerioder/PeriodeController';
 import { PeriodeInformasjon } from './splittePerioder/PeriodeInformasjon';
 import {
@@ -140,13 +141,11 @@ const slaSammenOriginaleOgLagredePeriode = (
 
   const originaleUrortePerioder = perioder
     .filter((periode: DetaljertFeilutbetalingPeriode) => erIkkeLagret(periode, lagredePerioder))
-    .map(
-      (periode: DetaljertFeilutbetalingPeriode): CustomPeriode => ({
-        ...periode,
-        harMerEnnEnYtelse: periode.ytelser.length > 1,
-        erTotalBelopUnder4Rettsgebyr,
-      }),
-    );
+    .map((periode: DetaljertFeilutbetalingPeriode): CustomPeriode => ({
+      ...periode,
+      harMerEnnEnYtelse: periode.ytelser.length > 1,
+      erTotalBelopUnder4Rettsgebyr,
+    }));
 
   return {
     perioder: originaleUrortePerioder.concat(lagredePerioder),
@@ -307,10 +306,13 @@ const validerOm6LeddBrukesPåAllePerioder = (vilkarsVurdertePerioder: CustomVilk
   return undefined;
 };
 
-// Mellomlagret data for panelet. `kladd` holder skjemadata for perioden som eventuelt står åpen i
-// detaljpanelet, men som ikke er bekreftet med "Oppdater" ennå - se PeriodeKladd i TilbakekrevingPeriodeForm.
+// Mellomlagret data for panelet. Skrives kun når panelet unmountes (dvs. ved bytte av fane/panel).
+// `valgtPeriodeKey` gjør at riktig detaljpanel åpnes igjen, og `kladd` holder ubekreftede skjemaverdier
+// for nettopp den perioden - se PeriodeKladd i TilbakekrevingPeriodeForm.
 export type TilbakekrevingFormData = {
   perioder: CustomVilkarsVurdertePeriode[];
+  erEndret: boolean;
+  valgtPeriodeKey?: string;
   kladd?: PeriodeKladd;
 };
 
@@ -357,13 +359,52 @@ export const TilbakekrevingForm = ({
   const [vilkårsvurdertePerioder, setVilkårsvurdertePerioder] = useState<CustomVilkarsVurdertePeriode[]>(
     formData?.perioder || buildInitialValues(sammenslåttePerioder, perioderForeldelse),
   );
-  const [periodeKladd, setPeriodeKladdState] = useState<PeriodeKladd | undefined>(formData?.kladd);
+  // Kladden er kun relevant ved gjenåpning av panelet. Den forkastes så snart brukeren bytter periode,
+  // fordi ubekreftede endringer kun skal overleve panelbytte - ikke periodebytte.
+  const [periodeKladd, setPeriodeKladd] = useState<PeriodeKladd | undefined>(formData?.kladd);
 
-  const [isDirty, setDirty] = useState(!!formData?.perioder);
-  const [valgtPeriode, setValgtPeriode] = useState<CustomVilkarsVurdertePeriode | undefined>(
-    vilkårsvurdertePerioder?.find(harApentAksjonspunkt),
-  );
+  const [isDirty, setDirty] = useState(formData?.erEndret ?? false);
+  const [valgtPeriode, setValgtPeriode] = useState<CustomVilkarsVurdertePeriode | undefined>(() => {
+    if (formData) {
+      return formData.valgtPeriodeKey
+        ? formData.perioder.find(p => periodeNøkkel(p) === formData.valgtPeriodeKey)
+        : undefined;
+    }
+    return vilkårsvurdertePerioder.find(harApentAksjonspunkt);
+  });
   const [isSubmitting, setSubmitting] = useState(false);
+
+  // Detaljpanelet registrerer en henter her, slik at panelet kan trekke ut ubekreftede verdier i det
+  // øyeblikket hele panelet unmountes.
+  const hentKladdRef = useRef<(() => PeriodeKladd | undefined) | undefined>(undefined);
+  const registrerHentKladd = useCallback((hentKladd: (() => PeriodeKladd | undefined) | undefined) => {
+    hentKladdRef.current = hentKladd;
+  }, []);
+
+  const mellomlagringRef = useRef({ perioder: vilkårsvurdertePerioder, valgtPeriode, isDirty, setFormData });
+
+  useEffect(() => {
+    mellomlagringRef.current = { perioder: vilkårsvurdertePerioder, valgtPeriode, isDirty, setFormData };
+  });
+
+  useEffect(
+    () => () => {
+      const {
+        perioder: lagredePerioder,
+        valgtPeriode: åpenPeriode,
+        isDirty: erEndret,
+        setFormData: lagre,
+      } = mellomlagringRef.current;
+      lagre({
+        perioder: lagredePerioder,
+        erEndret,
+        valgtPeriodeKey: åpenPeriode ? periodeNøkkel(åpenPeriode) : undefined,
+        kladd: hentKladdRef.current?.(),
+      });
+    },
+    [],
+  );
+
   const valideringsmeldingId = validerOm6LeddBrukesPåAllePerioder(vilkårsvurdertePerioder);
 
   const dataForDetailForm = settOppPeriodeDataForDetailForm(sammenslåttePerioder, vilkårsvurdertePerioder);
@@ -390,6 +431,7 @@ export const TilbakekrevingForm = ({
     const valgt = periode
       ? vilkårsvurdertePerioder.find(p => p.fom === periode.fom && p.tom === periode.tom)
       : undefined;
+    setPeriodeKladd(undefined);
     setValgtPeriode(valgt);
   };
 
@@ -408,23 +450,13 @@ export const TilbakekrevingForm = ({
   };
 
   // Kladden i detaljpanelet er kun gyldig for perioden den ble laget for. Alt som endrer toppnivå-perioder
-  // (oppdaterPeriode/oppdaterSplittedePerioder) skal derfor også nullstille en eventuell kladd, siden den
-  // uansett er innhentet/erstattet av den nye, bekreftede staten.
-  const setPeriodeKladd = (
-    kladd: PeriodeKladd | undefined,
-    oppdaterteVilkårsvurdertePerioder: CustomVilkarsVurdertePeriode[] = vilkårsvurdertePerioder,
-  ) => {
-    setPeriodeKladdState(kladd);
-    setFormData({ perioder: oppdaterteVilkårsvurdertePerioder, kladd });
-  };
-
+  // (oppdaterPeriode/oppdaterSplittedePerioder) lukker perioden, og dermed forkastes kladden via setPeriode.
   const oppdaterPeriode = (values: CustomVilkarsVurdertePeriode) => {
     const verdier = omitOne(values, 'erSplittet');
 
     const otherThanUpdated = vilkårsvurdertePerioder.filter(o => o.fom !== verdier.fom && o.tom !== verdier.tom);
     const sortedActivities = otherThanUpdated.concat(verdier).sort(sortPeriods);
     setVilkårsvurdertePerioder(sortedActivities);
-    setPeriodeKladd(undefined, sortedActivities);
     setDirty(true);
     lukkPeriode();
 
@@ -451,7 +483,6 @@ export const TilbakekrevingForm = ({
       lukkPeriode();
       setDirty(true);
       setVilkårsvurdertePerioder(sortedActivities);
-      setPeriodeKladd(undefined, sortedActivities);
       setPeriode(nyePerioder[0]);
     }
   };
@@ -507,7 +538,7 @@ export const TilbakekrevingForm = ({
                       key={valgtPeriodeFormatertForTidslinje?.id}
                       periode={valgtPeriode}
                       periodeKladd={periodeKladd}
-                      setPeriodeKladd={setPeriodeKladd}
+                      registrerHentKladd={registrerHentKladd}
                       data={valgtData}
                       antallPerioderMedAksjonspunkt={antallPerioderMedAksjonspunkt}
                       readOnly={isReadOnly || valgtPeriode?.erForeldet === true}

@@ -234,6 +234,7 @@ describe('ForeldelseProsessIndex', () => {
     // Simulerer at brukeren bytter fane - hele komponenttreet unmountes.
     unmount();
 
+    expect(lagretFormData?.valgtPeriodeKey).toBe('2019-03-01_2019-03-31');
     expect(lagretFormData?.kladd).toEqual({
       periodeKey: '2019-03-01_2019-03-31',
       verdier: expect.objectContaining({ begrunnelse: 'Ikke bekreftet ennå' }),
@@ -245,6 +246,32 @@ describe('ForeldelseProsessIndex', () => {
     expect(screen.getByLabelText('Vurdering')).toHaveValue('Ikke bekreftet ennå');
   });
 
+  it('skal forkaste kladd når brukeren bytter periode uten å trykke "Oppdater"', async () => {
+    const lagre = vi.fn(() => Promise.resolve());
+    let lagretFormData: ForeldelseFormData | undefined;
+    const setFormData = vi.fn((data: ForeldelseFormData) => {
+      lagretFormData = data;
+    });
+
+    const { unmount } = render(<Default submitCallback={lagre} setFormData={setFormData} />);
+
+    expect(await screen.findByText('01.03.2019 - 31.03.2019')).toBeInTheDocument();
+
+    await userEvent.type(screen.getByLabelText('Vurdering'), 'Skal forkastes');
+
+    await userEvent.click(screen.getByText('Forrige'));
+    expect(await screen.findByText('01.02.2019 - 28.02.2019')).toBeInTheDocument();
+
+    await userEvent.click(screen.getByText('Neste'));
+    expect(await screen.findByText('01.03.2019 - 31.03.2019')).toBeInTheDocument();
+
+    expect(screen.getByLabelText('Vurdering')).toHaveValue('');
+
+    unmount();
+
+    expect(lagretFormData?.kladd).toBeUndefined();
+  });
+
   it('skal ikke mellomlagre kladd når "Avbryt" trykkes', async () => {
     const lagre = vi.fn(() => Promise.resolve());
     let lagretFormData: ForeldelseFormData | undefined;
@@ -252,7 +279,7 @@ describe('ForeldelseProsessIndex', () => {
       lagretFormData = data;
     });
 
-    render(<Default submitCallback={lagre} setFormData={setFormData} />);
+    const { unmount } = render(<Default submitCallback={lagre} setFormData={setFormData} />);
 
     expect(await screen.findByText('01.03.2019 - 31.03.2019')).toBeInTheDocument();
 
@@ -260,6 +287,9 @@ describe('ForeldelseProsessIndex', () => {
 
     await userEvent.click(screen.getByText('Avbryt'));
 
+    unmount();
+
     expect(lagretFormData?.kladd).toBeUndefined();
+    expect(lagretFormData?.valgtPeriodeKey).toBeUndefined();
   });
 });

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -16,6 +16,7 @@ import { type VilkårResultat } from '../kodeverk/vilkarResultat';
 import type { DataForPeriode } from '../types/DataForPeriode';
 import type { DetaljertFeilutbetalingPeriode } from '../types/DetaljerteFeilutbetalingsperioder';
 import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
+import { periodeNøkkel } from './periodeNøkkel';
 import {
   AktsomhetFormPanel,
   type InitialValuesAktsomhetForm,
@@ -81,7 +82,7 @@ interface Props {
   data: DataForPeriode;
   periode?: CustomVilkarsVurdertePeriode;
   periodeKladd?: PeriodeKladd;
-  setPeriodeKladd: (kladd: PeriodeKladd | undefined) => void;
+  registrerHentKladd: (hentKladd: (() => PeriodeKladd | undefined) | undefined) => void;
   skjulPeriode: () => void;
   readOnly: boolean;
   oppdaterPeriode: (values: CustomVilkarsVurdertePeriode) => void;
@@ -90,13 +91,11 @@ interface Props {
   antallPerioderMedAksjonspunkt: number;
 }
 
-const periodeNøkkel = (periode: { fom: string; tom: string }): string => `${periode.fom}_${periode.tom}`;
-
 export const TilbakekrevingPeriodeForm = ({
   data,
   periode,
   periodeKladd,
-  setPeriodeKladd,
+  registrerHentKladd,
   skjulPeriode,
   readOnly,
   oppdaterPeriode,
@@ -114,15 +113,16 @@ export const TilbakekrevingPeriodeForm = ({
     defaultValues: harKladdForPeriode ? periodeKladd.verdier : periode,
   });
 
-  // Brukes for å hindre at kladd blir lagret på nytt når vi allerede har bekreftet (Oppdater) eller
-  // eksplisitt forkastet (Avbryt) endringene. 🔴 Rød sone: se forklaring i PR/kommentar om hvorfor dette
-  // trengs i tillegg til toppnivå-mellomlagringen.
-  const kladdErHåndtertRef = useRef(false);
-
-  const forkastKladd = () => {
-    kladdErHåndtertRef.current = true;
-    setPeriodeKladd(undefined);
-  };
+  // Panelet henter kladden først når hele panelet unmountes (fanebytte). Skjemaet eier verdiene, men
+  // bestemmer ikke selv når de mellomlagres - derfor registrerer det bare en henter hos panelet.
+  useEffect(() => {
+    registrerHentKladd(() =>
+      periode && formMethods.formState.isDirty
+        ? { periodeKey: periodeNøkkel(periode), verdier: formMethods.getValues() }
+        : undefined,
+    );
+    return () => registrerHentKladd(undefined);
+  }, [registrerHentKladd, formMethods, periode]);
 
   const valgtVilkarResultatType = formMethods.watch('valgtVilkarResultatType') as VilkårResultat;
   const handletUaktsomhetsgrad = formMethods.watch(`${valgtVilkarResultatType}.handletUaktsomhetGrad`);
@@ -179,7 +179,6 @@ export const TilbakekrevingPeriodeForm = ({
 
   const saveForm = () => {
     setShowModal(!showModal);
-    forkastKladd();
     oppdaterPeriode(formMethods.getValues());
   };
 
@@ -189,17 +188,10 @@ export const TilbakekrevingPeriodeForm = ({
       data.erTotalBelopUnder4Rettsgebyr &&
       tilbakekrevSelvOmBeloepErUnder4Rettsgebyr === false
     ) {
-      // Kladden skal ikke forkastes ennå her - brukeren har ikke bekreftet i varselmodalen (TotalbelopetUnder4RettsgebyrModal).
       setShowModal(!showModal);
     } else {
-      forkastKladd();
       oppdaterPeriode(values);
     }
-  };
-
-  const avbrytOgSkjulPeriode = () => {
-    forkastKladd();
-    skjulPeriode();
   };
 
   const resetVilkarresultatType = () => {
@@ -218,19 +210,7 @@ export const TilbakekrevingPeriodeForm = ({
     per => !per.erForeldet && per.valgtVilkarResultatType != null,
   );
   return (
-    <RhfForm
-      formMethods={formMethods}
-      onSubmit={saveOrToggleModal}
-      setDataOnUnmount={verdier => {
-        // Kladden er allerede forkastet/erstattet ved eksplisitt Oppdater/Avbryt - ikke skriv den tilbake her.
-        if (kladdErHåndtertRef.current) {
-          return;
-        }
-        if (formMethods.formState.isDirty && periode) {
-          setPeriodeKladd({ periodeKey: periodeNøkkel(periode), verdier });
-        }
-      }}
-    >
+    <RhfForm formMethods={formMethods} onSubmit={saveOrToggleModal}>
       <VStack gap="space-16">
         <VStack gap="space-8">
           {reduserteBelop &&
@@ -363,7 +343,7 @@ export const TilbakekrevingPeriodeForm = ({
           <Button size="small" variant="primary" disabled={!formMethods.formState.isDirty || readOnly}>
             <FormattedMessage id="TilbakekrevingPeriodeForm.Oppdater" />
           </Button>
-          <Button size="small" variant="secondary" onClick={avbrytOgSkjulPeriode} type="button">
+          <Button size="small" variant="secondary" onClick={skjulPeriode} type="button">
             <FormattedMessage id="TilbakekrevingPeriodeForm.Avbryt" />
           </Button>
         </HStack>

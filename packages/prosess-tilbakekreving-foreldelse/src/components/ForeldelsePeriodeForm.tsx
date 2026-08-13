@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -18,6 +18,7 @@ import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 
 import type { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
 import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
+import { periodeNøkkel } from './periodeNøkkel';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
@@ -31,12 +32,10 @@ export type PeriodeKladd = {
   verdier: FormValues;
 };
 
-const periodeNøkkel = (periode: { fom: string; tom: string }): string => `${periode.fom}_${periode.tom}`;
-
 interface Props {
   periode: ForeldelsesresultatActivity;
   periodeKladd?: PeriodeKladd;
-  setPeriodeKladd: (kladd: PeriodeKladd | undefined) => void;
+  registrerHentKladd: (hentKladd: (() => PeriodeKladd | undefined) | undefined) => void;
   kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   oppdaterPeriode: (values: FormValues) => void;
   skjulPeriode: (event: React.MouseEvent) => void;
@@ -58,7 +57,7 @@ export const ForeldelsePeriodeForm = ({
   readOnly,
   periode,
   periodeKladd,
-  setPeriodeKladd,
+  registrerHentKladd,
   oppdaterPeriode,
   kodeverkSamlingFpTilbake,
 }: Props) => {
@@ -69,19 +68,16 @@ export const ForeldelsePeriodeForm = ({
     defaultValues: harKladdForPeriode ? periodeKladd.verdier : buildInitialValues(periode),
   });
 
-  // Brukes for å hindre at kladd blir lagret på nytt når vi allerede har bekreftet (Oppdater) eller
-  // eksplisitt forkastet (Avbryt) endringene.
-  const kladdErHåndtertRef = useRef(false);
-
-  const forkastKladd = () => {
-    kladdErHåndtertRef.current = true;
-    setPeriodeKladd(undefined);
-  };
-
-  const avbrytOgSkjulPeriode = (event: React.MouseEvent) => {
-    forkastKladd();
-    skjulPeriode(event);
-  };
+  // Panelet henter kladden først når hele panelet unmountes (fanebytte). Skjemaet eier verdiene, men
+  // bestemmer ikke selv når de mellomlagres - derfor registrerer det bare en henter hos panelet.
+  useEffect(() => {
+    registrerHentKladd(() =>
+      formMethods.formState.isDirty
+        ? { periodeKey: periodeNøkkel(periode), verdier: formMethods.getValues() }
+        : undefined,
+    );
+    return () => registrerHentKladd(undefined);
+  }, [registrerHentKladd, formMethods, periode]);
 
   const foreldet = formMethods.watch('foreldet');
 
@@ -95,17 +91,7 @@ export const ForeldelsePeriodeForm = ({
     <RhfForm
       formMethods={formMethods}
       onSubmit={(values: FormValues) => {
-        forkastKladd();
         oppdaterPeriode(values);
-      }}
-      setDataOnUnmount={verdier => {
-        // Kladden er allerede forkastet/erstattet ved eksplisitt Oppdater/Avbryt - ikke skriv den tilbake her.
-        if (kladdErHåndtertRef.current) {
-          return;
-        }
-        if (formMethods.formState.isDirty) {
-          setPeriodeKladd({ periodeKey: periodeNøkkel(periode), verdier });
-        }
       }}
     >
       <VStack gap="space-16">
@@ -163,7 +149,7 @@ export const ForeldelsePeriodeForm = ({
           >
             <FormattedMessage id="ForeldelsePeriodeForm.Oppdater" />
           </Button>
-          <Button size="small" variant="secondary" onClick={avbrytOgSkjulPeriode} type="button">
+          <Button size="small" variant="secondary" onClick={skjulPeriode} type="button">
             <FormattedMessage id="ForeldelsePeriodeForm.Avbryt" />
           </Button>
         </HStack>

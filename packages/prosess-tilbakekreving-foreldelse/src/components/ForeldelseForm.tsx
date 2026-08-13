@@ -1,4 +1,4 @@
-import { type ReactElement, useState } from 'react';
+import { type ReactElement, useCallback, useEffect, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Box, Heading, HStack, VStack } from '@navikt/ds-react';
@@ -24,7 +24,12 @@ import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
 import type { RelasjonsRolleType } from '../types/RelasjonsRolleType';
 import type { TidslinjePeriode } from '../types/TidslinjePeriode';
 import type { VurderForeldelseAp } from '../types/VurderForeldelseAp';
-import { ForeldelsePeriodeForm, type FormValues as PeriodeFormValues, type PeriodeKladd } from './ForeldelsePeriodeForm';
+import {
+  ForeldelsePeriodeForm,
+  type FormValues as PeriodeFormValues,
+  type PeriodeKladd,
+} from './ForeldelsePeriodeForm';
+import { periodeNøkkel } from './periodeNøkkel';
 import {
   type BeregnBeløpParams,
   type BeregnBeløpResultat,
@@ -104,10 +109,13 @@ interface Props {
   setFormData: (data: ForeldelseFormData) => void;
 }
 
-// Mellomlagret data for panelet. `kladd` holder skjemadata for perioden som eventuelt står åpen i
-// detaljpanelet, men som ikke er bekreftet med "Oppdater" ennå - se PeriodeKladd i ForeldelsePeriodeForm.
+// Mellomlagret data for panelet. Skrives kun når panelet unmountes (dvs. ved bytte av fane/panel).
+// `valgtPeriodeKey` gjør at riktig detaljpanel åpnes igjen, og `kladd` holder ubekreftede skjemaverdier
+// for nettopp den perioden - se PeriodeKladd i ForeldelsePeriodeForm.
 export type ForeldelseFormData = {
   perioder: ForeldelsesresultatActivity[];
+  erEndret: boolean;
+  valgtPeriodeKey?: string;
   kladd?: PeriodeKladd;
 };
 
@@ -130,18 +138,52 @@ export const ForeldelseForm = ({
   const [foreldelseresultatAktiviteter, setForeldelseresultatAktiviteter] = useState(
     formData?.perioder || alleForeldelseresultatAktiviteter,
   );
-  const [periodeKladd, setPeriodeKladdState] = useState<PeriodeKladd | undefined>(formData?.kladd);
+  // Kladden er kun relevant ved gjenåpning av panelet. Den forkastes så snart brukeren bytter periode,
+  // fordi ubekreftede endringer kun skal overleve panelbytte - ikke periodebytte.
+  const [periodeKladd, setPeriodeKladd] = useState<PeriodeKladd | undefined>(formData?.kladd);
 
-  const [valgtPeriode, setValgtPeriode] = useState<ForeldelsesresultatActivity | undefined>(
-    foreldelseresultatAktiviteter?.find(harApentAksjonspunkt),
-  );
+  const [valgtPeriode, setValgtPeriode] = useState<ForeldelsesresultatActivity | undefined>(() => {
+    if (formData) {
+      return formData.valgtPeriodeKey
+        ? formData.perioder.find(p => periodeNøkkel(p) === formData.valgtPeriodeKey)
+        : undefined;
+    }
+    return alleForeldelseresultatAktiviteter.find(harApentAksjonspunkt);
+  });
   const [isSubmitting, setSubmitting] = useState(false);
-  const [isDirty, setDirty] = useState(!!formData?.perioder);
+  const [isDirty, setDirty] = useState(formData?.erEndret ?? false);
+
+  // Detaljpanelet registrerer en henter her, slik at panelet kan trekke ut ubekreftede verdier i det
+  // øyeblikket hele panelet unmountes.
+  const hentKladdRef = useRef<(() => PeriodeKladd | undefined) | undefined>(undefined);
+  const registrerHentKladd = useCallback((hentKladd: (() => PeriodeKladd | undefined) | undefined) => {
+    hentKladdRef.current = hentKladd;
+  }, []);
+
+  const mellomlagringRef = useRef({ perioder: foreldelseresultatAktiviteter, valgtPeriode, isDirty, setFormData });
+
+  useEffect(() => {
+    mellomlagringRef.current = { perioder: foreldelseresultatAktiviteter, valgtPeriode, isDirty, setFormData };
+  });
+
+  useEffect(
+    () => () => {
+      const { perioder, valgtPeriode: åpenPeriode, isDirty: erEndret, setFormData: lagre } = mellomlagringRef.current;
+      lagre({
+        perioder,
+        erEndret,
+        valgtPeriodeKey: åpenPeriode ? periodeNøkkel(åpenPeriode) : undefined,
+        kladd: hentKladdRef.current?.(),
+      });
+    },
+    [],
+  );
 
   const setPeriode = (periode?: TidslinjePeriode | ForeldelsesresultatActivity): void => {
     const valgt = periode
       ? foreldelseresultatAktiviteter.find(p => p.fom === periode.fom && p.tom === periode.tom)
       : undefined;
+    setPeriodeKladd(undefined);
     setValgtPeriode(valgt);
   };
 
@@ -166,23 +208,13 @@ export const ForeldelseForm = ({
   };
 
   // Kladden i detaljpanelet er kun gyldig for perioden den ble laget for. Alt som endrer toppnivå-perioder
-  // (oppdaterPeriode/oppdaterSplittedePerioder) skal derfor også nullstille en eventuell kladd, siden den
-  // uansett er innhentet/erstattet av den nye, bekreftede staten.
-  const setPeriodeKladd = (
-    kladd: PeriodeKladd | undefined,
-    perioder: ForeldelsesresultatActivity[] = foreldelseresultatAktiviteter,
-  ): void => {
-    setPeriodeKladdState(kladd);
-    setFormData({ perioder, kladd });
-  };
-
+  // (oppdaterPeriode/oppdaterSplittedePerioder) lukker perioden, og dermed forkastes kladden via setPeriode.
   const oppdaterPeriode = (values: PeriodeFormValues): void => {
     const verdier = omitOne(values, 'erSplittet');
 
     const otherThanUpdated = foreldelseresultatAktiviteter.filter(o => o.fom !== verdier.fom && o.tom !== verdier.tom);
     const sortedActivities = otherThanUpdated.concat(verdier).sort(sortPeriods);
     setForeldelseresultatAktiviteter(sortedActivities);
-    setPeriodeKladd(undefined, sortedActivities);
     setDirty(true);
     lukkPeriode();
 
@@ -211,7 +243,6 @@ export const ForeldelseForm = ({
     const sortedActivities = otherThanUpdated.concat(nyePerioder).sort(sortPeriods);
 
     setForeldelseresultatAktiviteter(sortedActivities);
-    setPeriodeKladd(undefined, sortedActivities);
     setDirty(true);
     lukkPeriode();
     setPeriode(nyePerioder[0]);
@@ -283,7 +314,7 @@ export const ForeldelseForm = ({
                       key={valgtPeriode.fom}
                       periode={valgtPeriode}
                       periodeKladd={periodeKladd}
-                      setPeriodeKladd={setPeriodeKladd}
+                      registrerHentKladd={registrerHentKladd}
                       oppdaterPeriode={oppdaterPeriode}
                       skjulPeriode={lukkPeriode}
                       readOnly={readOnly}

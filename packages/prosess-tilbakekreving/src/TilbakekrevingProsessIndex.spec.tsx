@@ -430,6 +430,7 @@ describe('TilbakekrevingProsessIndex', () => {
     // Simulerer at brukeren bytter fane - hele komponenttreet unmountes.
     unmount();
 
+    expect(lagretFormData?.valgtPeriodeKey).toBe('2019-01-01_2019-04-01');
     expect(lagretFormData?.kladd).toEqual({
       periodeKey: '2019-01-01_2019-04-01',
       verdier: expect.objectContaining({ begrunnelse: 'Ikke bekreftet ennå' }),
@@ -443,6 +444,35 @@ describe('TilbakekrevingProsessIndex', () => {
     );
   });
 
+  it('skal forkaste kladd når brukeren bytter periode uten å trykke "Oppdater"', async () => {
+    const lagre = vi.fn(() => Promise.resolve());
+    let lagretFormData: TilbakekrevingFormData | undefined;
+    const setFormData = vi.fn((data: TilbakekrevingFormData) => {
+      lagretFormData = data;
+    });
+
+    const { unmount } = render(<MedToPerioder submitCallback={lagre} setFormData={setFormData} />);
+
+    expect(await screen.findByText('01.01.2019 - 01.04.2019')).toBeInTheDocument();
+
+    await userEvent.type(
+      screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 første ledd som skal benyttes'),
+      'Skal forkastes',
+    );
+
+    await userEvent.click(screen.getByText('Neste'));
+    expect(await screen.findByText('01.04.2019 - 01.10.2019')).toBeInTheDocument();
+
+    await userEvent.click(screen.getByText('Forrige'));
+    expect(await screen.findByText('01.01.2019 - 01.04.2019')).toBeInTheDocument();
+
+    expect(screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 første ledd som skal benyttes')).toHaveValue('');
+
+    unmount();
+
+    expect(lagretFormData?.kladd).toBeUndefined();
+  });
+
   it('skal ikke mellomlagre kladd når "Avbryt" trykkes', async () => {
     const lagre = vi.fn(() => Promise.resolve());
     let lagretFormData: TilbakekrevingFormData | undefined;
@@ -450,7 +480,7 @@ describe('TilbakekrevingProsessIndex', () => {
       lagretFormData = data;
     });
 
-    render(<Default submitCallback={lagre} setFormData={setFormData} />);
+    const { unmount } = render(<Default submitCallback={lagre} setFormData={setFormData} />);
 
     expect(await screen.findByText('01.01.2019 - 01.04.2019')).toBeInTheDocument();
 
@@ -461,6 +491,9 @@ describe('TilbakekrevingProsessIndex', () => {
 
     await userEvent.click(screen.getByText('Avbryt'));
 
+    unmount();
+
     expect(lagretFormData?.kladd).toBeUndefined();
+    expect(lagretFormData?.valgtPeriodeKey).toBeUndefined();
   });
 });
