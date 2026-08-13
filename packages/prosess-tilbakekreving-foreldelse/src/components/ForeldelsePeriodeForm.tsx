@@ -64,8 +64,12 @@ export const ForeldelsePeriodeForm = ({
   const intl = useIntl();
 
   const harKladdForPeriode = periodeKladd?.periodeKey === periodeNøkkel(periode);
+  // Kladden er ubekreftede endringer. Den settes derfor som verdier - ikke som defaultValues - slik at
+  // skjemaet fortsatt regnes som endret ("Oppdater" er aktiv, og kladden overlever et nytt panelbytte).
   const formMethods = useForm<FormValues>({
-    defaultValues: harKladdForPeriode ? periodeKladd.verdier : buildInitialValues(periode),
+    defaultValues: buildInitialValues(periode),
+    values: harKladdForPeriode ? periodeKladd.verdier : undefined,
+    resetOptions: { keepDefaultValues: true },
   });
 
   // Panelet henter kladden først når hele panelet unmountes (fanebytte). Skjemaet eier verdiene, men

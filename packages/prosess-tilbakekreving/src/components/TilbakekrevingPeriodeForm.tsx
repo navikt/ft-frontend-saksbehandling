@@ -109,8 +109,12 @@ export const TilbakekrevingPeriodeForm = ({
   const harKladdForPeriode = periode && periodeKladd?.periodeKey === periodeNøkkel(periode);
 
   // TODO (TOR) Fiks type for form
+  // Kladden er ubekreftede endringer. Den settes derfor som verdier - ikke som defaultValues - slik at
+  // skjemaet fortsatt regnes som endret ("Oppdater" er aktiv, og kladden overlever et nytt panelbytte).
   const formMethods = useForm<any>({
-    defaultValues: harKladdForPeriode ? periodeKladd.verdier : periode,
+    defaultValues: periode,
+    values: harKladdForPeriode ? periodeKladd.verdier : undefined,
+    resetOptions: { keepDefaultValues: true },
   });
 
   // Panelet henter kladden først når hele panelet unmountes (fanebytte). Skjemaet eier verdiene, men

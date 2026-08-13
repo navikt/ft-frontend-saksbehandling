@@ -244,6 +244,35 @@ describe('ForeldelseProsessIndex', () => {
 
     expect(await screen.findByText('01.03.2019 - 31.03.2019')).toBeInTheDocument();
     expect(screen.getByLabelText('Vurdering')).toHaveValue('Ikke bekreftet ennå');
+    // Kladden er fortsatt ubekreftede endringer, så "Oppdater" skal være trykkbar.
+    expect(screen.getByText('Oppdater').closest('button')).toBeEnabled();
+  });
+
+  it('skal beholde kladd gjennom flere panelbytter uten at brukeren endrer noe', async () => {
+    const lagre = vi.fn(() => Promise.resolve());
+    let lagretFormData: ForeldelseFormData | undefined;
+    const setFormData = vi.fn((data: ForeldelseFormData) => {
+      lagretFormData = data;
+    });
+
+    const førsteVisning = render(<Default submitCallback={lagre} setFormData={setFormData} />);
+
+    expect(await screen.findByText('01.03.2019 - 31.03.2019')).toBeInTheDocument();
+    await userEvent.type(screen.getByLabelText('Vurdering'), 'Ikke bekreftet ennå');
+    førsteVisning.unmount();
+
+    const andreVisning = render(<Default submitCallback={lagre} formData={lagretFormData} setFormData={setFormData} />);
+    expect(await screen.findByText('01.03.2019 - 31.03.2019')).toBeInTheDocument();
+    andreVisning.unmount();
+
+    expect(lagretFormData?.kladd).toEqual({
+      periodeKey: '2019-03-01_2019-03-31',
+      verdier: expect.objectContaining({ begrunnelse: 'Ikke bekreftet ennå' }),
+    });
+
+    render(<Default submitCallback={lagre} formData={lagretFormData} setFormData={setFormData} />);
+    expect(await screen.findByText('01.03.2019 - 31.03.2019')).toBeInTheDocument();
+    expect(screen.getByLabelText('Vurdering')).toHaveValue('Ikke bekreftet ennå');
   });
 
   it('skal forkaste kladd når brukeren bytter periode uten å trykke "Oppdater"', async () => {
