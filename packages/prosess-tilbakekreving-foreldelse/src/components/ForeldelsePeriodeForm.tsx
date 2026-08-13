@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -35,7 +35,7 @@ export type PeriodeKladd = {
 interface Props {
   periode: ForeldelsesresultatActivity;
   periodeKladd?: PeriodeKladd;
-  registrerHentKladd: (hentKladd: (() => PeriodeKladd | undefined) | undefined) => void;
+  lagreKladd: (kladd: PeriodeKladd | undefined) => void;
   kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   oppdaterPeriode: (values: FormValues) => void;
   skjulPeriode: (event: React.MouseEvent) => void;
@@ -57,7 +57,7 @@ export const ForeldelsePeriodeForm = ({
   readOnly,
   periode,
   periodeKladd,
-  registrerHentKladd,
+  lagreKladd,
   oppdaterPeriode,
   kodeverkSamlingFpTilbake,
 }: Props) => {
@@ -72,17 +72,6 @@ export const ForeldelsePeriodeForm = ({
     resetOptions: { keepDefaultValues: true },
   });
 
-  // Panelet henter kladden først når hele panelet unmountes (fanebytte). Skjemaet eier verdiene, men
-  // bestemmer ikke selv når de mellomlagres - derfor registrerer det bare en henter hos panelet.
-  useEffect(() => {
-    registrerHentKladd(() =>
-      formMethods.formState.isDirty
-        ? { periodeKey: periodeNøkkel(periode), verdier: formMethods.getValues() }
-        : undefined,
-    );
-    return () => registrerHentKladd(undefined);
-  }, [registrerHentKladd, formMethods, periode]);
-
   const foreldet = formMethods.watch('foreldet');
 
   const erForeldet = foreldet && foreldet === ForeldelseVurderingType.FORELDET;
@@ -96,6 +85,10 @@ export const ForeldelsePeriodeForm = ({
       formMethods={formMethods}
       onSubmit={(values: FormValues) => {
         oppdaterPeriode(values);
+      }}
+      setDataOnUnmount={verdier => {
+        // Panelet avgjør om kladden skal beholdes: skyldes unmount et periodebytte, forkaster det den.
+        lagreKladd(formMethods.formState.isDirty ? { periodeKey: periodeNøkkel(periode), verdier } : undefined);
       }}
     >
       <VStack gap="space-16">

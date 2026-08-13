@@ -1,4 +1,4 @@
-import { type ReactElement, useCallback, useEffect, useRef, useState } from 'react';
+import { type ReactElement, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, Box, Heading, HStack, VStack } from '@navikt/ds-react';
@@ -153,38 +153,39 @@ export const ForeldelseForm = ({
   const [isSubmitting, setSubmitting] = useState(false);
   const [isDirty, setDirty] = useState(formData?.erEndret ?? false);
 
-  // Detaljpanelet registrerer en henter her, slik at panelet kan trekke ut ubekreftede verdier i det
-  // øyeblikket hele panelet unmountes.
-  const hentKladdRef = useRef<(() => PeriodeKladd | undefined) | undefined>(undefined);
-  const registrerHentKladd = useCallback((hentKladd: (() => PeriodeKladd | undefined) | undefined) => {
-    hentKladdRef.current = hentKladd;
-  }, []);
+  // Detaljpanelet mellomlagrer kladden i sin egen unmount. Dette flagget forteller om den unmounten
+  // skyldes at brukeren byttet/lukket periode - da skal kladden forkastes i stedet for å lagres.
+  const erPeriodebytteRef = useRef(false);
 
-  const mellomlagringRef = useRef({ perioder: foreldelseresultatAktiviteter, valgtPeriode, isDirty, setFormData });
+  const mellomlagre = (endring: Partial<ForeldelseFormData>): void => {
+    setFormData({
+      perioder: foreldelseresultatAktiviteter,
+      erEndret: isDirty,
+      valgtPeriodeKey: valgtPeriode ? periodeNøkkel(valgtPeriode) : undefined,
+      kladd: periodeKladd,
+      ...endring,
+    });
+  };
 
-  useEffect(() => {
-    mellomlagringRef.current = { perioder: foreldelseresultatAktiviteter, valgtPeriode, isDirty, setFormData };
-  });
-
-  useEffect(
-    () => () => {
-      const { perioder, valgtPeriode: åpenPeriode, isDirty: erEndret, setFormData: lagre } = mellomlagringRef.current;
-      lagre({
-        perioder,
-        erEndret,
-        valgtPeriodeKey: åpenPeriode ? periodeNøkkel(åpenPeriode) : undefined,
-        kladd: hentKladdRef.current?.(),
-      });
-    },
-    [],
-  );
+  const lagreKladd = (kladd: PeriodeKladd | undefined): void => {
+    if (erPeriodebytteRef.current) {
+      erPeriodebytteRef.current = false;
+      return;
+    }
+    setPeriodeKladd(kladd);
+    mellomlagre({ kladd });
+  };
 
   const setPeriode = (periode?: TidslinjePeriode | ForeldelsesresultatActivity): void => {
     const valgt = periode
       ? foreldelseresultatAktiviteter.find(p => p.fom === periode.fom && p.tom === periode.tom)
       : undefined;
+    if (valgt !== valgtPeriode) {
+      erPeriodebytteRef.current = true;
+    }
     setPeriodeKladd(undefined);
     setValgtPeriode(valgt);
+    mellomlagre({ valgtPeriodeKey: valgt ? periodeNøkkel(valgt) : undefined, kladd: undefined });
   };
 
   const setNestePeriode = (): void => {
@@ -208,20 +209,25 @@ export const ForeldelseForm = ({
   };
 
   // Kladden i detaljpanelet er kun gyldig for perioden den ble laget for. Alt som endrer toppnivå-perioder
-  // (oppdaterPeriode/oppdaterSplittedePerioder) lukker perioden, og dermed forkastes kladden via setPeriode.
+  // lukker perioden, og da skal kladden forkastes - den er erstattet av bekreftede verdier.
   const oppdaterPeriode = (values: PeriodeFormValues): void => {
     const verdier = omitOne(values, 'erSplittet');
 
     const otherThanUpdated = foreldelseresultatAktiviteter.filter(o => o.fom !== verdier.fom && o.tom !== verdier.tom);
     const sortedActivities = otherThanUpdated.concat(verdier).sort(sortPeriods);
+    const nesteValgtePeriode = sortedActivities.find(harApentAksjonspunkt);
+
+    erPeriodebytteRef.current = true;
     setForeldelseresultatAktiviteter(sortedActivities);
     setDirty(true);
-    lukkPeriode();
-
-    const periodeMedApenAksjonspunkt = sortedActivities.find(harApentAksjonspunkt);
-    if (periodeMedApenAksjonspunkt) {
-      setPeriode(periodeMedApenAksjonspunkt);
-    }
+    setPeriodeKladd(undefined);
+    setValgtPeriode(nesteValgtePeriode);
+    mellomlagre({
+      perioder: sortedActivities,
+      erEndret: true,
+      valgtPeriodeKey: nesteValgtePeriode ? periodeNøkkel(nesteValgtePeriode) : undefined,
+      kladd: undefined,
+    });
   };
 
   const oppdaterSplittedePerioder = (perioder: PeriodeMedFeilutbetaling[]): void => {
@@ -242,10 +248,22 @@ export const ForeldelseForm = ({
     );
     const sortedActivities = otherThanUpdated.concat(nyePerioder).sort(sortPeriods);
 
+    // Beholder opprinnelig oppslag mot forrige periodeliste, slik at valget håndteres som før.
+    const nyValgtPeriode = foreldelseresultatAktiviteter.find(
+      p => p.fom === nyePerioder[0].fom && p.tom === nyePerioder[0].tom,
+    );
+
+    erPeriodebytteRef.current = true;
     setForeldelseresultatAktiviteter(sortedActivities);
     setDirty(true);
-    lukkPeriode();
-    setPeriode(nyePerioder[0]);
+    setPeriodeKladd(undefined);
+    setValgtPeriode(nyValgtPeriode);
+    mellomlagre({
+      perioder: sortedActivities,
+      erEndret: true,
+      valgtPeriodeKey: nyValgtPeriode ? periodeNøkkel(nyValgtPeriode) : undefined,
+      kladd: undefined,
+    });
   };
 
   const lagrePerioder = () => {
@@ -314,7 +332,7 @@ export const ForeldelseForm = ({
                       key={valgtPeriode.fom}
                       periode={valgtPeriode}
                       periodeKladd={periodeKladd}
-                      registrerHentKladd={registrerHentKladd}
+                      lagreKladd={lagreKladd}
                       oppdaterPeriode={oppdaterPeriode}
                       skjulPeriode={lukkPeriode}
                       readOnly={readOnly}

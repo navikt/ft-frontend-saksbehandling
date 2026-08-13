@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -82,7 +82,7 @@ interface Props {
   data: DataForPeriode;
   periode?: CustomVilkarsVurdertePeriode;
   periodeKladd?: PeriodeKladd;
-  registrerHentKladd: (hentKladd: (() => PeriodeKladd | undefined) | undefined) => void;
+  lagreKladd: (kladd: PeriodeKladd | undefined) => void;
   skjulPeriode: () => void;
   readOnly: boolean;
   oppdaterPeriode: (values: CustomVilkarsVurdertePeriode) => void;
@@ -95,7 +95,7 @@ export const TilbakekrevingPeriodeForm = ({
   data,
   periode,
   periodeKladd,
-  registrerHentKladd,
+  lagreKladd,
   skjulPeriode,
   readOnly,
   oppdaterPeriode,
@@ -116,17 +116,6 @@ export const TilbakekrevingPeriodeForm = ({
     values: harKladdForPeriode ? periodeKladd.verdier : undefined,
     resetOptions: { keepDefaultValues: true },
   });
-
-  // Panelet henter kladden først når hele panelet unmountes (fanebytte). Skjemaet eier verdiene, men
-  // bestemmer ikke selv når de mellomlagres - derfor registrerer det bare en henter hos panelet.
-  useEffect(() => {
-    registrerHentKladd(() =>
-      periode && formMethods.formState.isDirty
-        ? { periodeKey: periodeNøkkel(periode), verdier: formMethods.getValues() }
-        : undefined,
-    );
-    return () => registrerHentKladd(undefined);
-  }, [registrerHentKladd, formMethods, periode]);
 
   const valgtVilkarResultatType = formMethods.watch('valgtVilkarResultatType') as VilkårResultat;
   const handletUaktsomhetsgrad = formMethods.watch(`${valgtVilkarResultatType}.handletUaktsomhetGrad`);
@@ -214,7 +203,16 @@ export const TilbakekrevingPeriodeForm = ({
     per => !per.erForeldet && per.valgtVilkarResultatType != null,
   );
   return (
-    <RhfForm formMethods={formMethods} onSubmit={saveOrToggleModal}>
+    <RhfForm
+      formMethods={formMethods}
+      onSubmit={saveOrToggleModal}
+      setDataOnUnmount={verdier => {
+        // Panelet avgjør om kladden skal beholdes: skyldes unmount et periodebytte, forkaster det den.
+        lagreKladd(
+          periode && formMethods.formState.isDirty ? { periodeKey: periodeNøkkel(periode), verdier } : undefined,
+        );
+      }}
+    >
       <VStack gap="space-16">
         <VStack gap="space-8">
           {reduserteBelop &&
