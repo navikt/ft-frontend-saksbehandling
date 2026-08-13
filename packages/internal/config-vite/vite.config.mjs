@@ -53,7 +53,9 @@ const vitestConfig = defineVitestConfig(() => {
 
 const viteConfig = defineViteConfig({
   plugins: [
-    react(),
+    react({
+      include: '**/*.{jsx,tsx}',
+    }),
     dts({
       insertTypesEntry: true,
       copyDtsFiles: true,

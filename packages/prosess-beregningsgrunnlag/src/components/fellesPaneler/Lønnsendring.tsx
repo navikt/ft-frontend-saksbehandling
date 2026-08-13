@@ -2,7 +2,6 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { ExpansionCard } from '@navikt/ds-react';
 import dayjs from 'dayjs';
-import norskFormat from 'dayjs/locale/nb';
 
 import { LønnsendringScenario } from '@navikt/ft-kodeverk';
 import type { ArbeidsgiverOpplysningerPerId, LønnsendringSaksopplysning } from '@navikt/ft-types';
@@ -14,7 +13,7 @@ interface Props {
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
 }
 
-const uledMåned = (dato: string) => dayjs(dato).locale(norskFormat).format('MMMM');
+const uledMåned = (dato: string) => dayjs(dato).format('MMMM');
 
 function finnLønnsendringsdatoer(
   opplysninger: LønnsendringSaksopplysning[],
