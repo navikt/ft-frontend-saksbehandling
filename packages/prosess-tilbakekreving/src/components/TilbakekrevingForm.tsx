@@ -374,27 +374,36 @@ export const TilbakekrevingForm = ({
   });
   const [isSubmitting, setSubmitting] = useState(false);
 
-  // Detaljpanelet mellomlagrer kladden i sin egen unmount. Dette flagget forteller om den unmounten
-  // skyldes at brukeren byttet/lukket periode - da skal kladden forkastes i stedet for å lagres.
-  const erPeriodebytteRef = useRef(false);
+  // Detaljpanelet mellomlagrer kladden i sin egen unmount, og da er denne komponentens render-closure
+  // allerede utdatert. Refen holder derfor siste skrevne data, slik at kladden legges oppå den og ikke
+  // overskriver f.eks. en nyvalgt periode med gammel verdi.
+  const sisteFormDataRef = useRef<TilbakekrevingFormData>({
+    perioder: vilkårsvurdertePerioder,
+    erEndret: isDirty,
+    valgtPeriodeKey: valgtPeriode ? periodeNøkkel(valgtPeriode) : undefined,
+    kladd: periodeKladd,
+  });
 
   const mellomlagre = (endring: Partial<TilbakekrevingFormData>) => {
-    setFormData({
+    const data = {
       perioder: vilkårsvurdertePerioder,
       erEndret: isDirty,
       valgtPeriodeKey: valgtPeriode ? periodeNøkkel(valgtPeriode) : undefined,
       kladd: periodeKladd,
       ...endring,
-    });
+    };
+    sisteFormDataRef.current = data;
+    setFormData(data);
   };
 
   const lagreKladd = (kladd: PeriodeKladd | undefined) => {
-    if (erPeriodebytteRef.current) {
-      erPeriodebytteRef.current = false;
-      return;
-    }
-    setPeriodeKladd(kladd);
-    mellomlagre({ kladd });
+    const forrige = sisteFormDataRef.current;
+    // Hører kladden til en annen periode enn den som nå er valgt, skyldes unmounten et periodebytte.
+    const skalBeholdes = kladd !== undefined && kladd.periodeKey === forrige.valgtPeriodeKey;
+    const data = { ...forrige, kladd: skalBeholdes ? kladd : undefined };
+    sisteFormDataRef.current = data;
+    setPeriodeKladd(data.kladd);
+    setFormData(data);
   };
 
   const valideringsmeldingId = validerOm6LeddBrukesPåAllePerioder(vilkårsvurdertePerioder);
@@ -423,9 +432,6 @@ export const TilbakekrevingForm = ({
     const valgt = periode
       ? vilkårsvurdertePerioder.find(p => p.fom === periode.fom && p.tom === periode.tom)
       : undefined;
-    if (valgt !== valgtPeriode) {
-      erPeriodebytteRef.current = true;
-    }
     setPeriodeKladd(undefined);
     setValgtPeriode(valgt);
     mellomlagre({ valgtPeriodeKey: valgt ? periodeNøkkel(valgt) : undefined, kladd: undefined });
@@ -454,7 +460,6 @@ export const TilbakekrevingForm = ({
     const sortedActivities = otherThanUpdated.concat(verdier).sort(sortPeriods);
     const nesteValgtePeriode = sortedActivities.find(harApentAksjonspunkt);
 
-    erPeriodebytteRef.current = true;
     setVilkårsvurdertePerioder(sortedActivities);
     setDirty(true);
     setPeriodeKladd(undefined);
@@ -486,7 +491,6 @@ export const TilbakekrevingForm = ({
         p => p.fom === nyePerioder[0].fom && p.tom === nyePerioder[0].tom,
       );
 
-      erPeriodebytteRef.current = true;
       setDirty(true);
       setVilkårsvurdertePerioder(sortedActivities);
       setPeriodeKladd(undefined);

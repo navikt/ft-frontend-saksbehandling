@@ -301,6 +301,36 @@ describe('ForeldelseProsessIndex', () => {
     expect(lagretFormData?.kladd).toBeUndefined();
   });
 
+  it('skal beholde kladd for en periode brukeren selv har navigert til før panelbytte', async () => {
+    const lagre = vi.fn(() => Promise.resolve());
+    let lagretFormData: ForeldelseFormData | undefined;
+    const setFormData = vi.fn((data: ForeldelseFormData) => {
+      lagretFormData = data;
+    });
+
+    const { unmount } = render(<Default submitCallback={lagre} setFormData={setFormData} />);
+
+    expect(await screen.findByText('01.03.2019 - 31.03.2019')).toBeInTheDocument();
+
+    // Brukeren navigerer til en annen periode og skriver der - kladden hører til den nye perioden.
+    await userEvent.click(screen.getByText('Forrige'));
+    expect(await screen.findByText('01.02.2019 - 28.02.2019')).toBeInTheDocument();
+
+    await userEvent.type(screen.getByLabelText('Vurdering'), ' Skrevet etter periodebytte');
+
+    unmount();
+
+    expect(lagretFormData?.valgtPeriodeKey).toBe('2019-02-01_2019-02-28');
+    expect(lagretFormData?.kladd?.periodeKey).toBe('2019-02-01_2019-02-28');
+
+    render(<Default submitCallback={lagre} formData={lagretFormData} setFormData={setFormData} />);
+
+    expect(await screen.findByText('01.02.2019 - 28.02.2019')).toBeInTheDocument();
+    expect(screen.getByLabelText('Vurdering')).toHaveValue(
+      'Over foreldelsesfrist, med tillegsfrist brukes Skrevet etter periodebytte',
+    );
+  });
+
   it('skal ikke mellomlagre kladd når "Avbryt" trykkes', async () => {
     const lagre = vi.fn(() => Promise.resolve());
     let lagretFormData: ForeldelseFormData | undefined;

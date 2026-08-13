@@ -109,9 +109,10 @@ interface Props {
   setFormData: (data: ForeldelseFormData) => void;
 }
 
-// Mellomlagret data for panelet. Skrives kun når panelet unmountes (dvs. ved bytte av fane/panel).
-// `valgtPeriodeKey` gjør at riktig detaljpanel åpnes igjen, og `kladd` holder ubekreftede skjemaverdier
-// for nettopp den perioden - se PeriodeKladd i ForeldelsePeriodeForm.
+// Mellomlagret data for panelet. `valgtPeriodeKey` gjør at riktig detaljpanel åpnes igjen, og `kladd`
+// holder ubekreftede skjemaverdier for nettopp den perioden - se PeriodeKladd i ForeldelsePeriodeForm.
+// Kladden godtas kun når `kladd.periodeKey` er lik `valgtPeriodeKey`. Det gjør at et periodebytte
+// forkaster kladden av seg selv, uten at vi trenger å vite hvorfor detaljpanelet ble unmountet.
 export type ForeldelseFormData = {
   perioder: ForeldelsesresultatActivity[];
   erEndret: boolean;
@@ -153,36 +154,42 @@ export const ForeldelseForm = ({
   const [isSubmitting, setSubmitting] = useState(false);
   const [isDirty, setDirty] = useState(formData?.erEndret ?? false);
 
-  // Detaljpanelet mellomlagrer kladden i sin egen unmount. Dette flagget forteller om den unmounten
-  // skyldes at brukeren byttet/lukket periode - da skal kladden forkastes i stedet for å lagres.
-  const erPeriodebytteRef = useRef(false);
+  // Detaljpanelet mellomlagrer kladden i sin egen unmount, og da er denne komponentens render-closure
+  // allerede utdatert. Refen holder derfor siste skrevne data, slik at kladden legges oppå den og ikke
+  // overskriver f.eks. en nyvalgt periode med gammel verdi.
+  const sisteFormDataRef = useRef<ForeldelseFormData>({
+    perioder: foreldelseresultatAktiviteter,
+    erEndret: isDirty,
+    valgtPeriodeKey: valgtPeriode ? periodeNøkkel(valgtPeriode) : undefined,
+    kladd: periodeKladd,
+  });
 
   const mellomlagre = (endring: Partial<ForeldelseFormData>): void => {
-    setFormData({
+    const data = {
       perioder: foreldelseresultatAktiviteter,
       erEndret: isDirty,
       valgtPeriodeKey: valgtPeriode ? periodeNøkkel(valgtPeriode) : undefined,
       kladd: periodeKladd,
       ...endring,
-    });
+    };
+    sisteFormDataRef.current = data;
+    setFormData(data);
   };
 
   const lagreKladd = (kladd: PeriodeKladd | undefined): void => {
-    if (erPeriodebytteRef.current) {
-      erPeriodebytteRef.current = false;
-      return;
-    }
-    setPeriodeKladd(kladd);
-    mellomlagre({ kladd });
+    const forrige = sisteFormDataRef.current;
+    // Hører kladden til en annen periode enn den som nå er valgt, skyldes unmounten et periodebytte.
+    const skalBeholdes = kladd !== undefined && kladd.periodeKey === forrige.valgtPeriodeKey;
+    const data = { ...forrige, kladd: skalBeholdes ? kladd : undefined };
+    sisteFormDataRef.current = data;
+    setPeriodeKladd(data.kladd);
+    setFormData(data);
   };
 
   const setPeriode = (periode?: TidslinjePeriode | ForeldelsesresultatActivity): void => {
     const valgt = periode
       ? foreldelseresultatAktiviteter.find(p => p.fom === periode.fom && p.tom === periode.tom)
       : undefined;
-    if (valgt !== valgtPeriode) {
-      erPeriodebytteRef.current = true;
-    }
     setPeriodeKladd(undefined);
     setValgtPeriode(valgt);
     mellomlagre({ valgtPeriodeKey: valgt ? periodeNøkkel(valgt) : undefined, kladd: undefined });
@@ -217,7 +224,6 @@ export const ForeldelseForm = ({
     const sortedActivities = otherThanUpdated.concat(verdier).sort(sortPeriods);
     const nesteValgtePeriode = sortedActivities.find(harApentAksjonspunkt);
 
-    erPeriodebytteRef.current = true;
     setForeldelseresultatAktiviteter(sortedActivities);
     setDirty(true);
     setPeriodeKladd(undefined);
@@ -253,7 +259,6 @@ export const ForeldelseForm = ({
       p => p.fom === nyePerioder[0].fom && p.tom === nyePerioder[0].tom,
     );
 
-    erPeriodebytteRef.current = true;
     setForeldelseresultatAktiviteter(sortedActivities);
     setDirty(true);
     setPeriodeKladd(undefined);

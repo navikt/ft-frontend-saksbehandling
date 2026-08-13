@@ -478,6 +478,39 @@ describe('TilbakekrevingProsessIndex', () => {
     );
   });
 
+  it('skal beholde kladd for en periode brukeren selv har navigert til før panelbytte', async () => {
+    const lagre = vi.fn(() => Promise.resolve());
+    let lagretFormData: TilbakekrevingFormData | undefined;
+    const setFormData = vi.fn((data: TilbakekrevingFormData) => {
+      lagretFormData = data;
+    });
+
+    const { unmount } = render(<MedToPerioder submitCallback={lagre} setFormData={setFormData} />);
+
+    expect(await screen.findByText('01.01.2019 - 01.04.2019')).toBeInTheDocument();
+
+    // Brukeren navigerer til en annen periode og skriver der - kladden hører til den nye perioden.
+    await userEvent.click(screen.getByText('Neste'));
+    expect(await screen.findByText('01.04.2019 - 01.10.2019')).toBeInTheDocument();
+
+    await userEvent.type(
+      screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 første ledd som skal benyttes'),
+      'Skrevet etter periodebytte',
+    );
+
+    unmount();
+
+    expect(lagretFormData?.valgtPeriodeKey).toBe(lagretFormData?.kladd?.periodeKey);
+    expect(lagretFormData?.kladd).toBeDefined();
+
+    render(<MedToPerioder submitCallback={lagre} formData={lagretFormData} setFormData={setFormData} />);
+
+    expect(await screen.findByText('01.04.2019 - 01.10.2019')).toBeInTheDocument();
+    expect(screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 første ledd som skal benyttes')).toHaveValue(
+      'Skrevet etter periodebytte',
+    );
+  });
+
   it('skal forkaste kladd når brukeren bytter periode uten å trykke "Oppdater"', async () => {
     const lagre = vi.fn(() => Promise.resolve());
     let lagretFormData: TilbakekrevingFormData | undefined;
