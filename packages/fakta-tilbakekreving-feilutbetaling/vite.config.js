@@ -3,7 +3,7 @@ import { defineConfig } from 'vitest/config';
 
 import commonConfig from '@navikt/ft-config-vite';
 
-import { peerDependencies } from './package.json';
+import { peerDependencies } from './package.json' with { type: 'json' };
 
 const config = defineConfig({
   build: {
