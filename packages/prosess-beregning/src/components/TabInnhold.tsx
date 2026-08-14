@@ -1,6 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, HGrid, HStack, Spacer } from '@navikt/ds-react';
+import { BodyShort, HStack, Spacer } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { BTag, dateFormat } from '@navikt/ft-utils';
@@ -46,7 +46,7 @@ export const TabInnhold = ({
         </BodyShort>
       </HStack>
 
-      <HGrid columns={{ sm: 1, xl: 2 }} gap="space-12">
+      <HStack gap="space-12">
         <Arbeidsinntekt
           beregningsgrunnlag={beregningsgrunnlag}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
@@ -56,7 +56,7 @@ export const TabInnhold = ({
           beregningsgrunnlag={beregningsgrunnlag}
           formaterVisningsnavnForAndel={createVisningsnavnForAndel(arbeidsgiverOpplysningerPerId, kodeverkSamling)}
         />
-      </HGrid>
+      </HStack>
 
       <Dagsatser
         beregningsgrunnlag={beregningsgrunnlag}
