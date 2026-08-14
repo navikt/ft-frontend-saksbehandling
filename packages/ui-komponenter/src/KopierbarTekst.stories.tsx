@@ -21,3 +21,18 @@ export const MedLikVisningSomKopierbarTekst: Story = {
     tekst: 'Denne teksten kopieres når du klikker på den',
   },
 };
+
+export const Inline: Story = {
+  decorators: [
+    Story => (
+      <div>
+        <span>ikke alle elementer er kopierbar {'--->'} </span>
+        <Story />
+        <span>{' <---'}</span>
+      </div>
+    ),
+  ],
+  args: {
+    tekst: '100000',
+  },
+};

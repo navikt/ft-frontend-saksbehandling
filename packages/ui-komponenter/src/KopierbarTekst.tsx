@@ -4,8 +4,9 @@ import { Tooltip } from '@navikt/ds-react';
 
 import { createIntl } from '@navikt/ft-utils';
 
-import messages from '../i18n/nb_NO.json';
+import style from './kopierbarTekst.module.css';
 
+import messages from '../i18n/nb_NO.json';
 const intl = createIntl(messages);
 
 type Props = { tekst: string | undefined; children?: ReactElement | string };
@@ -16,7 +17,7 @@ export const KopierbarTekst = ({ tekst, children }: Props) => {
   if (!tekst) {
     return children;
   }
-  const copy: React.MouseEventHandler<HTMLSpanElement> = async (e): Promise<void> => {
+  const copy = async (e: React.MouseEvent<HTMLSpanElement> | React.KeyboardEvent<HTMLSpanElement>): Promise<void> => {
     e.stopPropagation();
     await navigator.clipboard.writeText(tekst);
     setSkalViseKopiert(true);
@@ -25,9 +26,12 @@ export const KopierbarTekst = ({ tekst, children }: Props) => {
       setSkalViseKopiert(false);
     }, 1000);
   };
+
   return (
     <Tooltip content={intl.formatMessage({ id: skalViseKopiert ? 'KopierbarTekst.Kopiert' : 'KopierbarTekst.Kopier' })}>
-      <span onClick={copy}>{children ?? tekst}</span>
+      <span role="button" tabIndex={0} onClick={copy} onKeyDown={copy} className={style.kopierbarTekst}>
+        {children ?? tekst}
+      </span>
     </Tooltip>
   );
 };
