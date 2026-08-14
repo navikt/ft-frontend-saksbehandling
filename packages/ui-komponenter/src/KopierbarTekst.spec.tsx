@@ -1,5 +1,5 @@
 import { composeStories } from '@storybook/react-vite';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -21,7 +21,7 @@ describe('KopierbarTekst', () => {
     vi.restoreAllMocks();
   });
 
-  it('kopierer tekst til utklippstavlen når det vises en annen tekst', async () => {
+  it('kopierer tekst ved klikk', async () => {
     render(<MedUlikVisningFraKopierbarTekst />);
 
     const element = screen.getByText('Når du klikker på denne teksten blir en tekst kopiert til utklippstavlen');
@@ -32,7 +32,7 @@ describe('KopierbarTekst', () => {
     });
   });
 
-  it('viser tooltip med veiledende tekst', async () => {
+  it('viser tooltip ved hover og "Kopiert!" etter klikk', async () => {
     const tekst = 'Denne teksten kopieres når du klikker på den';
 
     render(<MedLikVisningSomKopierbarTekst />);
@@ -54,6 +54,71 @@ describe('KopierbarTekst', () => {
 
     await waitFor(() => {
       expect(navigator.clipboard.writeText).toHaveBeenCalledWith(tekst);
+    });
+  });
+
+  it('kan fokuseres med tab', async () => {
+    render(<MedLikVisningSomKopierbarTekst />);
+
+    const element = screen.getByRole('button');
+    expect(element).not.toHaveFocus();
+
+    await userEvent.tab();
+
+    expect(element).toHaveFocus();
+  });
+
+  it('kopierer tekst ved Enter', async () => {
+    render(<MedLikVisningSomKopierbarTekst />);
+
+    act(() => {
+      screen.getByRole('button').focus();
+    });
+
+    expect(await screen.findByText('Klikk for å kopiere')).toBeInTheDocument();
+
+    await userEvent.keyboard('{Enter}');
+
+    expect(await screen.findByText('Kopiert!')).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(navigator.clipboard.writeText).toHaveBeenCalledWith('Denne teksten kopieres når du klikker på den');
+    });
+  });
+
+  it('kopierer tekst ved mellomrom', async () => {
+    render(<MedLikVisningSomKopierbarTekst />);
+
+    act(() => {
+      screen.getByRole('button').focus();
+    });
+
+    expect(await screen.findByText('Klikk for å kopiere')).toBeInTheDocument();
+
+    await userEvent.keyboard(' ');
+
+    expect(await screen.findByText('Kopiert!')).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(navigator.clipboard.writeText).toHaveBeenCalledWith('Denne teksten kopieres når du klikker på den');
+    });
+  });
+
+  it('kopierer tekst ved tab og Enter', async () => {
+    render(<MedUlikVisningFraKopierbarTekst />);
+
+    await userEvent.tab();
+
+    expect(screen.getByRole('button')).toHaveFocus();
+
+    expect(await screen.findByText('Klikk for å kopiere')).toBeInTheDocument();
+
+    await userEvent.keyboard('{Enter}');
+
+    expect(await screen.findByText('Kopiert!')).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(navigator.clipboard.writeText).toHaveBeenCalledWith('Dette er den kopierte teksten');
     });
   });
 });
