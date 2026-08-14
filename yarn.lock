@@ -1721,7 +1721,7 @@ __metadata:
     eslint-plugin-react-refresh: "npm:0.5.3"
     eslint-plugin-react-you-might-not-need-an-effect: "npm:1.0.1"
     eslint-plugin-simple-import-sort: "npm:14.0.0"
-    eslint-plugin-storybook: "npm:10.5.6"
+    eslint-plugin-storybook: "npm:10.5.7"
     globals: "npm:17.9.0"
     storybook: "npm:10.5.7"
     typescript: "npm:6.0.3"
@@ -6803,16 +6803,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-storybook@npm:10.5.6":
-  version: 10.5.6
-  resolution: "eslint-plugin-storybook@npm:10.5.6"
+"eslint-plugin-storybook@npm:10.5.7":
+  version: 10.5.7
+  resolution: "eslint-plugin-storybook@npm:10.5.7"
   dependencies:
     "@typescript-eslint/types": "npm:^8.60.0"
     "@typescript-eslint/utils": "npm:^8.60.0"
   peerDependencies:
     eslint: ">=8"
-    storybook: ^10.5.6
-  checksum: 10/772ba902a60b66c1d3b4a7461ed314f59fb944a826bb5ff70d5cd1ebefeda309d5afc981e06be7d1e840decc06741a2c1f368804832a22b33842804037d12435
+    storybook: ^10.5.7
+  checksum: 10/19a9019594d16b1f0f147fbe1d89cdd56beba0c53c188a0d1f6a366e3f4f02416175a2c8f935e4480f118ff5c4e779ce5d323970eaad44d5a84a3423f18804b3
   languageName: node
   linkType: hard
 
@@ -7362,7 +7362,7 @@ __metadata:
     eslint: "npm:9.39.5"
     husky: "npm:9.1.7"
     jsdom: "npm:29.1.1"
-    knip: "npm:6.31.0"
+    knip: "npm:6.32.0"
     lerna: "npm:10.0.0"
     lint-staged: "npm:17.3.0"
     prettier: "npm:3.9.6"
@@ -7475,12 +7475,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-tsconfig@npm:4.14.0":
-  version: 4.14.0
-  resolution: "get-tsconfig@npm:4.14.0"
+"get-tsconfig@npm:4.14.1":
+  version: 4.14.1
+  resolution: "get-tsconfig@npm:4.14.1"
   dependencies:
     resolve-pkg-maps: "npm:^1.0.0"
-  checksum: 10/f5626971905ca386c9ddeb302504e8a2301b9c05641803267223ebd50b7c81aaf9324d29cf9f4e4ff3f245632c3392aa83719dc6cb3e98b4e4a1702a27c5cc5d
+  checksum: 10/a3cd6456ad935ed74788d9263c00125cc97b6a278776145fa8b36dcc37651c1d9e1911b2b6db776d3369b4e6f03d09213e5efa9a3533dd530b8270cacac27355
   languageName: node
   linkType: hard
 
@@ -8661,13 +8661,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:6.31.0":
-  version: 6.31.0
-  resolution: "knip@npm:6.31.0"
+"knip@npm:6.32.0":
+  version: 6.32.0
+  resolution: "knip@npm:6.32.0"
   dependencies:
     fdir: "npm:^6.5.0"
     formatly: "npm:^0.3.0"
-    get-tsconfig: "npm:4.14.0"
+    get-tsconfig: "npm:4.14.1"
     jiti: "npm:^2.7.0"
     oxc-parser: "npm:^0.142.0"
     oxc-resolver: "npm:11.24.2"
@@ -8681,7 +8681,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/92759374329d437560d2c7a80ec46b05d281c166a82c0bd3e2ee6b8733b0cc81a0f3cb7199d6f2094d794216f52bf746ce155df02975e112e430bad40b7d1e88
+  checksum: 10/972b1702a836044da8f05120710535cbb6dc9ad3e5bdee3615430a77f3c2b382cfaa6d0b195f7f9ec3cfea40f4dd2ad39ecb35fde45d9c12a623c77f84789db3
   languageName: node
   linkType: hard
 
