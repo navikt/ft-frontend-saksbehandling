@@ -3,8 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BodyShort, ExpansionCard, Label, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
-import norskFormat from 'dayjs/locale/nb';
-import { type CallbackDataParams } from 'echarts/types/dist/shared';
+import type { CallbackDataParams } from 'echarts/types/dist/shared';
 import type { OptionDataValue } from 'echarts/types/src/util/types.js';
 
 import { InntektAktivitetType } from '@navikt/ft-kodeverk';
@@ -184,7 +183,7 @@ export const SammenligningsgrunnlagAOrdningen = ({
                   const castedSeries = series as CallbackDataParams[];
                   const data = castedSeries[0].data as OptionDataValue[];
                   const date = dayjs(data[1]);
-                  const maanedNavn = date.locale(norskFormat).format('MMM');
+                  const maanedNavn = date.format('MMM');
                   const aar = date.format('YYYY');
                   const formattedMaaned = maanedNavn.charAt(0).toUpperCase() + maanedNavn.slice(1);
                   const overskrift = `${formattedMaaned} ${aar}`;
@@ -229,7 +228,7 @@ export const SammenligningsgrunnlagAOrdningen = ({
                   formatter: (value: any) => {
                     const date = dayjs(value);
                     const erIJanuar = date.format('MM') === '01' || date.format('MM') === '12';
-                    const maanedNavn = date.locale(norskFormat).format('MMM');
+                    const maanedNavn = date.format('MMM');
                     const aar = date.format('YYYY');
                     const formattedMaaned = maanedNavn.charAt(0).toUpperCase() + maanedNavn.slice(1, 3);
                     return erIJanuar ? `${formattedMaaned}\n${aar}` : formattedMaaned;
