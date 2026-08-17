@@ -18,4 +18,5 @@ jobs:
     uses: navikt/fp-gha-workflows/.github/workflows/codeql.yml@main
     with:
       language: javascript
-    secrets: inherit
+    secrets:
+      READER_TOKEN: ${{ secrets.READER_TOKEN }}
