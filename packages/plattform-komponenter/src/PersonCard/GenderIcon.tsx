@@ -17,16 +17,8 @@ export const GenderIcon = ({ gender, isChild = false, size = 30 }: Props) => {
   let Icon = FigureCombinationFillIcon;
   let backgroundColor = 'var(--ax-neutral-500)';
   let title = 'Ukjent kjønn';
-  if (isChild) {
-    Icon = FigureChildFillIcon;
-    title = 'Barn';
-    backgroundColor =
-      gender === Gender.female
-        ? 'var(--ax-danger-500)'
-        : gender === Gender.male
-          ? 'var(--ax-accent-500)'
-          : 'var(--ax-neutral-500)';
-  } else if (gender === Gender.male) {
+
+  if (gender === Gender.male) {
     Icon = SilhouetteFillIcon;
     backgroundColor = 'var(--ax-accent-500)';
     title = 'Mann';
@@ -34,6 +26,11 @@ export const GenderIcon = ({ gender, isChild = false, size = 30 }: Props) => {
     Icon = FigureOutwardFillIcon;
     backgroundColor = 'var(--ax-danger-500)';
     title = 'Kvinne';
+  }
+
+  if (isChild) {
+    Icon = FigureChildFillIcon;
+    title = 'Barn';
   }
 
   return (
