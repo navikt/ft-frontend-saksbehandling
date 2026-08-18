@@ -2,6 +2,7 @@ import { composeStories } from '@storybook/react-vite';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import type { TilbakekrevingFormData } from './components/TilbakekrevingForm';
 import * as stories from './TilbakekrevingProsessIndex.stories';
 
 const { Default, MedToPerioder } = composeStories(stories);
@@ -407,5 +408,159 @@ describe('TilbakekrevingProsessIndex', () => {
         },
       ],
     });
+  });
+
+  it('skal mellomlagre kladd for åpent detaljpanel ved unmount, og gjenopprette den ved remount', async () => {
+    const lagre = vi.fn(() => Promise.resolve());
+    let lagretFormData: TilbakekrevingFormData | undefined;
+    const setFormData = vi.fn((data: TilbakekrevingFormData) => {
+      lagretFormData = data;
+    });
+
+    const { unmount } = render(<Default submitCallback={lagre} setFormData={setFormData} />);
+
+    expect(await screen.findByText('01.01.2019 - 01.04.2019')).toBeInTheDocument();
+
+    // Skriver inn tekst i det åpne detaljpanelet, men trykker ikke "Oppdater".
+    await userEvent.type(
+      screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 første ledd som skal benyttes'),
+      'Ikke bekreftet ennå',
+    );
+
+    // Simulerer at brukeren bytter fane - hele komponenttreet unmountes.
+    unmount();
+
+    expect(lagretFormData?.valgtPeriodeKey).toBe('2019-01-01_2019-04-01');
+    expect(lagretFormData?.kladd).toEqual({
+      periodeKey: '2019-01-01_2019-04-01',
+      verdier: expect.objectContaining({ begrunnelse: 'Ikke bekreftet ennå' }),
+    });
+
+    render(<Default submitCallback={lagre} formData={lagretFormData} setFormData={setFormData} />);
+
+    expect(await screen.findByText('01.01.2019 - 01.04.2019')).toBeInTheDocument();
+    expect(screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 første ledd som skal benyttes')).toHaveValue(
+      'Ikke bekreftet ennå',
+    );
+    // Kladden er fortsatt ubekreftede endringer, så "Oppdater" skal være trykkbar.
+    expect(screen.getByText('Oppdater').closest('button')).toBeEnabled();
+  });
+
+  it('skal beholde kladd gjennom flere panelbytter uten at brukeren endrer noe', async () => {
+    const lagre = vi.fn(() => Promise.resolve());
+    let lagretFormData: TilbakekrevingFormData | undefined;
+    const setFormData = vi.fn((data: TilbakekrevingFormData) => {
+      lagretFormData = data;
+    });
+
+    const førsteVisning = render(<Default submitCallback={lagre} setFormData={setFormData} />);
+
+    expect(await screen.findByText('01.01.2019 - 01.04.2019')).toBeInTheDocument();
+    await userEvent.type(
+      screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 første ledd som skal benyttes'),
+      'Ikke bekreftet ennå',
+    );
+    førsteVisning.unmount();
+
+    const andreVisning = render(<Default submitCallback={lagre} formData={lagretFormData} setFormData={setFormData} />);
+    expect(await screen.findByText('01.01.2019 - 01.04.2019')).toBeInTheDocument();
+    andreVisning.unmount();
+
+    expect(lagretFormData?.kladd).toEqual({
+      periodeKey: '2019-01-01_2019-04-01',
+      verdier: expect.objectContaining({ begrunnelse: 'Ikke bekreftet ennå' }),
+    });
+
+    render(<Default submitCallback={lagre} formData={lagretFormData} setFormData={setFormData} />);
+    expect(await screen.findByText('01.01.2019 - 01.04.2019')).toBeInTheDocument();
+    expect(screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 første ledd som skal benyttes')).toHaveValue(
+      'Ikke bekreftet ennå',
+    );
+  });
+
+  it('skal beholde kladd for en periode brukeren selv har navigert til før panelbytte', async () => {
+    const lagre = vi.fn(() => Promise.resolve());
+    let lagretFormData: TilbakekrevingFormData | undefined;
+    const setFormData = vi.fn((data: TilbakekrevingFormData) => {
+      lagretFormData = data;
+    });
+
+    const { unmount } = render(<MedToPerioder submitCallback={lagre} setFormData={setFormData} />);
+
+    expect(await screen.findByText('01.01.2019 - 01.04.2019')).toBeInTheDocument();
+
+    // Brukeren navigerer til en annen periode og skriver der - kladden hører til den nye perioden.
+    await userEvent.click(screen.getByText('Neste'));
+    expect(await screen.findByText('01.04.2019 - 01.10.2019')).toBeInTheDocument();
+
+    await userEvent.type(
+      screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 første ledd som skal benyttes'),
+      'Skrevet etter periodebytte',
+    );
+
+    unmount();
+
+    expect(lagretFormData?.valgtPeriodeKey).toBe(lagretFormData?.kladd?.periodeKey);
+    expect(lagretFormData?.kladd).toBeDefined();
+
+    render(<MedToPerioder submitCallback={lagre} formData={lagretFormData} setFormData={setFormData} />);
+
+    expect(await screen.findByText('01.04.2019 - 01.10.2019')).toBeInTheDocument();
+    expect(screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 første ledd som skal benyttes')).toHaveValue(
+      'Skrevet etter periodebytte',
+    );
+  });
+
+  it('skal forkaste kladd når brukeren bytter periode uten å trykke "Oppdater"', async () => {
+    const lagre = vi.fn(() => Promise.resolve());
+    let lagretFormData: TilbakekrevingFormData | undefined;
+    const setFormData = vi.fn((data: TilbakekrevingFormData) => {
+      lagretFormData = data;
+    });
+
+    const { unmount } = render(<MedToPerioder submitCallback={lagre} setFormData={setFormData} />);
+
+    expect(await screen.findByText('01.01.2019 - 01.04.2019')).toBeInTheDocument();
+
+    await userEvent.type(
+      screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 første ledd som skal benyttes'),
+      'Skal forkastes',
+    );
+
+    await userEvent.click(screen.getByText('Neste'));
+    expect(await screen.findByText('01.04.2019 - 01.10.2019')).toBeInTheDocument();
+
+    await userEvent.click(screen.getByText('Forrige'));
+    expect(await screen.findByText('01.01.2019 - 01.04.2019')).toBeInTheDocument();
+
+    expect(screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 første ledd som skal benyttes')).toHaveValue('');
+
+    unmount();
+
+    expect(lagretFormData?.kladd).toBeUndefined();
+  });
+
+  it('skal ikke mellomlagre kladd når "Avbryt" trykkes', async () => {
+    const lagre = vi.fn(() => Promise.resolve());
+    let lagretFormData: TilbakekrevingFormData | undefined;
+    const setFormData = vi.fn((data: TilbakekrevingFormData) => {
+      lagretFormData = data;
+    });
+
+    const { unmount } = render(<Default submitCallback={lagre} setFormData={setFormData} />);
+
+    expect(await screen.findByText('01.01.2019 - 01.04.2019')).toBeInTheDocument();
+
+    await userEvent.type(
+      screen.getByLabelText('Vurder hvilken hjemmel i § 22-15 første ledd som skal benyttes'),
+      'Skal forkastes',
+    );
+
+    await userEvent.click(screen.getByText('Avbryt'));
+
+    unmount();
+
+    expect(lagretFormData?.kladd).toBeUndefined();
+    expect(lagretFormData?.valgtPeriodeKey).toBeUndefined();
   });
 });
