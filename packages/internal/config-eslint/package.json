@@ -7,7 +7,7 @@
   "private": true,
   "dependencies": {
     "@eslint/js": "9.39.5",
-    "@vitest/eslint-plugin": "1.6.26",
+    "@vitest/eslint-plugin": "1.6.27",
     "eslint": "9.39.5",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-import": "2.32.0",
@@ -17,8 +17,8 @@
     "eslint-plugin-react-you-might-not-need-an-effect": "1.0.1",
     "eslint-plugin-simple-import-sort": "14.0.0",
     "eslint-plugin-storybook": "10.5.7",
-    "globals": "17.9.0",
-    "typescript-eslint": "8.66.0"
+    "globals": "17.11.0",
+    "typescript-eslint": "8.67.0"
   },
   "devDependencies": {
     "storybook": "10.5.7",
