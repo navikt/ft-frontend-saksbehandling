@@ -16,7 +16,9 @@ jobs:
       - uses: actions/setup-node@v7.0.0
         with:
           node-version: 26.1.0
-          cache: 'yarn'
+          # cache bevisst deaktivert i denne test-branchen: enableGlobalCache=false gjør at
+          # GHA restaurerer .yarn/cache (keyet på uendret yarn.lock), så pakkene aldri hentes
+          # autentisert. Vi vil teste at GITHUB_TOKEN faktisk kan laste ned pakkene fra registryet.
 
       - name: Installere dependencies
         run: yarn install --immutable
