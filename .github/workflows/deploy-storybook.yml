@@ -16,5 +16,3 @@ jobs:
     with:
       package-manager: yarn
       cache: lerna
-    secrets:
-      READER_TOKEN: ${{ secrets.READER_TOKEN }}
