@@ -26,6 +26,9 @@ const globalTypes: Preview['globalTypes'] = {
 };
 
 const preview: Preview = {
+  parameters: {
+    htmlLang: 'nb',
+  },
   decorators: [
     Story => (
       <div style={{ margin: '40px' }}>
