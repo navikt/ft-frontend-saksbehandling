@@ -14,8 +14,8 @@ describe('FeilutbetalingFaktaIndex', () => {
 
     expect(await screen.findByText('Kontroller at korrekt hendelse er satt')).toBeInTheDocument();
     expect(screen.getByText('01.01.2019 - 02.01.2019')).toBeInTheDocument();
-    expect(await screen.findByText('10 000 kr')).toBeInTheDocument();
-    expect(await screen.findAllByText('5 000 kr')).toHaveLength(2);
+    expect(await screen.findByText('10 000')).toBeInTheDocument();
+    expect(await screen.findAllByText('5 000')).toHaveLength(2);
 
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 
@@ -75,8 +75,8 @@ describe('FeilutbetalingFaktaIndex', () => {
 
     expect(await screen.findByText('Kontroller at korrekt hendelse er satt')).toBeInTheDocument();
     expect(screen.getByText('01.01.2019 - 02.01.2019')).toBeInTheDocument();
-    expect(await screen.findByText('10 000 kr')).toBeInTheDocument();
-    expect(await screen.findAllByText('5 000 kr')).toHaveLength(2);
+    expect(await screen.findByText('10 000')).toBeInTheDocument();
+    expect(await screen.findAllByText('5 000')).toHaveLength(2);
 
     expect(screen.getByText('Bekreft og fortsett').closest('button')).toBeDisabled();
 

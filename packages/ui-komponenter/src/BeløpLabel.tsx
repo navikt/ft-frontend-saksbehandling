@@ -10,6 +10,10 @@ interface Props {
   rød?: boolean;
 }
 
+/**
+ * MERK: Endringer i hvordan beløp/enhet eksponeres for skjermleser må testes med skjermleser,
+ * ikke bare automatiske tester. Se FAGSYSTEM-443070.
+ */
 export const BeløpLabel = ({ beløp, kr = false, rød = false }: Props) => {
   const formattedBeløp = formatCurrencyNoKr(beløp);
 
@@ -17,7 +21,8 @@ export const BeløpLabel = ({ beløp, kr = false, rød = false }: Props) => {
     <KopierbarTekst tekst={formattedBeløp}>
       <span className={rød ? styles.rød : styles.default}>
         {formattedBeløp || '-'}
-        {formattedBeløp && kr && ' kr'}
+        {formattedBeløp && kr && ' '}
+        {formattedBeløp && kr && <span aria-label="kroner">kr</span>}
       </span>
     </KopierbarTekst>
   );

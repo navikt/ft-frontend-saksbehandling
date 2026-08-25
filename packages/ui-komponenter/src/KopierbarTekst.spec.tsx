@@ -60,12 +60,11 @@ describe('KopierbarTekst', () => {
   it('kan fokuseres med tab', async () => {
     render(<MedLikVisningSomKopierbarTekst />);
 
-    const element = screen.getByRole('button');
-    expect(element).not.toHaveFocus();
+    expect(screen.getByRole('button')).not.toHaveFocus();
 
     await userEvent.tab();
 
-    expect(element).toHaveFocus();
+    expect(screen.getByRole('button')).toHaveFocus();
   });
 
   it('kopierer tekst ved Enter', async () => {
@@ -120,5 +119,19 @@ describe('KopierbarTekst', () => {
     await waitFor(() => {
       expect(navigator.clipboard.writeText).toHaveBeenCalledWith('Dette er den kopierte teksten');
     });
+  });
+
+  it('har den synlige teksten som tilgjengelig navn', () => {
+    render(<MedLikVisningSomKopierbarTekst />);
+
+    expect(screen.getByRole('button')).toHaveAccessibleName('Denne teksten kopieres når du klikker på den');
+  });
+
+  it('bruker synlig tekst (children) som tilgjengelig navn', () => {
+    render(<MedUlikVisningFraKopierbarTekst />);
+
+    expect(screen.getByRole('button')).toHaveAccessibleName(
+      'Når du klikker på denne teksten blir en tekst kopiert til utklippstavlen',
+    );
   });
 });
