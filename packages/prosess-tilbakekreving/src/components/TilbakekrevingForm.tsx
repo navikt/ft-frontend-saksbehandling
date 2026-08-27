@@ -139,13 +139,11 @@ const slaSammenOriginaleOgLagredePeriode = (
 
   const originaleUrortePerioder = perioder
     .filter((periode: DetaljertFeilutbetalingPeriode) => erIkkeLagret(periode, lagredePerioder))
-    .map(
-      (periode: DetaljertFeilutbetalingPeriode): CustomPeriode => ({
-        ...periode,
-        harMerEnnEnYtelse: periode.ytelser.length > 1,
-        erTotalBelopUnder4Rettsgebyr,
-      }),
-    );
+    .map((periode: DetaljertFeilutbetalingPeriode): CustomPeriode => ({
+      ...periode,
+      harMerEnnEnYtelse: periode.ytelser.length > 1,
+      erTotalBelopUnder4Rettsgebyr,
+    }));
 
   return {
     perioder: originaleUrortePerioder.concat(lagredePerioder),

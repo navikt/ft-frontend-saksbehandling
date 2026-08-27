@@ -151,12 +151,10 @@ export const VurderFaktaBeregningPanel = ({
     }
   };
 
-  if (
-    !(
-      hasOpenAksjonspunkt(AVKLAR_AKTIVITETER, avklaringsbehov) ||
-      hasOpenAksjonspunkt(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov)
-    )
-  ) {
+  if (!(
+    hasOpenAksjonspunkt(AVKLAR_AKTIVITETER, avklaringsbehov) ||
+    hasOpenAksjonspunkt(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov)
+  )) {
     return (
       <VurderFaktaContext.Provider value={aktivtBeregningsgrunnlagIndeks}>
         <RhfForm
