@@ -1,11 +1,18 @@
 import { useForm } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Button, Detail, HStack, Label, VStack } from '@navikt/ds-react';
+import { Button, Heading, HStack, VStack } from '@navikt/ds-react';
 
 import { RhfCheckbox, RhfForm, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { AksjonspunktHelpTextHTML, BeløpLabel, DateLabel, FaktaGruppe, PeriodLabel } from '@navikt/ft-ui-komponenter';
+import {
+  AksjonspunktHelpTextHTML,
+  BeløpLabel,
+  DateLabel,
+  FaktaGruppe,
+  LabeledValue,
+  PeriodLabel,
+} from '@navikt/ft-ui-komponenter';
 import { decodeHtmlEntity, sortPeriodsByFom } from '@navikt/ft-utils';
 
 import { FeilutbetalingAksjonspunktCode } from '../FeilutbetalingAksjonspunktCode';
@@ -120,8 +127,6 @@ export const FeilutbetalingInfoPanel = ({
   setFormData,
   submitCallback,
 }: Props) => {
-  const intl = useIntl();
-
   const feilutbetaling = feilutbetalingFakta.behandlingFakta;
 
   const initialValues = buildInitialValues(feilutbetalingFakta);
@@ -150,47 +155,42 @@ export const FeilutbetalingInfoPanel = ({
         <VStack gap="space-16">
           <HStack gap="space-48">
             <VStack gap="space-16">
-              <Label size="medium">
+              <Heading level="3" size="xsmall">
                 <FormattedMessage id="FeilutbetalingInfoPanel.Feilutbetaling" />
-              </Label>
+              </Heading>
               <HStack gap="space-32">
-                <VStack gap="space-4">
-                  <Detail>
-                    <FormattedMessage id="FeilutbetalingInfoPanel.PeriodeMedFeilutbetaling" />
-                  </Detail>
-                  <BodyShort size="small">
+                <LabeledValue
+                  size="small"
+                  label={<FormattedMessage id="FeilutbetalingInfoPanel.PeriodeMedFeilutbetaling" />}
+                  value={
                     <PeriodLabel
                       dateStringFom={feilutbetaling.totalPeriodeFom}
                       dateStringTom={feilutbetaling.totalPeriodeTom}
                     />
-                  </BodyShort>
-                </VStack>
-                <VStack gap="space-4">
-                  <Detail>
-                    <FormattedMessage id="FeilutbetalingInfoPanel.FeilutbetaltBeløp" />
-                  </Detail>
-                  <BodyShort size="small">
-                    <BeløpLabel rød beløp={feilutbetaling.aktuellFeilUtbetaltBeløp} kr />
-                  </BodyShort>
-                </VStack>
-                <VStack gap="space-4">
-                  <Detail>
-                    <FormattedMessage id="FeilutbetalingInfoPanel.TidligereVarseltBeløp" />
-                  </Detail>
-                  <BodyShort size="small">
-                    {feilutbetaling.tidligereVarseltBeløp ? (
+                  }
+                />
+                <LabeledValue
+                  size="small"
+                  label={<FormattedMessage id="FeilutbetalingInfoPanel.FeilutbetaltBeløp" />}
+                  value={<BeløpLabel rød beløp={feilutbetaling.aktuellFeilUtbetaltBeløp} kr />}
+                />
+                <LabeledValue
+                  size="small"
+                  label={<FormattedMessage id="FeilutbetalingInfoPanel.TidligereVarseltBeløp" />}
+                  value={
+                    feilutbetaling.tidligereVarseltBeløp ? (
                       <BeløpLabel beløp={feilutbetaling.tidligereVarseltBeløp} kr />
                     ) : (
                       <FormattedMessage id="FeilutbetalingInfoPanel.IkkeVarslet" />
-                    )}
-                  </BodyShort>
-                </VStack>
+                    )
+                  }
+                />
               </HStack>
               {perioder.length > 1 && !readOnly && (
                 <RhfCheckbox
                   name="behandlePerioderSamlet"
                   control={formMethods.control}
-                  label={intl.formatMessage({ id: 'FeilutbetalingInfoPanel.BehandlePerioderSamlet' })}
+                  label={<FormattedMessage id="FeilutbetalingInfoPanel.BehandlePerioderSamlet" />}
                   readOnly={readOnly}
                 />
               )}
@@ -210,76 +210,61 @@ export const FeilutbetalingInfoPanel = ({
               </FaktaGruppe>
             </VStack>
             <VStack gap="space-16">
-              <Label size="medium">
+              <Heading level="3" size="xsmall">
                 <FormattedMessage id="FeilutbetalingInfoPanel.Revurdering" />
-              </Label>
+              </Heading>
               <HStack gap="space-16">
                 {feilutbetaling.behandlingÅrsaker && (
-                  <VStack gap="space-4">
-                    <Detail>
-                      <FormattedMessage id="FeilutbetalingInfoPanel.Årsaker" />
-                    </Detail>
-                    <BodyShort size="small">
-                      {feilutbetaling.behandlingÅrsaker
-                        .map(
-                          ba =>
-                            kodeverkSamlingFpsak['BehandlingÅrsakType'].find(a => a.kode === ba.behandlingArsakType)
-                              ?.navn,
-                        )
-                        .join(', ')}
-                    </BodyShort>
-                  </VStack>
+                  <LabeledValue
+                    size="small"
+                    label={<FormattedMessage id="FeilutbetalingInfoPanel.Årsaker" />}
+                    value={feilutbetaling.behandlingÅrsaker
+                      .map(
+                        ba =>
+                          kodeverkSamlingFpsak['BehandlingÅrsakType'].find(a => a.kode === ba.behandlingArsakType)
+                            ?.navn,
+                      )
+                      .join(', ')}
+                  />
                 )}
                 {feilutbetaling.datoForRevurderingsvedtak && (
-                  <VStack gap="space-4">
-                    <Detail>
-                      <FormattedMessage id="FeilutbetalingInfoPanel.DatoForRevurdering" />
-                    </Detail>
-                    <BodyShort size="small">
-                      <DateLabel dateString={feilutbetaling.datoForRevurderingsvedtak} />
-                    </BodyShort>
-                  </VStack>
+                  <LabeledValue
+                    size="small"
+                    label={<FormattedMessage id="FeilutbetalingInfoPanel.DatoForRevurdering" />}
+                    value={<DateLabel dateString={feilutbetaling.datoForRevurderingsvedtak} />}
+                  />
                 )}
               </HStack>
               {feilutbetaling.behandlingsresultat && (
-                <VStack gap="space-4">
-                  <Detail>
-                    <FormattedMessage id="FeilutbetalingInfoPanel.Resultat" />
-                  </Detail>
-                  <BodyShort size="small">
-                    {
-                      kodeverkSamlingFpsak['BehandlingResultatType'].find(
-                        a => a.kode === feilutbetaling.behandlingsresultat?.type,
-                      )?.navn
-                    }
-                  </BodyShort>
-                </VStack>
+                <LabeledValue
+                  size="small"
+                  label={<FormattedMessage id="FeilutbetalingInfoPanel.Resultat" />}
+                  value={
+                    kodeverkSamlingFpsak['BehandlingResultatType'].find(
+                      a => a.kode === feilutbetaling.behandlingsresultat?.type,
+                    )?.navn ?? ''
+                  }
+                />
               )}
               {feilutbetaling.behandlingsresultat && (
-                <VStack gap="space-4">
-                  <Detail>
-                    <FormattedMessage id="FeilutbetalingInfoPanel.Konsekvens" />
-                  </Detail>
-                  <BodyShort size="small">
-                    {feilutbetaling.behandlingsresultat.konsekvenserForYtelsen
-                      .map(ba => kodeverkSamlingFpsak['KonsekvensForYtelsen'].find(k => k.kode === ba)?.navn)
-                      .join(', ')}
-                  </BodyShort>
-                </VStack>
+                <LabeledValue
+                  size="small"
+                  label={<FormattedMessage id="FeilutbetalingInfoPanel.Konsekvens" />}
+                  value={feilutbetaling.behandlingsresultat.konsekvenserForYtelsen
+                    .map(ba => kodeverkSamlingFpsak['KonsekvensForYtelsen'].find(k => k.kode === ba)?.navn)
+                    .join(', ')}
+                />
               )}
               {feilutbetaling.tilbakekrevingValg && (
-                <VStack gap="space-4">
-                  <Detail>
-                    <FormattedMessage id="FeilutbetalingInfoPanel.Tilbakekrevingsvalg" />
-                  </Detail>
-                  <BodyShort size="small">
-                    {
-                      kodeverkSamlingFpTilbake['VidereBehandling'].find(
-                        tvb => tvb.kode === feilutbetaling.tilbakekrevingValg?.videreBehandling,
-                      )?.navn
-                    }
-                  </BodyShort>
-                </VStack>
+                <LabeledValue
+                  size="small"
+                  label={<FormattedMessage id="FeilutbetalingInfoPanel.Tilbakekrevingsvalg" />}
+                  value={
+                    kodeverkSamlingFpTilbake['VidereBehandling'].find(
+                      tvb => tvb.kode === feilutbetaling.tilbakekrevingValg?.videreBehandling,
+                    )?.navn ?? ''
+                  }
+                />
               )}
             </VStack>
           </HStack>
@@ -287,7 +272,7 @@ export const FeilutbetalingInfoPanel = ({
             <RhfTextarea
               name="begrunnelse"
               control={formMethods.control}
-              label={intl.formatMessage({ id: 'FeilutbetalingInfoPanel.Begrunnelse' })}
+              label={<FormattedMessage id="FeilutbetalingInfoPanel.Begrunnelse" />}
               validate={[required, minLength3, maxLength4000, hasValidText]}
               maxLength={MAX_LENGTH}
               readOnly={readOnly}
