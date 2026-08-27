@@ -13,12 +13,10 @@ export const vurderBesteberegningTransform =
     inntektPrAndel: InntektTransformed[],
   ): FaktaBeregningTransformedValues => {
     const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ?? [];
-    if (
-      !(
-        tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) ||
-        tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FØDENDE_KVINNE)
-      )
-    ) {
+    if (!(
+      tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) ||
+      tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FØDENDE_KVINNE)
+    )) {
       return {};
     }
     const besteberegningValues = VurderBesteberegningForm.transformValues(values, faktaOmBeregning, inntektPrAndel);

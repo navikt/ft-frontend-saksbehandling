@@ -42,11 +42,12 @@ jobs:
 
   sif-code-scan:
     runs-on: ubuntu-latest
-    name: "SIF Code Scan"
+    name: 'SIF Code Scan'
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: navikt/sif-gha-workflows/.github/actions/sif-code-scan@v1
-
 
   knip-it:
     name: Kjør knip

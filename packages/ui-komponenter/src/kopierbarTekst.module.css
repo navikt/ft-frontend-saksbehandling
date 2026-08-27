@@ -1,9 +1,9 @@
 .kopierbarTekst {
-    border-radius: var(--ax-radius-4);
-    cursor: pointer;
+  border-radius: var(--ax-radius-4);
+  cursor: pointer;
 
-    &:focus-visible {
-        outline: 3px solid var(--ax-border-focus);
-        outline-offset: 2px;
-    }
+  &:focus-visible {
+    outline: 3px solid var(--ax-border-focus);
+    outline-offset: 2px;
+  }
 }

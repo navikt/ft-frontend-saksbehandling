@@ -188,9 +188,7 @@ FordelBeregningsgrunnlagPeriodePanel.buildInitialValues = (
           ? formatCurrencyNoKr(andel.refusjonskravPrAar)
           : '',
       skalKunneEndreRefusjon:
-        periode.skalKunneEndreRefusjon && !andel.lagtTilAvSaksbehandler
-          ? periode.skalKunneEndreRefusjon
-          : false,
+        periode.skalKunneEndreRefusjon && !andel.lagtTilAvSaksbehandler ? periode.skalKunneEndreRefusjon : false,
       belopFraInntektsmelding: andel.belopFraInntektsmeldingPrAar,
       skalRedigereInntekt: !!periode.skalRedigereInntekt,
       refusjonskravFraInntektsmelding: andel.refusjonskravFraInntektsmeldingPrAar,

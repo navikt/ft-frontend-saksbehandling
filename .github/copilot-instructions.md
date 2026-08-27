@@ -9,9 +9,9 @@ Shared frontend packages used by Foreldrepenger and K9.
 
 ## Repo-specific context
 
-| Topic | Details                                                                                                                        |
-|---|--------------------------------------------------------------------------------------------------------------------------------|
-| Role | Publishes reusable React and TypeScript packages for beregning panels, tilbakekreving panels, shared components, and utilities |
+| Topic      | Details                                                                                                                        |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Role       | Publishes reusable React and TypeScript packages for beregning panels, tilbakekreving panels, shared components, and utilities |
 | Consumers  | `fp-frontend` and K9 case-processing frontends                                                                                 |
 | Tech stack | TypeScript, React, Node, yarn                                                                                                  |
 | Versioning | Independent SemVer per package                                                                                                 |

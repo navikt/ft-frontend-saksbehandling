@@ -74,12 +74,10 @@ VurderBesteberegningForm.buildInitialValues = (
   faktaOmBeregningTilfeller: string[],
   erOverstyrt: boolean,
 ): VurderBesteberegningValues => {
-  if (
-    !(
-      faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) ||
-      faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FØDENDE_KVINNE)
-    )
-  ) {
+  if (!(
+    faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) ||
+    faktaOmBeregningTilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FØDENDE_KVINNE)
+  )) {
     return {};
   }
   if (!vurderBesteberegning) {
