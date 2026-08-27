@@ -49,12 +49,12 @@
     "@types/node": "26.1.2",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.4",
-    "dayjs": "1.11.21",
+    "dayjs": "1.11.23",
     "eslint": "9.39.5",
     "husky": "9.1.7",
     "jsdom": "29.1.1",
     "knip": "6.32.2",
-    "lerna": "10.0.0",
+    "lerna": "10.0.1",
     "lint-staged": "17.3.0",
     "prettier": "3.9.6",
     "react": "19.2.8",
@@ -66,7 +66,7 @@
     "vite": "7.3.6",
     "vite-plugin-circular-dependency": "0.6.0",
     "vite-plugin-dts": "5.0.3",
-    "vitest": "4.1.10",
+    "vitest": "4.1.11",
     "vitest-canvas-mock": "1.1.5"
   },
   "resolutions": {
