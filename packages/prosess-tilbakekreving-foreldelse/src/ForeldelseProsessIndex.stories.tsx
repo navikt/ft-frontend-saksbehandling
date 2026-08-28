@@ -3,6 +3,7 @@ import { action } from 'storybook/actions';
 
 import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 
+import type { ForeldelseFormData } from './components/ForeldelseForm';
 import { ForeldelseAksjonspunktCodes } from './ForeldelseAksjonspunktCodes';
 import { ForeldelseProsessIndex } from './ForeldelseProsessIndex';
 import type { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
@@ -71,7 +72,7 @@ const meta = {
     behandlingUuid: '1',
     kodeverkSamlingFpTilbake,
     isReadOnly: false,
-    setFormData: () => undefined,
+    setFormData: (() => undefined) as (data: ForeldelseFormData) => void,
     perioderForeldelse,
     relasjonsRolleType: RelasjonsRolleType.MOR,
     beregnBelop: () => Promise.resolve({ perioder: [{ belop: 10000 }, { belop: 12000 }] }),
