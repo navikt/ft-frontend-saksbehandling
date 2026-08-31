@@ -15,6 +15,7 @@ const {
   FastsettingAvBeregningsgrunnlagForKunYtelseAp5058,
   FrilansOgArbeidstakerISammeOrganisasjonAp5058,
   VurderOmBrukerMottarYtelseForFrilansAp5058,
+  VurderOmBrukerMottarYtelseOgEtterlønnAp5058,
   VurderingAvMilitærAp5058,
   TidsbegrensetArbeidsforholdAp5058,
   KanOverstyreBGUtenAvklaringsbehov,
@@ -542,5 +543,15 @@ describe('BeregningFaktaIndex', () => {
         ],
       },
     ]);
+  });
+
+  it('skal vise inntektsfelt for både mottatt ytelse og etterlønn', async () => {
+    render(<VurderOmBrukerMottarYtelseOgEtterlønnAp5058 />);
+
+    await userEvent.click(screen.getByLabelText('Ja'));
+    await userEvent.click(screen.getByLabelText('Ja (månedsinntekt må fastsettes)'));
+
+    expect(screen.getByLabelText('Fastsett månedsinntekt for Bedriften (12345678)')).toBeInTheDocument();
+    expect(screen.getByLabelText('Fastsett månedsinntekt for Bedriften4 (795349533)')).toBeInTheDocument();
   });
 });

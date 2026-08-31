@@ -371,22 +371,15 @@ export const InntektInputFields = ({
         />
       )}
       {skalRedigereArbeidsinntekt || skalRedigereEtterlønnSluttpakke
-        ? andelerMedArbeidsinntekt
-            ?.filter(andel => {
-              if (skalRedigereEtterlønnSluttpakke && !skalRedigereArbeidsinntekt) {
-                return andel.arbeidsforhold?.arbeidsforholdType === 'ETTERLØNN_SLUTTPAKKE';
-              }
-              return true;
-            })
-            .map(andel => (
-              <ArbeidsinntektInput
-                key={andel.arbeidsforhold?.arbeidsgiverIdent}
-                arbeidsgiver={andel}
-                readOnly={readOnly}
-                isAksjonspunktClosed={isAksjonspunktClosed}
-                {...getArbeidsinntektInputLabel(andel)}
-              />
-            ))
+        ? andelerMedArbeidsinntekt?.map(andel => (
+            <ArbeidsinntektInput
+              key={andel.arbeidsforhold?.arbeidsgiverIdent}
+              arbeidsgiver={andel}
+              readOnly={readOnly}
+              isAksjonspunktClosed={isAksjonspunktClosed}
+              {...getArbeidsinntektInputLabel(andel)}
+            />
+          ))
         : arbeidstakerAndelerUtenIM?.map(andel => (
             <ArbeidsinntektInput
               key={andel.arbeidsforhold?.arbeidsgiverIdent}
