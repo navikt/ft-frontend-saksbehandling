@@ -1,5 +1,5 @@
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { Table, VStack } from '@navikt/ds-react';
 
@@ -42,7 +42,6 @@ export const FeilutbetalingPerioderFieldArray = ({
   behandlePerioderSamlet,
   kodeverkSamlingFpTilbake,
 }: Props) => {
-  const intl = useIntl();
   const { control, watch, setValue, getValues } = useFormContext<FormValues>();
   const { fields } = useFieldArray({
     control,
@@ -74,13 +73,13 @@ export const FeilutbetalingPerioderFieldArray = ({
     <Table>
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell scope="col">
+          <Table.HeaderCell scope="col" textSize="small">
             <FormattedMessage id="FeilutbetalingInfoPanel.Periode" />
           </Table.HeaderCell>
-          <Table.HeaderCell scope="col">
+          <Table.HeaderCell scope="col" textSize="small">
             <FormattedMessage id="FeilutbetalingInfoPanel.Hendelse" />
           </Table.HeaderCell>
-          <Table.HeaderCell scope="col">
+          <Table.HeaderCell scope="col" textSize="small" align="right">
             <FormattedMessage id="FeilutbetalingInfoPanel.Beløp" />
           </Table.HeaderCell>
         </Table.Row>
@@ -91,10 +90,10 @@ export const FeilutbetalingPerioderFieldArray = ({
           const hendelseUndertyper = getHendelseUndertyper(årsaker, årsak);
           return (
             <Table.Row key={periode.id}>
-              <Table.DataCell>
+              <Table.DataCell textSize="small">
                 <PeriodLabel dateStringFom={periode.fom} dateStringTom={periode.tom} />
               </Table.DataCell>
-              <Table.DataCell>
+              <Table.DataCell textSize="small">
                 <VStack gap="space-8">
                   <RhfSelect
                     name={`${FIELD_ARRAY_NAME}.${index}.årsak`}
@@ -107,7 +106,7 @@ export const FeilutbetalingPerioderFieldArray = ({
                     validate={[required]}
                     readOnly={readOnly}
                     onChange={event => settAndreFelter(event.target.value, undefined, index)}
-                    label={intl.formatMessage({ id: 'FeilutbetalingInfoPanel.HendelseÅrsak' })}
+                    label={<FormattedMessage id="FeilutbetalingInfoPanel.HendelseÅrsak" />}
                     hideLabel
                   />
 
@@ -123,13 +122,13 @@ export const FeilutbetalingPerioderFieldArray = ({
                       validate={[required]}
                       readOnly={readOnly}
                       onChange={event => settAndreFelter(årsak, event.target.value, index)}
-                      label={intl.formatMessage({ id: 'FeilutbetalingInfoPanel.HendelseUnderårsak' })}
+                      label={<FormattedMessage id="FeilutbetalingInfoPanel.HendelseUnderårsak" />}
                       hideLabel
                     />
                   )}
                 </VStack>
               </Table.DataCell>
-              <Table.DataCell align="right">
+              <Table.DataCell textSize="small" align="right">
                 {perioder ? <BeløpLabel rød beløp={perioder[index].belop} kr /> : null}
               </Table.DataCell>
             </Table.Row>

@@ -4,8 +4,7 @@ import type { StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
 import { type BeregnBeløpParams } from './components/splittePerioder/PeriodeController';
-import { TilbakekrevingForm } from './components/TilbakekrevingForm';
-import { type CustomVilkarsVurdertePeriode } from './components/TilbakekrevingPeriodeForm';
+import { TilbakekrevingForm, type TilbakekrevingFormData } from './components/TilbakekrevingForm';
 import type { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
 import type { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
 import type { KodeverkMedNavn } from './types/kodeverkMedNavn';
@@ -31,7 +30,7 @@ interface Props {
 }
 
 export const TilbakekrevingProsessIndex = (
-  props: Props & StandardProsessPanelProps<VilkårsvurderingAp, CustomVilkarsVurdertePeriode[]>,
+  props: Props & StandardProsessPanelProps<VilkårsvurderingAp, TilbakekrevingFormData>,
 ) => (
   <RawIntlProvider value={intl}>
     <TilbakekrevingForm {...props} />

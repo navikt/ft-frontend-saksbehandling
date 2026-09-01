@@ -3,10 +3,9 @@ import { RawIntlProvider } from 'react-intl';
 import type { Aksjonspunkt, StandardProsessPanelProps } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
-import { ForeldelseForm } from './components/ForeldelseForm';
+import { ForeldelseForm, type ForeldelseFormData } from './components/ForeldelseForm';
 import { type BeregnBeløpParams, type BeregnBeløpResultat } from './components/splittePerioder/PeriodeController';
 import type { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
-import type { ForeldelsesresultatActivity } from './types/ForeldelsesresultatActivity';
 import type { KodeverkMedNavn } from './types/kodeverkMedNavn';
 import type { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 import type { RelasjonsRolleType } from './types/RelasjonsRolleType';
@@ -40,7 +39,7 @@ export const ForeldelseProsessIndex = ({
   formData,
   setFormData,
   relasjonsRolleTypeKodeverk,
-}: Props & StandardProsessPanelProps<VurderForeldelseAp, ForeldelsesresultatActivity[]>) => (
+}: Props & StandardProsessPanelProps<VurderForeldelseAp, ForeldelseFormData>) => (
   <RawIntlProvider value={intl}>
     <ForeldelseForm
       behandlingUuid={behandlingUuid}
