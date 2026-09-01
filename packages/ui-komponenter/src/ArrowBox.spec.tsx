@@ -2,27 +2,62 @@ import { render, screen } from '@testing-library/react';
 
 import { ArrowBox } from './ArrowBox';
 
+import styles from './arrowBox.module.css';
+
 describe('ArrowBox', () => {
-  it('beholder styling per instans uten å legge til globale style-elementer', () => {
-    const { container } = render(
+  it('viser pilen på toppen som standard', () => {
+    render(<ArrowBox>Innhold</ArrowBox>);
+
+    const boks = screen.getByText('Innhold');
+
+    expect(boks).toHaveClass(styles.arrowBox, styles.top);
+    expect(boks).not.toHaveClass(styles.left);
+    expect(boks.style.getPropertyValue('--arrow-box-align-offset')).toBe('0px');
+  });
+
+  it('viser pilen på toppen med angitt plassering', () => {
+    render(
+      <ArrowBox alignOffset={24} marginLeft={4} marginTop={16}>
+        Innhold
+      </ArrowBox>,
+    );
+
+    const boks = screen.getByText('Innhold');
+
+    expect(boks).toHaveClass(styles.arrowBox, styles.top);
+    expect(boks.style.getPropertyValue('--arrow-box-align-offset')).toBe('24px');
+    expect(boks.style.getPropertyValue('--arrow-box-margin-left')).toBe('4px');
+    expect(boks.style.getPropertyValue('--arrow-box-margin-top')).toBe('16px');
+  });
+
+  it('viser pilen på venstre side med angitt plassering', () => {
+    render(
+      <ArrowBox alignLeft alignOffset={32} marginLeft={20} marginTop={8}>
+        Innhold
+      </ArrowBox>,
+    );
+
+    const boks = screen.getByText('Innhold');
+
+    expect(boks).toHaveClass(styles.arrowBox, styles.left);
+    expect(boks).not.toHaveClass(styles.top);
+    expect(boks.style.getPropertyValue('--arrow-box-align-offset')).toBe('32px');
+    expect(boks.style.getPropertyValue('--arrow-box-margin-left')).toBe('20px');
+    expect(boks.style.getPropertyValue('--arrow-box-margin-top')).toBe('8px');
+  });
+
+  it('beholder plasseringen for flere instanser', () => {
+    render(
       <>
-        <ArrowBox alignOffset={12} marginTop={8}>
-          Første
-        </ArrowBox>
-        <ArrowBox alignOffset={24} marginTop={16}>
+        <ArrowBox alignOffset={12}>Første</ArrowBox>
+        <ArrowBox alignLeft alignOffset={48}>
           Andre
         </ArrowBox>
       </>,
     );
 
-    const førsteBoks = screen.getByText('Første');
-    const andreBoks = screen.getByText('Andre');
-
-    expect(container.querySelector('style')).not.toBeInTheDocument();
-    expect(førsteBoks.style.getPropertyValue('--arrow-box-align-offset')).toBe('12px');
-    expect(førsteBoks.style.getPropertyValue('--arrow-box-margin-top')).toBe('8px');
-    expect(andreBoks.style.getPropertyValue('--arrow-box-align-offset')).toBe('24px');
-    expect(andreBoks.style.getPropertyValue('--arrow-box-margin-top')).toBe('16px');
+    expect(screen.getByText('Første').style.getPropertyValue('--arrow-box-align-offset')).toBe('12px');
+    expect(screen.getByText('Andre').style.getPropertyValue('--arrow-box-align-offset')).toBe('48px');
   });
 
   it('lar innholdet stå uten boks når rammen er skjult', () => {
