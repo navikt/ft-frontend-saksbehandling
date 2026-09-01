@@ -744,6 +744,53 @@ export const VurderOmBrukerMottarYtelseForArbeidstakerAp5058: Story = {
   },
 };
 
+const lagBeregningsgrunnlagMedMottattYtelseOgEtterlønn = () => {
+  const arbeidstakerBeregningsgrunnlagAndel = {
+    andelsnr: standardFaktaArbeidstakerAndel.andelsnr,
+    aktivitetStatus: standardFaktaArbeidstakerAndel.aktivitetStatus,
+    inntektskategori: standardFaktaArbeidstakerAndel.inntektskategori,
+  };
+
+  const etterlønnSluttpakkeBeregningsgrunnlagAndel = {
+    andelsnr: etterlønnSluttpakkeFaktaArbeidstakerAndel.andelsnr,
+    aktivitetStatus: etterlønnSluttpakkeFaktaArbeidstakerAndel.aktivitetStatus,
+    inntektskategori: etterlønnSluttpakkeFaktaArbeidstakerAndel.inntektskategori,
+    arbeidsforhold: etterlønnSluttpakkeFaktaArbeidstakerAndel.arbeidsforhold,
+  };
+
+  const andeler = [arbeidstakerBeregningsgrunnlagAndel, etterlønnSluttpakkeBeregningsgrunnlagAndel];
+  const andelerForFaktaOmBeregning = [standardFaktaArbeidstakerAndel, etterlønnSluttpakkeBeregningsgrunnlagAndel];
+
+  const vurderMottarYtelse = {
+    erFrilans: false,
+    frilansInntektPrMnd: 0,
+    arbeidstakerAndelerUtenIM: [standardFaktaArbeidstakerAndel],
+  };
+
+  const faktaOmBeregning = {
+    faktaOmBeregningTilfeller: [VURDER_MOTTAR_YTELSE, VURDER_ETTERLØNN_SLUTTPAKKE],
+    andelerForFaktaOmBeregning,
+    vurderMottarYtelse,
+  } as FaktaOmBeregning;
+  const avklaringsbehov: BeregningAvklaringsbehov[] = [
+    {
+      definisjon: FaktaBeregningAvklaringsbehovCode.VURDER_FAKTA_FOR_ATFL_SN,
+      status: 'OPPR',
+      begrunnelse: undefined,
+      kanLoses: true,
+    },
+  ];
+  return [lagBeregningsgrunnlag(andeler, faktaOmBeregning, '2022-03-02', avklaringsbehov)];
+};
+
+export const VurderOmBrukerMottarYtelseOgEtterlønnAp5058: Story = {
+  args: {
+    erOverstyrer: false,
+    beregningsgrunnlag: lagBeregningsgrunnlagMedMottattYtelseOgEtterlønn(),
+    vilkar: vilkar,
+  },
+};
+
 const lagBeregningsgrunnlag11 = () => {
   const arbeidstakerMilitærAndel = {
     andelsnr: standardFaktaMilitærAndel.andelsnr,
