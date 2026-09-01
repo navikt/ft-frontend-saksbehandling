@@ -71,7 +71,10 @@
   },
   "resolutions": {
     "tmp": "^0.2.7",
-    "@microsoft/api-extractor/minimatch": "^3.1.4"
+    "@microsoft/api-extractor/minimatch": "^3.1.4",
+    "js-yaml": "4.3.1",
+    "pacote": "^21.5.1",
+    "@npmcli/package-json@npm:7.0.2": "^7.0.5"
   },
   "workspaces": {
     "packages": [
