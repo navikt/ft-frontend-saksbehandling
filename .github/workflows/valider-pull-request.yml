@@ -5,12 +5,13 @@ jobs:
     name: Valider pull request
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: read
     steps:
       - uses: actions/checkout@v7
 
       - uses: navikt/fp-gha-workflows/.github/actions/setup-yarnrc@main
-        with:
-          npmAuthToken: ${{ secrets.READER_TOKEN }}
 
       - uses: actions/setup-node@v7.0.0
         with:
@@ -41,11 +42,12 @@ jobs:
 
   sif-code-scan:
     runs-on: ubuntu-latest
-    name: "SIF Code Scan"
+    name: 'SIF Code Scan'
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: navikt/sif-gha-workflows/.github/actions/sif-code-scan@v1
-
 
   knip-it:
     name: Kjør knip
@@ -53,12 +55,11 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: read
+      packages: read
       pull-requests: write
     steps:
       - name: Run knip
         uses: navikt/fp-gha-workflows/.github/actions/knip-it@main
         with:
-          npm-auth-token: ${{ secrets.READER_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           package-manager: 'yarn'
           node-version: 26.1.0

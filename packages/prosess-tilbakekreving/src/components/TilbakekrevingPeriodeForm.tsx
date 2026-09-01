@@ -16,6 +16,7 @@ import { type VilkårResultat } from '../kodeverk/vilkarResultat';
 import type { DataForPeriode } from '../types/DataForPeriode';
 import type { DetaljertFeilutbetalingPeriode } from '../types/DetaljerteFeilutbetalingsperioder';
 import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
+import { periodeNøkkel } from './periodeNøkkel';
 import {
   AktsomhetFormPanel,
   type InitialValuesAktsomhetForm,
@@ -70,9 +71,18 @@ export type CustomVilkarsVurdertePeriode = {
   feilutbetaling?: number;
 } & InitialValuesDetailForm;
 
+// Mellomlagret, men ikke bekreftet (dvs. ikke trykt "Oppdater" på), skjemadata for perioden som til enhver tid er
+// åpen i detaljpanelet. periodeKey brukes for å vite hvilken periode kladden gjelder for.
+export type PeriodeKladd = {
+  periodeKey: string;
+  verdier: Record<string, any>;
+};
+
 interface Props {
   data: DataForPeriode;
   periode?: CustomVilkarsVurdertePeriode;
+  periodeKladd?: PeriodeKladd;
+  lagreKladd: (kladd: PeriodeKladd | undefined) => void;
   skjulPeriode: () => void;
   readOnly: boolean;
   oppdaterPeriode: (values: CustomVilkarsVurdertePeriode) => void;
@@ -84,6 +94,8 @@ interface Props {
 export const TilbakekrevingPeriodeForm = ({
   data,
   periode,
+  periodeKladd,
+  lagreKladd,
   skjulPeriode,
   readOnly,
   oppdaterPeriode,
@@ -94,9 +106,15 @@ export const TilbakekrevingPeriodeForm = ({
   const intl = useIntl();
   const [showModal, setShowModal] = useState(false);
 
+  const harKladdForPeriode = periode && periodeKladd?.periodeKey === periodeNøkkel(periode);
+
   // TODO (TOR) Fiks type for form
+  // Kladden er ubekreftede endringer. Den settes derfor som verdier - ikke som defaultValues - slik at
+  // skjemaet fortsatt regnes som endret ("Oppdater" er aktiv, og kladden overlever et nytt panelbytte).
   const formMethods = useForm<any>({
     defaultValues: periode,
+    values: harKladdForPeriode ? periodeKladd.verdier : undefined,
+    resetOptions: { keepDefaultValues: true },
   });
 
   const valgtVilkarResultatType = formMethods.watch('valgtVilkarResultatType') as VilkårResultat;
@@ -185,7 +203,16 @@ export const TilbakekrevingPeriodeForm = ({
     per => !per.erForeldet && per.valgtVilkarResultatType != null,
   );
   return (
-    <RhfForm formMethods={formMethods} onSubmit={saveOrToggleModal}>
+    <RhfForm
+      formMethods={formMethods}
+      onSubmit={saveOrToggleModal}
+      setDataOnUnmount={verdier => {
+        // Panelet avgjør om kladden skal beholdes: skyldes unmount et periodebytte, forkaster det den.
+        lagreKladd(
+          periode && formMethods.formState.isDirty ? { periodeKey: periodeNøkkel(periode), verdier } : undefined,
+        );
+      }}
+    >
       <VStack gap="space-16">
         <VStack gap="space-8">
           {reduserteBelop &&

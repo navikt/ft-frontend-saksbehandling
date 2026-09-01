@@ -21,9 +21,7 @@ export const AvsnittSkiller = ({
 }: Props) => (
   <>
     {spaceAbove && <div style={{ marginBottom: '32px' }} />}
-    <div
-      className={classNames(className, leftPanel && styles.leftPanel, rightPanel && styles.rightPanel)}
-    >
+    <div className={classNames(className, leftPanel && styles.leftPanel, rightPanel && styles.rightPanel)}>
       <div className={dividerParagraf ? styles.dividerParagraf : styles.divider} />
     </div>
     {spaceUnder && <div style={{ marginBottom: '32px' }} />}

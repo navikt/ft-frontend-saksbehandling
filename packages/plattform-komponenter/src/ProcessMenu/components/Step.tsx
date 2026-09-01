@@ -57,9 +57,7 @@ export const Step = ({
           </BodyShort>
         </button>
       </Tooltip>
-      {isActive && (
-        <div className={classNames(stepArrowContainerStyle, styles['step__arrow-container'])} />
-      )}
+      {isActive && <div className={classNames(stepArrowContainerStyle, styles['step__arrow-container'])} />}
     </li>
   );
 };

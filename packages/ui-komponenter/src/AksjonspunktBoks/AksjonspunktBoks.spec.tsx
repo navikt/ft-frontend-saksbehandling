@@ -14,7 +14,8 @@ describe('AksjonspunktBoks', () => {
           <div>
             <span>Boks A</span>
           </div>
-        } />
+        }
+      />,
     );
 
     expect(screen.getByRole('region', { name: 'Boks A' })).toHaveAttribute('data-color', 'neutral');

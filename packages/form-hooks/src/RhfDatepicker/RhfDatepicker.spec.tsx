@@ -20,12 +20,7 @@ const TestForm = ({ onSubmit }: { onSubmit: SubmitHandler<{ dato: string }> }) =
 
   return (
     <RhfForm formMethods={formMethods} onSubmit={onSubmit}>
-      <RhfDatepicker
-        control={formMethods.control}
-        name="dato"
-        label="Dato"
-        inputFormats={['DD-MM-YYYY', 'DDMMYY']}
-      />
+      <RhfDatepicker control={formMethods.control} name="dato" label="Dato" inputFormats={['DD-MM-YYYY', 'DDMMYY']} />
       <button type="submit">Submit</button>
     </RhfForm>
   );

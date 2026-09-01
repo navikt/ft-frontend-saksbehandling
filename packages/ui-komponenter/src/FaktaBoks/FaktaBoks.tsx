@@ -20,7 +20,9 @@ export const FaktaBoks = ({ tittel, beskrivelse, ikon, children }: Props) => {
         <HStack wrap={false} gap="space-16" align="center">
           {ikon && <div>{ikon}</div>}
           <div>
-            <ExpansionCard.Title id={tittelId} size="small">{tittel}</ExpansionCard.Title>
+            <ExpansionCard.Title id={tittelId} size="small">
+              {tittel}
+            </ExpansionCard.Title>
             {beskrivelse && <ExpansionCard.Description>{beskrivelse}</ExpansionCard.Description>}
           </div>
         </HStack>
