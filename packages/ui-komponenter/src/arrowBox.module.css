@@ -1,0 +1,36 @@
+.arrowBox {
+  background: var(--ax-bg-default);
+  border: 1px solid var(--ax-bg-neutral-strong);
+  border-radius: 4px;
+  margin-bottom: 10px;
+  margin-left: var(--arrow-box-margin-left);
+  margin-top: var(--arrow-box-margin-top);
+  padding: 15px;
+  position: relative;
+}
+
+.arrowBox:before {
+  background-color: var(--ax-bg-default);
+  border: 1px solid var(--ax-bg-neutral-strong);
+  border-bottom-width: 0;
+  border-right-width: 0;
+  content: '';
+  height: 1rem;
+  position: absolute;
+  transform-origin: 0 0;
+  width: 1rem;
+}
+
+.top:before {
+  left: var(--arrow-box-align-offset);
+  margin-top: -1px;
+  top: 0;
+  transform: rotate(45deg) translateY(-100%) translateZ(0);
+}
+
+.left:before {
+  left: 0;
+  margin-left: -1px;
+  top: var(--arrow-box-align-offset);
+  transform: rotate(-45deg) translateY(-100%) translateZ(0);
+}

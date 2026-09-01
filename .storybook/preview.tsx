@@ -27,6 +27,9 @@ const globalTypes: Preview['globalTypes'] = {
 
 const preview: Preview = {
   parameters: {
+    a11y: {
+      test: 'error',
+    },
     htmlLang: 'nb',
   },
   decorators: [
