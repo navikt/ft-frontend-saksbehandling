@@ -5,6 +5,7 @@ import { finnKilderForAndeler } from '../../utils/beregnetPrÅrKildeUtils';
 import {
   finnAlleAndelerIFørstePeriode,
   finnAndelerSomSkalVises,
+  finnInntektsnøkkelForAndel,
   grupperSummerteInntekterPerArbeidsgiver,
 } from '../../utils/beregningsgrunnlagUtils';
 import { finnEndringerINaturalytelserForArbeidsgiver } from './naturalytelserUtils';
@@ -45,6 +46,7 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
 
   return relevanteAndeler.map<ArbeidsinntektVisning>(andel => {
     const arbeidsgiverIdent = andel.arbeidsforhold?.arbeidsgiverIdent;
+    const inntektsnøkkel = finnInntektsnøkkelForAndel(andel);
     const kildeForAndel = kilderForBergenetPrÅr.find(a => a.andelsnr === andel.andelsnr);
     return {
       andelsLabel: formaterVisningsnavnForAndel(andel),
@@ -72,10 +74,10 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
           }
         : undefined,
       beregningsgrunnlag:
-        arbeidsgiverIdent && beregningsgrunnlagInntekter[arbeidsgiverIdent]
+        inntektsnøkkel && beregningsgrunnlagInntekter[inntektsnøkkel]
           ? {
-              månedinntekt: beregningsgrunnlagInntekter[arbeidsgiverIdent] / 3,
-              årsinntekt: (beregningsgrunnlagInntekter[arbeidsgiverIdent] / 3) * 12,
+              månedinntekt: beregningsgrunnlagInntekter[inntektsnøkkel] / 3,
+              årsinntekt: (beregningsgrunnlagInntekter[inntektsnøkkel] / 3) * 12,
             }
           : undefined,
       naturalytelser: arbeidsgiverIdent

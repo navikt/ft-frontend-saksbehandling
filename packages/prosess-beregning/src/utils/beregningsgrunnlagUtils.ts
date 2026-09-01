@@ -1,7 +1,7 @@
 import type {
+  Beregningsgrunnlag,
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
-  InntektsgrunnlagInntektAT,
   InntektsgrunnlagMåned,
 } from '@navikt/ft-types';
 
@@ -31,7 +31,34 @@ export const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagA
 };
 
 export const finnAndelerSomSkalVises = (andeler: BeregningsgrunnlagAndel[]): BeregningsgrunnlagAndel[] =>
-  andeler.filter(andel => andel.aktivitetStatus === 'AT').filter(andel => andel.erTilkommetAndel === false);
+  andeler
+    .filter(andel => andel.aktivitetStatus === 'AT' || andel.aktivitetStatus === 'FL')
+    .filter(andel => andel.erTilkommetAndel === false);
+
+export type InntektstyperSomVises = {
+  harArbeidstaker: boolean;
+  harFrilans: boolean;
+};
+
+export const finnInntektstyperSomVises = ({
+  beregningsgrunnlagPeriode,
+}: Pick<Beregningsgrunnlag, 'beregningsgrunnlagPeriode'>): InntektstyperSomVises => {
+  const relevanteAndeler = finnAndelerSomSkalVises(finnAlleAndelerIFørstePeriode(beregningsgrunnlagPeriode));
+  return {
+    harArbeidstaker: relevanteAndeler.some(andel => andel.aktivitetStatus === 'AT'),
+    harFrilans: relevanteAndeler.some(andel => andel.aktivitetStatus === 'FL'),
+  };
+};
+
+const FRILANS_INNTEKT_KEY = 'FRILANS';
+
+/**
+ * Finner nøkkelen som brukes for å slå opp summert inntekt fra a-ordningen for en andel.
+ * Arbeidstakere slås opp per arbeidsgiver, mens frilans grupperes samlet under {@link FRILANS_INNTEKT_KEY}
+ * siden frilansinntekt ikke er knyttet til en arbeidsgiver.
+ */
+export const finnInntektsnøkkelForAndel = (andel: BeregningsgrunnlagAndel): string | undefined =>
+  andel.aktivitetStatus === 'FL' ? FRILANS_INNTEKT_KEY : andel.arbeidsforhold?.arbeidsgiverIdent;
 
 export const grupperSummerteInntekterPerArbeidsgiver = (
   inntekterMnd: InntektsgrunnlagMåned[] | undefined,
@@ -42,10 +69,13 @@ export const grupperSummerteInntekterPerArbeidsgiver = (
 
   return inntekterMnd
     .flatMap(({ inntekter }) => inntekter)
-    .filter<InntektsgrunnlagInntektAT>(inntekt => inntekt.inntektAktivitetType === 'ARBEIDSTAKERINNTEKT')
     .reduce(
       (acc, inntekt) => {
-        acc[inntekt.arbeidsgiverIdent] = (acc[inntekt.arbeidsgiverIdent] || 0) + inntekt.beløp;
+        if (inntekt.inntektAktivitetType === 'ARBEIDSTAKERINNTEKT') {
+          acc[inntekt.arbeidsgiverIdent] = (acc[inntekt.arbeidsgiverIdent] || 0) + inntekt.beløp;
+        } else if (inntekt.inntektAktivitetType === 'FRILANSINNTEKT') {
+          acc[FRILANS_INNTEKT_KEY] = (acc[FRILANS_INNTEKT_KEY] || 0) + inntekt.beløp;
+        }
         return acc;
       },
       {} as Record<string, number>,

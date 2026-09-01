@@ -6,6 +6,7 @@ import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/
 import { BeløpLabel, DateLabel, FaktaBoks, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import { finnInntektstyperSomVises } from '../../utils/beregningsgrunnlagUtils';
 import { createVisningsnavnForAndel } from '../../utils/createVisningsnavnForAktivitet';
 import { type ArbeidsinntektVisningBeløp, mapBeregningsgrunnlagTilArbeidsinntektVisning } from './arbeidsinntektUtils';
 import { Naturalytelser } from './Naturalytelser';
@@ -29,9 +30,27 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
   if (arbeidsinntektVisninger.length === 0) {
     return null;
   }
+
+  const { harArbeidstaker, harFrilans } = finnInntektstyperSomVises(beregningsgrunnlag);
+  const tittelId = harFrilans
+    ? harArbeidstaker
+      ? 'Arbeidsinntekt.Tittel.ArbeidOgFrilans'
+      : 'Arbeidsinntekt.Tittel.Frilans'
+    : 'Arbeidsinntekt.Tittel';
+
   const inneholderInntektSomErFastsattAvSBH = arbeidsinntektVisninger.some(
     visning => visning.fastsattAvSBH !== undefined,
   );
+
+  const kunFrilans = harFrilans && !harArbeidstaker;
+  const visInntektsmeldingKolonne = !kunFrilans;
+
+  const arbeidsgiverKolonneId =
+    harArbeidstaker && harFrilans
+      ? 'Arbeidsinntekt.Table.ArbeidsgiverOgOppdragsgiver'
+      : kunFrilans
+        ? 'Arbeidsinntekt.Table.Oppdragsgiver'
+        : 'Arbeidsinntekt.Table.Arbeidsgiver';
 
   const summerInntektForKey = (fn: (value: ArbeidsinntektVisningBeløp) => number | undefined) => {
     const inntekterSomSkalSummeres = arbeidsinntektVisninger.flatMap(fn).filter(inntekt => inntekt !== undefined);
@@ -41,7 +60,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
   };
 
   return (
-    <FaktaBoks tittel={intl.formatMessage({ id: 'Arbeidsinntekt.Tittel' })}>
+    <FaktaBoks tittel={<FormattedMessage id={tittelId} />}>
       <Table size="small" className={styles.table}>
         <Table.Header>
           <Table.Row>
@@ -51,9 +70,11 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
                 <FormattedMessage id="Arbeidsinntekt.Table.FastsattAvSBH" />
               </Table.HeaderCell>
             )}
-            <Table.HeaderCell scope="colgroup" textSize="small" align="center" colSpan={2}>
-              <FormattedMessage id="Arbeidsinntekt.Table.Inntektsmelding" />
-            </Table.HeaderCell>
+            {visInntektsmeldingKolonne && (
+              <Table.HeaderCell scope="colgroup" textSize="small" align="center" colSpan={2}>
+                <FormattedMessage id="Arbeidsinntekt.Table.Inntektsmelding" />
+              </Table.HeaderCell>
+            )}
             <Table.HeaderCell scope="colgroup" textSize="small" align="center" colSpan={2}>
               <FormattedMessage id="Arbeidsinntekt.Table.Beregningsgrunnlag" />
             </Table.HeaderCell>
@@ -61,9 +82,19 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
           </Table.Row>
           <Table.Row>
             <Table.HeaderCell scope="col" textSize="small">
-              <FormattedMessage id="Arbeidsinntekt.Table.Arbeidsgiver" />
+              <FormattedMessage id={arbeidsgiverKolonneId} />
             </Table.HeaderCell>
             {inneholderInntektSomErFastsattAvSBH && (
+              <>
+                <Table.HeaderCell scope="col" textSize="small" align="right">
+                  <FormattedMessage id="Tabell.Måned" />
+                </Table.HeaderCell>
+                <Table.HeaderCell scope="col" textSize="small" align="right">
+                  <FormattedMessage id="Tabell.År" />
+                </Table.HeaderCell>
+              </>
+            )}
+            {visInntektsmeldingKolonne && (
               <>
                 <Table.HeaderCell scope="col" textSize="small" align="right">
                   <FormattedMessage id="Tabell.Måned" />
@@ -79,90 +110,96 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
             <Table.HeaderCell scope="col" textSize="small" align="right">
               <FormattedMessage id="Tabell.År" />
             </Table.HeaderCell>
-            <Table.HeaderCell scope="col" textSize="small" align="right">
-              <FormattedMessage id="Tabell.Måned" />
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col" textSize="small" align="right">
-              <FormattedMessage id="Tabell.År" />
-            </Table.HeaderCell>
             <Table.HeaderCell />
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {arbeidsinntektVisninger.map(visning => (
-            <Table.ExpandableRow
-              key={visning.andelsnr}
-              expandOnRowClick
-              togglePlacement="right"
-              content={
-                <div>
-                  {visning.ansattPeriode?.fom && (
-                    <Tooltip content={intl.formatMessage({ id: 'Arbeidsinntekt.Ansettelsesperiode' })}>
-                      <BodyShort size="small" as="span">
-                        <PeriodLabel
-                          dateStringFom={visning.ansattPeriode.fom}
-                          dateStringTom={visning.ansattPeriode.tom}
-                        />
-                      </BodyShort>
-                    </Tooltip>
-                  )}
+          {arbeidsinntektVisninger.map(visning => {
+            const harEkspanderbartInnhold =
+              !!visning.ansattPeriode?.fom ||
+              !!visning.sisteLønnsendringsdato ||
+              !!visning.formatertStillingsprosenter ||
+              (visning.naturalytelser?.length ?? 0) > 0;
+            return (
+              <Table.ExpandableRow
+                key={visning.andelsnr}
+                expandOnRowClick
+                togglePlacement="right"
+                expansionDisabled={!harEkspanderbartInnhold}
+                content={
+                  <div>
+                    {visning.ansattPeriode?.fom && (
+                      <Tooltip content={intl.formatMessage({ id: 'Arbeidsinntekt.Ansettelsesperiode' })}>
+                        <BodyShort size="small" as="span">
+                          <PeriodLabel
+                            dateStringFom={visning.ansattPeriode.fom}
+                            dateStringTom={visning.ansattPeriode.tom}
+                          />
+                        </BodyShort>
+                      </Tooltip>
+                    )}
 
-                  {visning.sisteLønnsendringsdato && (
-                    <LabeledValue
-                      horizontal
-                      size="small"
-                      label={<FormattedMessage id="Arbeidsinntekt.SistEndretLonn" />}
-                      value={<DateLabel dateString={visning.sisteLønnsendringsdato} />}
-                    />
-                  )}
+                    {visning.sisteLønnsendringsdato && (
+                      <LabeledValue
+                        horizontal
+                        size="small"
+                        label={<FormattedMessage id="Arbeidsinntekt.SistEndretLonn" />}
+                        value={<DateLabel dateString={visning.sisteLønnsendringsdato} />}
+                      />
+                    )}
 
-                  {visning.formatertStillingsprosenter && (
-                    <LabeledValue
-                      horizontal
-                      size="small"
-                      label={<FormattedMessage id="Arbeidsinntekt.Stillingsprosent" />}
-                      value={visning.formatertStillingsprosenter}
-                    />
-                  )}
+                    {visning.formatertStillingsprosenter && (
+                      <LabeledValue
+                        horizontal
+                        size="small"
+                        label={<FormattedMessage id="Arbeidsinntekt.Stillingsprosent" />}
+                        value={visning.formatertStillingsprosenter}
+                      />
+                    )}
 
-                  {visning.naturalytelser && visning.naturalytelser.length > 0 && (
-                    <Naturalytelser naturalytelseEndringer={visning.naturalytelser} />
+                    {visning.naturalytelser && visning.naturalytelser.length > 0 && (
+                      <Naturalytelser naturalytelseEndringer={visning.naturalytelser} />
+                    )}
+                  </div>
+                }
+              >
+                <Table.DataCell textSize="small">
+                  {visning.andelsLabel}
+                  {visning.erTidsbegrensetArbeidsforhold && (
+                    <Tag data-color="info" variant="outline" size="xsmall" className={styles.tidsbegrensetTag}>
+                      <FormattedMessage id="Arbeidsinntekt.Tidsbegrenset" />
+                    </Tag>
                   )}
-                </div>
-              }
-            >
-              <Table.DataCell textSize="small">
-                {visning.andelsLabel}
-                {visning.erTidsbegrensetArbeidsforhold && (
-                  <Tag data-color="info" variant="outline" size="xsmall" className={styles.tidsbegrensetTag}>
-                    <FormattedMessage id="Arbeidsinntekt.Tidsbegrenset" />
-                  </Tag>
+                </Table.DataCell>
+                {inneholderInntektSomErFastsattAvSBH && (
+                  <>
+                    <Table.DataCell textSize="small" align="right">
+                      <BeløpLabel beløp={visning.fastsattAvSBH?.månedinntekt} kr />
+                    </Table.DataCell>
+                    <Table.DataCell textSize="small" align="right">
+                      <BeløpLabel beløp={visning.fastsattAvSBH?.årsinntekt} kr />
+                    </Table.DataCell>
+                  </>
                 )}
-              </Table.DataCell>
-              {inneholderInntektSomErFastsattAvSBH && (
-                <>
-                  <Table.DataCell textSize="small" align="right">
-                    <BeløpLabel beløp={visning.fastsattAvSBH?.månedinntekt} kr />
-                  </Table.DataCell>
-                  <Table.DataCell textSize="small" align="right">
-                    <BeløpLabel beløp={visning.fastsattAvSBH?.årsinntekt} kr />
-                  </Table.DataCell>
-                </>
-              )}
-              <Table.DataCell textSize="small" align="right">
-                <BeløpLabel beløp={visning.inntektsmelding?.månedinntekt} kr />
-              </Table.DataCell>
-              <Table.DataCell textSize="small" align="right">
-                <BeløpLabel beløp={visning.inntektsmelding?.årsinntekt} kr />
-              </Table.DataCell>
-              <Table.DataCell textSize="small" align="right">
-                <BeløpLabel beløp={visning.beregningsgrunnlag?.månedinntekt} kr />
-              </Table.DataCell>
-              <Table.DataCell textSize="small" align="right">
-                <BeløpLabel beløp={visning.beregningsgrunnlag?.årsinntekt} kr />
-              </Table.DataCell>
-            </Table.ExpandableRow>
-          ))}
+                {visInntektsmeldingKolonne && (
+                  <>
+                    <Table.DataCell textSize="small" align="right">
+                      <BeløpLabel beløp={visning.inntektsmelding?.månedinntekt} kr />
+                    </Table.DataCell>
+                    <Table.DataCell textSize="small" align="right">
+                      <BeløpLabel beløp={visning.inntektsmelding?.årsinntekt} kr />
+                    </Table.DataCell>
+                  </>
+                )}
+                <Table.DataCell textSize="small" align="right">
+                  <BeløpLabel beløp={visning.beregningsgrunnlag?.månedinntekt} kr />
+                </Table.DataCell>
+                <Table.DataCell textSize="small" align="right">
+                  <BeløpLabel beløp={visning.beregningsgrunnlag?.årsinntekt} kr />
+                </Table.DataCell>
+              </Table.ExpandableRow>
+            );
+          })}
         </Table.Body>
         {arbeidsinntektVisninger.length > 1 && (
           <tfoot>
@@ -180,12 +217,16 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
                   </Table.HeaderCell>
                 </>
               )}
-              <Table.HeaderCell textSize="small" align="right">
-                <BeløpLabel beløp={summerInntektForKey(a => a.inntektsmelding?.månedinntekt)} kr />
-              </Table.HeaderCell>
-              <Table.HeaderCell textSize="small" align="right">
-                <BeløpLabel beløp={summerInntektForKey(a => a.inntektsmelding?.årsinntekt)} kr />
-              </Table.HeaderCell>
+              {visInntektsmeldingKolonne && (
+                <>
+                  <Table.HeaderCell textSize="small" align="right">
+                    <BeløpLabel beløp={summerInntektForKey(a => a.inntektsmelding?.månedinntekt)} kr />
+                  </Table.HeaderCell>
+                  <Table.HeaderCell textSize="small" align="right">
+                    <BeløpLabel beløp={summerInntektForKey(a => a.inntektsmelding?.årsinntekt)} kr />
+                  </Table.HeaderCell>
+                </>
+              )}
               <Table.HeaderCell textSize="small" align="right">
                 <BeløpLabel beløp={summerInntektForKey(a => a.beregningsgrunnlag?.månedinntekt)} kr />
               </Table.HeaderCell>

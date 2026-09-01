@@ -5,6 +5,7 @@ import { HStack, Table, Tag } from '@navikt/ds-react';
 import type { Beregningsgrunnlag, BeregningsgrunnlagAndel, SammenligningsgrunlagProp } from '@navikt/ft-types';
 import { BeløpLabel, FaktaBoks } from '@navikt/ft-ui-komponenter';
 
+import { finnInntektstyperSomVises } from '../../utils/beregningsgrunnlagUtils';
 import { BeregnetÅrsinntektHelpText } from './BeregnetÅrsinntektHelpText';
 
 import styles from './avviksberegning.module.css';
@@ -27,8 +28,14 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({
 
   const årsinntekt = rapportertPrAar + differanseBeregnet;
 
+  const { harArbeidstaker, harFrilans } = finnInntektstyperSomVises(beregningsgrunnlag);
+  const visningType =
+    sammenligningsgrunnlagType === 'SAMMENLIGNING_AT_FL' && !harArbeidstaker && harFrilans
+      ? 'SAMMENLIGNING_FL'
+      : sammenligningsgrunnlagType;
+
   return (
-    <FaktaBoks tittel={intl.formatMessage({ id: 'Avviksberegning.Tittel' }, { type: sammenligningsgrunnlagType })}>
+    <FaktaBoks tittel={intl.formatMessage({ id: 'Avviksberegning.Tittel' }, { type: visningType })}>
       <Table size="small" className={styles.table}>
         <Table.Body>
           <Table.Row>
