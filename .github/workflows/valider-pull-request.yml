@@ -36,9 +36,6 @@ jobs:
       - name: Run test
         run: yarn test
 
-      - name: Kjør Storybook-tester
-        run: yarn test:storybook
-
       - name: Bygg storybook
         if: contains(github.event.pull_request.title, 'storybook')
         run: yarn build:storybook
@@ -71,6 +68,9 @@ jobs:
 
       - name: Kjør browsertester
         run: yarn test:browser
+
+      - name: Kjør Storybook-tester
+        run: yarn test:storybook
 
   sif-code-scan:
     runs-on: ubuntu-latest
