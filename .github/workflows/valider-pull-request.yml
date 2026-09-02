@@ -19,7 +19,7 @@ jobs:
           cache: 'yarn'
 
       - name: Installere dependencies
-        run: yarn install --immutable
+        run: yarn install --immutable --mode=skip-build
 
       - name: Bygg
         run: yarn build
@@ -58,13 +58,13 @@ jobs:
           cache: 'yarn'
 
       - name: Installere dependencies
-        run: yarn install --immutable
+        run: yarn install --immutable --mode=skip-build
 
       - name: Bygg
         run: yarn build
 
       - name: Installer Chromium
-        run: yarn workspace @navikt/ft-config-vite exec playwright install --with-deps chromium
+        run: node node_modules/playwright/cli.js install --with-deps chromium
 
       - name: Kjør browsertester
         run: yarn test:browser
