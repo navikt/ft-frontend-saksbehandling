@@ -64,13 +64,10 @@ jobs:
         run: yarn build
 
       - name: Installer Chromium
-        run: yarn exec playwright install --with-deps chromium
+        run: yarn workspace @navikt/ft-config-vite exec playwright install --with-deps chromium
 
       - name: Kjør browsertester
         run: yarn test:browser
-
-      - name: Kjør Storybook-tester
-        run: yarn test:storybook
 
   sif-code-scan:
     runs-on: ubuntu-latest

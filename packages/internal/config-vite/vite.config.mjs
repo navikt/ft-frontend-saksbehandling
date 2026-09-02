@@ -25,6 +25,7 @@ const vitestConfig = defineVitestConfig(() => {
         {
           extends: true,
           test: {
+            exclude: ['**/*.browser.spec.tsx'],
             setupFiles: [path.resolve(__dirname, 'vitest-setup.ts'), 'vitest-canvas-mock'],
             name: 'jsdom',
             deps: { interopDefault: true },

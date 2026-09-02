@@ -2356,6 +2356,7 @@ __metadata:
     "@testing-library/react": "npm:16.3.2"
     "@testing-library/user-event": "npm:14.6.5"
     "@types/react": "npm:19.2.18"
+    axe-core: "npm:4.12.1"
     dayjs: "npm:1.11.23"
     eslint: "npm:9.39.5"
     react: "npm:19.2.8"
@@ -3989,31 +3990,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-vitest@npm:10.5.10":
-  version: 10.5.10
-  resolution: "@storybook/addon-vitest@npm:10.5.10"
-  dependencies:
-    "@storybook/global": "npm:^5.0.0"
-    "@storybook/icons": "npm:^2.0.2"
-  peerDependencies:
-    "@vitest/browser": ^3.0.0 || ^4.0.0
-    "@vitest/browser-playwright": ^4.0.0
-    "@vitest/runner": ^3.0.0 || ^4.0.0
-    storybook: ^10.5.10
-    vitest: ^3.0.0 || ^4.0.0
-  peerDependenciesMeta:
-    "@vitest/browser":
-      optional: true
-    "@vitest/browser-playwright":
-      optional: true
-    "@vitest/runner":
-      optional: true
-    vitest:
-      optional: true
-  checksum: 10/cb464ab5bc64d2e260938ad7e1ba32050fe576f0bfddb487e0cf0e0a8aba33a0cfb22a78a6881998ef426e20c741ab5014e69bdb25b76b06f626c280a70fc9b5
-  languageName: node
-  linkType: hard
-
 "@storybook/builder-vite@npm:10.5.10":
   version: 10.5.10
   resolution: "@storybook/builder-vite@npm:10.5.10"
@@ -5125,7 +5101,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aria-query@npm:5.3.2":
+"aria-query@npm:5.3.0":
+  version: 5.3.0
+  resolution: "aria-query@npm:5.3.0"
+  dependencies:
+    dequal: "npm:^2.0.3"
+  checksum: 10/c3e1ed127cc6886fea4732e97dd6d3c3938e64180803acfb9df8955517c4943760746ffaf4020ce8f7ffaa7556a3b5f85c3769a1f5ca74a1288e02d042f9ae4e
+  languageName: node
+  linkType: hard
+
+"aria-query@npm:^5.0.0":
   version: 5.3.2
   resolution: "aria-query@npm:5.3.2"
   checksum: 10/b2fe9bc98bd401bc322ccb99717c1ae2aaf53ea0d468d6e7aebdc02fac736e4a99b46971ee05b783b08ade23c675b2d8b60e4a1222a95f6e27bc4d2a0bfdcc03
@@ -5296,6 +5281,13 @@ __metadata:
   dependencies:
     possible-typed-array-names: "npm:^1.0.0"
   checksum: 10/6c9da3a66caddd83c875010a1ca8ef11eac02ba15fb592dc9418b2b5e7b77b645fa7729380a92d9835c2f05f2ca1b6251f39b993e0feb3f1517c74fa1af02cab
+  languageName: node
+  linkType: hard
+
+"axe-core@npm:4.12.1":
+  version: 4.12.1
+  resolution: "axe-core@npm:4.12.1"
+  checksum: 10/08c2ff348524b57dfb68f4e866b1a6363147203b721c734ed00090c16eb911cd015cf71fd96a8bafe42609715f649d21b2e188fae622ac8ef6144b144582f6c4
   languageName: node
   linkType: hard
 
@@ -6162,6 +6154,13 @@ __metadata:
   version: 2.3.1
   resolution: "deprecation@npm:2.3.1"
   checksum: 10/f56a05e182c2c195071385455956b0c4106fe14e36245b00c689ceef8e8ab639235176a96977ba7c74afb173317fac2e0ec6ec7a1c6d1e6eaa401c586c714132
+  languageName: node
+  linkType: hard
+
+"dequal@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "dequal@npm:2.0.3"
+  checksum: 10/6ff05a7561f33603df87c45e389c9ac0a95e3c056be3da1a0c4702149e3a7f6fe5ffbb294478687ba51a9e95f3a60e8b6b9005993acd79c292c7d15f71964b6b
   languageName: node
   linkType: hard
 
@@ -7368,14 +7367,12 @@ __metadata:
     "@storybook/addon-a11y": "npm:10.5.10"
     "@storybook/addon-docs": "npm:10.5.10"
     "@storybook/addon-links": "npm:10.5.10"
-    "@storybook/addon-vitest": "npm:10.5.10"
     "@storybook/react-vite": "npm:10.5.10"
     "@testing-library/dom": "npm:10.4.1"
     "@testing-library/jest-dom": "npm:7.0.1"
     "@types/node": "npm:26.1.2"
     "@types/react": "npm:19.2.18"
     "@types/react-dom": "npm:19.2.4"
-    "@vitest/browser-playwright": "npm:4.1.11"
     dayjs: "npm:1.11.23"
     eslint: "npm:9.39.5"
     husky: "npm:9.1.7"
@@ -7383,7 +7380,6 @@ __metadata:
     knip: "npm:6.32.2"
     lerna: "npm:10.0.1"
     lint-staged: "npm:17.3.0"
-    playwright: "npm:1.62.1"
     prettier: "npm:3.9.6"
     react: "npm:19.2.8"
     react-dom: "npm:19.2.8"
