@@ -1422,7 +1422,6 @@ __metadata:
     eslint-plugin-simple-import-sort: "npm:14.0.0"
     eslint-plugin-storybook: "npm:10.5.10"
     globals: "npm:17.11.0"
-    storybook: "npm:10.5.10"
     typescript: "npm:6.0.3"
     typescript-eslint: "npm:8.68.0"
   languageName: unknown
