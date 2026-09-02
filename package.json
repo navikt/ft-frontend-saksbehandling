@@ -74,6 +74,7 @@
     "vitest-canvas-mock": "1.1.5"
   },
   "resolutions": {
+    "aria-query": "5.3.2",
     "tmp": "^0.2.7",
     "@microsoft/api-extractor/minimatch": "^3.1.4"
   },
