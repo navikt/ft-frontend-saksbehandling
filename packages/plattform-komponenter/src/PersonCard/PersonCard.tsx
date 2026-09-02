@@ -3,7 +3,7 @@ import React from 'react';
 import { MenuElipsisHorizontalCircleIcon } from '@navikt/aksel-icons';
 import { BodyShort, Button, CopyButton, HStack, Link, Popover, Tooltip } from '@navikt/ds-react';
 import dayjs from 'dayjs';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
+import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 
 import { formaterFødselsnummer } from '@navikt/ft-utils';
 

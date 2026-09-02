@@ -6,9 +6,10 @@
   "main": "eslint.config.mjs",
   "private": true,
   "dependencies": {
-    "@eslint/js": "9.39.5",
+    "@eslint/compat": "2.1.0",
+    "@eslint/js": "10.0.1",
     "@vitest/eslint-plugin": "1.6.27",
-    "eslint": "9.39.5",
+    "eslint": "10.9.1",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-react": "7.37.5",

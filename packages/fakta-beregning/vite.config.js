@@ -1,9 +1,9 @@
 import { mergeConfig } from 'vite';
 import { defineConfig } from 'vitest/config';
 
-import commonConfig from '@navikt/ft-config-vite';
+import commonConfig, { externalizePeerDependencies } from '@navikt/ft-config-vite';
 
-import { peerDependencies } from './package.json';
+import { peerDependencies } from './package.json' with { type: 'json' };
 
 const config = defineConfig({
   build: {
@@ -11,9 +11,7 @@ const config = defineConfig({
       name: '@navikt/ft-fakta-beregning',
     },
     rollupOptions: {
-      external: Object.keys(peerDependencies).filter(
-        key => key !== '@navikt/ft-kodeverk' && key !== '@navikt/ft-types',
-      ),
+      external: externalizePeerDependencies(peerDependencies, ['@navikt/ft-kodeverk', '@navikt/ft-types']),
     },
   },
 });

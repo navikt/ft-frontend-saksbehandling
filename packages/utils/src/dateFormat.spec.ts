@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
+import utc from 'dayjs/plugin/utc.js';
 import { describe, expect, it } from 'vitest';
 
 import { dateFormat, dateTimeFormat, timeFormat } from './dateFormat';
