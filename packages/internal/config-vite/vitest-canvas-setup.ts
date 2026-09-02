@@ -1,8 +1,9 @@
 // DOMMatrix finst berre i jsdom-miljø med vitest-canvas-mock lasta; hopp over
 // polyfillen i andre testprosjekt (t.d. node-miljø) der den ikkje er definert.
 if (typeof DOMMatrix !== 'undefined' && typeof DOMMatrix.prototype.rotateSelf !== 'function') {
-  DOMMatrix.prototype.rotateSelf = function rotateSelf(rotX = 0, _rotY = 0, rotZ) {
-    const radians = ((rotZ ?? rotX) * Math.PI) / 180;
+  DOMMatrix.prototype.rotateSelf = function rotateSelf(rotX, _rotY, rotZ) {
+    const angleX = rotX ?? 0;
+    const radians = ((rotZ ?? angleX) * Math.PI) / 180;
     const cosine = Math.cos(radians);
     const sine = Math.sin(radians);
     const { a, b, c, d } = this;
