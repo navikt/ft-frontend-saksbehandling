@@ -1,4 +1,4 @@
-import type { BarSeriesOption } from 'echarts';
+import type { BarSeriesOption } from 'echarts/charts';
 
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 

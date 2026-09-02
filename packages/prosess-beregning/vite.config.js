@@ -11,9 +11,10 @@ const config = defineConfig({
       name: '@navikt/ft-prosess-beregning',
     },
     rollupOptions: {
-      external: Object.keys(peerDependencies).filter(
-        key => key !== '@navikt/ft-kodeverk' && key !== '@navikt/ft-types',
-      ),
+      external: [
+        ...Object.keys(peerDependencies).filter(key => key !== '@navikt/ft-kodeverk' && key !== '@navikt/ft-types'),
+        /^echarts(?:\/.*)?$/,
+      ],
     },
   },
 });
