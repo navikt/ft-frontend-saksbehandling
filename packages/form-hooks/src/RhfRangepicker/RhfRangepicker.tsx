@@ -3,7 +3,7 @@ import { useController, useFormContext } from 'react-hook-form';
 
 import { DatePicker, HStack, Label, useRangeDatepicker, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
+import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 

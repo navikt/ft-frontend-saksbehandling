@@ -1,9 +1,9 @@
 import { mergeConfig } from 'vite';
 import { defineConfig } from 'vitest/config';
 
-import commonConfig from '@navikt/ft-config-vite';
+import commonConfig, { externalizePeerDependencies } from '@navikt/ft-config-vite';
 
-import { peerDependencies } from './package.json';
+import { peerDependencies } from './package.json' with { type: 'json' };
 
 const config = defineConfig({
   build: {
@@ -11,7 +11,7 @@ const config = defineConfig({
       name: '@navikt/ft-ui-komponenter',
     },
     rollupOptions: {
-      external: Object.keys(peerDependencies),
+      external: externalizePeerDependencies(peerDependencies),
     },
   },
 });

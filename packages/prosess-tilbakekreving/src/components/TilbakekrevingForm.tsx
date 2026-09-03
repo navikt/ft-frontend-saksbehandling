@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Alert, Box, Heading, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
-import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore.js';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
