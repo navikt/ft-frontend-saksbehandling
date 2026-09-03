@@ -1,5 +1,12 @@
-// DOMMatrix finst berre i jsdom-miljø med vitest-canvas-mock lasta; hopp over
-// polyfillen i andre testprosjekt (t.d. node-miljø) der den ikkje er definert.
+// DOMMatrix kjem frå vitest-canvas-mock, ikkje frå jsdom (jsdom implementerer det
+// ikkje i nokon versjon). Mocken sin DOMMatrix manglar rotateSelf.
+//
+// Frå jsdom 30 renderer echarts-grafane sine decal-mønster i testmiljøet, og då
+// kallar zrender (createCanvasPattern i zrender/lib/canvas/graphic.js) rotateSelf
+// på ein DOMMatrix. Under jsdom 29 blei den kodestien aldri nådd, så mangelen
+// hadde ingen praktisk konsekvens.
+//
+// Sjekken mot undefined dekkjer testprosjekt utan jsdom/canvas-mock.
 if (typeof DOMMatrix !== 'undefined' && typeof DOMMatrix.prototype.rotateSelf !== 'function') {
   DOMMatrix.prototype.rotateSelf = function rotateSelf(rotX, _rotY, rotZ) {
     const angleX = rotX ?? 0;

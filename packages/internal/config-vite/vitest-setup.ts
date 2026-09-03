@@ -10,16 +10,6 @@ import * as globalStorybookConfig from '../../../.storybook/preview';
 // implementations never get exposed. Manually wire them up from the jsdom window.
 const jsdomWindow = (globalThis as unknown as { jsdom?: { window: Window & typeof globalThis } }).jsdom?.window;
 if (jsdomWindow) {
-  if (typeof jsdomWindow.DOMMatrix?.prototype.rotateSelf !== 'function') {
-    for (const target of [jsdomWindow, globalThis]) {
-      Object.defineProperty(target, 'DOMMatrix', {
-        value: undefined,
-        configurable: true,
-        writable: true,
-      });
-    }
-  }
-
   for (const key of ['localStorage', 'sessionStorage'] as const) {
     if (globalThis[key] === undefined) {
       Object.defineProperty(globalThis, key, {
