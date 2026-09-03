@@ -8,6 +8,14 @@ import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from './formats';
 
 import messages from '../i18n/nb_NO.json';
 
+// Kopiert 1:1 frå dayjs sin offisielle 'dayjs/locale/nb'-fil (node_modules/dayjs/locale/nb.js,
+// dayjs v1.11.23). Vi kan ikkje importere den fila direkte: den er CommonJS og gjer eit internt
+// require('dayjs'), men Vite 8/Rolldown eksternaliserer dayjs i test-/dev-transformen utan å
+// polyfille require for eksterne CJS-moduler (sjå https://rolldown.rs/in-depth/bundling-cjs), så
+// importen feilar med "require is not defined". ESM-varianten (dayjs/esm/locale/nb) feilar av ein
+// annan grunn: den gjer eit bare-specifier-import ('../index') som Node sin strenge ESM-resolver
+// avviser. Inlining er difor den einaste stabile løysinga per no. Oppdater denne saman med dayjs
+// sin nb-locale dersom dayjs endrar norske datoformat/tekstar i ein framtidig versjon.
 const nbLocale = {
   name: 'nb',
   weekdays: 'søndag_mandag_tirsdag_onsdag_torsdag_fredag_lørdag'.split('_'),
