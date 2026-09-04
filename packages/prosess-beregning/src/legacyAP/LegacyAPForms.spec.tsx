@@ -283,8 +283,8 @@ describe('LegacyAPForms', () => {
     expect(knappATFL).toBeDisabled();
     expect(knappNæring).toBeDisabled();
 
-    // Årsgrunnlag arbeid
-    expect(screen.getByText('TROSSIG NATURSTRIDIG TIGER AS (222222222)')).toBeInTheDocument();
+    // Årsgrunnlag arbeid og frilans (samme organisasjon gir én rad per andel)
+    expect(screen.getAllByText('TROSSIG NATURSTRIDIG TIGER AS (222222222)')).toHaveLength(2);
 
     // Avvik arbeid og frilans
     expect(

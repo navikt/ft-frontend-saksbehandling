@@ -1,8 +1,12 @@
+import { useIntl } from 'react-intl';
+
 import { HStack, Tag } from '@navikt/ds-react';
 
 import type { AktivitetStatus, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 
 import type { KodeverkForPanel } from '../types/KodeverkForPanel';
+
+import styles from './aktivitetStatusTags.module.css';
 
 interface Props {
   beregningsgrunnlagPeriode: BeregningsgrunnlagPeriodeProp[];
@@ -10,17 +14,25 @@ interface Props {
 }
 
 export const AktivitetStatusTags = ({ beregningsgrunnlagPeriode, kodeverkSamling }: Props) => {
+  const intl = useIntl();
   const tagsList = getStatusList(beregningsgrunnlagPeriode, kodeverkSamling);
 
   if (tagsList.length === 0) {
     return null;
   }
   return (
-    <HStack gap="space-8">
+    <HStack
+      as="ul"
+      className={styles.tagList}
+      gap="space-8"
+      aria-label={intl.formatMessage({ id: 'AktivitetStatusTags.AriaLabel' })}
+    >
       {tagsList.map(({ visningsNavn, kode, tagType }) => (
-        <Tag key={kode} size="small" variant={tagType} title={visningsNavn}>
-          {visningsNavn}
-        </Tag>
+        <li key={kode}>
+          <Tag size="small" variant={tagType}>
+            {visningsNavn}
+          </Tag>
+        </li>
       ))}
     </HStack>
   );

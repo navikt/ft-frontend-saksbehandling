@@ -1,5 +1,6 @@
 {
   "BeregningProsessIndex.Tittel": "Beregning",
+  "AktivitetStatusTags.AriaLabel": "Aktivitetstyper i beregningsgrunnlaget",
   "Tabell.Måned": "Måned",
   "Tabell.År": "År",
   "Tabell.Total": "Totalt",
@@ -7,7 +8,11 @@
   "TabInnhold.Skjæringstidspunkt": "Skjæringstidspunkt for beregning <b>{dato}</b>",
 
   "Arbeidsinntekt.Tittel": "Arbeidsinntekt",
+  "Arbeidsinntekt.Tittel.Frilans": "Frilansinntekt",
+  "Arbeidsinntekt.Tittel.ArbeidOgFrilans": "Arbeid og frilansinntekt",
   "Arbeidsinntekt.Table.Arbeidsgiver": "Arbeidsgiver",
+  "Arbeidsinntekt.Table.Oppdragsgiver": "Oppdragsgiver",
+  "Arbeidsinntekt.Table.ArbeidsgiverOgOppdragsgiver": "Arbeids-/oppdragsgiver",
   "Arbeidsinntekt.Table.FastsattAvSBH": "Fastsatt av saksbehandler",
   "Arbeidsinntekt.Table.Inntektsmelding": "Inntektsmelding",
   "Arbeidsinntekt.Table.Beregningsgrunnlag": "A-ordningen § 8-28",

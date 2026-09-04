@@ -3,7 +3,10 @@ import { TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { arbeidsgiverOpplysningerPerId } from '../../../testdata/arbeidsgivere';
 import { arbeidstakerFPFlereArbeidsforhold } from '../../../testdata/arbeidstakerFPFlereArbeidsforhold';
+import { arbeidstakerOgFrilansFP } from '../../../testdata/arbeidstakerOgFrilansFP';
+import { frilansFP } from '../../../testdata/frilansFP';
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
+import { finnInntektstyperSomVises } from '../../utils/beregningsgrunnlagUtils';
 import { createVisningsnavnForAndel } from '../../utils/createVisningsnavnForAktivitet';
 import { formaterStillingsprosenter, mapBeregningsgrunnlagTilArbeidsinntektVisning } from './arbeidsinntektUtils';
 
@@ -48,6 +51,44 @@ describe('arbeidsinntektUtils', () => {
         formatertStillingsprosenter: '100%',
         naturalytelser: [],
         sisteLønnsendringsdato: '2010-10-01',
+      });
+    });
+
+    it('skal mappe frilans som egen rad med a-ordning-inntekt', () => {
+      const formaterAndel = createVisningsnavnForAndel(arbeidsgiverOpplysningerPerId, alleKodeverk as KodeverkForPanel);
+
+      const resultat = mapBeregningsgrunnlagTilArbeidsinntektVisning(
+        frilansFP.beregningsgrunnlagListe[0],
+        formaterAndel,
+      );
+
+      expect(resultat).toHaveLength(1);
+      expect(resultat[0].andelsnr).toBe(1);
+      expect(resultat[0].andelsLabel).toBe('Frilans');
+      expect(resultat[0].beregningsgrunnlag).toEqual({ månedinntekt: 65000, årsinntekt: 780000 });
+      expect(resultat[0].inntektsmelding).toBeUndefined();
+    });
+  });
+
+  describe('finnInntektstyperSomVises', () => {
+    it('skal kjenne igjen kun arbeidstaker', () => {
+      expect(finnInntektstyperSomVises(arbeidstakerFPFlereArbeidsforhold.beregningsgrunnlagListe[0])).toEqual({
+        harArbeidstaker: true,
+        harFrilans: false,
+      });
+    });
+
+    it('skal kjenne igjen kun frilans', () => {
+      expect(finnInntektstyperSomVises(frilansFP.beregningsgrunnlagListe[0])).toEqual({
+        harArbeidstaker: false,
+        harFrilans: true,
+      });
+    });
+
+    it('skal kjenne igjen både arbeidstaker og frilans', () => {
+      expect(finnInntektstyperSomVises(arbeidstakerOgFrilansFP.beregningsgrunnlagListe[0])).toEqual({
+        harArbeidstaker: true,
+        harFrilans: true,
       });
     });
   });
