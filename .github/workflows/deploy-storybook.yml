@@ -12,7 +12,7 @@ jobs:
       pages: write
       id-token: write
       packages: read
-    uses: navikt/fp-gha-workflows/.github/workflows/deploy-storybook.yml@8209a5e47f994b1274acb0917ad2741071660f26 # main 2026-09-01
+    uses: navikt/fp-gha-workflows/.github/workflows/deploy-storybook.yml@main
     with:
       package-manager: yarn
       cache: lerna
