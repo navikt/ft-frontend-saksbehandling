@@ -32,11 +32,13 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
   }
 
   const { harArbeidstaker, harFrilans } = finnInntektstyperSomVises(beregningsgrunnlag);
-  const tittelId = harFrilans
-    ? harArbeidstaker
-      ? 'Arbeidsinntekt.Tittel.ArbeidOgFrilans'
-      : 'Arbeidsinntekt.Tittel.Frilans'
-    : 'Arbeidsinntekt.Tittel';
+  const finnTittelId = () => {
+    if (!harFrilans) {
+      return 'Arbeidsinntekt.Tittel';
+    }
+    return harArbeidstaker ? 'Arbeidsinntekt.Tittel.ArbeidOgFrilans' : 'Arbeidsinntekt.Tittel.Frilans';
+  };
+  const tittelId = finnTittelId();
 
   const inneholderInntektSomErFastsattAvSBH = arbeidsinntektVisninger.some(
     visning => visning.fastsattAvSBH !== undefined,
@@ -45,12 +47,13 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
   const kunFrilans = harFrilans && !harArbeidstaker;
   const visInntektsmeldingKolonne = !kunFrilans;
 
-  const arbeidsgiverKolonneId =
-    harArbeidstaker && harFrilans
-      ? 'Arbeidsinntekt.Table.ArbeidsgiverOgOppdragsgiver'
-      : kunFrilans
-        ? 'Arbeidsinntekt.Table.Oppdragsgiver'
-        : 'Arbeidsinntekt.Table.Arbeidsgiver';
+  const finnArbeidsgiverKolonneId = () => {
+    if (harArbeidstaker && harFrilans) {
+      return 'Arbeidsinntekt.Table.ArbeidsgiverOgOppdragsgiver';
+    }
+    return kunFrilans ? 'Arbeidsinntekt.Table.Oppdragsgiver' : 'Arbeidsinntekt.Table.Arbeidsgiver';
+  };
+  const arbeidsgiverKolonneId = finnArbeidsgiverKolonneId();
 
   const summerInntektForKey = (fn: (value: ArbeidsinntektVisningBeløp) => number | undefined) => {
     const inntekterSomSkalSummeres = arbeidsinntektVisninger.flatMap(fn).filter(inntekt => inntekt !== undefined);
