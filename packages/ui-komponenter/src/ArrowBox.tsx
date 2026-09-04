@@ -1,76 +1,21 @@
-import { type ReactNode } from 'react';
+import { type CSSProperties, type ReactNode } from 'react';
 
-const navGra40 = 'var(--ax-bg-neutral-strong)';
-const borderRadius = 4;
+import styles from './arrowBox.module.css';
 
-// Css er satt opp på en spesiell måte her fordi React ikke støtter psydo-element i inline css. Her er en avhengig av å dynamisk
-// endre enkelte variabler i after/before. Bedre løsninger finnes sikkert?
-const getArrowBoxTopCss = (alignOffset?: number, marginTop?: number, marginLeft?: number): string => `
-  .arrowBoxTop${alignOffset} {
-    background: var(--ax-bg-default);
-    border: 1px solid ${navGra40};
-    border-radius: ${borderRadius}px;
-    padding: 15px;
-    margin-bottom: 10px;
-    margin-top: ${marginTop}px;
-    margin-left: ${marginLeft}px;
-    position: relative;
+interface ArrowBoxStyle extends CSSProperties {
+  '--arrow-box-align-offset': string;
+  '--arrow-box-margin-left': string;
+  '--arrow-box-margin-top': string;
+}
 
-  }
-  .arrowBoxTop${alignOffset}:before {
-    background-color: var(--ax-bg-default);
-    border: 1px solid ${navGra40};
-    border-bottom-width: 0;
-    border-right-width: 0;
-    content: '';
-    height: 1rem;
-    top: 0;
-    margin-top: -1px;
-    position: absolute;
-    left: ${alignOffset}px;
-    transform: rotate(45deg) translateY(-100%) translateZ(0);
-    transform-origin: 0 0;
-    width: 1rem;
-  }
-`;
+const getStyle = (alignOffset: number, marginTop: number, marginLeft: number): ArrowBoxStyle => ({
+  '--arrow-box-align-offset': `${alignOffset}px`,
+  '--arrow-box-margin-left': `${marginLeft}px`,
+  '--arrow-box-margin-top': `${marginTop}px`,
+});
 
-const getArrowBoxLeftCss = (alignOffset?: number, marginTop?: number, marginLeft?: number): string => `
-  .arrowBoxLeft${alignOffset} {
-    background: var(--ax-bg-default);
-    border: 1px solid ${navGra40};
-    border-radius: ${borderRadius}px;
-    padding: 15px;
-    margin-bottom: 10px;
-    margin-top: ${marginTop}px;
-    margin-left: ${marginLeft}px;
-    position: relative;
-  }
-
-  .arrowBoxLeft${alignOffset}:before {
-    background-color: var(--ax-bg-default);
-    border: 1px solid ${navGra40};
-    border-bottom-width: 0;
-    border-right-width: 0;
-    content: '';
-    height: 1rem;
-    left: 0;
-    margin-left: -1px;
-    position: absolute;
-    top: ${alignOffset}px;
-    transform: rotate(-45deg) translateY(-100%) translateZ(0);
-    transform-origin: 0 0;
-    width: 1rem;
-  }
-`;
-const getArrowBox = (alignOffset?: number, alignLeft?: boolean, marginTop?: number, marginLeft?: number): string =>
-  alignLeft
-    ? getArrowBoxLeftCss(alignOffset, marginTop, marginLeft)
-    : getArrowBoxTopCss(alignOffset, marginTop, marginLeft);
-const getClassName = (alignOffset?: number, alignLeft?: boolean, hideBorder?: boolean): string => {
-  if (hideBorder) {
-    return '';
-  }
-  return alignLeft ? `arrowBoxLeft${alignOffset}` : `arrowBoxTop${alignOffset}`;
+const getClassName = (alignLeft: boolean): string => {
+  return `${styles.arrowBox} ${alignLeft ? styles.left : styles.top}`;
 };
 
 interface Props {
@@ -82,11 +27,6 @@ interface Props {
   marginLeft?: number;
 }
 
-/*
- * ArrowBox
- *
- * Vise innhold med ramme og pil
- */
 export const ArrowBox = ({
   children,
   alignOffset = 0,
@@ -94,13 +34,14 @@ export const ArrowBox = ({
   marginTop = 0,
   marginLeft = 0,
   hideBorder = false,
-}: Props) => (
-  <>
-    <style
-      dangerouslySetInnerHTML={{
-        __html: getArrowBox(alignOffset, alignLeft, marginTop, marginLeft),
-      }}
-    />
-    <div className={getClassName(alignOffset, alignLeft, hideBorder)}>{children}</div>
-  </>
-);
+}: Props) => {
+  if (hideBorder) {
+    return <div>{children}</div>;
+  }
+
+  return (
+    <div className={getClassName(alignLeft)} style={getStyle(alignOffset, marginTop, marginLeft)}>
+      {children}
+    </div>
+  );
+};

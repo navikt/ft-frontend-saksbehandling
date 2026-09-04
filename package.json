@@ -13,7 +13,7 @@
     "build": "lerna run build --stream",
     "build:storybook": "yarn storybook-clean-deploy-folder && yarn storybook-build-all && yarn storybook-create-deploy-folder",
     "test": "lerna run test --stream",
-    "test:browser": "lerna run test:browser --stream",
+    "test:browser": "lerna run test:browser --stream --concurrency 1",
     "eslint": "lerna run eslint --stream",
     "eslint:fix": "lerna run eslint:fix --stream",
     "prettier:fix": "lerna run prettier:fix --stream",

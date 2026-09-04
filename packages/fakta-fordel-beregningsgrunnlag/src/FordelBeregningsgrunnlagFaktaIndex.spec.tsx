@@ -33,8 +33,11 @@ describe('FordelBeregningsgrunnlagFaktaIndex', () => {
     expect(screen.getByText('27.11.2019 -')).toBeInTheDocument();
     expect(screen.getByText('Legg til aktivitet')).toBeEnabled();
 
-    const alleInputfelt = screen.getAllByRole('textbox');
-    expect(alleInputfelt).toHaveLength(3);
+    const alleInputfelt = await waitFor(() => {
+      const inputfelt = screen.getAllByRole('textbox');
+      expect(inputfelt).toHaveLength(3);
+      return inputfelt;
+    });
     const fordelingAAP = alleInputfelt[0];
     const fordelingAT = alleInputfelt[1];
     const begrunnelseFelt = alleInputfelt[2];
@@ -242,8 +245,11 @@ describe('FordelBeregningsgrunnlagFaktaIndex', () => {
     expect(leggTilKnapper[0]).toBeEnabled();
     expect(leggTilKnapper[1]).toBeEnabled();
 
-    const inputfeltITab1 = screen.getAllByRole('textbox');
-    expect(inputfeltITab1).toHaveLength(5);
+    const inputfeltITab1 = await waitFor(() => {
+      const inputfelt = screen.getAllByRole('textbox');
+      expect(inputfelt).toHaveLength(5);
+      return inputfelt;
+    });
     // inputfeltITab1[0] er refusjonskrav for AAP (editerbar, men vi endrer den ikke)
     const fordelingAAP = inputfeltITab1[1];
     const refkravAT = inputfeltITab1[2];

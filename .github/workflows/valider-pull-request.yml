@@ -9,17 +9,17 @@ jobs:
       contents: read
       packages: read
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7.0.1
 
       - uses: navikt/fp-gha-workflows/.github/actions/setup-yarnrc@main
 
-      - uses: actions/setup-node@v7.0.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # ratchet:actions/setup-node@v7.0.0
         with:
           node-version: 26.1.0
           cache: 'yarn'
 
       - name: Installere dependencies
-        run: yarn install --immutable
+        run: yarn install --immutable --mode=skip-build
 
       - name: Bygg
         run: yarn build
@@ -40,14 +40,44 @@ jobs:
         if: contains(github.event.pull_request.title, 'storybook')
         run: yarn build:storybook
 
+  browser-tests:
+    name: Browsertester
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7.0.1
+
+      - uses: navikt/fp-gha-workflows/.github/actions/setup-yarnrc@main
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # ratchet:actions/setup-node@v7.0.0
+        with:
+          node-version: 26.1.0
+          cache: 'yarn'
+
+      - name: Installere dependencies
+        run: yarn install --immutable --mode=skip-build
+
+      - name: Bygg
+        run: yarn build
+
+      - name: Installer Chromium
+        run: node node_modules/playwright/cli.js install --with-deps chromium
+
+      - name: Kjør browsertester
+        run: yarn test:browser
+
   sif-code-scan:
     runs-on: ubuntu-latest
     name: 'SIF Code Scan'
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7.0.1
         with:
           persist-credentials: false
-      - uses: navikt/sif-gha-workflows/.github/actions/sif-code-scan@v1
+      - uses: navikt/sif-gha-workflows/.github/actions/sif-code-scan@97a944ba12c0db588a29cfeed8a7dcb22e087d3f # ratchet:navikt/sif-gha-workflows/.github/actions/sif-code-scan@v1.0.1
 
   knip-it:
     name: Kjør knip
