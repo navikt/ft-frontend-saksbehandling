@@ -35,7 +35,6 @@ const vitestConfig = defineVitestConfig(() => {
         {
           extends: true,
           test: {
-            exclude: ['**/*.browser.spec.tsx'],
             setupFiles: [
               path.resolve(__dirname, 'vitest-setup.ts'),
               'vitest-canvas-mock',
@@ -51,7 +50,7 @@ const vitestConfig = defineVitestConfig(() => {
           extends: true,
           test: {
             name: 'browser',
-            include: ['**/*.browser.spec.tsx'],
+            exclude: ['**/FordelBeregningsgrunnlagFaktaIndex.spec.tsx'],
             setupFiles: [path.resolve(__dirname, 'vitest-setup.ts')],
             browser: {
               enabled: true,
