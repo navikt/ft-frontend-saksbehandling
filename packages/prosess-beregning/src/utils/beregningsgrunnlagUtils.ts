@@ -35,14 +35,9 @@ export const finnAndelerSomSkalVises = (andeler: BeregningsgrunnlagAndel[]): Ber
     .filter(andel => andel.aktivitetStatus === 'AT' || andel.aktivitetStatus === 'FL')
     .filter(andel => andel.erTilkommetAndel === false);
 
-export type InntektstyperSomVises = {
-  harArbeidstaker: boolean;
-  harFrilans: boolean;
-};
-
 export const finnInntektstyperSomVises = ({
   beregningsgrunnlagPeriode,
-}: Pick<Beregningsgrunnlag, 'beregningsgrunnlagPeriode'>): InntektstyperSomVises => {
+}: Pick<Beregningsgrunnlag, 'beregningsgrunnlagPeriode'>) => {
   const relevanteAndeler = finnAndelerSomSkalVises(finnAlleAndelerIFørstePeriode(beregningsgrunnlagPeriode));
   return {
     harArbeidstaker: relevanteAndeler.some(andel => andel.aktivitetStatus === 'AT'),

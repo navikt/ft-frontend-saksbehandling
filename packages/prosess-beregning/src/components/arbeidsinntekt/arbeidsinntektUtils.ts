@@ -74,7 +74,7 @@ export const mapBeregningsgrunnlagTilArbeidsinntektVisning = (
           }
         : undefined,
       beregningsgrunnlag:
-        inntektsnøkkel && beregningsgrunnlagInntekter[inntektsnøkkel]
+        inntektsnøkkel && beregningsgrunnlagInntekter[inntektsnøkkel] !== undefined
           ? {
               månedinntekt: beregningsgrunnlagInntekter[inntektsnøkkel] / 3,
               årsinntekt: (beregningsgrunnlagInntekter[inntektsnøkkel] / 3) * 12,
