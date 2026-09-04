@@ -1,0 +1,9 @@
+.graf {
+  min-width: 0;
+}
+
+.legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

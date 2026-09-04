@@ -3,7 +3,7 @@ import { type CSSProperties, useEffect, useRef } from 'react';
 import type { EChartsOption } from 'echarts';
 import { BarChart } from 'echarts/charts';
 import { AriaComponent, GridComponent, LegendComponent, TooltipComponent } from 'echarts/components';
-import { type ECharts, getInstanceByDom, init, use as registerEChartsModules } from 'echarts/core';
+import { getInstanceByDom, init, use as registerEChartsModules } from 'echarts/core';
 import { LabelLayout } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 
@@ -26,21 +26,23 @@ export const ReactECharts = ({ option, style }: Props) => {
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let chart: ECharts | undefined;
-    if (chartRef.current !== null) {
-      chart = init(chartRef.current, undefined, { locale: 'nb-NO' });
+    if (chartRef.current === null) {
+      return undefined;
     }
+    const chart = init(chartRef.current, undefined, { locale: 'nb-NO' });
 
-    const resizeChart = () => {
-      chart?.resize();
-    };
+    const resizeChart = () => chart.resize();
     globalThis.addEventListener('resize', resizeChart);
 
+    const observer = typeof ResizeObserver === 'undefined' ? undefined : new ResizeObserver(resizeChart);
+    observer?.observe(chartRef.current);
+
     return () => {
-      chart?.dispose();
       globalThis.removeEventListener('resize', resizeChart);
+      observer?.disconnect();
+      chart.dispose();
     };
-  }, [style]);
+  }, []);
 
   useEffect(() => {
     if (chartRef.current !== null) {

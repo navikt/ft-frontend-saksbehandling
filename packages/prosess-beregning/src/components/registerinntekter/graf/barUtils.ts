@@ -18,7 +18,9 @@ export const createBar =
     return [
       {
         type: 'bar',
-        barMaxWidth: 30,
+        barMaxWidth: 16,
+        barCategoryGap: '10%',
+        barGap: '10%',
         id: typeGrunnlag + ':' + label,
         name: label,
         color,
