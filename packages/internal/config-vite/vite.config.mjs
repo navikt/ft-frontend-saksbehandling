@@ -50,7 +50,6 @@ const vitestConfig = defineVitestConfig(() => {
           extends: true,
           test: {
             name: 'browser',
-            exclude: ['**/FordelBeregningsgrunnlagFaktaIndex.spec.tsx'],
             setupFiles: [path.resolve(__dirname, 'vitest-setup.ts')],
             browser: {
               enabled: true,
