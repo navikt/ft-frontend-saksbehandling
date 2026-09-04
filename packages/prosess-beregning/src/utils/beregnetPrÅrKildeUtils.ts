@@ -1,18 +1,20 @@
 import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
+import { finnInntektsnøkkelForAndel } from './beregningsgrunnlagUtils';
+
 export const finnKilderForAndeler = (
   andeler: BeregningsgrunnlagAndel[],
   beregningsgrunnlagInntekter: Record<string, number>,
   formaterVisningsnavnForAndel: (andel: BeregningsgrunnlagAndel) => string,
 ) => {
   return andeler.map(andel => {
-    const arbeidsgiverIdent = andel.arbeidsforhold?.arbeidsgiverIdent;
+    const inntektsnøkkel = finnInntektsnøkkelForAndel(andel);
     const inntektsmeldingÅrsinntekt = andel.arbeidsforhold?.belopFraInntektsmeldingPrMnd
       ? andel.arbeidsforhold.belopFraInntektsmeldingPrMnd * 12
       : undefined;
     const beregningsgrunnlagÅrsinntekt =
-      arbeidsgiverIdent && beregningsgrunnlagInntekter[arbeidsgiverIdent]
-        ? (beregningsgrunnlagInntekter[arbeidsgiverIdent] / 3) * 12
+      inntektsnøkkel && beregningsgrunnlagInntekter[inntektsnøkkel]
+        ? (beregningsgrunnlagInntekter[inntektsnøkkel] / 3) * 12
         : undefined;
 
     return {

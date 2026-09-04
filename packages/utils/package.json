@@ -1,6 +1,6 @@
 {
   "name": "@navikt/ft-utils",
-  "version": "5.1.9",
+  "version": "5.1.11",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -28,11 +28,11 @@
     "@navikt/ft-config-vite": "workspace:^",
     "@types/react": "19.2.18",
     "dayjs": "1.11.23",
-    "eslint": "9.39.5",
+    "eslint": "10.9.1",
     "react": "19.2.8",
-    "react-intl": "10.1.22",
+    "react-intl": "10.1.25",
     "typescript": "6.0.3",
-    "vite": "7.3.6",
+    "vite": "8.2.2",
     "vitest": "4.1.11"
   },
   "publishConfig": {

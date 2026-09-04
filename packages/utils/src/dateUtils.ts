@@ -1,14 +1,14 @@
 import dayjs, { Dayjs } from 'dayjs';
-import duration from 'dayjs/plugin/duration';
-import isoWeek from 'dayjs/plugin/isoWeek';
-import utc from 'dayjs/plugin/utc';
+import duration from 'dayjs/plugin/duration.js';
+import isoWeek from 'dayjs/plugin/isoWeek.js';
+import utc from 'dayjs/plugin/utc.js';
 
 import { createIntl } from './createIntl';
 import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from './formats';
 
 import messages from '../i18n/nb_NO.json';
 
-import 'dayjs/locale/nb';
+import 'dayjs/locale/nb.js';
 
 dayjs.extend(utc);
 dayjs.extend(isoWeek);

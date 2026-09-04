@@ -10,6 +10,13 @@ import { defineConfig as defineVitestConfig } from 'vitest/config';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+export const externalizePeerDependencies = (peerDependencies, bundledDependencies = [], externalPatterns = []) => {
+  const externalDependencies = Object.keys(peerDependencies).filter(dependency => !bundledDependencies.includes(dependency));
+  return id =>
+    externalDependencies.some(dependency => id === dependency || id.startsWith(`${dependency}/`)) ||
+    externalPatterns.some(pattern => pattern.test(id));
+};
+
 const vitestConfig = defineVitestConfig(() => {
   //eslint-disable-next-line no-undef
   const args = process.argv.join(' ');
@@ -21,12 +28,19 @@ const vitestConfig = defineVitestConfig(() => {
       watch: false,
       globals: true,
       testTimeout: 20000,
+      sequence: {
+        setupFiles: 'list',
+      },
       projects: [
         {
           extends: true,
           test: {
             exclude: ['**/*.browser.spec.tsx'],
-            setupFiles: [path.resolve(__dirname, 'vitest-setup.ts'), 'vitest-canvas-mock'],
+            setupFiles: [
+              path.resolve(__dirname, 'vitest-setup.ts'),
+              'vitest-canvas-mock',
+              path.resolve(__dirname, 'vitest-canvas-setup.ts'),
+            ],
             name: 'jsdom',
             deps: { interopDefault: true },
             environment: 'jsdom',

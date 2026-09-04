@@ -8,6 +8,7 @@ import { arbeidsgiverOpplysningerPerId } from '../testdata/arbeidsgivere';
 import { arbeidstakerFlereArbeidsforholdMedNaturalytelser80ProsentDekningsgradOgOver6G } from '../testdata/arbeidstakerFlereArbeidsforholdMedNaturalytelser80ProsentDekningsgradOgOver6G';
 import { arbeidstakerFPEttArbeidsforhold } from '../testdata/arbeidstakerFPEttArbeidsforhold';
 import { arbeidstakerFPFlereArbeidsforhold } from '../testdata/arbeidstakerFPFlereArbeidsforhold';
+import { arbeidstakerOgFrilansFP } from '../testdata/arbeidstakerOgFrilansFP';
 import { frilansFP } from '../testdata/frilansFP';
 import { selvstendigNæringsdrivendeFP } from '../testdata/selvstendigNæringsdrivendeFP';
 import { BeregningProsessIndex } from './BeregningProsessIndex';
@@ -79,5 +80,12 @@ export const FrilansFP: Story = {
   name: 'Case - Frilanser (FP)',
   args: {
     ...frilansFP,
+  },
+};
+
+export const ArbeidstakerOgFrilansFP: Story = {
+  name: 'Case - Arbeidstaker og frilanser (FP)',
+  args: {
+    ...arbeidstakerOgFrilansFP,
   },
 };

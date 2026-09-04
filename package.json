@@ -36,8 +36,8 @@
     "transform-to-workspace": "node scripts/replace-workspace-deps.js --restore"
   },
   "devDependencies": {
-    "@navikt/aksel-stylelint": "8.16.1",
-    "@navikt/ds-css": "8.16.1",
+    "@navikt/aksel-stylelint": "8.16.2",
+    "@navikt/ds-css": "8.16.2",
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-frontend-storybook-utils": "workspace:^",
     "@storybook/addon-a11y": "10.5.10",
@@ -46,16 +46,16 @@
     "@storybook/react-vite": "10.5.10",
     "@testing-library/dom": "10.4.1",
     "@testing-library/jest-dom": "7.0.1",
-    "@types/node": "26.1.2",
+    "@types/node": "26.4.0",
     "@types/react": "19.2.18",
-    "@types/react-dom": "19.2.4",
+    "@types/react-dom": "19.2.5",
     "dayjs": "1.11.23",
-    "eslint": "9.39.5",
+    "eslint": "10.9.1",
     "husky": "9.1.7",
-    "jsdom": "29.1.1",
-    "knip": "6.32.2",
+    "jsdom": "30.0.1",
+    "knip": "6.33.0",
     "lerna": "10.0.1",
-    "lint-staged": "17.3.0",
+    "lint-staged": "17.4.1",
     "prettier": "3.9.6",
     "react": "19.2.8",
     "react-dom": "19.2.8",
@@ -63,7 +63,7 @@
     "stylelint": "17.14.1",
     "stylelint-order": "8.1.1",
     "typescript": "6.0.3",
-    "vite": "7.3.6",
+    "vite": "8.2.2",
     "vite-plugin-circular-dependency": "0.6.0",
     "vite-plugin-dts": "5.0.3",
     "vitest": "4.1.11",
@@ -71,7 +71,10 @@
   },
   "resolutions": {
     "tmp": "^0.2.7",
-    "@microsoft/api-extractor/minimatch": "^3.1.4"
+    "@microsoft/api-extractor/minimatch": "^3.1.4",
+    "js-yaml": "4.3.1",
+    "pacote": "^21.5.1",
+    "@npmcli/package-json@npm:7.0.2": "^7.0.5"
   },
   "workspaces": {
     "packages": [

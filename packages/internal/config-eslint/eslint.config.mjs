@@ -1,3 +1,4 @@
+import { fixupConfigRules } from '@eslint/compat';
 import pluginJs from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
@@ -15,7 +16,7 @@ const OFF = 0;
 const WARNING = 1;
 const ERROR = 2;
 
-export default [
+export default fixupConfigRules([
   {
     files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
     settings: {
@@ -107,4 +108,4 @@ export default [
       'react-hooks/rules-of-hooks': OFF,
     },
   },
-];
+]);
