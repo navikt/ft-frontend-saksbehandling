@@ -19,6 +19,28 @@ interface Props {
   kodeverkSamling: KodeverkForPanel;
 }
 
+const tittel = (harArbeidstaker: boolean, harFrilans: boolean) => {
+  if (!harFrilans) {
+    return <FormattedMessage id="Arbeidsinntekt.Tittel" />;
+  }
+  return harArbeidstaker ? (
+    <FormattedMessage id="Arbeidsinntekt.Tittel.ArbeidOgFrilans" />
+  ) : (
+    <FormattedMessage id="Arbeidsinntekt.Tittel.Frilans" />
+  );
+};
+
+const arbeidsgiverKolonneOverskrift = (harArbeidstaker: boolean, harFrilans: boolean) => {
+  if (harArbeidstaker && harFrilans) {
+    return <FormattedMessage id="Arbeidsinntekt.Table.ArbeidsgiverOgOppdragsgiver" />;
+  }
+  return harFrilans ? (
+    <FormattedMessage id="Arbeidsinntekt.Table.Oppdragsgiver" />
+  ) : (
+    <FormattedMessage id="Arbeidsinntekt.Table.Arbeidsgiver" />
+  );
+};
+
 export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPerId, kodeverkSamling }: Props) => {
   const intl = useIntl();
 
@@ -32,13 +54,6 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
   }
 
   const { harArbeidstaker, harFrilans } = finnInntektstyperSomVises(beregningsgrunnlag);
-  const finnTittelId = () => {
-    if (!harFrilans) {
-      return 'Arbeidsinntekt.Tittel';
-    }
-    return harArbeidstaker ? 'Arbeidsinntekt.Tittel.ArbeidOgFrilans' : 'Arbeidsinntekt.Tittel.Frilans';
-  };
-  const tittelId = finnTittelId();
 
   const inneholderInntektSomErFastsattAvSBH = arbeidsinntektVisninger.some(
     visning => visning.fastsattAvSBH !== undefined,
@@ -46,14 +61,6 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
 
   const kunFrilans = harFrilans && !harArbeidstaker;
   const visInntektsmeldingKolonne = !kunFrilans;
-
-  const finnArbeidsgiverKolonneId = () => {
-    if (harArbeidstaker && harFrilans) {
-      return 'Arbeidsinntekt.Table.ArbeidsgiverOgOppdragsgiver';
-    }
-    return kunFrilans ? 'Arbeidsinntekt.Table.Oppdragsgiver' : 'Arbeidsinntekt.Table.Arbeidsgiver';
-  };
-  const arbeidsgiverKolonneId = finnArbeidsgiverKolonneId();
 
   const summerInntektForKey = (fn: (value: ArbeidsinntektVisningBeløp) => number | undefined) => {
     const inntekterSomSkalSummeres = arbeidsinntektVisninger.flatMap(fn).filter(inntekt => inntekt !== undefined);
@@ -63,7 +70,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
   };
 
   return (
-    <FaktaBoks tittel={<FormattedMessage id={tittelId} />}>
+    <FaktaBoks tittel={tittel(harArbeidstaker, harFrilans)}>
       <Table size="small" className={styles.table}>
         <Table.Header>
           <Table.Row>
@@ -85,7 +92,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
           </Table.Row>
           <Table.Row>
             <Table.HeaderCell scope="col" textSize="small">
-              <FormattedMessage id={arbeidsgiverKolonneId} />
+              {arbeidsgiverKolonneOverskrift(harArbeidstaker, harFrilans)}
             </Table.HeaderCell>
             {inneholderInntektSomErFastsattAvSBH && (
               <>
