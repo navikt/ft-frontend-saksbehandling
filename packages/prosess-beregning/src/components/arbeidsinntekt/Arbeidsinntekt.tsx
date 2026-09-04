@@ -19,28 +19,6 @@ interface Props {
   kodeverkSamling: KodeverkForPanel;
 }
 
-const tittel = (harArbeidstaker: boolean, harFrilans: boolean) => {
-  if (!harFrilans) {
-    return <FormattedMessage id="Arbeidsinntekt.Tittel" />;
-  }
-  return harArbeidstaker ? (
-    <FormattedMessage id="Arbeidsinntekt.Tittel.ArbeidOgFrilans" />
-  ) : (
-    <FormattedMessage id="Arbeidsinntekt.Tittel.Frilans" />
-  );
-};
-
-const arbeidsgiverKolonneOverskrift = (harArbeidstaker: boolean, harFrilans: boolean) => {
-  if (harArbeidstaker && harFrilans) {
-    return <FormattedMessage id="Arbeidsinntekt.Table.ArbeidsgiverOgOppdragsgiver" />;
-  }
-  return harFrilans ? (
-    <FormattedMessage id="Arbeidsinntekt.Table.Oppdragsgiver" />
-  ) : (
-    <FormattedMessage id="Arbeidsinntekt.Table.Arbeidsgiver" />
-  );
-};
-
 export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPerId, kodeverkSamling }: Props) => {
   const intl = useIntl();
 
@@ -249,5 +227,27 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
         )}
       </Table>
     </FaktaBoks>
+  );
+};
+
+const tittel = (harArbeidstaker: boolean, harFrilans: boolean) => {
+  if (!harFrilans) {
+    return <FormattedMessage id="Arbeidsinntekt.Tittel" />;
+  }
+  return harArbeidstaker ? (
+    <FormattedMessage id="Arbeidsinntekt.Tittel.ArbeidOgFrilans" />
+  ) : (
+    <FormattedMessage id="Arbeidsinntekt.Tittel.Frilans" />
+  );
+};
+
+const arbeidsgiverKolonneOverskrift = (harArbeidstaker: boolean, harFrilans: boolean) => {
+  if (harArbeidstaker && harFrilans) {
+    return <FormattedMessage id="Arbeidsinntekt.Table.ArbeidsgiverOgOppdragsgiver" />;
+  }
+  return harFrilans ? (
+    <FormattedMessage id="Arbeidsinntekt.Table.Oppdragsgiver" />
+  ) : (
+    <FormattedMessage id="Arbeidsinntekt.Table.Arbeidsgiver" />
   );
 };
