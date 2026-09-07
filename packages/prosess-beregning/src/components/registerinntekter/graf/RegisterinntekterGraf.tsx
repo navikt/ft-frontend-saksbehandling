@@ -29,7 +29,7 @@ export const RegisterinntekterGraf = ({
     color: getAkselVariable('--ax-text-neutral'),
   };
   const legend = byggLegend(grunnlag_8_30.inntektskilder, grunnlag_8_28.inntektskilder, vis_8_28);
-  const grafHøyde = periodeData.length * (vis_8_28 ? 40 : 24) + 64;
+  const grafHøyde = periodeData.length * (vis_8_28 ? 36 : 20) + 64;
 
   return (
     <HGrid padding="space-8" gap="space-16" columns={{ xs: 1, lg: 'fit-content(25%) 1fr' }}>
@@ -42,7 +42,7 @@ export const RegisterinntekterGraf = ({
           aria-label={intl.formatMessage({ id: 'Registerinntekt.Tegnforklaring' })}
         >
           {legend.map(kilde => (
-            <HStack as="li" key={kilde.label} gap="space-4" align="baseline" wrap={false}>
+            <HStack as="li" key={kilde.label} gap="space-4" align="baseline" justify="start" wrap={false}>
               <span
                 style={{
                   width: 24,
