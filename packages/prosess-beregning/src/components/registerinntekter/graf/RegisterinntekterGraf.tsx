@@ -24,11 +24,9 @@ export const RegisterinntekterGraf = ({
   transformerteRegisterinntekter: { grunnlag_8_30, grunnlag_8_28, periodeData, vis_8_28 },
 }: Props) => {
   const intl = useIntl();
-  const fontSize = 14;
   const textStyle = {
     fontFamily: getAkselVariable('--ax-font-family'),
     color: getAkselVariable('--ax-text-neutral'),
-    fontSize,
   };
   const legend = byggLegend(grunnlag_8_30.inntektskilder, grunnlag_8_28.inntektskilder, vis_8_28);
   const grafHøyde = periodeData.length * (vis_8_28 ? 40 : 24) + 64;
@@ -88,20 +86,16 @@ export const RegisterinntekterGraf = ({
               top: 0,
               left: 0,
               bottom: 0,
-              right: '2%',
+              right: 0,
             },
             xAxis: {
               type: 'value',
               axisLabel: {
-                fontSize,
                 formatter: value => formatCurrencyNoKr(value) || '',
               },
             },
             yAxis: {
               type: 'category',
-              axisLabel: {
-                fontSize,
-              },
               data: periodeData,
             },
             tooltip: {
