@@ -66,11 +66,7 @@ export const RegisterinntekterGraf = ({
         </Hide>
       </VStack>
 
-      <div
-        className={styles.graf}
-        role="figure"
-        aria-label={intl.formatMessage({ id: 'Registerinntekt.GrafBeskrivelse' })}
-      >
+      <div className={styles.graf}>
         <ReactECharts
           option={{
             textStyle,
@@ -83,6 +79,9 @@ export const RegisterinntekterGraf = ({
             },
             aria: {
               enabled: true,
+              label: {
+                description: intl.formatMessage({ id: 'Registerinntekt.GrafBeskrivelse' }),
+              },
               decal: { show: true },
             },
             grid: {
