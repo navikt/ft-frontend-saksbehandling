@@ -6,7 +6,7 @@ import { formaterParagraf, type RegisterinntekterPerKilde } from '../registerinn
 import { getGrafFarger } from './grafFarger';
 
 export const createBar =
-  (skalVises: boolean = true) =>
+  (skalVises: boolean = true, barMaxWidth: number = 30) =>
   (
     { label, inntektAktivitetType, typeGrunnlag, datapunkter }: RegisterinntekterPerKilde,
     index: number,
@@ -18,7 +18,7 @@ export const createBar =
     return [
       {
         type: 'bar',
-        barMaxWidth: 30,
+        barMaxWidth,
         id: typeGrunnlag + ':' + label,
         name: label,
         color,
