@@ -32,7 +32,7 @@ describe('BeregningProsessIndex', () => {
     expect(arbeidsinntekt).toBeInTheDocument();
     expect(within(arbeidsinntekt).getByText('Inntektsmelding')).toBeInTheDocument();
     expect(within(arbeidsinntekt).getByText('Arbeidsgiver')).toBeInTheDocument();
-    expect(within(arbeidsinntekt).queryByText('Oppdragsgiver')).not.toBeInTheDocument();
+    expect(within(arbeidsinntekt).queryByText('Inntektskilde')).not.toBeInTheDocument();
     expect(
       within(within(arbeidsinntekt).getByRole('table')).getByRole('button', { name: 'Vis mer' }),
     ).toBeInTheDocument();
@@ -60,7 +60,7 @@ describe('BeregningProsessIndex', () => {
     ).toHaveLength(2);
     const frilansinntekt = screen.getByRole('region', { name: 'Frilansinntekt' });
     expect(frilansinntekt).toBeInTheDocument();
-    expect(within(frilansinntekt).getByText('Oppdragsgiver')).toBeInTheDocument();
+    expect(within(frilansinntekt).getByText('Inntektskilde')).toBeInTheDocument();
     expect(within(frilansinntekt).queryByText('Arbeidsgiver')).not.toBeInTheDocument();
     expect(within(frilansinntekt).queryByText('Inntektsmelding')).not.toBeInTheDocument();
 
