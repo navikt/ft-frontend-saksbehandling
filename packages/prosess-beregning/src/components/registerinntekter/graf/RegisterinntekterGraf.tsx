@@ -27,71 +27,84 @@ export const RegisterinntekterGraf = ({
   const intl = useIntl();
   const [utvidet, setUtvidet] = useState(false);
 
-  const fontSize = getAkselVariable('--ax-font-size-small');
-  const textStyle = {
-    fontFamily: getAkselVariable('--ax-font-family'),
-    color: getAkselVariable('--ax-text-neutral'),
-    fontSize,
-  };
+  const fontFamily = getAkselVariable('--ax-font-family');
+  const color = getAkselVariable('--ax-text-neutral');
+  const smallFontSize = getAkselVariable('--ax-font-size-small');
 
-  const byggOption = (barMaxWidth: number, medUtvidKnapp: boolean): EChartsOption => ({
-    textStyle,
-    animation: false,
-    labelLayout: { hideOverlap: true },
-    legend: { type: 'scroll', top: 'top', left: 'left' },
-    aria: {
-      enabled: true,
-      label: { description: intl.formatMessage({ id: 'Registerinntekt.GrafBeskrivelse' }) },
-      decal: { show: true },
-    },
-    toolbox: medUtvidKnapp
-      ? {
-          right: 0,
-          top: 0,
-          feature: {
-            myUtvid: {
-              show: true,
-              title: intl.formatMessage({ id: 'Registerinntekt.VisStorre' }),
-              icon: UTVID_IKON,
-              onclick: () => setUtvidet(true),
-            },
-          },
-        }
-      : undefined,
-    grid: { top: 28, left: 0, right: 8, bottom: 0, containLabel: true },
-    xAxis: {
-      type: 'value',
-      axisLabel: { fontSize, formatter: value => formatCurrencyNoKr(value) || '' },
-    },
-    yAxis: {
-      type: 'category',
-      axisLabel: { fontSize },
-      data: periodeData,
-    },
-    tooltip: {
-      axisPointer: { type: 'shadow' },
-      trigger: 'axis',
-      appendToBody: true,
+  const byggOption = (barMaxWidth: number, medUtvidKnapp: boolean, visVerdiLabel: boolean): EChartsOption => {
+    const fontSize = medUtvidKnapp ? `${parseFloat(smallFontSize) * 0.7}rem` : smallFontSize;
+    const textStyle = { fontFamily, color, fontSize };
+    return {
       textStyle,
-      borderColor: getAkselVariable('--ax-border-neutral-subtleA'),
-      borderRadius: 12,
-      padding: [16, 20],
-      borderWidth: 1,
-      formatter: formatTooltip(intl),
-    },
-    series: [
-      grunnlag_8_30.inntektskilder.flatMap(createBar(true, barMaxWidth)),
-      grunnlag_8_28.inntektskilder.flatMap(createBar(vis_8_28, barMaxWidth)),
-      createStackLabel(grunnlag_8_30.inntektskilder, vis_8_28),
-      createStackLabel(grunnlag_8_28.inntektskilder, vis_8_28),
-    ].flat(),
-  });
+      animation: false,
+      labelLayout: { hideOverlap: true },
+      legend: { type: 'scroll', top: 'top', left: 'left' },
+      aria: {
+        enabled: true,
+        label: { description: intl.formatMessage({ id: 'Registerinntekt.GrafBeskrivelse' }) },
+        decal: { show: true },
+      },
+      toolbox: medUtvidKnapp
+        ? {
+            right: 0,
+            top: 0,
+            tooltip: {
+              show: true,
+              formatter: (params: { title?: string }) => params.title ?? '',
+              borderColor: getAkselVariable('--ax-border-neutral-subtleA'),
+              borderWidth: 1,
+              borderRadius: 8,
+              padding: [4, 8],
+              textStyle,
+            },
+            feature: {
+              myUtvid: {
+                show: true,
+                title: intl.formatMessage({ id: 'Registerinntekt.VisStorre' }),
+                icon: UTVID_IKON,
+                onclick: () => setUtvidet(true),
+              },
+            },
+          }
+        : undefined,
+      grid: { top: 28, left: 0, right: 8, bottom: 0, containLabel: true },
+      xAxis: {
+        type: 'value',
+        axisLabel: { fontSize, formatter: value => formatCurrencyNoKr(value) || '' },
+      },
+      yAxis: {
+        type: 'category',
+        axisLabel: { fontSize },
+        data: periodeData,
+      },
+      tooltip: {
+        axisPointer: { type: 'shadow' },
+        trigger: 'axis',
+        appendToBody: medUtvidKnapp,
+        textStyle,
+        borderColor: getAkselVariable('--ax-border-neutral-subtleA'),
+        borderRadius: 12,
+        padding: [16, 20],
+        borderWidth: 1,
+        formatter: formatTooltip(intl),
+      },
+      series: [
+        grunnlag_8_30.inntektskilder.flatMap(createBar(true, barMaxWidth, visVerdiLabel)),
+        grunnlag_8_28.inntektskilder.flatMap(createBar(vis_8_28, barMaxWidth, visVerdiLabel)),
+        createStackLabel(grunnlag_8_30.inntektskilder, vis_8_28),
+        createStackLabel(grunnlag_8_28.inntektskilder, vis_8_28),
+      ].flat(),
+    };
+  };
 
   const høyde = (radHøyde: number, basis: number) => `${periodeData.length * radHøyde + basis}px`;
 
   return (
     <>
-      <ReactECharts option={byggOption(14, true)} style={{ height: høyde(vis_8_28 ? 28 : 18, 44) }} />
+      <ReactECharts
+        option={byggOption(14, true, false)}
+        style={{ height: høyde(vis_8_28 ? 28 : 18, 44), maxWidth: 640 }}
+      />
       <VStack gap="space-4">
         <LabeledValue
           horizontal
@@ -129,7 +142,9 @@ export const RegisterinntekterGraf = ({
           </Heading>
         </Modal.Header>
         <Modal.Body>
-          {utvidet && <ReactECharts option={byggOption(28, false)} style={{ height: høyde(vis_8_28 ? 52 : 36, 96) }} />}
+          {utvidet && (
+            <ReactECharts option={byggOption(28, false, true)} style={{ height: høyde(vis_8_28 ? 52 : 36, 96) }} />
+          )}
         </Modal.Body>
       </Modal>
     </>
