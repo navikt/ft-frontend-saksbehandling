@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Table } from '@navikt/ds-react';
@@ -34,42 +33,30 @@ export const RegisterinntekterTabell = ({
         )}
       </Table.Row>
     </Table.Header>
-    <Table.Body>
-      {tabellData.map(({ formatertPeriode, kilderForRad, månedinntekt_8_30, månedinntekt_8_28 }) => (
-        <Table.Row key={formatertPeriode}>
-          <Table.HeaderCell scope="row" textSize="small">
-            {formatertPeriode}
-          </Table.HeaderCell>
-          <Table.DataCell textSize="small">
-            {kilderForRad.map((kilde, index) => (
-              <Fragment key={kilde}>
-                {kilde}
-                {index < kilderForRad.length - 1 && <br />}
-              </Fragment>
-            ))}
-          </Table.DataCell>
-          <Table.DataCell align="right" textSize="small">
-            {kilderForRad.map((kilde, index) => (
-              <Fragment key={`${index}-${kilde}`}>
-                {<BeløpLabel beløp={månedinntekt_8_30[kilde]?.beløp} kr />}
-                {index < kilderForRad.length - 1 && <br />}
-              </Fragment>
-            ))}
-          </Table.DataCell>
-          {vis_8_28 && (
+    {tabellData.map(({ formatertPeriode, kilderForRad, månedinntekt_8_30, månedinntekt_8_28 }) => (
+      <Table.Body key={formatertPeriode}>
+        {kilderForRad.map((kilde, index) => (
+          <Table.Row key={kilde} shadeOnHover={false}>
+            {index === 0 && (
+              <Table.HeaderCell scope="row" rowSpan={kilderForRad.length} textSize="small">
+                {formatertPeriode}
+              </Table.HeaderCell>
+            )}
+            <Table.DataCell textSize="small">{kilde}</Table.DataCell>
             <Table.DataCell align="right" textSize="small">
-              {Object.values(månedinntekt_8_28).length > 0 &&
-                kilderForRad.map((kilde, index) => (
-                  <Fragment key={`${index}-${kilde}`}>
-                    {<BeløpLabel beløp={månedinntekt_8_28[kilde]?.beløp} kr />}
-                    {index < kilderForRad.length - 1 && <br />}
-                  </Fragment>
-                ))}
+              <BeløpLabel beløp={månedinntekt_8_30[kilde]?.beløp} kr />
             </Table.DataCell>
-          )}
-        </Table.Row>
-      ))}
-    </Table.Body>
+            {vis_8_28 && (
+              <Table.DataCell align="right" textSize="small">
+                {Object.values(månedinntekt_8_28).length > 0 && (
+                  <BeløpLabel beløp={månedinntekt_8_28[kilde]?.beløp} kr />
+                )}
+              </Table.DataCell>
+            )}
+          </Table.Row>
+        ))}
+      </Table.Body>
+    ))}
     <tfoot>
       {kilder.length > 1 &&
         kilder.map((kilde, index) => (

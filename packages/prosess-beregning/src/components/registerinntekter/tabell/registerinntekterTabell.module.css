@@ -1,4 +1,22 @@
 .table {
+  max-width: 40rem;
+
+  /* Hover markerer hele måned-gruppen (tbody) samlet – inkludert rowspan-cellen */
+  tbody:hover :is(th, td) {
+    background-color: var(--ax-bg-neutral-moderate-hoverA);
+  }
+
+  /* Hver måned er en egen tbody: stable kildene tett uten linjer/luft mellom radene,
+     slik at bare månedsskillet vises */
+  tbody tr:not(:last-child) td {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  tbody tr:not(:first-child) td {
+    padding-top: 0;
+  }
+
   tfoot {
     border-top: 2px solid var(--ax-border-neutral-strong);
 
