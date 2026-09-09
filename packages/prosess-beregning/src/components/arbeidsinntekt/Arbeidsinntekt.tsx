@@ -70,7 +70,9 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
           </Table.Row>
           <Table.Row>
             <Table.HeaderCell scope="col" textSize="small">
-              {arbeidsgiverKolonneOverskrift(harArbeidstaker, harFrilans)}
+              <FormattedMessage
+                id={harFrilans ? 'Arbeidsinntekt.Table.Inntektskilde' : 'Arbeidsinntekt.Table.Arbeidsgiver'}
+              />
             </Table.HeaderCell>
             {inneholderInntektSomErFastsattAvSBH && (
               <>
@@ -238,16 +240,5 @@ const tittel = (harArbeidstaker: boolean, harFrilans: boolean) => {
     <FormattedMessage id="Arbeidsinntekt.Tittel.ArbeidOgFrilans" />
   ) : (
     <FormattedMessage id="Arbeidsinntekt.Tittel.Frilans" />
-  );
-};
-
-const arbeidsgiverKolonneOverskrift = (harArbeidstaker: boolean, harFrilans: boolean) => {
-  if (harArbeidstaker && harFrilans) {
-    return <FormattedMessage id="Arbeidsinntekt.Table.ArbeidsgiverOgOppdragsgiver" />;
-  }
-  return harFrilans ? (
-    <FormattedMessage id="Arbeidsinntekt.Table.Oppdragsgiver" />
-  ) : (
-    <FormattedMessage id="Arbeidsinntekt.Table.Arbeidsgiver" />
   );
 };
