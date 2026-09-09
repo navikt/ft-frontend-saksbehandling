@@ -1,5 +1,5 @@
 .table {
-  max-width: 40rem;
+  max-width: 56rem;
 
   /* Hover markerer hele måned-gruppen (tbody) samlet – inkludert rowspan-cellen */
   tbody:hover :is(th, td) {
