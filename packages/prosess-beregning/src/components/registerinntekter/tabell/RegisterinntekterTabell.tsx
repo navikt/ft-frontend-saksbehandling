@@ -35,20 +35,20 @@ export const RegisterinntekterTabell = ({
     </Table.Header>
     {tabellData.map(({ formatertPeriode, kilderForRad, månedinntekt_8_30, månedinntekt_8_28 }) => (
       <Table.Body key={formatertPeriode}>
-        {kilderForRad.map((kilde, index) => (
-          <Table.Row key={kilde} shadeOnHover={false}>
+        {(kilderForRad.length > 0 ? kilderForRad : [undefined]).map((kilde, index) => (
+          <Table.Row key={kilde ?? `${formatertPeriode}-tom-rad`} shadeOnHover={false}>
             {index === 0 && (
-              <Table.HeaderCell scope="row" rowSpan={kilderForRad.length} textSize="small">
+              <Table.HeaderCell scope="rowgroup" rowSpan={Math.max(kilderForRad.length, 1)} textSize="small">
                 {formatertPeriode}
               </Table.HeaderCell>
             )}
             <Table.DataCell textSize="small">{kilde}</Table.DataCell>
             <Table.DataCell align="right" textSize="small">
-              <BeløpLabel beløp={månedinntekt_8_30[kilde]?.beløp} kr />
+              {kilde && <BeløpLabel beløp={månedinntekt_8_30[kilde]?.beløp} kr />}
             </Table.DataCell>
             {vis_8_28 && (
               <Table.DataCell align="right" textSize="small">
-                {Object.values(månedinntekt_8_28).length > 0 && (
+                {kilde && Object.values(månedinntekt_8_28).length > 0 && (
                   <BeløpLabel beløp={månedinntekt_8_28[kilde]?.beløp} kr />
                 )}
               </Table.DataCell>
