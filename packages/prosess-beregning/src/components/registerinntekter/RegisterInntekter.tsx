@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BarChartIcon, TableIcon } from '@navikt/aksel-icons';
-import { Checkbox, HStack, Spacer, ToggleGroup, VStack } from '@navikt/ds-react';
+import { Box, Checkbox, HStack, Spacer, ToggleGroup, VStack } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Inntektsgrunnlag } from '@navikt/ft-types';
 import { FaktaBoks } from '@navikt/ft-ui-komponenter';
@@ -55,12 +55,14 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
             <FormattedMessage id="Registerinntekt.Vis8-28" />
           </Checkbox>
         </HStack>
-        {valgtVisning === 'graf' && (
-          <RegisterinntekterGraf transformerteRegisterinntekter={transformerteRegisterinntekter} />
-        )}
-        {valgtVisning === 'tabell' && (
-          <RegisterinntekterTabell transformerteRegisterinntekter={transformerteRegisterinntekter} />
-        )}
+        <Box maxWidth={{ xl: '50%' }}>
+          {valgtVisning === 'graf' && (
+            <RegisterinntekterGraf transformerteRegisterinntekter={transformerteRegisterinntekter} />
+          )}
+          {valgtVisning === 'tabell' && (
+            <RegisterinntekterTabell transformerteRegisterinntekter={transformerteRegisterinntekter} />
+          )}
+        </Box>
       </VStack>
     </FaktaBoks>
   );

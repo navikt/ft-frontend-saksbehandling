@@ -46,24 +46,25 @@ export const RegisterinntekterGraf = ({
             decal: { show: true },
           },
           grid: {
-            top: '8%',
             left: '0%',
+            right: '0%',
+            top: '10%',
             bottom: '0%',
-            right: '4%',
           },
           xAxis: {
-            type: 'value',
-            axisLabel: {
-              fontSize,
-              formatter: value => formatCurrencyNoKr(value) || '',
-            },
-          },
-          yAxis: {
             type: 'category',
             axisLabel: {
+              rotate: 45,
               fontSize,
             },
             data: periodeData,
+          },
+          yAxis: {
+            type: 'value',
+            axisLabel: {
+              formatter: value => formatCurrencyNoKr(value) || '',
+              fontSize,
+            },
           },
           tooltip: {
             axisPointer: { type: 'shadow' },
@@ -83,8 +84,9 @@ export const RegisterinntekterGraf = ({
             createStackLabel(grunnlag_8_28.inntektskilder, vis_8_28),
           ].flat(),
         }}
-        style={{ height: `calc(${periodeData.length} * ${vis_8_28 ? 48 : 28}px + 96px)` }}
+        style={{ width: '100%', height: '300px' }}
       />
+
       <VStack gap="space-4">
         <LabeledValue
           horizontal
