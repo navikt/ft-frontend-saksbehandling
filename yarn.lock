@@ -1369,10 +1369,10 @@ __metadata:
     eslint-plugin-import: "npm:2.32.0"
     eslint-plugin-react: "npm:7.37.5"
     eslint-plugin-react-hooks: "npm:7.1.1"
-    eslint-plugin-react-refresh: "npm:0.5.5"
+    eslint-plugin-react-refresh: "npm:0.5.6"
     eslint-plugin-react-you-might-not-need-an-effect: "npm:1.0.2"
     eslint-plugin-simple-import-sort: "npm:14.0.0"
-    eslint-plugin-storybook: "npm:10.5.10"
+    eslint-plugin-storybook: "npm:10.6.0"
     globals: "npm:17.11.0"
     typescript: "npm:6.0.3"
     typescript-eslint: "npm:8.68.0"
@@ -5826,12 +5826,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-refresh@npm:0.5.5":
-  version: 0.5.5
-  resolution: "eslint-plugin-react-refresh@npm:0.5.5"
+"eslint-plugin-react-refresh@npm:0.5.6":
+  version: 0.5.6
+  resolution: "eslint-plugin-react-refresh@npm:0.5.6"
   peerDependencies:
     eslint: ^9 || ^10
-  checksum: 10/482e215cc870db38e9c8a015df04f06ae108f6200fc181763d12c28a20515b5f167dc2e4ed1f5359fe94d8d19ae6465bba040bdfbc0b301cab7f9c677949beb9
+  checksum: 10/eb4e1bece1cf848c5ee349959537ce9b2dc666c1c09b4d006746afee837e6bdc905a7bb47336ad599bf5514d91ad105398b3e9cbf23547a0763fdb883f0aed2a
   languageName: node
   linkType: hard
 
@@ -5883,15 +5883,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-storybook@npm:10.5.10":
-  version: 10.5.10
-  resolution: "eslint-plugin-storybook@npm:10.5.10"
+"eslint-plugin-storybook@npm:10.6.0":
+  version: 10.6.0
+  resolution: "eslint-plugin-storybook@npm:10.6.0"
   dependencies:
     "@typescript-eslint/types": "npm:^8.60.0"
     "@typescript-eslint/utils": "npm:^8.60.0"
   peerDependencies:
     eslint: ">=8"
-  checksum: 10/8a56969d55a66934377be48e7fd95432b41869c26e1d59109d44e594abe4815d9a2ad81a6d0031cc6ebd684b9e912b7bfd9c3306d8fccbc4cd62840ac7205282
+  checksum: 10/1a77daa2bbf7dbe02b5fc9cbdf681ddcb3db36fc72de487180a7ff6cb9b4bcb05fd5ddbe40b8120eb492c443e1af48c166f9463928c8452b5b517307a11f2bd5
   languageName: node
   linkType: hard
 
@@ -6381,7 +6381,7 @@ __metadata:
     eslint: "npm:10.9.1"
     husky: "npm:9.1.7"
     jsdom: "npm:30.0.1"
-    knip: "npm:6.33.0"
+    knip: "npm:6.34.0"
     lerna: "npm:10.0.1"
     lint-staged: "npm:17.4.1"
     prettier: "npm:3.9.6"
@@ -7640,9 +7640,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:6.33.0":
-  version: 6.33.0
-  resolution: "knip@npm:6.33.0"
+"knip@npm:6.34.0":
+  version: 6.34.0
+  resolution: "knip@npm:6.34.0"
   dependencies:
     fdir: "npm:^6.5.0"
     formatly: "npm:^0.7.0"
@@ -7660,7 +7660,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/4a131d3bb06a2c7a1c8126c8f2ad8e0bdf0dd6b0ad9a86ea3e36765fc6630c914d52ed13f7977e5b5486fcdb4c3ff2e7ec5f83cd9803c9b29b2c7b11cdba6ec0
+  checksum: 10/eeebec459f516630cc4066e257f098a4bd35024c65e536b63a8e0a343ac4af0f7f0564ecaaa21d7caa2a0f0b9f256c361b3c9bdcde700546e34ef8282091c821
   languageName: node
   linkType: hard
 
