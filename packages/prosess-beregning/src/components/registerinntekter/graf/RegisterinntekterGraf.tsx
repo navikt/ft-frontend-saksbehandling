@@ -25,7 +25,6 @@ export const RegisterinntekterGraf = ({
   const textStyle = {
     fontFamily: getAkselVariable('--ax-font-family'),
     color: getAkselVariable('--ax-text-neutral'),
-    fontSize,
   };
 
   return (
@@ -55,7 +54,6 @@ export const RegisterinntekterGraf = ({
             type: 'category',
             axisLabel: {
               rotate: 45,
-              fontSize,
             },
             data: periodeData,
           },
@@ -63,14 +61,16 @@ export const RegisterinntekterGraf = ({
             type: 'value',
             axisLabel: {
               formatter: value => formatCurrencyNoKr(value) || '',
-              fontSize,
             },
           },
           tooltip: {
             axisPointer: { type: 'shadow' },
             trigger: 'axis',
             appendToBody: true,
-            textStyle,
+            textStyle: {
+              ...textStyle,
+              fontSize,
+            },
             borderColor: getAkselVariable('--ax-border-neutral-subtleA'),
             borderRadius: 12,
             padding: [16, 20],
