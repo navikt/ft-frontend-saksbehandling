@@ -47,7 +47,8 @@ export const createBar =
         },
         label: {
           show: true,
-          fontSize: '12px',
+          fontSize: '10px',
+          rotate: 90,
           backgroundColor: color,
           formatter: params => {
             const value = params.value as number;
@@ -57,10 +58,6 @@ export const createBar =
             return '';
           },
         },
-        labelLayout:{
-          hideOverlap: true,
-          rotate: 90,
-        }
       },
     ];
   };
@@ -89,7 +86,7 @@ export const createStackLabel = (
       label: {
         show: true,
         position: 'top',
-        fontSize: '9px',
+        fontSize: '8px',
         formatter: formaterParagraf(førsteElement.typeGrunnlag),
       },
       tooltip: {

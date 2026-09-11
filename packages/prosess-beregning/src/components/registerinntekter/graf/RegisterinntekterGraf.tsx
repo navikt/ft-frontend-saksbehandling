@@ -21,10 +21,11 @@ export const RegisterinntekterGraf = ({
   transformerteRegisterinntekter: { grunnlag_8_30, grunnlag_8_28, periodeData, vis_8_28 },
 }: Props) => {
   const intl = useIntl();
-  const fontSize = getAkselVariable('--ax-font-size-small');
+  const fontSize = '12px';
   const textStyle = {
     fontFamily: getAkselVariable('--ax-font-family'),
     color: getAkselVariable('--ax-text-neutral'),
+    fontSize,
   };
 
   return (
@@ -45,10 +46,10 @@ export const RegisterinntekterGraf = ({
             decal: { show: true },
           },
           grid: {
-            left: '0%',
-            right: '0%',
             top: '10%',
+            left: '0%',
             bottom: '0%',
+            right: '0%',
           },
           xAxis: {
             type: 'category',
@@ -67,10 +68,7 @@ export const RegisterinntekterGraf = ({
             axisPointer: { type: 'shadow' },
             trigger: 'axis',
             appendToBody: true,
-            textStyle: {
-              ...textStyle,
-              fontSize,
-            },
+            textStyle,
             borderColor: getAkselVariable('--ax-border-neutral-subtleA'),
             borderRadius: 12,
             padding: [16, 20],
