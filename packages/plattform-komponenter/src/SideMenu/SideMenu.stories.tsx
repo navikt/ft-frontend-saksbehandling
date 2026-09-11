@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { HStack } from '@navikt/ds-react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { SideMenu } from './SideMenu';
@@ -19,14 +18,7 @@ const meta = {
       ...link,
       active: currentIndex === index,
     }));
-    return (
-      <div style={{ width: '400px', border: '1px dotted black' }}>
-        <HStack>
-          <SideMenu heading={heading} links={linksWithActiveState} onClick={handleOnClick} />
-          <div style={{ width: '200px', height: '800px', padding: '24px' }}>annet innhold</div>
-        </HStack>
-      </div>
-    );
+    return <SideMenu heading={heading} links={linksWithActiveState} onClick={handleOnClick} />;
   },
 } satisfies Meta<typeof SideMenu>;
 
