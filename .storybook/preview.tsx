@@ -1,7 +1,7 @@
 import type { Preview } from '@storybook/react-vite';
 import dayjs from 'dayjs';
 
-import { withThemeDecorator } from '@navikt/ft-frontend-storybook-utils';
+import { withPanelDecorator, withThemeDecorator } from '@navikt/ft-frontend-storybook-utils';
 
 import './global.module.css';
 
@@ -23,20 +23,26 @@ const globalTypes: Preview['globalTypes'] = {
       ],
     },
   },
+  panelramme: {
+    name: 'Panelramme',
+    description: 'Simuler plasseringen av prosess-/faktapanelet inne i fp-frontend',
+    defaultValue: 'av',
+    toolbar: {
+      icon: 'sidebar',
+      items: [
+        { value: 'av', icon: 'component', title: 'Kun panel' },
+        { value: 'på', icon: 'sidebar', title: 'Vis app-ramme' },
+      ],
+      dynamicTitle: true,
+    },
+  },
 };
 
 const preview: Preview = {
   parameters: {
     htmlLang: 'nb',
   },
-  decorators: [
-    Story => (
-      <div style={{ margin: '40px' }}>
-        <Story />
-      </div>
-    ),
-    withThemeDecorator,
-  ],
+  decorators: [withPanelDecorator, withThemeDecorator],
   globalTypes,
 };
 
