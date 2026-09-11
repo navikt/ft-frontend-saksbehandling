@@ -19,8 +19,8 @@ export const withPanelDecorator: DecoratorFunction<ReactRenderer> = (Story, cont
   const title = context.title ?? '';
   const erProsess = title.includes('-prosess-');
   const erFakta = title.includes('-fakta-');
-  const erSideMeny = title.includes('/SideMenu');
-  const erProsessMeny = title.includes('/ProcessMenu');
+  const erSideMeny = title.endsWith('/SideMenu');
+  const erProsessMeny = title.endsWith('/ProcessMenu');
 
   if (rammeAv || (!erProsess && !erFakta && !erSideMeny && !erProsessMeny)) {
     return (
@@ -33,10 +33,7 @@ export const withPanelDecorator: DecoratorFunction<ReactRenderer> = (Story, cont
   return (
     <Sideramme>
       <ProsessMenyOmråde meny={erProsessMeny ? <Story /> : undefined} innhold={erProsess ? <Story /> : undefined} />
-      <FaktaOmradeSkjelett
-        meny={erSideMeny ? <Story /> : undefined}
-        innhold={erFakta ? <Story /> : undefined}
-      />
+      <FaktaOmradeSkjelett meny={erSideMeny ? <Story /> : undefined} innhold={erFakta ? <Story /> : undefined} />
     </Sideramme>
   );
 };
