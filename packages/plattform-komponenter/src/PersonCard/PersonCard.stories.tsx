@@ -45,7 +45,9 @@ export const FlereVedSiden: Story = {
         />
         <PersonCard name="Voksen Mann" gender={Gender.male} fodselsnummer="12345612345" url="#" />
         <Spacer />
-        <VisittKort icon={Gender.female} children={<span>heiheihieh hiehi e hieihe</span>} />
+        <VisittKort icon={Gender.female}>
+          <span>heiheihieh hiehi e hieihe</span>
+        </VisittKort>
       </HStack>
     </Box>
   ),
