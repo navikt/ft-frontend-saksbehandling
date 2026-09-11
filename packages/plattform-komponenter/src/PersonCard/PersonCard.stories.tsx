@@ -1,10 +1,9 @@
-import { Box, HStack, Spacer, Tag } from '@navikt/ds-react';
+import { HStack, Tag } from '@navikt/ds-react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { EmptyPersonCard } from './EmptyPersonCard';
 import { Gender } from './Gender';
 import { PersonCard } from './PersonCard';
-import { VisittKort } from './VisittKort';
 
 const meta = {
   component: PersonCard,
@@ -34,22 +33,16 @@ export const MedMenyOgAlder: Story = {
 
 export const FlereVedSiden: Story = {
   render: () => (
-    <Box background="neutral-moderate">
-      <HStack wrap={false}>
-        <PersonCard
-          name="Ekstremt Langt Navn Navnesen For Å Teste Hva Som Skjer Med Brytningen"
-          gender={Gender.female}
-          fodselsnummer="12345612345"
-          url="#"
-          isActive
-        />
-        <PersonCard name="Voksen Mann" gender={Gender.male} fodselsnummer="12345612345" url="#" />
-        <Spacer />
-        <VisittKort icon={Gender.female}>
-          <span>heiheihieh hiehi e hieihe</span>
-        </VisittKort>
-      </HStack>
-    </Box>
+    <HStack wrap={false}>
+      <PersonCard
+        name="Ekstremt Langt Navn Navnesen For Å Teste Hva Som Skjer Med Brytningen"
+        gender={Gender.female}
+        fodselsnummer="12345612345"
+        url="#"
+        isActive
+      />
+      <PersonCard name="Voksen Mann" gender={Gender.male} fodselsnummer="12345612345" url="#" />
+    </HStack>
   ),
 };
 
