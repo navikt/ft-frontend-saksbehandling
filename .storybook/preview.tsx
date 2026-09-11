@@ -27,14 +27,6 @@ const globalTypes: Preview['globalTypes'] = {
     name: 'Panelramme',
     description: 'Simuler plasseringen av prosess-/faktapanelet inne i fp-frontend',
     defaultValue: 'av',
-    toolbar: {
-      icon: 'sidebar',
-      items: [
-        { value: 'av', icon: 'component', title: 'Kun panel' },
-        { value: 'på', icon: 'sidebar', title: 'Vis app-ramme' },
-      ],
-      dynamicTitle: true,
-    },
   },
 };
 
