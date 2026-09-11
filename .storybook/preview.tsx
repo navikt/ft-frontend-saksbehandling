@@ -30,7 +30,7 @@ const globalTypes: Preview['globalTypes'] = {
     toolbar: {
       icon: 'sidebar',
       items: [
-        { value: 'av', icon: 'component', title: 'Kun panel' },
+        { value: 'av', icon: 'component', title: 'Vis kun komponent' },
         { value: 'på', icon: 'sidebar', title: 'Vis app-ramme' },
       ],
       dynamicTitle: true,
