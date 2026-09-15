@@ -69,6 +69,15 @@ jobs:
       - name: Kjør browsertester
         run: yarn test:browser
 
+      - name: Last opp trace view-rapport
+        # Trace view (og html-rapporten den vises i) genereres kun for browser-prosjektet, og er mest nyttig når testene faktisk feiler.
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # ratchet:actions/upload-artifact@v7.0.1
+        with:
+          name: vitest-trace-view
+          path: packages/*/.vitest
+          retention-days: 7
+
   sif-code-scan:
     runs-on: ubuntu-latest
     name: 'SIF Code Scan'

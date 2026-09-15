@@ -31,6 +31,8 @@ const vitestConfig = defineVitestConfig(() => {
       sequence: {
         setupFiles: 'list',
       },
+      // html-reporter kreves for å kunne åpne trace view i etterkant. Uten den logges bare en advarsel og traces blir utilgjengelige.
+      reporters: enableBrowser ? ['default', 'html'] : ['default'],
       projects: [
         {
           extends: true,
@@ -57,6 +59,8 @@ const vitestConfig = defineVitestConfig(() => {
                 // ...custom playwright options
               }),
               instances: [{ browser: 'chromium' }],
+              // Vitests eget trace view (uavhengig av Playwright sin trace.playwright.dev-viewer), åpnes fra html-rapporten.
+              traceView: true,
             },
           },
         },

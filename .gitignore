@@ -23,3 +23,7 @@ ssh.exe.stackdump
 vite.config.*.timestamp-*
 .nx/cache
 .nx/workspace-data
+
+# Vitest html-rapport og trace view/Playwright-traces fra browser-mode
+.vitest
+__traces__
