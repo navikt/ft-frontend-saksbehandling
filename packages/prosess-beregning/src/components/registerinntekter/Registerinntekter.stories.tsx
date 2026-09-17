@@ -194,7 +194,47 @@ export const VisningAvSammenligningsgrunnlag: Story = {
           ],
         },
       ],
-      beregningsgrunnlagInntekter: [],
+      beregningsgrunnlagInntekter: [
+        {
+          fom: '2025-10-01',
+          tom: '2025-10-31',
+          inntekter: [
+            {
+              inntektAktivitetType: 'YTELSEINNTEKT',
+              beløp: 42378,
+            },
+          ],
+        },
+        {
+          fom: '2025-11-01',
+          tom: '2025-11-30',
+          inntekter: [
+            {
+              inntektAktivitetType: 'ARBEIDSTAKERINNTEKT',
+              arbeidsgiverIdent: '555555555',
+              beløp: 784.75,
+            },
+            {
+              inntektAktivitetType: 'YTELSEINNTEKT',
+              beløp: 55340,
+            },
+          ],
+        },
+        {
+          fom: '2025-12-01',
+          tom: '2025-12-31',
+          inntekter: [
+            {
+              inntektAktivitetType: 'YTELSEINNTEKT',
+              beløp: 9884,
+            },
+            {
+              inntektAktivitetType: 'FRILANSINNTEKT',
+              beløp: 7055,
+            },
+          ],
+        },
+      ],
     },
   },
 };
