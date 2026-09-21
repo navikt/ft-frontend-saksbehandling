@@ -21,7 +21,7 @@ export const RegisterinntekterGraf = ({
   transformerteRegisterinntekter: { grunnlag_8_30, grunnlag_8_28, periodeData, vis_8_28 },
 }: Props) => {
   const intl = useIntl();
-  const fontSize = getAkselVariable('--ax-font-size-small');
+  const fontSize = '12px';
   const textStyle = {
     fontFamily: getAkselVariable('--ax-font-family'),
     color: getAkselVariable('--ax-text-neutral'),
@@ -46,24 +46,24 @@ export const RegisterinntekterGraf = ({
             decal: { show: true },
           },
           grid: {
-            top: '8%',
+            top: '10%',
             left: '0%',
             bottom: '0%',
-            right: '4%',
+            right: '0%',
+            containLabel: true,
           },
           xAxis: {
-            type: 'value',
-            axisLabel: {
-              fontSize,
-              formatter: value => formatCurrencyNoKr(value) || '',
-            },
-          },
-          yAxis: {
             type: 'category',
             axisLabel: {
-              fontSize,
+              rotate: 45,
             },
             data: periodeData,
+          },
+          yAxis: {
+            type: 'value',
+            axisLabel: {
+              formatter: value => formatCurrencyNoKr(value) || '',
+            },
           },
           tooltip: {
             axisPointer: { type: 'shadow' },
@@ -83,8 +83,9 @@ export const RegisterinntekterGraf = ({
             createStackLabel(grunnlag_8_28.inntektskilder, vis_8_28),
           ].flat(),
         }}
-        style={{ height: `calc(${periodeData.length} * ${vis_8_28 ? 48 : 28}px + 96px)` }}
+        style={{ width: '100%', height: '300px' }}
       />
+
       <VStack gap="space-4">
         <LabeledValue
           horizontal
