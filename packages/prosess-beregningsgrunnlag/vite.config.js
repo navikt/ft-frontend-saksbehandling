@@ -20,5 +20,5 @@ const config = defineConfig({
   },
 });
 
-// eslint-disable-next-line import/no-default-export
+// eslint-disable-next-line no-restricted-exports
 export default mergeConfig(commonConfig, config);
