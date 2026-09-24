@@ -8,7 +8,6 @@ import { RhfForm } from './../src/RhfForm';
 
 export const rhfDecorator =
   (defaultValues: UseFormProps['defaultValues']): Meta['decorators'] =>
-  // eslint-disable-next-line react/display-name
   (Story, context) => {
     const formMethods = useForm({
       defaultValues,

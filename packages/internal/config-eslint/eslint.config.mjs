@@ -1,14 +1,12 @@
-import { fixupConfigRules } from '@eslint/compat';
 import pluginJs from '@eslint/js';
+import eslintReact from '@eslint-react/eslint-plugin';
+import vitest from '@vitest/eslint-plugin';
 import eslintConfigPrettier from 'eslint-config-prettier';
-import importPlugin from 'eslint-plugin-import';
-import pluginReact from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import reactYouMightNotNeedAnEffect from 'eslint-plugin-react-you-might-not-need-an-effect';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import storybook from 'eslint-plugin-storybook';
-import vitest from '@vitest/eslint-plugin';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
@@ -16,14 +14,9 @@ const OFF = 0;
 const WARNING = 1;
 const ERROR = 2;
 
-export default fixupConfigRules([
+export default [
   {
     files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
-    settings: {
-      react: {
-        version: 'detect',
-      },
-    },
     plugins: {
       vitest,
       'simple-import-sort': simpleImportSort,
@@ -33,8 +26,7 @@ export default fixupConfigRules([
   pluginJs.configs.recommended,
   ...storybook.configs['flat/recommended'],
   ...tseslint.configs.recommended,
-  pluginReact.configs.flat.recommended,
-  importPlugin.flatConfigs.recommended,
+  eslintReact.configs['recommended-typescript'],
   reactRefresh.configs.vite,
   reactHooks.configs.flat.recommended,
   reactYouMightNotNeedAnEffect.configs.recommended,
@@ -45,18 +37,25 @@ export default fixupConfigRules([
       'max-len': [ERROR, 160],
       'no-console': WARNING,
       'no-debugger': WARNING,
-      'react/function-component-definition': [
-        'error',
+      'no-restricted-syntax': [
+        ERROR,
         {
-          namedComponents: 'arrow-function',
-          unnamedComponents: 'arrow-function',
+          selector: 'FunctionDeclaration[id.name=/^[A-Z]/]',
+          message: 'Komponentar skal definerast som pilfunksjonar.',
         },
       ],
-      'react/prop-types': OFF,
-      'react/react-in-jsx-scope': OFF,
-      'import/no-unresolved': OFF,
-      'import/named': OFF,
-      'import/no-duplicates': ERROR,
+      'no-duplicate-imports': [ERROR, { allowSeparateTypeImports: true }],
+      '@eslint-react/no-missing-component-display-name': ERROR,
+      // Desse dekkjer eslint-plugin-react-hooks allereie
+      '@eslint-react/error-boundaries': OFF,
+      '@eslint-react/exhaustive-deps': OFF,
+      '@eslint-react/purity': OFF,
+      '@eslint-react/rules-of-hooks': OFF,
+      '@eslint-react/set-state-in-effect': OFF,
+      '@eslint-react/set-state-in-render': OFF,
+      '@eslint-react/static-components': OFF,
+      '@eslint-react/unsupported-syntax': OFF,
+      '@eslint-react/use-memo': OFF,
       '@typescript-eslint/no-restricted-types': [
         'error',
         {
@@ -77,7 +76,18 @@ export default fixupConfigRules([
         },
       ],
       '@typescript-eslint/ban-ts-comment': ERROR,
-      'import/no-default-export': ERROR,
+      'no-restricted-exports': [
+        ERROR,
+        {
+          restrictDefaultExports: {
+            direct: true,
+            named: true,
+            defaultFrom: true,
+            namedFrom: true,
+            namespaceFrom: true,
+          },
+        },
+      ],
       'react-hooks/rules-of-hooks': ERROR,
       'react-hooks/exhaustive-deps': OFF,
       'react-hooks/incompatible-library': OFF,
@@ -104,8 +114,8 @@ export default fixupConfigRules([
   {
     files: ['**/*.stories.tsx', 'eslint.config.mjs', '.storybook/**/*', 'knip.ts'],
     rules: {
-      'import/no-default-export': OFF,
+      'no-restricted-exports': OFF,
       'react-hooks/rules-of-hooks': OFF,
     },
   },
-]);
+];
