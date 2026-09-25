@@ -25,14 +25,14 @@
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
     "@navikt/ft-config-vite": "workspace:^",
-    "@testing-library/dom": "10.4.1",
+    "@testing-library/dom": "10.4.2",
     "@testing-library/react": "16.3.3",
     "eslint": "10.10.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "typescript": "6.0.3",
     "vite": "8.3.0",
-    "vitest": "5.0.0"
+    "vitest": "5.0.1"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
