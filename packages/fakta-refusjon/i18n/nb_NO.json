@@ -1,5 +1,9 @@
 {
   "FaktaRefusjonIndex.Tittel": "Fakta om refusjon",
   "Utbetaling.Tittel": "Utbetaling",
-  "Refusjonskrav.Tittel": "Refusjonskrav"
+  "Refusjonskrav.Tittel": "Refusjonskrav",
+  "Refusjonskrav.Tabell.Arbeidsgiver": "Arbeidsgiver",
+  "Refusjonskrav.Tabell.RefusjonFra": "Refusjon fra",
+  "Refusjonskrav.Tabell.RefusjonbeløpPrMnd": "Refusjonbeløp pr. mnd",
+  "Refusjonskrav.Tabell.SendtInnEndret": "Sendt inn/endret"
 }
