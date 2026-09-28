@@ -69,6 +69,7 @@ export const RegisterinntekterGraf = ({
             axisPointer: { type: 'shadow' },
             trigger: 'axis',
             appendToBody: true,
+            confine: true,
             textStyle,
             borderColor: getAkselVariable('--ax-border-neutral-subtleA'),
             borderRadius: 12,
