@@ -21,6 +21,10 @@ Utviklingsmiljø i Storybook kan kjøres opp ved å kjøre `yarn storybook` i de
 
 En skal alltid utvikle på branch og lage pull request på GitHub. Denne kan mergest til main når testene har gått grønt.
 
+Kjør `yarn check:peers` for å kontrollere at interne peer-avhengigheter støtter versjonene i workspacet,
+og at publiserbare pakker ikke krever private pakker som peers. Kontrollen kjører også i CI og ved
+versjonering. `yarn test:peers` kjører testene for kontrollen og versjonsskriptet.
+
 ## Autentisering
 
 Dette prosjektet bruker GitHub Package Registry for npm-pakker. For å installere dependencies og publisere pakker

@@ -5,7 +5,7 @@
  * ✅ Updates matching entries in dependencies, devDependencies, and peerDependencies
  * ✅ Only updates dependencies that exist in the local packageVersions map
  * ✅ Writes the exact local version for dependencies and devDependencies
- * ✅ Writes a major wildcard version like "5.x" for peerDependencies
+ * ✅ Preserves compatible peer ranges, otherwise writes a major wildcard like "5.x"
  * ✅ Restores matching entries to "workspace:^" when run in restore mode
  *
  * Usage:
@@ -15,6 +15,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { satisfies } from 'semver';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,6 +23,16 @@ const __dirname = path.dirname(__filename);
 // Go up one level from ./scripts to repo root
 const repoRoot = path.resolve(__dirname, '..');
 export const packagesDir = path.join(repoRoot, 'packages');
+
+export const getWorkspacePackages = () => {
+  const { workspaces } = JSON.parse(fs.readFileSync(path.join(repoRoot, 'package.json'), 'utf8'));
+  return fs
+    .globSync(
+      workspaces.packages.map(pattern => `${pattern}/package.json`),
+      { cwd: repoRoot },
+    )
+    .map(pkgPath => JSON.parse(fs.readFileSync(path.join(repoRoot, pkgPath), 'utf8')));
+};
 
 // Find all package directories with package.json
 export const getPackageDirs = () => {
@@ -36,10 +47,10 @@ export const getPackageDirs = () => {
  */
 export const getPackageVersions = () => {
   const packageVersions = {};
-  for (const dir of getPackageDirs()) {
-    const pkgPath = path.join(packagesDir, dir, 'package.json');
-    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
-    packageVersions[pkg.name] = pkg.version;
+  for (const pkg of getWorkspacePackages()) {
+    if (!pkg.private) {
+      packageVersions[pkg.name] = pkg.version;
+    }
   }
   if (Object.keys(packageVersions).length === 0) {
     console.warn('⚠️  No local packages found in', packagesDir);
@@ -58,17 +69,23 @@ export const getPackageVersions = () => {
  * @returns {Record<string,string>}
  */
 export const transformDeps = (deps, dependencyType, packageVersions, shouldRestore = false) => {
-  if (!deps) return deps;
+  if (!deps) {
+    return deps;
+  }
   let changed = {};
   for (const [dep, version] of Object.entries(deps)) {
-    if (!dep.startsWith('@navikt/ft-')) continue;
+    if (!dep.startsWith('@navikt/ft-')) {
+      continue;
+    }
 
     const localVersion = packageVersions[dep];
-    if (!localVersion) continue;
+    if (!localVersion) {
+      continue;
+    }
 
     let newVersion;
     if (dependencyType === 'peerDependencies') {
-      newVersion = localVersion.replace(/^(\d+)\..*$/, '$1.x');
+      newVersion = satisfies(localVersion, version) ? version : localVersion.replace(/^(\d+)\..*$/, '$1.x');
     } else if (shouldRestore) {
       newVersion = `workspace:^`;
     } else {
