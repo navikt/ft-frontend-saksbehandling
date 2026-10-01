@@ -49,20 +49,31 @@ yarn build
 > Vis utdataene til brukeren og vent på bekreftelse før du fortsetter.
 
 ```sh
-yarn lerna version --sign-git-tag
+yarn tag
 ```
 
-Etter at brukeren bekrefter, committer lerna versjonsbumpene, oppretter signerte git-tagger
-og pusher til `main` — noe som automatisk utløser `publish.yml`-workflowen.
+Release-skriptet krever en ren arbeidskopi på siste `origin/main` og at npm ikke deaktiverer lifecycle-skript.
+Etter at brukeren bekrefter versjonsvalgene, oppdaterer `version`-hooken peer-kravene. Den stopper hvis en
+pakke med endrede avhengighetskrav ikke selv får ny versjon.
 
-Hvis lerna melder **"No changed packages found"** er det ingenting å publisere — stopp og
+Lerna lager en signert versjonscommit og signerte tags med `--no-push`. Release-skriptet kontrollerer
+de committede manifestene, taggene, signaturene og lockfilen før atomisk push til `main`.
+Ikke erstatt `yarn tag` med direkte `lerna version`, og ikke omgå sperrene med manuell push.
+
+Hvis Lerna melder **"No changed packages found"** er det ingenting å publisere. Stopp og
 informer brukeren.
 
-Bruk `--force-publish` hvis brukeren ønsker å bumpe alle pakker uavhengig av endringer:
+Bruk følgende hvis brukeren ønsker å bumpe alle pakker uavhengig av endringer:
 
 ```sh
-yarn lerna version --sign-git-tag --force-publish
+yarn tag:force
 ```
+
+Hvis kjøringen stopper, vis feilen og undersøk `git status`, `git diff` og `git log -1`.
+Ikke slett endringer eller tags, og ikke start en ny versjonsbump automatisk.
+Hvis versjonscommit og tags er ferdige, kan brukeren velge `yarn tag:resume` for ny kontroll og atomisk push
+uten ny bump. Ved uferdig commit/tagging eller nyere commits på `origin/main` må releasen håndteres manuelt.
+Ikke endre `ignore-scripts` eller omgå signering uten at brukeren har avklart oppsettet.
 
 ### 6. Vent på publish-workflowen
 
