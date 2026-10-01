@@ -1,0 +1,63 @@
+{
+  "name": "@navikt/ft-fakta-refusjon",
+  "description": "Faktapanel for refusjon",
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest --project=jsdom",
+    "test:browser": "vitest --project=browser",
+    "eslint": "eslint src/**/*.ts* --color",
+    "eslint:fix": "eslint --fix src/**/*.ts* --color",
+    "prettier:fix": "prettier --write src",
+    "tsc": "tsc --pretty",
+    "dev": "vite build --watch --mode development",
+    "clean": "rm -rf ./dist ./node_modules"
+  },
+  "peerDependencies": {
+    "@navikt/ds-css": "8.x",
+    "@navikt/ds-react": "8.x",
+    "@navikt/ft-utils": "6.x",
+    "react": "19.x",
+    "react-dom": "19.x",
+    "react-intl": "12.x"
+  },
+  "devDependencies": {
+    "@navikt/ds-react": "8.16.2",
+    "@navikt/ft-config-eslint": "workspace:^",
+    "@navikt/ft-config-typescript": "workspace:^",
+    "@navikt/ft-config-vite": "workspace:^",
+    "@navikt/ft-utils": "workspace:^",
+    "@testing-library/dom": "10.4.2",
+    "@testing-library/react": "16.3.3",
+    "@types/react": "19.3.0",
+    "dayjs": "1.11.23",
+    "eslint": "10.10.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-intl": "12.1.3",
+    "typescript": "6.0.3",
+    "vite": "8.3.0",
+    "vitest": "5.0.1"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/navikt/ft-frontend-saksbehandling",
+    "directory": "packages/fakta-refusjon"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./dist/style.css": "./dist/style.css"
+  }
+}
