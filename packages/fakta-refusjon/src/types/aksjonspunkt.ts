@@ -5,3 +5,18 @@ export type AksjonspunktRefusjon = {
   status: AksjonspunktStatus;
   begrunnelse?: string;
 };
+
+export type AksjonspunktSubmitType = {
+  refusjonskrav: {
+    arbeidsgiverIdent: string;
+    perioder: {
+      kilde: string;
+      fom: string;
+      tom: string;
+      refusjonsbeløpPrMnd: number;
+      utfall: 'INNVILGET' | 'AVSLÅTT' | 'REDUSERT';
+      utfallÅrsak?: string;
+    }[];
+  }[];
+  begrunnelse: string;
+};

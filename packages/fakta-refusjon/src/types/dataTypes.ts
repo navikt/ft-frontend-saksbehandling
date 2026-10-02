@@ -13,6 +13,7 @@ export type Refusjonsperiode = {
   datoForInnsendtEllerEndretIM: string;
   utfall?: 'INNVILGET' | 'AVSLÅTT' | 'REDUSERT';
   utfallÅrsak?: UtfallÅrsak;
+  utfallBegrunnelse?: string;
 };
 
 type UtfallÅrsak = string; /* dette skal være en string union på sikt */

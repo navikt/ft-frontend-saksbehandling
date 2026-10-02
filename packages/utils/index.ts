@@ -13,6 +13,7 @@ export {
   calcDaysAndWeeks,
   calcDaysAndWeeksWithWeekends,
   findDifferenceInMonthsAndDays,
+  isDateWithinInterval,
   TIDENES_MORGEN,
   TIDENES_ENDE,
 } from './src/dateUtils';
