@@ -152,3 +152,14 @@ export const findDifferenceInMonthsAndDays = (
     days,
   };
 };
+
+// Inkluderer både fom- og tom-dato. Returnerer false hvis fom er etter tom.
+export const isDateWithinInterval = (dato: string, fom: string, tom: string): boolean => {
+  const date = initializeDate(dato, ISO_DATE_FORMAT);
+  const fomDate = initializeDate(fom, ISO_DATE_FORMAT);
+  const tomDate = initializeDate(tom, ISO_DATE_FORMAT);
+  if (!date.isValid() || !fomDate.isValid() || !tomDate.isValid() || fomDate.isAfter(tomDate)) {
+    return false;
+  }
+  return !date.isBefore(fomDate) && !date.isAfter(tomDate);
+};

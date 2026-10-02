@@ -6,14 +6,15 @@ import * as stories from './FaktaRefusjonIndex.stories';
 const { Default } = composeStories(stories);
 
 describe('FaktaRefusjonIndex', () => {
-  it('skal vise overskrift', async () => {
+  it('skal vise overskrift, aksjonspunkttekst og refusjonsskjema', () => {
     render(<Default />);
 
-    expect(await screen.findByRole('heading', { level: 2, name: 'Fakta om refusjon' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Fakta om refusjon' })).toBeInTheDocument();
     expect(
-      screen.getByText(
-        'Brunostfabrikken AS og Nordlys Teknologi AS har refusjonsperioder uten registrert utfall. Vurder om kravene skal tas med i beregningen.',
-      ),
+      screen.getByRole('heading', { level: 3, name: 'Vurder refusjonskrav uten registrert utfall' }),
     ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'Utbetaling' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'Refusjonskrav' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeDisabled();
   });
 });
