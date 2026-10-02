@@ -1,8 +1,9 @@
 import { Children, isValidElement, type ReactNode } from 'react';
 
-import { Alert, BodyShort, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, VStack } from '@navikt/ds-react';
 
 interface Props {
+  heading?: ReactNode;
   children: ReactNode | ReactNode[];
 }
 
@@ -12,23 +13,26 @@ interface Props {
  * Viser hjelpetekster som forteller Nav-ansatt hva som må gjøres for
  * å avklare en eller flere aksjonspunkter.
  */
-export const AksjonspunktHelpTextHTML = ({ children }: Props) => {
+export const AksjonspunktHelpTextHTML = ({ heading, children }: Props) => {
   const normalizedChildren = Children.toArray(children);
 
-  if (normalizedChildren.length === 0) {
+  if (normalizedChildren.length === 0 && !heading) {
     return null;
   }
 
   return (
     <Alert variant="warning" size="small">
       <VStack gap="space-8" data-testid="aksjonspunkt-text-container">
-        {normalizedChildren.map(child => {
-          return (
-            <BodyShort key={getKey(child)} size="small">
-              {child}
-            </BodyShort>
-          );
-        })}
+        {heading && (
+          <Heading level="3" size="xsmall">
+            {heading}
+          </Heading>
+        )}
+        {normalizedChildren.map(child => (
+          <BodyShort key={getKey(child)} size="small">
+            {child}
+          </BodyShort>
+        ))}
       </VStack>
     </Alert>
   );
