@@ -93,3 +93,28 @@ jobs:
         with:
           package-manager: 'yarn'
           node-version: 26.1.0
+
+  mandatory-checks:
+    name: Obligatoriske kvalitetskontroller
+    if: ${{ always() }}
+    needs:
+      - valid-pull-request
+      - browser-tests
+      - sif-code-scan
+      - knip-it
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions: {}
+    steps:
+      - name: Kontroller resultater
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: |
+          if jq --exit-status 'all(.[]; .result == "success")' <<< "$RESULTS" > /dev/null; then
+            exit 0
+          fi
+
+          jq --raw-output \
+            'to_entries[] | select(.value.result != "success") | "\(.key): \(.value.result)"' \
+            <<< "$RESULTS"
+          exit 1
