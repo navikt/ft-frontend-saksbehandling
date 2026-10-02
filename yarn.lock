@@ -1628,10 +1628,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-refusjon@workspace:packages/fakta-refusjon"
   dependencies:
+    "@navikt/aksel-icons": "npm:8.16.2"
     "@navikt/ds-react": "npm:8.16.2"
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
     "@navikt/ft-config-vite": "workspace:^"
+    "@navikt/ft-types": "workspace:^"
+    "@navikt/ft-ui-komponenter": "workspace:^"
     "@navikt/ft-utils": "workspace:^"
     "@testing-library/dom": "npm:10.4.2"
     "@testing-library/react": "npm:16.3.3"
@@ -1645,8 +1648,11 @@ __metadata:
     vite: "npm:8.3.1"
     vitest: "npm:5.0.1"
   peerDependencies:
+    "@navikt/aksel-icons": 8.x
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
+    "@navikt/ft-types": 6.x
+    "@navikt/ft-ui-komponenter": 9.x
     "@navikt/ft-utils": 5.x
     react: 19.x
     react-dom: 19.x
