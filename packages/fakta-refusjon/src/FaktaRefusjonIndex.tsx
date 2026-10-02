@@ -6,9 +6,9 @@ import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 import { createIntl } from '@navikt/ft-utils';
 
 import { AksjonspunktTekst } from './components/AksjonspunktTekst/AksjonspunktTekst';
-import { Refusjonskrav } from './components/Refusjonskrav';
-import { Utbetaling } from './components/Utbetaling';
-import type { AksjonspunktRefusjon } from './types/aksjonspunkt';
+import type { AvklarRefusjonsKravFormValues } from './components/Refusjonskrav/formValues';
+import { RefusjonskravForm } from './components/Refusjonskrav/RefusjonskravForm';
+import type { AksjonspunktRefusjon, AksjonspunktSubmitType } from './types/aksjonspunkt';
 import type { RefusjonsAndel } from './types/dataTypes';
 
 import messages from '../i18n/nb_NO.json';
@@ -19,12 +19,20 @@ export interface FaktaRefusjonIndexProps {
   aksjonspunkt: AksjonspunktRefusjon[];
   refusjonsandeler: RefusjonsAndel[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  readOnly: boolean;
+  submitCallback: (aksjonspunktData: AksjonspunktSubmitType) => Promise<void>;
+  formData?: AvklarRefusjonsKravFormValues;
+  setFormData: (data: AvklarRefusjonsKravFormValues) => void;
 }
 
 export const FaktaRefusjonIndex = ({
   aksjonspunkt,
   refusjonsandeler,
   arbeidsgiverOpplysningerPerId,
+  readOnly,
+  submitCallback,
+  formData,
+  setFormData,
 }: FaktaRefusjonIndexProps) => (
   <RawIntlProvider value={intl}>
     <VStack gap="space-20">
@@ -37,9 +45,15 @@ export const FaktaRefusjonIndex = ({
         refusjonsandeler={refusjonsandeler}
         arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
       />
-      <Utbetaling />
-
-      <Refusjonskrav />
+      <RefusjonskravForm
+        refusjonsandeler={refusjonsandeler}
+        arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        readOnly={readOnly}
+        submitCallback={submitCallback}
+        formData={formData}
+        setFormData={setFormData}
+        aksjonspunkt={aksjonspunkt}
+      />
     </VStack>
   </RawIntlProvider>
 );
