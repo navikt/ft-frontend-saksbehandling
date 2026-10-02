@@ -96,7 +96,7 @@ jobs:
 
   mandatory-checks:
     name: Obligatoriske kvalitetskontroller
-    if: ${{ !cancelled() }}
+    if: ${{ always() }}
     needs:
       - valid-pull-request
       - browser-tests
