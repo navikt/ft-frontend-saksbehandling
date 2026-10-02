@@ -21,6 +21,10 @@ Utviklingsmiljø i Storybook kan kjøres opp ved å kjøre `yarn storybook` i de
 
 En skal alltid utvikle på branch og lage pull request på GitHub. Denne kan mergest til main når testene har gått grønt.
 
+Kjør `yarn check:peers` for å kontrollere at interne peer-avhengigheter støtter versjonene i workspacet,
+og at publiserbare pakker ikke krever private pakker som peers. Kontrollen kjører også i CI og ved
+versjonering. `yarn test:peers` kjører testene for kontrollen og versjonsskriptet.
+
 ## Autentisering
 
 Dette prosjektet bruker GitHub Package Registry for npm-pakker. For å installere dependencies og publisere pakker
@@ -63,7 +67,8 @@ for mer informasjon.
 
 ## Publisering av moduler
 
-Publisering av npm-moduler skjer automatisk via GitHub Actions når nye tags pushes til `main`.
+Publiseringsworkflowen starter ved push til `main` og publiserer pakker fra tags på den aktuelle committen.
+Den kontrollerer pakkekontraktene og release-committen før publisering, og avviser versjonsendringer uten tags.
 
 ### GitHub Copilot-skill
 
@@ -104,11 +109,18 @@ Prosessen er delt i tagging (lokalt) og publisering (gjennom GitHub Actions) for
    yarn tag
    ```
 
-   Dette kjører interaktiv versjonering via Lerna som:
+   Kommandoen krever en ren arbeidskopi på siste `origin/main`. Du velger versjonsnummer interaktivt i Lerna.
+   Peer-krav oppdateres etter versjonsbumpen, før commit og tagging. En publiserbar pakke med endrede
+   avhengighetskrav må selv få ny versjon. Skriptet stopper dersom pakken mangler i release-utvalget.
 
-- Lar deg velge versjonsnummer for endrede pakker
-- Oppretter signerte Git-tags
-- Pusher tags til GitHub
+   Lerna lager en signert commit og signerte tags uten å pushe. Release-skriptet kontrollerer de committede
+   manifestene, taggene og signaturene, og krever at lockfilen kan installeres uendret. Deretter pushes
+   committen og bare de tilhørende taggene atomisk. Hvis GitHub avviser én del, pushes ingen av delene.
+   Signaturverifiseringen krever at Git lokalt har de offentlige nøklene, for SSH via `gpg.ssh.allowedSignersFile`.
+   CI kontrollerer signaturfeltene, men verifiserer ikke signaturene kryptografisk.
+
+   Bruk `yarn tag:force` hvis alle pakker skal inngå. Ikke kjør `lerna version` direkte, siden det omgår
+   kontrollene før og etter versjoneringen.
 
 4. **Verifiser publisering**
 
@@ -120,6 +132,21 @@ Prosessen er delt i tagging (lokalt) og publisering (gjennom GitHub Actions) for
 - Tips: Hvis du skal publisere en ny pakke kan det hende at workflowen feiler å publisere. I såfall sjekk opp pakken
   på https://github.com/orgs/navikt/packages > finn pakken > Package settings > Package visibility > Endre til
   _public_
+
+### Hvis release-kjøringen stopper
+
+Hvis npm-innstillingen `ignore-scripts` er aktiv, stopper `yarn tag` før versjoneringen. Lerna ville ellers
+hoppet over både peer-transformeringen og kontrollen i `version`-hooken. Avklar innstillingen i miljøet
+eller npm-konfigurasjonen før du fortsetter. Skriptet overstyrer den ikke. Yarn-innstillingen
+`enableScripts: false` er separat og kan beholdes.
+
+Ved andre feil: se `git status`, `git diff` og `git log -1`. Skriptet sletter ikke endringer, commits eller tags.
+Hvis versjonscommitten og taggene er ferdige, kan du kjøre `yarn tag:resume`. Den kontrollerer releasen på nytt
+og forsøker atomisk push uten ny versjonsbump. Dette dekker også nettverksavbrudd etter en vellykket push.
+Hvis `origin/main` har fått andre commits i mellomtiden, stopper også gjenopptakelsen.
+
+Hvis kjøringen stoppet før commit eller alle tags var opprettet, må du gjennomgå den uferdige releasen manuelt.
+Ikke kjør en ny bump, flytt publiserte tags eller bruk force-push for å komme videre.
 
 ### Ta i bruk nye pakker
 

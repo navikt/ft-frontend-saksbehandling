@@ -1558,13 +1558,12 @@ __metadata:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-form-hooks": 12.x
-    "@navikt/ft-form-validators": 6.x
-    "@navikt/ft-kodeverk": "workspace:^"
-    "@navikt/ft-plattform-komponenter": 12.x
-    "@navikt/ft-types": 6.x
-    "@navikt/ft-ui-komponenter": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-form-hooks": 13.x
+    "@navikt/ft-form-validators": 7.x
+    "@navikt/ft-plattform-komponenter": 13.x
+    "@navikt/ft-types": 7.x
+    "@navikt/ft-ui-komponenter": 9.x
+    "@navikt/ft-utils": 6.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -1609,13 +1608,12 @@ __metadata:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-form-hooks": 12.x
-    "@navikt/ft-form-validators": 6.x
-    "@navikt/ft-kodeverk": "workspace:^"
-    "@navikt/ft-plattform-komponenter": 12.x
-    "@navikt/ft-types": 6.x
-    "@navikt/ft-ui-komponenter": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-form-hooks": 13.x
+    "@navikt/ft-form-validators": 7.x
+    "@navikt/ft-plattform-komponenter": 13.x
+    "@navikt/ft-types": 7.x
+    "@navikt/ft-ui-komponenter": 9.x
+    "@navikt/ft-utils": 6.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -1647,7 +1645,7 @@ __metadata:
   peerDependencies:
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-utils": 6.x
     react: 19.x
     react-dom: 19.x
     react-intl: 12.x
@@ -1688,12 +1686,11 @@ __metadata:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-form-hooks": 12.x
-    "@navikt/ft-form-validators": 6.x
-    "@navikt/ft-kodeverk": "workspace:^"
-    "@navikt/ft-types": 6.x
-    "@navikt/ft-ui-komponenter": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-form-hooks": 13.x
+    "@navikt/ft-form-validators": 7.x
+    "@navikt/ft-types": 7.x
+    "@navikt/ft-ui-komponenter": 9.x
+    "@navikt/ft-utils": 6.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -1729,8 +1726,8 @@ __metadata:
   peerDependencies:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-ui-komponenter": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-ui-komponenter": 9.x
+    "@navikt/ft-utils": 6.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -1752,7 +1749,7 @@ __metadata:
     vite: "npm:8.3.0"
     vitest: "npm:5.0.1"
   peerDependencies:
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-utils": 6.x
     dayjs: 1.x
   languageName: unknown
   linkType: soft
@@ -1847,7 +1844,7 @@ __metadata:
   peerDependencies:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-utils": 6.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -1890,13 +1887,12 @@ __metadata:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-form-hooks": 12.x
-    "@navikt/ft-form-validators": 6.x
-    "@navikt/ft-kodeverk": "workspace:^"
-    "@navikt/ft-plattform-komponenter": 12.x
-    "@navikt/ft-types": 6.x
-    "@navikt/ft-ui-komponenter": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-form-hooks": 13.x
+    "@navikt/ft-form-validators": 7.x
+    "@navikt/ft-plattform-komponenter": 13.x
+    "@navikt/ft-types": 7.x
+    "@navikt/ft-ui-komponenter": 9.x
+    "@navikt/ft-utils": 6.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -1941,13 +1937,12 @@ __metadata:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-form-hooks": 12.x
-    "@navikt/ft-form-validators": 6.x
-    "@navikt/ft-kodeverk": "workspace:^"
-    "@navikt/ft-plattform-komponenter": 12.x
-    "@navikt/ft-types": 6.x
-    "@navikt/ft-ui-komponenter": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-form-hooks": 13.x
+    "@navikt/ft-form-validators": 7.x
+    "@navikt/ft-plattform-komponenter": 13.x
+    "@navikt/ft-types": 7.x
+    "@navikt/ft-ui-komponenter": 9.x
+    "@navikt/ft-utils": 6.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -1989,12 +1984,11 @@ __metadata:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-form-hooks": 12.x
-    "@navikt/ft-form-validators": 6.x
-    "@navikt/ft-kodeverk": "workspace:^"
-    "@navikt/ft-types": 6.x
-    "@navikt/ft-ui-komponenter": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-form-hooks": 13.x
+    "@navikt/ft-form-validators": 7.x
+    "@navikt/ft-types": 7.x
+    "@navikt/ft-ui-komponenter": 9.x
+    "@navikt/ft-utils": 6.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -2036,11 +2030,11 @@ __metadata:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-form-hooks": 12.x
-    "@navikt/ft-form-validators": 6.x
-    "@navikt/ft-types": 6.x
-    "@navikt/ft-ui-komponenter": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-form-hooks": 13.x
+    "@navikt/ft-form-validators": 7.x
+    "@navikt/ft-types": 7.x
+    "@navikt/ft-ui-komponenter": 9.x
+    "@navikt/ft-utils": 6.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -2083,12 +2077,11 @@ __metadata:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-form-hooks": 12.x
-    "@navikt/ft-form-validators": 6.x
-    "@navikt/ft-kodeverk": "workspace:^"
-    "@navikt/ft-types": 6.x
-    "@navikt/ft-ui-komponenter": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-form-hooks": 13.x
+    "@navikt/ft-form-validators": 7.x
+    "@navikt/ft-types": 7.x
+    "@navikt/ft-ui-komponenter": 9.x
+    "@navikt/ft-utils": 6.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -2137,7 +2130,7 @@ __metadata:
   peerDependencies:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-utils": 5.x
+    "@navikt/ft-utils": 6.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -6247,6 +6240,7 @@ __metadata:
     prettier: "npm:3.9.8"
     react: "npm:19.3.0"
     react-dom: "npm:19.3.0"
+    semver: "npm:7.8.5"
     storybook: "npm:10.6.0"
     stylelint: "npm:17.15.0"
     stylelint-order: "npm:8.1.1"
@@ -9576,21 +9570,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"semver@npm:7.8.5, semver@npm:^7.1.1, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.5.2, semver@npm:^7.5.3, semver@npm:^7.6.3, semver@npm:^7.7.2, semver@npm:^7.7.3, semver@npm:^7.8.5":
+  version: 7.8.5
+  resolution: "semver@npm:7.8.5"
+  bin:
+    semver: bin/semver.js
+  checksum: 10/9b01d2ff11e6e4a4539b7ca3c5f280c8704cb397a28504469f2ed4f00ad2194748d756647362a9712fff30984d15772ab7f083108c2fb508e2096ae9e708f22c
+  languageName: node
+  linkType: hard
+
 "semver@npm:^6.3.1":
   version: 6.3.1
   resolution: "semver@npm:6.3.1"
   bin:
     semver: bin/semver.js
   checksum: 10/1ef3a85bd02a760c6ef76a45b8c1ce18226de40831e02a00bad78485390b98b6ccaa31046245fc63bba4a47a6a592b6c7eedc65cc47126e60489f9cc1ce3ed7e
-  languageName: node
-  linkType: hard
-
-"semver@npm:^7.1.1, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.5.2, semver@npm:^7.5.3, semver@npm:^7.6.3, semver@npm:^7.7.2, semver@npm:^7.7.3, semver@npm:^7.8.5":
-  version: 7.8.5
-  resolution: "semver@npm:7.8.5"
-  bin:
-    semver: bin/semver.js
-  checksum: 10/9b01d2ff11e6e4a4539b7ca3c5f280c8704cb397a28504469f2ed4f00ad2194748d756647362a9712fff30984d15772ab7f083108c2fb508e2096ae9e708f22c
   languageName: node
   linkType: hard
 

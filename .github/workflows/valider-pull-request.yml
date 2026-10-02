@@ -21,6 +21,9 @@ jobs:
       - name: Installere dependencies
         run: yarn install --immutable --mode=skip-build
 
+      - name: Kontroller interne peer-avhengigheter
+        run: yarn check:peers && yarn test:peers
+
       - name: Bygg
         run: yarn build
 
