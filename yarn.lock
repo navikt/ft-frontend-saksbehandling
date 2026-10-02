@@ -6346,10 +6346,10 @@ __metadata:
     eslint: "npm:10.10.0"
     husky: "npm:9.1.7"
     jsdom: "npm:30.1.1"
-    knip: "npm:6.37.0"
+    knip: "npm:6.38.0"
     lerna: "npm:10.0.1"
     lint-staged: "npm:17.5.1"
-    prettier: "npm:3.9.8"
+    prettier: "npm:3.9.9"
     react: "npm:19.3.0"
     react-dom: "npm:19.3.0"
     storybook: "npm:10.6.0"
@@ -7267,9 +7267,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:6.37.0":
-  version: 6.37.0
-  resolution: "knip@npm:6.37.0"
+"knip@npm:6.38.0":
+  version: 6.38.0
+  resolution: "knip@npm:6.38.0"
   dependencies:
     fdir: "npm:^6.5.0"
     formatly: "npm:^0.7.0"
@@ -7287,7 +7287,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/14135bf24972ac137b1afd1476b1f40907152d5441c269a2d6a721d3bca53d18944bda67a47f76256d947b1f200564e73974bbb34cca9a1d3e4860ccf25150b5
+  checksum: 10/c66af85bcb66201687b742397287c20035d0580be11064cf311e865880465b00ac927b2ee961584d41e99149106b8012542802961e33a5e78240e7698284488b
   languageName: node
   linkType: hard
 
@@ -9142,12 +9142,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.9.8":
-  version: 3.9.8
-  resolution: "prettier@npm:3.9.8"
+"prettier@npm:3.9.9":
+  version: 3.9.9
+  resolution: "prettier@npm:3.9.9"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10/4ac262aaf9a5e221b02cc17447ebe7aa9689be59b85ab9de8152cd7422fb363ed3e09da6df585fa19ab1fc6cffebdc3ea34db1a75c978536aeba3f87bfd06ab3
+  checksum: 10/3d11a8095a7db50f0fbc8086ad96be676401154b63a2e9023e1274893457dccab19a9c211f4fb2cae7244e800bea2d5185d9bb6fc510f48a53017815e47d4e6d
   languageName: node
   linkType: hard
 
