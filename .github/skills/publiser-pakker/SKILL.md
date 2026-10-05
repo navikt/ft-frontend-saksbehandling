@@ -49,7 +49,7 @@ yarn build
 > Vis utdataene til brukeren og vent på bekreftelse før du fortsetter.
 
 ```sh
-yarn lerna version --sign-git-tag
+yarn tag
 ```
 
 Etter at brukeren bekrefter, committer lerna versjonsbumpene, oppretter signerte git-tagger
@@ -61,7 +61,7 @@ informer brukeren.
 Bruk `--force-publish` hvis brukeren ønsker å bumpe alle pakker uavhengig av endringer:
 
 ```sh
-yarn lerna version --sign-git-tag --force-publish
+yarn tag:force
 ```
 
 ### 6. Vent på publish-workflowen
