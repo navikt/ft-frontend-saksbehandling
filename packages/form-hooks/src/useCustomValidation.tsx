@@ -10,21 +10,17 @@ type ErrorMessageType = {
  */
 export const useCustomValidation = (stateName: string, message?: string): string | undefined => {
   const { setError, clearErrors, formState } = useFormContext<{ [key: string]: ErrorMessageType }>();
-  const hasError = !!message;
-
-  /* eslint-disable react-you-might-not-need-an-effect/no-event-handler -- synker custom valideringsfeil mot react-hook-form */
   useEffect(() => {
-    if (hasError) {
+    if (message) {
       setError(`${stateName}.notRegisteredInput`, {
         type: 'custom',
         message,
       });
-    }
-    if (!hasError) {
+    } else {
       clearErrors(`${stateName}.notRegisteredInput`);
     }
-  }, [message]);
-  /* eslint-enable react-you-might-not-need-an-effect/no-event-handler */
+    return () => clearErrors(`${stateName}.notRegisteredInput`);
+  }, [message, stateName, setError, clearErrors]);
 
   if (!formState.isSubmitted) {
     return undefined;

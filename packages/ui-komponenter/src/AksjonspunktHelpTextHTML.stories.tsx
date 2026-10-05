@@ -16,6 +16,13 @@ export const Default: Story = {
   },
 };
 
+export const MedOverskrift: Story = {
+  args: {
+    heading: 'Overskrift for aksjonspunkt',
+    children: 'Beskrivelse av hva saksbehandler må gjøre.',
+  },
+};
+
 export const SkalIkkeVisesNårDetIkkeErAksjonspunkter: Story = {
   args: {
     children: [],

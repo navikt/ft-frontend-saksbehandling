@@ -1,5 +1,7 @@
 {
   "FaktaRefusjonIndex.Tittel": "Fakta om refusjon",
+  "FaktaRefusjonIndex.Aksjonspunkt.Tittel": "Vurder refusjonskrav uten registrert utfall",
+  "FaktaRefusjonIndex.Aksjonspunkt.Body": "{arbeidsgivere} har refusjonsperioder uten registrert utfall. Vurder om kravene skal tas med i beregningen.",
   "Utbetaling.Tittel": "Utbetaling",
   "Refusjonskrav.Tittel": "Refusjonskrav",
   "Refusjonskrav.Tabell.Arbeidsgiver": "Arbeidsgiver",

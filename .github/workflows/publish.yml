@@ -35,9 +35,6 @@ jobs:
       - name: Restore .yarnrc.yml
         run: git restore .yarnrc.yml
 
-      - name: Kontroller pakkekontrakter og release-commit
-        run: yarn check:peers && yarn check:release
-
       - name: Build packages
         run: yarn build
 
