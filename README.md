@@ -109,6 +109,9 @@ Prosessen er delt i tagging (lokalt) og publisering (gjennom GitHub Actions) for
 - Lar deg velge versjonsnummer for endrede pakker
 - Oppretter signerte Git-tags
 - Pusher tags til GitHub
+- Oppdaterer interne `peerDependencies` til gjeldende major (`version`-hooken)
+
+   Test uten commit, tag og push med `yarn tag:dry`, og rydd opp med `git checkout -- .`.
 
 4. **Verifiser publisering**
 

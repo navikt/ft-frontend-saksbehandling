@@ -23,9 +23,9 @@
     "@navikt/aksel-icons": "8.x",
     "@navikt/ds-css": "8.x",
     "@navikt/ds-react": "8.x",
-    "@navikt/ft-types": "6.x",
+    "@navikt/ft-types": "7.x",
     "@navikt/ft-ui-komponenter": "9.x",
-    "@navikt/ft-utils": "5.x",
+    "@navikt/ft-utils": "6.x",
     "react": "19.x",
     "react-dom": "19.x",
     "react-intl": "12.x"
