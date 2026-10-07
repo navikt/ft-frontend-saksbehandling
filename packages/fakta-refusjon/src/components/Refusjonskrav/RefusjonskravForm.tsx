@@ -1,4 +1,3 @@
-import { useCallback, useState } from 'react';
 import { useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
@@ -16,6 +15,8 @@ import type { AvklarRefusjonsKravFormValues, RefusjonskravFormRad, Refusjonskrav
 import { RefusjonskravDetaljer } from './RefusjonskravDetaljer';
 import { RefusjonskravRadVurdering } from './RefusjonskravRadVurdering';
 import { RefusjonskravTabell } from './RefusjonskravTabell';
+import { useDirtyRows } from './useDirtyRows';
+import { useOpenRows } from './useOpenRows';
 
 interface Props {
   aksjonspunkt: AksjonspunktRefusjon[];
@@ -38,10 +39,7 @@ export const RefusjonskravForm = ({
 }: Props) => {
   const formMethods = useForm<AvklarRefusjonsKravFormValues>({
     mode: 'onChange',
-    defaultValues: formData ?? {
-      begrunnelse: aksjonspunkt.find(ap => ap.kode === 'AVKLAR_REFUSJONSKRAV')?.begrunnelse ?? '',
-      refusjonskrav: lagRefusjonsRader(refusjonsandeler, arbeidsgiverOpplysningerPerId),
-    },
+    defaultValues: formData ?? buildInitialValues(aksjonspunkt, refusjonsandeler, arbeidsgiverOpplysningerPerId),
   });
 
   const { fields } = useFieldArray({
@@ -59,87 +57,27 @@ export const RefusjonskravForm = ({
   }));
 
   const erAlleRaderFerdigVurdert = refusjonskrav.every(erRadFerdigVurdert);
-  const [openRowsIndex, setOpenRowsIndex] = useState(
-    () => new Set(fields.flatMap((rad, index) => (rad.utfall ? [] : index))),
-  );
-  const [dirtyRowsIndex, setDirtyRowsIndex] = useState<Set<number>>(() => new Set());
-
-  const onDirtyChange = useCallback((index: number, dirty: boolean) => {
-    setDirtyRowsIndex(current => {
-      if (current.has(index) === dirty) {
-        return current;
-      }
-      const next = new Set(current);
-      if (dirty) {
-        next.add(index);
-      } else {
-        next.delete(index);
-      }
-      return next;
-    });
-  }, []);
+  const { openRowsIndices, onOpenChange, closeRow } = useOpenRows(fields);
+  const { hasDirtyRows, onDirtyChange } = useDirtyRows();
 
   const onSave = (index: number, values: RefusjonskravVurdering) => {
-    formMethods.setValue(`refusjonskrav.${index}.kilde`, 'SAKSBEHANDLER', {
-      shouldDirty: true,
-      shouldTouch: true,
-      shouldValidate: true,
-    });
-    formMethods.setValue(`refusjonskrav.${index}.utfall`, values.utfall, {
-      shouldDirty: true,
-      shouldTouch: true,
-      shouldValidate: true,
-    });
+    formMethods.setValue(`refusjonskrav.${index}.kilde`, 'SAKSBEHANDLER', { shouldDirty: true });
+    formMethods.setValue(`refusjonskrav.${index}.utfall`, values.utfall, { shouldDirty: true });
     formMethods.setValue(
       `refusjonskrav.${index}.utfallÅrsak`,
       values.utfall === 'AVSLÅTT' ? values.utfallÅrsak : undefined,
-      {
-        shouldDirty: true,
-        shouldTouch: true,
-        shouldValidate: true,
-      },
+      { shouldDirty: true },
     );
     onDirtyChange(index, false);
-    setOpenRowsIndex(current => {
-      const next = new Set(current);
-      next.delete(index);
-      return next;
-    });
+    closeRow(index);
   };
-
-  const onOpenChange = (index: number, open: boolean) => {
-    setOpenRowsIndex(current => {
-      const next = new Set(current);
-      if (open) {
-        next.add(index);
-      } else {
-        next.delete(index);
-      }
-      return next;
-    });
-  };
-
-  const radinnhold = rader.map((krav, index) =>
-    krav.utfall === undefined || krav.kilde === 'SAKSBEHANDLER' ? (
-      <VStack key={fields[index].id} gap="space-16" paddingInline="space-16">
-        <RefusjonskravDetaljer krav={krav} />
-        <RefusjonskravRadVurdering
-          index={index}
-          krav={krav}
-          readOnly={readOnly}
-          onSave={onSave}
-          onDirtyChange={onDirtyChange}
-        />
-      </VStack>
-    ) : null,
-  );
 
   return (
     <RhfForm
       formMethods={formMethods}
       setDataOnUnmount={setFormData}
       onSubmit={values =>
-        dirtyRowsIndex.size === 0 &&
+        !hasDirtyRows &&
         values.refusjonskrav.every(erRadFerdigVurdert) &&
         submitCallback(transformValues(values, refusjonsandeler))
       }
@@ -149,9 +87,22 @@ export const RefusjonskravForm = ({
 
         <RefusjonskravTabell
           rader={rader}
-          åpneRader={openRowsIndex}
+          åpneRader={openRowsIndices}
           onOpenChange={onOpenChange}
-          expandableRowContent={radinnhold}
+          renderRowContent={(krav, index) =>
+            krav.utfall === undefined || krav.kilde === 'SAKSBEHANDLER' ? (
+              <VStack key={fields[index].id} gap="space-16" paddingInline="space-16">
+                <RefusjonskravDetaljer krav={krav} />
+                <RefusjonskravRadVurdering
+                  index={index}
+                  krav={krav}
+                  readOnly={readOnly}
+                  onSave={onSave}
+                  onDirtyChange={onDirtyChange}
+                />
+              </VStack>
+            ) : null
+          }
         />
 
         <RhfTextarea
@@ -167,7 +118,7 @@ export const RefusjonskravForm = ({
             isReadOnly={readOnly}
             isDirty={formMethods.formState.isDirty}
             isSubmitting={formMethods.formState.isSubmitting}
-            isSubmittable={formMethods.formState.isValid && erAlleRaderFerdigVurdert && dirtyRowsIndex.size === 0}
+            isSubmittable={formMethods.formState.isValid && erAlleRaderFerdigVurdert && !hasDirtyRows}
             hasErrors={Object.keys(formMethods.formState.errors).length > 0}
           />
         </div>
@@ -179,11 +130,13 @@ export const RefusjonskravForm = ({
 const erRadFerdigVurdert = (rad: RefusjonskravFormRad) =>
   rad.utfall !== undefined && (rad.utfall !== 'AVSLÅTT' || !!rad.utfallÅrsak);
 
-const lagRefusjonsRader = (
+const buildInitialValues = (
+  aksjonspunkt: AksjonspunktRefusjon[],
   refusjonsandeler: RefusjonsAndel[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-) =>
-  refusjonsandeler
+): AvklarRefusjonsKravFormValues => ({
+  begrunnelse: aksjonspunkt.find(ap => ap.kode === 'AVKLAR_REFUSJONSKRAV')?.begrunnelse ?? '',
+  refusjonskrav: refusjonsandeler
     .flatMap<RefusjonskravFormRad>(andel =>
       andel.refusjonsperioder.map(periode => ({
         arbeidsgiverIdent: andel.arbeidsgiverIdent,
@@ -199,7 +152,8 @@ const lagRefusjonsRader = (
         utfallÅrsak: periode.utfallÅrsak,
       })),
     )
-    .sort(sortPeriodsByFom);
+    .sort(sortPeriodsByFom),
+});
 
 const transformValues = (
   values: AvklarRefusjonsKravFormValues,
@@ -209,19 +163,21 @@ const transformValues = (
   refusjonskrav: Map.groupBy(values.refusjonskrav, rad => rad.arbeidsgiverIdent)
     .entries()
     .toArray()
-    .map(([key, rader]) => {
+    .map(([arbeidsgiverIdent, rader]) => {
+      const originalAndel = originalRefusjonsandeler.find(andel => andel.arbeidsgiverIdent === arbeidsgiverIdent);
+
       return {
-        arbeidsgiverIdent: key,
+        arbeidsgiverIdent,
         perioder: rader.map(rad => {
-          const originalAndel = originalRefusjonsandeler
-            .find(andel => andel.arbeidsgiverIdent === key)
-            ?.refusjonsperioder.find(periode => isDateWithinInterval(rad.fom, periode.fom, periode.tom));
+          const originalPeriode = originalAndel?.refusjonsperioder.find(isDateWithinInterval(rad.fom));
+          const erBeløpetUendret = rad.refusjonsbeløpPrMnd === originalPeriode?.refusjonsbeløpPrMnd;
+
           return {
             kilde: rad.kilde,
             refusjonsbeløpPrMnd: rad.refusjonsbeløpPrMnd,
             fom: rad.fom,
             tom: rad.tom,
-            utfall: rad.refusjonsbeløpPrMnd === originalAndel?.refusjonsbeløpPrMnd ? notEmpty(rad.utfall) : 'REDUSERT',
+            utfall: erBeløpetUendret ? notEmpty(rad.utfall) : 'REDUSERT',
             utfallÅrsak: rad.utfallÅrsak,
           };
         }),

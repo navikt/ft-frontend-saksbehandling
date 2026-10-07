@@ -151,15 +151,15 @@ describe('dateUtils', () => {
       ['2023-12-31', false],
       ['2024-02-01', false],
     ])('%s er innenfor 2024-01-01 - 2024-01-31: %s', (dato, forventet) => {
-      expect(isDateWithinInterval(dato, '2024-01-01', '2024-01-31')).toBe(forventet);
+      expect(isDateWithinInterval(dato)({ fom: '2024-01-01', tom: '2024-01-31' })).toBe(forventet);
     });
 
     it('skal returnere true når fom og tom er samme dato og dato er lik', () => {
-      expect(isDateWithinInterval('2024-01-01', '2024-01-01', '2024-01-01')).toBe(true);
+      expect(isDateWithinInterval('2024-01-01')({ fom: '2024-01-01', tom: '2024-01-01' })).toBe(true);
     });
 
     it('skal returnere false når fom er etter tom', () => {
-      expect(isDateWithinInterval('2024-01-15', '2024-01-31', '2024-01-01')).toBe(false);
+      expect(isDateWithinInterval('2024-01-15')({ fom: '2024-01-31', tom: '2024-01-01' })).toBe(false);
     });
 
     it.each([
@@ -167,7 +167,7 @@ describe('dateUtils', () => {
       ['2024-01-15', 'ugyldig', '2024-01-31'],
       ['2024-01-15', '2024-01-01', 'ugyldig'],
     ])('skal returnere false når en dato er ugyldig (%s, %s, %s)', (dato, fom, tom) => {
-      expect(isDateWithinInterval(dato, fom, tom)).toBe(false);
+      expect(isDateWithinInterval(dato)({ fom, tom })).toBe(false);
     });
   });
 });

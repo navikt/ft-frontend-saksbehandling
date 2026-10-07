@@ -12,12 +12,12 @@ import styles from './RefusjonskravTabell.module.css';
 
 interface Props {
   rader: RefusjonskravFormRad[];
-  expandableRowContent: ReactNode[];
+  renderRowContent: (krav: RefusjonskravFormRad, index: number) => ReactNode;
   åpneRader: Set<number>;
   onOpenChange: (index: number, open: boolean) => void;
 }
 
-export const RefusjonskravTabell = ({ rader, expandableRowContent, åpneRader, onOpenChange }: Props) => {
+export const RefusjonskravTabell = ({ rader, renderRowContent, åpneRader, onOpenChange }: Props) => {
   const intl = useIntl();
 
   return (
@@ -48,56 +48,60 @@ export const RefusjonskravTabell = ({ rader, expandableRowContent, åpneRader, o
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {rader.map((krav, index) => (
-            <Table.ExpandableRow
-              key={`${krav.arbeidsgiverIdent}-${krav.fom}-${krav.tom}`}
-              content={krav.utfall === undefined || krav.kilde === 'SAKSBEHANDLER' ? expandableRowContent[index] : null}
-              togglePlacement="right"
-              className={krav.utfall ? undefined : styles.warningRow}
-              open={åpneRader.has(index)}
-              onOpenChange={open => onOpenChange(index, open)}
-              expandOnRowClick
-              expansionDisabled={krav.utfall !== undefined && krav.kilde !== 'SAKSBEHANDLER'}
-            >
-              <Table.DataCell>
-                <HStack gap="space-8" wrap={false}>
-                  {!krav.utfall && (
-                    <ExclamationmarkTriangleFillIcon
-                      title={intl.formatMessage({ id: 'RefusjonskravTabell.UtfallMangler' })}
-                      color="var(--ax-text-warning-decoration)"
-                      fontSize="1.25rem"
-                    />
-                  )}
-                  {krav.arbeidsgiverNavn}
-                </HStack>
-              </Table.DataCell>
+          {rader.map((krav, index) => {
+            const content = renderRowContent(krav, index);
 
-              <Table.DataCell>
-                <PeriodLabel dateStringFom={krav.fom} dateStringTom={krav.tom} />
-              </Table.DataCell>
+            return (
+              <Table.ExpandableRow
+                key={`${krav.arbeidsgiverIdent}-${krav.fom}-${krav.tom}`}
+                content={content}
+                togglePlacement="right"
+                className={krav.utfall ? undefined : styles.warningRow}
+                open={åpneRader.has(index)}
+                onOpenChange={open => onOpenChange(index, open)}
+                expandOnRowClick
+                expansionDisabled={content == null}
+              >
+                <Table.DataCell>
+                  <HStack gap="space-8" wrap={false}>
+                    {!krav.utfall && (
+                      <ExclamationmarkTriangleFillIcon
+                        title={intl.formatMessage({ id: 'RefusjonskravTabell.UtfallMangler' })}
+                        color="var(--ax-text-warning-decoration)"
+                        fontSize="1.25rem"
+                      />
+                    )}
+                    {krav.arbeidsgiverNavn}
+                  </HStack>
+                </Table.DataCell>
 
-              <Table.DataCell align="right">
-                <BeløpLabel beløp={krav.refusjonsbeløpPrMnd} kr />
-              </Table.DataCell>
+                <Table.DataCell>
+                  <PeriodLabel dateStringFom={krav.fom} dateStringTom={krav.tom} />
+                </Table.DataCell>
 
-              <Table.DataCell>
-                <DateLabel dateString={krav.datoForInnsendtEllerEndretIM} />
-              </Table.DataCell>
+                <Table.DataCell align="right">
+                  <BeløpLabel beløp={krav.refusjonsbeløpPrMnd} kr />
+                </Table.DataCell>
 
-              <Table.DataCell>
-                <HStack gap="space-8" wrap={false}>
-                  {krav.kilde === 'SAKSBEHANDLER' && (
-                    <PersonPencilFillIcon
-                      title={intl.formatMessage({ id: 'RefusjonskravTabell.EndretAvSaksbehandler' })}
-                      fontSize="1.5rem"
-                      color="var(--ax-text-warning-decoration)"
-                    />
-                  )}
-                  {krav.utfall && getUtfallTekst(krav.utfall)}
-                </HStack>
-              </Table.DataCell>
-            </Table.ExpandableRow>
-          ))}
+                <Table.DataCell>
+                  <DateLabel dateString={krav.datoForInnsendtEllerEndretIM} />
+                </Table.DataCell>
+
+                <Table.DataCell>
+                  <HStack gap="space-8" wrap={false}>
+                    {krav.kilde === 'SAKSBEHANDLER' && (
+                      <PersonPencilFillIcon
+                        title={intl.formatMessage({ id: 'RefusjonskravTabell.EndretAvSaksbehandler' })}
+                        fontSize="1.5rem"
+                        color="var(--ax-text-warning-decoration)"
+                      />
+                    )}
+                    {krav.utfall && getUtfallTekst(krav.utfall)}
+                  </HStack>
+                </Table.DataCell>
+              </Table.ExpandableRow>
+            );
+          })}
         </Table.Body>
       </Table>
     </VStack>
