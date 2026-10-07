@@ -163,9 +163,9 @@ describe('dateUtils', () => {
     });
 
     it.each([
-      ['ugyldig', '2024-01-01', '2024-01-31'],
-      ['2024-01-15', 'ugyldig', '2024-01-31'],
-      ['2024-01-15', '2024-01-01', 'ugyldig'],
+      ['2024-02-31', '2024-03-01', '2024-03-31'],
+      ['2024-03-15', '2024-02-31', '2024-03-31'],
+      ['2024-03-15', '2024-03-01', '2024-03-32'],
     ])('skal returnere false når en dato er ugyldig (%s, %s, %s)', (dato, fom, tom) => {
       expect(isDateWithinInterval(dato)({ fom, tom })).toBe(false);
     });

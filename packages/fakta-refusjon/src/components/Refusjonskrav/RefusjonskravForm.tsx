@@ -6,7 +6,7 @@ import { VStack } from '@navikt/ds-react';
 import { RhfForm, RhfTextarea, SubmitButton } from '@navikt/ft-form-hooks';
 import { maxLength, minLength, required } from '@navikt/ft-form-validators';
 import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
-import { isDateWithinInterval, notEmpty, sortPeriodsByFom } from '@navikt/ft-utils';
+import { isAksjonspunktOpen, isDateWithinInterval, notEmpty, sortPeriodsByFom } from '@navikt/ft-utils';
 
 import type { AksjonspunktRefusjon, AksjonspunktSubmitType } from '../../types/aksjonspunkt';
 import type { RefusjonsAndel } from '../../types/dataTypes';
@@ -79,7 +79,7 @@ export const RefusjonskravForm = ({
       onSubmit={values =>
         !hasDirtyRows &&
         values.refusjonskrav.every(erRadFerdigVurdert) &&
-        submitCallback(transformValues(values, refusjonsandeler))
+        submitCallback(transformValues(values, refusjonsandeler, aksjonspunkt))
       }
     >
       <VStack gap="space-20">
@@ -116,7 +116,6 @@ export const RefusjonskravForm = ({
         <div>
           <SubmitButton
             isReadOnly={readOnly}
-            isDirty={formMethods.formState.isDirty}
             isSubmitting={formMethods.formState.isSubmitting}
             isSubmittable={formMethods.formState.isValid && erAlleRaderFerdigVurdert && !hasDirtyRows}
             hasErrors={Object.keys(formMethods.formState.errors).length > 0}
@@ -158,29 +157,36 @@ const buildInitialValues = (
 const transformValues = (
   values: AvklarRefusjonsKravFormValues,
   originalRefusjonsandeler: RefusjonsAndel[],
-): AksjonspunktSubmitType => ({
-  begrunnelse: values.begrunnelse,
-  refusjonskrav: Map.groupBy(values.refusjonskrav, rad => rad.arbeidsgiverIdent)
-    .entries()
-    .toArray()
-    .map(([arbeidsgiverIdent, rader]) => {
-      const originalAndel = originalRefusjonsandeler.find(andel => andel.arbeidsgiverIdent === arbeidsgiverIdent);
+  aksjonspunkt: AksjonspunktRefusjon[],
+): AksjonspunktSubmitType => {
+  const kode = notEmpty(aksjonspunkt.find(isAksjonspunktOpen)).kode;
 
-      return {
-        arbeidsgiverIdent,
-        perioder: rader.map(rad => {
-          const originalPeriode = originalAndel?.refusjonsperioder.find(isDateWithinInterval(rad.fom));
-          const erBeløpetUendret = rad.refusjonsbeløpPrMnd === originalPeriode?.refusjonsbeløpPrMnd;
+  return {
+    '@type': kode,
+    kode,
+    begrunnelse: values.begrunnelse,
+    refusjonskrav: Map.groupBy(values.refusjonskrav, rad => rad.arbeidsgiverIdent)
+      .entries()
+      .toArray()
+      .map(([arbeidsgiverIdent, rader]) => {
+        const originalAndel = originalRefusjonsandeler.find(andel => andel.arbeidsgiverIdent === arbeidsgiverIdent);
 
-          return {
-            kilde: rad.kilde,
-            refusjonsbeløpPrMnd: rad.refusjonsbeløpPrMnd,
-            fom: rad.fom,
-            tom: rad.tom,
-            utfall: erBeløpetUendret ? notEmpty(rad.utfall) : 'REDUSERT',
-            utfallÅrsak: rad.utfallÅrsak,
-          };
-        }),
-      };
-    }),
-});
+        return {
+          arbeidsgiverIdent,
+          perioder: rader.map(rad => {
+            const originalPeriode = originalAndel?.refusjonsperioder.find(isDateWithinInterval(rad.fom));
+            const erBeløpetUendret = rad.refusjonsbeløpPrMnd === originalPeriode?.refusjonsbeløpPrMnd;
+
+            return {
+              kilde: rad.kilde,
+              refusjonsbeløpPrMnd: rad.refusjonsbeløpPrMnd,
+              fom: rad.fom,
+              tom: rad.tom,
+              utfall: erBeløpetUendret ? notEmpty(rad.utfall) : 'REDUSERT',
+              utfallÅrsak: rad.utfallÅrsak,
+            };
+          }),
+        };
+      }),
+  };
+};

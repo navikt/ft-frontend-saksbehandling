@@ -1,4 +1,4 @@
-import type { AksjonspunktStatus } from '@navikt/ft-types';
+import type { AksjonspunktStatus, AksjonspunktTilBekreftelse } from '@navikt/ft-types';
 
 export type AksjonspunktRefusjon = {
   kode: 'AVKLAR_REFUSJONSKRAV' | 'OVERSTYR_REFUSJONSKRAV';
@@ -6,7 +6,7 @@ export type AksjonspunktRefusjon = {
   begrunnelse?: string;
 };
 
-export type AksjonspunktSubmitType = {
+export type AksjonspunktSubmitType = AksjonspunktTilBekreftelse<AksjonspunktRefusjon['kode']> & {
   refusjonskrav: {
     arbeidsgiverIdent: string;
     perioder: {

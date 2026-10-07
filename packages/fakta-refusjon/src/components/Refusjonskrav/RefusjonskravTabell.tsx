@@ -8,7 +8,7 @@ import { BeløpLabel, DateLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
 import type { RefusjonskravFormRad } from './formValues';
 
-import styles from './RefusjonskravTabell.module.css';
+import styles from './refusjonskravTabell.module.css';
 
 interface Props {
   rader: RefusjonskravFormRad[];

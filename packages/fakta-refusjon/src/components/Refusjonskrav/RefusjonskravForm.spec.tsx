@@ -16,6 +16,33 @@ import messages from '../../../i18n/nb_NO.json';
 const intl = createIntl(messages);
 
 describe('RefusjonskravForm', () => {
+  it('sender kode og type for det åpne overstyringsaksjonspunktet', async () => {
+    const submitCallback = vi.fn().mockResolvedValue(undefined);
+    const refusjonsandeler = refusjonsandelerForTreArbeidsgivere.map(andel => ({
+      ...andel,
+      refusjonsperioder: andel.refusjonsperioder.map(periode => ({ ...periode, utfall: 'INNVILGET' as const })),
+    }));
+    renderForm({
+      refusjonsandeler,
+      submitCallback,
+      aksjonspunkt: [
+        { kode: 'AVKLAR_REFUSJONSKRAV', status: 'UTFO' },
+        { kode: 'OVERSTYR_REFUSJONSKRAV', status: 'OPPR' },
+      ],
+    });
+    await userEvent.type(screen.getByRole('textbox', { name: 'Begrunnelse' }), 'Overstyrt');
+    await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
+
+    await waitFor(() =>
+      expect(submitCallback).toHaveBeenCalledWith(
+        expect.objectContaining({
+          '@type': 'OVERSTYR_REFUSJONSKRAV',
+          kode: 'OVERSTYR_REFUSJONSKRAV',
+        }),
+      ),
+    );
+  });
+
   it('skal vise tidligere begrunnelse for aksjonspunktet', async () => {
     renderForm({
       aksjonspunkt: [{ kode: 'AVKLAR_REFUSJONSKRAV', status: 'UTFO', begrunnelse: 'Allerede vurdert' }],
@@ -60,6 +87,8 @@ describe('RefusjonskravForm', () => {
 
     await waitFor(() => {
       expect(submitCallback).toHaveBeenCalledWith({
+        '@type': 'AVKLAR_REFUSJONSKRAV',
+        kode: 'AVKLAR_REFUSJONSKRAV',
         begrunnelse: 'Vurdert',
         refusjonskrav: [
           {
