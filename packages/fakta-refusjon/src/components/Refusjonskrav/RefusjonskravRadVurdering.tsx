@@ -25,16 +25,7 @@ interface Props {
 export const RefusjonskravRadVurdering = ({ index, krav, readOnly, onSave, onDirtyChange }: Props) => {
   const fieldName = `vurderinger.${index}` as const;
   const formMethods = useForm<Vurderingsskjema>({
-    defaultValues: {
-      vurderinger: Array.from({ length: index + 1 }, (_, currentIndex) =>
-        currentIndex === index
-          ? {
-              utfall: krav.utfall === 'REDUSERT' ? undefined : krav.utfall,
-              utfallÅrsak: krav.utfallÅrsak,
-            }
-          : {},
-      ),
-    },
+    defaultValues: buildInitialValues(index, krav),
   });
   const utfall = useWatch({
     control: formMethods.control,
@@ -123,3 +114,14 @@ export const RefusjonskravRadVurdering = ({ index, krav, readOnly, onSave, onDir
     </FormProvider>
   );
 };
+
+const buildInitialValues = (index: number, krav: RefusjonskravFormRad): Vurderingsskjema => ({
+  vurderinger: Array.from({ length: index + 1 }, (_, currentIndex) =>
+    currentIndex === index
+      ? {
+          utfall: krav.utfall === 'REDUSERT' ? undefined : krav.utfall,
+          utfallÅrsak: krav.utfallÅrsak,
+        }
+      : {},
+  ),
+});
