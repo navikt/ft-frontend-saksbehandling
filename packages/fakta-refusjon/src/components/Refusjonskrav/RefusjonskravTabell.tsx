@@ -93,7 +93,7 @@ export const RefusjonskravTabell = ({ rader, expandableRowContent, åpneRader, o
                       color="var(--ax-text-warning-decoration)"
                     />
                   )}
-                  {krav.utfall && <FormattedMessage id={`RefusjonskravTabell.Utfall.${krav.utfall}`} />}
+                  {krav.utfall && getUtfallTekst(krav.utfall)}
                 </HStack>
               </Table.DataCell>
             </Table.ExpandableRow>
@@ -102,4 +102,15 @@ export const RefusjonskravTabell = ({ rader, expandableRowContent, åpneRader, o
       </Table>
     </VStack>
   );
+};
+
+const getUtfallTekst = (utfall: NonNullable<RefusjonskravFormRad['utfall']>) => {
+  switch (utfall) {
+    case 'INNVILGET':
+      return <FormattedMessage id="RefusjonskravTabell.Utfall.INNVILGET" />;
+    case 'AVSLÅTT':
+      return <FormattedMessage id="RefusjonskravTabell.Utfall.AVSLÅTT" />;
+    case 'REDUSERT':
+      return <FormattedMessage id="RefusjonskravTabell.Utfall.REDUSERT" />;
+  }
 };

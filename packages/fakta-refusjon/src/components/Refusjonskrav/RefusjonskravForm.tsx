@@ -59,11 +59,13 @@ export const RefusjonskravForm = ({
   }));
 
   const erAlleRaderFerdigVurdert = refusjonskrav.every(erRadFerdigVurdert);
-  const [openRows, setOpenRows] = useState(() => new Set(fields.flatMap((rad, index) => (rad.utfall ? [] : index))));
-  const [dirtyRows, setDirtyRows] = useState<Set<number>>(() => new Set());
+  const [openRowsIndex, setOpenRowsIndex] = useState(
+    () => new Set(fields.flatMap((rad, index) => (rad.utfall ? [] : index))),
+  );
+  const [dirtyRowsIndex, setDirtyRowsIndex] = useState<Set<number>>(() => new Set());
 
   const onDirtyChange = useCallback((index: number, dirty: boolean) => {
-    setDirtyRows(current => {
+    setDirtyRowsIndex(current => {
       if (current.has(index) === dirty) {
         return current;
       }
@@ -98,7 +100,7 @@ export const RefusjonskravForm = ({
       },
     );
     onDirtyChange(index, false);
-    setOpenRows(current => {
+    setOpenRowsIndex(current => {
       const next = new Set(current);
       next.delete(index);
       return next;
@@ -106,7 +108,7 @@ export const RefusjonskravForm = ({
   };
 
   const onOpenChange = (index: number, open: boolean) => {
-    setOpenRows(current => {
+    setOpenRowsIndex(current => {
       const next = new Set(current);
       if (open) {
         next.add(index);
@@ -137,17 +139,17 @@ export const RefusjonskravForm = ({
       formMethods={formMethods}
       setDataOnUnmount={setFormData}
       onSubmit={values =>
-        dirtyRows.size === 0 &&
+        dirtyRowsIndex.size === 0 &&
         values.refusjonskrav.every(erRadFerdigVurdert) &&
         submitCallback(transformValues(values, refusjonsandeler))
       }
     >
-      <VStack gap="space-20" maxWidth="1200px">
+      <VStack gap="space-20">
         <Utbetaling />
 
         <RefusjonskravTabell
           rader={rader}
-          åpneRader={openRows}
+          åpneRader={openRowsIndex}
           onOpenChange={onOpenChange}
           expandableRowContent={radinnhold}
         />
@@ -165,7 +167,7 @@ export const RefusjonskravForm = ({
             isReadOnly={readOnly}
             isDirty={formMethods.formState.isDirty}
             isSubmitting={formMethods.formState.isSubmitting}
-            isSubmittable={formMethods.formState.isValid && erAlleRaderFerdigVurdert && dirtyRows.size === 0}
+            isSubmittable={formMethods.formState.isValid && erAlleRaderFerdigVurdert && dirtyRowsIndex.size === 0}
             hasErrors={Object.keys(formMethods.formState.errors).length > 0}
           />
         </div>
