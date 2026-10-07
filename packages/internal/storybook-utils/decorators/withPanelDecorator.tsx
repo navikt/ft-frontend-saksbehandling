@@ -107,7 +107,7 @@ const ProsessMenySkjelett = ({ innhold, menyKnapp }: { innhold?: ReactNode; meny
         <HStack gap="space-16" justify="center" wrap={false}>
           {menyKnapp}
           {Array.from({ length: ANTALL_PROSESS_STEG - (menyKnapp ? 1 : 0) }).map((_, i) => (
-            <Skeleton key={i} variant="rounded" width={'100%'} height={44} style={{ minWidth: 0 }} />
+            <Skeleton key={i} variant="rounded" width={'100%'} height={44} style={{ minWidth: 0 }} /> // NOSONAR
           ))}
         </HStack>
       )}
