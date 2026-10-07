@@ -220,7 +220,7 @@ describe('RefusjonskravForm', () => {
     const åpnetRad = getÅpentRadInnhold('Brunostfabrikken AS');
     expect(within(åpnetRad).getByRole('radio', { name: 'Ja' })).toBeChecked();
     await userEvent.click(within(åpnetRad).getByRole('radio', { name: /Nei/ }));
-    expect(submitButton).toBeDisabled();
+    await waitFor(() => expect(submitButton).toBeDisabled());
     const form = submitButton.closest('form');
     if (!form) {
       throw new Error('Fant ikke refusjonsskjemaet');
@@ -239,7 +239,7 @@ describe('RefusjonskravForm', () => {
     expect(within(redigertRad).getByRole('button', { name: 'Angre' })).toBeDisabled();
     expect(within(redigertRad).getByRole('button', { name: 'Lagre' })).toBeDisabled();
     await userEvent.click(within(redigertRad).getByRole('radio', { name: 'Ja' }));
-    expect(submitButton).toBeDisabled();
+    await waitFor(() => expect(submitButton).toBeDisabled());
     expect(within(redigertRad).getByRole('button', { name: 'Angre' })).toBeEnabled();
     expect(within(redigertRad).getByRole('button', { name: 'Lagre' })).toBeEnabled();
     await act(async () => fireEvent.submit(form));
@@ -250,7 +250,7 @@ describe('RefusjonskravForm', () => {
     expect(within(redigertRad).getByRole('radio', { name: 'Årsak 1' })).toBeChecked();
     expect(within(redigertRad).getByRole('button', { name: 'Angre' })).toBeDisabled();
     expect(within(redigertRad).getByRole('button', { name: 'Lagre' })).toBeDisabled();
-    expect(submitButton).toBeEnabled();
+    await waitFor(() => expect(submitButton).toBeEnabled());
     await userEvent.click(submitButton);
     await waitFor(() =>
       expect(submitCallback).toHaveBeenCalledWith(
