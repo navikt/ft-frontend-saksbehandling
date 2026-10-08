@@ -2,6 +2,6 @@
   box-shadow: inset 4px 0 0 var(--ax-bg-warning-strong);
 }
 
-.warningRow:has(button[aria-expanded='true']) + tr {
+.warningRow + tr {
   box-shadow: inset 4px 0 0 var(--ax-bg-warning-strong);
 }
