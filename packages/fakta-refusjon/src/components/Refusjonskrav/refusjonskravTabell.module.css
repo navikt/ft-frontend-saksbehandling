@@ -1,0 +1,7 @@
+.warningRow {
+  box-shadow: inset 4px 0 0 var(--ax-bg-warning-strong);
+}
+
+.warningRow + tr {
+  box-shadow: inset 4px 0 0 var(--ax-bg-warning-strong);
+}

@@ -1,4 +1,5 @@
 import dayjs, { Dayjs } from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 import duration from 'dayjs/plugin/duration.js';
 import isoWeek from 'dayjs/plugin/isoWeek.js';
 import utc from 'dayjs/plugin/utc.js';
@@ -13,6 +14,7 @@ import 'dayjs/locale/nb.js';
 dayjs.extend(utc);
 dayjs.extend(isoWeek);
 dayjs.extend(duration);
+dayjs.extend(customParseFormat);
 
 const intl = createIntl(messages);
 
@@ -152,3 +154,16 @@ export const findDifferenceInMonthsAndDays = (
     days,
   };
 };
+
+// Inkluderer både fom- og tom-dato. Returnerer false hvis fom er etter tom.
+export const isDateWithinInterval =
+  (dato: string) =>
+  ({ fom, tom }: { fom: string; tom: string }): boolean => {
+    const date = dayjs(dato, ISO_DATE_FORMAT, true);
+    const fomDate = dayjs(fom, ISO_DATE_FORMAT, true);
+    const tomDate = dayjs(tom, ISO_DATE_FORMAT, true);
+    if (!date.isValid() || !fomDate.isValid() || !tomDate.isValid() || fomDate.isAfter(tomDate)) {
+      return false;
+    }
+    return !date.isBefore(fomDate) && !date.isAfter(tomDate);
+  };
