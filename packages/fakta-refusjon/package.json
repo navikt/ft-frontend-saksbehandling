@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-refusjon",
   "description": "Faktapanel for refusjon",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
