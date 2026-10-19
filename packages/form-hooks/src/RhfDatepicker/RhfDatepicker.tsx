@@ -59,8 +59,11 @@ export const RhfDatepicker = <T extends FieldValues>({
     },
   });
 
-  const defaultDate = field.value ? dayjs(field.value, ISO_DATE_FORMAT, true).format(DDMMYYYY_DATE_FORMAT) : '';
-  const [fieldValue, setFieldValue] = useState<string>(defaultDate);
+  // Feltet kan inneholde ugyldig råtekst (f.eks. fra mellomlagring), og den må ikke sendes videre som Date til Aksel
+  const gyldigDato = parseIsoDato(field.value);
+  const visningsverdi =
+    gyldigDato?.format(DDMMYYYY_DATE_FORMAT) ?? (typeof field.value === 'string' ? field.value : '');
+  const [fieldValue, setFieldValue] = useState<string>(visningsverdi);
 
   const { datepickerProps, inputProps } = useDatepicker({
     onDateChange: date => {
@@ -73,8 +76,8 @@ export const RhfDatepicker = <T extends FieldValues>({
         setFieldValue(dayjs(verdi, ISO_DATE_FORMAT, true).format(DDMMYYYY_DATE_FORMAT));
       }
     },
-    defaultSelected: field.value ? dayjs(field.value, ISO_DATE_FORMAT, true).toDate() : undefined,
-    defaultMonth: defaultMonth || (!field.value && toDate ? toDate : undefined),
+    defaultSelected: gyldigDato?.toDate(),
+    defaultMonth: defaultMonth || (!gyldigDato && toDate ? toDate : undefined),
     disabled: disabledDays,
   });
 
@@ -100,7 +103,7 @@ export const RhfDatepicker = <T extends FieldValues>({
     return (
       <ReadOnlyField
         label={label}
-        value={field.value ? dayjs(field.value, ISO_DATE_FORMAT, true).format(DDMMYYYY_DATE_FORMAT) : undefined}
+        value={visningsverdi || undefined}
         isEdited={isEdited}
         hideLabel={hideLabel}
         size={size}
@@ -131,6 +134,14 @@ export const RhfDatepicker = <T extends FieldValues>({
       />
     </DatePicker>
   );
+};
+
+const parseIsoDato = (verdi: unknown): dayjs.Dayjs | undefined => {
+  if (typeof verdi !== 'string' || verdi === '') {
+    return undefined;
+  }
+  const dato = dayjs(verdi, ISO_DATE_FORMAT, true);
+  return dato.isValid() ? dato : undefined;
 };
 
 const formatDateInput = ({

@@ -3,6 +3,7 @@ import { type SubmitHandler, useForm } from 'react-hook-form';
 import { composeStories } from '@storybook/react-vite';
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import dayjs from 'dayjs';
 import { expect, vi } from 'vitest';
 
 import { RhfForm } from '../RhfForm';
@@ -11,16 +12,31 @@ import * as stories from './RhfDatepicker.stories';
 
 export const { Default } = composeStories(stories);
 
-const TestForm = ({ onSubmit }: { onSubmit: SubmitHandler<{ dato: string }> }) => {
+const TestForm = ({
+  onSubmit,
+  defaultDato = '',
+  readOnly,
+}: {
+  onSubmit: SubmitHandler<{ dato: string }>;
+  defaultDato?: string;
+  readOnly?: boolean;
+}) => {
   const formMethods = useForm<{ dato: string }>({
     defaultValues: {
-      dato: '',
+      dato: defaultDato,
     },
   });
 
   return (
     <RhfForm formMethods={formMethods} onSubmit={onSubmit}>
-      <RhfDatepicker control={formMethods.control} name="dato" label="Dato" inputFormats={['DD-MM-YYYY', 'DDMMYY']} />
+      <RhfDatepicker
+        control={formMethods.control}
+        name="dato"
+        label="Dato"
+        inputFormats={['DD-MM-YYYY', 'DDMMYY']}
+        validate={[value => (dayjs(value, 'YYYY-MM-DD', true).isValid() ? null : 'Ugyldig dato')]}
+        readOnly={readOnly}
+      />
       <button type="submit">Submit</button>
     </RhfForm>
   );
@@ -90,5 +106,30 @@ describe('RhfDatepicker', () => {
     // Bruker markerer alt og limer inn den samme sifferrekken – skal fortsatt få punktum
     fireEvent.change(input, { target: { value: '26082025' } });
     expect(input).toHaveValue('26.08.2025');
+  });
+
+  it('skal ikke krasje og skal vise råverdien når startverdien er en ugyldig dato', async () => {
+    const onSubmit = vi.fn();
+    const { container } = render(<TestForm onSubmit={onSubmit} defaultDato="31092026" />);
+
+    const input = within(container).getByLabelText('Dato');
+    expect(input).toHaveValue('31092026');
+
+    await userEvent.click(within(container).getByRole('button', { name: 'Submit' }));
+
+    expect(await screen.findByText('Ugyldig dato')).toBeInTheDocument();
+    expect(onSubmit).not.toHaveBeenCalled();
+  });
+
+  it('skal vise råverdien i lesemodus når verdien er en ugyldig dato', () => {
+    render(<TestForm onSubmit={vi.fn()} defaultDato="31092026" readOnly />);
+
+    expect(screen.getByText('31092026')).toBeInTheDocument();
+  });
+
+  it('skal vise gyldig startverdi formatert', () => {
+    const { container } = render(<TestForm onSubmit={vi.fn()} defaultDato="2026-09-30" />);
+
+    expect(within(container).getByLabelText('Dato')).toHaveValue('30.09.2026');
   });
 });
