@@ -1701,8 +1701,8 @@ __metadata:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-css": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-form-hooks": 12.x
-    "@navikt/ft-form-validators": 6.x
+    "@navikt/ft-form-hooks": 13.x
+    "@navikt/ft-form-validators": 7.x
     "@navikt/ft-types": 7.x
     "@navikt/ft-ui-komponenter": 9.x
     "@navikt/ft-utils": 6.x
