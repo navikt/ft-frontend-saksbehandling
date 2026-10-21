@@ -38,6 +38,7 @@ import {
 import { AktsomhetFormPanel } from './tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetFormPanel';
 import { BelopetMottattIGodTroFormPanel } from './tilbakekrevingPeriodePaneler/godTro/BelopetMottattIGodTroFormPanel';
 import { TilbakekrevingTimeline } from './timeline/TilbakekrevingTimeline';
+import { validerOm6LeddBrukesPåAllePerioder } from './validerOm6LeddBrukesPåAllePerioder';
 
 dayjs.extend(isSameOrBefore);
 
@@ -275,36 +276,6 @@ const transformValues = (
     .filter((p: CustomVilkarsVurdertePeriode) => !p.erForeldet)
     .map((p: CustomVilkarsVurdertePeriode) => periodeFormTransformValues(p, sarligGrunnTyper)),
 });
-
-const validerOm6LeddBrukesPåAllePerioder = (vilkarsVurdertePerioder: CustomVilkarsVurdertePeriode[]) => {
-  if (!vilkarsVurdertePerioder) {
-    return undefined;
-  }
-  const antallPerioderMedAksjonspunkt = vilkarsVurdertePerioder.reduce(
-    (sum: number, periode) => (!periode.erForeldet ? sum + 1 : sum),
-    0,
-  );
-  if (antallPerioderMedAksjonspunkt < 2) {
-    return undefined;
-  }
-
-  const antallValgt = vilkarsVurdertePerioder.reduce((sum: number, periode: CustomVilkarsVurdertePeriode) => {
-    const { valgtVilkarResultatType } = periode;
-    const vilkarResultatInfo = periode[valgtVilkarResultatType];
-    if ('handletUaktsomhetGrad' in vilkarResultatInfo) {
-      const { handletUaktsomhetGrad } = vilkarResultatInfo;
-      const info = vilkarResultatInfo[handletUaktsomhetGrad];
-      if (info) {
-        return info.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr === false ? sum + 1 : sum;
-      }
-    }
-    return sum;
-  }, 0);
-  if (antallValgt > 0 && antallValgt !== vilkarsVurdertePerioder.length) {
-    return 'TilbakekrevingPeriodeForm.TotalbelopetUnder4Rettsgebyr';
-  }
-  return undefined;
-};
 
 // Mellomlagret data for panelet. Skrives kun når panelet unmountes (dvs. ved bytte av fane/panel).
 // `valgtPeriodeKey` gjør at riktig detaljpanel åpnes igjen, og `kladd` holder ubekreftede skjemaverdier

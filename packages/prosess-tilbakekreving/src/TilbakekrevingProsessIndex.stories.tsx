@@ -10,6 +10,7 @@ import type { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilut
 import type { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
 import type { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
 import type { VilkårsvurderingAp } from './types/VilkårsvurderingAp';
+import type { VilkårsvurdertPeriode } from './types/VilkårsvurdertePerioder';
 
 import messages from '../i18n/nb_NO.json';
 
@@ -115,6 +116,92 @@ export const MedToPerioder: Story = {
         },
       ],
       rettsgebyr: 1000,
+    },
+  },
+};
+
+const lagVurderingUtenTilbakekrevingUnder4Rettsgebyr = (fom: string, tom: string): VilkårsvurdertPeriode => ({
+  fom,
+  tom,
+  vilkarResultat: 'FORSTO_BURDE_FORSTAATT',
+  begrunnelse: 'Mottaker burde forstått at utbetalingen skyldtes en feil',
+  feilutbetalingBelop: 500,
+  vilkarResultatInfo: {
+    begrunnelse: 'Simpel uaktsomhet',
+    aktsomhet: 'SIMPEL_UAKTSOM',
+    aktsomhetInfo: {
+      sarligGrunner: [],
+      harGrunnerTilReduksjon: false,
+      andelTilbakekreves: 100,
+      ileggRenter: false,
+      tilbakekrevesBelop: 500,
+      tilbakekrevSelvOmBeloepErUnder4Rettsgebyr: false,
+      annetBegrunnelse: '',
+      sarligGrunnerBegrunnelse: '',
+    },
+  },
+});
+
+const lagPeriode = (
+  fom: string,
+  tom: string,
+  foreldet: boolean,
+  feilutbetaling: number,
+): DetaljerteFeilutbetalingsperioder['perioder'][number] => ({
+  fom,
+  tom,
+  foreldet,
+  feilutbetaling,
+  årsak: {
+    hendelseType: 'MEDLEMSKAP',
+  },
+  redusertBeloper: [],
+  ytelser: [
+    {
+      aktivitet: 'Arbeidstaker',
+      belop: feilutbetaling,
+    },
+  ],
+});
+
+export const MedForeldetPeriodeOgToPerioderUnder4Rettsgebyr: Story = {
+  args: {
+    perioderForeldelse: {
+      perioder: [
+        {
+          fom: '2019-01-01',
+          tom: '2019-01-31',
+          belop: 1000,
+          foreldelseVurderingType: ForeldelseVurderingType.FORELDET,
+          begrunnelse: 'Perioden er foreldet',
+        },
+        {
+          fom: '2019-02-01',
+          tom: '2019-02-28',
+          belop: 500,
+          foreldelseVurderingType: ForeldelseVurderingType.IKKE_FORELDET,
+        },
+        {
+          fom: '2019-03-01',
+          tom: '2019-03-31',
+          belop: 500,
+          foreldelseVurderingType: ForeldelseVurderingType.IKKE_FORELDET,
+        },
+      ],
+    },
+    vilkarvurderingsperioder: {
+      perioder: [
+        lagPeriode('2019-01-01', '2019-01-31', true, 1000),
+        lagPeriode('2019-02-01', '2019-02-28', false, 500),
+        lagPeriode('2019-03-01', '2019-03-31', false, 500),
+      ],
+      rettsgebyr: 1000,
+    },
+    vilkarvurdering: {
+      vilkarsVurdertePerioder: [
+        lagVurderingUtenTilbakekrevingUnder4Rettsgebyr('2019-02-01', '2019-02-28'),
+        lagVurderingUtenTilbakekrevingUnder4Rettsgebyr('2019-03-01', '2019-03-31'),
+      ],
     },
   },
 };
