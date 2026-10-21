@@ -1,12 +1,11 @@
 import { useIntl } from 'react-intl';
 
-import { ChevronLeftIcon, ChevronRightIcon, MinusIcon, PlusIcon } from '@navikt/aksel-icons';
+import { ChevronLeftIcon, ChevronRightIcon } from '@navikt/aksel-icons';
 import { Button, HStack, ToggleGroup } from '@navikt/ds-react';
 
-import {
-  erTidslinjeUtvidelse,
-  type TidslinjeUtvidelse,
-} from './tidslinjeUtvidelser';
+import { TidslinjeZoomKnapper } from '@navikt/ft-ui-komponenter';
+
+import { erTidslinjeUtvidelse, type TidslinjeUtvidelse } from './tidslinjeUtvidelser';
 
 interface TimelineToolbarProps {
   visNestePeriode: () => void;
@@ -31,25 +30,13 @@ export const TimelineToolbar = ({
 
   return (
     <HStack gap="space-12" align="center" aria-controls="timeline-dynamic" id="timeline-toolbar">
-      <HStack gap="space-2" align="center">
-        <Button
-          data-color="neutral"
-          icon={<PlusIcon title={intl.formatMessage({ id: 'TimelineToolbar.ZoomInn' })} />}
-          variant="secondary"
-          size="small"
-          type="button"
-          disabled={!kanZoomeInn}
-          onClick={zoomInn}
-        />
-        <Button
-          data-color="neutral"
-          icon={<MinusIcon title={intl.formatMessage({ id: 'TimelineToolbar.ZoomUt' })} />}
-          variant="secondary"
-          size="small"
-          type="button"
-          onClick={zoomUt}
-        />
-      </HStack>
+      <TidslinjeZoomKnapper
+        onZoomInn={zoomInn}
+        onZoomUt={zoomUt}
+        kanZoomeInn={kanZoomeInn}
+        zoomInnLabel={intl.formatMessage({ id: 'TimelineToolbar.ZoomInn' })}
+        zoomUtLabel={intl.formatMessage({ id: 'TimelineToolbar.ZoomUt' })}
+      />
       <HStack gap="space-2" align="center">
         <Button
           data-color="neutral"
