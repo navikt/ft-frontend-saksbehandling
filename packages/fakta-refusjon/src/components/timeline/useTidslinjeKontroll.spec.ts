@@ -109,7 +109,7 @@ describe('useTidslinjeKontroll', () => {
     expect(result.current.end).toEqual(new Date(2025, 1, 1));
   });
 
-  it('holder minimumsvinduet på én kalendermåned ved månedsslutt og med navigasjonsforskyvning', () => {
+  it('stopper på nærmeste månedssteg som ikke er kortere enn én måned ved månedsslutt', () => {
     const andeler = [lagAndel([{ fom: '2025-01-31', tom: '2025-01-31' }])];
     const { result } = renderHook(() => useTidslinjeKontroll(andeler));
 
@@ -128,7 +128,7 @@ describe('useTidslinjeKontroll', () => {
     act(() => result.current.zoomInn());
     act(() => result.current.zoomInn());
 
-    expect(result.current.end).toEqual(new Date(2025, 2, 28));
+    expect(result.current.end).toEqual(new Date(2025, 2, 30));
     expect(result.current.kanZoomeInn).toBe(false);
   });
 

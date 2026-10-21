@@ -24,3 +24,4 @@ export { ErrorBoundary } from './src/ErrorBoundary/ErrorBoundary';
 export { UtvidbarTekst } from './src/UtvidbarTekst';
 export { NoWrap } from './src/NoWrap';
 export { BeløpLabel } from './src/BeløpLabel';
+export { TidslinjeZoomKnapper } from './src/TidslinjeZoomKnapper';
