@@ -73,9 +73,17 @@
   "resolutions": {
     "tmp": "^0.2.7",
     "@microsoft/api-extractor/minimatch": "^3.1.4",
-    "js-yaml": "4.3.1",
+    "axios": "1.20.0",
+    "brace-expansion": "5.0.12",
+    "brace-expansion@npm:^1.1.7": "1.1.21",
+    "follow-redirects": "1.16.1",
+    "handlebars": "4.7.10",
+    "js-yaml": "4.3.2",
+    "nx": "23.3.0",
     "pacote": "^21.5.1",
-    "@npmcli/package-json@npm:7.0.2": "^7.0.5"
+    "@npmcli/package-json@npm:7.0.2": "^7.0.5",
+    "smol-toml": "1.9.1",
+    "source-map-js": "1.2.2"
   },
   "workspaces": {
     "packages": [
