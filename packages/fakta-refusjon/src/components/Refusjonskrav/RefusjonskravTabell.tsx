@@ -26,7 +26,7 @@ export const RefusjonskravTabell = ({ rader, renderRowContent, åpneRader, onOpe
         <FormattedMessage id="RefusjonskravTabell.Tittel" />
       </Heading>
 
-      <Table>
+      <Table className={styles.tabell}>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>
@@ -54,9 +54,9 @@ export const RefusjonskravTabell = ({ rader, renderRowContent, åpneRader, onOpe
             return (
               <Table.ExpandableRow
                 key={`${krav.arbeidsgiverIdent}-${krav.fom}-${krav.tom}`}
+                data-til-vurdering={krav.utfall === undefined}
                 content={content}
                 togglePlacement="right"
-                className={krav.utfall ? undefined : styles.warningRow}
                 open={åpneRader.has(index)}
                 onOpenChange={open => onOpenChange(index, open)}
                 expandOnRowClick
