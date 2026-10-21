@@ -14,6 +14,7 @@ import { formatCurrencyNoKr } from '@navikt/ft-utils';
 import type { ArbeidstakerInntektValues } from '../../types/ATFLAksjonspunkt';
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
+import { finnAndelerSomSkalFastsettesAT } from './finnAndelerSomSkalFastsettesAT';
 
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
   // Andelen er fastsatt før og må kunne fastsettes igjen
@@ -150,7 +151,7 @@ export const GrunnlagForAarsinntektPanelAT = ({
 GrunnlagForAarsinntektPanelAT.buildInitialValues = (
   alleAndeler: BeregningsgrunnlagAndel[],
 ): ArbeidstakerInntektValues => {
-  const relevanteAndeler = finnAndelerSomSkalVises(alleAndeler);
+  const relevanteAndeler = finnAndelerSomSkalFastsettesAT(alleAndeler);
   const initialValues = {} as ArbeidstakerInntektValues;
   relevanteAndeler.forEach((inntekt, index) => {
     initialValues[`inntekt${index}`] = formatCurrencyNoKr(inntekt.overstyrtPrAar) ?? '';
