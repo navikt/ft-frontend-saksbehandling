@@ -9,8 +9,6 @@ const meta = {
     onZoomInn: action('button-click'),
     onZoomUt: action('button-click'),
     kanZoomeInn: true,
-    zoomInnLabel: 'Zoom inn',
-    zoomUtLabel: 'Zoom ut',
   },
 } satisfies Meta<typeof TidslinjeZoomKnapper>;
 

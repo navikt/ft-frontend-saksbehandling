@@ -25,5 +25,4 @@ export { UtvidbarTekst } from './src/UtvidbarTekst';
 export { NoWrap } from './src/NoWrap';
 export { BeløpLabel } from './src/BeløpLabel';
 export { TidslinjeZoomKnapper } from './src/TidslinjeZoomKnapper';
-export { useTidslinje } from './src/useTidslinje';
-export type { TidslinjePeriode, UseTidslinjeProps } from './src/useTidslinje';
+export { useTidslinje } from './src/useTidslinje/useTidslinje';
