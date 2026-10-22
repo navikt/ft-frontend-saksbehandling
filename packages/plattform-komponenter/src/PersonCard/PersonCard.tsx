@@ -110,7 +110,7 @@ export const PersonCard = ({
                 <Button
                   data-color="neutral"
                   variant="tertiary"
-                  icon={<MenuElipsisHorizontalCircleIcon title={intl.formatMessage({ id: 'PersonCard.ApneMeny' })} />}
+                  icon={<MenuElipsisHorizontalCircleIcon title={intl.formatMessage({ id: 'PersonCard.Meny' })} />}
                   ref={menuRef}
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   aria-expanded={isMenuOpen}

@@ -8,6 +8,6 @@ const { MedMenyOgAlder } = composeStories(stories);
 describe('PersonCard', () => {
   it('skal gi menyknappen et tilgjengelig navn', () => {
     render(<MedMenyOgAlder />);
-    expect(screen.getByRole('button', { name: 'Åpne meny' })).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.getByRole('button', { name: 'Meny' })).toHaveAttribute('aria-expanded', 'false');
   });
 });
