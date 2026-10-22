@@ -13,8 +13,6 @@ interface TidslinjePeriode {
 
 export interface UseTidslinjeProps {
   perioder: TidslinjePeriode[];
-  timelineId?: string;
-  controllerId?: string;
 }
 
 export interface UseTidslinjeResult {
@@ -22,10 +20,10 @@ export interface UseTidslinjeResult {
   controllerElement: JSX.Element;
 }
 
-export const useTidslinje = ({ perioder, timelineId, controllerId }: UseTidslinjeProps): UseTidslinjeResult => {
+export const useTidslinje = ({ perioder }: UseTidslinjeProps): UseTidslinjeResult => {
   const generatedId = useId();
-  const resolvedTimelineId = timelineId ?? `tidslinje-${generatedId}`;
-  const resolvedControllerId = controllerId ?? `tidslinje-kontroller-${generatedId}`;
+  const timelineId = `tidslinje-${generatedId}`;
+  const controllerId = `tidslinje-kontroller-${generatedId}`;
   const [forskyvning, setForskyvning] = useState(0);
   const [zoomjustering, setZoomjustering] = useState(0);
   const grunnintervall = useMemo(() => utledDatointervall(perioder), [perioder]);
@@ -46,13 +44,13 @@ export const useTidslinje = ({ perioder, timelineId, controllerId }: UseTidslinj
     timelineProps: {
       startDate: start.toDate(),
       endDate: slutt.toDate(),
-      id: resolvedTimelineId,
-      'aria-controls': resolvedControllerId,
+      id: timelineId,
+      'aria-controls': controllerId,
     },
     controllerElement: (
       <TidslinjeController
-        id={resolvedControllerId}
-        aria-controls={resolvedTimelineId}
+        id={controllerId}
+        aria-controls={timelineId}
         kanZoomeInn={kanZoomeInn}
         onNeste={onNeste}
         onForrige={onForrige}
