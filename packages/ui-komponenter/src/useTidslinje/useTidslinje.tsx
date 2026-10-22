@@ -6,7 +6,7 @@ import { TidslinjeController } from './TidslinjeController';
 
 const STANDARDVINDU_MÅNEDER = 8;
 
-export interface TidslinjePeriode {
+interface TidslinjePeriode {
   fom: string;
   tom: string;
 }
