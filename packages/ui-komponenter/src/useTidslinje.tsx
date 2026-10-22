@@ -1,5 +1,6 @@
+import { type JSX,useId, useMemo, useState } from 'react';
+
 import dayjs from 'dayjs';
-import { useId, useMemo, useState, type JSX } from 'react';
 
 import { TidslinjeController } from './TidslinjeController';
 
