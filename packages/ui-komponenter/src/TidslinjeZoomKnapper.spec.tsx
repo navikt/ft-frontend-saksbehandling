@@ -8,15 +8,7 @@ describe('TidslinjeZoomKnapper', () => {
   const renderKomponent = (kanZoomeInn: boolean) => {
     const onZoomInn = vi.fn();
     const onZoomUt = vi.fn();
-    render(
-      <TidslinjeZoomKnapper
-        onZoomInn={onZoomInn}
-        onZoomUt={onZoomUt}
-        kanZoomeInn={kanZoomeInn}
-        zoomInnLabel="Zoom inn"
-        zoomUtLabel="Zoom ut"
-      />,
-    );
+    render(<TidslinjeZoomKnapper onZoomInn={onZoomInn} onZoomUt={onZoomUt} kanZoomeInn={kanZoomeInn} />);
     return { onZoomInn, onZoomUt };
   };
 

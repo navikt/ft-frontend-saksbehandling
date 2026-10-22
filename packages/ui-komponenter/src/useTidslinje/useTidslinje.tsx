@@ -1,4 +1,4 @@
-import { type JSX,useId, useMemo, useState } from 'react';
+import { type JSX, useId, useMemo, useState } from 'react';
 
 import dayjs from 'dayjs';
 
@@ -30,24 +30,34 @@ export const useTidslinje = ({ perioder, timelineId, controllerId }: UseTidslinj
   const [zoomjustering, setZoomjustering] = useState(0);
   const grunnintervall = useMemo(() => utledDatointervall(perioder), [perioder]);
   const standardSlutt = flyttMåneder(grunnintervall.start, STANDARDVINDU_MÅNEDER);
-  const grunnSlutt = grunnintervall.end > standardSlutt ? grunnintervall.end : standardSlutt;
-  const startDate = flyttMåneder(grunnintervall.start, forskyvning);
-  const minimumSlutt = flyttMåneder(startDate, 1);
+  const grunnSlutt = grunnintervall.end.isAfter(standardSlutt) ? grunnintervall.end : standardSlutt;
+  const start = flyttMåneder(grunnintervall.start, forskyvning);
+  const minimumSlutt = flyttMåneder(start, 1);
   const utledSlutt = (justering: number) => flyttMåneder(grunnSlutt, forskyvning + justering);
-  const endDate = utledSlutt(zoomjustering) > minimumSlutt ? utledSlutt(zoomjustering) : minimumSlutt;
-  const kanZoomeInn = utledSlutt(zoomjustering - 1) >= minimumSlutt;
+  const beregnetSlutt = utledSlutt(zoomjustering);
+  const slutt = beregnetSlutt.isAfter(minimumSlutt) ? beregnetSlutt : minimumSlutt;
+  const kanZoomeInn = !utledSlutt(zoomjustering - 1).isBefore(minimumSlutt);
+  const onNeste = () => setForskyvning(offset => offset + 1);
+  const onForrige = () => setForskyvning(offset => offset - 1);
+  const onZoomInn = () => setZoomjustering(value => (utledSlutt(value - 1).isBefore(minimumSlutt) ? value : value - 1));
+  const onZoomUt = () => setZoomjustering(value => value + 1);
 
   return {
-    timelineProps: { startDate, endDate, id: resolvedTimelineId, 'aria-controls': resolvedControllerId },
+    timelineProps: {
+      startDate: start.toDate(),
+      endDate: slutt.toDate(),
+      id: resolvedTimelineId,
+      'aria-controls': resolvedControllerId,
+    },
     controllerElement: (
       <TidslinjeController
         id={resolvedControllerId}
         aria-controls={resolvedTimelineId}
         kanZoomeInn={kanZoomeInn}
-        onNeste={() => setForskyvning(offset => offset + 1)}
-        onForrige={() => setForskyvning(offset => offset - 1)}
-        onZoomInn={() => setZoomjustering(value => (utledSlutt(value - 1) >= minimumSlutt ? value - 1 : value))}
-        onZoomUt={() => setZoomjustering(value => value + 1)}
+        onNeste={onNeste}
+        onForrige={onForrige}
+        onZoomInn={onZoomInn}
+        onZoomUt={onZoomUt}
       />
     ),
   };
@@ -56,17 +66,20 @@ export const useTidslinje = ({ perioder, timelineId, controllerId }: UseTidslinj
 const utledDatointervall = (perioder: TidslinjePeriode[]) => {
   const første = perioder[0];
   if (!første) {
-    const today = new Date();
+    const today = dayjs();
     return { start: today, end: today };
   }
   return perioder.reduce(
     (range, periode) => {
-      const start = dayjs(periode.fom).toDate();
-      const end = dayjs(periode.tom).toDate();
-      return { start: start < range.start ? start : range.start, end: end > range.end ? end : range.end };
+      const start = dayjs(periode.fom);
+      const end = dayjs(periode.tom);
+      return {
+        start: start.isBefore(range.start) ? start : range.start,
+        end: end.isAfter(range.end) ? end : range.end,
+      };
     },
-    { start: dayjs(første.fom).toDate(), end: dayjs(første.tom).toDate() },
+    { start: dayjs(første.fom), end: dayjs(første.tom) },
   );
 };
 
-const flyttMåneder = (date: Date, months: number) => dayjs(date).add(months, 'month').toDate();
+const flyttMåneder = (date: dayjs.Dayjs, months: number) => date.add(months, 'month');
