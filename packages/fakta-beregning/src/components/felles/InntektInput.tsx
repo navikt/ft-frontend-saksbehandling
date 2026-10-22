@@ -11,17 +11,23 @@ import { parseCurrencyInput } from '@navikt/ft-utils';
 import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
 
 type Props = {
-  name: string;
+  name:
+    | `vurderFaktaBeregningForm.${number}.arbeidstakerInntektValues.${number}.fastsattBelop`
+    | `vurderFaktaBeregningForm.${number}.frilansInntektValues.fastsattBelop`
+    | `vurderFaktaBeregningForm.${number}.kunstigAndelInntektValues.fastsattBelop`
+    | `vurderFaktaBeregningForm.${number}.dagpengerInntektValues.fastsattBelop`
+    | `vurderFaktaBeregningForm.${number}.selvstendigNæringsdrivendeInntektValues.fastsattBelop`
+    | `vurderFaktaBeregningForm.${number}.militærEllerSivilInntektValues.fastsattBelop`;
   isAksjonspunktClosed: boolean;
-} & TextFieldProps;
+  readOnly: boolean;
+} & Pick<TextFieldProps, 'label' | 'description'>;
 
 export const InntektInput = ({ name, readOnly, isAksjonspunktClosed, ...textfieldProps }: Props) => {
   const { resetField, control } = useFormContext<VurderFaktaBeregningFormValues>();
-  useEffect(() => () => resetField(name as 'vurderFaktaBeregningForm.0.arbeidstakerInntektValues.0.fastsattBelop'), []);
+  useEffect(() => () => resetField(name), []);
 
   return (
     <RhfTextField
-      // @ts-expect-error fiks
       name={name}
       control={control}
       align="right"

@@ -165,10 +165,10 @@ export const InntektFieldArray = ({
   const { getValues, control, formState } = useFormContext<VurderFaktaBeregningFormValues>();
   const { errors } = formState;
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const fieldArrayName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.inntektFieldArray`;
+  const fieldArrayName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.inntektFieldArray` as const;
   const { fields, remove, append, update } = useFieldArray({
     control,
-    name: fieldArrayName as 'vurderFaktaBeregningForm.0.inntektFieldArray',
+    name: fieldArrayName,
   });
 
   const formValues = useWatch({

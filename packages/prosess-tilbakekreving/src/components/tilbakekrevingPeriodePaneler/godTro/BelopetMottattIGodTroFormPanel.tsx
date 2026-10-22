@@ -32,7 +32,7 @@ export interface InitialValuesGodTroForm {
 }
 
 interface Props {
-  name: string;
+  name: 'GOD_TRO';
   readOnly: boolean;
   erBelopetIBehold?: boolean;
   feilutbetalingBelop: number;
@@ -41,8 +41,7 @@ interface Props {
 export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehold, feilutbetalingBelop }: Props) => {
   const intl = useIntl();
 
-  // TODO (TOR) Manglar type
-  const { control } = useFormContext();
+  const { control } = useFormContext<{ GOD_TRO: InitialValuesGodTroForm }>();
 
   return (
     <VStack gap="space-12">
@@ -67,6 +66,7 @@ export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehol
           <ArrowBox alignOffset={25}>
             <RhfTextField
               name={`${name}.tilbakekrevdBelop`}
+              control={control}
               label={<FormattedMessage id="BelopetMottattIGodTroFormPanel.AngiBelop" />}
               validate={[required, minValue1, validerAtMindreEnn(intl, feilutbetalingBelop)]}
               readOnly={readOnly}

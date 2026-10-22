@@ -164,12 +164,17 @@ export const InntektInputFields = ({
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${besteberegningField}`,
   );
 
-  const frilanserInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
-  const kunstigAndelFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${kunstigAndelField}.fastsattBelop`;
-  const dagpengerInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.dagpengerInntektValues.fastsattBelop`;
-  // eslint-disable-next-line max-len
-  const selvstendigNæringsdrivendeInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.selvstendigNæringsdrivendeInntektValues.fastsattBelop`;
-  const militærEllerSivilInntektFieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.militærEllerSivilInntektValues.fastsattBelop`;
+  const frilanserInntektFieldName =
+    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop` as const;
+  const kunstigAndelFieldName =
+    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.${kunstigAndelField}.fastsattBelop` as const;
+  const dagpengerInntektFieldName =
+    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.dagpengerInntektValues.fastsattBelop` as const;
+
+  const selvstendigNæringsdrivendeInntektFieldName =
+    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.selvstendigNæringsdrivendeInntektValues.fastsattBelop` as const;
+  const militærEllerSivilInntektFieldName =
+    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.militærEllerSivilInntektValues.fastsattBelop` as const;
 
   const atflSammeOrgHarInntektsmelding =
     beregningsgrunnlag?.faktaOmBeregning?.arbeidstakerOgFrilanserISammeOrganisasjonListe?.some(

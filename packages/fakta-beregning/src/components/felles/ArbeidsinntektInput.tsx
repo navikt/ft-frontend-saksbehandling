@@ -14,7 +14,7 @@ type Props = {
   arbeidsgiver: ATFLSammeOrgAndel;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
-} & TextFieldProps;
+} & Pick<TextFieldProps, 'label' | 'description'>;
 
 type FormValues = {
   fastsattBelop: number | undefined;
@@ -31,7 +31,8 @@ export const ArbeidsinntektInput = ({ arbeidsgiver, readOnly, isAksjonspunktClos
   const agIdent = arbeidsgiver.arbeidsforhold?.arbeidsgiverIdent;
   const arbeidsgiverIndex = getArbeidsgiverIndex(formValues, agIdent);
 
-  const fieldName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues.${arbeidsgiverIndex}.fastsattBelop`;
+  const fieldName =
+    `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues.${arbeidsgiverIndex}.fastsattBelop` as const;
 
   return (
     <InntektInput

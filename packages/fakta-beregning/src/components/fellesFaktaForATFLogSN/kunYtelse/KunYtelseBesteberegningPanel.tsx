@@ -23,7 +23,7 @@ const besteberegningField = 'besteberegningField';
 interface Props {
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
-  brukersAndelFieldArrayName: string;
+  brukersAndelFieldArrayName: 'brukersAndelBG';
   skalViseInntektstabell?: boolean;
   kodeverkSamling: KodeverkForPanel;
 }
