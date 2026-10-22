@@ -1,9 +1,7 @@
-import { ChevronLeftIcon, ChevronRightIcon } from '@navikt/aksel-icons';
+import { ChevronLeftIcon, ChevronRightIcon, MinusIcon, PlusIcon } from '@navikt/aksel-icons';
 import { Button, HStack } from '@navikt/ds-react';
 
 import { createIntl } from '@navikt/ft-utils';
-
-import { TidslinjeZoomKnapper } from '../TidslinjeZoomKnapper';
 
 import messages from '../../i18n/nb_NO.json';
 
@@ -30,7 +28,25 @@ export const TidslinjeController = ({
 }: TidslinjeControllerProps) => {
   return (
     <HStack gap="space-12" align="center" aria-controls={ariaControls} id={id}>
-      <TidslinjeZoomKnapper onZoomInn={onZoomInn} onZoomUt={onZoomUt} kanZoomeInn={kanZoomeInn} />
+      <HStack gap="space-2" align="center">
+        <Button
+          data-color="neutral"
+          icon={<PlusIcon title={intl.formatMessage({ id: 'TilbakekrevingTimeline.ZoomInn' })} />}
+          variant="secondary"
+          size="small"
+          type="button"
+          disabled={!kanZoomeInn}
+          onClick={onZoomInn}
+        />
+        <Button
+          data-color="neutral"
+          icon={<MinusIcon title={intl.formatMessage({ id: 'TilbakekrevingTimeline.ZoomUt' })} />}
+          variant="secondary"
+          size="small"
+          type="button"
+          onClick={onZoomUt}
+        />
+      </HStack>
       <HStack gap="space-2" align="center">
         <Button
           data-color="neutral"
