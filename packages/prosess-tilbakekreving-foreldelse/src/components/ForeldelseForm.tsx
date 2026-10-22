@@ -1,7 +1,7 @@
 import { type ReactElement, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Box, Heading, HStack, VStack } from '@navikt/ds-react';
+import { Alert, BodyShort, Box, Heading, HStack, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { SubmitButton } from '@navikt/ft-form-hooks';
@@ -9,6 +9,7 @@ import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 import type { Aksjonspunkt } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
 import {
+  BTag,
   DDMMYYYY_DATE_FORMAT,
   decodeHtmlEntity,
   isAksjonspunktOpen,
@@ -304,6 +305,12 @@ export const ForeldelseForm = ({
         {foreldelseresultatAktiviteter && aksjonspunkt && (
           <VStack gap="space-16">
             {isApOpen && <AksjonspunktHelpTextHTML>{getApTekst(aksjonspunkt)}</AksjonspunktHelpTextHTML>}
+            <Alert variant="info" size="small" contentMaxWidth={false}>
+              <Heading spacing size="xsmall" level="3"><FormattedMessage id="ForeldelseForm.InnkrevingsfristOverskrift" /></Heading>
+              <BodyShort size="small">
+                <FormattedMessage id="ForeldelseForm.InnkrevingsfristInfo" values={{b: BTag}} />
+              </BodyShort>
+            </Alert>
             <TilbakekrevingTimeline
               perioder={perioderFormatertForTidslinje}
               valgtPeriode={valgtPeriodeFormatertForTidslinje}
