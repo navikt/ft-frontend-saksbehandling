@@ -27,7 +27,8 @@
     "@navikt/ft-utils": "6.x",
     "dayjs": "1.x",
     "react": "19.x",
-    "react-dom": "19.x"
+    "react-dom": "19.x",
+    "react-intl": "12.x"
   },
   "devDependencies": {
     "@navikt/aksel-icons": "8.18.0",
@@ -43,6 +44,7 @@
     "eslint": "10.12.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
+    "react-intl": "12.1.4",
     "stylelint": "17.16.0",
     "typescript": "6.0.3",
     "vite": "8.3.4",

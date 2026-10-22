@@ -5,13 +5,17 @@ import { BodyShort, Button, CopyButton, HStack, Link, Popover, Tooltip } from '@
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 
-import { formaterFødselsnummer } from '@navikt/ft-utils';
+import { createIntl, formaterFødselsnummer } from '@navikt/ft-utils';
 
 import { Gender } from './Gender';
 import { GenderIcon } from './GenderIcon';
 import { VisittKort } from './VisittKort';
 
+import messages from '../../i18n/nb_NO.json';
+
 dayjs.extend(customParseFormat);
+
+const intl = createIntl(messages);
 
 interface Props {
   name: string;
@@ -106,7 +110,7 @@ export const PersonCard = ({
                 <Button
                   data-color="neutral"
                   variant="tertiary"
-                  icon={<MenuElipsisHorizontalCircleIcon />}
+                  icon={<MenuElipsisHorizontalCircleIcon title={intl.formatMessage({ id: 'PersonCard.ApneMeny' })} />}
                   ref={menuRef}
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   aria-expanded={isMenuOpen}
