@@ -13,26 +13,9 @@ import type { ArbeidsinntektResultat } from '../../types/interface/Beregningsgru
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { createVisningsnavnForAndel } from '../../util/createVisningsnavnForAktivitet';
 import { HorizontalBox } from '../../util/HorizontalBox';
+import { finnAndelerSomSkalFastsettesAT } from './finnAndelerSomSkalFastsettesAT';
 
 import styles from '../fellesPaneler/aksjonspunktBehandler.module.css';
-
-const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean => {
-  if (andel.overstyrtPrAar !== null && andel.overstyrtPrAar !== undefined) {
-    return true;
-  }
-  // Andeler som er lagt til av sbh eller tilkom før stp skal ikke kunne endres på
-  return andel.erTilkommetAndel === false && andel.lagtTilAvSaksbehandler === false;
-};
-
-const finnAndelerSomSkalVisesAT = (andeler: BeregningsgrunnlagAndel[]): BeregningsgrunnlagAndel[] => {
-  if (!andeler) {
-    return [];
-  }
-  return andeler
-    .filter(andel => andel.aktivitetStatus === 'AT')
-    .filter(andel => andel.skalFastsetteGrunnlag === true)
-    .filter(andel => andelErIkkeTilkommetEllerLagtTilAvSBH(andel));
-};
 
 type Props = {
   readOnly: boolean;
@@ -54,7 +37,7 @@ export const AksjonspunktBehandlerAT = ({
   skalValideres,
 }: Props) => {
   const { control } = useFormContext<BeregningFormValues>();
-  const relevanteAndelerAT = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode);
+  const relevanteAndelerAT = finnAndelerSomSkalFastsettesAT(alleAndelerIForstePeriode);
   return (
     <>
       {relevanteAndelerAT.map((andel, index) => (
@@ -84,7 +67,7 @@ AksjonspunktBehandlerAT.transformValues = (
 ): ArbeidsinntektResultat[] => {
   let inntektPrAndelList = [] as ArbeidsinntektResultat[];
   if (alleAndelerIForstePeriode.some(a => a.aktivitetStatus === 'AT')) {
-    inntektPrAndelList = finnAndelerSomSkalVisesAT(alleAndelerIForstePeriode).map(({ andelsnr }, index) => {
+    inntektPrAndelList = finnAndelerSomSkalFastsettesAT(alleAndelerIForstePeriode).map(({ andelsnr }, index) => {
       const overstyrtInntekt = values[`inntekt${index}`];
       if (!andelsnr) {
         throw new Error('Forventer andelsnr på andeler som skal fastsettes.');
