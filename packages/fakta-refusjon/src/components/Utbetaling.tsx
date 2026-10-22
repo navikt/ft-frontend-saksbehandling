@@ -1,14 +1,13 @@
-import dayjs from 'dayjs';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Buildings3Icon, PersonPencilFillIcon } from '@navikt/aksel-icons';
 import { Box, Heading, HStack, Spacer, Timeline } from '@navikt/ds-react';
+import dayjs from 'dayjs';
 
 import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
+import { useTidslinje } from '@navikt/ft-ui-komponenter';
 
 import type { RefusjonsAndel } from '../types/dataTypes';
-import { TimelineToolbar } from './timeline/TimelineToolbar';
-import { useTidslinjeKontroll } from './timeline/useTidslinjeKontroll';
 
 interface Props {
   refusjonsandeler: RefusjonsAndel[];
@@ -17,17 +16,8 @@ interface Props {
 
 export const Utbetaling = ({ refusjonsandeler, arbeidsgiverOpplysningerPerId }: Props) => {
   const intl = useIntl();
-  const {
-    start,
-    end,
-    visNestePeriode,
-    visForrigePeriode,
-    aktivUtvidelse,
-    kanZoomeInn,
-    velgUtvidelse,
-    zoomInn,
-    zoomUt,
-  } = useTidslinjeKontroll(refusjonsandeler);
+  const perioder = refusjonsandeler.flatMap(andel => andel.refusjonsperioder);
+  const { timelineProps, controllerElement } = useTidslinje({ perioder });
 
   return (
     <>
@@ -36,18 +26,10 @@ export const Utbetaling = ({ refusjonsandeler, arbeidsgiverOpplysningerPerId }: 
           <FormattedMessage id="Utbetaling.Tittel" />
         </Heading>
         <Spacer />
-        <TimelineToolbar
-          visNestePeriode={visNestePeriode}
-          visForrigePeriode={visForrigePeriode}
-          aktivUtvidelse={aktivUtvidelse}
-          kanZoomeInn={kanZoomeInn}
-          velgUtvidelse={velgUtvidelse}
-          zoomInn={zoomInn}
-          zoomUt={zoomUt}
-        />
+        {controllerElement}
       </HStack>
       <Box background="neutral-soft" paddingBlock="space-8 space-24" paddingInline="space-20">
-        <Timeline startDate={start} endDate={end} id="timeline-dynamic" aria-controls="timeline-toolbar">
+        <Timeline {...timelineProps}>
           {refusjonsandeler.map(andel => (
             <Timeline.Row
               label={arbeidsgiverOpplysningerPerId[andel.arbeidsgiverIdent]?.navn || andel.arbeidsgiverIdent}
