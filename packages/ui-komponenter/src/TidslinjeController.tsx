@@ -1,9 +1,11 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@navikt/aksel-icons';
 import { Button, HStack } from '@navikt/ds-react';
+
 import { createIntl } from '@navikt/ft-utils';
 
-import messages from '../i18n/nb_NO.json';
 import { TidslinjeZoomKnapper } from './TidslinjeZoomKnapper';
+
+import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
