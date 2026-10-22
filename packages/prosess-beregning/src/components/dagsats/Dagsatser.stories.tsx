@@ -23,7 +23,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const FastsattBGMedUtregnetDagsatser: Story = {
+export const FastsattBGMedUtregnetDagsatser = {
   args: {
     beregningsgrunnlag: {
       avklaringsbehov: [
@@ -240,6 +240,65 @@ export const FastsattBGMedUtregnetDagsatser: Story = {
           vilkarStatus: 'OPPFYLT',
         },
       ],
+    },
+  },
+} satisfies Story;
+
+export const VilkårIkkeOppfyltMedDagsatsNull: Story = {
+  args: {
+    beregningsgrunnlag: {
+      ...FastsattBGMedUtregnetDagsatser.args.beregningsgrunnlag,
+      dekningsgrad: 100,
+      beregningsgrunnlagPeriode: FastsattBGMedUtregnetDagsatser.args.beregningsgrunnlag.beregningsgrunnlagPeriode.map(
+        periode => ({
+          ...periode,
+          bruttoPrAar: 50000,
+          bruttoInkludertBortfaltNaturalytelsePrAar: 50000,
+          avkortetPrAar: 0,
+          redusertPrAar: 0,
+          dagsats: 0,
+        }),
+      ),
+    },
+    beregningsgrunnlagsvilkår: {
+      ...FastsattBGMedUtregnetDagsatser.args.beregningsgrunnlagsvilkår,
+      perioder: FastsattBGMedUtregnetDagsatser.args.beregningsgrunnlagsvilkår.perioder.map(periode => ({
+        ...periode,
+        vilkarStatus: 'IKKE_OPPFYLT',
+      })),
+    },
+  },
+};
+
+export const VilkårIkkeOppfyltUtenDagsats: Story = {
+  args: {
+    beregningsgrunnlag: {
+      ...FastsattBGMedUtregnetDagsatser.args.beregningsgrunnlag,
+      beregningsgrunnlagPeriode: FastsattBGMedUtregnetDagsatser.args.beregningsgrunnlag.beregningsgrunnlagPeriode.map(
+        periode => ({
+          ...periode,
+          bruttoPrAar: 50000,
+          bruttoInkludertBortfaltNaturalytelsePrAar: 50000,
+          avkortetPrAar: undefined,
+          redusertPrAar: undefined,
+          dagsats: undefined,
+          beregningsgrunnlagPrStatusOgAndel: periode.beregningsgrunnlagPrStatusOgAndel.map(andel => ({
+            ...andel,
+            beregnetPrAar: 50000,
+            overstyrtPrAar: 50000,
+            bruttoPrAar: 50000,
+            avkortetPrAar: undefined,
+            redusertPrAar: undefined,
+          })),
+        }),
+      ),
+    },
+    beregningsgrunnlagsvilkår: {
+      ...FastsattBGMedUtregnetDagsatser.args.beregningsgrunnlagsvilkår,
+      perioder: FastsattBGMedUtregnetDagsatser.args.beregningsgrunnlagsvilkår.perioder.map(periode => ({
+        ...periode,
+        vilkarStatus: 'IKKE_OPPFYLT',
+      })),
     },
   },
 };

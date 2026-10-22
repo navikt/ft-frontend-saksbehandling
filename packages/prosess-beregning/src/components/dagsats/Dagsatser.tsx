@@ -5,6 +5,7 @@ import { VStack } from '@navikt/ds-react';
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { FaktaBoks } from '@navikt/ft-ui-komponenter';
 
+import { VilkårUtfallType } from '../../kodeverk/vilkårUtfallType';
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import type { Vilkår } from '../../types/Vilkår';
 import { finnVilkårperiode } from '../../utils/vilkårUtils';
@@ -19,8 +20,12 @@ interface Props {
 
 export const Dagsatser = ({ beregningsgrunnlag, beregningsgrunnlagsvilkår, kodeverkSamling }: Props) => {
   const tabellData = utledTabellData(beregningsgrunnlag);
+  const erVilkårIkkeOppfylt = beregningsgrunnlagsvilkår.perioder.some(
+    ({ periode, vilkarStatus }) =>
+      periode.fom === beregningsgrunnlag.vilkårsperiodeFom && vilkarStatus === VilkårUtfallType.IKKE_OPPFYLT,
+  );
 
-  if (tabellData.length === 0 || !tabellData.every(td => td.dagsats)) {
+  if (tabellData.length === 0 || (!erVilkårIkkeOppfylt && !tabellData.every(td => td.dagsats !== undefined))) {
     return null;
   }
 
