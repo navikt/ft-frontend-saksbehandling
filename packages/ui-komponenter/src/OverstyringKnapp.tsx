@@ -41,7 +41,6 @@ export const OverstyringKnapp = ({ onClick = () => undefined, erOverstyrt = fals
       icon={
         isOverstyrt ? (
           <KeyVerticalFillIcon
-            aria-hidden
             color="var(--ax-neutral-400)"
             height={25}
             width={25}
@@ -49,7 +48,6 @@ export const OverstyringKnapp = ({ onClick = () => undefined, erOverstyrt = fals
           />
         ) : (
           <KeyVerticalIcon
-            aria-hidden
             color="var(--ax-accent-500)"
             height={25}
             width={25}
