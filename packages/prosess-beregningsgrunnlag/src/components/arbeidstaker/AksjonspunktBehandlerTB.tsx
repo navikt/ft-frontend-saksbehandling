@@ -135,7 +135,7 @@ const initializeMap = (
 };
 
 const finnFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeProp[]): BeregningsgrunnlagPeriodeProp =>
-  allePerioder.sort(sortPeriodsBy('beregningsgrunnlagPeriodeFom'))[0];
+  allePerioder.toSorted(sortPeriodsBy('beregningsgrunnlagPeriodeFom'))[0];
 
 const finnAndelIPeriode = (
   andel: BeregningsgrunnlagAndel,
