@@ -22,6 +22,14 @@ const {
   VurderingAvEtterlønnSluttpakkeAp5058,
 } = composeStories(stories);
 
+const finnOverstyrSubmitknapp = () => {
+  const knapp = screen.getAllByRole('button', { name: 'Overstyr' }).find(k => k.getAttribute('type') === 'submit');
+  if (!knapp) {
+    throw new Error('Fant ikke submitknappen Overstyr');
+  }
+  return knapp;
+};
+
 describe('BeregningFaktaIndex', () => {
   it('skal kunne løse aksjonspunkt for Arbeid og full AAP', async () => {
     render(<ArbeidOgAAPAp5052 />);
@@ -38,7 +46,7 @@ describe('BeregningFaktaIndex', () => {
     await userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
     await userEvent.click(screen.getAllByRole('radio')[1]);
     await userEvent.click(screen.getAllByRole('radio')[3]);
-    await userEvent.click(screen.getByRole('button', { name: 'Overstyr' }));
+    await userEvent.click(finnOverstyrSubmitknapp());
 
     const måHaAktivitetFeilmelding = await screen.findByText(
       'Må ha minst én aktivitet for å kunne fastsette beregningsgrunnlag',
@@ -54,7 +62,7 @@ describe('BeregningFaktaIndex', () => {
     await userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
     await userEvent.click(screen.getAllByRole('radio')[1]);
     await userEvent.click(screen.getAllByRole('radio')[3]);
-    await userEvent.click(screen.getByRole('button', { name: 'Overstyr' }));
+    await userEvent.click(finnOverstyrSubmitknapp());
     const måHaAktivitetFeilmeldingFørBytteAvTab = await screen.findByText(
       'Må ha minst én aktivitet for å kunne fastsette beregningsgrunnlag',
     );
@@ -67,7 +75,7 @@ describe('BeregningFaktaIndex', () => {
     expect(screen.getAllByRole('radiogroup')[0]).toHaveAttribute('aria-readonly', 'true');
     await userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
     await userEvent.type(screen.getAllByLabelText('Begrunnelse')[0], 'Test');
-    await userEvent.click(screen.getByRole('button', { name: 'Overstyr' }));
+    await userEvent.click(finnOverstyrSubmitknapp());
     const måHaAktivitetFeilmeldingNyTab = screen.queryByText(
       'Må ha minst én aktivitet for å kunne fastsette beregningsgrunnlag',
     );
