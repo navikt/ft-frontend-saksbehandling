@@ -163,6 +163,14 @@ describe('Validators', () => {
       expect(result).toBeNull();
     });
 
+    it.each(['2024-02-29', '2018-4-1', '2018-04-1', '2018-4-01'])('skal ikke feile for gyldig dato %s', dato => {
+      expect(hasValidDate(dato)).toBeNull();
+    });
+
+    it.each(['foo 2025-02-01', '2025-02-31', '2023-02-29', '2025-04-31'])('skal feile for ugyldig dato %s', dato => {
+      expect(hasValidDate(dato)).toEqual('Dato må skrives slik: dd.mm.åååå');
+    });
+
     it('skal ikke feile når dato er tom', () => {
       const result = hasValidDate();
       expect(result).toBeNull();
@@ -402,6 +410,11 @@ describe('Validators', () => {
 
     it('skal feile når tomDato er på feil format', () => {
       const result = hasValidPeriod('2017-06-01', '2017-06-0');
+      expect(result).toEqual('Periode må skrives slik: dd.mm.åååå - dd.mm.åååå');
+    });
+
+    it('skal feile når fomDato ikke finnes', () => {
+      const result = hasValidPeriod('2017-02-30', '2017-06-01');
       expect(result).toEqual('Periode må skrives slik: dd.mm.åååå - dd.mm.åååå');
     });
 
