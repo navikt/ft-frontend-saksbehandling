@@ -20,6 +20,7 @@
   },
   "peerDependencies": {
     "dayjs": "1.x",
+    "react": "19.x",
     "react-intl": "12.x"
   },
   "devDependencies": {
