@@ -1921,6 +1921,7 @@ __metadata:
     eslint: "npm:10.12.0"
     react: "npm:19.3.0"
     react-dom: "npm:19.3.0"
+    react-intl: "npm:12.1.4"
     stylelint: "npm:17.16.0"
     typescript: "npm:6.0.3"
     vite: "npm:8.3.4"
@@ -1932,6 +1933,7 @@ __metadata:
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
+    react-intl: 12.x
   languageName: unknown
   linkType: soft
 
