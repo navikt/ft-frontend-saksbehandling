@@ -70,3 +70,11 @@ export const Høyrestilt: Story = {
     align: 'right',
   },
 };
+
+export const Deaktivert: Story = {
+  args: {
+    ...MedVerdi.args,
+    label: 'Dette er en dropdown som er deaktivert',
+    disabled: true,
+  },
+};

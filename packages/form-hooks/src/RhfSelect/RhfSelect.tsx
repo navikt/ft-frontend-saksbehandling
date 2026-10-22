@@ -76,6 +76,7 @@ export const RhfSelect = <T extends FieldValues>({
         field.onChange(evt);
       }}
       hideLabel={hideLabel}
+      disabled={disabled}
       {...rest}
     >
       <option style={{ display: 'none' }} />
