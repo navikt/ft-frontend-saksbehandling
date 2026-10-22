@@ -681,6 +681,25 @@ export const ArbeidstakerMedAvvikAp5038: Story = {
   },
 };
 
+export const ArbeidstakerMedAvvikKunEttAvToArbeidsforholdSkalFastsettesAp5038: Story = {
+  args: {
+    isReadOnly: false,
+    beregningsgrunnlagListe: [
+      lagBG(
+        malPerioder([
+          lagArbeidsandel(1, lagArbeidsforhold('999999996', undefined), 200000, 111000, false, false),
+          lagArbeidsandel(2, lagArbeidsforhold('999999997', undefined), 200000, 222000, true, false),
+        ]),
+        ['AT'],
+        undefined,
+        [malSGGrunnlagAvvik(SammenligningType.AT_FL)],
+        [lagAPMedKode(ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS)],
+      ),
+    ],
+    beregningsgrunnlagsvilkar: vilkarMedUtfall(VilkårUtfallType.IKKE_VURDERT),
+  },
+};
+
 export const ArbeidstakerMedAvvikOgFlereBeregningsgrunnlagAp5038: Story = {
   args: {
     isReadOnly: false,
