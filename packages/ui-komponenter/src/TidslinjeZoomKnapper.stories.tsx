@@ -6,8 +6,8 @@ import { TidslinjeZoomKnapper } from './TidslinjeZoomKnapper';
 const meta = {
   component: TidslinjeZoomKnapper,
   args: {
-    onZoomInn: action('button-click'),
-    onZoomUt: action('button-click'),
+    onZoomInn: action('onZoomInn'),
+    onZoomUt: action('onZoomOut'),
     kanZoomeInn: true,
   },
 } satisfies Meta<typeof TidslinjeZoomKnapper>;
