@@ -2,29 +2,23 @@ import type { ReactNode } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { RawIntlProvider } from 'react-intl';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { RhfTextarea } from '@navikt/ft-form-hooks';
 import { createIntl } from '@navikt/ft-utils';
 
 import { TilbakekrevingVedtakUtdypendeTekstPanel } from './TilbakekrevingVedtakUtdypendeTekstPanel';
 
 import messages from '../../../i18n/nb_NO.json';
 
-vi.mock('@navikt/ft-form-hooks', async importOriginal => {
-  const actual = await importOriginal<typeof import('@navikt/ft-form-hooks')>();
-  return { ...actual, RhfTextarea: vi.fn(actual.RhfTextarea) };
-});
-
 const intl = createIntl(messages);
 
-const Skjema = ({ children }: { children: ReactNode }) => {
+const Skjema = ({ children, lagre = () => undefined }: { children: ReactNode; lagre?: () => void }) => {
   const formMethods = useForm({ defaultValues: { OPPSUMMERING: 'abc', TILLEGGSINFORMASJON: 'abc' } });
   return (
     <RawIntlProvider value={intl}>
       <FormProvider {...formMethods}>
-        <form onSubmit={formMethods.handleSubmit(() => undefined)}>
+        <form onSubmit={formMethods.handleSubmit(lagre)}>
           {children}
           <button type="submit">Lagre</button>
         </form>
@@ -52,24 +46,21 @@ describe('TilbakekrevingVedtakUtdypendeTekstPanel', () => {
     expect(screen.getAllByText(/Du kan skrive maksimalt/)).toHaveLength(1);
   });
 
-  it('skal ikke legge til valideringsregler ved gjentatte renderinger', () => {
-    const rhfTextareaMock = vi.mocked(RhfTextarea);
-    rhfTextareaMock.mockClear();
-
-    const lagPanel = () => (
-      <Skjema>
-        <TilbakekrevingVedtakUtdypendeTekstPanel name="OPPSUMMERING" readOnly={false} maximumLength={10000} />
-        <TilbakekrevingVedtakUtdypendeTekstPanel name="TILLEGGSINFORMASJON" readOnly={false} fritekstPakrevet />
+  it('skal ikke beholde valideringsregler fra tidligere renderinger', async () => {
+    const lagre = vi.fn();
+    const lagPanel = (maximumLength?: number) => (
+      <Skjema lagre={lagre}>
+        <TilbakekrevingVedtakUtdypendeTekstPanel name="OPPSUMMERING" readOnly={false} maximumLength={maximumLength} />
       </Skjema>
     );
     const { rerender } = render(lagPanel());
-    rerender(lagPanel());
-    rerender(lagPanel());
+    rerender(lagPanel(10000));
 
-    const antallRegler = rhfTextareaMock.mock.calls.map(([props]) => [props.name, props.validate?.length]);
-    expect(antallRegler.length).toBeGreaterThanOrEqual(6);
-    antallRegler.forEach(([name, antall]) => {
-      expect(antall).toBe(name === 'TILLEGGSINFORMASJON' ? 4 : 3);
-    });
+    fireEvent.change(screen.getByLabelText('Utdypende tekst'), { target: { value: 'a'.repeat(5000) } });
+
+    await userEvent.click(screen.getByText('Lagre'));
+
+    await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
+    expect(screen.queryByText(/Du kan skrive maksimalt/)).not.toBeInTheDocument();
   });
 });
