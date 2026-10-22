@@ -1,9 +1,7 @@
 import { useState } from 'react';
 
-import dayjs from 'dayjs';
-
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
-import { dateFormat } from '@navikt/ft-utils';
+import { dateFormat, sortPeriodsBy } from '@navikt/ft-utils';
 
 import type { Vilkår } from '../types/Vilkår';
 import { harAksjonspunktSomKanLøses } from '../utils/aksjonspunkt';
@@ -42,4 +40,4 @@ const lagSorterteOptionProps = (
       harAksjonspunkt: harAksjonspunktSomKanLøses(beregningsgrunnlag.avklaringsbehov),
       optionLabel: dateFormat(beregningsgrunnlag.skjaeringstidspunktBeregning),
     }))
-    .sort((a, b) => dayjs(a.skjæringstidspunkt).diff(dayjs(b.skjæringstidspunkt)));
+    .sort(sortPeriodsBy('skjæringstidspunkt'));

@@ -3,7 +3,6 @@ import { type Control, useFormContext, type UseFormReturn } from 'react-hook-for
 import { FormattedMessage } from 'react-intl';
 
 import { Label, Table } from '@navikt/ds-react';
-import dayjs from 'dayjs';
 
 import { RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
@@ -15,7 +14,13 @@ import type {
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
 import { BeløpLabel, DateLabel } from '@navikt/ft-ui-komponenter';
-import { formatCurrencyNoKr, formaterArbeidsgiver, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import {
+  formatCurrencyNoKr,
+  formaterArbeidsgiver,
+  parseCurrencyInput,
+  removeSpacesFromNumber,
+  sortPeriodsBy,
+} from '@navikt/ft-utils';
 
 import type {
   TidsbegrenseArbeidsforholdTabellCelle,
@@ -130,7 +135,7 @@ const initializeMap = (
 };
 
 const finnFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeProp[]): BeregningsgrunnlagPeriodeProp =>
-  allePerioder.sort((a, b) => dayjs(a.beregningsgrunnlagPeriodeFom).diff(dayjs(b.beregningsgrunnlagPeriodeFom)))[0];
+  allePerioder.sort(sortPeriodsBy('beregningsgrunnlagPeriodeFom'))[0];
 
 const finnAndelIPeriode = (
   andel: BeregningsgrunnlagAndel,

@@ -39,7 +39,7 @@ export { notNull, isObjectEmpty, diff, isEqual, isObject, omit, omitOne, omitMan
 export { createIntl } from './src/createIntl';
 export { BTag } from './src/createTags';
 
-export { sortPeriodsByFom, sortPeriodsBy, periodFormat } from './src/periodUtils';
+export { sortPeriodsByFom, sortPeriodsBy, periodFormat, periodeKey } from './src/periodUtils';
 export { formaterArbeidsgiver } from './src/arbeidsgiverUtils';
 export { isAksjonspunktOpen, hasAksjonspunkt } from './src/aksjonspunktUtils';
 export { notEmpty } from './src/notEmpty';

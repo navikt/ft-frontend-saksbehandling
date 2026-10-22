@@ -15,10 +15,10 @@ import {
   required,
 } from '@navikt/ft-form-validators';
 import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
+import { periodeKey } from '@navikt/ft-utils';
 
 import type { ForeldelsesresultatActivity } from '../types/ForeldelsesresultatActivity';
 import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
-import { periodeNøkkel } from './periodeNøkkel';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
@@ -63,7 +63,7 @@ export const ForeldelsePeriodeForm = ({
 }: Props) => {
   const intl = useIntl();
 
-  const harKladdForPeriode = periodeKladd?.periodeKey === periodeNøkkel(periode);
+  const harKladdForPeriode = periodeKladd?.periodeKey === periodeKey(periode);
   // Kladden er ubekreftede endringer. Den settes derfor som verdier - ikke som defaultValues - slik at
   // skjemaet fortsatt regnes som endret ("Oppdater" er aktiv, og kladden overlever et nytt panelbytte).
   const formMethods = useForm<FormValues>({
@@ -88,7 +88,7 @@ export const ForeldelsePeriodeForm = ({
       }}
       setDataOnUnmount={verdier => {
         // Panelet avgjør om kladden skal beholdes: skyldes unmount et periodebytte, forkaster det den.
-        lagreKladd(formMethods.formState.isDirty ? { periodeKey: periodeNøkkel(periode), verdier } : undefined);
+        lagreKladd(formMethods.formState.isDirty ? { periodeKey: periodeKey(periode), verdier } : undefined);
       }}
     >
       <VStack gap="space-16">

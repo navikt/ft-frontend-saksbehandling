@@ -8,7 +8,7 @@ import isSameOrBefore from 'dayjs/plugin/isSameOrBefore.js';
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 import { AksjonspunktHelpTextHTML, FaktaGruppe } from '@navikt/ft-ui-komponenter';
-import { decodeHtmlEntity, omitOne } from '@navikt/ft-utils';
+import { decodeHtmlEntity, omitOne, periodeKey, sortPeriodsByFom } from '@navikt/ft-utils';
 
 import type { VilkårResultat } from '../kodeverk/vilkarResultat';
 import { TilbakekrevingAksjonspunktCodes } from '../TilbakekrevingAksjonspunktCodes';
@@ -24,7 +24,6 @@ import type { RelasjonsRolleType } from '../types/RelasjonsRolleType';
 import type { TidslinjePeriode } from '../types/TidslinjePeriode';
 import type { VilkårsvurderingAp } from '../types/VilkårsvurderingAp';
 import type { VilkårsvurdertePerioderWrapper, VilkårsvurdertPeriode } from '../types/VilkårsvurdertePerioder';
-import { periodeNøkkel } from './periodeNøkkel';
 import { type BeregnBeløpParams, PeriodeController, type SplittetPeriode } from './splittePerioder/PeriodeController';
 import { PeriodeInformasjon } from './splittePerioder/PeriodeInformasjon';
 import {
@@ -41,9 +40,6 @@ import { TilbakekrevingTimeline } from './timeline/TilbakekrevingTimeline';
 import { validerOm6LeddBrukesPåAllePerioder } from './validerOm6LeddBrukesPåAllePerioder';
 
 dayjs.extend(isSameOrBefore);
-
-const sortPeriods = (periode1: CustomVilkarsVurdertePeriode, periode2: CustomVilkarsVurdertePeriode) =>
-  dayjs(periode1.fom).diff(dayjs(periode2.fom));
 
 const harApentAksjonspunkt = (periode: CustomVilkarsVurdertePeriode) =>
   !periode.erForeldet && (periode.begrunnelse === undefined || periode.erSplittet);
@@ -264,7 +260,7 @@ const buildInitialValues = (
       fom: p.fom,
       tom: p.tom,
     }))
-    .sort(sortPeriods);
+    .sort(sortPeriodsByFom);
 
 const transformValues = (
   vilkarsVurdertePerioder: CustomVilkarsVurdertePeriode[],
@@ -338,7 +334,7 @@ export const TilbakekrevingForm = ({
   const [valgtPeriode, setValgtPeriode] = useState<CustomVilkarsVurdertePeriode | undefined>(() => {
     if (formData) {
       return formData.valgtPeriodeKey
-        ? formData.perioder.find(p => periodeNøkkel(p) === formData.valgtPeriodeKey)
+        ? formData.perioder.find(p => periodeKey(p) === formData.valgtPeriodeKey)
         : undefined;
     }
     return vilkårsvurdertePerioder.find(harApentAksjonspunkt);
@@ -351,7 +347,7 @@ export const TilbakekrevingForm = ({
   const sisteFormDataRef = useRef<TilbakekrevingFormData>({
     perioder: vilkårsvurdertePerioder,
     erEndret: isDirty,
-    valgtPeriodeKey: valgtPeriode ? periodeNøkkel(valgtPeriode) : undefined,
+    valgtPeriodeKey: valgtPeriode ? periodeKey(valgtPeriode) : undefined,
     kladd: periodeKladd,
   });
 
@@ -359,7 +355,7 @@ export const TilbakekrevingForm = ({
     const data = {
       perioder: vilkårsvurdertePerioder,
       erEndret: isDirty,
-      valgtPeriodeKey: valgtPeriode ? periodeNøkkel(valgtPeriode) : undefined,
+      valgtPeriodeKey: valgtPeriode ? periodeKey(valgtPeriode) : undefined,
       kladd: periodeKladd,
       ...endring,
     };
@@ -405,7 +401,7 @@ export const TilbakekrevingForm = ({
       : undefined;
     setPeriodeKladd(undefined);
     setValgtPeriode(valgt);
-    mellomlagre({ valgtPeriodeKey: valgt ? periodeNøkkel(valgt) : undefined, kladd: undefined });
+    mellomlagre({ valgtPeriodeKey: valgt ? periodeKey(valgt) : undefined, kladd: undefined });
   };
 
   const setNestePeriode = () => {
@@ -428,7 +424,7 @@ export const TilbakekrevingForm = ({
     const verdier = omitOne(values, 'erSplittet');
 
     const otherThanUpdated = vilkårsvurdertePerioder.filter(o => o.fom !== verdier.fom && o.tom !== verdier.tom);
-    const sortedActivities = otherThanUpdated.concat(verdier).sort(sortPeriods);
+    const sortedActivities = otherThanUpdated.concat(verdier).sort(sortPeriodsByFom);
     const nesteValgtePeriode = sortedActivities.find(harApentAksjonspunkt);
 
     setVilkårsvurdertePerioder(sortedActivities);
@@ -438,7 +434,7 @@ export const TilbakekrevingForm = ({
     mellomlagre({
       perioder: sortedActivities,
       erEndret: true,
-      valgtPeriodeKey: nesteValgtePeriode ? periodeNøkkel(nesteValgtePeriode) : undefined,
+      valgtPeriodeKey: nesteValgtePeriode ? periodeKey(nesteValgtePeriode) : undefined,
       kladd: undefined,
     });
   };
@@ -455,7 +451,7 @@ export const TilbakekrevingForm = ({
       const otherThanUpdated = vilkårsvurdertePerioder.filter(
         o => o.fom !== valgtPeriode?.fom && o.tom !== valgtPeriode?.tom,
       );
-      const sortedActivities = otherThanUpdated.concat(nyePerioder).sort(sortPeriods);
+      const sortedActivities = otherThanUpdated.concat(nyePerioder).sort(sortPeriodsByFom);
 
       // Beholder opprinnelig oppslag mot forrige periodeliste, slik at valget håndteres som før.
       const nyValgtPeriode = vilkårsvurdertePerioder.find(
@@ -469,7 +465,7 @@ export const TilbakekrevingForm = ({
       mellomlagre({
         perioder: sortedActivities,
         erEndret: true,
-        valgtPeriodeKey: nyValgtPeriode ? periodeNøkkel(nyValgtPeriode) : undefined,
+        valgtPeriodeKey: nyValgtPeriode ? periodeKey(nyValgtPeriode) : undefined,
         kladd: undefined,
       });
     }

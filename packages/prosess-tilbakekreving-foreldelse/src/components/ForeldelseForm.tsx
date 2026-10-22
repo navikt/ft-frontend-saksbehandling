@@ -14,6 +14,7 @@ import {
   decodeHtmlEntity,
   isAksjonspunktOpen,
   omitOne,
+  periodeKey,
   sortPeriodsByFom,
 } from '@navikt/ft-utils';
 
@@ -30,7 +31,6 @@ import {
   type FormValues as PeriodeFormValues,
   type PeriodeKladd,
 } from './ForeldelsePeriodeForm';
-import { periodeNøkkel } from './periodeNøkkel';
 import {
   type BeregnBeløpParams,
   type BeregnBeløpResultat,
@@ -39,9 +39,6 @@ import {
 } from './splittePerioder/PeriodeController';
 import { PeriodeInformasjon } from './splittePerioder/PeriodeInformasjon';
 import { TilbakekrevingTimeline } from './timeline/TilbakekrevingTimeline';
-
-const sortPeriods = (periode1: ForeldelsesresultatActivity, periode2: ForeldelsesresultatActivity): number =>
-  dayjs(periode1.fom).diff(dayjs(periode2.fom));
 
 const getDate = (): string => dayjs().subtract(30, 'months').format(DDMMYYYY_DATE_FORMAT);
 const getApTekst = (aksjonspunkt: Aksjonspunkt): ReactElement[] =>
@@ -147,7 +144,7 @@ export const ForeldelseForm = ({
   const [valgtPeriode, setValgtPeriode] = useState<ForeldelsesresultatActivity | undefined>(() => {
     if (formData) {
       return formData.valgtPeriodeKey
-        ? formData.perioder.find(p => periodeNøkkel(p) === formData.valgtPeriodeKey)
+        ? formData.perioder.find(p => periodeKey(p) === formData.valgtPeriodeKey)
         : undefined;
     }
     return alleForeldelseresultatAktiviteter.find(harApentAksjonspunkt);
@@ -161,7 +158,7 @@ export const ForeldelseForm = ({
   const sisteFormDataRef = useRef<ForeldelseFormData>({
     perioder: foreldelseresultatAktiviteter,
     erEndret: isDirty,
-    valgtPeriodeKey: valgtPeriode ? periodeNøkkel(valgtPeriode) : undefined,
+    valgtPeriodeKey: valgtPeriode ? periodeKey(valgtPeriode) : undefined,
     kladd: periodeKladd,
   });
 
@@ -169,7 +166,7 @@ export const ForeldelseForm = ({
     const data = {
       perioder: foreldelseresultatAktiviteter,
       erEndret: isDirty,
-      valgtPeriodeKey: valgtPeriode ? periodeNøkkel(valgtPeriode) : undefined,
+      valgtPeriodeKey: valgtPeriode ? periodeKey(valgtPeriode) : undefined,
       kladd: periodeKladd,
       ...endring,
     };
@@ -193,7 +190,7 @@ export const ForeldelseForm = ({
       : undefined;
     setPeriodeKladd(undefined);
     setValgtPeriode(valgt);
-    mellomlagre({ valgtPeriodeKey: valgt ? periodeNøkkel(valgt) : undefined, kladd: undefined });
+    mellomlagre({ valgtPeriodeKey: valgt ? periodeKey(valgt) : undefined, kladd: undefined });
   };
 
   const setNestePeriode = (): void => {
@@ -222,7 +219,7 @@ export const ForeldelseForm = ({
     const verdier = omitOne(values, 'erSplittet');
 
     const otherThanUpdated = foreldelseresultatAktiviteter.filter(o => o.fom !== verdier.fom && o.tom !== verdier.tom);
-    const sortedActivities = otherThanUpdated.concat(verdier).sort(sortPeriods);
+    const sortedActivities = otherThanUpdated.concat(verdier).sort(sortPeriodsByFom);
     const nesteValgtePeriode = sortedActivities.find(harApentAksjonspunkt);
 
     setForeldelseresultatAktiviteter(sortedActivities);
@@ -232,7 +229,7 @@ export const ForeldelseForm = ({
     mellomlagre({
       perioder: sortedActivities,
       erEndret: true,
-      valgtPeriodeKey: nesteValgtePeriode ? periodeNøkkel(nesteValgtePeriode) : undefined,
+      valgtPeriodeKey: nesteValgtePeriode ? periodeKey(nesteValgtePeriode) : undefined,
       kladd: undefined,
     });
   };
@@ -253,7 +250,7 @@ export const ForeldelseForm = ({
     const otherThanUpdated = foreldelseresultatAktiviteter.filter(
       o => o.fom !== valgtPeriode?.fom && o.tom !== valgtPeriode?.tom,
     );
-    const sortedActivities = otherThanUpdated.concat(nyePerioder).sort(sortPeriods);
+    const sortedActivities = otherThanUpdated.concat(nyePerioder).sort(sortPeriodsByFom);
 
     // Beholder opprinnelig oppslag mot forrige periodeliste, slik at valget håndteres som før.
     const nyValgtPeriode = foreldelseresultatAktiviteter.find(
@@ -267,7 +264,7 @@ export const ForeldelseForm = ({
     mellomlagre({
       perioder: sortedActivities,
       erEndret: true,
-      valgtPeriodeKey: nyValgtPeriode ? periodeNøkkel(nyValgtPeriode) : undefined,
+      valgtPeriodeKey: nyValgtPeriode ? periodeKey(nyValgtPeriode) : undefined,
       kladd: undefined,
     });
   };
