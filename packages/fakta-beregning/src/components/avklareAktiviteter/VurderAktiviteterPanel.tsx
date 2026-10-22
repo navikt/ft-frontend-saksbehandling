@@ -29,8 +29,11 @@ const harListeAktivitetSomSkalBrukes = (
 // Sjekk for om saksbehandler har skrevet en ugyldig dato i inputfeltet.
 const finnesUgyldigeDatoer = (values: AvklarAktiviteterValues): boolean =>
   !!values.avklarAktiviteter?.aktiviteterTomDatoMapping &&
-  values.avklarAktiviteter.aktiviteterTomDatoMapping.some(
-    aktMap => aktMap.aktiviteter && !aktMap.aktiviteter.some(akt => !dayjs(akt.tom).isValid()),
+  values.avklarAktiviteter.aktiviteterTomDatoMapping.some(aktMap =>
+    aktMap.aktiviteter?.some(akt => {
+      const tom = values.aktiviteterValues?.[lagAktivitetFieldId(akt)]?.tom;
+      return !tom || !dayjs(tom).isValid();
+    }),
   );
 
 const lagTomDatoMapping = (values: AvklarAktiviteterValues): AvklarBeregningAktiviteter[] => {
