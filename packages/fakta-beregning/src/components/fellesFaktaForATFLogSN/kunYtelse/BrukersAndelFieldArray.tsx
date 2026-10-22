@@ -16,7 +16,7 @@ import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '
 
 import type { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
 import type { AndelFieldValue } from '../../../typer/FieldValues';
-import type { KodeverkForPanel, KodeverkMedNavn } from '../../../typer/KodeverkForPanel';
+import type { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
 import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
 import { formNameVurderFaktaBeregning } from '../../../utils/BeregningFormUtils';
 import { type SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
@@ -29,13 +29,6 @@ const defaultBGFordeling = (aktivitetStatuser: string[], kodeverkSamling: Kodeve
   nyAndel: true,
   lagtTilAvSaksbehandler: true,
 });
-
-const inntektskategoriSelectValues = (kategorier: KodeverkMedNavn<'Inntektskategori'>[]) =>
-  kategorier.map(ik => (
-    <option value={ik.kode} key={ik.kode}>
-      {ik.navn}
-    </option>
-  ));
 
 const summerFordeling = (fields: BrukersAndelValues[]): string | undefined => {
   let sum = 0;
@@ -53,11 +46,8 @@ const skalViseSletteknapp = (
   return (fields[index].nyAndel || fields[index].lagtTilAvSaksbehandler) && !readOnly;
 };
 
-const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: KodeverkForPanel) =>
-  kodeverkSamling['Inntektskategori'].slice().sort((a, b) => a.navn.localeCompare(b.navn));
-
 interface Props {
-  name: string;
+  name: 'brukersAndelBG';
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   kodeverkSamling: KodeverkForPanel;
@@ -88,13 +78,13 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
   const intl = useIntl();
   const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
-  const fieldArrayName = `${formNameVurderFaktaBeregning}.${beregningsgrunnlagIndeks}.${name}`;
+  const fieldArrayName = `${formNameVurderFaktaBeregning}.${beregningsgrunnlagIndeks}.${name}` as const;
   const { fields, append, remove } = useFieldArray({
     control,
     name: fieldArrayName as 'vurderFaktaBeregningForm.0.brukersAndelBG',
   });
-  const aktivitetStatuser = kodeverkSamling['AktivitetStatus']?.map(kodeverk => kodeverk.kode);
-  const inntektskategoriKoder = getInntektskategorierAlfabetiskSortert(kodeverkSamling);
+  const aktivitetStatuser = kodeverkSamling['AktivitetStatus'].map(kodeverk => kodeverk.kode);
+  const inntektskategorier = kodeverkSamling['Inntektskategori'].toSorted((a, b) => a.navn.localeCompare(b.navn));
   const fieldArrayValues = useWatch({
     name: fieldArrayName as 'vurderFaktaBeregningForm.0.brukersAndelBG',
     control,
@@ -130,7 +120,6 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
               </Table.DataCell>
               <Table.DataCell align="right">
                 <RhfTextField
-                  // @ts-expect-error fiks! Dynamisk navn
                   name={`${fieldArrayName}.${index}.fastsattBelop`}
                   control={control}
                   parse={parseCurrencyInput}
@@ -150,7 +139,6 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
               </Table.DataCell>
               <Table.DataCell align="right">
                 <RhfSelect
-                  // @ts-expect-error fiks! Dynamisk navn
                   name={`${fieldArrayName}.${index}.inntektskategori`}
                   control={control}
                   label={intl.formatMessage(
@@ -159,7 +147,11 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
                     },
                     { andel: `ytelse ${index + 1}` },
                   )}
-                  selectValues={inntektskategoriSelectValues(inntektskategoriKoder)}
+                  selectValues={inntektskategorier.map(ik => (
+                    <option value={ik.kode} key={ik.kode}>
+                      {ik.navn}
+                    </option>
+                  ))}
                   readOnly={readOnly}
                   validate={readOnly ? [] : [required]}
                   hideLabel

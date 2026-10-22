@@ -7,7 +7,7 @@ import { BrukersAndelFieldArray } from './BrukersAndelFieldArray';
 
 interface Props {
   readOnly: boolean;
-  brukersAndelFieldArrayName: string;
+  brukersAndelFieldArrayName: 'brukersAndelBG';
   isAksjonspunktClosed: boolean;
   kodeverkSamling: KodeverkForPanel;
 }

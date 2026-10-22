@@ -53,7 +53,7 @@ interface Props {
   aktsomhetTyper: KodeverkMedNavnTilbakekreving<'Aktsomhet'>[];
   sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[];
   andelSomTilbakekreves?: string;
-  name: string;
+  name: 'FORSTO_BURDE_FORSTAATT' | 'FEIL_OPPLYSNINGER' | 'MANGELFULL_OPPLYSNING';
 }
 
 export const AktsomhetFormPanel = ({
@@ -71,8 +71,9 @@ export const AktsomhetFormPanel = ({
   andelSomTilbakekreves,
   name,
 }: Props) => {
-  // TODO (TOR) Manglar type
-  const { control } = useFormContext();
+  const { control } = useFormContext<{
+    [key in 'FORSTO_BURDE_FORSTAATT' | 'FEIL_OPPLYSNINGER' | 'MANGELFULL_OPPLYSNING']: InitialValuesAktsomhetForm;
+  }>();
   return (
     <VStack gap="space-12">
       <RhfRadioGroup
@@ -157,11 +158,10 @@ const formatAktsomhetData = (aktsomhet: any, sarligGrunnTyper: KodeverkMedNavnTi
 };
 
 AktsomhetFormPanel.transformValues = (
-  info: { handletUaktsomhetGrad: string },
+  info: InitialValuesAktsomhetForm,
   sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[],
   vurderingBegrunnelse: string,
 ) => {
-  // @ts-expect-error Fiks
   const aktsomhet = info[info.handletUaktsomhetGrad];
   return {
     '@type': 'annet',

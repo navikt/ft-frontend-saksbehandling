@@ -48,7 +48,7 @@ interface Props {
   removeAndel: () => void;
   kodeverkSamling: KodeverkForPanel;
   beregningsgrunnlag: Beregningsgrunnlag;
-  rowName: string;
+  rowName: `vurderFaktaBeregningForm.${number}.inntektFieldArray.${number}`;
   skalFastsetteInntektForAndel: (andel: AndelFieldIdentifikator) => boolean;
 }
 
@@ -130,33 +130,27 @@ export const InntektFieldArrayAndelRow = ({
       return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues.${getArbeidsgiverIndex(
         formValues.arbeidstakerInntektValues,
         field.arbeidsgiverId,
-      )}.fastsattBelop`;
+      )}.fastsattBelop` as const;
     }
     if (harEndretFrilansinntekt) {
-      return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop`;
+      return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.frilansInntektValues.fastsattBelop` as const;
     }
     if (harEndretInntektForDagpenger) {
-      return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.dagpengerInntektValues.fastsattBelop`;
+      return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.dagpengerInntektValues.fastsattBelop` as const;
     }
     if (harEndretInntektForSelvstendigNæringsdrivende) {
-      return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.selvstendigNæringsdrivendeInntektValues.fastsattBelop`;
+      return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.selvstendigNæringsdrivendeInntektValues.fastsattBelop` as const;
     }
     if (harEndretInntektForMilitærEllerSivil) {
-      return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.militærEllerSivilInntektValues.fastsattBelop`;
+      return `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.militærEllerSivilInntektValues.fastsattBelop` as const;
     }
-    return '';
+    throw new Error('Ukjent input field name for andel');
   };
 
   return (
     <Table.Row>
       <Table.DataCell>
-        <RhfTextField
-          // @ts-expect-error Fiks
-          name={`${rowName}.andel`}
-          control={control}
-          size="small"
-          readOnly
-        />
+        <RhfTextField name={`${rowName}.andel`} control={control} size="small" readOnly />
       </Table.DataCell>
       <Table.DataCell textSize="small">
         {skalVisePeriode && harPeriode && field.arbeidsperiodeFom && (
@@ -173,7 +167,6 @@ export const InntektFieldArrayAndelRow = ({
             ) : (
               <span className={harEndretInntekt ? styles.inntektOldStrikethrough : undefined}>
                 <RhfTextField
-                  // @ts-expect-error Fiks
                   name={`${rowName}.belopReadOnly`}
                   control={control}
                   align="right"
@@ -187,7 +180,6 @@ export const InntektFieldArrayAndelRow = ({
             {harEndretInntekt && (
               <>
                 <RhfTextField
-                  // @ts-expect-error Fiks
                   name={getInputFieldName()}
                   control={control}
                   align="right"
@@ -206,7 +198,6 @@ export const InntektFieldArrayAndelRow = ({
       {skalViseOverstyrtInntektInput && (
         <Table.DataCell align="right">
           <RhfTextField
-            // @ts-expect-error Fiks
             name={`${rowName}.fastsattBelop`}
             control={control}
             align="right"
@@ -228,7 +219,6 @@ export const InntektFieldArrayAndelRow = ({
       {skalViseRefusjon && (
         <Table.DataCell align="right">
           <RhfTextField
-            // @ts-expect-error Fiks
             name={`${rowName}.refusjonskrav`}
             control={control}
             align="right"
@@ -240,7 +230,6 @@ export const InntektFieldArrayAndelRow = ({
       )}
       <Table.DataCell align="right">
         <RhfSelect
-          // @ts-expect-error Fiks
           name={`${rowName}.inntektskategori`}
           control={control}
           label={intl.formatMessage({ id: 'BeregningInfoPanel.FordelingBG.Inntektskategori' })}
