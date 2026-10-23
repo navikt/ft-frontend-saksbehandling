@@ -10,7 +10,8 @@
   ],
   "exclude": [
     "**/node_modules",
-    "**/dist"
+    "**/dist",
+    "packages/*/src/formatjs.d.ts"
   ]
 }
 

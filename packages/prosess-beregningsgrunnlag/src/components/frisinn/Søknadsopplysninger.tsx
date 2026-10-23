@@ -15,7 +15,7 @@ const lagPerioderadMedTekst = (tekstId: MessageId, fom: string, tom: string) => 
     <FormattedMessage
       id={tekstId}
       values={{
-        periode: dateFormat(fom),
+        fom: dateFormat(fom),
         tom: dateFormat(tom),
       }}
     />
