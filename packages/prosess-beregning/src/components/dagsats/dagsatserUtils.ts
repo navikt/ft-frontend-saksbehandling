@@ -184,15 +184,16 @@ export const utledTabellData = ({
                 }
               : undefined,
 
-          dagsats: dagsats
-            ? {
-                utregning:
-                  redusertPrAar || avkortetPrAar
-                    ? `${formatCurrencyWithKr(redusertPrAar ?? avkortetPrAar ?? totalAndelsInntekt)} / ${VIRKEDAGER_PR_AAR} dager`
-                    : '',
-                resultat: dagsats,
-              }
-            : undefined,
+          dagsats:
+            typeof dagsats === 'number'
+              ? {
+                  utregning:
+                    redusertPrAar || avkortetPrAar
+                      ? `${formatCurrencyWithKr(redusertPrAar ?? avkortetPrAar ?? totalAndelsInntekt)} / ${VIRKEDAGER_PR_AAR} dager`
+                      : '',
+                  resultat: dagsats,
+                }
+              : undefined,
         };
       } else {
         return { fom, tom, andelerPerStatus };
