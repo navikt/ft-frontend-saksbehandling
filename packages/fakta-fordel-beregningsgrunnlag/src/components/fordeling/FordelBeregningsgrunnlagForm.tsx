@@ -43,7 +43,7 @@ const transformPerioder = (
   const kombinertePerioder = slåSammenPerioder(fordelBGPerioder, bgPerioder, forlengelseperioder);
   for (let index = 0; index < kombinertePerioder.length; index += 1) {
     const { skalRedigereInntekt } = kombinertePerioder[index];
-    if (skalRedigereInntekt && erPeriodeTilVurdering(kombinertePerioder[index])) {
+    if (skalRedigereInntekt && erPeriodeTilVurdering(kombinertePerioder[index], forlengelseperioder)) {
       lagPerioderForSubmit(values, index, kombinertePerioder[index], fordelBGPerioder).forEach(
         (p: FordelBeregningsgrunnlagPeriodeTransformedValues) => fordelBeregningsgrunnlagPerioder.push(p),
       );
