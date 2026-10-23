@@ -6,6 +6,8 @@ import userEvent from '@testing-library/user-event';
 import dayjs from 'dayjs';
 import { expect, vi } from 'vitest';
 
+import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
+
 import { RhfForm } from '../RhfForm';
 import { RhfDatepicker } from './RhfDatepicker';
 import * as stories from './RhfDatepicker.stories';
@@ -34,7 +36,7 @@ const TestForm = ({
         name="dato"
         label="Dato"
         inputFormats={['DD-MM-YYYY', 'DDMMYY']}
-        validate={[value => (dayjs(value, 'YYYY-MM-DD', true).isValid() ? null : 'Ugyldig dato')]}
+        validate={[value => (dayjs(value, ISO_DATE_FORMAT, true).isValid() ? null : 'Ugyldig dato')]}
         readOnly={readOnly}
       />
       <button type="submit">Submit</button>

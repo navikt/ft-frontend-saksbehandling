@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import { RhfForm, RhfRadioGroup, RhfSelect, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { usePrevious } from '@navikt/ft-ui-komponenter';
-import { BTag, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BTag, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, periodeKey } from '@navikt/ft-utils';
 
 import { type Aktsomhet, AKTSOMHET_REKKEFØLGE } from '../kodeverk/aktsomhet';
 import { type SærligGrunn } from '../kodeverk/særligGrunn';
@@ -16,7 +16,6 @@ import { type VilkårResultat } from '../kodeverk/vilkarResultat';
 import type { DataForPeriode } from '../types/DataForPeriode';
 import type { DetaljertFeilutbetalingPeriode } from '../types/DetaljerteFeilutbetalingsperioder';
 import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
-import { periodeNøkkel } from './periodeNøkkel';
 import {
   AktsomhetFormPanel,
   type InitialValuesAktsomhetForm,
@@ -106,7 +105,7 @@ export const TilbakekrevingPeriodeForm = ({
   const intl = useIntl();
   const [showModal, setShowModal] = useState(false);
 
-  const harKladdForPeriode = periode && periodeKladd?.periodeKey === periodeNøkkel(periode);
+  const harKladdForPeriode = periode && periodeKladd?.periodeKey === periodeKey(periode);
 
   // TODO (TOR) Fiks type for form
   // Kladden er ubekreftede endringer. Den settes derfor som verdier - ikke som defaultValues - slik at
@@ -208,9 +207,7 @@ export const TilbakekrevingPeriodeForm = ({
       onSubmit={saveOrToggleModal}
       setDataOnUnmount={verdier => {
         // Panelet avgjør om kladden skal beholdes: skyldes unmount et periodebytte, forkaster det den.
-        lagreKladd(
-          periode && formMethods.formState.isDirty ? { periodeKey: periodeNøkkel(periode), verdier } : undefined,
-        );
+        lagreKladd(periode && formMethods.formState.isDirty ? { periodeKey: periodeKey(periode), verdier } : undefined);
       }}
     >
       <VStack gap="space-16">
@@ -235,7 +232,7 @@ export const TilbakekrevingPeriodeForm = ({
             name="perioderForKopi"
             control={formMethods.control}
             selectValues={vurdertePerioder.map(per => {
-              const perId = `${per.fom}_${per.tom}`;
+              const perId = periodeKey(per);
               const perValue = `${dayjs(per.fom).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(per.tom).format(
                 DDMMYYYY_DATE_FORMAT,
               )}`;

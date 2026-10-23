@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 
 import type { BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
-import { periodFormat } from '@navikt/ft-utils';
+import { ISO_DATE_FORMAT, periodFormat } from '@navikt/ft-utils';
 
 import type { MessageId } from '../../messageIds';
 import { finnOppgittInntektForAndelIPeriode, type FrisinnAndel, type FrisinnGrunnlag } from './FrisinnUtils';
@@ -74,10 +74,10 @@ const erBeløpSatt = (beløp: number | null) => beløp || beløp === 0;
 
 const finnDekningsgrad = (bgPeriodeFom: string) => {
   const fomDato = dayjs(bgPeriodeFom);
-  if (fomDato.isBefore(dayjs('2020-11-01', 'YYYY-MM-DD'))) {
+  if (fomDato.isBefore(dayjs('2020-11-01', ISO_DATE_FORMAT))) {
     return 80;
   }
-  return fomDato.isBefore(dayjs('2022-01-01', 'YYYY-MM-DD')) ? 60 : 70;
+  return fomDato.isBefore(dayjs('2022-01-01', ISO_DATE_FORMAT)) ? 60 : 70;
 };
 
 const lagPeriodeblokk = (

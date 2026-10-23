@@ -36,3 +36,5 @@ const formaterTomDato = (tom: string | undefined, showTodayString: boolean, opti
   }
   return dateFormat(tom, options);
 };
+
+export const periodeKey = (periode: { fom: string; tom: string }) => `${periode.fom}_${periode.tom}`;

@@ -7,6 +7,7 @@ import type {
   BeregningsgrunnlagAndel,
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
+import { sortPeriodsByFom } from '@navikt/ft-utils';
 
 export type FrisinnAndel = Readonly<{
   oppgittInntekt: number;
@@ -136,7 +137,7 @@ export const finnFrisinnperioderSomSkalVises = (frisinnGrunnlag: FrisinnGrunnlag
     );
     if (eropprettetGrunetEndring) {
       // Skal kun vise siste søknadsperiode
-      const kronologiskePerioder = [...frisinnPerioder].sort((a, b) => a.fom.localeCompare(b.fom));
+      const kronologiskePerioder = frisinnPerioder.toSorted(sortPeriodsByFom);
       const sistePeriode = kronologiskePerioder[kronologiskePerioder.length - 1];
       const sisteTom = dayjs(sistePeriode.tom);
       if (sisteTom.month() === 3 && sisteTom.year() === 2020) {
