@@ -4,8 +4,6 @@ import dayjs from 'dayjs';
 
 import { TidslinjeController } from './TidslinjeController';
 
-const STANDARDVINDU_MÅNEDER = 8;
-
 interface TidslinjePeriode {
   fom: string;
   tom: string;
@@ -24,26 +22,38 @@ export const useTidslinje = ({ perioder }: UseTidslinjeProps): UseTidslinjeResul
   const generatedId = useId();
   const timelineId = `tidslinje-${generatedId}`;
   const controllerId = `tidslinje-kontroller-${generatedId}`;
-  const [forskyvning, setForskyvning] = useState(0);
-  const [zoomjustering, setZoomjustering] = useState(0);
+
   const grunnintervall = useMemo(() => utledDatointervall(perioder), [perioder]);
-  const standardSlutt = flyttMåneder(grunnintervall.start, STANDARDVINDU_MÅNEDER);
-  const grunnSlutt = grunnintervall.end.isAfter(standardSlutt) ? grunnintervall.end : standardSlutt;
-  const start = flyttMåneder(grunnintervall.start, forskyvning);
-  const minimumSlutt = flyttMåneder(start, 1);
-  const utledSlutt = (justering: number) => flyttMåneder(grunnSlutt, forskyvning + justering);
-  const beregnetSlutt = utledSlutt(zoomjustering);
-  const slutt = beregnetSlutt.isAfter(minimumSlutt) ? beregnetSlutt : minimumSlutt;
-  const kanZoomeInn = !utledSlutt(zoomjustering - 1).isBefore(minimumSlutt);
-  const onNeste = () => setForskyvning(offset => offset + 1);
-  const onForrige = () => setForskyvning(offset => offset - 1);
-  const onZoomInn = () => setZoomjustering(value => (utledSlutt(value - 1).isBefore(minimumSlutt) ? value : value - 1));
-  const onZoomUt = () => setZoomjustering(value => value + 1);
+  const originalFomDato = dayjs(grunnintervall.start);
+  const originalTomDato = dayjs(grunnintervall.end);
+
+  const [fomDato, setFomDato] = useState(originalFomDato);
+  const [tomDato, setTomDato] = useState(originalTomDato);
+
+  const onForrige = () => {
+    setFomDato(fomDato.subtract(1, 'month'));
+    setTomDato(tomDato.subtract(1, 'month'));
+  };
+
+  const onNeste = () => {
+    setFomDato(fomDato.add(1, 'month'));
+    setTomDato(tomDato.add(1, 'month'));
+  };
+
+  const onZoomInn = () => {
+    setFomDato(fomDato.add(1, 'month'));
+    setTomDato(tomDato.subtract(1, 'month'));
+  };
+
+  const onZoomUt = () => {
+    setFomDato(fomDato.subtract(1, 'month'));
+    setTomDato(tomDato.add(1, 'month'));
+  };
 
   return {
     timelineProps: {
-      startDate: start.toDate(),
-      endDate: slutt.toDate(),
+      startDate: fomDato.toDate(),
+      endDate: tomDato.add(1, 'days').toDate(),
       id: timelineId,
       'aria-controls': controllerId,
     },
@@ -51,7 +61,10 @@ export const useTidslinje = ({ perioder }: UseTidslinjeProps): UseTidslinjeResul
       <TidslinjeController
         id={controllerId}
         aria-controls={timelineId}
-        kanZoomeInn={kanZoomeInn}
+        kanGåFremover={!tomDato.add(1, 'month').isAfter(originalTomDato)}
+        kanGåBakover={!fomDato.subtract(1, 'month').isBefore(originalFomDato)}
+        kanZoomeInn={!fomDato.add(3, 'month').isAfter(tomDato)}
+        kanZoomeUt={tomDato.add(1, 'month').diff(fomDato.subtract(1, 'month'), 'months') < 36}
         onNeste={onNeste}
         onForrige={onForrige}
         onZoomInn={onZoomInn}
@@ -79,5 +92,3 @@ const utledDatointervall = (perioder: TidslinjePeriode[]) => {
     { start: dayjs(første.fom), end: dayjs(første.tom) },
   );
 };
-
-const flyttMåneder = (date: dayjs.Dayjs, months: number) => date.add(months, 'month');
