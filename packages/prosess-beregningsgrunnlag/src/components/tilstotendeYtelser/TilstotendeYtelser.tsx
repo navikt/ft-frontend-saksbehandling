@@ -5,12 +5,13 @@ import { Heading, Table, VStack } from '@navikt/ds-react';
 import type { BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
+import type { MessageId } from '../../messageIds';
 import type { RelevanteStatuserProp } from '../../types/RelevanteStatuser';
 import { isStatusDagpengerOrAAP } from '../../util/aktivitetStatusUtils';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
-const getTekstForAndelBruktIBeregning = (andel: BeregningsgrunnlagAndel): string => {
+const getTekstForAndelBruktIBeregning = (andel: BeregningsgrunnlagAndel): MessageId => {
   if (andel.aktivitetStatus === 'DP') {
     return 'TilstottendeYtelse.Dagpenger';
   }
@@ -23,7 +24,7 @@ const getTekstForAndelBruktIBeregning = (andel: BeregningsgrunnlagAndel): string
   if (andel.aktivitetStatus === 'AAP') {
     return 'TilstottendeYtelse.AAP';
   }
-  return '';
+  throw new Error(`Ukjent tilstøtende ytelse ${andel.aktivitetStatus}`);
 };
 
 type Props = {

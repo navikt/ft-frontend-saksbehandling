@@ -22,7 +22,6 @@ interface Props<T extends FieldValues> {
   isSubmittable: boolean;
   hasBegrunnelse: boolean;
   label?: string;
-  hasVurderingText?: boolean;
 }
 
 type FormValues = {
@@ -43,10 +42,8 @@ export const FaktaBegrunnelseTextField = <T extends FieldValues>({
   isSubmittable,
   hasBegrunnelse,
   label,
-  hasVurderingText = false,
 }: Props<T>) => {
-  const code = hasVurderingText ? 'FaktaBegrunnelseTextField.Vurdering' : 'FaktaBegrunnelseTextField.BegrunnEndringene';
-  const textAreaLabel = label || intl.formatMessage({ id: code });
+  const textAreaLabel = label || intl.formatMessage({ id: 'FaktaBegrunnelseTextField.BegrunnEndringene' });
   return (
     <RawIntlProvider value={intl}>
       {(isSubmittable || hasBegrunnelse) && (

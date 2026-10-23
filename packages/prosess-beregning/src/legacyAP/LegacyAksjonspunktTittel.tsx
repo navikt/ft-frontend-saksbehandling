@@ -4,6 +4,7 @@ import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
 import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
+import type { MessageId } from '../messageIds';
 import { AksjonspunktKode, erBeregningsAP } from '../utils/aksjonspunkt';
 import { finnAlleAndelerIFørstePeriode } from '../utils/beregningsgrunnlagUtils';
 
@@ -22,7 +23,7 @@ const APTekster = {
   [VURDER_VARIG_ENDRET_ARBEIDSSITUASJON]: 'LegacyAksjonspunktTittel.VarigEndretArbeidssituasjon',
   [VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE]:
     'LegacyAksjonspunktTittel.SelvstendigNaeringsdrivende',
-} as Record<string, string>;
+} as Record<string, MessageId>;
 
 interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;

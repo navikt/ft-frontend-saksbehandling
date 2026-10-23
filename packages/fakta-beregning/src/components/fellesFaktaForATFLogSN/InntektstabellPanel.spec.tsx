@@ -16,7 +16,6 @@ describe('InntektstabellPanel', () => {
       <IntlProvider locale="nb-NO" messages={messages}>
         <InntektstabellPanel
           key="inntektstabell"
-          hjelpeTekstId=""
           tabell={<span> tabell </span>}
           avklaringsbehov={[]}
           readOnly={false}
@@ -34,7 +33,6 @@ describe('InntektstabellPanel', () => {
       <IntlProvider locale="nb-NO" messages={messages}>
         <InntektstabellPanel
           key="inntektstabell"
-          hjelpeTekstId=""
           tabell={<span> tabell </span>}
           avklaringsbehov={[
             {
@@ -60,7 +58,6 @@ describe('InntektstabellPanel', () => {
       <IntlProvider locale="nb-NO" messages={messages}>
         <InntektstabellPanel
           key="inntektstabell"
-          hjelpeTekstId=""
           tabell={<span> tabell </span>}
           avklaringsbehov={[
             {
@@ -87,7 +84,6 @@ describe('InntektstabellPanel', () => {
       <IntlProvider locale="nb-NO" messages={messages}>
         <InntektstabellPanel
           key="inntektstabell"
-          hjelpeTekstId=""
           tabell={<span> tabell </span>}
           avklaringsbehov={[]}
           readOnly={false}

@@ -19,7 +19,7 @@ export const ForeldetFormPanel = () => {
       <RhfTextarea
         name="foreldetBegrunnelse"
         control={control}
-        label={<FormattedMessage id="ForeldetPanel.Vurdering" />}
+        label={<FormattedMessage id="ForeldetFormPanel.Vurdering" />}
         readOnly
       />
       <RhfRadioGroup

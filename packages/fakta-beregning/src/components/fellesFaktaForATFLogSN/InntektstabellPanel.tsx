@@ -7,6 +7,7 @@ import type { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { OverstyringKnapp } from '@navikt/ft-ui-komponenter';
 import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
+import type { MessageId } from '../../messageIds';
 import type { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
@@ -23,7 +24,7 @@ const getSkalKunneOverstyre = (erOverstyrer: boolean, avklaringsbehov: Beregning
 
 interface Props {
   tabell: React.ReactNode;
-  hjelpeTekstId?: string;
+  hjelpeTekstId?: MessageId;
   skalViseTabell?: boolean;
   readOnly: boolean;
   avklaringsbehov: BeregningAvklaringsbehov[];

@@ -10,6 +10,7 @@ import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type { BeregningAvklaringsbehov, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 import { formatCurrencyNoKr, isAksjonspunktOpen, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
 
+import type { MessageId } from '../../messageIds';
 import type { BeregningFormValues } from '../../types/BeregningFormValues';
 import type { VurderVarigEndretNyoppstartetResultatAP } from '../../types/interface/BeregningsgrunnlagAP';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
@@ -78,7 +79,7 @@ export const VurderVarigEndringEllerNyoppstartet = ({
     radioLabel1 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.IkkeVarigEndring" />;
     radioLabel2 = <FormattedMessage id="VurderVarigEndringEllerNyoppstartet.VarigEndring" />;
   }
-  let radioLabel = 'VurderVarigEndringEllerNyoppstartet.RadioTittel.VarigEndringNæring';
+  let radioLabel: MessageId = 'VurderVarigEndringEllerNyoppstartet.RadioTittel.VarigEndringNæring';
   if (erVarigEndretArbeidssituasjon) {
     radioLabel = 'VurderVarigEndringEllerNyoppstartet.RadioTittel.VarigEndringArbeid';
   }

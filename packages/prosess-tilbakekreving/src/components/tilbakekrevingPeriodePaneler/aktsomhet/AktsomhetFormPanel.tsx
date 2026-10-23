@@ -8,16 +8,17 @@ import { required } from '@navikt/ft-form-validators';
 import { decodeHtmlEntity, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { type Aktsomhet, AKTSOMHET_REKKEFØLGE } from '../../../kodeverk/aktsomhet';
+import type { MessageId } from '../../../messageIds';
 import type { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
 import type { AktsomhetInfo } from '../../../types/VilkårsvurdertePerioder';
 import { AktsomhetGradFormPanel } from './AktsomhetGradFormPanel';
 import { ANDELER, EGENDEFINERT } from './aktsomhetUtils';
 
-const forstoBurdeForstattTekster = {
+const forstoBurdeForstattTekster: Record<Aktsomhet, MessageId> = {
   FORSETT: 'AktsomhetFormPanel.AktsomhetTyperLabel.Forsett',
   GROVT_UAKTSOM: 'AktsomhetFormPanel.AktsomhetTyperLabel.GrovtUaktsomt',
   SIMPEL_UAKTSOM: 'AktsomhetFormPanel.AktsomhetTyperLabel.SimpelUaktsom',
-} as Record<Aktsomhet, string>;
+};
 
 interface AktsomhetData {
   andelSomTilbakekreves: number | string;

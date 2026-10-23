@@ -48,7 +48,7 @@ const getApTekst = (aksjonspunkt: Aksjonspunkt): ReactElement[] =>
   aksjonspunkt
     ? [
         <FormattedMessage
-          id={`ForeldelseForm.AksjonspunktHelpText.${aksjonspunkt.definisjon}`}
+          id="ForeldelseForm.AksjonspunktHelpText"
           key="vurderForeldelse"
           values={{ dato: getDate() }}
         />,
@@ -306,9 +306,11 @@ export const ForeldelseForm = ({
           <VStack gap="space-16">
             {isApOpen && <AksjonspunktHelpTextHTML>{getApTekst(aksjonspunkt)}</AksjonspunktHelpTextHTML>}
             <Alert variant="info" size="small" contentMaxWidth={false}>
-              <Heading spacing size="xsmall" level="3"><FormattedMessage id="ForeldelseForm.InnkrevingsfristOverskrift" /></Heading>
+              <Heading spacing size="xsmall" level="3">
+                <FormattedMessage id="ForeldelseForm.InnkrevingsfristOverskrift" />
+              </Heading>
               <BodyShort size="small">
-                <FormattedMessage id="ForeldelseForm.InnkrevingsfristInfo" values={{b: BTag}} />
+                <FormattedMessage id="ForeldelseForm.InnkrevingsfristInfo" values={{ b: BTag }} />
               </BodyShort>
             </Alert>
             <TilbakekrevingTimeline

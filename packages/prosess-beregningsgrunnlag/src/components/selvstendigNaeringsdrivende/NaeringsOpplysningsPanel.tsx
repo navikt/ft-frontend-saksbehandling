@@ -7,9 +7,11 @@ import type { ArbeidsgiverOpplysningerPerId, BeregningsgrunnlagAndel, Næring } 
 import { BeløpLabel, NoWrap, PeriodLabel } from '@navikt/ft-ui-komponenter';
 import { BTag, dateFormat, formaterArbeidsgiver } from '@navikt/ft-utils';
 
+import type { MessageId } from '../../messageIds';
+
 import styles from './naeringsOpplysningsPanel.module.css';
 
-const finnVirksomhetTypeTekst = (næring: Næring): string => {
+const finnVirksomhetTypeTekst = (næring: Næring): MessageId => {
   const kode = næring?.virksomhetType;
   if (!kode) {
     return 'NaeringsOpplysningsPanel.VirksomhetsType.UDEFINERT';
