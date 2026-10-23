@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 
 import { hasValidDate } from '@navikt/ft-form-validators';
 import type { ArbeidsgiverOpplysningerPerId, AvklarBeregningAktiviteter } from '@navikt/ft-types';
-import { dateFormat } from '@navikt/ft-utils';
+import { dateFormat, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import type { AktiviteterValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import type { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
@@ -63,7 +63,7 @@ const lagTomDatoMapping = (values: AvklarAktiviteterValues): AvklarBeregningAkti
       ) {
         leggTilAktivitet(gjeldendeTomDatoMapping, nyAktivitet, stpOpptjening);
       } else {
-        leggTilAktivitet(gjeldendeTomDatoMapping, nyAktivitet, dayjs(tomDato).add(1, 'days').format('YYYY-MM-DD'));
+        leggTilAktivitet(gjeldendeTomDatoMapping, nyAktivitet, dayjs(tomDato).add(1, 'days').format(ISO_DATE_FORMAT));
       }
     });
   return gjeldendeTomDatoMapping;
