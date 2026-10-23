@@ -1,4 +1,4 @@
-import { type SyntheticEvent, useState } from 'react';
+import { type SyntheticEvent, useMemo, useState } from 'react';
 import type { FieldPath } from 'react-hook-form';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
@@ -32,8 +32,13 @@ export const TilbakekrevingVedtakUtdypendeTekstPanel = ({ name, readOnly, fritek
   const isEmpty = watch(name) === undefined;
 
   const [isTextfieldHidden, hideTextField] = useState(isEmpty && !fritekstPakrevet);
-  const valideringsRegler = fritekstPakrevet ? valideringsreglerPakrevet : valideringsregler;
-  valideringsRegler.push(maximumLength ? maxLength(maximumLength) : maxLength4000);
+  const valideringsRegler = useMemo(
+    () => [
+      ...(fritekstPakrevet ? valideringsreglerPakrevet : valideringsregler),
+      maximumLength ? maxLength(maximumLength) : maxLength4000,
+    ],
+    [fritekstPakrevet, maximumLength],
+  );
 
   const handleOnClick = (event: SyntheticEvent) => {
     event.preventDefault();
