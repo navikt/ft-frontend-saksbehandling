@@ -43,7 +43,7 @@ import {
   integerOptionalNegativeRegex,
   integerRegex,
   isEmpty,
-  isoDateRegex,
+  isValidIsoDate,
   nameGyldigRegex,
   nameRegex,
   numberOptionalNegativeRegex,
@@ -147,7 +147,7 @@ export const hasValidSaksnummerOrFodselsnummerFormat = (text: string): FormValid
   isEmpty(text) || saksnummerOrFodselsnummerPattern.test(text) ? null : invalidSaksnrOrFodselsnrFormatMessage();
 
 export const hasValidDate = (text: string = ''): FormValidationResult =>
-  isEmpty(text) || isoDateRegex.test(text) ? null : invalidDateMessage();
+  isEmpty(text) || isValidIsoDate(text) ? null : invalidDateMessage();
 
 export const dateBeforeOrEqual =
   (latest: DateType) =>
@@ -221,7 +221,7 @@ export const hasValidPeriod = (fomDate: string, tomDate: string): FormValidation
   if (isEmpty(fomDate) && isEmpty(tomDate)) {
     return null;
   }
-  if (!isoDateRegex.test(fomDate) || !isoDateRegex.test(tomDate)) {
+  if (!isValidIsoDate(fomDate) || !isValidIsoDate(tomDate)) {
     return invalidDatesInPeriodMessage();
   }
   return dayjs(fomDate).isSameOrBefore(dayjs(tomDate).startOf('day')) ? null : invalidPeriodMessage();

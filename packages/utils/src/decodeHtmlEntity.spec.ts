@@ -7,4 +7,7 @@ describe('decode-Html-Entity', () => {
   it('skal sjekke at html entity less than og greater than er ikke decodert', () => {
     expect(decodeHtmlEntity('&lt; og &gt; og &#60; og &#62;')).toEqual('&lt; og &gt; og &#60; og &#62;');
   });
+  it('skal decode typografiske tegn til riktige Unicode-tegn', () => {
+    expect(decodeHtmlEntity('&hellip; &ndash; &mdash;')).toEqual('\u2026 \u2013 \u2014');
+  });
 });

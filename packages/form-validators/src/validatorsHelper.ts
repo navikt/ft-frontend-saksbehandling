@@ -1,8 +1,14 @@
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 
 import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
-export const isoDateRegex = /(19|20)\d{2}-(0?[1-9]|1[0-2])-(0?[1-9]|1\d|2\d|3[01])$/;
+dayjs.extend(customParseFormat);
+
+export const isoDateRegex = /^(19|20)\d{2}-(0?[1-9]|1[0-2])-(0?[1-9]|1\d|2\d|3[01])$/;
+
+export const isValidIsoDate = (text: string): boolean =>
+  isoDateRegex.test(text) && dayjs(text, [ISO_DATE_FORMAT, 'YYYY-M-D', 'YYYY-MM-D', 'YYYY-M-DD'], true).isValid();
 export const numberRegex = /^\d+([,.]\d+)?$/;
 export const numberOptionalNegativeRegex = /^-?\d+([,.]\d+)?$/;
 export const integerRegex = /^\s*\d+\s*$/;

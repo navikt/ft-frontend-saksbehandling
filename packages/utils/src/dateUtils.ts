@@ -73,8 +73,7 @@ export const createWeekAndDay = (weeks?: number, days?: number): WeekAndDay => {
 
 export const calcDays = (fraDatoPeriode: string, tilDatoPeriode: string, notWeekends = true): number => {
   if (tilDatoPeriode === TIDENES_ENDE) {
-    // @ts-expect-error Kva er dette?
-    return createWeekAndDay();
+    return Number.NaN;
   }
 
   const fraDato = initializeDate(fraDatoPeriode, ISO_DATE_FORMAT);
@@ -104,6 +103,10 @@ export const calcDays = (fraDatoPeriode: string, tilDatoPeriode: string, notWeek
 };
 
 export const calcDaysAndWeeks = (fraDatoPeriode: string, tilDatoPeriode: string): WeekAndDay => {
+  if (tilDatoPeriode === TIDENES_ENDE) {
+    return createWeekAndDay();
+  }
+
   const numOfDays = calcDays(fraDatoPeriode, tilDatoPeriode);
 
   const weeks = Math.floor(numOfDays / 5);
@@ -113,6 +116,10 @@ export const calcDaysAndWeeks = (fraDatoPeriode: string, tilDatoPeriode: string)
 };
 
 export const calcDaysAndWeeksWithWeekends = (fraDatoPeriode: string, tilDatoPeriode: string): WeekAndDay => {
+  if (tilDatoPeriode === TIDENES_ENDE) {
+    return createWeekAndDay();
+  }
+
   const notWeekends = false;
 
   const numOfDays = calcDays(fraDatoPeriode, tilDatoPeriode, notWeekends);
