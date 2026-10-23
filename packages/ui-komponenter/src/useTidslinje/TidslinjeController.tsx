@@ -10,7 +10,10 @@ const intl = createIntl(messages);
 export interface TidslinjeControllerProps {
   id: string;
   'aria-controls': string;
+  kanGåFremover: boolean;
+  kanGåBakover: boolean;
   kanZoomeInn: boolean;
+  kanZoomeUt: boolean;
   onNeste: () => void;
   onForrige: () => void;
   onZoomInn: () => void;
@@ -20,7 +23,10 @@ export interface TidslinjeControllerProps {
 export const TidslinjeController = ({
   id,
   'aria-controls': ariaControls,
+  kanGåFremover,
+  kanGåBakover,
   kanZoomeInn,
+  kanZoomeUt,
   onNeste,
   onForrige,
   onZoomInn,
@@ -44,6 +50,7 @@ export const TidslinjeController = ({
           variant="secondary"
           size="small"
           type="button"
+          disabled={!kanZoomeUt}
           onClick={onZoomUt}
         />
       </HStack>
@@ -54,6 +61,7 @@ export const TidslinjeController = ({
           variant="secondary"
           size="small"
           type="button"
+          disabled={!kanGåBakover}
           onClick={onForrige}
         />
         <Button
@@ -62,6 +70,7 @@ export const TidslinjeController = ({
           variant="secondary"
           size="small"
           type="button"
+          disabled={!kanGåFremover}
           onClick={onNeste}
         />
       </HStack>
