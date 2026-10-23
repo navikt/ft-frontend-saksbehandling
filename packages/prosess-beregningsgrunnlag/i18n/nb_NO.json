@@ -73,6 +73,7 @@
   "AksjonspunktBehandlerHeader.Detaljer.ATFLTidsbegrenset": "Det er mer enn 25 % avvik mellom beregnet årsinntekt og sammenligningsgrunnlaget, og det er tidsbegrenset arbeidsforhold.",
   "AksjonspunktBehandlerHeader.Detaljer.SNNyIArb": "Søker har oppgitt å være ny i arbeidslivet (blitt yrkesaktiv siste tre år).",
   "AksjonspunktBehandlerHeader.Detaljer.VarigEndringArbeid": "Det er er mer enn 25 % avvik mellom pensjonsgivende inntekt og samlet inntekt.",
+  "AksjonspunktBehandlerHeader.UkjentAksjonspunkt": "Ukjent aksjonspunkt",
 
   "VurderVarigEndringEllerNyoppstartet.RadioTittel.VarigEndringNæring": "Har søker hatt varig endret næring og/eller arbeidssituasjon? ",
   "VurderVarigEndringEllerNyoppstartet.RadioTittel.VarigEndringArbeid": "Har søker hatt varig endret arbeidssituasjon? ",
@@ -160,10 +161,12 @@
   "OppsummertGrunnlagPanel.Dagsats": "Dagsats (årsinntekt/260 dager)",
   "OppsummertGrunnlagPanel.VilkarIkkeOppfylt": "Beløpet er under 1/2 G (G = {grunnbeløp}) - søker har ikke rett til ytelse",
   "OppsummertGrunnlagPanel.VilkarIkkeOppfyltMidlertidigInaktiv": "Beløpet er under 1 G (G = {grunnbeløp}) - søker har ikke rett til ytelse",
+  "OppsummertGrunnlagPanel.UkjentAndel": "Ukjent andel",
 
   "Søknad.Tittel": "Opplysninger fra søknad",
   "Søknad.LøpendeFL": "Oppgitt frilansinntekt i søknadsperioden",
   "Søknad.LøpendeSN": "Oppgitt næringsinntekt i søknadsperioden",
+  "Søknad.SøktYtelseFL": "Bruker har søkt inntektskompensasjon for frilansinntekt i perioden {fom} - {tom}",
   "Søknad.SøktYtelseSN": "Bruker har søkt inntektskompensasjon for næringsinntekt i perioden {fom} - {tom}",
   "Frisinn.Resultat": "Grunnlag for dagsats",
   "Frisinn.Inntektstak": "Inntektstak ({grenseverdi} - {annenInntekt})",

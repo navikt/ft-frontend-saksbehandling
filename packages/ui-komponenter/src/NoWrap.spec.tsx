@@ -19,8 +19,8 @@ describe('NoWrap', () => {
 
   it('skal håndtere å brukes som funksjon i FormattedMessage', () => {
     const result = render(
-      <IntlProvider locale="nb-NO" messages={{ a: '<nw>Test</nw>' }}>
-        <FormattedMessage id="a" values={{ nw: NoWrap }} />
+      <IntlProvider locale="nb-NO" messages={{ 'OkAvbrytModal.Ok': '<nw>Test</nw>' } as Record<string, string>}>
+        <FormattedMessage id="OkAvbrytModal.Ok" values={{ nw: NoWrap }} />
       </IntlProvider>,
     );
     const span = result.container.querySelector('span');

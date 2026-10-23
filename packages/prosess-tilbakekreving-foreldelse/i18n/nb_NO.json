@@ -8,7 +8,7 @@
 
   "ForeldelseForm.Foreldelsesloven": "Foreldelsesloven §§ 2 og 3",
   "ForeldelseForm.AutomatiskVurdert": "Automatisk vurdert",
-  "ForeldelseForm.AksjonspunktHelpText.5003": "Perioden før {dato} kan være foreldet. Del opp perioden ved behov og fastsett foreldelse",
+  "ForeldelseForm.AksjonspunktHelpText": "Perioden før {dato} kan være foreldet. Del opp perioden ved behov og fastsett foreldelse",
   "ForeldelseForm.InnkrevingsfristOverskrift": "Ny innkrevingsfrist",
   "ForeldelseForm.InnkrevingsfristInfo": "Frist for oversendelse av innkrevingsoppdrag, som før var 6 uker før foreldelse, er <b>endret til 9 uker</b> før foreldelse.",
   "ForeldelseForm.Foreldelse": "Foreldelse",

@@ -5,6 +5,7 @@ import { Detail, Heading, Hide, HStack, VStack } from '@navikt/ds-react';
 
 import type { BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 
+import type { MessageId } from '../../messageIds';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 import { isStatusArbeidstakerOrKombinasjon, isStatusFrilanserOrKombinasjon } from '../../util/aktivitetStatusUtils';
 
@@ -18,7 +19,7 @@ const {
   FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
 } = ProsessBeregningsgrunnlagAvklaringsbehovCode;
 
-const finnDetaljerSN = (bg: Beregningsgrunnlag): string => {
+const finnDetaljerSN = (bg: Beregningsgrunnlag): MessageId => {
   const alleAndelerIForstePeriode =
     bg.beregningsgrunnlagPeriode && bg.beregningsgrunnlagPeriode.length > 0
       ? bg.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel || []
@@ -31,7 +32,7 @@ const finnDetaljerSN = (bg: Beregningsgrunnlag): string => {
   return 'AksjonspunktBehandlerHeader.Detaljer.VarigEndring';
 };
 
-const finnDetaljer = (avklaringsbehov: BeregningAvklaringsbehov, bg: Beregningsgrunnlag): string => {
+const finnDetaljer = (avklaringsbehov: BeregningAvklaringsbehov, bg: Beregningsgrunnlag): MessageId => {
   switch (avklaringsbehov.definisjon) {
     case VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE:
       return finnDetaljerSN(bg);
@@ -44,11 +45,11 @@ const finnDetaljer = (avklaringsbehov: BeregningAvklaringsbehov, bg: Beregningsg
     case FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD:
       return 'AksjonspunktBehandlerHeader.Detaljer.ATFLTidsbegrenset';
     default:
-      return 'Ukjent aksjonspunkt';
+      return 'AksjonspunktBehandlerHeader.UkjentAksjonspunkt';
   }
 };
 
-const finnTittelATFL = (bg: Beregningsgrunnlag): string => {
+const finnTittelATFL = (bg: Beregningsgrunnlag): MessageId => {
   const statuser = bg.aktivitetStatus || [];
   const erAT = statuser.some(st => isStatusArbeidstakerOrKombinasjon(st));
   const erFL = statuser.some(st => isStatusFrilanserOrKombinasjon(st));
@@ -61,7 +62,7 @@ const finnTittelATFL = (bg: Beregningsgrunnlag): string => {
   return 'AksjonspunktBehandlerHeader.Tittel.ATAvvik';
 };
 
-const finnTittel = (avklaringsbehov: BeregningAvklaringsbehov, bg: Beregningsgrunnlag): string => {
+const finnTittel = (avklaringsbehov: BeregningAvklaringsbehov, bg: Beregningsgrunnlag): MessageId => {
   switch (avklaringsbehov.definisjon) {
     case VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE:
       return 'AksjonspunktBehandlerHeader.Tittel.VarigEndringNyoppstartet';
@@ -73,7 +74,7 @@ const finnTittel = (avklaringsbehov: BeregningAvklaringsbehov, bg: Beregningsgru
     case FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD:
       return finnTittelATFL(bg);
     default:
-      return 'Ukjent aksjonspunkt';
+      return 'AksjonspunktBehandlerHeader.UkjentAksjonspunkt';
   }
 };
 

@@ -7,6 +7,7 @@ import type { BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { periodFormat } from '@navikt/ft-utils';
 
+import type { MessageId } from '../../messageIds';
 import { finnOppgittInntektForAndelIPeriode, type FrisinnAndel, type FrisinnGrunnlag } from './FrisinnUtils';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
@@ -24,7 +25,7 @@ const statuserDetErSøktOmIPerioden = (
   return gjeldendePeriode ? gjeldendePeriode.frisinnAndeler : [];
 };
 
-const BeskrivelseMedBeløpRad = ({ tekstId, beløp }: { tekstId: string; beløp: number }) => (
+const BeskrivelseMedBeløpRad = ({ tekstId, beløp }: { tekstId: MessageId; beløp: number }) => (
   <HStack gap="space-8">
     <BodyShort className={beregningStyles.tabellAktivitet}>
       <FormattedMessage id={tekstId} />
@@ -36,9 +37,9 @@ const BeskrivelseMedBeløpRad = ({ tekstId, beløp }: { tekstId: string; beløp:
 );
 
 const lagRedusertBGRad = (
-  tekstIdRedusert: string,
+  tekstIdRedusert: MessageId,
   beløpÅRedusere: number,
-  tekstIdLøpende: string,
+  tekstIdLøpende: MessageId,
   løpendeBeløp: number,
   gjeldendeDekningsgrad: number,
 ) => {

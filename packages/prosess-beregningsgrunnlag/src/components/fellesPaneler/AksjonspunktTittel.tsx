@@ -12,6 +12,7 @@ import { AksjonspunktHelpTextHTML } from '@navikt/ft-ui-komponenter';
 import { BTag, isAksjonspunktOpen } from '@navikt/ft-utils';
 
 import { SammenligningType } from '../../kodeverk/sammenligningType';
+import type { MessageId } from '../../messageIds';
 import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interface/ProsessBeregningsgrunnlagAvklaringsbehovCode';
 
 const {
@@ -72,12 +73,12 @@ const APTekster = {
   [FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD]: 'AksjonspunktTittel.TidsbegrensetArbeidsforhold',
   [FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET]: 'AksjonspunktTittel.NyIArbeidslivetSN',
   [VURDER_VARIG_ENDRET_ARBEIDSSITUASJON]: 'AksjonspunktTittel.VarigEndretArbeidssituasjon',
-} as Record<string, string>;
+} as Record<string, MessageId>;
 
 const findAksjonspunktHelpTekst = (
   gjeldendeAvklaringsbehov: BeregningAvklaringsbehov,
   erVarigEndring: boolean,
-): string => {
+): MessageId => {
   if (
     gjeldendeAvklaringsbehov.definisjon === VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE
   ) {

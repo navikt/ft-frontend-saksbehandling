@@ -10,6 +10,7 @@ import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 import { BTag, formatCurrencyNoKr, periodFormat } from '@navikt/ft-utils';
 
 import { VilkårUtfallType } from '../../kodeverk/vilkårUtfallType';
+import type { MessageId } from '../../messageIds';
 import type { TabellData, TabellRadData } from '../../types/BeregningsresultatTabellType';
 import type { Vilkårperiode } from '../../types/Vilkår';
 import { HorizontalBox } from '../../util/HorizontalBox';
@@ -21,7 +22,7 @@ const DEKNINGSGRAD_HUNDRE = 100;
 
 type StatusKonfigEntry = {
   rekkefølgePri: number;
-  beskrivelseId: string;
+  beskrivelseId: MessageId;
 };
 
 type StatusKonfig = Partial<Record<AktivitetStatus, StatusKonfigEntry>>;
@@ -75,9 +76,9 @@ const finnRekkefølgePrioritet = (andel: TabellRadData): number => {
   return pri || 100; // Default settes veldig høyt så den havner nederst i tabellen
 };
 
-const finnStatusBeskrivelse = (andel: TabellRadData): string => {
+const finnStatusBeskrivelse = (andel: TabellRadData): MessageId => {
   const beskrivelseId = statusKonfigMap[andel.aktivitetStatus]?.beskrivelseId;
-  return beskrivelseId || 'Ukjent andel';
+  return beskrivelseId || 'OppsummertGrunnlagPanel.UkjentAndel';
 };
 
 const ikkeBeregnetTekst = (): ReactElement => <FormattedMessage id="OppsummertGrunnlagPanel.IkkeBeregnet" />;

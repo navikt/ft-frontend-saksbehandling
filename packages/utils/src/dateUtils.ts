@@ -37,7 +37,7 @@ const initializeDate = (dateString?: string | Dayjs | Date, dateStringFormat?: s
 };
 
 export const createWeekAndDay = (weeks?: number, days?: number): WeekAndDay => {
-  let id = 'Dato.AntallDagerOgUker';
+  let id: keyof typeof messages = 'Dato.AntallDagerOgUker';
   if (weeks === undefined && days === undefined) {
     id = 'Dato.TidenesEnde';
     return {

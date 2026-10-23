@@ -5,16 +5,17 @@ import { BodyShort, Label, VStack } from '@navikt/ds-react';
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { dateFormat } from '@navikt/ft-utils';
 
+import type { MessageId } from '../../messageIds';
 import { type FrisinnGrunnlag, type FrisinnPeriode } from './FrisinnUtils';
 
 import beregningStyles from '../beregningsgrunnlagPanel/beregningsgrunnlag.module.css';
 
-const lagPerioderadMedTekst = (tekstId: string, fom: string, tom: string) => (
+const lagPerioderadMedTekst = (tekstId: MessageId, fom: string, tom: string) => (
   <BodyShort size="small">
     <FormattedMessage
       id={tekstId}
       values={{
-        periode: dateFormat(fom),
+        fom: dateFormat(fom),
         tom: dateFormat(tom),
       }}
     />
