@@ -307,10 +307,9 @@ describe('RefusjonskravForm', () => {
     }));
     renderForm({ refusjonsandeler });
 
-    const brunostRad = screen.getAllByText('Brunostfabrikken AS')[0].closest('tr');
-    if (!brunostRad) {
-      throw new Error('Fant ikke raden for Brunostfabrikken');
-    }
+    const brunostRad = within(screen.getByRole('table')).getByRole('row', {
+      name: /Brunostfabrikken AS.*Redusert/,
+    });
     await userEvent.click(within(brunostRad).getByRole('button', { name: 'Vis mer' }));
     const radInnhold = getÅpentRadInnhold('Brunostfabrikken AS');
     expect(within(brunostRad).getByText('Redusert')).toBeInTheDocument();

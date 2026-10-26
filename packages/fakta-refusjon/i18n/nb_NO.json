@@ -3,7 +3,6 @@
   "FaktaRefusjonIndex.Aksjonspunkt.Tittel": "Vurder refusjonskrav uten registrert utfall",
   "FaktaRefusjonIndex.Aksjonspunkt.Body": "{arbeidsgivere} har refusjonsperioder uten registrert utfall. Vurder om kravene skal tas med i beregningen.",
   "Utbetaling.Tittel": "Utbetaling",
-
   "RefusjonskravForm.KreverRefusjonFra": "Krever refusjon fra",
   "RefusjonskravForm.FristForInnsendingAvRefusjonskrav": "Frist for å sende inn refusjonskrav",
   "RefusjonskravForm.TidligsteMuligeDatoMedRefusjonEtterFrist": "Tidligste mulige dato med refusjon etter frist",
