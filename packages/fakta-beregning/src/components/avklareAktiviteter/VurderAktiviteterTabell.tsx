@@ -81,7 +81,7 @@ export const VurderAktiviteterTabell = ({
       <Table.Body>
         {aktiviteter.map(aktivitet => (
           <VurderAktiviteterTabellRad
-            key={`${aktivitet.arbeidsgiverIdent}-${aktivitet.fom}-${aktivitet.tom}`}
+            key={lagAktivitetFieldId(aktivitet)}
             aktivitet={aktivitet}
             readOnly={readOnly}
             isAvklaringsbehovClosed={isAvklaringsbehovClosed}

@@ -196,6 +196,12 @@ describe('VurderAktiviteterPanel', () => {
       const harIngenAktiviteter = VurderAktiviteterPanel.harIngenAktiviteter(values, aktiviteterTomDatoMapping, false);
       expect(harIngenAktiviteter).toBe(false);
     });
+
+    it('skal ikke gruppere aktivitetene på nytt mens saksbehandler skriver en dato', () => {
+      const values = lagValues(TIDENES_ENDE, '3');
+      const harIngenAktiviteter = VurderAktiviteterPanel.harIngenAktiviteter(values, aktiviteterTomDatoMapping, false);
+      expect(harIngenAktiviteter).toBe(false);
+    });
   });
 
   it('skal kunne legge til aktivitet i tom mapping', () => {

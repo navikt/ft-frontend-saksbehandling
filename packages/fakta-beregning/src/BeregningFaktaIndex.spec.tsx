@@ -48,6 +48,21 @@ describe('BeregningFaktaIndex', () => {
     expect(feltetMåFyllesUtfeilmelding).toBeInTheDocument();
   });
 
+  it('skal beholde fokus i tom-datofeltet mens saksbehandler skriver en dato', async () => {
+    render(<ArbeidOgAAPAp5052 />);
+    await userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
+    const tomFeltAap = screen.getAllByDisplayValue('01.04.2020')[1];
+    await userEvent.clear(tomFeltAap);
+    await userEvent.type(tomFeltAap, '31.1');
+
+    const feltEtterSkriving = screen.getByDisplayValue('31.1');
+    expect(feltEtterSkriving).toHaveFocus();
+
+    await userEvent.clear(feltEtterSkriving);
+    await userEvent.type(feltEtterSkriving, '01.05.2020');
+    expect(screen.getByDisplayValue('01.05.2020')).toHaveFocus();
+  });
+
   it('skal beholde feilmelding dersom man bytter tab', async () => {
     render(<ArbeidOgDagpengerAp5058 />);
     // Trykk på overstyrknapp før vi endrer sidan vi ikkje har aksjonspunkt her

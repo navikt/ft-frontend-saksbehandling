@@ -2,10 +2,11 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 
 import { hasValidDate } from '@navikt/ft-form-validators';
 import type { ArbeidsgiverOpplysningerPerId, AvklarBeregningAktiviteter } from '@navikt/ft-types';
-import { dateFormat } from '@navikt/ft-utils';
+import { dateFormat, ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import type { AktiviteterValues, AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import type { BeregningAktivitetTransformedValues } from '../../typer/interface/BeregningFaktaAP';
@@ -13,6 +14,8 @@ import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { leggTilAktivitet } from './vurderAktiviteterPanelUtils';
 import { VurderAktiviteterTabell } from './VurderAktiviteterTabell';
 import { lagAktivitetFieldId } from './vurderAktiviteterTabellUtils';
+
+dayjs.extend(customParseFormat);
 
 const harListeAktivitetSomSkalBrukes = (
   mapping: AvklarBeregningAktiviteter,
@@ -32,7 +35,7 @@ const finnesUgyldigeDatoer = (values: AvklarAktiviteterValues): boolean =>
   values.avklarAktiviteter.aktiviteterTomDatoMapping.some(aktMap =>
     aktMap.aktiviteter?.some(akt => {
       const tom = values.aktiviteterValues?.[lagAktivitetFieldId(akt)]?.tom;
-      return !tom || !dayjs(tom).isValid();
+      return !tom || !dayjs(tom, ISO_DATE_FORMAT, true).isValid();
     }),
   );
 
