@@ -71,9 +71,12 @@ export const createWeekAndDay = (weeks?: number, days?: number): WeekAndDay => {
   };
 };
 
-export const calcDays = (fraDatoPeriode: string, tilDatoPeriode: string, notWeekends = true): number => {
+/**
+ * Returnerer undefined når tilDatoPeriode er TIDENES_ENDE, fordi en åpen periode ikke har et antall dager.
+ */
+export const calcDays = (fraDatoPeriode: string, tilDatoPeriode: string, notWeekends = true): number | undefined => {
   if (tilDatoPeriode === TIDENES_ENDE) {
-    return Number.NaN;
+    return undefined;
   }
 
   const fraDato = initializeDate(fraDatoPeriode, ISO_DATE_FORMAT);
@@ -103,11 +106,11 @@ export const calcDays = (fraDatoPeriode: string, tilDatoPeriode: string, notWeek
 };
 
 export const calcDaysAndWeeks = (fraDatoPeriode: string, tilDatoPeriode: string): WeekAndDay => {
-  if (tilDatoPeriode === TIDENES_ENDE) {
+  const numOfDays = calcDays(fraDatoPeriode, tilDatoPeriode);
+
+  if (numOfDays === undefined) {
     return createWeekAndDay();
   }
-
-  const numOfDays = calcDays(fraDatoPeriode, tilDatoPeriode);
 
   const weeks = Math.floor(numOfDays / 5);
   const days = numOfDays % 5;
@@ -116,13 +119,13 @@ export const calcDaysAndWeeks = (fraDatoPeriode: string, tilDatoPeriode: string)
 };
 
 export const calcDaysAndWeeksWithWeekends = (fraDatoPeriode: string, tilDatoPeriode: string): WeekAndDay => {
-  if (tilDatoPeriode === TIDENES_ENDE) {
-    return createWeekAndDay();
-  }
-
   const notWeekends = false;
 
   const numOfDays = calcDays(fraDatoPeriode, tilDatoPeriode, notWeekends);
+
+  if (numOfDays === undefined) {
+    return createWeekAndDay();
+  }
 
   const weeks = Math.floor(numOfDays / 7);
   const days = numOfDays % 7;

@@ -69,8 +69,8 @@ describe('dateUtils', () => {
   });
 
   describe('calcDays', () => {
-    it('Skal returnere et tall også når perioden er åpen', () => {
-      expect(typeof calcDays('2018-04-17', TIDENES_ENDE)).toBe('number');
+    it('Skal returnere undefined når perioden er åpen', () => {
+      expect(calcDays('2018-04-17', TIDENES_ENDE)).toBeUndefined();
     });
   });
 
