@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, VStack } from '@navikt/ds-react';
@@ -137,6 +138,19 @@ const getFormatertSkjæringstidspunkt = (skjaeringstidspunkt: string | undefined
   return datoFeil ? '' : dateFormat(skjaeringstidspunkt);
 };
 
+const hentTomDatoer = (values: AvklarAktiviteterValues): Record<string, string> =>
+  Object.fromEntries(Object.entries(values.aktiviteterValues ?? {}).map(([id, aktivitet]) => [id, aktivitet.tom]));
+
+const medTomDatoer = (values: AvklarAktiviteterValues, tomDatoer: Record<string, string>): AvklarAktiviteterValues => ({
+  ...values,
+  aktiviteterValues: Object.fromEntries(
+    Object.entries(values.aktiviteterValues ?? {}).map(([id, aktivitet]) => [
+      id,
+      { ...aktivitet, tom: id in tomDatoer ? tomDatoer[id] : aktivitet.tom },
+    ]),
+  ),
+});
+
 interface Props {
   erOverstyrt: boolean;
   readOnly: boolean;
@@ -165,11 +179,21 @@ export const VurderAktiviteterPanel = ({
   arbeidsgiverOpplysningerPerId,
   fieldId,
 }: Props) => {
-  const listeSomSkalVurderes = finnListerSomSkalVurderes(aktiviteterTomDatoMapping, values, erOverstyrt);
+  const [tomDatoerVedFokus, setTomDatoerVedFokus] = useState<Record<string, string>>();
+  const verdierForGruppering = tomDatoerVedFokus ? medTomDatoer(values, tomDatoerVedFokus) : values;
+  const listeSomSkalVurderes = finnListerSomSkalVurderes(aktiviteterTomDatoMapping, verdierForGruppering, erOverstyrt);
   const gjeldendeSkjæringstidspunkt = utledGjeldendeSkjæringstidspunkt(values, listeSomSkalVurderes);
 
   return (
-    <VStack gap="space-16">
+    <VStack
+      gap="space-16"
+      onFocus={() => setTomDatoerVedFokus(forrige => forrige ?? hentTomDatoer(values))}
+      onBlur={event => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          setTomDatoerVedFokus(undefined);
+        }
+      }}
+    >
       <BodyShort size="small">
         <FormattedMessage
           id="AvklarAktivitetPanel.Overskrift.Skjaeringstidspunkt"

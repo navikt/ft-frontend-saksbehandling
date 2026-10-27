@@ -64,6 +64,30 @@ describe('BeregningFaktaIndex', () => {
     expect(screen.getByDisplayValue('01.05.2020')).toHaveFocus();
   });
 
+  it('skal vente med å flytte aktiviteten til en annen tabell til fokus forlater tabellene', async () => {
+    render(<ArbeidOgAAPAp5052 />);
+    await userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
+    const tomFeltAap = screen.getAllByDisplayValue('01.04.2020')[1];
+    await userEvent.clear(tomFeltAap);
+    await userEvent.type(tomFeltAap, '31.12.2019');
+    const flyttetFelt = screen.getByDisplayValue('31.12.2019');
+    expect(flyttetFelt).toHaveFocus();
+    expect(screen.queryByRole('table', { name: 'Aktiviteter som gir skjæringstidspunkt 01.01.2020' })).toBeNull();
+
+    await userEvent.type(flyttetFelt, '{backspace}');
+    expect(screen.getByDisplayValue('31.12.201')).toHaveFocus();
+
+    await userEvent.type(screen.getByDisplayValue('31.12.201'), '9');
+    await userEvent.tab();
+    expect(document.activeElement).not.toBe(document.body);
+    expect(screen.queryByRole('table', { name: 'Aktiviteter som gir skjæringstidspunkt 01.01.2020' })).toBeNull();
+
+    await userEvent.click(document.body);
+    expect(
+      screen.getByRole('table', { name: 'Aktiviteter som gir skjæringstidspunkt 01.01.2020' }),
+    ).toBeInTheDocument();
+  });
+
   it('skal vise skjæringstidspunktet for hver aktivitetsgruppe som overskrift på tabellen', async () => {
     render(<ArbeidOgAAPAp5052 />);
     await userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
@@ -74,6 +98,7 @@ describe('BeregningFaktaIndex', () => {
     const tomFeltAap = screen.getAllByDisplayValue('01.04.2020')[1];
     await userEvent.clear(tomFeltAap);
     await userEvent.type(tomFeltAap, '31.12.2019');
+    await userEvent.click(document.body);
 
     expect(
       screen.getByRole('table', { name: 'Aktiviteter som gir skjæringstidspunkt 13.01.2020' }),
