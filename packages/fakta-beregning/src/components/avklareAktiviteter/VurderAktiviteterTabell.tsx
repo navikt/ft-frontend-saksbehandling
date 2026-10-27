@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Label, Table, VStack } from '@navikt/ds-react';
@@ -13,22 +14,23 @@ import { isSameOrBefore, lagAktivitetFieldId, mapToInitialValues } from './vurde
 
 import styles from './vurderAktiviteterTabell.module.css';
 
-const finnHeading = (aktiviteter: BeregningAktivitet[], skjaeringstidspunkt: string) => {
+const finnHeading = (aktiviteter: BeregningAktivitet[], skjaeringstidspunkt: string, headingId: string) => {
   const harVentelonnVartpenger = aktiviteter.some(
     aktivitet => aktivitet.arbeidsforholdType && aktivitet.arbeidsforholdType === 'VENTELØNN_VARTPENGER',
   );
 
-  if (harVentelonnVartpenger) {
-    return (
-      <Label size="small">
-        <FormattedMessage
-          id="VurderAktiviteterTabell.VentelonnVartpenger.Overskrift"
-          values={{ skjaeringstidspunkt: dateFormat(skjaeringstidspunkt) }}
-        />
-      </Label>
-    );
-  }
-  return null;
+  return (
+    <Label size="small" id={headingId}>
+      <FormattedMessage
+        id={
+          harVentelonnVartpenger
+            ? 'VurderAktiviteterTabell.VentelonnVartpenger.Overskrift'
+            : 'VurderAktiviteterTabell.Overskrift'
+        }
+        values={{ skjaeringstidspunkt: dateFormat(skjaeringstidspunkt) }}
+      />
+    </Label>
+  );
 };
 
 interface Props {
@@ -57,48 +59,51 @@ export const VurderAktiviteterTabell = ({
   ingenAktiviterErBrukt,
   arbeidsgiverOpplysningerPerId,
   fieldId,
-}: Props) => (
-  <VStack gap="space-8">
-    {finnHeading(aktiviteter, tomDatoForAktivitetGruppe)}
-    <Table size="small" className={styles.table}>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell textSize="small">
-            <FormattedMessage id="VurderAktiviteterTabell.Header.Aktivitet" />
-          </Table.HeaderCell>
-          <Table.HeaderCell textSize="small">
-            <FormattedMessage id="VurderAktiviteterTabell.Header.Periode" />
-          </Table.HeaderCell>
-          <Table.HeaderCell textSize="small">
-            <FormattedMessage id="VurderAktiviteterTabell.Header.Benytt" />
-          </Table.HeaderCell>
-          <Table.HeaderCell textSize="small">
-            <FormattedMessage id="VurderAktiviteterTabell.Header.IkkeBenytt" />
-          </Table.HeaderCell>
-          {isAvklaringsbehovClosed && readOnly && <Table.HeaderCell />}
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {aktiviteter.map(aktivitet => (
-          <VurderAktiviteterTabellRad
-            key={lagAktivitetFieldId(aktivitet)}
-            aktivitet={aktivitet}
-            readOnly={readOnly}
-            isAvklaringsbehovClosed={isAvklaringsbehovClosed}
-            kodeverkSamling={kodeverkSamling}
-            erOverstyrt={erOverstyrt}
-            harAvklaringsbehov={harAvklaringsbehov}
-            tomDatoForAktivitetGruppe={tomDatoForAktivitetGruppe}
-            valgtSkjæringstidspunkt={valgtSkjæringstidspunkt}
-            ingenAktiviterErBrukt={ingenAktiviterErBrukt}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-            fieldId={fieldId}
-          />
-        ))}
-      </Table.Body>
-    </Table>
-  </VStack>
-);
+}: Props) => {
+  const headingId = useId();
+  return (
+    <VStack gap="space-8">
+      {finnHeading(aktiviteter, tomDatoForAktivitetGruppe, headingId)}
+      <Table size="small" className={styles.table} aria-labelledby={headingId}>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell textSize="small">
+              <FormattedMessage id="VurderAktiviteterTabell.Header.Aktivitet" />
+            </Table.HeaderCell>
+            <Table.HeaderCell textSize="small">
+              <FormattedMessage id="VurderAktiviteterTabell.Header.Periode" />
+            </Table.HeaderCell>
+            <Table.HeaderCell textSize="small">
+              <FormattedMessage id="VurderAktiviteterTabell.Header.Benytt" />
+            </Table.HeaderCell>
+            <Table.HeaderCell textSize="small">
+              <FormattedMessage id="VurderAktiviteterTabell.Header.IkkeBenytt" />
+            </Table.HeaderCell>
+            {isAvklaringsbehovClosed && readOnly && <Table.HeaderCell />}
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {aktiviteter.map(aktivitet => (
+            <VurderAktiviteterTabellRad
+              key={lagAktivitetFieldId(aktivitet)}
+              aktivitet={aktivitet}
+              readOnly={readOnly}
+              isAvklaringsbehovClosed={isAvklaringsbehovClosed}
+              kodeverkSamling={kodeverkSamling}
+              erOverstyrt={erOverstyrt}
+              harAvklaringsbehov={harAvklaringsbehov}
+              tomDatoForAktivitetGruppe={tomDatoForAktivitetGruppe}
+              valgtSkjæringstidspunkt={valgtSkjæringstidspunkt}
+              ingenAktiviterErBrukt={ingenAktiviterErBrukt}
+              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+              fieldId={fieldId}
+            />
+          ))}
+        </Table.Body>
+      </Table>
+    </VStack>
+  );
+};
 
 VurderAktiviteterTabell.transformValues = (
   values: AvklarAktiviteterValues,

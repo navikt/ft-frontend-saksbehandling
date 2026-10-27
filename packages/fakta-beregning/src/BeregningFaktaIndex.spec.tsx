@@ -63,6 +63,25 @@ describe('BeregningFaktaIndex', () => {
     expect(screen.getByDisplayValue('01.05.2020')).toHaveFocus();
   });
 
+  it('skal vise skjæringstidspunktet for hver aktivitetsgruppe som overskrift på tabellen', async () => {
+    render(<ArbeidOgAAPAp5052 />);
+    await userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
+    expect(
+      screen.getByRole('table', { name: 'Aktiviteter som gir skjæringstidspunkt 13.01.2020' }),
+    ).toBeInTheDocument();
+
+    const tomFeltAap = screen.getAllByDisplayValue('01.04.2020')[1];
+    await userEvent.clear(tomFeltAap);
+    await userEvent.type(tomFeltAap, '31.12.2019');
+
+    expect(
+      screen.getByRole('table', { name: 'Aktiviteter som gir skjæringstidspunkt 13.01.2020' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('table', { name: 'Aktiviteter som gir skjæringstidspunkt 01.01.2020' }),
+    ).toBeInTheDocument();
+  });
+
   it('skal beholde feilmelding dersom man bytter tab', async () => {
     render(<ArbeidOgDagpengerAp5058 />);
     // Trykk på overstyrknapp før vi endrer sidan vi ikkje har aksjonspunkt her
