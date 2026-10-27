@@ -20,6 +20,7 @@ const {
   TidsbegrensetArbeidsforholdAp5058,
   KanOverstyreBGUtenAvklaringsbehov,
   VurderingAvEtterlønnSluttpakkeAp5058,
+  KombinasjonstestForFaktapanelAp5052Ap5058,
 } = composeStories(stories);
 
 describe('BeregningFaktaIndex', () => {
@@ -79,6 +80,13 @@ describe('BeregningFaktaIndex', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole('table', { name: 'Aktiviteter som gir skjæringstidspunkt 01.01.2020' }),
+    ).toBeInTheDocument();
+  });
+
+  it('skal vise aktivitetene i kombinasjonstesten', async () => {
+    render(<KombinasjonstestForFaktapanelAp5052Ap5058 />);
+    expect(
+      await screen.findByRole('table', { name: 'Aktiviteter som gir skjæringstidspunkt 02.04.2020' }),
     ).toBeInTheDocument();
   });
 
