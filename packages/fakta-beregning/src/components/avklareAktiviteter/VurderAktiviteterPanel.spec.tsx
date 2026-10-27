@@ -145,6 +145,65 @@ describe('VurderAktiviteterPanel', () => {
     expect(harIngenAktiviteter).toBe(true);
   });
 
+  describe('omgruppering etter redigert tom-dato', () => {
+    const aktivitetA: BeregningAktivitet = {
+      arbeidsgiverIdent: '111111111',
+      fom: '2018-01-01',
+      tom: TIDENES_ENDE,
+      skalBrukes: undefined,
+      arbeidsforholdType: 'ARBEID',
+    };
+    const aktivitetB: BeregningAktivitet = {
+      arbeidsgiverIdent: '222222222',
+      fom: '2018-01-01',
+      tom: '2019-01-01',
+      skalBrukes: undefined,
+      arbeidsforholdType: 'ARBEID',
+    };
+    const aktivitetC: BeregningAktivitet = {
+      arbeidsgiverIdent: '333333333',
+      fom: '2018-01-01',
+      tom: '2018-06-01',
+      skalBrukes: undefined,
+      arbeidsforholdType: 'ARBEID',
+    };
+    const aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[] = [
+      { tom: '2019-02-02', aktiviteter: [aktivitetA] },
+      { tom: '2019-01-02', aktiviteter: [aktivitetB] },
+      { tom: '2018-06-02', aktiviteter: [aktivitetC] },
+    ];
+    const lagValues = (tomA: string, tomB: string) =>
+      ({
+        avklarAktiviteter: {
+          aktiviteterTomDatoMapping,
+          skjæringstidspunkt: '2019-02-02',
+        },
+        aktiviteterValues: {
+          [lagAktivitetFieldId(aktivitetA)]: { skalBrukes: 'false', tom: tomA },
+          [lagAktivitetFieldId(aktivitetB)]: { skalBrukes: 'true', tom: tomB },
+          [lagAktivitetFieldId(aktivitetC)]: { skalBrukes: 'false', tom: aktivitetC.tom },
+        },
+      }) as AvklarAktiviteterValues;
+
+    it('skal gruppere aktivitetene på nytt når de redigerte datoene er gyldige', () => {
+      const values = lagValues(TIDENES_ENDE, '2018-05-01');
+      const harIngenAktiviteter = VurderAktiviteterPanel.harIngenAktiviteter(values, aktiviteterTomDatoMapping, false);
+      expect(harIngenAktiviteter).toBe(true);
+    });
+
+    it('skal ikke gruppere aktivitetene på nytt når en redigert dato er ugyldig', () => {
+      const values = lagValues('ugyldig dato', '2018-05-01');
+      const harIngenAktiviteter = VurderAktiviteterPanel.harIngenAktiviteter(values, aktiviteterTomDatoMapping, false);
+      expect(harIngenAktiviteter).toBe(false);
+    });
+
+    it('skal ikke gruppere aktivitetene på nytt mens saksbehandler skriver en dato', () => {
+      const values = lagValues(TIDENES_ENDE, '3');
+      const harIngenAktiviteter = VurderAktiviteterPanel.harIngenAktiviteter(values, aktiviteterTomDatoMapping, false);
+      expect(harIngenAktiviteter).toBe(false);
+    });
+  });
+
   it('skal kunne legge til aktivitet i tom mapping', () => {
     const aktiviteterTomDatoMapping: AvklarBeregningAktiviteter[] = [];
     leggTilAktivitet(aktiviteterTomDatoMapping, aktivitet1, '2020-02-08');

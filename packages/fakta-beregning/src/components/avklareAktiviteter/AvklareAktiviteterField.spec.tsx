@@ -183,14 +183,17 @@ describe('AvklareAktiviteterField', () => {
     values.erTilVurdering = true;
 
     const transformed = transformFieldValue(values);
-    expect(transformed?.beregningsaktivitetLagreDtoList.length).toBe(3);
+    expect(transformed?.beregningsaktivitetLagreDtoList.length).toBe(4);
     expect(transformed?.beregningsaktivitetLagreDtoList[0].arbeidsgiverIdentifikator).toBe(
-      aktivitet2.arbeidsgiverIdent,
+      aktivitet1.arbeidsgiverIdent,
     );
     expect(transformed?.beregningsaktivitetLagreDtoList[1].arbeidsgiverIdentifikator).toBe(
+      aktivitet2.arbeidsgiverIdent,
+    );
+    expect(transformed?.beregningsaktivitetLagreDtoList[2].arbeidsgiverIdentifikator).toBe(
       aktivitet3.arbeidsgiverIdent,
     );
-    expect(transformed?.beregningsaktivitetLagreDtoList[2].opptjeningAktivitetType).toBe(
+    expect(transformed?.beregningsaktivitetLagreDtoList[3].opptjeningAktivitetType).toBe(
       aktivitetAAP.arbeidsforholdType,
     );
   });

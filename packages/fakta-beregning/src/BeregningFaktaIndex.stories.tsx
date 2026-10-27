@@ -1104,11 +1104,11 @@ const lagBeregningsgrunnlag16 = () => {
     avklarAktiviteter: {
       aktiviteterTomDatoMapping: [
         {
-          tom: '01-01-2020',
+          tom: '2020-04-02',
           aktiviteter,
         },
       ],
-      skjæringstidspunkt: '',
+      skjæringstidspunkt: '2020-04-02',
     },
   };
   const avklaringsbehov: BeregningAvklaringsbehov[] = [

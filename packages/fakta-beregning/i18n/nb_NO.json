@@ -23,6 +23,7 @@
   "VurderAktiviteterTabell.FullAAPKombinert.Overskrift": "Søker har full AAP sammen med andre aktiviteter",
   "VurderAktiviteterTabell.VentelonnVartpenger.Overskrift": "Søker har ventelønn eller vartpenger som siste aktivitet. Skjæringstidspunkt for beregning {skjaeringstidspunkt}",
   "VurderAktiviteterTabell.Overstyrt.Overskrift": "Skjæringstidspunkt for beregning {skjaeringstidspunkt}",
+  "VurderAktiviteterTabell.Overskrift": "Aktiviteter som gir skjæringstidspunkt {skjaeringstidspunkt}",
 
   "BeregningInfoPanel.NyoppstartetFLForm.ErSokerNyoppstartetFL": "Startet søker som frilanser i løpet av de siste 3 månedene før skjæringstidspunktet?",
   "BeregningInfoPanel.NyoppstartetFLForm.HvordanGarJegFrem1": "Gå til Aa-registeret og A-inntekt for å se frilansoppdrag og inntekter.",

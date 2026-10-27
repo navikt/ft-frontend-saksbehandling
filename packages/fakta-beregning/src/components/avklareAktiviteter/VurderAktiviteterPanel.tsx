@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 
 import { hasValidDate } from '@navikt/ft-form-validators';
 import type { ArbeidsgiverOpplysningerPerId, AvklarBeregningAktiviteter } from '@navikt/ft-types';
@@ -13,6 +15,8 @@ import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import { leggTilAktivitet } from './vurderAktiviteterPanelUtils';
 import { VurderAktiviteterTabell } from './VurderAktiviteterTabell';
 import { lagAktivitetFieldId } from './vurderAktiviteterTabellUtils';
+
+dayjs.extend(customParseFormat);
 
 const harListeAktivitetSomSkalBrukes = (
   mapping: AvklarBeregningAktiviteter,
@@ -29,8 +33,11 @@ const harListeAktivitetSomSkalBrukes = (
 // Sjekk for om saksbehandler har skrevet en ugyldig dato i inputfeltet.
 const finnesUgyldigeDatoer = (values: AvklarAktiviteterValues): boolean =>
   !!values.avklarAktiviteter?.aktiviteterTomDatoMapping &&
-  values.avklarAktiviteter.aktiviteterTomDatoMapping.some(
-    aktMap => aktMap.aktiviteter && !aktMap.aktiviteter.some(akt => !dayjs(akt.tom).isValid()),
+  values.avklarAktiviteter.aktiviteterTomDatoMapping.some(aktMap =>
+    aktMap.aktiviteter?.some(akt => {
+      const tom = values.aktiviteterValues?.[lagAktivitetFieldId(akt)]?.tom;
+      return !tom || !dayjs(tom, ISO_DATE_FORMAT, true).isValid();
+    }),
   );
 
 const lagTomDatoMapping = (values: AvklarAktiviteterValues): AvklarBeregningAktiviteter[] => {
@@ -131,6 +138,19 @@ const getFormatertSkjæringstidspunkt = (skjaeringstidspunkt: string | undefined
   return datoFeil ? '' : dateFormat(skjaeringstidspunkt);
 };
 
+const hentTomDatoer = (values: AvklarAktiviteterValues): Record<string, string> =>
+  Object.fromEntries(Object.entries(values.aktiviteterValues ?? {}).map(([id, aktivitet]) => [id, aktivitet.tom]));
+
+const medTomDatoer = (values: AvklarAktiviteterValues, tomDatoer: Record<string, string>): AvklarAktiviteterValues => ({
+  ...values,
+  aktiviteterValues: Object.fromEntries(
+    Object.entries(values.aktiviteterValues ?? {}).map(([id, aktivitet]) => [
+      id,
+      { ...aktivitet, tom: id in tomDatoer ? tomDatoer[id] : aktivitet.tom },
+    ]),
+  ),
+});
+
 interface Props {
   erOverstyrt: boolean;
   readOnly: boolean;
@@ -159,11 +179,21 @@ export const VurderAktiviteterPanel = ({
   arbeidsgiverOpplysningerPerId,
   fieldId,
 }: Props) => {
-  const listeSomSkalVurderes = finnListerSomSkalVurderes(aktiviteterTomDatoMapping, values, erOverstyrt);
+  const [tomDatoerVedFokus, setTomDatoerVedFokus] = useState<Record<string, string>>();
+  const verdierForGruppering = tomDatoerVedFokus ? medTomDatoer(values, tomDatoerVedFokus) : values;
+  const listeSomSkalVurderes = finnListerSomSkalVurderes(aktiviteterTomDatoMapping, verdierForGruppering, erOverstyrt);
   const gjeldendeSkjæringstidspunkt = utledGjeldendeSkjæringstidspunkt(values, listeSomSkalVurderes);
 
   return (
-    <VStack gap="space-16">
+    <VStack
+      gap="space-16"
+      onFocus={() => setTomDatoerVedFokus(forrige => forrige ?? hentTomDatoer(values))}
+      onBlur={event => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          setTomDatoerVedFokus(undefined);
+        }
+      }}
+    >
       <BodyShort size="small">
         <FormattedMessage
           id="AvklarAktivitetPanel.Overskrift.Skjaeringstidspunkt"

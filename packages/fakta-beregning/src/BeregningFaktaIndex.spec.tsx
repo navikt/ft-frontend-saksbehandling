@@ -20,6 +20,7 @@ const {
   TidsbegrensetArbeidsforholdAp5058,
   KanOverstyreBGUtenAvklaringsbehov,
   VurderingAvEtterlønnSluttpakkeAp5058,
+  KombinasjonstestForFaktapanelAp5052Ap5058,
 } = composeStories(stories);
 
 const finnOverstyrSubmitknapp = () => {
@@ -54,6 +55,72 @@ describe('BeregningFaktaIndex', () => {
     const feltetMåFyllesUtfeilmelding = await screen.findByText('Feltet må fylles ut');
     expect(måHaAktivitetFeilmelding).toBeInTheDocument();
     expect(feltetMåFyllesUtfeilmelding).toBeInTheDocument();
+  });
+
+  it('skal beholde fokus i tom-datofeltet mens saksbehandler skriver en dato', async () => {
+    render(<ArbeidOgAAPAp5052 />);
+    await userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
+    const tomFeltAap = screen.getAllByDisplayValue('01.04.2020')[1];
+    await userEvent.clear(tomFeltAap);
+    await userEvent.type(tomFeltAap, '31.1');
+
+    const feltEtterSkriving = screen.getByDisplayValue('31.1');
+    expect(feltEtterSkriving).toHaveFocus();
+
+    await userEvent.clear(feltEtterSkriving);
+    await userEvent.type(feltEtterSkriving, '01.05.2020');
+    expect(screen.getByDisplayValue('01.05.2020')).toHaveFocus();
+  });
+
+  it('skal vente med å flytte aktiviteten til en annen tabell til fokus forlater tabellene', async () => {
+    render(<ArbeidOgAAPAp5052 />);
+    await userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
+    const tomFeltAap = screen.getAllByDisplayValue('01.04.2020')[1];
+    await userEvent.clear(tomFeltAap);
+    await userEvent.type(tomFeltAap, '31.12.2019');
+    const flyttetFelt = screen.getByDisplayValue('31.12.2019');
+    expect(flyttetFelt).toHaveFocus();
+    expect(screen.queryByRole('table', { name: 'Aktiviteter som gir skjæringstidspunkt 01.01.2020' })).toBeNull();
+
+    await userEvent.type(flyttetFelt, '{backspace}');
+    expect(screen.getByDisplayValue('31.12.201')).toHaveFocus();
+
+    await userEvent.type(screen.getByDisplayValue('31.12.201'), '9');
+    await userEvent.tab();
+    expect(document.activeElement).not.toBe(document.body);
+    expect(screen.queryByRole('table', { name: 'Aktiviteter som gir skjæringstidspunkt 01.01.2020' })).toBeNull();
+
+    await userEvent.click(document.body);
+    expect(
+      screen.getByRole('table', { name: 'Aktiviteter som gir skjæringstidspunkt 01.01.2020' }),
+    ).toBeInTheDocument();
+  });
+
+  it('skal vise skjæringstidspunktet for hver aktivitetsgruppe som overskrift på tabellen', async () => {
+    render(<ArbeidOgAAPAp5052 />);
+    await userEvent.click(screen.getAllByTestId('overstyringsknapp')[0]);
+    expect(
+      screen.getByRole('table', { name: 'Aktiviteter som gir skjæringstidspunkt 13.01.2020' }),
+    ).toBeInTheDocument();
+
+    const tomFeltAap = screen.getAllByDisplayValue('01.04.2020')[1];
+    await userEvent.clear(tomFeltAap);
+    await userEvent.type(tomFeltAap, '31.12.2019');
+    await userEvent.click(document.body);
+
+    expect(
+      screen.getByRole('table', { name: 'Aktiviteter som gir skjæringstidspunkt 13.01.2020' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('table', { name: 'Aktiviteter som gir skjæringstidspunkt 01.01.2020' }),
+    ).toBeInTheDocument();
+  });
+
+  it('skal vise aktivitetene i kombinasjonstesten', async () => {
+    render(<KombinasjonstestForFaktapanelAp5052Ap5058 />);
+    expect(
+      await screen.findByRole('table', { name: 'Aktiviteter som gir skjæringstidspunkt 02.04.2020' }),
+    ).toBeInTheDocument();
   });
 
   it('skal beholde feilmelding dersom man bytter tab', async () => {
