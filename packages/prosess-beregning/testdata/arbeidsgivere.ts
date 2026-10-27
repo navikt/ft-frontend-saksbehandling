@@ -7,4 +7,5 @@ export const arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId = {
   '333333333': lagArbeidsgiver('333333333', 'SAUEFABRIKK'),
   '444444444': lagArbeidsgiver('444444444', 'INTERESSANT INTUITIV KATT DIAMETER'),
   '555555555': lagArbeidsgiver('555555555', 'Gardslien transport og Gardiner AS'),
+  '999999999': lagArbeidsgiver('999999999', 'Jæren landbruk og hønsefarm AS'),
 };

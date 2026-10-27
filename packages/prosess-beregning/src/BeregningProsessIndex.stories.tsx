@@ -11,6 +11,8 @@ import { arbeidstakerFPFlereArbeidsforhold } from '../testdata/arbeidstakerFPFle
 import { arbeidstakerOgFrilansFP } from '../testdata/arbeidstakerOgFrilansFP';
 import { frilansFP } from '../testdata/frilansFP';
 import { selvstendigNæringsdrivendeFP } from '../testdata/selvstendigNæringsdrivendeFP';
+import { selvstendigNæringsdrivendeFPNyoppstartet } from '../testdata/selvstendigNæringsdrivendeFPNyoppstartet';
+import { selvstendigNæringsdrivendeFPVarigEndring } from '../testdata/selvstendigNæringsdrivendeFPVarigEndring';
 import { BeregningProsessIndex } from './BeregningProsessIndex';
 import type { BeregningAksjonspunktSubmitType } from './legacyAP/types/BeregningsgrunnlagAP';
 import type { KodeverkForPanel } from './types/KodeverkForPanel';
@@ -71,6 +73,21 @@ export const SelvstendigNæringsdrivendeFP: Story = {
     ...selvstendigNæringsdrivendeFP,
   },
 };
+
+export const SelvstendigNæringsdrivendeFPVarigEndring: Story = {
+  name: 'Case - Selvstendig næringsdrivende med varig endring og over 25 % avvik (FP)',
+  args: {
+    ...selvstendigNæringsdrivendeFPVarigEndring,
+  },
+};
+
+export const SelvstendigNæringsdrivendeFPNyoppstartet: Story = {
+  name: 'Case - Selvstendig næringsdrivende med nyoppstartet næring og over 25 % avvik (FP)',
+  args: {
+    ...selvstendigNæringsdrivendeFPNyoppstartet,
+  },
+};
+
 export const ArbeidstakerFlereArbeidsforholdMedNaturalytelser80ProsentDekningsgradOgOver6G: Story = {
   args: {
     ...arbeidstakerFlereArbeidsforholdMedNaturalytelser80ProsentDekningsgradOgOver6G,
