@@ -723,38 +723,40 @@ describe('fordelPerioderUtils', () => {
     expect(nyePerioder[1].tom).toBe('9999-12-31');
   });
 
+  const slåSammenPerioderMedEndringISøktYtelse = (andelIArbeidForste: number[], andelIArbeidAndre: number[]) =>
+    slåSammenPerioder(
+      [
+        {
+          fom: '2019-01-01',
+          tom: '2019-02-01',
+          fordelBeregningsgrunnlagAndeler: [{ ...fordelAndel, andelIArbeid: andelIArbeidForste }],
+        },
+        {
+          fom: '2019-02-02',
+          tom: '9999-12-31',
+          fordelBeregningsgrunnlagAndeler: [{ ...fordelAndel, andelIArbeid: andelIArbeidAndre }],
+        },
+      ],
+      [
+        {
+          beregningsgrunnlagPeriodeFom: '2019-01-01',
+          beregningsgrunnlagPeriodeTom: '2019-02-01',
+          periodeAarsaker: [],
+          bruttoPrAar: 500_000,
+        },
+        {
+          beregningsgrunnlagPeriodeFom: '2019-02-02',
+          beregningsgrunnlagPeriodeTom: '9999-12-31',
+          periodeAarsaker: [PeriodeÅrsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
+          bruttoPrAar: 500_000,
+        },
+      ],
+    );
+
   it('skal slå sammen perioder med endring i søkt ytelse når like andeler har flere prosenter i arbeid', () => {
     const andelIArbeidForste = [50, 20];
     const andelIArbeidAndre = [20, 50];
-    const perioder = [
-      {
-        fom: '2019-01-01',
-        tom: '2019-02-01',
-        fordelBeregningsgrunnlagAndeler: [{ ...fordelAndel, andelIArbeid: andelIArbeidForste }],
-        harPeriodeAarsakGraderingEllerRefusjon: true,
-      },
-      {
-        fom: '2019-02-02',
-        tom: '9999-12-31',
-        fordelBeregningsgrunnlagAndeler: [{ ...fordelAndel, andelIArbeid: andelIArbeidAndre }],
-        harPeriodeAarsakGraderingEllerRefusjon: true,
-      },
-    ];
-    const bgPerioder = [
-      {
-        beregningsgrunnlagPeriodeFom: '2019-01-01',
-        beregningsgrunnlagPeriodeTom: '2019-02-01',
-        periodeAarsaker: [],
-        bruttoPrAar: 500_000,
-      },
-      {
-        beregningsgrunnlagPeriodeFom: '2019-02-02',
-        beregningsgrunnlagPeriodeTom: '9999-12-31',
-        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
-        bruttoPrAar: 500_000,
-      },
-    ];
-    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
+    const nyePerioder = slåSammenPerioderMedEndringISøktYtelse(andelIArbeidForste, andelIArbeidAndre);
     expect(nyePerioder.length).toBe(1);
     expect(nyePerioder[0].fom).toBe('2019-01-01');
     expect(nyePerioder[0].tom).toBe('9999-12-31');
@@ -763,35 +765,7 @@ describe('fordelPerioderUtils', () => {
   });
 
   it('skal ikke slå sammen perioder med endring i søkt ytelse når prosentene i arbeid er ulike', () => {
-    const perioder = [
-      {
-        fom: '2019-01-01',
-        tom: '2019-02-01',
-        fordelBeregningsgrunnlagAndeler: [{ ...fordelAndel, andelIArbeid: [20, 50] }],
-        harPeriodeAarsakGraderingEllerRefusjon: true,
-      },
-      {
-        fom: '2019-02-02',
-        tom: '9999-12-31',
-        fordelBeregningsgrunnlagAndeler: [{ ...fordelAndel, andelIArbeid: [20, 60] }],
-        harPeriodeAarsakGraderingEllerRefusjon: true,
-      },
-    ];
-    const bgPerioder = [
-      {
-        beregningsgrunnlagPeriodeFom: '2019-01-01',
-        beregningsgrunnlagPeriodeTom: '2019-02-01',
-        periodeAarsaker: [],
-        bruttoPrAar: 500_000,
-      },
-      {
-        beregningsgrunnlagPeriodeFom: '2019-02-02',
-        beregningsgrunnlagPeriodeTom: '9999-12-31',
-        periodeAarsaker: [PeriodeÅrsak.ENDRING_I_AKTIVITETER_SØKT_FOR],
-        bruttoPrAar: 500_000,
-      },
-    ];
-    const nyePerioder = slåSammenPerioder(perioder, bgPerioder);
+    const nyePerioder = slåSammenPerioderMedEndringISøktYtelse([20, 50], [20, 60]);
     expect(nyePerioder.length).toBe(2);
   });
 
