@@ -25,7 +25,7 @@ export const AssessedBy = ({ ident, date }: Props) => {
   const formattedDate = date ? `, ${dateFormat(date)}` : '';
 
   return (
-    <HStack gap="space-8" wrap={false}>
+    <HStack gap="space-8" wrap={false} marginBlock="space-8">
       <span>
         <PersonPencilFillIcon fontSize="1rem" aria-hidden />
       </span>
