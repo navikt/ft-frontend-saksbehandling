@@ -1,23 +1,23 @@
-import { useContext } from 'react';
+import { use } from 'react';
 
 import { PersonPencilFillIcon } from '@navikt/aksel-icons';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, HStack } from '@navikt/ds-react';
 
-import { dateFormat } from '@navikt/ft-utils';
+import { createIntl, dateFormat } from '@navikt/ft-utils';
 
 import { SaksbehandlernavnContext } from './SaksbehandlernavnContext';
 
-import styles from './assessedBy.module.css';
+import messages from '../../i18n/nb_NO.json';
 
-interface IAssessedByProps {
+const intl = createIntl(messages);
+
+interface Props {
   date?: string;
   ident?: string;
 }
 
-/* For å få opp saksbehandlerens navn må sette saksbehandlernavn i SaksbehandlernavnContext.Provider
- */
-export const AssessedBy = ({ ident, date }: IAssessedByProps) => {
-  const saksbehandlernavn = useContext(SaksbehandlernavnContext);
+export const AssessedBy = ({ ident, date }: Props) => {
+  const saksbehandlernavn = use(SaksbehandlernavnContext);
   if (!ident) {
     return null;
   }
@@ -25,9 +25,13 @@ export const AssessedBy = ({ ident, date }: IAssessedByProps) => {
   const formattedDate = date ? `, ${dateFormat(date)}` : '';
 
   return (
-    <div className={styles['assessed-by']}>
-      <PersonPencilFillIcon height="1em" width="1em" />
-      <BodyShort size="small">{`Vurdering av ${name}${formattedDate}`}</BodyShort>
-    </div>
+    <HStack gap="space-8" wrap={false}>
+      <span>
+        <PersonPencilFillIcon fontSize="1rem" aria-hidden />
+      </span>
+      <BodyShort size="small" as="span">
+        {intl.formatMessage({ id: 'AssessedBy.VurderingAv' }, { name, date: formattedDate })}
+      </BodyShort>
+    </HStack>
   );
 };

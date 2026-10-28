@@ -1,3 +1,4 @@
 {
-  "PersonCard.Meny": "Meny"
+  "PersonCard.Meny": "Meny",
+  "AssessedBy.VurderingAv": "Vurdering av {name}{date}"
 }
