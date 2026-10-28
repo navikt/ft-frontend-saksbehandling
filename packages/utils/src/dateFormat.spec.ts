@@ -3,6 +3,7 @@ import utc from 'dayjs/plugin/utc.js';
 import { describe, expect, it } from 'vitest';
 
 import { dateFormat, dateTimeFormat, timeFormat } from './dateFormat';
+import { TIDENES_ENDE, TIDENES_MORGEN } from './dateUtils';
 
 dayjs.extend(utc);
 
@@ -21,6 +22,12 @@ describe('dateFormat', () => {
           year: '2-digit',
         }),
       ).toEqual('2. mai 17');
+    });
+    it('skal returnere tom streng for TIDENES_MORGEN', () => {
+      expect(dateFormat(TIDENES_MORGEN)).toEqual('');
+    });
+    it('skal returnere tom streng for TIDENES_ENDE', () => {
+      expect(dateFormat(TIDENES_ENDE)).toEqual('');
     });
   });
 

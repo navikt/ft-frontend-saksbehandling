@@ -59,7 +59,10 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
   const tabell = <RegisterinntekterTabell transformerteRegisterinntekter={transformerteRegisterinntekter} />;
 
   return (
-    <FaktaBoks tittel={intl.formatMessage({ id: 'Registerinntekt.Header' })}>
+    <FaktaBoks
+      tittel={<FormattedMessage id="Registerinntekt.Tittel" />}
+      beskrivelse={<FormattedMessage id="Registerinntekt.Beskrivelse" />}
+    >
       <VStack gap="space-16">
         <HStack gap="space-16" align="center">
           {visningsvalg}
