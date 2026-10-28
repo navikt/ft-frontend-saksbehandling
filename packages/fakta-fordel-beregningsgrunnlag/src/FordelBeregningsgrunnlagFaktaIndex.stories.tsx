@@ -409,6 +409,50 @@ export const AapOgRefusjonAp5046: Story = {
   },
 };
 
+const lagForlengelseAndeler = () => [
+  lagFordelingsandel(2, 'AAP', 0, 0),
+  lagFordelingsandel(1, 'AT', 0, 0, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
+];
+
+const lagForlengelseBgAndeler = () => [
+  lagBGAndel(2, 'AAP', 100000),
+  lagBGAndel(1, 'AT', 300000, lagArbeidsforhold('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000)),
+];
+
+const beregningsgrunnlagListeForlengelseMedPeriodeFørForlengelse = [
+  {
+    ...lagBG(
+      [
+        lagBGPeriode(lagForlengelseBgAndeler(), [], '2019-09-16', '2019-11-26'),
+        lagBGPeriode(lagForlengelseBgAndeler(), [PeriodeÅrsak.ENDRING_I_REFUSJONSKRAV], '2019-11-27'),
+      ],
+      lagFaktaOmFordeling(
+        [lagArbforTilFordeling('999999999', 'AD-ASD-ADF-SADGF-ASGASDF-SDFASDF', 300000, '2019-11-27')],
+        [
+          lagFordelPeriode(lagForlengelseAndeler(), true, false, '2019-09-16', '2019-11-26'),
+          lagFordelPeriode(lagForlengelseAndeler(), true, false, '2019-11-27'),
+        ],
+      ),
+      fordelAP,
+    ),
+    forlengelseperioder: [{ fom: '2019-11-27', tom: TIDENES_ENDE }],
+  },
+];
+
+export const ForlengelseMedPeriodeFørForlengelseAp5046: Story = {
+  args: {
+    readOnly: false,
+    beregningsgrunnlagListe: beregningsgrunnlagListeForlengelseMedPeriodeFørForlengelse,
+    beregningsgrunnlagVilkår: lagVilkår(
+      beregningsgrunnlagListeForlengelseMedPeriodeFørForlengelse.map(bg => ({
+        fom: bg.vilkårsperiodeFom,
+        tom: TIDENES_ENDE,
+        vurderesIBehandlingen: true,
+      })),
+    ),
+  },
+};
+
 const beregningsgrunnlagListeFordelingKanEndreRefusjonskravAp5046 = [
   lagBG(
     [
