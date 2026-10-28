@@ -38,7 +38,7 @@ describe('BeregningProsessIndex', () => {
     ).toBeInTheDocument();
 
     expect(screen.getByRole('region', { name: 'Avviksberegning for arbeidstaker og frilans' })).toBeInTheDocument();
-    expect(screen.getByRole('region', { name: 'Grunnlag §§ 8-28 og 8-30 fra A-ordningen' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'Grunnlag §§ 8-28 og 8-30' })).toBeInTheDocument();
 
     const aksjonspunktboks = within(
       screen.getByRole('region', { name: 'Fastsett årsinntekt skjønnsmessig for arbeidstaker' }),
@@ -65,7 +65,7 @@ describe('BeregningProsessIndex', () => {
     expect(within(frilansinntekt).queryByText('Inntektsmelding')).not.toBeInTheDocument();
 
     expect(screen.getByRole('region', { name: 'Avviksberegning for frilans' })).toBeInTheDocument();
-    expect(screen.getByRole('region', { name: 'Grunnlag §§ 8-28 og 8-30 fra A-ordningen' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'Grunnlag §§ 8-28 og 8-30' })).toBeInTheDocument();
 
     const aksjonspunktboks = within(
       screen.getByRole('region', { name: 'Fastsett årsinntekt skjønnsmessig for frilans' }),
@@ -86,7 +86,7 @@ describe('BeregningProsessIndex', () => {
     expect(within(arbeidOgFrilansinntekt).getByText('Inntektskilde')).toBeInTheDocument();
 
     expect(screen.getByRole('region', { name: 'Avviksberegning for arbeidstaker og frilans' })).toBeInTheDocument();
-    expect(screen.getByRole('region', { name: 'Grunnlag §§ 8-28 og 8-30 fra A-ordningen' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'Grunnlag §§ 8-28 og 8-30' })).toBeInTheDocument();
 
     const aksjonspunktboks = within(
       screen.getByRole('region', { name: 'Fastsett årsinntekt skjønnsmessig for arbeidstaker og frilans' }),

@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 
 import { createIntl } from './createIntl';
+import { TIDENES_ENDE, TIDENES_MORGEN } from './dateUtils';
 import { HHMM_TIME_FORMAT } from './formats';
 
 import messages from '../i18n/nb_NO.json';
@@ -13,6 +14,10 @@ type DateTimeSeperator = 'dash' | 'kl';
 
 export const dateFormat = (dateString: Date | string, options?: DateFormatOptions) => {
   const { year = 'numeric', month = '2-digit', day = '2-digit' } = options ?? {};
+  if (dateString === TIDENES_MORGEN || dateString === TIDENES_ENDE) {
+    return '';
+  }
+
   return intl.formatDate(new Date(dateString), { year, month, day });
 };
 

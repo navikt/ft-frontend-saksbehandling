@@ -59,3 +59,4 @@ export type { OpptjeningAktivitetType } from './src/OpptjeningAktivitetType';
 export type { StandardFaktaPanelProps } from './src/StandardFaktaPanelProps';
 export type { StandardProsessPanelProps } from './src/StandardProsessPanelProps';
 export type { Stillingsprosent } from './src/Stillingsprosent';
+export type { VirksomhetType } from './src/VirksomhetType';

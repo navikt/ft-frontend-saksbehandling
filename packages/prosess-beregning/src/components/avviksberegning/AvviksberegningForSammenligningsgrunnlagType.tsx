@@ -1,4 +1,4 @@
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { HStack, Table, Tag } from '@navikt/ds-react';
 
@@ -22,7 +22,6 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({
   formaterVisningsnavnForAndel,
 }: Props) => {
   const { differanseBeregnet, rapportertPrAar, avvikProsent, sammenligningsgrunnlagType } = sammenligningsgrunnlag;
-  const intl = useIntl();
 
   const avvikProsentAvrundet = Number.parseFloat(avvikProsent.toFixed(1));
 
@@ -35,7 +34,7 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({
       : sammenligningsgrunnlagType;
 
   return (
-    <FaktaBoks tittel={intl.formatMessage({ id: 'Avviksberegning.Tittel' }, { type: visningType })}>
+    <FaktaBoks tittel={<FormattedMessage id="Avviksberegning.Tittel" values={{ type: visningType }} />}>
       <Table size="small" className={styles.table}>
         <Table.Body>
           <Table.Row>
