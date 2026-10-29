@@ -5,8 +5,13 @@ import { expect } from 'vitest';
 
 import * as stories from './BeregningProsessIndex.stories';
 
-const { ArbeidstakerOgFrilansFP, CaseArbeidstakerMedEttArbeidsforholdFP, FrilansFP, ToGrunnlagHvorEnHarÅpentAP } =
-  composeStories(stories);
+const {
+  ArbeidstakerOgFrilansFP,
+  CaseArbeidstakerMedEttArbeidsforholdFP,
+  FrilansFP,
+  SelvstendigNæringsdrivendeFP,
+  ToGrunnlagHvorEnHarÅpentAP,
+} = composeStories(stories);
 
 describe('BeregningProsessIndex', () => {
   it('skal vise tabs', async () => {
@@ -97,5 +102,22 @@ describe('BeregningProsessIndex', () => {
     expect(aksjonspunktboks.getByLabelText('Frilansinntekt fastsettes til')).toBeInTheDocument();
     expect(aksjonspunktboks.getByLabelText('Vurdering')).toBeInTheDocument();
     expect(aksjonspunktboks.getAllByRole('textbox')).toHaveLength(3);
+  });
+
+  it('skal vise panelene for selvstendig næring', () => {
+    render(<SelvstendigNæringsdrivendeFP />);
+
+    const forventedeNavn = [
+      'Pensjonsgivende inntekt',
+      'Opplysninger om næring',
+      'Avviksberegning for selvstendig næring',
+      'Vurder om det er varig endring i næringen og/eller arbeidssituasjonen, som gjør at inntekten skal fastsettes skjønnsmessig',
+    ];
+    const paneler = screen.getAllByRole('region');
+
+    expect(paneler).toHaveLength(forventedeNavn.length);
+    forventedeNavn.forEach((navn, index) => {
+      expect(paneler[index]).toHaveAccessibleName(navn);
+    });
   });
 });

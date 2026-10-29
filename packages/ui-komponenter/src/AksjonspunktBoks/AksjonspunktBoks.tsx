@@ -1,7 +1,9 @@
 import { type ReactNode, useId } from 'react';
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons';
-import { ExpansionCard, HStack } from '@navikt/ds-react';
+import { ExpansionCard, type ExpansionCardProps, HStack } from '@navikt/ds-react';
+
+import { classNames } from '@navikt/ft-utils';
 
 import styles from './aksjonpunktBoks.module.css';
 
@@ -10,30 +12,39 @@ type Aksjonspunkt = {
   definisjon: string;
 };
 
-interface Props {
+interface Props extends Omit<ExpansionCardProps, 'aria-label' | 'aria-labelledby' | 'data-color'> {
   tittel: ReactNode;
   beskrivelse?: ReactNode;
   aksjonspunkt: Aksjonspunkt | Aksjonspunkt[] | undefined;
-  children: ReactNode;
 }
 
-export const AksjonspunktBoks = ({ tittel, beskrivelse, aksjonspunkt, children }: Props) => {
+export const AksjonspunktBoks = ({
+  tittel,
+  beskrivelse,
+  aksjonspunkt,
+  children,
+  defaultOpen = true,
+  size = 'small',
+  className,
+  ...rest
+}: Props) => {
   const aksjonspunkter = !aksjonspunkt || Array.isArray(aksjonspunkt) ? aksjonspunkt : [aksjonspunkt];
   const { color, icon } = getStateProps(aksjonspunkter);
   const tittelId = useId();
   return (
     <ExpansionCard
-      defaultOpen
-      size="small"
+      {...rest}
+      defaultOpen={defaultOpen}
+      size={size}
       aria-labelledby={tittelId}
-      className={styles.aksjonspunktBoks}
+      className={classNames(styles.aksjonspunktBoks, className)}
       data-color={color}
     >
       <ExpansionCard.Header>
         <HStack wrap={false} gap="space-16" align="center">
           {icon && <div>{icon}</div>}
           <div>
-            <ExpansionCard.Title id={tittelId} size="small">
+            <ExpansionCard.Title id={tittelId} size={size}>
               {tittel}
             </ExpansionCard.Title>
             {beskrivelse && <ExpansionCard.Description>{beskrivelse}</ExpansionCard.Description>}
