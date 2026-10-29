@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { HGrid } from '@navikt/ds-react';
+
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
@@ -27,7 +29,7 @@ export const FastsettBeregningAksjonspunktContainer = ({ beregningsgrunnlagListe
   const [finnesFormSomSubmittes, setFinnesFormSomSubmittes] = useState(false);
 
   return (
-    <>
+    <HGrid columns="repeat(auto-fit, minmax(40rem, 1fr))" gap="space-12">
       {Object.entries(gruppertPrAksjonspunkt).map(([aksjonspunktKode, beregningsgrunnlagForAksjonspunkt]) => (
         <AksjonspunktBehandler
           key={aksjonspunktKode}
@@ -38,7 +40,7 @@ export const FastsettBeregningAksjonspunktContainer = ({ beregningsgrunnlagListe
           setSubmitting={setFinnesFormSomSubmittes}
         />
       ))}
-    </>
+    </HGrid>
   );
 };
 
