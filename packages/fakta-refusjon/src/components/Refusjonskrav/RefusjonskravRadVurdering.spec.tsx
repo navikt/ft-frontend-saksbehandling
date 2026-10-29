@@ -25,7 +25,7 @@ describe('RefusjonskravRadVurdering', () => {
     expect(screen.getByRole('radiogroup', { name: /Skal det gis refusjon fra/ })).toBeInTheDocument();
     expect(screen.getByRole('radio', { name: 'Ja' })).not.toBeChecked();
     expect(screen.getByRole('radio', { name: /Nei/ })).not.toBeChecked();
-    expect(screen.queryByRole('radio', { name: 'Årsak 1' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('radiogroup', { name: 'Årsak til overstyring' })).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Lagre' })).toBeDisabled();
     expect(screen.getByRole('button', { name: 'Angre' })).toBeDisabled();
 
@@ -37,7 +37,11 @@ describe('RefusjonskravRadVurdering', () => {
     ).toBeVisible();
   });
 
-  it('skal lagre utfylt utfall og årsak', async () => {
+  it.each([
+    ['Konkurs', 'KONKURS'],
+    ['Utmeldt', 'UTMELDT'],
+    ['Avtalt med arbeidsgiver', 'AVTALT_MED_ARBEIDSGIVER'],
+  ])('skal lagre utfylt utfall med årsaken %s', async (årsak, utfallÅrsak) => {
     const onSave = vi.fn();
     const onDirtyChange = vi.fn();
     render(
@@ -61,11 +65,12 @@ describe('RefusjonskravRadVurdering', () => {
     expect(onDirtyChange).toHaveBeenLastCalledWith(0, true);
     expect(screen.getByRole('button', { name: 'Angre' })).toBeEnabled();
     expect(screen.getByRole('button', { name: 'Lagre' })).toBeEnabled();
-    expect(screen.getByRole('radio', { name: 'Årsak 1' })).toBeInTheDocument();
+    expect(screen.getByRole('radiogroup', { name: 'Årsak til overstyring' })).toBeInTheDocument();
+    expect(screen.getByRole('radio', { name: årsak })).toBeInTheDocument();
 
     await userEvent.click(screen.getByRole('button', { name: 'Angre' }));
     expect(nei).not.toBeChecked();
-    expect(screen.queryByRole('radio', { name: 'Årsak 1' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('radiogroup', { name: 'Årsak til overstyring' })).not.toBeInTheDocument();
     expect(onDirtyChange).toHaveBeenLastCalledWith(0, false);
     expect(screen.getByRole('button', { name: 'Angre' })).toBeDisabled();
     expect(screen.getByRole('button', { name: 'Lagre' })).toBeDisabled();
@@ -75,9 +80,9 @@ describe('RefusjonskravRadVurdering', () => {
     expect(screen.getByText('Feltet må fylles ut')).toBeInTheDocument();
     expect(onSave).not.toHaveBeenCalled();
 
-    await userEvent.click(screen.getByRole('radio', { name: 'Årsak 1' }));
+    await userEvent.click(screen.getByRole('radio', { name: årsak }));
     await userEvent.click(screen.getByRole('button', { name: 'Lagre' }));
-    expect(onSave).toHaveBeenCalledExactlyOnceWith(0, { utfall: 'AVSLÅTT', utfallÅrsak: 'ÅRSAK1' });
+    expect(onSave).toHaveBeenCalledExactlyOnceWith(0, { utfall: 'AVSLÅTT', utfallÅrsak });
     expect(screen.getByRole('button', { name: 'Lagre' })).toBeDisabled();
   });
 });

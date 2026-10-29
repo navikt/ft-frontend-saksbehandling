@@ -1,5 +1,7 @@
 import type { AksjonspunktStatus, AksjonspunktTilBekreftelse } from '@navikt/ft-types';
 
+import type { UtfallÅrsak } from './dataTypes';
+
 export type AksjonspunktRefusjon = {
   kode: 'AVKLAR_REFUSJONSKRAV' | 'OVERSTYR_REFUSJONSKRAV';
   status: AksjonspunktStatus;
@@ -15,7 +17,7 @@ export type AksjonspunktSubmitType = AksjonspunktTilBekreftelse<AksjonspunktRefu
       tom: string;
       refusjonsbeløpPrMnd: number;
       utfall: 'INNVILGET' | 'AVSLÅTT' | 'REDUSERT';
-      utfallÅrsak?: string;
+      utfallÅrsak?: UtfallÅrsak;
     }[];
   }[];
   begrunnelse: string;

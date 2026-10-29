@@ -64,7 +64,7 @@ describe('RefusjonskravForm', () => {
 
     const brunostfabrikkenRadInnhold = getÅpentRadInnhold('Brunostfabrikken AS');
     await userEvent.click(within(brunostfabrikkenRadInnhold).getByRole('radio', { name: /Nei/ }));
-    await userEvent.click(within(brunostfabrikkenRadInnhold).getByRole('radio', { name: 'Årsak 1' }));
+    await userEvent.click(within(brunostfabrikkenRadInnhold).getByRole('radio', { name: 'Konkurs' }));
     await userEvent.click(within(brunostfabrikkenRadInnhold).getByRole('button', { name: 'Lagre' }));
 
     expect(screen.getAllByTitle('Utfall mangler')).toHaveLength(1);
@@ -100,7 +100,7 @@ describe('RefusjonskravForm', () => {
                 fom: '2025-01-01',
                 tom: '2025-03-31',
                 utfall: 'AVSLÅTT',
-                utfallÅrsak: 'ÅRSAK1',
+                utfallÅrsak: 'KONKURS',
               },
               {
                 kilde: 'IM',
@@ -166,7 +166,7 @@ describe('RefusjonskravForm', () => {
     const gjenåpnetRad = getÅpentRadInnhold('Brunostfabrikken AS');
     expect(within(gjenåpnetRad).getByRole('radio', { name: /Nei/ })).toBeChecked();
 
-    await userEvent.click(within(gjenåpnetRad).getByRole('radio', { name: 'Årsak 1' }));
+    await userEvent.click(within(gjenåpnetRad).getByRole('radio', { name: 'Konkurs' }));
     expect(submitButton).toBeDisabled();
     await userEvent.click(within(gjenåpnetRad).getByRole('button', { name: 'Lagre' }));
     expect(submitButton).toBeDisabled();
@@ -183,7 +183,9 @@ describe('RefusjonskravForm', () => {
           refusjonskrav: expect.arrayContaining([
             expect.objectContaining({
               arbeidsgiverIdent: '999999999',
-              perioder: expect.arrayContaining([expect.objectContaining({ utfall: 'AVSLÅTT', utfallÅrsak: 'ÅRSAK1' })]),
+              perioder: expect.arrayContaining([
+                expect.objectContaining({ utfall: 'AVSLÅTT', utfallÅrsak: 'KONKURS' }),
+              ]),
             }),
           ]),
         }),
@@ -256,7 +258,7 @@ describe('RefusjonskravForm', () => {
     }
     await act(async () => fireEvent.submit(form));
     expect(submitCallback).not.toHaveBeenCalled();
-    await userEvent.click(within(åpnetRad).getByRole('radio', { name: 'Årsak 1' }));
+    await userEvent.click(within(åpnetRad).getByRole('radio', { name: 'Konkurs' }));
     await userEvent.click(within(åpnetRad).getByRole('button', { name: 'Lagre' }));
     expect(within(brunostRader[1]).getByRole('button', { name: 'Vis mer' })).toBeInTheDocument();
     expect(within(brunostRader[1]).getByText('Avslått')).toBeInTheDocument();
@@ -276,7 +278,7 @@ describe('RefusjonskravForm', () => {
 
     await userEvent.click(within(redigertRad).getByRole('button', { name: 'Angre' }));
     expect(within(redigertRad).getByRole('radio', { name: /Nei/ })).toBeChecked();
-    expect(within(redigertRad).getByRole('radio', { name: 'Årsak 1' })).toBeChecked();
+    expect(within(redigertRad).getByRole('radio', { name: 'Konkurs' })).toBeChecked();
     expect(within(redigertRad).getByRole('button', { name: 'Angre' })).toBeDisabled();
     expect(within(redigertRad).getByRole('button', { name: 'Lagre' })).toBeDisabled();
     await waitFor(() => expect(submitButton).toBeEnabled());
@@ -288,7 +290,7 @@ describe('RefusjonskravForm', () => {
             expect.objectContaining({
               arbeidsgiverIdent: '999999999',
               perioder: expect.arrayContaining([
-                expect.objectContaining({ fom: '2025-04-01', utfall: 'AVSLÅTT', utfallÅrsak: 'ÅRSAK1' }),
+                expect.objectContaining({ fom: '2025-04-01', utfall: 'AVSLÅTT', utfallÅrsak: 'KONKURS' }),
               ]),
             }),
           ]),

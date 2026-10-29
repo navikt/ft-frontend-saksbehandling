@@ -11,7 +11,10 @@
   "RefusjonskravForm.HvordanGårJegFrem.Beskrivelse": "Undersøk om det har vært fristavbrytende kontakt med arbeidsgiver innen frist for refusjonskrav (3 måneder).",
   "RefusjonskravForm.Ja": "Ja",
   "RefusjonskravForm.Nei": "Nei (refusjon starter {dato})",
-  "RefusjonskravForm.Årsak": "Årsak",
+  "RefusjonskravForm.Årsak": "Årsak til overstyring",
+  "RefusjonskravForm.Årsak.KONKURS": "Konkurs",
+  "RefusjonskravForm.Årsak.UTMELDT": "Utmeldt",
+  "RefusjonskravForm.Årsak.AVTALT_MED_ARBEIDSGIVER": "Avtalt med arbeidsgiver",
   "RefusjonskravForm.Lagre": "Lagre",
   "RefusjonskravForm.Angre": "Angre",
 
