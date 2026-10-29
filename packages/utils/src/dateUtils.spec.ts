@@ -2,11 +2,13 @@ import { describe, expect, it } from 'vitest';
 
 import {
   addDaysToDate,
+  calcDays,
   calcDaysAndWeeks,
   calcDaysAndWeeksWithWeekends,
   createWeekAndDay,
   findDifferenceInMonthsAndDays,
   isDateWithinInterval,
+  TIDENES_ENDE,
 } from './dateUtils';
 
 describe('dateUtils', () => {
@@ -39,6 +41,10 @@ describe('dateUtils', () => {
       };
       expect(calcDaysAndWeeksWithWeekends(fom, tom)).toEqual(formatedMessage);
     });
+
+    it('Skal gi tidenes ende-melding når perioden er åpen', () => {
+      expect(calcDaysAndWeeksWithWeekends('2018-04-17', TIDENES_ENDE).id).toBe('Dato.TidenesEnde');
+    });
   });
 
   describe('calcDaysAndWeeks', () => {
@@ -52,6 +58,19 @@ describe('dateUtils', () => {
         days: 4,
       };
       expect(calcDaysAndWeeks(fom, tom)).toEqual(formatedMessage);
+    });
+
+    it('Skal gi tidenes ende-melding når perioden er åpen', () => {
+      expect(calcDaysAndWeeks('2018-04-17', TIDENES_ENDE)).toEqual({
+        id: 'Dato.TidenesEnde',
+        formattedString: 'Antall uker og dager -',
+      });
+    });
+  });
+
+  describe('calcDays', () => {
+    it('Skal returnere undefined når perioden er åpen', () => {
+      expect(calcDays('2018-04-17', TIDENES_ENDE)).toBeUndefined();
     });
   });
 

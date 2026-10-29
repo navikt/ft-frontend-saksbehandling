@@ -6,6 +6,7 @@ import {
   integerRegex,
   isEmpty,
   isoDateRegex,
+  isValidIsoDate,
   nameGyldigRegex,
   nameRegex,
   saksnummerOrFodselsnummerPattern,
@@ -19,6 +20,20 @@ describe('validatorsHelper', () => {
     it('Skal sjekke om dato format er riktig ISO', () => {
       expect(isoDateRegex.test('2018-04-01')).toBeTruthy();
       expect(isoDateRegex.test('12-04-2018')).toBeFalsy();
+      expect(isoDateRegex.test('foo 2018-04-01')).toBeFalsy();
+    });
+  });
+
+  describe('isValidIsoDate', () => {
+    it.each([
+      ['2018-04-01', true],
+      ['2018-4-1', true],
+      ['2024-02-29', true],
+      ['2018-02-31', false],
+      ['2023-02-29', false],
+      ['foo 2018-04-01', false],
+    ])('%s er gyldig: %s', (dato, forventet) => {
+      expect(isValidIsoDate(dato)).toBe(forventet);
     });
   });
 
