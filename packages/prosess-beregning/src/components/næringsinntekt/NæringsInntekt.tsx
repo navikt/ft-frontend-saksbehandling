@@ -18,7 +18,7 @@ export const NæringsInntekt = ({ beregningsgrunnlag, inntektsgrunnlag }: Props)
 
   const andel = alleAndelerIForstePeriode.find(a => a.aktivitetStatus === 'SN' || a.aktivitetStatus === 'BA');
   const pgiGrunlag = inntektsgrunnlag?.pgiGrunnlag || [];
-  if (!andel || !andel.pgiSnitt || !andel.pgiVerdier) {
+  if (!andel?.pgiSnitt || !andel.pgiVerdier) {
     return null;
   }
   const { pgiVerdier, pgiSnitt } = andel;
