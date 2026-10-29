@@ -1,0 +1,12 @@
+.tableSum {
+  border-bottom: 2px solid var(--ax-border-neutral-strong);
+  border-top: 2px solid var(--ax-border-neutral-strong);
+
+  &[data-bottom-border='double'] {
+    border-bottom: 3px double var(--ax-border-neutral-strong);
+  }
+
+  &[data-with-subtotals='true'] > tr:last-child:not(:first-child) {
+    border-top: 2px solid var(--ax-border-neutral-strong);
+  }
+}

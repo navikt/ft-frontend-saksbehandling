@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Table } from '@navikt/ds-react';
 
-import { BeløpLabel } from '@navikt/ft-ui-komponenter';
+import { BeløpLabel, TableSum } from '@navikt/ft-ui-komponenter';
 
 import { formaterParagraf, type TransformertRegisterinntekter } from '../registerinntekterUtils';
 
@@ -57,7 +57,7 @@ export const RegisterinntekterTabell = ({
         ))}
       </Table.Body>
     ))}
-    <tfoot>
+    <TableSum bottomBorder="double" withSubtotals>
       {kilder.length > 1 &&
         kilder.map((kilde, index) => (
           <Table.Row key={kilde.label}>
@@ -88,6 +88,6 @@ export const RegisterinntekterTabell = ({
           </Table.HeaderCell>
         )}
       </Table.Row>
-    </tfoot>
+    </TableSum>
   </Table>
 );
