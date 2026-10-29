@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-fakta-refusjon",
   "description": "Faktapanel for refusjon",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -28,7 +28,7 @@
     "@navikt/ft-form-validators": "7.x",
     "@navikt/ft-types": "7.x",
     "@navikt/ft-ui-komponenter": "9.x",
-    "@navikt/ft-utils": "6.x",
+    "@navikt/ft-utils": "7.x",
     "react": "19.x",
     "react-dom": "19.x",
     "react-hook-form": "7.x",
