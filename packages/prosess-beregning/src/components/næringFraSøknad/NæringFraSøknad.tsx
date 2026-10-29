@@ -10,8 +10,6 @@ import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { finnAlleAndelerIFørstePeriode } from '../../utils/beregningsgrunnlagUtils';
 import { OpplysningsRad } from './OpplysningsRad';
 
-import styles from './næringFraSøknad.module.css';
-
 interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
@@ -34,7 +32,10 @@ export const NæringFraSøknad = ({ kodeverkSamling, beregningsgrunnlag, arbeids
       tittel={<FormattedMessage id="NæringFraSøknad.Tittel" />}
       beskrivelse={<FormattedMessage id="NæringFraSøknad.Beskrivelse" />}
     >
-      <HGrid columns="repeat(auto-fit, minmax(40rem, 1fr))" className={styles.gridColumnFlow}>
+      <HGrid
+        gap="space-0 space-16"
+        columns="repeat(auto-fit, minmax(min(100%, max(20rem, calc((100% - var(--ax-space-16)) / 2))), 1fr))"
+      >
         <OpplysningsRad
           label={<FormattedMessage id="NæringFraSøknad.Virksomhet" />}
           value={lagVisningsnavn(næring, arbeidsgiverOpplysningerPerId)}
