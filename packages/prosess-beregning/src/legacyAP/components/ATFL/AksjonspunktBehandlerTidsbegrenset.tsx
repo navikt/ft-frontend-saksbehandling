@@ -13,7 +13,7 @@ import type {
   BeregningsgrunnlagArbeidsforhold,
   BeregningsgrunnlagPeriodeProp,
 } from '@navikt/ft-types';
-import { BeløpLabel, DateLabel } from '@navikt/ft-ui-komponenter';
+import { BeløpLabel, DateLabel, TableSum } from '@navikt/ft-ui-komponenter';
 import {
   formatCurrencyNoKr,
   formaterArbeidsgiver,
@@ -335,7 +335,7 @@ export const AksjonspunktBehandlerTidsbegrenset = ({
         />
       </Table.Body>
       {Object.entries(tabellData).length > 1 && (
-        <tfoot>
+        <TableSum bottomBorder="double">
           <Table.Row shadeOnHover={false}>
             <Table.HeaderCell textSize="small">
               <FormattedMessage id="AksjonspunktBehandlerTB.SumPeriode" />
@@ -346,7 +346,7 @@ export const AksjonspunktBehandlerTidsbegrenset = ({
               </Table.HeaderCell>
             ))}
           </Table.Row>
-        </tfoot>
+        </TableSum>
       )}
     </Table>
   );
