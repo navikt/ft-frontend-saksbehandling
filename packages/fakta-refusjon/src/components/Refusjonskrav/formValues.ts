@@ -1,3 +1,5 @@
+import type { UtfallÅrsak } from '../../types/dataTypes';
+
 export type AvklarRefusjonsKravFormValues = {
   begrunnelse: string;
   refusjonskrav: RefusjonskravFormRad[];
@@ -14,7 +16,6 @@ export type RefusjonskravFormRad = {
   fristForInnsendingAvRefusjonskrav: string;
   tidligsteMuligeDatoMedRefusjonEtterFrist: string;
   utfall?: 'INNVILGET' | 'AVSLÅTT' | 'REDUSERT';
-  utfallÅrsak?: string;
+  utfallÅrsak?: UtfallÅrsak;
 };
-
 export type RefusjonskravVurdering = Pick<RefusjonskravFormRad, 'utfall' | 'utfallÅrsak'>;

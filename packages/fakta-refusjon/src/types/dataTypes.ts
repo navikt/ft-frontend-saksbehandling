@@ -16,4 +16,4 @@ export type Refusjonsperiode = {
   utfallBegrunnelse?: string;
 };
 
-type UtfallÅrsak = string; /* dette skal være en string union på sikt */
+export type UtfallÅrsak = 'AVTALT_MED_ARBEIDSGIVER' | 'KONKURS' | 'UTMELDT';

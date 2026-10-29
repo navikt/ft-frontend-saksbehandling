@@ -83,9 +83,7 @@ export const RefusjonskravForm = ({
       }
     >
       <VStack gap="space-20">
-        <Utbetaling arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          refusjonsandeler={refusjonsandeler}
-        />
+        <Utbetaling arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId} refusjonsandeler={refusjonsandeler} />
 
         <RefusjonskravTabell
           rader={rader}

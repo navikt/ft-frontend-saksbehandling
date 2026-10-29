@@ -8,6 +8,7 @@ import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { dateFormat } from '@navikt/ft-utils';
 
+import type { UtfallÅrsak } from '../../types/dataTypes';
 import type { RefusjonskravFormRad, RefusjonskravVurdering } from './formValues';
 
 type Vurderingsskjema = {
@@ -78,8 +79,15 @@ export const RefusjonskravRadVurdering = ({ index, krav, readOnly, onSave, onDir
             validate={[required]}
             readOnly={readOnly}
           >
-            <Radio value="ÅRSAK1">Årsak 1</Radio>
-            <Radio value="ÅRSAK2">Årsak 2</Radio>
+            <Radio value={'KONKURS' satisfies UtfallÅrsak}>
+              <FormattedMessage id="RefusjonskravForm.Årsak.KONKURS" />
+            </Radio>
+            <Radio value={'UTMELDT' satisfies UtfallÅrsak}>
+              <FormattedMessage id="RefusjonskravForm.Årsak.UTMELDT" />
+            </Radio>
+            <Radio value={'AVTALT_MED_ARBEIDSGIVER' satisfies UtfallÅrsak}>
+              <FormattedMessage id="RefusjonskravForm.Årsak.AVTALT_MED_ARBEIDSGIVER" />
+            </Radio>
           </RhfRadioGroup>
         )}
 
