@@ -25,15 +25,8 @@ export const formatTooltip =
     const body = Array.from(groupedBySerie.entries())
       .map(([seriesName, group]) => {
         const markør = lagMarkør(group[0].color, group[0].borderColor);
-        const navnUtenOrgnummer = seriesName.replace(/\s+\(\d{9}\)$/, '');
-        const values = grunnlagTyper
-          .map(type => {
-            const value = group.find(element => element.seriesId?.startsWith(`${type}:`))?.value;
-            return typeof value === 'number'
-              ? `<td>${formatCurrencyNoKr(value)}</td>`
-              : `<td class="${styles.missingValue}">&ndash;</td>`;
-          })
-          .join('');
+        const navnUtenOrgnummer = seriesName.replace(/\s\(\d{9}\)$/, '').trimEnd();
+        const values = grunnlagTyper.map(type => lagVerdiCelle(group, type)).join('');
         return `
           <tr>
             <th scope="row">
@@ -61,6 +54,13 @@ export const formatTooltip =
       </table>
     `;
   };
+
+const lagVerdiCelle = (gruppe: CallbackDataParams[], type: TypeGrunnlag) => {
+  const value = gruppe.find(element => element.seriesId?.startsWith(`${type}:`))?.value;
+  return typeof value === 'number'
+    ? `<td>${formatCurrencyNoKr(value)}</td>`
+    : `<td class="${styles.missingValue}">&ndash;</td>`;
+};
 
 const lagMarkør = (color: CallbackDataParams['color'], borderColor: CallbackDataParams['borderColor']) =>
   `
