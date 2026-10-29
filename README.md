@@ -63,7 +63,10 @@ for mer informasjon.
 
 ## Publisering av moduler
 
-Publisering av npm-moduler skjer automatisk via GitHub Actions når nye tags pushes til `main`.
+Publisering av npm-moduler skjer automatisk via GitHub Actions ved push til `main`. Workflowen kjører
+`lerna publish from-package`, som publiserer alle pakker der `version` i `package.json` ikke finnes i
+registeret ennå. En publisering som feiler, blir dermed tatt igjen ved neste kjøring. Workflowen kan også
+startes manuelt (`workflow_dispatch`).
 
 ### GitHub Copilot-skill
 

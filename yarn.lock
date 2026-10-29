@@ -1657,7 +1657,7 @@ __metadata:
     "@navikt/ft-plattform-komponenter": 13.x
     "@navikt/ft-types": 7.x
     "@navikt/ft-ui-komponenter": 9.x
-    "@navikt/ft-utils": 6.x
+    "@navikt/ft-utils": 7.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -1707,7 +1707,7 @@ __metadata:
     "@navikt/ft-plattform-komponenter": 13.x
     "@navikt/ft-types": 7.x
     "@navikt/ft-ui-komponenter": 9.x
-    "@navikt/ft-utils": 6.x
+    "@navikt/ft-utils": 7.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -1752,7 +1752,7 @@ __metadata:
     "@navikt/ft-form-validators": 7.x
     "@navikt/ft-types": 7.x
     "@navikt/ft-ui-komponenter": 9.x
-    "@navikt/ft-utils": 6.x
+    "@navikt/ft-utils": 7.x
     react: 19.x
     react-dom: 19.x
     react-hook-form: 7.x
@@ -1798,7 +1798,7 @@ __metadata:
     "@navikt/ft-form-validators": 7.x
     "@navikt/ft-types": 7.x
     "@navikt/ft-ui-komponenter": 9.x
-    "@navikt/ft-utils": 6.x
+    "@navikt/ft-utils": 7.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -1835,7 +1835,7 @@ __metadata:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-react": 8.x
     "@navikt/ft-ui-komponenter": 9.x
-    "@navikt/ft-utils": 6.x
+    "@navikt/ft-utils": 7.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -1858,7 +1858,7 @@ __metadata:
     vite: "npm:8.3.5"
     vitest: "npm:5.0.5"
   peerDependencies:
-    "@navikt/ft-utils": 6.x
+    "@navikt/ft-utils": 7.x
     dayjs: 1.x
   languageName: unknown
   linkType: soft
@@ -1954,7 +1954,7 @@ __metadata:
   peerDependencies:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-utils": 6.x
+    "@navikt/ft-utils": 7.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -2003,7 +2003,7 @@ __metadata:
     "@navikt/ft-plattform-komponenter": 13.x
     "@navikt/ft-types": 7.x
     "@navikt/ft-ui-komponenter": 9.x
-    "@navikt/ft-utils": 6.x
+    "@navikt/ft-utils": 7.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -2053,7 +2053,7 @@ __metadata:
     "@navikt/ft-plattform-komponenter": 13.x
     "@navikt/ft-types": 7.x
     "@navikt/ft-ui-komponenter": 9.x
-    "@navikt/ft-utils": 6.x
+    "@navikt/ft-utils": 7.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -2099,7 +2099,7 @@ __metadata:
     "@navikt/ft-form-validators": 7.x
     "@navikt/ft-types": 7.x
     "@navikt/ft-ui-komponenter": 9.x
-    "@navikt/ft-utils": 6.x
+    "@navikt/ft-utils": 7.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -2145,7 +2145,7 @@ __metadata:
     "@navikt/ft-form-validators": 7.x
     "@navikt/ft-types": 7.x
     "@navikt/ft-ui-komponenter": 9.x
-    "@navikt/ft-utils": 6.x
+    "@navikt/ft-utils": 7.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -2192,7 +2192,7 @@ __metadata:
     "@navikt/ft-form-validators": 7.x
     "@navikt/ft-types": 7.x
     "@navikt/ft-ui-komponenter": 9.x
-    "@navikt/ft-utils": 6.x
+    "@navikt/ft-utils": 7.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x
@@ -2241,7 +2241,7 @@ __metadata:
   peerDependencies:
     "@navikt/aksel-icons": 8.x
     "@navikt/ds-react": 8.x
-    "@navikt/ft-utils": 6.x
+    "@navikt/ft-utils": 7.x
     dayjs: 1.x
     react: 19.x
     react-dom: 19.x

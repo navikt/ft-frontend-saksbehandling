@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-ui-komponenter",
   "description": "Pakke som tilbyr generelle komponenter som grid og tabell",
-  "version": "9.1.0",
+  "version": "9.1.1",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -23,7 +23,7 @@
   "peerDependencies": {
     "@navikt/aksel-icons": "8.x",
     "@navikt/ds-react": "8.x",
-    "@navikt/ft-utils": "6.x",
+    "@navikt/ft-utils": "7.x",
     "dayjs": "1.x",
     "react": "19.x",
     "react-dom": "19.x",

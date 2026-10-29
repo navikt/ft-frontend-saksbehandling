@@ -1,7 +1,7 @@
 {
   "name": "@navikt/ft-prosess-tilbakekreving-foreldelse",
   "description": "Aksjonspunktet oppstår fordi første periode med feilutbetaling er 2,5 år tilbake i tid eller mer. Saksbehandler tar stilling til om hele eller deler av perioden med feilutbetaling er foreldet. Uten aksjonspunkt: Feilutbetalt(e) periode(r) er under 2,5 år tilbake i tid",
-  "version": "11.1.0",
+  "version": "11.1.1",
   "license": "MIT",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -28,7 +28,7 @@
     "@navikt/ft-form-validators": "7.x",
     "@navikt/ft-types": "7.x",
     "@navikt/ft-ui-komponenter": "9.x",
-    "@navikt/ft-utils": "6.x",
+    "@navikt/ft-utils": "7.x",
     "dayjs": "1.x",
     "react": "19.x",
     "react-dom": "19.x",
