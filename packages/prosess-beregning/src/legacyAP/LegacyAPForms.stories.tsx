@@ -1037,15 +1037,60 @@ export const AvvikNæringEtterLøstAvvikArbeid5038Og5039: Story = {
     isReadOnly: false,
     beregningsgrunnlagListe: [
       lagBG(
-        malPerioder([
-          lagSNMedPGI(1, 200000, undefined, true, false, lagNæring(true, false)),
-          lagArbeidsandel(2, defaultArbeidsforhold, 150000, 200000, true, false),
-          lagGenerellAndel(4, 'DP', 100500),
-          lagFrilansandel(3, 200000, 100000, true),
-        ]),
+        malPerioder(
+          [
+            {
+              ...lagSNMedPGI(1, 200000, undefined, true, false, lagNæring(true, false)),
+              pgiSnitt: 600500,
+              pgiVerdier: [2017, 2018, 2019].map(årstall => ({ årstall, beløp: 600500 })),
+            },
+            lagArbeidsandel(2, defaultArbeidsforhold, 150000, 200000, true, false),
+            lagGenerellAndel(4, 'DP', 100500),
+            lagFrilansandel(3, 200000, 100000, true),
+          ].map(andel => ({
+            ...andel,
+            beregningsperiodeFom: andel.aktivitetStatus === 'SN' ? '2017-01-01' : '2020-10-01',
+            beregningsperiodeTom: andel.aktivitetStatus === 'SN' ? '2019-12-31' : '2020-12-31',
+          })),
+        ),
         ['AT_FL_SN', 'DP'],
-        inntektsgrunnlagSN,
-        [malSGGrunnlagAvvik(SammenligningType.SN), malSGGrunnlagAvvik(SammenligningType.AT_FL)],
+        {
+          sammenligningsgrunnlagInntekter: Array.from({ length: 12 }, (_, måned) =>
+            lagInntektsgrunnlagMåned(dayjs(STP).subtract(12, 'months').add(måned, 'months').format(ISO_DATE_FORMAT), [
+              lagArbeidInntekt(12000, defaultArbeidsgiverIdent),
+              lagYtelseInntekt(5000),
+              lagFrilansInntekt(8000),
+            ]),
+          ),
+          beregningsgrunnlagInntekter: [
+            lagInntektsgrunnlagMåned('2020-10-01', [
+              lagArbeidInntekt(12000, defaultArbeidsgiverIdent),
+              lagYtelseInntekt(8000),
+              lagFrilansInntekt(15000),
+            ]),
+            lagInntektsgrunnlagMåned('2020-11-01', [
+              lagArbeidInntekt(12500, defaultArbeidsgiverIdent),
+              lagYtelseInntekt(8375),
+              lagFrilansInntekt(17000),
+            ]),
+            lagInntektsgrunnlagMåned('2020-12-01', [
+              lagArbeidInntekt(13000, defaultArbeidsgiverIdent),
+              lagYtelseInntekt(8750),
+              lagFrilansInntekt(18000),
+            ]),
+          ],
+          pgiGrunnlag: [2017, 2018, 2019].map(år => ({
+            år,
+            inntekter: [
+              lagPensjonsgivendeInntekt(300500, PgiType.LØNN),
+              lagPensjonsgivendeInntekt(300000, PgiType.NÆRING),
+            ],
+          })),
+        },
+        [
+          lagSammenligningsGrunnlag(SammenligningType.SN, 874757, (274257 / 600500) * 100, -274257),
+          lagSammenligningsGrunnlag(SammenligningType.AT_FL, 300000, (150500 / 300000) * 100, 150500),
+        ],
         [
           lagAPMedKode(AksjonspunktKode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE),
           lagAPMedKode(AksjonspunktKode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, 'Dette er løst'),
