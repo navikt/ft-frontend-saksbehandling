@@ -1,6 +1,8 @@
 import type { ReactElement, ReactNode } from 'react';
 
-import { BodyShort, Box, HStack, Label } from '@navikt/ds-react';
+import { BodyShort, Label } from '@navikt/ds-react';
+
+import styles from './næringFraSøknad.module.css';
 
 interface Props {
   label: ReactNode;
@@ -8,14 +10,12 @@ interface Props {
 }
 
 export const OpplysningsRad = ({ label, value }: Props) => (
-  <Box borderWidth="0 0 1" borderColor="neutral-subtle" paddingBlock="space-4" paddingInline="space-8" asChild>
-    <HStack gap="space-4 space-8" align="end" justify="space-between">
-      <Label as="span" size="small">
-        {label}
-      </Label>
-      <BodyShort as="span" size="small">
-        {value}
-      </BodyShort>
-    </HStack>
-  </Box>
+  <div className={styles.opplysningsRad}>
+    <Label as="dt" size="small">
+      {label}
+    </Label>
+    <BodyShort as="dd" size="small">
+      {value}
+    </BodyShort>
+  </div>
 );
