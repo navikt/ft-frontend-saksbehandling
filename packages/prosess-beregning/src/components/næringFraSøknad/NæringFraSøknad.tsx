@@ -42,23 +42,14 @@ export const NæringFraSøknad = ({ kodeverkSamling, beregningsgrunnlag, arbeids
         />
 
         <OpplysningsRad
+          label={<FormattedMessage id="NæringFraSøknad.Regnskapsfører" />}
+          value={næring.regnskapsførerNavn ? `${næring.regnskapsførerNavn} - Tlf: ${næring.regnskapsførerTlf}` : '-'}
+        />
+
+        <OpplysningsRad
           label={<FormattedMessage id="NæringFraSøknad.Næringstype" />}
           value={kodeverkSamling.VirksomhetType.find(k => k.kode === næring.virksomhetType)?.navn ?? '-'}
         />
-
-        {næring.oppstartsdato && (
-          <OpplysningsRad
-            label={<FormattedMessage id="NæringFraSøknad.Oppstartsdato" />}
-            value={<DateLabel dateString={næring.oppstartsdato} />}
-          />
-        )}
-
-        {næring.opphørsdato && næring.opphørsdato !== TIDENES_ENDE && (
-          <OpplysningsRad
-            label={<FormattedMessage id="NæringFraSøknad.Opphørsdato" />}
-            value={<DateLabel dateString={næring.opphørsdato} />}
-          />
-        )}
 
         <OpplysningsRad
           label={<FormattedMessage id="NæringFraSøknad.VarigEndringFra" />}
@@ -69,6 +60,11 @@ export const NæringFraSøknad = ({ kodeverkSamling, beregningsgrunnlag, arbeids
               <FormattedMessage id="NæringFraSøknad.Nei" />
             )
           }
+        />
+
+        <OpplysningsRad
+          label={<FormattedMessage id="NæringFraSøknad.Oppstartsdato" />}
+          value={næring.oppstartsdato ? <DateLabel dateString={næring.oppstartsdato} /> : '-'}
         />
 
         <OpplysningsRad
@@ -83,16 +79,20 @@ export const NæringFraSøknad = ({ kodeverkSamling, beregningsgrunnlag, arbeids
         />
 
         <OpplysningsRad
+          label={<FormattedMessage id="NæringFraSøknad.Opphørsdato" />}
+          value={
+            næring.opphørsdato && næring.opphørsdato !== TIDENES_ENDE ? (
+              <DateLabel dateString={næring.opphørsdato} />
+            ) : (
+              '-'
+            )
+          }
+        />
+
+        <OpplysningsRad
           label={<FormattedMessage id="NæringFraSøknad.OppgittAar" />}
           value={<BeløpLabel beløp={næring.oppgittInntekt} kr />}
         />
-
-        {næring.regnskapsførerNavn && (
-          <OpplysningsRad
-            label={<FormattedMessage id="NæringFraSøknad.Regnskapsfører" />}
-            value={`${næring.regnskapsførerNavn} - Tlf: ${næring.regnskapsførerTlf}`}
-          />
-        )}
       </HGrid>
       <Box paddingBlock="space-4" paddingInline="space-8">
         {næring.begrunnelse && næring.begrunnelse !== '' && (
