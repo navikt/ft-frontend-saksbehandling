@@ -53,7 +53,8 @@ yarn tag
 ```
 
 Etter at brukeren bekrefter, committer lerna versjonsbumpene, oppretter signerte git-tagger
-og pusher til `main` — noe som automatisk utløser `publish.yml`-workflowen.
+og pusher til `main` — noe som automatisk utløser `publish.yml`-workflowen. Workflowen publiserer
+versjonene i `package.json` som mangler i registeret, uavhengig av taggene.
 
 Hvis lerna melder **"No changed packages found"** er det ingenting å publisere — stopp og
 informer brukeren.
