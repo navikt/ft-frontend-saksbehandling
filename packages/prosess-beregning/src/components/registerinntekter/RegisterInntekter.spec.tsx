@@ -27,7 +27,7 @@ describe('RegisterInntekter', () => {
       legend: [{ textStyle: { fontSize: 16 } }],
       xAxis: [{ data: (vanligOption['xAxis'] as { data: unknown }[])[0].data, axisLabel: { fontSize: 16 } }],
       yAxis: [{ axisLabel: { fontSize: 16 } }],
-      tooltip: [{ textStyle: { fontSize: 16 }, confine: true }],
+      tooltip: [{ textStyle: { fontSize: 20 }, confine: true }],
       series: expect.arrayContaining([expect.objectContaining({ label: expect.objectContaining({ fontSize: 14 }) })]),
     });
     expect((utvidetOption['series'] as { data: unknown }[]).map(serie => serie.data)).toEqual(

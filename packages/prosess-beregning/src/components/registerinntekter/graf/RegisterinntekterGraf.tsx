@@ -76,7 +76,7 @@ export const RegisterinntekterGraf = ({
             trigger: 'axis',
             appendTo: erUtvidet ? undefined : 'body',
             confine: erUtvidet,
-            textStyle,
+            textStyle: { ...textStyle, fontSize: erUtvidet ? 20 : 18 },
             backgroundColor: getAkselVariable('--ax-bg-raised'),
             borderColor: getAkselVariable('--ax-border-neutral-subtleA'),
             borderRadius: 12,
