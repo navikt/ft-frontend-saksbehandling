@@ -147,9 +147,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
                       />
                     )}
 
-                    {visning.naturalytelser && visning.naturalytelser.length > 0 && (
-                      <Naturalytelser naturalytelseEndringer={visning.naturalytelser} />
-                    )}
+                    <Naturalytelser naturalytelseEndringer={visning.naturalytelser} />
                   </div>
                 }
               >
