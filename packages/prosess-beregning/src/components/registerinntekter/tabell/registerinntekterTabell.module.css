@@ -12,13 +12,4 @@
   tbody tr:not(:first-child) td {
     padding-top: 0;
   }
-
-  tfoot {
-    border-top: 2px solid var(--ax-border-neutral-strong);
-
-    tr:last-child th {
-      border-bottom: 3px double var(--ax-border-neutral-strong);
-      border-top: 2px solid var(--ax-border-neutral-strong);
-    }
-  }
 }

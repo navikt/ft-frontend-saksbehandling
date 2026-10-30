@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { HStack, Table, Tag } from '@navikt/ds-react';
 
 import type { Beregningsgrunnlag, BeregningsgrunnlagAndel, SammenligningsgrunlagProp } from '@navikt/ft-types';
-import { BeløpLabel, FaktaBoks } from '@navikt/ft-ui-komponenter';
+import { BeløpLabel, FaktaBoks, TableSum } from '@navikt/ft-ui-komponenter';
 
 import { finnInntektstyperSomVises } from '../../utils/beregningsgrunnlagUtils';
 import { BeregnetÅrsinntektHelpText } from './BeregnetÅrsinntektHelpText';
@@ -66,7 +66,7 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({
             <Table.DataCell />
           </Table.Row>
         </Table.Body>
-        <tfoot>
+        <TableSum bottomBorder="double">
           <Table.Row>
             <Table.HeaderCell textSize="small">
               <FormattedMessage id="Avviksberegning.BeregnetAvvik" />
@@ -80,7 +80,7 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({
               </Tag>
             </Table.HeaderCell>
           </Table.Row>
-        </tfoot>
+        </TableSum>
       </Table>
     </FaktaBoks>
   );

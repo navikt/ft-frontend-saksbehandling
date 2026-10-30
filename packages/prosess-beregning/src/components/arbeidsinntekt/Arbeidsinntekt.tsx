@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { BodyShort, Table, Tag, Tooltip } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
-import { BeløpLabel, DateLabel, FaktaBoks, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
+import { BeløpLabel, DateLabel, FaktaBoks, LabeledValue, PeriodLabel, TableSum } from '@navikt/ft-ui-komponenter';
 
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { finnInntektstyperSomVises } from '../../utils/beregningsgrunnlagUtils';
@@ -192,7 +192,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
           })}
         </Table.Body>
         {arbeidsinntektVisninger.length > 1 && (
-          <tfoot>
+          <TableSum bottomBorder="double">
             <Table.Row>
               <Table.HeaderCell textSize="small">
                 <FormattedMessage id="Tabell.Total" />
@@ -225,7 +225,7 @@ export const Arbeidsinntekt = ({ beregningsgrunnlag, arbeidsgiverOpplysningerPer
               </Table.HeaderCell>
               <Table.HeaderCell />
             </Table.Row>
-          </tfoot>
+          </TableSum>
         )}
       </Table>
     </FaktaBoks>

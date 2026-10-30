@@ -1,10 +1,5 @@
 .table {
-  /* dobbel border på footer-raden */
-
   tfoot {
-    border-bottom: 3px double var(--ax-border-neutral-strong);
-    border-top: 2px solid var(--ax-border-neutral-strong);
-
     th:last-child {
       width: 40px;
     }

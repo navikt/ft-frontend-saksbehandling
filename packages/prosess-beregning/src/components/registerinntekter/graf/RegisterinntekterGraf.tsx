@@ -1,4 +1,4 @@
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { VStack } from '@navikt/ds-react';
 
@@ -20,7 +20,6 @@ interface Props {
 export const RegisterinntekterGraf = ({
   transformerteRegisterinntekter: { grunnlag_8_30, grunnlag_8_28, periodeData, vis_8_28 },
 }: Props) => {
-  const intl = useIntl();
   const fontSize = '12px';
   const textStyle = {
     fontFamily: getAkselVariable('--ax-font-family'),
@@ -68,14 +67,14 @@ export const RegisterinntekterGraf = ({
           tooltip: {
             axisPointer: { type: 'shadow' },
             trigger: 'axis',
-            appendToBody: true,
-            confine: true,
+            appendTo: 'body',
+            confine: false,
             textStyle,
+            backgroundColor: getAkselVariable('--ax-bg-raised'),
             borderColor: getAkselVariable('--ax-border-neutral-subtleA'),
             borderRadius: 12,
-            padding: [16, 20],
             borderWidth: 1,
-            formatter: formatTooltip(intl),
+            formatter: formatTooltip(vis_8_28),
           },
           series: [
             grunnlag_8_30.inntektskilder.flatMap(createBar()),

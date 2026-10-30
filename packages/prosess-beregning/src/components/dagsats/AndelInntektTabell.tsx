@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { ErrorMessage, Table } from '@navikt/ds-react';
 
 import type { AktivitetStatus } from '@navikt/ft-types';
-import { BeløpLabel, NoWrap } from '@navikt/ft-ui-komponenter';
+import { BeløpLabel, NoWrap, TableSum } from '@navikt/ft-ui-komponenter';
 
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import type { TabellData } from './dagsatserUtils';
@@ -52,7 +52,7 @@ export const AndelInntektTabell = ({
     <Table size="small" className={styles.table}>
       <Table.Body>{tabellRader}</Table.Body>
       {!!totalAndelsInntekt && tabellRader.length > 1 && (
-        <tfoot>
+        <TableSum bottomBorder="double">
           <Table.Row shadeOnHover={false}>
             <Table.HeaderCell textSize="small">
               <FormattedMessage id="Dagsats.TotalÅrsinntekt" />
@@ -61,7 +61,7 @@ export const AndelInntektTabell = ({
               <BeløpLabel beløp={totalAndelsInntekt} kr />
             </Table.HeaderCell>
           </Table.Row>
-        </tfoot>
+        </TableSum>
       )}
     </Table>
   );
