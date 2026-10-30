@@ -108,9 +108,9 @@ describe('BeregningProsessIndex', () => {
     render(<SelvstendigNæringsdrivendeFP />);
 
     const forventedeNavn = [
+      'Avviksberegning for selvstendig næring',
       'Pensjonsgivende inntekt',
       'Opplysninger om næring',
-      'Avviksberegning for selvstendig næring',
       'Vurder om det er varig endring i næringen og/eller arbeidssituasjonen, som gjør at inntekten skal fastsettes skjønnsmessig',
     ];
     const paneler = screen.getAllByRole('region');

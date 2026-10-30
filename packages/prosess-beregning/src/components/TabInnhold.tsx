@@ -58,6 +58,17 @@ export const TabInnhold = ({
           kodeverkSamling={kodeverkSamling}
         />
 
+        {inntektsgrunnlag && (
+          <RegisterInntekter
+            inntektsgrunnlag={inntektsgrunnlag}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          />
+        )}
+        <Avviksberegninger
+          beregningsgrunnlag={beregningsgrunnlag}
+          formaterVisningsnavnForAndel={createVisningsnavnForAndel(arbeidsgiverOpplysningerPerId, kodeverkSamling)}
+        />
+
         {(aktivitetStatus?.some(isStatusSNOrKombinasjon) || aktivitetStatus?.includes('MIDL_INAKTIV')) && (
           <>
             <NæringsInntekt beregningsgrunnlag={beregningsgrunnlag} inntektsgrunnlag={inntektsgrunnlag} />
@@ -69,16 +80,6 @@ export const TabInnhold = ({
           </>
         )}
 
-        <Avviksberegninger
-          beregningsgrunnlag={beregningsgrunnlag}
-          formaterVisningsnavnForAndel={createVisningsnavnForAndel(arbeidsgiverOpplysningerPerId, kodeverkSamling)}
-        />
-        {inntektsgrunnlag && (
-          <RegisterInntekter
-            inntektsgrunnlag={inntektsgrunnlag}
-            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-          />
-        )}
         <Dagsatser
           beregningsgrunnlag={beregningsgrunnlag}
           beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
