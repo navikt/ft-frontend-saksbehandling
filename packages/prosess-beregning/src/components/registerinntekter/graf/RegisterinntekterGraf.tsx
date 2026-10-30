@@ -12,11 +12,15 @@ import { formatTooltip } from './tooltipUtils';
 
 interface Props {
   transformerteRegisterinntekter: TransformertRegisterinntekter;
+  valgteInntektskilder: Record<string, boolean>;
+  onLegendefiltreringEndret: (selected: Record<string, boolean>) => void;
   erUtvidet?: boolean;
 }
 
 export const RegisterinntekterGraf = ({
   transformerteRegisterinntekter: { grunnlag_8_30, grunnlag_8_28, periodeData, vis_8_28 },
+  valgteInntektskilder,
+  onLegendefiltreringEndret,
   erUtvidet = false,
 }: Props) => {
   const fontSize = erUtvidet ? 16 : 12;
@@ -38,6 +42,7 @@ export const RegisterinntekterGraf = ({
           legend: {
             type: 'scroll',
             top: 'top',
+            selected: valgteInntektskilder,
             textStyle,
           },
           aria: {
@@ -85,6 +90,7 @@ export const RegisterinntekterGraf = ({
             createStackLabel(grunnlag_8_28.inntektskilder, vis_8_28, erUtvidet),
           ].flat(),
         }}
+        onLegendSelectChanged={onLegendefiltreringEndret}
         style={{ width: '100%', height: erUtvidet ? 'min(65vh, 700px)' : '300px' }}
       />
 

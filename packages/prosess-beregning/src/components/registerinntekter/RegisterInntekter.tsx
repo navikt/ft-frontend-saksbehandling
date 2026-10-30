@@ -23,6 +23,7 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
   const [valgtVisning, setValgtVisning] = useState<Visning>('graf');
   const [visModal, setVisModal] = useState(false);
   const [vis_8_28, setVis_8_28] = useState(inntektsgrunnlag.beregningsgrunnlagInntekter.length > 0);
+  const [valgteInntektskilder, setValgteInntektskilder] = useState<Record<string, boolean>>({});
 
   const transformerteRegisterinntekter = transformerRegisterinntekter(
     inntektsgrunnlag,
@@ -75,7 +76,11 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
           />
         </HStack>
         {valgtVisning === 'graf' && (
-          <RegisterinntekterGraf transformerteRegisterinntekter={transformerteRegisterinntekter} />
+          <RegisterinntekterGraf
+            transformerteRegisterinntekter={transformerteRegisterinntekter}
+            valgteInntektskilder={valgteInntektskilder}
+            onLegendefiltreringEndret={setValgteInntektskilder}
+          />
         )}
         {valgtVisning === 'tabell' && tabell}
       </VStack>
@@ -95,7 +100,12 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
                 {paragrafvalg}
               </HStack>
               {valgtVisning === 'graf' && (
-                <RegisterinntekterGraf transformerteRegisterinntekter={transformerteRegisterinntekter} erUtvidet />
+                <RegisterinntekterGraf
+                  transformerteRegisterinntekter={transformerteRegisterinntekter}
+                  valgteInntektskilder={valgteInntektskilder}
+                  onLegendefiltreringEndret={setValgteInntektskilder}
+                  erUtvidet
+                />
               )}
               {valgtVisning === 'tabell' && (
                 <Box width="fit-content" maxWidth="100%" overflowX="auto">

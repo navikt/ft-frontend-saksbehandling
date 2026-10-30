@@ -1,5 +1,5 @@
 import { composeStories } from '@storybook/react-vite';
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { act, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { getInstanceByDom } from 'echarts/core';
 
@@ -42,26 +42,39 @@ describe('RegisterInntekter', () => {
     expect(await screen.findByRole('dialog')).toBeInTheDocument();
   });
 
-  it('skal beholde grafens legendefiltrering når modalen åpnes og lukkes', async () => {
+  it('skal dele legendefiltrering mellom grafen og modalen og beholde valget etter lukking', async () => {
     const user = userEvent.setup();
     const { container } = render(<VisningAvSammenligningsgrunnlag />);
     const vanligGraf = getChart(container);
     const inntektskilde = (vanligGraf.getOption()['series'] as { name: string }[])[0].name;
-    vanligGraf.dispatchAction({ type: 'legendUnSelect', name: inntektskilde });
+    const filtrertOption = { legend: [{ selected: { [inntektskilde]: false } }] };
+    act(() => {
+      vanligGraf.dispatchAction({ type: 'legendToggleSelect', name: inntektskilde });
+    });
 
     await user.click(screen.getByRole('button', { name: 'Åpne i modal' }));
     const modal = await screen.findByRole('dialog');
     expect(vanligGraf.isDisposed()).toBeFalsy();
+    expect(getChart(container).getOption()).toMatchObject(filtrertOption);
+    expect(getChart(modal).getOption()).toMatchObject(filtrertOption);
+
+    act(() => {
+      getChart(modal).dispatchAction({ type: 'legendToggleSelect', name: inntektskilde });
+    });
     expect(getChart(container).getOption()).toMatchObject({
-      legend: [{ selected: { [inntektskilde]: false } }],
+      legend: [{ selected: { [inntektskilde]: true } }],
+    });
+    act(() => {
+      getChart(modal).dispatchAction({ type: 'legendToggleSelect', name: inntektskilde });
     });
 
     await user.click(within(modal).getByRole('button', { name: 'Lukk' }));
     await waitFor(() => expect(modal).not.toBeInTheDocument());
     expect(vanligGraf.isDisposed()).toBeFalsy();
-    expect(getChart(container).getOption()).toMatchObject({
-      legend: [{ selected: { [inntektskilde]: false } }],
-    });
+    expect(getChart(container).getOption()).toMatchObject(filtrertOption);
+
+    await user.click(screen.getByRole('button', { name: 'Åpne i modal' }));
+    expect(getChart(await screen.findByRole('dialog')).getOption()).toMatchObject(filtrertOption);
   });
 
   it('skal beholde valget om å skjule § 8-28 når grafen åpnes i modal', async () => {

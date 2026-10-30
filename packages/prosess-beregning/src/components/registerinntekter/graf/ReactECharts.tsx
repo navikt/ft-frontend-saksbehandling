@@ -20,9 +20,10 @@ registerEChartsModules([
 interface Props {
   option: EChartsOption;
   style?: CSSProperties;
+  onLegendSelectChanged?: (selected: Record<string, boolean>) => void;
 }
 
-export const ReactECharts = ({ option, style }: Props) => {
+export const ReactECharts = ({ option, style, onLegendSelectChanged }: Props) => {
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -55,6 +56,22 @@ export const ReactECharts = ({ option, style }: Props) => {
       }
     }
   }, [option]);
+
+  useEffect(() => {
+    const chart = chartRef.current && getInstanceByDom(chartRef.current);
+    if (!chart || !onLegendSelectChanged) {
+      return;
+    }
+
+    const handleLegendSelectChanged = (event: unknown) => {
+      const { selected } = event as { selected: Record<string, boolean> };
+      onLegendSelectChanged(selected);
+    };
+    chart.on('legendselectchanged', handleLegendSelectChanged);
+    return () => {
+      chart.off('legendselectchanged', handleLegendSelectChanged);
+    };
+  }, [onLegendSelectChanged]);
 
   return <div ref={chartRef} style={{ width: 'auto', height: '500px', ...style }} />;
 };
