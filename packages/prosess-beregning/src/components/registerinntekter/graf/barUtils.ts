@@ -6,7 +6,7 @@ import { formaterParagraf, type RegisterinntekterPerKilde } from '../registerinn
 import { getGrafFarger } from './grafFarger';
 
 export const createBar =
-  (skalVises: boolean = true) =>
+  (skalVises: boolean = true, erUtvidet: boolean = false) =>
   (
     { label, inntektAktivitetType, typeGrunnlag, datapunkter }: RegisterinntekterPerKilde,
     index: number,
@@ -18,7 +18,7 @@ export const createBar =
     return [
       {
         type: 'bar',
-        barMaxWidth: 30,
+        barMaxWidth: erUtvidet ? 45 : 30,
         id: typeGrunnlag + ':' + label,
         name: label,
         color,
@@ -47,7 +47,7 @@ export const createBar =
         },
         label: {
           show: true,
-          fontSize: '10px',
+          fontSize: erUtvidet ? 14 : 10,
           rotate: 90,
           backgroundColor: color,
           formatter: params => {
@@ -71,6 +71,7 @@ export const createBar =
 export const createStackLabel = (
   inntektskilder: RegisterinntekterPerKilde[],
   skalViseLabel: boolean = true,
+  erUtvidet: boolean = false,
 ): BarSeriesOption[] => {
   const førsteElement = inntektskilder.at(0);
   if (!førsteElement || !skalViseLabel) {
@@ -86,7 +87,7 @@ export const createStackLabel = (
       label: {
         show: true,
         position: 'top',
-        fontSize: '8px',
+        fontSize: erUtvidet ? 14 : 8,
         formatter: formaterParagraf(førsteElement.typeGrunnlag),
       },
       tooltip: {

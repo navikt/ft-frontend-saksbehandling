@@ -10,17 +10,16 @@ import { createBar, createStackLabel } from './barUtils';
 import { ReactECharts } from './ReactECharts';
 import { formatTooltip } from './tooltipUtils';
 
-const getAkselVariable = (akselVariable: string) =>
-  getComputedStyle(document.documentElement).getPropertyValue(akselVariable);
-
 interface Props {
   transformerteRegisterinntekter: TransformertRegisterinntekter;
+  erUtvidet?: boolean;
 }
 
 export const RegisterinntekterGraf = ({
   transformerteRegisterinntekter: { grunnlag_8_30, grunnlag_8_28, periodeData, vis_8_28 },
+  erUtvidet = false,
 }: Props) => {
-  const fontSize = '12px';
+  const fontSize = erUtvidet ? 16 : 12;
   const textStyle = {
     fontFamily: getAkselVariable('--ax-font-family'),
     color: getAkselVariable('--ax-text-neutral'),
@@ -39,6 +38,7 @@ export const RegisterinntekterGraf = ({
           legend: {
             type: 'scroll',
             top: 'top',
+            textStyle,
           },
           aria: {
             enabled: true,
@@ -55,20 +55,22 @@ export const RegisterinntekterGraf = ({
             type: 'category',
             axisLabel: {
               rotate: 45,
+              fontSize,
             },
             data: periodeData,
           },
           yAxis: {
             type: 'value',
             axisLabel: {
+              fontSize,
               formatter: value => formatCurrencyNoKr(value) || '',
             },
           },
           tooltip: {
             axisPointer: { type: 'shadow' },
             trigger: 'axis',
-            appendTo: 'body',
-            confine: false,
+            appendTo: erUtvidet ? undefined : 'body',
+            confine: erUtvidet,
             textStyle,
             backgroundColor: getAkselVariable('--ax-bg-raised'),
             borderColor: getAkselVariable('--ax-border-neutral-subtleA'),
@@ -77,19 +79,19 @@ export const RegisterinntekterGraf = ({
             formatter: formatTooltip(vis_8_28),
           },
           series: [
-            grunnlag_8_30.inntektskilder.flatMap(createBar()),
-            grunnlag_8_28.inntektskilder.flatMap(createBar(vis_8_28)),
-            createStackLabel(grunnlag_8_30.inntektskilder, vis_8_28),
-            createStackLabel(grunnlag_8_28.inntektskilder, vis_8_28),
+            grunnlag_8_30.inntektskilder.flatMap(createBar(true, erUtvidet)),
+            grunnlag_8_28.inntektskilder.flatMap(createBar(vis_8_28, erUtvidet)),
+            createStackLabel(grunnlag_8_30.inntektskilder, vis_8_28, erUtvidet),
+            createStackLabel(grunnlag_8_28.inntektskilder, vis_8_28, erUtvidet),
           ].flat(),
         }}
-        style={{ width: '100%', height: '300px' }}
+        style={{ width: '100%', height: erUtvidet ? 'min(65vh, 700px)' : '300px' }}
       />
 
       <VStack gap="space-4">
         <LabeledValue
           horizontal
-          size="small"
+          size={erUtvidet ? 'medium' : 'small'}
           label={
             <>
               <FormattedMessage id="Registerinntekt.8-30" />:
@@ -100,7 +102,7 @@ export const RegisterinntekterGraf = ({
         {vis_8_28 && (
           <LabeledValue
             horizontal
-            size="small"
+            size={erUtvidet ? 'medium' : 'small'}
             label={
               <>
                 <FormattedMessage id="Registerinntekt.8-28" />:
@@ -113,3 +115,6 @@ export const RegisterinntekterGraf = ({
     </>
   );
 };
+
+const getAkselVariable = (akselVariable: string) =>
+  getComputedStyle(document.documentElement).getPropertyValue(akselVariable);

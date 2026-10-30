@@ -34,10 +34,15 @@ export const ReactECharts = ({ option, style }: Props) => {
     const resizeChart = () => {
       chart?.resize();
     };
+    const resizeObserver = globalThis.ResizeObserver ? new ResizeObserver(resizeChart) : undefined;
+    if (chartRef.current) {
+      resizeObserver?.observe(chartRef.current);
+    }
     globalThis.addEventListener('resize', resizeChart);
 
     return () => {
       chart?.dispose();
+      resizeObserver?.disconnect();
       globalThis.removeEventListener('resize', resizeChart);
     };
   }, [style]);
