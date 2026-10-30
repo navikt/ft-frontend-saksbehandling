@@ -1,3 +1,5 @@
+import { VStack } from '@navikt/ds-react';
+
 import type { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
 
 import { AvviksberegningForSammenligningsgrunnlagType } from './AvviksberegningForSammenligningsgrunnlagType';
@@ -9,7 +11,7 @@ interface Props {
 
 export const Avviksberegninger = ({ beregningsgrunnlag, formaterVisningsnavnForAndel }: Props) => {
   return (
-    <>
+    <VStack gap="space-12">
       {beregningsgrunnlag.sammenligningsgrunnlagPrStatus?.map(sg => (
         <AvviksberegningForSammenligningsgrunnlagType
           beregningsgrunnlag={beregningsgrunnlag}
@@ -18,6 +20,6 @@ export const Avviksberegninger = ({ beregningsgrunnlag, formaterVisningsnavnForA
           formaterVisningsnavnForAndel={formaterVisningsnavnForAndel}
         />
       ))}
-    </>
+    </VStack>
   );
 };
