@@ -3,7 +3,7 @@ import { defineConfig } from 'vitest/config';
 
 import commonConfig, { externalizePeerDependencies } from '@navikt/ft-config-vite';
 
-import { peerDependencies } from './package.json' with { type: 'json' };
+import packageJson from './package.json' with { type: 'json' };
 
 const config = defineConfig({
   build: {
@@ -11,7 +11,7 @@ const config = defineConfig({
       name: '@navikt/ft-fakta-fordel-beregningsgrunnlag',
     },
     rollupOptions: {
-      external: externalizePeerDependencies(peerDependencies, ['@navikt/ft-kodeverk', '@navikt/ft-types']),
+      external: externalizePeerDependencies(packageJson.peerDependencies, ['@navikt/ft-kodeverk', '@navikt/ft-types']),
     },
   },
 });

@@ -3,7 +3,7 @@ import { defineConfig } from 'vitest/config';
 
 import commonConfig, { externalizePeerDependencies } from '@navikt/ft-config-vite';
 
-import { peerDependencies } from './package.json' with { type: 'json' };
+import packageJson from './package.json' with { type: 'json' };
 
 const config = defineConfig({
   build: {
@@ -11,7 +11,7 @@ const config = defineConfig({
       name: '@navikt/ft-hooks',
     },
     rollupOptions: {
-      external: externalizePeerDependencies(peerDependencies),
+      external: externalizePeerDependencies(packageJson.peerDependencies),
     },
   },
 });
