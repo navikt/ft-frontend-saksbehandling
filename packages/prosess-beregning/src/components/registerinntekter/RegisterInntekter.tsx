@@ -38,6 +38,7 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
     return null;
   }
 
+  const åpneIModalTekst = intl.formatMessage({ id: 'Registerinntekt.ÅpneIModal' });
   const visningsvalg = (
     <ToggleGroup size="small" value={valgtVisning} onChange={value => setValgtVisning(value as Visning)}>
       <ToggleGroup.Item value="graf" icon={<BarChartIcon aria-hidden />} label="Graf" />
@@ -67,7 +68,8 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
             type="button"
             variant="tertiary"
             size="medium"
-            aria-label={intl.formatMessage({ id: 'Registerinntekt.ÅpneIModal' })}
+            aria-label={åpneIModalTekst}
+            title={åpneIModalTekst}
             icon={<ExpandIcon aria-hidden />}
             onClick={() => setVisModal(true)}
           />
@@ -83,6 +85,7 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
           onClose={() => setVisModal(false)}
           header={{ heading: intl.formatMessage({ id: 'Registerinntekt.Header' }) }}
           width="90vw"
+          style={{ maxWidth: 1440 }}
           portal
         >
           <Modal.Body>

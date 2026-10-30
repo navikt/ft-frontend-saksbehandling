@@ -45,13 +45,13 @@ export const ReactECharts = ({ option, style }: Props) => {
       resizeObserver?.disconnect();
       globalThis.removeEventListener('resize', resizeChart);
     };
-  }, [style]);
+  }, []);
 
   useEffect(() => {
     if (chartRef.current !== null) {
       const chart = getInstanceByDom(chartRef.current);
       if (chart) {
-        chart.setOption(option, true);
+        chart.setOption(option, { replaceMerge: ['series'] });
       }
     }
   }, [option]);

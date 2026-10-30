@@ -42,11 +42,36 @@ describe('RegisterInntekter', () => {
     expect(await screen.findByRole('dialog')).toBeInTheDocument();
   });
 
+  it('skal beholde grafens legendefiltrering når modalen åpnes og lukkes', async () => {
+    const user = userEvent.setup();
+    const { container } = render(<VisningAvSammenligningsgrunnlag />);
+    const vanligGraf = getChart(container);
+    const inntektskilde = (vanligGraf.getOption()['series'] as { name: string }[])[0].name;
+    vanligGraf.dispatchAction({ type: 'legendUnSelect', name: inntektskilde });
+
+    await user.click(screen.getByRole('button', { name: 'Åpne i modal' }));
+    const modal = await screen.findByRole('dialog');
+    expect(vanligGraf.isDisposed()).toBeFalsy();
+    expect(getChart(container).getOption()).toMatchObject({
+      legend: [{ selected: { [inntektskilde]: false } }],
+    });
+
+    await user.click(within(modal).getByRole('button', { name: 'Lukk' }));
+    await waitFor(() => expect(modal).not.toBeInTheDocument());
+    expect(vanligGraf.isDisposed()).toBeFalsy();
+    expect(getChart(container).getOption()).toMatchObject({
+      legend: [{ selected: { [inntektskilde]: false } }],
+    });
+  });
+
   it('skal beholde valget om å skjule § 8-28 når grafen åpnes i modal', async () => {
     const user = userEvent.setup();
-    render(<VisningAvSammenligningsgrunnlag />);
+    const { container } = render(<VisningAvSammenligningsgrunnlag />);
 
     await user.click(screen.getByRole('checkbox', { name: 'Vis § 8-28' }));
+    expect(getChart(container).getOption()['series']).not.toEqual(
+      expect.arrayContaining([expect.objectContaining({ stack: '8-28' })]),
+    );
     await user.click(screen.getByRole('button', { name: 'Åpne i modal' }));
 
     const modal = await screen.findByRole('dialog');
@@ -97,8 +122,28 @@ describe('RegisterInntekter', () => {
     expect(gjenåpnetModal.getByRole('checkbox', { name: 'Vis § 8-28' })).not.toBeChecked();
   });
 
+  it.skipIf(!globalThis.ResizeObserver)('skal tilpasse grafen når bare forelderens bredde endres', async () => {
+    const { page } = await import('vitest/browser');
+    await page.viewport(1440, 1000);
+    const { container } = render(
+      <div style={{ width: 600 }}>
+        <VisningAvSammenligningsgrunnlag />
+      </div>,
+    );
+    const graf = getChart(container);
+    const opprinneligBredde = graf.getWidth();
+    const forelder = container.firstElementChild as HTMLElement;
+
+    forelder.style.width = '900px';
+
+    await waitFor(() => {
+      expect(graf.getWidth()).toBeGreaterThan(opprinneligBredde);
+      expect(graf.getWidth()).toBeCloseTo(graf.getDom().getBoundingClientRect().width, 0);
+    });
+  });
+
   it.skipIf(!globalThis.ResizeObserver)(
-    'skal vise en større graf, tilpasse tabellbredden til innholdet og kunne lukkes med Escape',
+    'skal begrense modalbredden, vise større graf, tilpasse tabellbredden og kunne lukkes med Escape',
     async () => {
       const { page, userEvent: browserUser } = await import('vitest/browser');
       await page.viewport(1440, 1000);
@@ -129,6 +174,12 @@ describe('RegisterInntekter', () => {
       await waitFor(() => {
         expect(modal.getBoundingClientRect().width).toBeGreaterThan(modalbredde);
         expect(tabell.getBoundingClientRect().width).toBeCloseTo(tabellbredde, 0);
+      });
+
+      const maksimalModalbredde = modal.getBoundingClientRect().width;
+      await page.viewport(2560, 1000);
+      await waitFor(() => {
+        expect(modal.getBoundingClientRect().width).toBeCloseTo(maksimalModalbredde, 0);
       });
 
       await browserUser.keyboard('{Escape}');

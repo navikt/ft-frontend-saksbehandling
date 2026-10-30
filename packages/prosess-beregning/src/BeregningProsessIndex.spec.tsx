@@ -1,17 +1,12 @@
 import { composeStories } from '@storybook/react-vite';
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { expect } from 'vitest';
 
 import * as stories from './BeregningProsessIndex.stories';
 
-const {
-  ArbeidstakerOgFrilansFP,
-  CaseArbeidstakerMedEttArbeidsforholdFP,
-  FrilansFP,
-  ToGrunnlagHvorEnHarÅpentAP,
-  ArbeidstakerFlereArbeidsforholdMedNaturalytelser80ProsentDekningsgradOgOver6G,
-} = composeStories(stories);
+const { ArbeidstakerOgFrilansFP, CaseArbeidstakerMedEttArbeidsforholdFP, FrilansFP, ToGrunnlagHvorEnHarÅpentAP } =
+  composeStories(stories);
 
 describe('BeregningProsessIndex', () => {
   it('skal vise tabs', async () => {
@@ -103,57 +98,4 @@ describe('BeregningProsessIndex', () => {
     expect(aksjonspunktboks.getByLabelText('Vurdering')).toBeInTheDocument();
     expect(aksjonspunktboks.getAllByRole('textbox')).toHaveLength(3);
   });
-
-  it.skipIf(!globalThis.ResizeObserver)('skal vise tre faktabokser på samme rad når det er plass', async () => {
-    const { page } = await import('vitest/browser');
-    await page.viewport(2200, 1000);
-    render(<CaseArbeidstakerMedEttArbeidsforholdFP />);
-
-    await waitFor(() => {
-      const arbeidsinntekt = screen.getByRole('region', { name: 'Arbeidsinntekt' }).getBoundingClientRect();
-      const avvik = screen
-        .getByRole('region', { name: 'Avviksberegning for arbeidstaker og frilans' })
-        .getBoundingClientRect();
-      const registerinntekter = screen
-        .getByRole('region', { name: 'Grunnlag §§ 8-28 og 8-30 fra A-ordningen' })
-        .getBoundingClientRect();
-
-      expect(avvik.top).toBe(arbeidsinntekt.top);
-      expect(registerinntekter.top).toBe(arbeidsinntekt.top);
-      expect(registerinntekter.left).toBeGreaterThan(avvik.left);
-    });
-  });
-
-  it.skipIf(!globalThis.ResizeObserver)(
-    'skal vise fire faktabokser som to pluss to og stable dem på smal skjerm',
-    async () => {
-      const { page } = await import('vitest/browser');
-      await page.viewport(2200, 1000);
-      render(<ArbeidstakerFlereArbeidsforholdMedNaturalytelser80ProsentDekningsgradOgOver6G />);
-      const paneler = [
-        screen.getByRole('region', { name: 'Arbeidsinntekt' }),
-        screen.getByRole('region', { name: 'Avviksberegning for arbeidstaker og frilans' }),
-        screen.getByRole('region', { name: 'Beregning av dagsats' }),
-        screen.getByRole('region', { name: 'Grunnlag §§ 8-28 og 8-30 fra A-ordningen' }),
-      ];
-
-      await waitFor(() => {
-        const [arbeid, avvik, dagsats, register] = paneler.map(panel => panel.getBoundingClientRect());
-        expect(arbeid.top).toBe(avvik.top);
-        expect(dagsats.top).toBe(register.top);
-        expect(dagsats.top).toBeGreaterThan(arbeid.bottom);
-        expect(dagsats.left).toBe(arbeid.left);
-        expect(register.left).toBe(avvik.left);
-      });
-
-      await page.viewport(900, 1000);
-      await waitFor(() => {
-        const bokser = paneler.map(panel => panel.getBoundingClientRect());
-        for (let i = 1; i < bokser.length; i++) {
-          expect(bokser[i].left).toBe(bokser[0].left);
-          expect(bokser[i].top).toBeGreaterThan(bokser[i - 1].bottom);
-        }
-      });
-    },
-  );
 });

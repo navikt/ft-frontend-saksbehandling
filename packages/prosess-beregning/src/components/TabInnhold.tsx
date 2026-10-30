@@ -58,18 +58,17 @@ export const TabInnhold = ({
           beregningsgrunnlag={beregningsgrunnlag}
           formaterVisningsnavnForAndel={createVisningsnavnForAndel(arbeidsgiverOpplysningerPerId, kodeverkSamling)}
         />
-        <Dagsatser
-          beregningsgrunnlag={beregningsgrunnlag}
-          beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
-          kodeverkSamling={kodeverkSamling}
-        />
-
         {inntektsgrunnlag && (
           <RegisterInntekter
             inntektsgrunnlag={inntektsgrunnlag}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           />
         )}
+        <Dagsatser
+          beregningsgrunnlag={beregningsgrunnlag}
+          beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
+          kodeverkSamling={kodeverkSamling}
+        />
       </div>
 
       <ReadonlyAPGraderingUtenBG
