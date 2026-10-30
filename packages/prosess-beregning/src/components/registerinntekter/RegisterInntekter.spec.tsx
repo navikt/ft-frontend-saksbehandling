@@ -98,11 +98,15 @@ describe('RegisterInntekter', () => {
   });
 
   it.skipIf(!globalThis.ResizeObserver)(
-    'skal tegne en større graf i nettleseren og kunne lukkes med Escape',
+    'skal vise en større graf, tilpasse tabellbredden til innholdet og kunne lukkes med Escape',
     async () => {
       const { page, userEvent: browserUser } = await import('vitest/browser');
       await page.viewport(1440, 1000);
-      const { container } = render(<VisningAvSammenligningsgrunnlag />);
+      const { container } = render(
+        <div style={{ maxWidth: '40rem' }}>
+          <VisningAvSammenligningsgrunnlag />
+        </div>,
+      );
       const vanligGraf = getChart(container);
       const vanligBredde = vanligGraf.getWidth();
       const vanligHøyde = vanligGraf.getHeight();
@@ -113,6 +117,18 @@ describe('RegisterInntekter', () => {
       await waitFor(() => {
         expect(getChart(modal).getWidth()).toBeGreaterThan(vanligBredde);
         expect(getChart(modal).getHeight()).toBeGreaterThan(vanligHøyde);
+      });
+
+      await browserUser.click(within(modal).getByRole('radio', { name: 'Tabell' }));
+      await document.fonts.ready;
+      const tabell = within(modal).getByRole('table');
+      const tabellbredde = tabell.getBoundingClientRect().width;
+      const modalbredde = modal.getBoundingClientRect().width;
+
+      await page.viewport(1920, 1000);
+      await waitFor(() => {
+        expect(modal.getBoundingClientRect().width).toBeGreaterThan(modalbredde);
+        expect(tabell.getBoundingClientRect().width).toBeCloseTo(tabellbredde, 0);
       });
 
       await browserUser.keyboard('{Escape}');

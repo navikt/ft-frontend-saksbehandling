@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BarChartIcon, ExpandIcon, TableIcon } from '@navikt/aksel-icons';
-import { Button, Checkbox, HStack, Modal, Spacer, ToggleGroup, VStack } from '@navikt/ds-react';
+import { Box, Button, Checkbox, HStack, Modal, Spacer, ToggleGroup, VStack } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Inntektsgrunnlag } from '@navikt/ft-types';
 import { FaktaBoks } from '@navikt/ft-ui-komponenter';
@@ -58,7 +58,7 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
 
   return (
     <FaktaBoks tittel={intl.formatMessage({ id: 'Registerinntekt.Header' })}>
-      <VStack gap="space-16" maxWidth={{ xl: '50%' }}>
+      <VStack gap="space-16">
         <HStack gap="space-16" align="center">
           {visningsvalg}
           {paragrafvalg}
@@ -94,7 +94,11 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
               {valgtVisning === 'graf' && (
                 <RegisterinntekterGraf transformerteRegisterinntekter={transformerteRegisterinntekter} erUtvidet />
               )}
-              {valgtVisning === 'tabell' && tabell}
+              {valgtVisning === 'tabell' && (
+                <Box width="fit-content" maxWidth="100%" overflowX="auto">
+                  {tabell}
+                </Box>
+              )}
             </VStack>
           </Modal.Body>
         </Modal>
