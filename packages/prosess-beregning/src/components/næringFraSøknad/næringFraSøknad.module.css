@@ -1,0 +1,23 @@
+.opplysninger {
+  column-count: 2;
+  column-gap: var(--ax-space-16);
+  column-width: 20rem;
+  margin: 0;
+}
+
+.opplysningsRad {
+  align-items: end;
+  border-bottom: 1px solid var(--ax-border-neutral-subtle);
+  break-inside: avoid;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ax-space-4) var(--ax-space-8);
+  justify-content: space-between;
+  padding: var(--ax-space-4) var(--ax-space-8);
+
+  > dd {
+    margin: 0;
+    margin-inline-start: auto;
+    text-align: right;
+  }
+}

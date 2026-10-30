@@ -140,46 +140,46 @@ export const AksjonspunktBehandler = ({
         }
 
         return (
-          <div key={field.id} style={{ display: vilkårsperiodeFom === aktivtStp ? 'block' : 'none' }}>
-            <AksjonspunktBoks
-              tittel={finnAPTittel(aksjonspunktKode, aktivitetStatus ?? [])}
-              beskrivelse={finnAPBeskrivelse(aksjonspunktKode, beregningsgrunnlagPeriode)}
-              aksjonspunkt={aksjonspunktForGrunnlag}
-            >
-              <VStack gap="space-16" maxWidth="800px">
-                {ÅTTE_TRETTI_AKSJONSPUNKTER.has(aksjonspunktKode) && (
-                  <ArbeidstakerEllerFrilansContainer
-                    kodeverkSamling={kodeverkSamling}
-                    beregningsgrunnlagPeriode={beregningsgrunnlagPeriode}
-                    arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
-                    readOnly={readOnly}
-                    fieldIndex={index}
-                    formName={formName}
-                    avklaringsbehov={aksjonspunktForGrunnlag}
-                    skalValideres={skalValideres}
-                  />
-                )}
-                {ÅTTE_TRETTIFEM_AKSJONSPUNKTER.has(aksjonspunktKode) && (
-                  <SelvstendigNæringsdrivendeContainer
-                    readOnly={readOnly}
-                    beregningsgrunnlagPeriode={beregningsgrunnlagPeriode}
-                    fieldIndex={index}
-                    formName={formName}
-                    aksjonspunkt={aksjonspunktForGrunnlag}
-                    skalValideres={skalValideres}
-                  />
-                )}
-                <div>
-                  <ProsessStegSubmitButton
-                    isReadOnly={readOnly}
-                    isSubmittable={isSubmittable}
-                    isDirty={formMethods.formState.isDirty}
-                    isSubmitting={finnesFormSomSubmittes}
-                  />
-                </div>
-              </VStack>
-            </AksjonspunktBoks>
-          </div>
+          <AksjonspunktBoks
+            key={field.id}
+            style={{ display: vilkårsperiodeFom === aktivtStp ? 'block' : 'none' }}
+            tittel={finnAPTittel(aksjonspunktKode, aktivitetStatus ?? [])}
+            beskrivelse={finnAPBeskrivelse(aksjonspunktKode, beregningsgrunnlagPeriode)}
+            aksjonspunkt={aksjonspunktForGrunnlag}
+          >
+            <VStack gap="space-16" maxWidth="800px">
+              {ÅTTE_TRETTI_AKSJONSPUNKTER.has(aksjonspunktKode) && (
+                <ArbeidstakerEllerFrilansContainer
+                  kodeverkSamling={kodeverkSamling}
+                  beregningsgrunnlagPeriode={beregningsgrunnlagPeriode}
+                  arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+                  readOnly={readOnly}
+                  fieldIndex={index}
+                  formName={formName}
+                  avklaringsbehov={aksjonspunktForGrunnlag}
+                  skalValideres={skalValideres}
+                />
+              )}
+              {ÅTTE_TRETTIFEM_AKSJONSPUNKTER.has(aksjonspunktKode) && (
+                <SelvstendigNæringsdrivendeContainer
+                  readOnly={readOnly}
+                  beregningsgrunnlagPeriode={beregningsgrunnlagPeriode}
+                  fieldIndex={index}
+                  formName={formName}
+                  aksjonspunkt={aksjonspunktForGrunnlag}
+                  skalValideres={skalValideres}
+                />
+              )}
+              <div>
+                <ProsessStegSubmitButton
+                  isReadOnly={readOnly}
+                  isSubmittable={isSubmittable}
+                  isDirty={formMethods.formState.isDirty}
+                  isSubmitting={finnesFormSomSubmittes}
+                />
+              </div>
+            </VStack>
+          </AksjonspunktBoks>
         );
       })}
     </RhfForm>

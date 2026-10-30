@@ -5,8 +5,13 @@ import { expect } from 'vitest';
 
 import * as stories from './BeregningProsessIndex.stories';
 
-const { ArbeidstakerOgFrilansFP, CaseArbeidstakerMedEttArbeidsforholdFP, FrilansFP, ToGrunnlagHvorEnHarÅpentAP } =
-  composeStories(stories);
+const {
+  ArbeidstakerOgFrilansFP,
+  CaseArbeidstakerMedEttArbeidsforholdFP,
+  FrilansFP,
+  SelvstendigNæringsdrivendeFP,
+  ToGrunnlagHvorEnHarÅpentAP,
+} = composeStories(stories);
 
 describe('BeregningProsessIndex', () => {
   it('skal vise tabs', async () => {
@@ -38,7 +43,7 @@ describe('BeregningProsessIndex', () => {
     ).toBeInTheDocument();
 
     expect(screen.getByRole('region', { name: 'Avviksberegning for arbeidstaker og frilans' })).toBeInTheDocument();
-    expect(screen.getByRole('region', { name: 'Grunnlag §§ 8-28 og 8-30 fra A-ordningen' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'Grunnlag §§ 8-28 og 8-30' })).toBeInTheDocument();
 
     const aksjonspunktboks = within(
       screen.getByRole('region', { name: 'Fastsett årsinntekt skjønnsmessig for arbeidstaker' }),
@@ -65,7 +70,7 @@ describe('BeregningProsessIndex', () => {
     expect(within(frilansinntekt).queryByText('Inntektsmelding')).not.toBeInTheDocument();
 
     expect(screen.getByRole('region', { name: 'Avviksberegning for frilans' })).toBeInTheDocument();
-    expect(screen.getByRole('region', { name: 'Grunnlag §§ 8-28 og 8-30 fra A-ordningen' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'Grunnlag §§ 8-28 og 8-30' })).toBeInTheDocument();
 
     const aksjonspunktboks = within(
       screen.getByRole('region', { name: 'Fastsett årsinntekt skjønnsmessig for frilans' }),
@@ -86,7 +91,7 @@ describe('BeregningProsessIndex', () => {
     expect(within(arbeidOgFrilansinntekt).getByText('Inntektskilde')).toBeInTheDocument();
 
     expect(screen.getByRole('region', { name: 'Avviksberegning for arbeidstaker og frilans' })).toBeInTheDocument();
-    expect(screen.getByRole('region', { name: 'Grunnlag §§ 8-28 og 8-30 fra A-ordningen' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'Grunnlag §§ 8-28 og 8-30' })).toBeInTheDocument();
 
     const aksjonspunktboks = within(
       screen.getByRole('region', { name: 'Fastsett årsinntekt skjønnsmessig for arbeidstaker og frilans' }),
@@ -97,5 +102,22 @@ describe('BeregningProsessIndex', () => {
     expect(aksjonspunktboks.getByLabelText('Frilansinntekt fastsettes til')).toBeInTheDocument();
     expect(aksjonspunktboks.getByLabelText('Vurdering')).toBeInTheDocument();
     expect(aksjonspunktboks.getAllByRole('textbox')).toHaveLength(3);
+  });
+
+  it('skal vise panelene for selvstendig næring', () => {
+    render(<SelvstendigNæringsdrivendeFP />);
+
+    const forventedeNavn = [
+      'Avviksberegning for selvstendig næring',
+      'Pensjonsgivende inntekt',
+      'Opplysninger om næring',
+      'Vurder om det er varig endring i næringen og/eller arbeidssituasjonen, som gjør at inntekten skal fastsettes skjønnsmessig',
+    ];
+    const paneler = screen.getAllByRole('region');
+
+    expect(paneler).toHaveLength(forventedeNavn.length);
+    forventedeNavn.forEach((navn, index) => {
+      expect(paneler[index]).toHaveAccessibleName(navn);
+    });
   });
 });

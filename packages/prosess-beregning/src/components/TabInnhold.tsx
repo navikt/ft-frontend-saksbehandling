@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, HStack, Spacer } from '@navikt/ds-react';
 
-import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import type { AktivitetStatus, ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
 import { BTag, dateFormat } from '@navikt/ft-utils';
 
 import type { KodeverkForPanel } from '../types/KodeverkForPanel';
@@ -14,6 +14,8 @@ import { AktivitetStatusTags } from './AktivitetStatusTags';
 import { Arbeidsinntekt } from './arbeidsinntekt/Arbeidsinntekt';
 import { Avviksberegninger } from './avviksberegning/Avviksberegninger';
 import { Dagsatser } from './dagsats/Dagsatser';
+import { NæringFraSøknad } from './næringFraSøknad/NæringFraSøknad';
+import { NæringsInntekt } from './næringsinntekt/NæringsInntekt';
 import { RegisterInntekter } from './registerinntekter/RegisterInntekter';
 
 import styles from './tabInnhold.module.css';
@@ -31,7 +33,8 @@ export const TabInnhold = ({
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
 }: Props) => {
-  const { inntektsgrunnlag, avklaringsbehov } = beregningsgrunnlag;
+  const { inntektsgrunnlag, avklaringsbehov, aktivitetStatus } = beregningsgrunnlag;
+
   return (
     <>
       <HStack align="center" gap="space-12">
@@ -54,16 +57,29 @@ export const TabInnhold = ({
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           kodeverkSamling={kodeverkSamling}
         />
-        <Avviksberegninger
-          beregningsgrunnlag={beregningsgrunnlag}
-          formaterVisningsnavnForAndel={createVisningsnavnForAndel(arbeidsgiverOpplysningerPerId, kodeverkSamling)}
-        />
+
         {inntektsgrunnlag && (
           <RegisterInntekter
             inntektsgrunnlag={inntektsgrunnlag}
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           />
         )}
+        <Avviksberegninger
+          beregningsgrunnlag={beregningsgrunnlag}
+          formaterVisningsnavnForAndel={createVisningsnavnForAndel(arbeidsgiverOpplysningerPerId, kodeverkSamling)}
+        />
+
+        {(aktivitetStatus?.some(isStatusSNOrKombinasjon) || aktivitetStatus?.includes('MIDL_INAKTIV')) && (
+          <>
+            <NæringsInntekt beregningsgrunnlag={beregningsgrunnlag} inntektsgrunnlag={inntektsgrunnlag} />
+            <NæringFraSøknad
+              beregningsgrunnlag={beregningsgrunnlag}
+              kodeverkSamling={kodeverkSamling}
+              arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+            />
+          </>
+        )}
+
         <Dagsatser
           beregningsgrunnlag={beregningsgrunnlag}
           beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
@@ -77,3 +93,7 @@ export const TabInnhold = ({
     </>
   );
 };
+
+const statuserSomStotterSelvstendigNaeringsdrivende = new Set<AktivitetStatus>(['SN', 'FL_SN', 'AT_FL_SN', 'AT_SN']);
+
+const isStatusSNOrKombinasjon = (status: AktivitetStatus) => statuserSomStotterSelvstendigNaeringsdrivende.has(status);

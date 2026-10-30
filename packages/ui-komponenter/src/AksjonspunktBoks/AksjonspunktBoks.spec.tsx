@@ -1,6 +1,6 @@
 import { composeStories } from '@storybook/react-vite';
-import { render, screen } from '@testing-library/react';
-import { describe, expect } from 'vitest';
+import { fireEvent, render, screen, within } from '@testing-library/react';
+import { describe, expect, vi } from 'vitest';
 
 import * as stories from './AksjonspunktBoks.stories';
 
@@ -28,5 +28,27 @@ describe('AksjonspunktBoks', () => {
       'data-color',
       'warning',
     );
+  });
+
+  it('videresender className og style uten å påvirke boksens tilstand eller navn', () => {
+    render(<UtførtAksjonspunkt className="custom-class" style={{ marginTop: '12px' }} />);
+    const region = screen.getByRole('region', { name: 'Dette er en tittel på aksjonspunktboksen' });
+
+    expect(region).toHaveClass('custom-class');
+    expect(region).toHaveStyle({ marginTop: '12px' });
+  });
+
+  it('støtter kontroll av åpen tilstand og videresender onToggle', () => {
+    const onToggle = vi.fn();
+    render(<OpprettetAksjonspunkt defaultOpen={false} onToggle={onToggle} />);
+
+    const region = screen.getByRole('region', { name: 'Dette er en tittel på aksjonspunktboksen' });
+    const toggle = within(region).getByRole('button');
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+
+    fireEvent.click(toggle);
+
+    expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    expect(onToggle).toHaveBeenCalled();
   });
 });
