@@ -16,6 +16,8 @@ import { Avviksberegninger } from './avviksberegning/Avviksberegninger';
 import { Dagsatser } from './dagsats/Dagsatser';
 import { RegisterInntekter } from './registerinntekter/RegisterInntekter';
 
+import styles from './tabInnhold.module.css';
+
 interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
@@ -46,7 +48,7 @@ export const TabInnhold = ({
         </BodyShort>
       </HStack>
 
-      <HStack gap="space-12">
+      <div className={styles.paneler}>
         <Arbeidsinntekt
           beregningsgrunnlag={beregningsgrunnlag}
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
@@ -56,20 +58,18 @@ export const TabInnhold = ({
           beregningsgrunnlag={beregningsgrunnlag}
           formaterVisningsnavnForAndel={createVisningsnavnForAndel(arbeidsgiverOpplysningerPerId, kodeverkSamling)}
         />
-      </HStack>
-
-      <Dagsatser
-        beregningsgrunnlag={beregningsgrunnlag}
-        beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
-        kodeverkSamling={kodeverkSamling}
-      />
-
-      {inntektsgrunnlag && (
-        <RegisterInntekter
-          inntektsgrunnlag={inntektsgrunnlag}
-          arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+        {inntektsgrunnlag && (
+          <RegisterInntekter
+            inntektsgrunnlag={inntektsgrunnlag}
+            arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
+          />
+        )}
+        <Dagsatser
+          beregningsgrunnlag={beregningsgrunnlag}
+          beregningsgrunnlagsvilkår={beregningsgrunnlagsvilkår}
+          kodeverkSamling={kodeverkSamling}
         />
-      )}
+      </div>
 
       <ReadonlyAPGraderingUtenBG
         avklaringsbehov={avklaringsbehov.find(medAPKode(AksjonspunktKode.VURDER_GRADERING_UTEN_BEREGNINGSGRUNNLAG))}

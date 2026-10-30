@@ -1,0 +1,18 @@
+.paneler {
+  --panel-min-width: 40rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ax-space-12);
+}
+
+/* Overstyr flex-basis fra FaktaBoks uavhengig av CSS-rekkefølge. */
+.paneler > :nth-child(n) {
+  flex: 1 1 min(100%, max(var(--panel-min-width), calc((100% - 2 * var(--ax-space-12)) / 3)));
+  min-width: 0;
+}
+
+/* Fordel nøyaktig fire bokser som 2 + 2 i stedet for 3 + 1. */
+.paneler:has(> :nth-child(4):last-child) > * {
+  flex-basis: min(100%, max(var(--panel-min-width), calc((100% - var(--ax-space-12)) / 2)));
+}
