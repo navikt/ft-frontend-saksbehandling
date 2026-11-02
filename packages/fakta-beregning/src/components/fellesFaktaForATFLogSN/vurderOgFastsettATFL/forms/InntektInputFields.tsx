@@ -19,7 +19,7 @@ import { erKunstigAndel, kunstigAndelField } from './KunstigArbeidsforhold';
 import { lonnsendringField } from './lonnsendringFormUtils';
 import { erNyoppstartetFLField } from './NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './VurderEtterlonnSluttpakkeForm';
-import { frilansFieldName, utledArbeidsforholdFieldName } from './VurderMottarYtelseUtils';
+import { frilansFieldName, utledArbeidsforholdFieldName } from './vurderMottarYtelseUtils';
 
 const erATFLSammeOrg = (tilfeller: string[]) =>
   tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON);

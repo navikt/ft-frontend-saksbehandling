@@ -89,7 +89,7 @@ LonnsendringForm.transformValues = (
   faktaOmBeregning: FaktaOmBeregning,
 ): FaktaBeregningTransformedValues => {
   const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ?? [];
-  if (!tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING)) {
+  if (!tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING)) {
     return {};
   }
   return {

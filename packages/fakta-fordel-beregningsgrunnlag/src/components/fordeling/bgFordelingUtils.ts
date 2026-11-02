@@ -20,8 +20,7 @@ export const settAndelIArbeid = (andelerIArbeid: number[]): string => {
     return '';
   }
   if (andelerIArbeid.length === 1) {
-    // @ts-expect-error fiks
-    return `${parseFloat(andelerIArbeid[0]).toFixed(2)}`;
+    return andelerIArbeid[0].toFixed(2);
   }
   const minAndel = Math.min(...andelerIArbeid);
   const maxAndel = Math.max(...andelerIArbeid);

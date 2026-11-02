@@ -26,7 +26,7 @@ import {
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';
 import { lonnsendringField } from './vurderOgFastsettATFL/forms/lonnsendringFormUtils';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
-import { frilansFieldName, utledArbeidsforholdFieldName } from './vurderOgFastsettATFL/forms/VurderMottarYtelseUtils';
+import { frilansFieldName, utledArbeidsforholdFieldName } from './vurderOgFastsettATFL/forms/vurderMottarYtelseUtils';
 
 const kodeverkSamling = alleKodeverk as KodeverkForPanel;
 

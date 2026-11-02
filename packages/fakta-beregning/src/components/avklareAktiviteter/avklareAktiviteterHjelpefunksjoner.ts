@@ -4,13 +4,13 @@ import type {
   BeregningAvklaringsbehov,
   BeregningsgrunnlagTilBekreftelse,
 } from '@navikt/ft-types';
+import { hasAksjonspunkt } from '@navikt/ft-utils';
 
 import type { AvklarAktiviteterValues } from '../../typer/AvklarAktivitetTypes';
 import type { BeregningAktiviteterTransformedValues } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import type { Vilkårperiode } from '../../typer/Vilkår';
-import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { VurderAktiviteterPanel } from './VurderAktiviteterPanel';
 

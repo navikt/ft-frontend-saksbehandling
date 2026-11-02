@@ -12,7 +12,7 @@ import {
   harVurdertMottarYtelse,
   skalFastsetteInntektATUtenInntektsmelding,
   utledArbeidsforholdFieldName,
-} from './VurderMottarYtelseUtils';
+} from './vurderMottarYtelseUtils';
 
 const arbeidsforhold = {
   arbeidsgiverIdent: '3284788923',
@@ -78,7 +78,7 @@ const beregningsgrunnlag = {
   ],
 } as Beregningsgrunnlag;
 
-describe('<VurderMottarYtelseUtils>', () => {
+describe('vurderMottarYtelseUtils', () => {
   it('skal returnere false når man ikke har vurdert alle punktene i mottar ytelse for frilans', () => {
     const vurderMottarYtelse = {
       erFrilans: true,

@@ -8,13 +8,13 @@ import type {
   BeregningAvklaringsbehov,
   Beregningsgrunnlag,
 } from '@navikt/ft-types';
+import { hasAksjonspunkt } from '@navikt/ft-utils';
 
 import type { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import type { SubmitBeregningType } from '../../typer/interface/SubmitBeregningTsType';
 import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import type { Vilkår, Vilkårperiode } from '../../typer/Vilkår';
-import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { formNameAvklarAktiviteter } from '../../utils/BeregningFormUtils';
 import { AvklareAktiviteterField } from './AvklareAktiviteterField';
 import { buildInitialValues, transformFieldValue } from './avklareAktiviteterHjelpefunksjoner';

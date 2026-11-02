@@ -13,18 +13,8 @@ export const skalFastsetteInntektATUtenInntektsmelding = (
   values: FaktaOmBeregningAksjonspunktValues,
   vurderMottarYtelse: VurderMottarYtelse | undefined,
 ): boolean => {
-  const atAndelerUtenIM =
-    vurderMottarYtelse && vurderMottarYtelse.arbeidstakerAndelerUtenIM
-      ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
-      : [];
-  return (
-    atAndelerUtenIM
-      .map(
-        andel =>
-          values.vurderMottarYtelseValues && values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)],
-      )
-      .find(mottarYtelse => mottarYtelse) !== undefined
-  );
+  const atAndelerUtenIM = vurderMottarYtelse?.arbeidstakerAndelerUtenIM ?? [];
+  return atAndelerUtenIM.some(andel => !!values.vurderMottarYtelseValues?.[utledArbeidsforholdFieldName(andel)]);
 };
 
 export const frilansMottarYtelse = (values: FaktaOmBeregningAksjonspunktValues): boolean | undefined =>
@@ -70,19 +60,9 @@ export const harVurdertMottarYtelse = (
       return false;
     }
   }
-  const atAndelerUtenIM = vurderMottarYtelse.arbeidstakerAndelerUtenIM
-    ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
-    : [];
-  if (atAndelerUtenIM.length > 0) {
-    const harAndelSomIkkeErVurdert = atAndelerUtenIM
-      .map(
-        andel =>
-          values.vurderMottarYtelseValues && values.vurderMottarYtelseValues[utledArbeidsforholdFieldName(andel)],
-      )
-      .some(mottarYtelse => mottarYtelse === undefined || mottarYtelse === null);
-    if (harAndelSomIkkeErVurdert) {
-      return false;
-    }
-  }
-  return true;
+  const atAndelerUtenIM = vurderMottarYtelse.arbeidstakerAndelerUtenIM ?? [];
+  return atAndelerUtenIM.every(andel => {
+    const mottarYtelse = values.vurderMottarYtelseValues?.[utledArbeidsforholdFieldName(andel)];
+    return mottarYtelse !== undefined && mottarYtelse !== null;
+  });
 };

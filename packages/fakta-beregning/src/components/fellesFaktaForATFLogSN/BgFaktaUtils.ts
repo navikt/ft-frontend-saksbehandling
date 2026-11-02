@@ -25,7 +25,7 @@ import { erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedReferanse 
 import { lonnsendringField } from './vurderOgFastsettATFL/forms/lonnsendringFormUtils';
 import { erNyoppstartetFLField } from './vurderOgFastsettATFL/forms/NyoppstartetFLForm';
 import { harEtterlonnSluttpakkeField } from './vurderOgFastsettATFL/forms/VurderEtterlonnSluttpakkeForm';
-import { andelsnrMottarYtelseMap } from './vurderOgFastsettATFL/forms/VurderMottarYtelseUtils';
+import { andelsnrMottarYtelseMap } from './vurderOgFastsettATFL/forms/vurderMottarYtelseUtils';
 
 export const INNTEKT_FIELD_ARRAY_NAME = 'inntektFieldArray';
 
@@ -85,20 +85,15 @@ const erArbeidstakerUtenInntektsmeldingOgFrilansISammeOrganisasjon = (
 };
 
 // Aktivitetstatus
-export const erArbeidstaker = (field: AndelFieldIdentifikator): boolean =>
-  !!field.aktivitetStatus && field.aktivitetStatus === 'AT';
+export const erArbeidstaker = (field: AndelFieldIdentifikator) => field.aktivitetStatus === 'AT';
 
-export const erFrilanser = (field: AndelFieldIdentifikator): boolean =>
-  !!field.aktivitetStatus && field.aktivitetStatus === 'FL';
+export const erFrilanser = (field: AndelFieldIdentifikator) => field.aktivitetStatus === 'FL';
 
-export const erDagpenger = (field: AndelFieldIdentifikator): boolean =>
-  !!field.aktivitetStatus && field.aktivitetStatus === 'DP';
+export const erDagpenger = (field: AndelFieldIdentifikator) => field.aktivitetStatus === 'DP';
 
-export const erSelvstendigNæringsdrivende = (field: AndelFieldIdentifikator): boolean =>
-  !!field.aktivitetStatus && field.aktivitetStatus === 'SN';
+export const erSelvstendigNæringsdrivende = (field: AndelFieldIdentifikator) => field.aktivitetStatus === 'SN';
 
-export const erMilitaerEllerSivil = (field: AndelFieldIdentifikator): boolean =>
-  !!field.aktivitetStatus && field.aktivitetStatus === 'MS';
+export const erMilitaerEllerSivil = (field: AndelFieldIdentifikator) => field.aktivitetStatus === 'MS';
 
 // Nyoppstartet frilanser
 const erNyoppstartetFrilanser = (

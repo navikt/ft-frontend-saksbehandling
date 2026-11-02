@@ -1,7 +1,7 @@
 import type { BeregningAvklaringsbehov } from '@navikt/ft-types';
+import { hasAksjonspunkt } from '@navikt/ft-utils';
 
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 
 const { OVERSTYRING_AV_BEREGNINGSGRUNNLAG, VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 

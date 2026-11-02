@@ -4,7 +4,7 @@ import { FaktaOmBeregningTilfelle } from '../../../../kodeverk/faktaOmBeregningT
 import type { FaktaOmBeregningAksjonspunktValues } from '../../../../typer/FaktaBeregningTypes';
 import type { InntektTransformed } from '../../../../typer/FieldValues';
 import { VurderMottarYtelseForm } from './VurderMottarYtelseForm';
-import { frilansFieldName, utledArbeidsforholdFieldName } from './VurderMottarYtelseUtils';
+import { frilansFieldName, utledArbeidsforholdFieldName } from './vurderMottarYtelseUtils';
 
 const beregningsgrunnlag = {
   beregningsgrunnlagPeriode: [
