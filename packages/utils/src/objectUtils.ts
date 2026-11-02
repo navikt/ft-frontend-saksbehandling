@@ -1,14 +1,7 @@
-const throwError = (message: string) => {
-  throw new Error(message);
-};
-
 export const sortObjectBy =
   <K extends string>(key: K) =>
   <T extends Record<K, string>>(a: T, b: T) =>
     a[key].localeCompare(b[key]);
-
-export const notNull = (value?: string | null) =>
-  value === undefined || value === null ? throwError(`Value is ${value}`) : value;
 
 export const isObjectEmpty = (object: Record<string, any>): boolean => Object.keys(object).length === 0;
 
@@ -31,9 +24,12 @@ export const omitOne = <T, K extends keyof T>(object: T, keyToOmit: K): Omit<T, 
 };
 
 export const omitMany = <T, K extends keyof T>(object: T, keysToOmit: K[]): Omit<T, K> => {
-  let result = object as Omit<T, K>;
+  if (keysToOmit.length === 0) {
+    return object;
+  }
+  const result: Omit<T, K> & Partial<Pick<T, K>> = { ...object };
   keysToOmit.forEach(key => {
-    result = omitOne(result, key as unknown as keyof Omit<T, K>) as Omit<T, K>;
+    delete result[key];
   });
   return result;
 };

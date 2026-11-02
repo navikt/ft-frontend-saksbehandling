@@ -1,5 +1,5 @@
 // noinspection JSUnresolvedVariable
-import { diff, isEqual, isObject, isObjectEmpty, notNull, sortObjectBy } from './objectUtils';
+import { diff, isEqual, isObject, isObjectEmpty, sortObjectBy } from './objectUtils';
 
 describe('objectUtils', () => {
   describe('sortObjectBy', () => {
@@ -24,18 +24,6 @@ describe('objectUtils', () => {
       expect(objekter.toSorted(sortObjectBy('navn'))).toEqual([objekter[1], objekter[2], objekter[0]]);
       expect(sortObjectBy('navn')({ navn: 'Anna' }, { navn: 'Anna' })).toBe(0);
     });
-  });
-
-  it('skal kaste feil når verdi er null', () => {
-    expect(() => notNull(null)).toThrow('Value is null');
-  });
-
-  it('skal kaste feil når verdi er undefined', () => {
-    expect(() => notNull(undefined)).toThrow('Value is undefined');
-  });
-
-  it('skal returnere verdi når den er ulik null og undefined', () => {
-    expect(notNull('test')).toEqual('test');
   });
 
   it('skal returnere false når objekt ikke er tomt', () => {
