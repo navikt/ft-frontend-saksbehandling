@@ -37,6 +37,8 @@
 
   "Avviksberegning.BeregnetÅrsinntekt": "Beregnet årsinntekt",
   "Avviksberegning.RapportertAarsinntekt": "Sammenligningsgrunnlag § 8-30",
+  "Avviksberegning.PensjonsgivendeInntekt": "Pensjonsgivende inntekt",
+  "Avviksberegning.SamletInntekt": "Samlet inntekt",
   "Avviksberegning.BeregnetAvvik": "Beregnet avvik",
   "Avviksberegning.Tittel": "Avviksberegning for {type, select, SAMMENLIGNING_AT {arbeidstaker} SAMMENLIGNING_FL {frilans} SAMMENLIGNING_AT_FL {arbeidstaker og frilans} SAMMENLIGNING_SN {selvstendig næring} SAMMENLIGNING_ATFL_SN {arbeidstaker, frilans og selvstendig næring} SAMMENLIGNING_MIDL_INAKTIV {midlertidig inaktiv} other {ukjent}}",
   "Avviksberegning.BeregnetÅrsinntekt.HelpText": "Hvordan beregnes årsinntekten?",

@@ -2,8 +2,14 @@ import { FormattedMessage } from 'react-intl';
 
 import { HStack, Table, Tag } from '@navikt/ds-react';
 
-import type { Beregningsgrunnlag, BeregningsgrunnlagAndel, SammenligningsgrunlagProp } from '@navikt/ft-types';
+import type {
+  Beregningsgrunnlag,
+  BeregningsgrunnlagAndel,
+  SammenligningsgrunlagProp,
+  SammenligningType,
+} from '@navikt/ft-types';
 import { BeløpLabel, FaktaBoks, TableSum } from '@navikt/ft-ui-komponenter';
+import { assertUnreachable } from '@navikt/ft-utils';
 
 import { finnInntektstyperSomVises } from '../../utils/beregningsgrunnlagUtils';
 import { BeregnetÅrsinntektHelpText } from './BeregnetÅrsinntektHelpText';
@@ -27,20 +33,14 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({
 
   const årsinntekt = rapportertPrAar + differanseBeregnet;
 
-  const { harArbeidstaker, harFrilans } = finnInntektstyperSomVises(beregningsgrunnlag);
-  const visningType =
-    sammenligningsgrunnlagType === 'SAMMENLIGNING_AT_FL' && !harArbeidstaker && harFrilans
-      ? 'SAMMENLIGNING_FL'
-      : sammenligningsgrunnlagType;
-
   return (
-    <FaktaBoks tittel={<FormattedMessage id="Avviksberegning.Tittel" values={{ type: visningType }} />}>
+    <FaktaBoks tittel={lagTittelForAvviksberegning(sammenligningsgrunnlagType, beregningsgrunnlag)}>
       <Table size="small" className={styles.table}>
         <Table.Body>
           <Table.Row>
             <Table.DataCell textSize="small">
-              <HStack align="center" gap="space-4">
-                <FormattedMessage id="Avviksberegning.BeregnetÅrsinntekt" />
+              <HStack gap="space-4" align="center">
+                {årsinntektLabel(sammenligningsgrunnlagType)}
                 {(sammenligningsgrunnlagType === 'SAMMENLIGNING_AT_FL' ||
                   sammenligningsgrunnlagType === 'SAMMENLIGNING_AT') && (
                   <BeregnetÅrsinntektHelpText
@@ -55,16 +55,16 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({
             </Table.DataCell>
             <Table.DataCell />
           </Table.Row>
+
           <Table.Row>
-            <Table.DataCell textSize="small">
-              <FormattedMessage id="Avviksberegning.RapportertAarsinntekt" />
-            </Table.DataCell>
+            <Table.DataCell textSize="small">{rapportertPrÅrLabel(sammenligningsgrunnlagType)}</Table.DataCell>
             <Table.DataCell textSize="small" align="right">
               <BeløpLabel beløp={rapportertPrAar} kr />
             </Table.DataCell>
             <Table.DataCell />
           </Table.Row>
         </Table.Body>
+
         <TableSum bottomBorder="double">
           <Table.Row>
             <Table.HeaderCell textSize="small">
@@ -83,4 +83,51 @@ export const AvviksberegningForSammenligningsgrunnlagType = ({
       </Table>
     </FaktaBoks>
   );
+};
+
+const årsinntektLabel = (sammenligningsgrunnlagType: SammenligningType) => {
+  switch (sammenligningsgrunnlagType) {
+    case 'SAMMENLIGNING_AT':
+    case 'SAMMENLIGNING_FL':
+    case 'SAMMENLIGNING_AT_FL':
+      return <FormattedMessage id="Avviksberegning.BeregnetÅrsinntekt" />;
+    case 'SAMMENLIGNING_SN':
+    case 'SAMMENLIGNING_ATFL_SN':
+    case 'SAMMENLIGNING_MIDL_INAKTIV':
+      return <FormattedMessage id="Avviksberegning.PensjonsgivendeInntekt" />;
+    default:
+      assertUnreachable(sammenligningsgrunnlagType);
+  }
+};
+
+const rapportertPrÅrLabel = (sammenligningsgrunnlagType: SammenligningType) => {
+  switch (sammenligningsgrunnlagType) {
+    case 'SAMMENLIGNING_AT':
+    case 'SAMMENLIGNING_FL':
+    case 'SAMMENLIGNING_AT_FL':
+      return <FormattedMessage id="Avviksberegning.RapportertAarsinntekt" />;
+    case 'SAMMENLIGNING_SN':
+    case 'SAMMENLIGNING_ATFL_SN':
+    case 'SAMMENLIGNING_MIDL_INAKTIV':
+      return <FormattedMessage id="Avviksberegning.SamletInntekt" />;
+    default:
+      assertUnreachable(sammenligningsgrunnlagType);
+  }
+};
+
+const lagTittelForAvviksberegning = (
+  sammenligningsgrunnlagType: SammenligningType,
+  beregningsgrunnlag: Beregningsgrunnlag,
+) => {
+  const { harArbeidstaker, harFrilans } = finnInntektstyperSomVises(beregningsgrunnlag);
+
+  if (sammenligningsgrunnlagType === 'SAMMENLIGNING_AT_FL') {
+    if (!harArbeidstaker && harFrilans) {
+      return <FormattedMessage id="Avviksberegning.Tittel" values={{ type: 'SAMMENLIGNING_FL' }} />;
+    }
+    if (harArbeidstaker && !harFrilans) {
+      return <FormattedMessage id="Avviksberegning.Tittel" values={{ type: 'SAMMENLIGNING_AT' }} />;
+    }
+  }
+  return <FormattedMessage id="Avviksberegning.Tittel" values={{ type: sammenligningsgrunnlagType }} />;
 };

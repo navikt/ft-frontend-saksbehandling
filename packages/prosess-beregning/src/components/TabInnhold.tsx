@@ -64,10 +64,6 @@ export const TabInnhold = ({
             arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           />
         )}
-        <Avviksberegninger
-          beregningsgrunnlag={beregningsgrunnlag}
-          formaterVisningsnavnForAndel={createVisningsnavnForAndel(arbeidsgiverOpplysningerPerId, kodeverkSamling)}
-        />
 
         {(aktivitetStatus?.some(isStatusSNOrKombinasjon) || aktivitetStatus?.includes('MIDL_INAKTIV')) && (
           <>
@@ -79,6 +75,11 @@ export const TabInnhold = ({
             />
           </>
         )}
+
+        <Avviksberegninger
+          beregningsgrunnlag={beregningsgrunnlag}
+          formaterVisningsnavnForAndel={createVisningsnavnForAndel(arbeidsgiverOpplysningerPerId, kodeverkSamling)}
+        />
 
         <Dagsatser
           beregningsgrunnlag={beregningsgrunnlag}
