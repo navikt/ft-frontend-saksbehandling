@@ -1,4 +1,4 @@
-import React from 'react';
+import { use } from 'react';
 import { type FieldErrors, useFormContext, type UseFormGetValues } from 'react-hook-form';
 
 import { HStack, VStack } from '@navikt/ds-react';
@@ -65,8 +65,8 @@ export const VurderFaktaBeregningField = ({
     control,
     formState: { errors, isDirty },
   } = useFormContext<VurderFaktaBeregningFormValues>();
-  const aktivtBeregningsgrunnlagIndeks = React.useContext<number>(VurderFaktaContext);
-  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const aktivtBeregningsgrunnlagIndeks = use<number>(VurderFaktaContext);
+  const beregningsgrunnlagIndeks = use<number>(BeregningsgrunnlagIndexContext);
   const skalVæreSynlig = beregningsgrunnlagIndeks === aktivtBeregningsgrunnlagIndeks;
 
   const { avklaringsbehov: avklaringsbehovListe } = beregningsgrunnlag;

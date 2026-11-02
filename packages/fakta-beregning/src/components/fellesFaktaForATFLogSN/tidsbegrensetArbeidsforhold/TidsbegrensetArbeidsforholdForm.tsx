@@ -1,4 +1,4 @@
-import React from 'react';
+import { use } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
@@ -65,7 +65,7 @@ export const TidsbegrensetArbeidsforholdForm = ({
 }: Props) => {
   const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const andelsliste = faktaOmBeregning.kortvarigeArbeidsforhold;
-  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const beregningsgrunnlagIndeks = use<number>(BeregningsgrunnlagIndexContext);
   if (!andelsliste || andelsliste.length === 0) {
     return null;
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import { use } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
@@ -49,7 +49,7 @@ export const InntektInputFields = ({
   kodeverkSamling,
 }: Props) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
-  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const beregningsgrunnlagIndeks = use<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
   const skalRedigereFrilansinntektRadioValues = getValues([
     `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.vurderMottarYtelseValues.${frilansFieldName}`,

@@ -1,4 +1,4 @@
-import React, { type ReactElement } from 'react';
+import { type ReactElement, use } from 'react';
 import { type Control, useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
@@ -85,7 +85,7 @@ interface Props {
  */
 export const VurderRefusjonForm = ({ readOnly, faktaOmBeregning, arbeidsgiverOpplysningerPerId }: Props) => {
   const { control } = useFormContext<VurderFaktaBeregningFormValues>();
-  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const beregningsgrunnlagIndeks = use<number>(BeregningsgrunnlagIndexContext);
   const senRefusjonkravListe = faktaOmBeregning?.refusjonskravSomKommerForSentListe;
   if (!senRefusjonkravListe) {
     return null;
