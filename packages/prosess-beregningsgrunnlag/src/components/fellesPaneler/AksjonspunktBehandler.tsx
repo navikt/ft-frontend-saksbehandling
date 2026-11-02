@@ -19,7 +19,7 @@ import type {
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
 import { usePrevious } from '@navikt/ft-ui-komponenter';
-import { isAksjonspunktOpen } from '@navikt/ft-utils';
+import { isAksjonspunktOpen, sortPeriodsBy } from '@navikt/ft-utils';
 
 import { SammenligningType } from '../../kodeverk/sammenligningType';
 import type { ATFLTidsbegrensetValues, ATFLValues } from '../../types/ATFLAksjonspunkt';
@@ -359,12 +359,7 @@ const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunkt
   if (allePerioder.length < 1) {
     throw new Error('Ingen beregningsgrunnlagperioder, ugyldig tilstand');
   }
-  allePerioder.sort((p1, p2) => {
-    if (!p1.beregningsgrunnlagPeriodeFom || !p2.beregningsgrunnlagPeriodeFom) {
-      return 0;
-    }
-    return p1.beregningsgrunnlagPeriodeFom.localeCompare(p2.beregningsgrunnlagPeriodeFom);
-  });
+  allePerioder.sort(sortPeriodsBy('beregningsgrunnlagPeriodeFom'));
   const alleAndelerIFørstePeriode = allePerioder[0].beregningsgrunnlagPrStatusOgAndel ?? [];
   if (harAksjonspunkt(FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, values.gjeldendeAvklaringsbehov)) {
     return [

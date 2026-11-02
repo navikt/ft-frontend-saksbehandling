@@ -70,7 +70,7 @@ export const validateUlikeAndelerWithGroupingFunction = (
   intl: IntlShape,
 ): string | undefined => {
   const mappedAndeler = andelList.map(value => mapToSort(value, andelList));
-  const sortedAndeler = mappedAndeler.slice().sort((andel1, andel2) => compareAndeler(andel1, andel2));
+  const sortedAndeler = mappedAndeler.toSorted((andel1, andel2) => compareAndeler(andel1, andel2));
   for (let i = 0; i < sortedAndeler.length - 1; i += 1) {
     if (erAndelerLike(sortedAndeler[i], sortedAndeler[i + 1])) {
       return ulikeAndelerErrorMessage(intl);
