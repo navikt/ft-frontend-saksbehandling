@@ -11,6 +11,8 @@ import { NæringFraSøknad } from './NæringFraSøknad';
 
 import messages from '../../../i18n/nb_NO.json';
 
+import '@navikt/ft-ui-komponenter/dist/style.css';
+
 const withIntl = getIntlDecorator(messages);
 
 const meta = {
@@ -32,29 +34,6 @@ export const VarigEndring: Story = {};
 export const Nyoppstartet: Story = {
   args: {
     beregningsgrunnlag: selvstendigNæringsdrivendeFPNyoppstartet.beregningsgrunnlagListe[0],
-  },
-};
-
-const grunnlagMedRegnskapsførerOgOpphørsdato = {
-  ...selvstendigNæringsdrivendeFPNyoppstartet.beregningsgrunnlagListe[0],
-  beregningsgrunnlagPeriode:
-    selvstendigNæringsdrivendeFPNyoppstartet.beregningsgrunnlagListe[0].beregningsgrunnlagPeriode.map(periode => ({
-      ...periode,
-      beregningsgrunnlagPrStatusOgAndel: periode.beregningsgrunnlagPrStatusOgAndel?.map(andel => ({
-        ...andel,
-        næringer: andel.næringer?.map(næring => ({
-          ...næring,
-          regnskapsførerNavn: 'Kari Regnskapsfører',
-          regnskapsførerTlf: '12345678',
-          opphørsdato: '2025-12-31',
-        })),
-      })),
-    })),
-};
-
-export const MedRegnskapsførerOgOpphørsdato: Story = {
-  args: {
-    beregningsgrunnlag: grunnlagMedRegnskapsførerOgOpphørsdato,
   },
 };
 
