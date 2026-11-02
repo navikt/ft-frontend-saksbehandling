@@ -83,4 +83,4 @@ export const leggTilDagpengerOmBesteberegning = (
 };
 
 export const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: KodeverkForPanel) =>
-  kodeverkSamling['Inntektskategori'].slice().sort(sortByNavn);
+  kodeverkSamling['Inntektskategori'].toSorted(sortByNavn);
