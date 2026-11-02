@@ -1,6 +1,7 @@
 import { VStack } from '@navikt/ds-react';
 
 import type { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { sortObjectBy } from '@navikt/ft-utils';
 
 import { AvviksberegningForSammenligningsgrunnlagType } from './AvviksberegningForSammenligningsgrunnlagType';
 
@@ -10,12 +11,16 @@ interface Props {
 }
 
 export const Avviksberegninger = ({ beregningsgrunnlag, formaterVisningsnavnForAndel }: Props) => {
+  const { sammenligningsgrunnlagPrStatus } = beregningsgrunnlag;
+  if (!sammenligningsgrunnlagPrStatus || sammenligningsgrunnlagPrStatus.length === 0) {
+    return null;
+  }
   return (
     <VStack gap="space-12">
-      {beregningsgrunnlag.sammenligningsgrunnlagPrStatus?.map(sg => (
+      {sammenligningsgrunnlagPrStatus.toSorted(sortObjectBy('sammenligningsgrunnlagType')).map(sg => (
         <AvviksberegningForSammenligningsgrunnlagType
-          beregningsgrunnlag={beregningsgrunnlag}
           key={sg.sammenligningsgrunnlagType}
+          beregningsgrunnlag={beregningsgrunnlag}
           sammenligningsgrunnlag={sg}
           formaterVisningsnavnForAndel={formaterVisningsnavnForAndel}
         />

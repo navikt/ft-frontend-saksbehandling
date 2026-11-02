@@ -11,8 +11,9 @@ import { Avviksberegninger } from './Avviksberegninger';
 
 import messages from '../../../i18n/nb_NO.json';
 
-const withIntl = getIntlDecorator(messages);
+import '@navikt/ft-ui-komponenter/dist/style.css';
 
+const withIntl = getIntlDecorator(messages);
 const meta = {
   decorators: [
     withIntl,
