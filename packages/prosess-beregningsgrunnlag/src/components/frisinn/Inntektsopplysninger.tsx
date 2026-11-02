@@ -4,7 +4,7 @@ import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
 
 import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { BeløpLabel } from '@navikt/ft-ui-komponenter';
-import { sortObjectBy } from '@navikt/ft-utils';
+import { sortPeriodsBy } from '@navikt/ft-utils';
 
 import { finnBruttoForStatusIPeriode } from './FrisinnUtils';
 
@@ -20,7 +20,7 @@ export const Inntektsopplysninger = ({ beregningsgrunnlag }: Props) => {
     return null;
   }
   const kronologiskePerioder = beregningsgrunnlag.beregningsgrunnlagPeriode.toSorted(
-    sortObjectBy('beregningsgrunnlagPeriodeFom'),
+    sortPeriodsBy('beregningsgrunnlagPeriodeFom'),
   );
   const gjeldendePeriode = kronologiskePerioder[kronologiskePerioder.length - 2];
   const bruttoSN = finnBruttoForStatusIPeriode('SN', beregningsgrunnlag, gjeldendePeriode);
