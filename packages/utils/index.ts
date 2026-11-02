@@ -44,7 +44,6 @@ export {
   omitOne,
   omitMany,
   sortObjectBy,
-  sortByNavn,
 } from './src/objectUtils';
 
 export { createIntl } from './src/createIntl';

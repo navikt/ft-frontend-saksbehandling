@@ -1,5 +1,5 @@
 // noinspection JSUnresolvedVariable
-import { diff, isEqual, isObject, isObjectEmpty, notNull, sortByNavn, sortObjectBy } from './objectUtils';
+import { diff, isEqual, isObject, isObjectEmpty, notNull, sortObjectBy } from './objectUtils';
 
 describe('Object-utils', () => {
   describe('sortObjectBy', () => {
@@ -13,9 +13,7 @@ describe('Object-utils', () => {
 
       expect(objekter.toSorted(sortObjectBy('kode'))).toEqual([objekter[2], objekter[1], objekter[3], objekter[0]]);
     });
-  });
 
-  describe('sortByNavn', () => {
     it('skal sortere navn med lokaltilpasset sammenligning', () => {
       const objekter = [
         { navn: 'Bodil', id: 1 },
@@ -23,8 +21,8 @@ describe('Object-utils', () => {
         { navn: 'Arne', id: 3 },
       ];
 
-      expect(objekter.toSorted(sortByNavn)).toEqual([objekter[1], objekter[2], objekter[0]]);
-      expect(sortByNavn({ navn: 'Anna' }, { navn: 'Anna' })).toBe(0);
+      expect(objekter.toSorted(sortObjectBy('navn'))).toEqual([objekter[1], objekter[2], objekter[0]]);
+      expect(sortObjectBy('navn')({ navn: 'Anna' }, { navn: 'Anna' })).toBe(0);
     });
   });
 

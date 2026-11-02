@@ -7,8 +7,6 @@ export const sortObjectBy =
   <T extends Record<K, string>>(a: T, b: T) =>
     a[key].localeCompare(b[key]);
 
-export const sortByNavn = sortObjectBy('navn');
-
 export const notNull = (value?: string | null) =>
   value === undefined || value === null ? throwError(`Value is ${value}`) : value;
 

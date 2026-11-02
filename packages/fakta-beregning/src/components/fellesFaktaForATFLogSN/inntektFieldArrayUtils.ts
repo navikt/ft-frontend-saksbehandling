@@ -1,7 +1,7 @@
 import { type UseFieldArrayAppend, type UseFieldArrayRemove } from 'react-hook-form';
 
 import type { AktivitetStatus } from '@navikt/ft-types';
-import { sortByNavn } from '@navikt/ft-utils';
+import { sortObjectBy } from '@navikt/ft-utils';
 
 import type { AndelFieldValue } from '../../typer/FieldValues';
 import type { KodeverkForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanel';
@@ -83,4 +83,4 @@ export const leggTilDagpengerOmBesteberegning = (
 };
 
 export const getInntektskategorierAlfabetiskSortert = (kodeverkSamling: KodeverkForPanel) =>
-  kodeverkSamling['Inntektskategori'].toSorted(sortByNavn);
+  kodeverkSamling['Inntektskategori'].toSorted(sortObjectBy('navn'));
