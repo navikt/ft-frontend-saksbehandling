@@ -1,4 +1,4 @@
-import React from 'react';
+import { use } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { type TextFieldProps } from '@navikt/ds-react';
@@ -23,7 +23,7 @@ type FormValues = {
 
 export const ArbeidsinntektInput = ({ arbeidsgiver, readOnly, isAksjonspunktClosed, ...textfieldProps }: Props) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
-  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const beregningsgrunnlagIndeks = use<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.arbeidstakerInntektValues`);
   if (!formValues) {
     return null;

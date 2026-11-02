@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { use } from 'react';
 
 import { PersonPencilFillIcon } from '@navikt/aksel-icons';
 import { BodyShort } from '@navikt/ds-react';
@@ -17,7 +17,7 @@ interface IAssessedByProps {
 /* For å få opp saksbehandlerens navn må sette saksbehandlernavn i SaksbehandlernavnContext.Provider
  */
 export const AssessedBy = ({ ident, date }: IAssessedByProps) => {
-  const saksbehandlernavn = useContext(SaksbehandlernavnContext);
+  const saksbehandlernavn = use(SaksbehandlernavnContext);
   if (!ident) {
     return null;
   }

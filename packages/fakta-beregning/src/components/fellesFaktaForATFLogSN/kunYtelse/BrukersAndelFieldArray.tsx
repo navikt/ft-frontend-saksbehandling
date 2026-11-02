@@ -1,4 +1,4 @@
-import React from 'react';
+import { use } from 'react';
 import { type FieldArrayWithId, useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
@@ -77,7 +77,7 @@ const validate = (values: BrukersAndelValues[] | undefined, intl: IntlShape): st
 export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, kodeverkSamling }: Props) => {
   const intl = useIntl();
   const { control } = useFormContext<VurderFaktaBeregningFormValues>();
-  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const beregningsgrunnlagIndeks = use<number>(BeregningsgrunnlagIndexContext);
   const fieldArrayName = `${formNameVurderFaktaBeregning}.${beregningsgrunnlagIndeks}.${name}` as const;
   const { fields, append, remove } = useFieldArray({
     control,

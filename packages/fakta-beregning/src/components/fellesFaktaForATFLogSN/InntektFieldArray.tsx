@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { use, useEffect } from 'react';
 import {
   useFieldArray,
   type UseFieldArrayAppend,
@@ -164,7 +164,7 @@ export const InntektFieldArray = ({
 }: Props) => {
   const { getValues, control, formState } = useFormContext<VurderFaktaBeregningFormValues>();
   const { errors } = formState;
-  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const beregningsgrunnlagIndeks = use<number>(BeregningsgrunnlagIndexContext);
   const fieldArrayName = `vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}.inntektFieldArray` as const;
   const { fields, remove, append, update } = useFieldArray({
     control,
