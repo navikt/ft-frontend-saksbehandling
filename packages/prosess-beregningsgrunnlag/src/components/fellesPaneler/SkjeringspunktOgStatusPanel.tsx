@@ -5,6 +5,7 @@ import { BodyShort, HStack, Tag, VStack } from '@navikt/ds-react';
 
 import type { AktivitetStatus, ArbeidsgiverOpplysningerPerId, Saksopplysninger } from '@navikt/ft-types';
 import { DateLabel } from '@navikt/ft-ui-komponenter';
+import { sortObjectBy } from '@navikt/ft-utils';
 
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { Lønnsendring } from './Lønnsendring';
@@ -48,7 +49,7 @@ const createStatusEtiketter = (
     statusList.push({ visningsNavn: statusName, kode: status, tagType: finnTagType(status) });
   }
 
-  statusList.sort((a, b) => (a.visningsNavn > b.visningsNavn ? 1 : -1));
+  statusList.sort(sortObjectBy('visningsNavn'));
   return (
     <HStack gap="space-8">
       {statusList.map(status => (

@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 import { HStack, Tag } from '@navikt/ds-react';
 
 import type { AktivitetStatus, BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
+import { sortObjectBy } from '@navikt/ft-utils';
 
 import type { KodeverkForPanel } from '../types/KodeverkForPanel';
 
@@ -72,5 +73,5 @@ const getStatusList = (
       const visningsNavn = kodeverkSamling['AktivitetStatus'].find(({ kode }) => kode === aktivitetStatus)?.navn || '';
       return { visningsNavn, kode: aktivitetStatus, tagType: finnTagType(aktivitetStatus) };
     })
-    .sort((a, b) => a.visningsNavn.localeCompare(b.visningsNavn));
+    .sort(sortObjectBy('visningsNavn'));
 };

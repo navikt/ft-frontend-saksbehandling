@@ -6,7 +6,7 @@ import { BodyShort, Heading, VStack } from '@navikt/ds-react';
 
 import { SideMenu } from '@navikt/ft-plattform-komponenter';
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag, StandardProsessPanelProps } from '@navikt/ft-types';
-import { classNames, createIntl, dateFormat } from '@navikt/ft-utils';
+import { classNames, createIntl, dateFormat, sortObjectBy } from '@navikt/ft-utils';
 
 import { BeregningFP } from './components/BeregningFP';
 import type { BeregningFormValues } from './types/BeregningFormValues';
@@ -110,11 +110,7 @@ export const BeregningsgrunnlagProsessIndex = ({
   const listeMedGrunnlag = beregningsgrunnlagListe || [];
 
   const skalBrukeSidemeny = listeMedGrunnlag.length > 1;
-  listeMedGrunnlag
-    .sort((a: Beregningsgrunnlag, b: Beregningsgrunnlag) =>
-      a.skjaeringstidspunktBeregning.localeCompare(b.skjaeringstidspunktBeregning),
-    )
-    .reverse();
+  listeMedGrunnlag.sort(sortObjectBy('skjaeringstidspunktBeregning')).reverse();
   const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(0);
 
   const menyProps = lagMenyProps(listeMedGrunnlag, beregningsgrunnlagsvilkar);

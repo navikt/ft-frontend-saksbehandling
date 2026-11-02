@@ -1,7 +1,33 @@
 // noinspection JSUnresolvedVariable
-import { diff, isEqual, isObject, isObjectEmpty, notNull } from './objectUtils';
+import { diff, isEqual, isObject, isObjectEmpty, notNull, sortByNavn, sortObjectBy } from './objectUtils';
 
 describe('Object-utils', () => {
+  describe('sortObjectBy', () => {
+    it('skal sortere på valgt strengfelt og beholde rekkefølgen ved like verdier', () => {
+      const objekter = [
+        { kode: 'b', navn: 'A' },
+        { kode: 'a', navn: 'B' },
+        { kode: '', navn: 'C' },
+        { kode: 'a', navn: 'D' },
+      ];
+
+      expect(objekter.toSorted(sortObjectBy('kode'))).toEqual([objekter[2], objekter[1], objekter[3], objekter[0]]);
+    });
+  });
+
+  describe('sortByNavn', () => {
+    it('skal sortere navn med lokaltilpasset sammenligning', () => {
+      const objekter = [
+        { navn: 'Bodil', id: 1 },
+        { navn: 'anna', id: 2 },
+        { navn: 'Arne', id: 3 },
+      ];
+
+      expect(objekter.toSorted(sortByNavn)).toEqual([objekter[1], objekter[2], objekter[0]]);
+      expect(sortByNavn({ navn: 'Anna' }, { navn: 'Anna' })).toBe(0);
+    });
+  });
+
   it('skal kaste feil når verdi er null', () => {
     expect(() => notNull(null)).toThrow('Value is null');
   });

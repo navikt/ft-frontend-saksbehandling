@@ -13,6 +13,7 @@ import {
   capitalizeFirstLetter,
   formaterArbeidsgiver,
   ISO_DATE_FORMAT,
+  sortObjectBy,
   TIDENES_ENDE,
   TIDENES_MORGEN,
 } from '@navikt/ft-utils';
@@ -140,7 +141,7 @@ export const transformerRegisterinntekter = (
     new Map(
       inntekterMedPeriode_8_30.concat(inntekterMedPeriode_8_28).map(inntekt => [inntekt.label, inntekt]),
     ).values(),
-  ).sort((a, b) => a.inntektAktivitetType.localeCompare(b.inntektAktivitetType));
+  ).sort(sortObjectBy('inntektAktivitetType'));
 
   const grunnlag_8_30 = byggGrunnlagForType(inntekterMedPeriode_8_30, kilder, perioder, '8-30');
   const grunnlag_8_28 = byggGrunnlagForType(inntekterMedPeriode_8_28, kilder, perioder, '8-28');

@@ -12,7 +12,7 @@ import {
   useCustomValidation,
 } from '@navikt/ft-form-hooks';
 import { maxValueFormatted, required } from '@navikt/ft-form-validators';
-import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber } from '@navikt/ft-utils';
+import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber, sortByNavn } from '@navikt/ft-utils';
 
 import type { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
 import type { AndelFieldValue } from '../../../typer/FieldValues';
@@ -84,7 +84,7 @@ export const BrukersAndelFieldArray = ({ name, readOnly, isAksjonspunktClosed, k
     name: fieldArrayName as 'vurderFaktaBeregningForm.0.brukersAndelBG',
   });
   const aktivitetStatuser = kodeverkSamling['AktivitetStatus'].map(kodeverk => kodeverk.kode);
-  const inntektskategorier = kodeverkSamling['Inntektskategori'].toSorted((a, b) => a.navn.localeCompare(b.navn));
+  const inntektskategorier = kodeverkSamling['Inntektskategori'].toSorted(sortByNavn);
   const fieldArrayValues = useWatch({
     name: fieldArrayName as 'vurderFaktaBeregningForm.0.brukersAndelBG',
     control,

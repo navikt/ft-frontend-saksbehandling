@@ -2,6 +2,13 @@ const throwError = (message: string) => {
   throw new Error(message);
 };
 
+export const sortObjectBy =
+  <K extends string>(key: K) =>
+  <T extends Record<K, string>>(a: T, b: T) =>
+    a[key].localeCompare(b[key]);
+
+export const sortByNavn = sortObjectBy('navn');
+
 export const notNull = (value?: string | null) =>
   value === undefined || value === null ? throwError(`Value is ${value}`) : value;
 
