@@ -20,10 +20,7 @@ export const transformValuesForATFLISammeOrg = (
   fastsatteAndelsnr: number[],
 ): FaktaBeregningTransformedValues => {
   const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ? faktaOmBeregning.faktaOmBeregningTilfeller : [];
-  if (
-    tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON) &&
-    inntektVerdier
-  ) {
+  if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON) && inntektVerdier) {
     const andelsliste: VurderATFLISammeOrAndelTransformedValues[] = inntektVerdier
       .filter(field => field.andelsnr && !fastsatteAndelsnr.includes(field.andelsnr))
       .filter(

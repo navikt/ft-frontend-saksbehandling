@@ -3,9 +3,6 @@ import { isAksjonspunktOpen } from '@navikt/ft-utils';
 
 import { FaktaBeregningAvklaringsbehovCode as AC } from '../typer/interface/FaktaBeregningAvklaringsbehovCode';
 
-export const hasAksjonspunkt = (aksjonspunktKode: string, avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
-  avklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
-
 export const isAksjonspunktClosed = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean => {
   return avklaringsbehov
     .filter(

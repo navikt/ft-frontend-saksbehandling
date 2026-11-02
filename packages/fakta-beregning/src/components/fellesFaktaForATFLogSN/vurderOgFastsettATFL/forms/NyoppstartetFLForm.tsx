@@ -84,7 +84,7 @@ NyoppstartetFLForm.transformValues = (
   fastsatteAndelsnr: number[],
 ): FaktaBeregningTransformedValues => {
   const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ?? [];
-  if (!tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)) {
+  if (!tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL)) {
     return {};
   }
   if (!inntektPrMnd || inntektPrMnd.length === 0) {

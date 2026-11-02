@@ -35,7 +35,7 @@ import {
   frilansMottarYtelse,
   skalFastsetteInntektATUtenInntektsmelding,
   utledArbeidsforholdFieldName,
-} from './VurderMottarYtelseUtils';
+} from './vurderMottarYtelseUtils';
 
 const andreFrilansTilfeller: string[] = [
   FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL,
@@ -341,7 +341,7 @@ VurderMottarYtelseForm.transformValues = (
 ): FaktaBeregningTransformedValues => {
   const faktaOmBeregningTilfeller: string[] = [];
   const aktiveTilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ?? [];
-  if (!aktiveTilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
+  if (!aktiveTilfeller.includes(FaktaOmBeregningTilfelle.VURDER_MOTTAR_YTELSE)) {
     return {};
   }
   return {

@@ -14,8 +14,8 @@ export const vurderBesteberegningTransform =
   ): FaktaBeregningTransformedValues => {
     const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ?? [];
     if (!(
-      tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) ||
-      tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FØDENDE_KVINNE)
+      tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_BESTEBEREGNING) ||
+      tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_BESTEBEREGNING_FØDENDE_KVINNE)
     )) {
       return {};
     }

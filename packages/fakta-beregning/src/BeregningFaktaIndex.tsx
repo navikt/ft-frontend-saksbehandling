@@ -10,7 +10,7 @@ import type {
   Beregningsgrunnlag,
   StandardFaktaPanelProps,
 } from '@navikt/ft-types';
-import { createIntl, dateFormat, periodFormat } from '@navikt/ft-utils';
+import { createIntl, dateFormat, hasAksjonspunkt, periodFormat } from '@navikt/ft-utils';
 
 import { AksjonspunktTekster } from './AksjonspunktTekster';
 import { BeregningInfoPanel } from './components/BeregningInfoPanel';
@@ -20,7 +20,7 @@ import type { SubmitBeregningType } from './typer/interface/SubmitBeregningTsTyp
 import type { KodeverkForPanel } from './typer/KodeverkForPanel';
 import type { Vilkår, Vilkårperiode } from './typer/Vilkår';
 import type { VurderFaktaBeregningFormValues } from './typer/VurderFaktaBeregningFormValues';
-import { hasAksjonspunkt, isAksjonspunktClosed } from './utils/aksjonspunktUtils';
+import { isAksjonspunktClosed } from './utils/aksjonspunktUtils';
 
 import styles from './beregningFaktaIndex.module.css';
 

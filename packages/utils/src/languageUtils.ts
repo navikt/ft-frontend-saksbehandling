@@ -4,17 +4,10 @@ import messages from '../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
-export const replaceNorwegianCharacters = (str: string): string => {
-  let result = str.split('æ').join('ae');
-  result = result.split('ø').join('oe');
-  return result.split('å').join('aa');
-};
+export const replaceNorwegianCharacters = (str: string): string =>
+  str.replaceAll('æ', 'ae').replaceAll('ø', 'oe').replaceAll('å', 'aa');
 
 export const getLanguageFromSprakkode = (sprakkode?: string): string => {
-  if (!sprakkode) {
-    return intl.formatMessage({ id: 'Malform.Bokmal' });
-  }
-
   switch (sprakkode) {
     case 'NN':
       return intl.formatMessage({ id: 'Malform.Nynorsk' });

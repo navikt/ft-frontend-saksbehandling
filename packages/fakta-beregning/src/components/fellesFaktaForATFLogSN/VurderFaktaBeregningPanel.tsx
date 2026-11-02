@@ -5,14 +5,13 @@ import { VStack } from '@navikt/ds-react';
 
 import { RhfForm } from '@navikt/ft-form-hooks';
 import type { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
-import { isAksjonspunktOpen } from '@navikt/ft-utils';
+import { hasAksjonspunkt, isAksjonspunktOpen } from '@navikt/ft-utils';
 
 import type { BeregningFaktaOgOverstyringAP } from '../../typer/interface/BeregningFaktaAP';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import type { Vilkår, Vilkårperiode } from '../../typer/Vilkår';
 import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
-import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { formNameVurderFaktaBeregning } from '../../utils/BeregningFormUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { getBuildInitialValuesFaktaForATFLOgSN } from './faktaForATFLOgSNPanelUtils';

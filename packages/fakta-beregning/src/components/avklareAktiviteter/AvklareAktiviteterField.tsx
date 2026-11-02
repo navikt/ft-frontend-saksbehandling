@@ -13,12 +13,11 @@ import type {
   BeregningAvklaringsbehov,
 } from '@navikt/ft-types';
 import { OverstyringKnapp } from '@navikt/ft-ui-komponenter';
-import { isAksjonspunktOpen } from '@navikt/ft-utils';
+import { hasAksjonspunkt, isAksjonspunktOpen } from '@navikt/ft-utils';
 
 import type { AvklarAktiviteterFormValues } from '../../typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
-import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import {
   erSubmittable,

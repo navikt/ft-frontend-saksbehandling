@@ -30,10 +30,8 @@ export const transformValuesArbeidUtenInntektsmelding = (
   const tilfeller = faktaOmBeregning.faktaOmBeregningTilfeller ?? [];
 
   if (
-    !tilfeller
-      .map(kode => kode)
-      .includes(FaktaOmBeregningTilfelle.FASTSETT_MÅNEDSLØNN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING) &&
-    !tilfeller.map(kode => kode).includes(FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING)
+    !tilfeller.includes(FaktaOmBeregningTilfelle.FASTSETT_MÅNEDSLØNN_ARBEIDSTAKER_UTEN_INNTEKTSMELDING) &&
+    !tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_LØNNSENDRING)
   ) {
     return {};
   }

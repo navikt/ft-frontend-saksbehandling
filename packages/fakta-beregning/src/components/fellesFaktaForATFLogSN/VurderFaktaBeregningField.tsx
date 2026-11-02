@@ -6,12 +6,13 @@ import { HStack, VStack } from '@navikt/ds-react';
 import { SubmitButton } from '@navikt/ft-form-hooks';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type { ArbeidsgiverOpplysningerPerId, Beregningsgrunnlag } from '@navikt/ft-types';
+import { hasAksjonspunkt } from '@navikt/ft-utils';
 
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import type { Vilkårperiode } from '../../typer/Vilkår';
 import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
-import { hasAksjonspunkt, isAksjonspunktClosed } from '../../utils/aksjonspunktUtils';
+import { isAksjonspunktClosed } from '../../utils/aksjonspunktUtils';
 import { formNameVurderFaktaBeregning } from '../../utils/BeregningFormUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { erOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';

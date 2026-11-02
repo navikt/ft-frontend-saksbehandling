@@ -5,12 +5,11 @@ import { Button, Heading, HStack, Label, VStack } from '@navikt/ds-react';
 
 import type { BeregningAvklaringsbehov } from '@navikt/ft-types';
 import { OverstyringKnapp } from '@navikt/ft-ui-komponenter';
-import { isAksjonspunktOpen } from '@navikt/ft-utils';
+import { hasAksjonspunkt, isAksjonspunktOpen } from '@navikt/ft-utils';
 
 import type { MessageId } from '../../messageIds';
 import type { ErOverstyringValues } from '../../typer/FaktaBeregningTypes';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
-import { hasAksjonspunkt } from '../../utils/aksjonspunktUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 
 import styles from './InntektstabellPanel.module.css';

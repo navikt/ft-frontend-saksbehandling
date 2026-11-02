@@ -6,15 +6,8 @@ import { sortObjectBy } from '@navikt/ft-utils';
 import type { AndelFieldValue } from '../../typer/FieldValues';
 import type { KodeverkForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanel';
 
-const findAktivitetStatusIndex = (fields: AndelFieldValue[], aktivitetStatusKode: string) => {
-  let index = -1;
-  fields.forEach((field, nyIndex) => {
-    if (field.aktivitetStatus === aktivitetStatusKode) {
-      index = nyIndex;
-    }
-  });
-  return index;
-};
+const findAktivitetStatusIndex = (fields: AndelFieldValue[], aktivitetStatusKode: string) =>
+  fields.findLastIndex(field => field.aktivitetStatus === aktivitetStatusKode);
 
 export const fjernEllerLeggTilAktivitetStatus = (
   fields: AndelFieldValue[],
