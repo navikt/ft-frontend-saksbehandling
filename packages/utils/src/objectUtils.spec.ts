@@ -1,7 +1,7 @@
 // noinspection JSUnresolvedVariable
 import { diff, isEqual, isObject, isObjectEmpty, notNull, sortObjectBy } from './objectUtils';
 
-describe('Object-utils', () => {
+describe('objectUtils', () => {
   describe('sortObjectBy', () => {
     it('skal sortere på valgt strengfelt og beholde rekkefølgen ved like verdier', () => {
       const objekter = [
