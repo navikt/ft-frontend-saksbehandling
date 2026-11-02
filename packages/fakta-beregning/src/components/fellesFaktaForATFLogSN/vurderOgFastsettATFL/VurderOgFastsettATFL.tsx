@@ -1,4 +1,4 @@
-import React, { type ReactElement } from 'react';
+import { type ReactElement, type ReactNode, use } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { VStack } from '@navikt/ds-react';
@@ -54,7 +54,7 @@ interface Props {
   beregningsgrunnlag: Beregningsgrunnlag;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   updateOverstyring: (index: number, skalOverstyre: boolean) => void;
-  renderTextFieldAndSubmitButton: () => React.ReactNode;
+  renderTextFieldAndSubmitButton: () => ReactNode;
   vilkarsperiodeSkalVurderesIBehandlingen: boolean;
 }
 
@@ -81,7 +81,7 @@ export const VurderOgFastsettATFL = ({
   vilkarsperiodeSkalVurderesIBehandlingen,
 }: Props) => {
   const { getValues } = useFormContext<VurderFaktaBeregningFormValues>();
-  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const beregningsgrunnlagIndeks = use<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
   const erOverstyrt = erOverstyringAvBeregningsgrunnlag(formValues);
   const skalViseTabell = getSkalViseTabell(tilfeller);

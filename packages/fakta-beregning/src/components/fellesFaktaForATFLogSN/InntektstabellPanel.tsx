@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { type ReactNode, use, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Button, Heading, HStack, Label, VStack } from '@navikt/ds-react';
@@ -22,7 +22,7 @@ const getSkalKunneOverstyre = (erOverstyrer: boolean, avklaringsbehov: Beregning
   erOverstyrer && !avklaringsbehov.some(ap => ap.definisjon === AVKLAR_AKTIVITETER && isAksjonspunktOpen(ap));
 
 interface Props {
-  tabell: React.ReactNode;
+  tabell: ReactNode;
   hjelpeTekstId?: MessageId;
   skalViseTabell?: boolean;
   readOnly: boolean;
@@ -44,7 +44,7 @@ export const InntektstabellPanel = ({
 }: Props) => {
   const [erTabellOverstyrt, setOverstyring] = useState(erOverstyrt);
 
-  const beregningsgrunnlagIndeks = React.useContext(BeregningsgrunnlagIndexContext);
+  const beregningsgrunnlagIndeks = use(BeregningsgrunnlagIndexContext);
   const kanOverstyre = getSkalKunneOverstyre(erOverstyrer, avklaringsbehov);
   const harLøstOverstyringAksjonspunkt = avklaringsbehov.some(
     ap => ap.definisjon === OVERSTYRING_AV_BEREGNINGSGRUNNLAG && !isAksjonspunktOpen(ap),

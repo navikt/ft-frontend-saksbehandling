@@ -1,4 +1,4 @@
-import React from 'react';
+import { use } from 'react';
 import { type FieldArrayWithId, useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -71,7 +71,7 @@ export const InntektFieldArrayAndelRow = ({
 }: Props) => {
   const intl = useIntl();
   const { getValues, control } = useFormContext<VurderFaktaBeregningFormValues>();
-  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const beregningsgrunnlagIndeks = use<number>(BeregningsgrunnlagIndexContext);
   const formValues = getValues(`vurderFaktaBeregningForm.${beregningsgrunnlagIndeks}`);
   const erFrilansInntekt = erFrilanser(field);
   const erInntektDagpenger = erDagpenger(field);

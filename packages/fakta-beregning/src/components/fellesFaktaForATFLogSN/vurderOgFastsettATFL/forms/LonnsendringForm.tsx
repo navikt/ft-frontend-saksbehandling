@@ -1,4 +1,4 @@
-import React from 'react';
+import { use } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
@@ -29,7 +29,7 @@ interface Props {
 }
 
 export const LonnsendringForm = ({ readOnly }: Props) => {
-  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const beregningsgrunnlagIndeks = use<number>(BeregningsgrunnlagIndexContext);
   const { control } = useFormContext<VurderFaktaBeregningFormValues>();
 
   return (

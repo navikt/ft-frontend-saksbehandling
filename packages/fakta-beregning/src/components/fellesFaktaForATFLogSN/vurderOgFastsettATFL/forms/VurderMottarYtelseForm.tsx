@@ -1,4 +1,4 @@
-import React from 'react';
+import { type ReactNode, use } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
@@ -46,7 +46,7 @@ const utledArbeidsforholdUtenIMRadioTekst = (
   arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
   kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-): React.ReactNode => {
+): ReactNode => {
   const agOpplysning = arbeidsforhold.arbeidsgiverIdent
     ? arbeidsgiverOpplysningerPerId[arbeidsforhold.arbeidsgiverIdent]
     : undefined;
@@ -77,7 +77,7 @@ const MottarYtelseArbeidsforholdRadioAndInputs = ({
   kodeverkSamling,
   arbeidsgiverOpplysningerPerId,
   aktivtBeregningsgrunnlagIndeks,
-}: MottarProps): React.ReactNode => {
+}: MottarProps): ReactNode => {
   const { control } = useFormContext<VurderFaktaBeregningFormValues>();
   const key = utledArbeidsforholdFieldName(andel);
 
@@ -155,7 +155,7 @@ export const VurderMottarYtelseForm = ({
 }: Props) => {
   const { control } = useFormContext<VurderFaktaBeregningFormValues>();
 
-  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const beregningsgrunnlagIndeks = use<number>(BeregningsgrunnlagIndexContext);
   const vurderMottarYtelse = beregningsgrunnlag.faktaOmBeregning
     ? beregningsgrunnlag.faktaOmBeregning.vurderMottarYtelse
     : undefined;

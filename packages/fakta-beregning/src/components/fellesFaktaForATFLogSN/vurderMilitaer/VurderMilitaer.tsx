@@ -1,4 +1,4 @@
-import React from 'react';
+import { use } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
@@ -27,7 +27,7 @@ interface Props {
 export const VurderMilitaer = ({ readOnly }: Props) => {
   const { control } = useFormContext<VurderFaktaBeregningFormValues>();
 
-  const beregningsgrunnlagIndeks = React.useContext<number>(BeregningsgrunnlagIndexContext);
+  const beregningsgrunnlagIndeks = use<number>(BeregningsgrunnlagIndexContext);
 
   return (
     <RhfRadioGroup
