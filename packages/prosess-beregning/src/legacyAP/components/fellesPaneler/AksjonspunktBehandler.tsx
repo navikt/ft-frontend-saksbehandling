@@ -11,7 +11,7 @@ import type {
   SammenligningsgrunlagProp,
 } from '@navikt/ft-types';
 import { AksjonspunktBoks, usePrevious } from '@navikt/ft-ui-komponenter';
-import { hasAksjonspunkt, sortObjectBy } from '@navikt/ft-utils';
+import { hasAksjonspunkt, sortPeriodsBy } from '@navikt/ft-utils';
 
 import { SammenligningType } from '../../../kodeverk/sammenligningType';
 import type { KodeverkForPanel } from '../../../types/KodeverkForPanel';
@@ -262,7 +262,7 @@ const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunkt
     if (!p1.beregningsgrunnlagPeriodeFom || !p2.beregningsgrunnlagPeriodeFom) {
       return 0;
     }
-    return sortObjectBy('beregningsgrunnlagPeriodeFom')(p1, p2);
+    return sortPeriodsBy('beregningsgrunnlagPeriodeFom')(p1, p2);
   });
   const alleAndelerIFørstePeriode = allePerioder[0].beregningsgrunnlagPrStatusOgAndel ?? [];
 
