@@ -8,6 +8,8 @@ import { NæringsInntekt } from './NæringsInntekt';
 
 import messages from '../../../i18n/nb_NO.json';
 
+import '@navikt/ft-ui-komponenter/dist/style.css';
+
 const withIntl = getIntlDecorator(messages);
 
 const grunnlagForBA = {

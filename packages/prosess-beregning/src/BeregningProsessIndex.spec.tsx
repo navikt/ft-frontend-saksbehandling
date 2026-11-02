@@ -4,6 +4,7 @@ import { userEvent } from '@testing-library/user-event';
 import { expect } from 'vitest';
 
 import * as stories from './BeregningProsessIndex.stories';
+import * as legacyAPStories from './legacyAP/LegacyAPForms.stories';
 
 const {
   ArbeidstakerOgFrilansFP,
@@ -12,6 +13,7 @@ const {
   SelvstendigNæringsdrivendeFP,
   ToGrunnlagHvorEnHarÅpentAP,
 } = composeStories(stories);
+const { MidlertidigInaktivOgATFLSNMedAksjonspunktAp5054Og5038Og5039 } = composeStories(legacyAPStories);
 
 describe('BeregningProsessIndex', () => {
   it('skal vise tabs', async () => {
@@ -26,6 +28,43 @@ describe('BeregningProsessIndex', () => {
 
     expect(screen.getByRole('tab', { name: '03.12.2025', selected: true })).toBeInTheDocument();
     expect(screen.getByRole('tabpanel', { name: '03.12.2025' })).toBeInTheDocument();
+  });
+
+  it('skjuler inaktive aksjonspunkt-former uten å miste skjemaverdier ved periodebytte', async () => {
+    render(<MidlertidigInaktivOgATFLSNMedAksjonspunktAp5054Og5038Og5039 />);
+
+    const arbeidstakerOgFrilansHeading = screen.getByRole('heading', {
+      name: 'Fastsett årsinntekt skjønnsmessig for arbeidstaker og frilans',
+      hidden: true,
+    });
+    const arbeidstakerOgFrilansForm = arbeidstakerOgFrilansHeading.closest('form');
+    expect(arbeidstakerOgFrilansForm).toBeInTheDocument();
+    expect(arbeidstakerOgFrilansForm).not.toBeVisible();
+
+    const næringHeading = screen.getByRole('heading', {
+      name: 'Vurder om det er varig endring i næringen og/eller arbeidssituasjonen, som gjør at inntekten skal fastsettes skjønnsmessig',
+      hidden: true,
+    });
+    const næringForm = næringHeading.closest('form');
+    expect(næringForm).toBeInTheDocument();
+    expect(næringForm).not.toBeVisible();
+
+    const midlertidigInaktivHeading = screen.getByRole('heading', {
+      name: 'Vurder om det er varig endring i arbeidssituasjonen, som gjør at inntekten skal fastsettes skjønnsmessig',
+      hidden: true,
+    });
+    expect(midlertidigInaktivHeading.closest('form')).toBeVisible();
+
+    await userEvent.click(screen.getByRole('tab', { name: '01.02.2021' }));
+    expect(arbeidstakerOgFrilansForm).toBeVisible();
+    const vurdering = within(arbeidstakerOgFrilansForm!).getByLabelText('Vurdering');
+    await userEvent.clear(vurdering);
+    await userEvent.type(vurdering, 'Begrunnelse som skal beholdes');
+
+    await userEvent.click(screen.getByRole('tab', { name: '01.01.2021' }));
+    expect(arbeidstakerOgFrilansForm).not.toBeVisible();
+    await userEvent.click(screen.getByRole('tab', { name: '01.02.2021' }));
+    expect(within(arbeidstakerOgFrilansForm!).getByLabelText('Vurdering')).toHaveValue('Begrunnelse som skal beholdes');
   });
 
   it('skal vise arbeidstaker-panel', () => {
