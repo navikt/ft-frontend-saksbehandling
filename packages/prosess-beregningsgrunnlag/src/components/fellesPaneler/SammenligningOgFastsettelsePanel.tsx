@@ -206,7 +206,7 @@ export const SammenligningOgFastsettelsePanel = ({
   aktivIndex,
 }: Props) => {
   const gruppertPrLovparagraf = grupperPrLovparagraf(beregningsgrunnlagListe);
-  const [finnesFormSomSubmittes, setSubmitting] = useState(false);
+  const [finnesFormSomSubmittes, setFinnesFormSomSubmittes] = useState(false);
 
   const panelForklaring = (
     <SammenligningForklaringPanel
@@ -273,7 +273,7 @@ export const SammenligningOgFastsettelsePanel = ({
                 setFormData={setFormData}
                 aktivIndex={aktivIndex}
                 finnesFormSomSubmittes={finnesFormSomSubmittes}
-                setSubmitting={setSubmitting}
+                setSubmitting={setFinnesFormSomSubmittes}
               />
             </div>
           )}

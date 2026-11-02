@@ -42,7 +42,7 @@ export const InntektstabellPanel = ({
   erOverstyrer,
   erOverstyrt,
 }: Props) => {
-  const [erTabellOverstyrt, setOverstyring] = useState(erOverstyrt);
+  const [erTabellOverstyrt, setErTabellOverstyrt] = useState(erOverstyrt);
 
   const beregningsgrunnlagIndeks = use(BeregningsgrunnlagIndexContext);
   const kanOverstyre = getSkalKunneOverstyre(erOverstyrer, avklaringsbehov);
@@ -51,7 +51,7 @@ export const InntektstabellPanel = ({
   );
 
   const toggleOverstyring = () => {
-    setOverstyring(!erTabellOverstyrt);
+    setErTabellOverstyrt(!erTabellOverstyrt);
     updateOverstyring(beregningsgrunnlagIndeks, !erTabellOverstyrt);
   };
   return (

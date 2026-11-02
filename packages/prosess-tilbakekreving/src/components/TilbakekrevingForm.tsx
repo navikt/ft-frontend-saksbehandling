@@ -324,13 +324,13 @@ export const TilbakekrevingForm = ({
 
   const sammenslåttePerioder = slaSammenOriginaleOgLagredePeriode(perioder, vilkarvurdering, rettsgebyr);
   const [vilkårsvurdertePerioder, setVilkårsvurdertePerioder] = useState<CustomVilkarsVurdertePeriode[]>(
-    formData?.perioder || buildInitialValues(sammenslåttePerioder, perioderForeldelse),
+    () => formData?.perioder || buildInitialValues(sammenslåttePerioder, perioderForeldelse),
   );
   // Kladden er kun relevant ved gjenåpning av panelet. Den forkastes så snart brukeren bytter periode,
   // fordi ubekreftede endringer kun skal overleve panelbytte - ikke periodebytte.
   const [periodeKladd, setPeriodeKladd] = useState<PeriodeKladd | undefined>(formData?.kladd);
 
-  const [isDirty, setDirty] = useState(formData?.erEndret ?? false);
+  const [isDirty, setIsDirty] = useState(formData?.erEndret ?? false);
   const [valgtPeriode, setValgtPeriode] = useState<CustomVilkarsVurdertePeriode | undefined>(() => {
     if (formData) {
       return formData.valgtPeriodeKey
@@ -339,7 +339,7 @@ export const TilbakekrevingForm = ({
     }
     return vilkårsvurdertePerioder.find(harApentAksjonspunkt);
   });
-  const [isSubmitting, setSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Detaljpanelet mellomlagrer kladden i sin egen unmount, og da er denne komponentens render-closure
   // allerede utdatert. Refen holder derfor siste skrevne data, slik at kladden legges oppå den og ikke
@@ -383,7 +383,7 @@ export const TilbakekrevingForm = ({
   const merknaderFraBeslutter = alleMerknaderFraBeslutter[TilbakekrevingAksjonspunktCodes.VURDER_TILBAKEKREVING];
 
   const lagrePerioder = () => {
-    setSubmitting(true);
+    setIsSubmitting(true);
     submitCallback(transformValues(vilkårsvurdertePerioder, kodeverkSamlingFpTilbake['SærligGrunn']));
   };
 
@@ -428,7 +428,7 @@ export const TilbakekrevingForm = ({
     const nesteValgtePeriode = sortedActivities.find(harApentAksjonspunkt);
 
     setVilkårsvurdertePerioder(sortedActivities);
-    setDirty(true);
+    setIsDirty(true);
     setPeriodeKladd(undefined);
     setValgtPeriode(nesteValgtePeriode);
     mellomlagre({
@@ -458,7 +458,7 @@ export const TilbakekrevingForm = ({
         p => p.fom === nyePerioder[0].fom && p.tom === nyePerioder[0].tom,
       );
 
-      setDirty(true);
+      setIsDirty(true);
       setVilkårsvurdertePerioder(sortedActivities);
       setPeriodeKladd(undefined);
       setValgtPeriode(nyValgtPeriode);

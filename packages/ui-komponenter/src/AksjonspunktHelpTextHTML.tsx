@@ -14,6 +14,7 @@ interface Props {
  * å avklare en eller flere aksjonspunkter.
  */
 export const AksjonspunktHelpTextHTML = ({ heading, children }: Props) => {
+  // eslint-disable-next-line @eslint-react/no-children-to-array -- Beholder Reacts normalisering av nøstede arrays, tomme children og nøkler.
   const normalizedChildren = Children.toArray(children);
 
   if (normalizedChildren.length === 0 && !heading) {

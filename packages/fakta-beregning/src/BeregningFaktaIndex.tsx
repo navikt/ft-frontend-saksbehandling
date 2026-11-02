@@ -103,7 +103,7 @@ export const BeregningFaktaIndex = ({
   skalKunneAvbryteOverstyring = false,
 }: Props &
   StandardFaktaPanelProps<SubmitBeregningType[], AvklarAktiviteterFormValues | VurderFaktaBeregningFormValues>) => {
-  const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(
+  const [aktivtBeregningsgrunnlagIndeks, setAktivtBeregningsgrunnlagIndeks] = useState(() =>
     initAktivtBeregningsgrunnlagIndeks(beregningsgrunnlag, vilkar),
   );
 
