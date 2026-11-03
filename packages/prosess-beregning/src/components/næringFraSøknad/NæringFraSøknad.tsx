@@ -102,9 +102,13 @@ export const NæringFraSøknad = ({ kodeverkSamling, beregningsgrunnlag, arbeids
   );
 };
 
-const lagVisningsnavn = ({ orgnr }: Næring, arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId): string => {
+const lagVisningsnavn = ({ orgnr }: Næring, arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId) => {
   const agOpplysning = arbeidsgiverOpplysningerPerId[orgnr];
-  return agOpplysning ? formaterArbeidsgiver(agOpplysning, undefined) : 'Ukjent bedriftsnavn';
+  return agOpplysning ? (
+    formaterArbeidsgiver(agOpplysning, undefined)
+  ) : (
+    <FormattedMessage id="NæringFraSøknad.UkjentBedriftsnavn" />
+  );
 };
 
 export const formaterRegnskapsfører = (regnskapsførerNavn?: string, regnskapsførerTlf?: string) => {
