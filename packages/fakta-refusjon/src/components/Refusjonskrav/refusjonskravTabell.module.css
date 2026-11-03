@@ -1,6 +1,0 @@
-.tabell {
-  tr[data-til-vurdering='true'],
-  tr[data-til-vurdering='true'] + tr {
-    box-shadow: inset 4px 0 0 var(--ax-bg-warning-strong);
-  }
-}

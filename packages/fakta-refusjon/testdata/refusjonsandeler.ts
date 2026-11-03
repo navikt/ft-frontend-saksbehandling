@@ -3,6 +3,7 @@ import type { RefusjonsAndel } from '../src/types/dataTypes';
 export const refusjonsandelerForTreArbeidsgivere: RefusjonsAndel[] = [
   {
     arbeidsgiverIdent: '999999999',
+    journalpostId: '123456789',
     kilde: 'IM',
     refusjonsperioder: [
       {
@@ -29,6 +30,7 @@ export const refusjonsandelerForTreArbeidsgivere: RefusjonsAndel[] = [
   },
   {
     arbeidsgiverIdent: '888888888',
+    journalpostId: '123456790',
     kilde: 'IM',
     refusjonsperioder: [
       {

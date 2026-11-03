@@ -6,11 +6,11 @@ import { vi } from 'vitest';
 
 import { createIntl } from '@navikt/ft-utils';
 
-import { refusjonsandelerForTreArbeidsgivere } from '../../../testdata/refusjonsandeler';
-import type { RefusjonskravFormRad } from './formValues';
+import { refusjonsandelerForTreArbeidsgivere } from '../../../../testdata/refusjonsandeler';
+import type { RefusjonskravFormPeriode } from '../formValues';
 import { RefusjonskravRadVurdering } from './RefusjonskravRadVurdering';
 
-import messages from '../../../i18n/nb_NO.json';
+import messages from '../../../../i18n/nb_NO.json';
 
 const intl = createIntl(messages);
 
@@ -18,7 +18,14 @@ describe('RefusjonskravRadVurdering', () => {
   it('skal vise vurderingsvalg og veiledning', async () => {
     render(
       <RawIntlProvider value={intl}>
-        <RefusjonskravRadVurdering index={0} krav={krav} readOnly={false} onSave={vi.fn()} onDirtyChange={vi.fn()} />
+        <RefusjonskravRadVurdering
+          andelIndex={0}
+          periodeIndex={0}
+          krav={krav}
+          readOnly={false}
+          onSave={vi.fn()}
+          onDirtyChange={vi.fn()}
+        />
       </RawIntlProvider>,
     );
 
@@ -47,7 +54,8 @@ describe('RefusjonskravRadVurdering', () => {
     render(
       <RawIntlProvider value={intl}>
         <RefusjonskravRadVurdering
-          index={0}
+          andelIndex={0}
+          periodeIndex={0}
           krav={krav}
           readOnly={false}
           onSave={onSave}
@@ -62,7 +70,7 @@ describe('RefusjonskravRadVurdering', () => {
     const nei = screen.getByRole('radio', { name: /Nei/ });
     await userEvent.click(nei);
     expect(nei).toBeChecked();
-    expect(onDirtyChange).toHaveBeenLastCalledWith(0, true);
+    expect(onDirtyChange).toHaveBeenLastCalledWith(0, 0, true);
     expect(screen.getByRole('button', { name: 'Angre' })).toBeEnabled();
     expect(screen.getByRole('button', { name: 'Lagre' })).toBeEnabled();
     expect(screen.getByRole('radiogroup', { name: 'Årsak til overstyring' })).toBeInTheDocument();
@@ -71,7 +79,7 @@ describe('RefusjonskravRadVurdering', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Angre' }));
     expect(nei).not.toBeChecked();
     expect(screen.queryByRole('radiogroup', { name: 'Årsak til overstyring' })).not.toBeInTheDocument();
-    expect(onDirtyChange).toHaveBeenLastCalledWith(0, false);
+    expect(onDirtyChange).toHaveBeenLastCalledWith(0, 0, false);
     expect(screen.getByRole('button', { name: 'Angre' })).toBeDisabled();
     expect(screen.getByRole('button', { name: 'Lagre' })).toBeDisabled();
 
@@ -82,14 +90,12 @@ describe('RefusjonskravRadVurdering', () => {
 
     await userEvent.click(screen.getByRole('radio', { name: årsak }));
     await userEvent.click(screen.getByRole('button', { name: 'Lagre' }));
-    expect(onSave).toHaveBeenCalledExactlyOnceWith(0, { utfall: 'AVSLÅTT', utfallÅrsak });
+    expect(onSave).toHaveBeenCalledExactlyOnceWith(0, 0, { utfall: 'AVSLÅTT', utfallÅrsak });
     expect(screen.getByRole('button', { name: 'Lagre' })).toBeDisabled();
   });
 });
 
-const krav: RefusjonskravFormRad = {
-  arbeidsgiverIdent: '999999999',
-  arbeidsgiverNavn: 'Brunostfabrikken AS',
+const krav: RefusjonskravFormPeriode = {
   kilde: 'IM',
   ...refusjonsandelerForTreArbeidsgivere[0].refusjonsperioder[0],
 };

@@ -4,17 +4,16 @@ import { Buildings3Icon, PersonPencilFillIcon } from '@navikt/aksel-icons';
 import { Box, Heading, HStack, Spacer, Timeline } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 import { useTidslinje } from '@navikt/ft-ui-komponenter';
 
-import type { RefusjonsAndel } from '../types/dataTypes';
+import type { RefusjonsAndelFormValues } from './Refusjonskrav/formValues';
 
 interface Props {
-  refusjonsandeler: RefusjonsAndel[];
-  arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
+  refusjonsandeler: RefusjonsAndelFormValues[];
+  onSelectAndel: (andelIndex: number) => void;
 }
 
-export const Utbetaling = ({ refusjonsandeler, arbeidsgiverOpplysningerPerId }: Props) => {
+export const Utbetaling = ({ refusjonsandeler, onSelectAndel }: Props) => {
   const intl = useIntl();
   const perioder = refusjonsandeler.flatMap(andel => andel.refusjonsperioder);
   const { timelineProps, controllerElement } = useTidslinje({ perioder });
@@ -28,11 +27,17 @@ export const Utbetaling = ({ refusjonsandeler, arbeidsgiverOpplysningerPerId }: 
         <Spacer />
         {controllerElement}
       </HStack>
-      <Box background="neutral-soft" paddingBlock="space-8 space-24" paddingInline="space-20">
+      <Box
+        as="section"
+        aria-label={intl.formatMessage({ id: 'Utbetaling.Tittel' })}
+        background="neutral-soft"
+        paddingBlock="space-8 space-24"
+        paddingInline="space-20"
+      >
         <Timeline {...timelineProps}>
-          {refusjonsandeler.map(andel => (
+          {refusjonsandeler.map((andel, andelIndex) => (
             <Timeline.Row
-              label={arbeidsgiverOpplysningerPerId[andel.arbeidsgiverIdent]?.navn || andel.arbeidsgiverIdent}
+              label={andel.arbeidsgiverNavn}
               key={andel.arbeidsgiverIdent}
               icon={<Buildings3Icon aria-hidden />}
             >
@@ -42,8 +47,9 @@ export const Utbetaling = ({ refusjonsandeler, arbeidsgiverOpplysningerPerId }: 
                   start={dayjs(p.fom).toDate()}
                   end={dayjs(p.tom).toDate()}
                   status={utledUtfallsFarge(p.utfall)}
+                  onSelectPeriod={() => onSelectAndel(andelIndex)}
                   icon={
-                    andel.kilde === 'SAKSBEHANDLER' ? (
+                    p.kilde === 'SAKSBEHANDLER' ? (
                       <PersonPencilFillIcon
                         title={intl.formatMessage({ id: 'RefusjonskravTabell.EndretAvSaksbehandler' })}
                       />

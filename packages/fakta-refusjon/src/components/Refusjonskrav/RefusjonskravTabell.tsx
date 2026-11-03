@@ -1,23 +1,31 @@
 import type { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { ExclamationmarkTriangleFillIcon, PersonPencilFillIcon } from '@navikt/aksel-icons';
-import { Heading, HStack, Table, VStack } from '@navikt/ds-react';
+import { PersonPencilFillIcon } from '@navikt/aksel-icons';
+import { Button, Heading, Table, VStack } from '@navikt/ds-react';
 
 import { BeløpLabel, DateLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
-import type { RefusjonskravFormRad } from './formValues';
-
-import styles from './refusjonskravTabell.module.css';
+import type { Saksdokument } from '../../types/dataTypes';
+import type { RefusjonsAndelFormValues } from './formValues';
 
 interface Props {
-  rader: RefusjonskravFormRad[];
-  renderRowContent: (krav: RefusjonskravFormRad, index: number) => ReactNode;
+  rader: RefusjonsAndelFormValues[];
+  dokumenter: Saksdokument[];
+  åpneDokument: (journalpostId: string, dokumentId: string) => void;
+  renderRowContent: (andel: RefusjonsAndelFormValues, andelIndex: number) => ReactNode;
   åpneRader: Set<number>;
   onOpenChange: (index: number, open: boolean) => void;
 }
 
-export const RefusjonskravTabell = ({ rader, renderRowContent, åpneRader, onOpenChange }: Props) => {
+export const RefusjonskravTabell = ({
+  rader,
+  dokumenter,
+  åpneDokument,
+  renderRowContent,
+  åpneRader,
+  onOpenChange,
+}: Props) => {
   const intl = useIntl();
 
   return (
@@ -26,7 +34,7 @@ export const RefusjonskravTabell = ({ rader, renderRowContent, åpneRader, onOpe
         <FormattedMessage id="RefusjonskravTabell.Tittel" />
       </Heading>
 
-      <Table className={styles.tabell}>
+      <Table>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>
@@ -35,26 +43,28 @@ export const RefusjonskravTabell = ({ rader, renderRowContent, åpneRader, onOpe
             <Table.HeaderCell>
               <FormattedMessage id="RefusjonskravTabell.RefusjonFra" />
             </Table.HeaderCell>
-            <Table.HeaderCell align="right">
+            <Table.HeaderCell>
               <FormattedMessage id="RefusjonskravTabell.RefusjonsbeløpPrMnd" />
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <FormattedMessage id="RefusjonskravTabell.SendtInnEndret" />
+              <FormattedMessage id="RefusjonskravTabell.SendtInn" />
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <FormattedMessage id="RefusjonskravTabell.Utfall" />
+              <FormattedMessage id="RefusjonskravTabell.Inntektsmelding" />
             </Table.HeaderCell>
+            <Table.HeaderCell />
             <Table.HeaderCell />
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {rader.map((krav, index) => {
-            const content = renderRowContent(krav, index);
+          {rader.map((andel, index) => {
+            const { refusjonsperioder, journalpostId, arbeidsgiverIdent, arbeidsgiverNavn } = andel;
+            const content = renderRowContent(andel, index);
+            const dokument = dokumenter.find(d => d.journalpostId === journalpostId);
 
             return (
               <Table.ExpandableRow
-                key={`${krav.arbeidsgiverIdent}-${krav.fom}-${krav.tom}`}
-                data-til-vurdering={krav.utfall === undefined}
+                key={arbeidsgiverIdent}
                 content={content}
                 togglePlacement="right"
                 open={åpneRader.has(index)}
@@ -62,42 +72,65 @@ export const RefusjonskravTabell = ({ rader, renderRowContent, åpneRader, onOpe
                 expandOnRowClick
                 expansionDisabled={content == null}
               >
+                <Table.DataCell>{arbeidsgiverNavn}</Table.DataCell>
+
                 <Table.DataCell>
-                  <HStack gap="space-8" wrap={false}>
-                    {!krav.utfall && (
-                      <ExclamationmarkTriangleFillIcon
-                        title={intl.formatMessage({ id: 'RefusjonskravTabell.UtfallMangler' })}
-                        color="var(--ax-text-warning-decoration)"
-                        fontSize="1.25rem"
-                      />
-                    )}
-                    {krav.arbeidsgiverNavn}
-                  </HStack>
+                  <VStack gap="space-8">
+                    {refusjonsperioder.map(krav => (
+                      <div key={`${krav.fom}-${krav.tom}`}>
+                        <PeriodLabel dateStringFom={krav.fom} dateStringTom={krav.tom} />
+                      </div>
+                    ))}
+                  </VStack>
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  <PeriodLabel dateStringFom={krav.fom} dateStringTom={krav.tom} />
-                </Table.DataCell>
-
-                <Table.DataCell align="right">
-                  <BeløpLabel beløp={krav.refusjonsbeløpPrMnd} kr />
+                  <VStack gap="space-8">
+                    {refusjonsperioder.map(krav => (
+                      <div key={`${krav.fom}-${krav.tom}`}>
+                        <BeløpLabel beløp={krav.refusjonsbeløpPrMnd} kr />
+                      </div>
+                    ))}
+                  </VStack>
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  <DateLabel dateString={krav.datoForInnsendtEllerEndretIM} />
+                  <VStack gap="space-8">
+                    {refusjonsperioder.map(krav => (
+                      <div key={`${krav.fom}-${krav.tom}`}>
+                        <DateLabel dateString={krav.datoForInnsendtEllerEndretIM} />
+                      </div>
+                    ))}
+                  </VStack>
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  <HStack gap="space-8" wrap={false}>
-                    {krav.kilde === 'SAKSBEHANDLER' && (
-                      <PersonPencilFillIcon
-                        title={intl.formatMessage({ id: 'RefusjonskravTabell.EndretAvSaksbehandler' })}
-                        fontSize="1.5rem"
-                        color="var(--ax-text-warning-decoration)"
-                      />
-                    )}
-                    {krav.utfall && getUtfallTekst(krav.utfall)}
-                  </HStack>
+                  {dokument && (
+                    <Button
+                      type="button"
+                      variant="tertiary"
+                      size="small"
+                      aria-label={intl.formatMessage(
+                        { id: 'RefusjonskravTabell.ÅpneInntektsmeldingFra' },
+                        { arbeidsgiver: andel.arbeidsgiverNavn },
+                      )}
+                      onClick={event => {
+                        event.stopPropagation();
+                        åpneDokument(dokument.journalpostId, dokument.dokumentId);
+                      }}
+                    >
+                      <FormattedMessage id="RefusjonskravTabell.ÅpneInntektsmelding" />
+                    </Button>
+                  )}
+                </Table.DataCell>
+                <Table.DataCell>
+                  {andel.kilde === 'SAKSBEHANDLER' && (
+                    <PersonPencilFillIcon
+                      title={intl.formatMessage({ id: 'RefusjonskravTabell.EndretAvSaksbehandler' })}
+                      fontSize="1.5rem"
+                      color="var(--ax-text-warning-decoration)"
+                    />
+                  )}
                 </Table.DataCell>
               </Table.ExpandableRow>
             );
@@ -106,15 +139,4 @@ export const RefusjonskravTabell = ({ rader, renderRowContent, åpneRader, onOpe
       </Table>
     </VStack>
   );
-};
-
-const getUtfallTekst = (utfall: NonNullable<RefusjonskravFormRad['utfall']>) => {
-  switch (utfall) {
-    case 'INNVILGET':
-      return <FormattedMessage id="RefusjonskravTabell.Utfall.INNVILGET" />;
-    case 'AVSLÅTT':
-      return <FormattedMessage id="RefusjonskravTabell.Utfall.AVSLÅTT" />;
-    case 'REDUSERT':
-      return <FormattedMessage id="RefusjonskravTabell.Utfall.REDUSERT" />;
-  }
 };

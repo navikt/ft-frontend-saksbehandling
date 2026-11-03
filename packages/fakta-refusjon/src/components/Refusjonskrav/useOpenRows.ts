@@ -1,12 +1,7 @@
 import { useCallback, useState } from 'react';
 
-import type { RefusjonskravFormRad } from './formValues';
-
-// Holder oversikt over åpne rader og åpner rader uten utfall ved oppstart.
-export const useOpenRows = (initialRows: readonly Pick<RefusjonskravFormRad, 'utfall'>[]) => {
-  const [openRowsIndices, setOpenRowsIndices] = useState(
-    () => new Set(initialRows.flatMap((rad, index) => (rad.utfall ? [] : index))),
-  );
+export const useOpenRows = () => {
+  const [openRowsIndices, setOpenRowsIndices] = useState(() => new Set<number>());
 
   const onOpenChange = useCallback((index: number, open: boolean) => {
     setOpenRowsIndices(current => {

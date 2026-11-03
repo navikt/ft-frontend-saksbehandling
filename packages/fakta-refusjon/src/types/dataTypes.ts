@@ -1,5 +1,11 @@
+export type Saksdokument = {
+  dokumentId: string;
+  journalpostId: string;
+};
+
 export type RefusjonsAndel = {
   arbeidsgiverIdent: string;
+  journalpostId?: string;
   kilde: 'IM' | 'SAKSBEHANDLER';
   refusjonsperioder: Refusjonsperiode[];
 };

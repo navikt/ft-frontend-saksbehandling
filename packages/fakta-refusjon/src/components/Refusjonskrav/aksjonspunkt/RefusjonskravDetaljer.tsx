@@ -4,10 +4,10 @@ import { Box, HStack } from '@navikt/ds-react';
 
 import { DateLabel, LabeledValue } from '@navikt/ft-ui-komponenter';
 
-import type { RefusjonskravFormRad } from './formValues';
+import type { RefusjonskravFormPeriode } from '../formValues';
 
 interface Props {
-  krav: RefusjonskravFormRad;
+  krav: RefusjonskravFormPeriode;
 }
 
 export const RefusjonskravDetaljer = ({ krav }: Props) => (

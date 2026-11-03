@@ -8,22 +8,31 @@ import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { dateFormat } from '@navikt/ft-utils';
 
-import type { UtfallÅrsak } from '../../types/dataTypes';
-import type { RefusjonskravFormRad, RefusjonskravVurdering } from './formValues';
+import type { UtfallÅrsak } from '../../../types/dataTypes';
+import type { RefusjonskravFormPeriode, RefusjonskravVurdering } from '../formValues';
 
 type Vurderingsskjema = {
-  vurderinger: RefusjonskravVurdering[];
+  vurderinger: Record<string, RefusjonskravVurdering>;
 };
 
 interface Props {
-  index: number;
-  krav: RefusjonskravFormRad;
+  andelIndex: number;
+  periodeIndex: number;
+  krav: RefusjonskravFormPeriode;
   readOnly: boolean;
-  onSave: (index: number, values: RefusjonskravVurdering) => void;
-  onDirtyChange: (index: number, dirty: boolean) => void;
+  onSave: (andelIndex: number, periodeIndex: number, values: RefusjonskravVurdering) => void;
+  onDirtyChange: (andelIndex: number, periodeIndex: number, dirty: boolean) => void;
 }
 
-export const RefusjonskravRadVurdering = ({ index, krav, readOnly, onSave, onDirtyChange }: Props) => {
+export const RefusjonskravRadVurdering = ({
+  andelIndex,
+  periodeIndex,
+  krav,
+  readOnly,
+  onSave,
+  onDirtyChange,
+}: Props) => {
+  const index = `${andelIndex}-${periodeIndex}`;
   const fieldName = `vurderinger.${index}` as const;
   const formMethods = useForm<Vurderingsskjema>({
     defaultValues: buildInitialValues(index, krav),
@@ -34,8 +43,8 @@ export const RefusjonskravRadVurdering = ({ index, krav, readOnly, onSave, onDir
   });
   /* eslint-disable react-you-might-not-need-an-effect/no-pass-data-to-parent -- Radskjemaet lagres separat; hovedskjemaet må vite om ulagrede valg. */
   useEffect(() => {
-    onDirtyChange(index, formMethods.formState.isDirty);
-  }, [index, formMethods.formState.isDirty, onDirtyChange]);
+    onDirtyChange(andelIndex, periodeIndex, formMethods.formState.isDirty);
+  }, [andelIndex, periodeIndex, formMethods.formState.isDirty, onDirtyChange]);
   /* eslint-enable react-you-might-not-need-an-effect/no-pass-data-to-parent */
 
   return (
@@ -100,7 +109,7 @@ export const RefusjonskravRadVurdering = ({ index, krav, readOnly, onSave, onDir
               disabled={!formMethods.formState.isDirty}
               onClick={() =>
                 void formMethods.handleSubmit(values => {
-                  onSave(index, values.vurderinger[index]);
+                  onSave(andelIndex, periodeIndex, values.vurderinger[index]);
                   formMethods.reset(values);
                 })()
               }
@@ -123,13 +132,11 @@ export const RefusjonskravRadVurdering = ({ index, krav, readOnly, onSave, onDir
   );
 };
 
-const buildInitialValues = (index: number, krav: RefusjonskravFormRad): Vurderingsskjema => ({
-  vurderinger: Array.from({ length: index + 1 }, (_, currentIndex) =>
-    currentIndex === index
-      ? {
-          utfall: krav.utfall === 'REDUSERT' ? undefined : krav.utfall,
-          utfallÅrsak: krav.utfallÅrsak,
-        }
-      : {},
-  ),
+const buildInitialValues = (index: string, krav: RefusjonskravFormPeriode): Vurderingsskjema => ({
+  vurderinger: {
+    [index]: {
+      utfall: krav.utfall === 'REDUSERT' ? undefined : krav.utfall,
+      utfallÅrsak: krav.utfallÅrsak,
+    },
+  },
 });

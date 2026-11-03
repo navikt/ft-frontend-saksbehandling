@@ -1,21 +1,16 @@
-import type { UtfallÅrsak } from '../../types/dataTypes';
+import type { RefusjonsAndel, Refusjonsperiode } from '../../types/dataTypes';
 
-export type AvklarRefusjonsKravFormValues = {
+export type OverstyrRefusjonFormValues = {
+  erOverstyring: boolean;
   begrunnelse: string;
-  refusjonskrav: RefusjonskravFormRad[];
+  refusjonsandeler: RefusjonsAndelFormValues[];
 };
 
-export type RefusjonskravFormRad = {
-  arbeidsgiverIdent: string;
+export type RefusjonsAndelFormValues = Omit<RefusjonsAndel, 'refusjonsperioder'> & {
   arbeidsgiverNavn: string;
-  kilde: string;
-  fom: string;
-  tom: string;
-  refusjonsbeløpPrMnd: number;
-  datoForInnsendtEllerEndretIM: string;
-  fristForInnsendingAvRefusjonskrav: string;
-  tidligsteMuligeDatoMedRefusjonEtterFrist: string;
-  utfall?: 'INNVILGET' | 'AVSLÅTT' | 'REDUSERT';
-  utfallÅrsak?: UtfallÅrsak;
+  refusjonsperioder: RefusjonPeriode[];
 };
-export type RefusjonskravVurdering = Pick<RefusjonskravFormRad, 'utfall' | 'utfallÅrsak'>;
+
+type RefusjonPeriode = Omit<Refusjonsperiode, 'refusjonsbeløpPrMnd'> & {
+  refusjonsbeløpPrMnd: number | undefined;
+};
