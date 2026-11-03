@@ -1,4 +1,5 @@
 import type { Beregningsgrunnlag, BeregningsgrunnlagAndel } from '@navikt/ft-types';
+import { sortObjectBy } from '@navikt/ft-utils';
 
 import { AvviksberegningForSammenligningsgrunnlagType } from './AvviksberegningForSammenligningsgrunnlagType';
 
@@ -8,12 +9,16 @@ interface Props {
 }
 
 export const Avviksberegninger = ({ beregningsgrunnlag, formaterVisningsnavnForAndel }: Props) => {
+  const sammenligningsgrunnlagPrStatus = beregningsgrunnlag.sammenligningsgrunnlagPrStatus ?? [];
+  if (sammenligningsgrunnlagPrStatus.length === 0) {
+    return null;
+  }
   return (
     <>
-      {beregningsgrunnlag.sammenligningsgrunnlagPrStatus?.map(sg => (
+      {sammenligningsgrunnlagPrStatus.toSorted(sortObjectBy('sammenligningsgrunnlagType')).map(sg => (
         <AvviksberegningForSammenligningsgrunnlagType
-          beregningsgrunnlag={beregningsgrunnlag}
           key={sg.sammenligningsgrunnlagType}
+          beregningsgrunnlag={beregningsgrunnlag}
           sammenligningsgrunnlag={sg}
           formaterVisningsnavnForAndel={formaterVisningsnavnForAndel}
         />

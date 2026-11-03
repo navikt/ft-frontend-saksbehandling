@@ -110,7 +110,6 @@ export const ArbeidstakerEllerFrilansContainer = ({
           validate={[required, maxLength4000, minLength3, hasValidText]}
           maxLength={MAX_LENGTH}
           readOnly={readOnly}
-          minRows={3}
           description={<FormattedMessage id="Forms.VurderingAvFastsattBeregningsgrunnlag.Undertekst" />}
           parse={value => value.toString().replaceAll('‑', '-').replaceAll('\t', ' ')}
         />

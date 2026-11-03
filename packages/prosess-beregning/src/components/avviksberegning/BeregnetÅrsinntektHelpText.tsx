@@ -25,6 +25,11 @@ export const BeregnetÅrsinntektHelpText = ({ beregningsgrunnlag, formaterVisnin
     grupperSummerteInntekterPerArbeidsgiver(beregningsgrunnlag.inntektsgrunnlag?.beregningsgrunnlagInntekter),
     formaterVisningsnavnForAndel,
   );
+
+  if (kilderForAndeler.length === 0) {
+    return null;
+  }
+
   return (
     <HelpText title={intl.formatMessage({ id: 'Avviksberegning.BeregnetÅrsinntekt.HelpText' })}>
       <VStack gap="space-8">
