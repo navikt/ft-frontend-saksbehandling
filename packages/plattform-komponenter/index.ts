@@ -1,6 +1,3 @@
-/** Vanlige react-komponenter * */
-export { Autocomplete } from './src/Autocomplete/Autocomplete';
-
 export { StepType as ProcessMenuStepType } from './src/ProcessMenu/components/StepType';
 export { ProcessMenu } from './src/ProcessMenu/ProcessMenu';
 
