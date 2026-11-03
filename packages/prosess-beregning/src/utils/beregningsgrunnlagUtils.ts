@@ -7,12 +7,10 @@ import type {
 
 import type { Vilkår } from '../types/Vilkår';
 
-export const erBGTilVurdering = (vilkårsperiodeFom: string, beregningsgrunnlagsvilkår: Vilkår | null) => {
-  const perioderTilVurdering = beregningsgrunnlagsvilkår?.perioder
-    ? beregningsgrunnlagsvilkår.perioder.filter(periode => periode.vurderesIBehandlingen && !periode.erForlengelse)
-    : [];
-  return perioderTilVurdering.some(vkp => vkp.periode.fom === vilkårsperiodeFom);
-};
+export const erBGTilVurdering = (vilkårsperiodeFom: string, beregningsgrunnlagsvilkår: Vilkår | null) =>
+  beregningsgrunnlagsvilkår?.perioder?.some(
+    periode => periode.vurderesIBehandlingen && !periode.erForlengelse && periode.periode.fom === vilkårsperiodeFom,
+  ) ?? false;
 
 export const finnAlleAndelerIFørstePeriode = (
   beregningsgrunnlagPeriode: BeregningsgrunnlagPeriodeProp[],

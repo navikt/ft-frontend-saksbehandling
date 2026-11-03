@@ -34,17 +34,7 @@ export { capitalizeFirstLetter, formaterFritekst } from './src/stringUtils';
 export { assertUnreachable } from './src/switchCaseUtils';
 export { guid } from './src/guid';
 export { replaceNorwegianCharacters, getLanguageFromSprakkode } from './src/languageUtils';
-export {
-  notNull,
-  isObjectEmpty,
-  diff,
-  isEqual,
-  isObject,
-  omit,
-  omitOne,
-  omitMany,
-  sortObjectBy,
-} from './src/objectUtils';
+export { isObjectEmpty, diff, isEqual, isObject, omit, omitOne, omitMany, sortObjectBy } from './src/objectUtils';
 
 export { createIntl } from './src/createIntl';
 export { BTag } from './src/createTags';
