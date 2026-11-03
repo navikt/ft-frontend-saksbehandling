@@ -58,6 +58,12 @@ export const TabInnhold = ({
           kodeverkSamling={kodeverkSamling}
         />
 
+        <Avviksberegninger
+          beregningsgrunnlag={beregningsgrunnlag}
+          formaterVisningsnavnForAndel={createVisningsnavnForAndel(arbeidsgiverOpplysningerPerId, kodeverkSamling)}
+          visBareSammenligningTyper={['SAMMENLIGNING_AT', 'SAMMENLIGNING_FL', 'SAMMENLIGNING_AT_FL']}
+        />
+
         {inntektsgrunnlag && (
           <RegisterInntekter
             inntektsgrunnlag={inntektsgrunnlag}
@@ -79,6 +85,7 @@ export const TabInnhold = ({
         <Avviksberegninger
           beregningsgrunnlag={beregningsgrunnlag}
           formaterVisningsnavnForAndel={createVisningsnavnForAndel(arbeidsgiverOpplysningerPerId, kodeverkSamling)}
+          visBareSammenligningTyper={['SAMMENLIGNING_SN', 'SAMMENLIGNING_ATFL_SN', 'SAMMENLIGNING_MIDL_INAKTIV']}
         />
 
         <Dagsatser

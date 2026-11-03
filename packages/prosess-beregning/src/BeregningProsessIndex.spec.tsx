@@ -72,6 +72,12 @@ describe('BeregningProsessIndex', () => {
 
     expect(screen.getByText('Beregning')).toBeInTheDocument();
 
+    const forventedePanelnavn = ['Arbeidsinntekt', 'Avviksberegning for arbeidstaker', 'Grunnlag §§ 8-28 og 8-30'];
+    const paneler = screen.getAllByRole('region');
+    forventedePanelnavn.forEach((navn, index) => {
+      expect(paneler[index]).toHaveAccessibleName(navn);
+    });
+
     const arbeidsinntekt = screen.getByRole('region', { name: 'Arbeidsinntekt' });
     expect(arbeidsinntekt).toBeInTheDocument();
     expect(within(arbeidsinntekt).getByText('Inntektsmelding')).toBeInTheDocument();
