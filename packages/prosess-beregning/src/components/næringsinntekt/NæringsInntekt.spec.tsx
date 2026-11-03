@@ -3,13 +3,8 @@ import { render, screen, within } from '@testing-library/react';
 
 import * as stories from './NæringsInntekt.stories';
 
-const {
-  BrukerMedBådeLønnOgNæring,
-  SelvstendigNæringsdrivende,
-  UtenDetaljertPgiGrunnlag,
-  UtenNæringsandel,
-  UtenPgiSnitt,
-} = composeStories(stories);
+const { BrukerMedBådeLønnOgNæring, SelvstendigNæringsdrivende, UtenDetaljertPgiGrunnlag, UtenNæringsandel } =
+  composeStories(stories);
 
 describe('NæringsInntekt', () => {
   it('skal vise år i synkende rekkefølge og inntektsverdier', () => {
@@ -26,21 +21,21 @@ describe('NæringsInntekt', () => {
       '2023',
       '250 000 kr',
       '0 kr',
-      '250 000',
+      '250 000 kr',
       '266 752 kr',
     ]);
     expectCells(within(table).getByRole('row', { name: /2022/ }), [
       '2022',
       '100 000 kr',
       '100 000 kr',
-      '200 000',
+      '200 000 kr',
       '225 949 kr',
     ]);
     expectCells(within(table).getByRole('row', { name: /2021/ }), [
       '2021',
       '200 000 kr',
       '200 000 kr',
-      '400 000',
+      '400 000 kr',
       '473 769 kr',
     ]);
 
@@ -59,17 +54,11 @@ describe('NæringsInntekt', () => {
 
     const table = within(screen.getByRole('region', { name: 'Pensjonsgivende inntekt' })).getByRole('table');
     expect(table).toBeInTheDocument();
-    expectCells(within(table).getByRole('row', { name: /2023/ }), ['2023', '0 kr', '0 kr', '0', '266 752 kr']);
+    expectCells(within(table).getByRole('row', { name: /2023/ }), ['2023', '0 kr', '0 kr', '0 kr', '266 752 kr']);
   });
 
   it('skal skjule panelet når grunnlaget ikke har en næringsandel', () => {
     render(<UtenNæringsandel />);
-
-    expect(screen.queryByRole('region', { name: 'Pensjonsgivende inntekt' })).not.toBeInTheDocument();
-  });
-
-  it('skal skjule panelet når gjennomsnittet er null', () => {
-    render(<UtenPgiSnitt />);
 
     expect(screen.queryByRole('region', { name: 'Pensjonsgivende inntekt' })).not.toBeInTheDocument();
   });

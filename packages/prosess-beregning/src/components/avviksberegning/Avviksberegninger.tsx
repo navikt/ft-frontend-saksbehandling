@@ -9,8 +9,8 @@ interface Props {
 }
 
 export const Avviksberegninger = ({ beregningsgrunnlag, formaterVisningsnavnForAndel }: Props) => {
-  const { sammenligningsgrunnlagPrStatus } = beregningsgrunnlag;
-  if (!sammenligningsgrunnlagPrStatus || sammenligningsgrunnlagPrStatus.length === 0) {
+  const sammenligningsgrunnlagPrStatus = beregningsgrunnlag.sammenligningsgrunnlagPrStatus ?? [];
+  if (sammenligningsgrunnlagPrStatus.length === 0) {
     return null;
   }
   return (

@@ -14,6 +14,10 @@ type VurderingValues = {
 };
 
 export type AksjonspunktDataValues =
-  ATFLTidsbegrensetValues | FrilansInntektValues | VurderOgFastsettValues | NyIArbeidslivetValues | ATFLValues;
+  | ATFLTidsbegrensetValues
+  | FrilansInntektValues
+  | VurderOgFastsettValues
+  | NyIArbeidslivetValues
+  | ATFLValues;
 
 export type BeregningsgrunnlagValues = VurderingValues & AksjonspunktDataValues;

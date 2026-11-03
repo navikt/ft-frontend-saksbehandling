@@ -6,16 +6,16 @@ import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 interface Props {
   år: number;
-  pgiVerdier: PgiVerdier[];
-  pgiGrunnlag: PGIPrÅr[];
+  pgiVerdi: PgiVerdier;
+  pgiGrunnlag?: PGIPrÅr[];
 }
 
-export const NæringsInntektTabellRad = ({ år, pgiVerdier, pgiGrunnlag }: Props) => {
+export const NæringsInntektTabellRad = ({ år, pgiVerdi, pgiGrunnlag = [] }: Props) => {
   const inntektsgrunnlag = pgiGrunnlag.find(gr => gr.år === år);
-  const næringsgrunnlag = inntektsgrunnlag?.inntekter.find(gr => gr.pgiType === PgiType.NÆRING)?.beløp || 0;
-  const lønnsgrunnlag = inntektsgrunnlag?.inntekter.find(gr => gr.pgiType === PgiType.LØNN)?.beløp || 0;
+  const næringsgrunnlag = inntektsgrunnlag?.inntekter.find(gr => gr.pgiType === PgiType.NÆRING)?.beløp ?? 0;
+  const lønnsgrunnlag = inntektsgrunnlag?.inntekter.find(gr => gr.pgiType === PgiType.LØNN)?.beløp ?? 0;
   const totaltUjustertGrunnlag = næringsgrunnlag + lønnsgrunnlag;
-  const totaltJustertGrunnlag = pgiVerdier.find(pgi => pgi.årstall === år)?.beløp;
+  const totaltJustertGrunnlag = pgiVerdi.beløp;
   return (
     <Table.Row shadeOnHover>
       <Table.DataCell textSize="small">{år}</Table.DataCell>
@@ -26,7 +26,7 @@ export const NæringsInntektTabellRad = ({ år, pgiVerdier, pgiGrunnlag }: Props
         <BeløpLabel beløp={næringsgrunnlag} kr />
       </Table.DataCell>
       <Table.DataCell align="right" textSize="small">
-        <BeløpLabel beløp={totaltUjustertGrunnlag} />
+        <BeløpLabel beløp={totaltUjustertGrunnlag} kr />
       </Table.DataCell>
       <Table.DataCell align="right" textSize="small">
         <BeløpLabel beløp={totaltJustertGrunnlag} kr />

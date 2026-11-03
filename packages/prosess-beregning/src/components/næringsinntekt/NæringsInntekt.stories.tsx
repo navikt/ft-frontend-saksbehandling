@@ -24,18 +24,6 @@ const grunnlagForBA = {
   ),
 };
 
-const grunnlagMedNullPgiSnitt = {
-  ...selvstendigNæringsdrivendeFP.beregningsgrunnlagListe[0],
-  beregningsgrunnlagPeriode: selvstendigNæringsdrivendeFP.beregningsgrunnlagListe[0].beregningsgrunnlagPeriode.map(
-    periode => ({
-      ...periode,
-      beregningsgrunnlagPrStatusOgAndel: periode.beregningsgrunnlagPrStatusOgAndel?.map(andel =>
-        andel.aktivitetStatus === 'SN' ? { ...andel, pgiSnitt: 0 } : andel,
-      ),
-    }),
-  ),
-};
-
 const meta = {
   component: NæringsInntekt,
   decorators: [withIntl],
@@ -68,12 +56,5 @@ export const UtenNæringsandel: Story = {
 export const UtenDetaljertPgiGrunnlag: Story = {
   args: {
     inntektsgrunnlag: undefined,
-  },
-};
-
-export const UtenPgiSnitt: Story = {
-  args: {
-    beregningsgrunnlag: grunnlagMedNullPgiSnitt,
-    inntektsgrunnlag: grunnlagMedNullPgiSnitt.inntektsgrunnlag,
   },
 };

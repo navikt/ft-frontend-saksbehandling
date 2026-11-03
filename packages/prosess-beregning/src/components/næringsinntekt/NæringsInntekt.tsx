@@ -17,16 +17,10 @@ export const NæringsInntekt = ({ beregningsgrunnlag, inntektsgrunnlag }: Props)
   const alleAndelerIForstePeriode = finnAlleAndelerIFørstePeriode(beregningsgrunnlag.beregningsgrunnlagPeriode);
 
   const andel = alleAndelerIForstePeriode.find(a => a.aktivitetStatus === 'SN' || a.aktivitetStatus === 'BA');
-  const pgiGrunlag = inntektsgrunnlag?.pgiGrunnlag || [];
-  if (!andel?.pgiSnitt || !andel.pgiVerdier) {
+
+  if (andel?.pgiSnitt === undefined || andel.pgiVerdier === undefined) {
     return null;
   }
-  const { pgiVerdier, pgiSnitt } = andel;
-
-  const relevanteÅr = pgiVerdier
-    .map(pgi => pgi.årstall)
-    .sort((a, b) => a - b)
-    .reverse();
 
   return (
     <FaktaBoks
@@ -54,8 +48,13 @@ export const NæringsInntekt = ({ beregningsgrunnlag, inntektsgrunnlag }: Props)
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {relevanteÅr.map(år => (
-            <NæringsInntektTabellRad key={år} år={år} pgiVerdier={pgiVerdier} pgiGrunnlag={pgiGrunlag} />
+          {andel.pgiVerdier.toSorted(sortByÅr).map(pgiVerdi => (
+            <NæringsInntektTabellRad
+              key={pgiVerdi.årstall}
+              år={pgiVerdi.årstall}
+              pgiVerdi={pgiVerdi}
+              pgiGrunnlag={inntektsgrunnlag?.pgiGrunnlag}
+            />
           ))}
         </Table.Body>
         <TableSum bottomBorder="double">
@@ -64,7 +63,7 @@ export const NæringsInntekt = ({ beregningsgrunnlag, inntektsgrunnlag }: Props)
               <FormattedMessage id="NæringsInntekt.GsnittSum" />
             </Table.HeaderCell>
             <Table.HeaderCell align="right" textSize="small">
-              <BeløpLabel beløp={pgiSnitt} kr />
+              <BeløpLabel beløp={andel.pgiSnitt} kr />
             </Table.HeaderCell>
           </Table.Row>
         </TableSum>
@@ -72,3 +71,5 @@ export const NæringsInntekt = ({ beregningsgrunnlag, inntektsgrunnlag }: Props)
     </FaktaBoks>
   );
 };
+
+const sortByÅr = (a: { årstall: number }, b: { årstall: number }) => b.årstall - a.årstall;
