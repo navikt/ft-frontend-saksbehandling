@@ -155,7 +155,7 @@ export const VurderFaktaBeregningPanel = ({
     hasOpenAksjonspunkt(OVERSTYRING_AV_BEREGNINGSAKTIVITETER, avklaringsbehov)
   )) {
     return (
-      <VurderFaktaContext.Provider value={aktivtBeregningsgrunnlagIndeks}>
+      <VurderFaktaContext value={aktivtBeregningsgrunnlagIndeks}>
         <RhfForm
           formMethods={formMethods}
           onSubmit={values => {
@@ -188,7 +188,7 @@ export const VurderFaktaBeregningPanel = ({
               throw new Error(`Filler ikke vilkårsperiode med fom ${valgtBeregningsgrunnlag.vilkårsperiodeFom}`);
             }
             return (
-              <BeregningsgrunnlagIndexContext.Provider key={field.id} value={index}>
+              <BeregningsgrunnlagIndexContext key={field.id} value={index}>
                 <VStack gap="space-24">
                   <VurderFaktaBeregningField
                     key={field.id}
@@ -204,11 +204,11 @@ export const VurderFaktaBeregningPanel = ({
                     verdiForAvklarAktivitetErEndret={verdiForAvklarAktivitetErEndret}
                   />
                 </VStack>
-              </BeregningsgrunnlagIndexContext.Provider>
+              </BeregningsgrunnlagIndexContext>
             );
           })}
         </RhfForm>
-      </VurderFaktaContext.Provider>
+      </VurderFaktaContext>
     );
   }
   return null;

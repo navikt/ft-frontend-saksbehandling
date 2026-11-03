@@ -52,16 +52,16 @@ export const PeriodeController = ({
 }: Props) => {
   const intl = useIntl();
 
-  const [showDelPeriodeModal, setShowDelPeriodeModall] = useState(false);
+  const [showDelPeriodeModal, setShowDelPeriodeModal] = useState(false);
   const [finnesBelopMed0Verdi, setFinnesBelopMed0Verdi] = useState(false);
 
   const showModal = (event: React.MouseEvent) => {
-    setShowDelPeriodeModall(true);
+    setShowDelPeriodeModal(true);
     event.preventDefault();
   };
 
   const hideModal = () => {
-    setShowDelPeriodeModall(false);
+    setShowDelPeriodeModal(false);
   };
 
   const splitPeriod = (formValues: PerioderData) => {

@@ -33,9 +33,6 @@ interface State {
 
 // TODO (TOR) Er dette mykje det same som https://aksel.nav.no/komponenter/core/combobox?
 export class Autocomplete extends React.Component<AutocompleteProps, State> {
-  // @ts-expect-error Fiks
-  input: HTMLInputElement;
-
   inputRef: any;
 
   constructor(props: AutocompleteProps) {
@@ -47,10 +44,6 @@ export class Autocomplete extends React.Component<AutocompleteProps, State> {
       setAriaActiveDescendant: false,
       shouldBlur: true,
       blurDelay: null,
-    };
-
-    this.inputRef = (element: any) => {
-      this.input = element;
     };
 
     this.onChange = this.onChange.bind(this);

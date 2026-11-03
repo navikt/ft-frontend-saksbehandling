@@ -31,7 +31,7 @@ export const TilbakekrevingVedtakUtdypendeTekstPanel = ({ name, readOnly, fritek
 
   const isEmpty = watch(name) === undefined;
 
-  const [isTextfieldHidden, hideTextField] = useState(isEmpty && !fritekstPakrevet);
+  const [isTextfieldHidden, setIsTextfieldHidden] = useState(isEmpty && !fritekstPakrevet);
   const valideringsRegler = useMemo(
     () => [
       ...(fritekstPakrevet ? valideringsreglerPakrevet : valideringsregler),
@@ -42,7 +42,7 @@ export const TilbakekrevingVedtakUtdypendeTekstPanel = ({ name, readOnly, fritek
 
   const handleOnClick = (event: SyntheticEvent) => {
     event.preventDefault();
-    hideTextField(false);
+    setIsTextfieldHidden(false);
   };
 
   return (

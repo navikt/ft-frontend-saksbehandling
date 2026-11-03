@@ -149,8 +149,8 @@ export const ForeldelseForm = ({
     }
     return alleForeldelseresultatAktiviteter.find(harApentAksjonspunkt);
   });
-  const [isSubmitting, setSubmitting] = useState(false);
-  const [isDirty, setDirty] = useState(formData?.erEndret ?? false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDirty, setIsDirty] = useState(formData?.erEndret ?? false);
 
   // Detaljpanelet mellomlagrer kladden i sin egen unmount, og da er denne komponentens render-closure
   // allerede utdatert. Refen holder derfor siste skrevne data, slik at kladden legges oppå den og ikke
@@ -223,7 +223,7 @@ export const ForeldelseForm = ({
     const nesteValgtePeriode = sortedActivities.find(harApentAksjonspunkt);
 
     setForeldelseresultatAktiviteter(sortedActivities);
-    setDirty(true);
+    setIsDirty(true);
     setPeriodeKladd(undefined);
     setValgtPeriode(nesteValgtePeriode);
     mellomlagre({
@@ -258,7 +258,7 @@ export const ForeldelseForm = ({
     );
 
     setForeldelseresultatAktiviteter(sortedActivities);
-    setDirty(true);
+    setIsDirty(true);
     setPeriodeKladd(undefined);
     setValgtPeriode(nyValgtPeriode);
     mellomlagre({
@@ -270,7 +270,7 @@ export const ForeldelseForm = ({
   };
 
   const lagrePerioder = () => {
-    setSubmitting(true);
+    setIsSubmitting(true);
     submitCallback(transformValues(foreldelseresultatAktiviteter));
   };
 
