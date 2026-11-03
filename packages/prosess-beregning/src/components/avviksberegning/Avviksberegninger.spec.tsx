@@ -22,7 +22,7 @@ describe('Avviksberegninger', () => {
     },
     {
       type: 'SAMMENLIGNING_AT_FL',
-      navn: 'Avviksberegning for arbeidstaker',
+      navn: 'Avviksberegning for arbeidstaker og frilans',
       inntektstekst: /Beregnet årsinntekt/,
       sammenligningstekst: 'Sammenligningsgrunnlag § 8-30',
     },

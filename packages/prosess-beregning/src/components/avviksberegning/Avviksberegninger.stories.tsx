@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { alleKodeverk, getIntlDecorator } from '@navikt/ft-frontend-storybook-utils';
 
 import { arbeidsgiverOpplysningerPerId } from '../../../testdata/arbeidsgivere';
-import { arbeidstakerFPEttArbeidsforhold } from '../../../testdata/arbeidstakerFPEttArbeidsforhold';
+import { arbeidstakerOgFrilansFP } from '../../../testdata/arbeidstakerOgFrilansFP';
 import { SammenligningType } from '../../kodeverk/sammenligningType';
 import type { KodeverkForPanel } from '../../types/KodeverkForPanel';
 import { createVisningsnavnForAndel } from '../../utils/createVisningsnavnForAktivitet';
@@ -41,7 +41,7 @@ export const AvviksberegningerFlereTyper: Story = {
       alleKodeverk as KodeverkForPanel,
     ),
     beregningsgrunnlag: {
-      ...arbeidstakerFPEttArbeidsforhold.beregningsgrunnlagListe[0],
+      ...arbeidstakerOgFrilansFP.beregningsgrunnlagListe[0],
       sammenligningsgrunnlagPrStatus: sammenligningstyper.map(sammenligningsgrunnlagType => ({
         sammenligningsgrunnlagFom: '2025-12-01',
         sammenligningsgrunnlagTom: '2025-12-31',
