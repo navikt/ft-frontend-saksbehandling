@@ -67,7 +67,6 @@ const beregningsgrunnlag: Beregningsgrunnlag = {
               endringsdato: '2024-09-02',
               oppstartsdato: '2016-10-05',
               opphørsdato: '9999-12-31',
-              kanRegnskapsførerKontaktes: false,
               erNyIArbeidslivet: false,
               oppgittInntekt: 48,
             },
