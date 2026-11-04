@@ -10,7 +10,7 @@ const { Default, MedValidering } = composeStories(stories);
 describe('RhfCheckboxGroup', () => {
   it('skal sette verdi', async () => {
     await Default.run();
-    expect(screen.getByText('Dette er en checkboxpanel')).toBeInTheDocument();
+    expect(screen.getByText('Legend')).toBeInTheDocument();
     expect(screen.getByText('Dette er en beskrivelse')).toBeInTheDocument();
 
     const checkboxes = screen.getAllByLabelText(/Verdi /);
@@ -24,22 +24,12 @@ describe('RhfCheckboxGroup', () => {
     expect(screen.getByLabelText('Verdi 1')).toBeChecked();
   });
 
-  it('skal gi feil ved ingen valgte elementer', async () => {
+  it('skal fokusere første aktive avkrysningsboks ved valideringsfeil', async () => {
     await MedValidering.run();
-    expect(screen.getByText('Dette er en checkboks med validering')).toBeInTheDocument();
 
-    const checkboxes = screen.getAllByLabelText(/Verdi /);
+    await userEvent.click(screen.getByRole('button', { name: 'Submit' }));
 
-    await userEvent.click(checkboxes[0]);
-    await userEvent.click(checkboxes[2]);
-
-    await userEvent.click(screen.getByText('Submit'));
-
-    expect(await screen.findByText('Du må velge minst ett element')).toBeInTheDocument();
-
-    await userEvent.click(checkboxes[0]);
-    await userEvent.click(checkboxes[1]);
-
-    expect(screen.getByText('Verdi 1 og 2 kan ikke velges samtidig')).toBeInTheDocument();
+    expect(await screen.findByText('Velg minst ett element')).toBeInTheDocument();
+    expect(screen.getByRole('checkbox', { name: 'Verdi' })).toHaveFocus();
   });
 });

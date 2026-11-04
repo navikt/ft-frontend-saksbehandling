@@ -6,9 +6,16 @@ import { RhfNumericField } from './RhfNumericField';
 const meta = {
   component: RhfNumericField,
   tags: ['autodocs'],
-  decorators: rhfDecorator({ testnumberpre: 45.1 }),
+  decorators: [rhfDecorator],
   args: {
+    label: 'Label',
+    hideLabel: false,
+    name: 'field',
     control: undefined, // This will be provided by the decorator
+    readOnly: false,
+    isEdited: false,
+    disabled: false,
+    forceTwoDecimalDigits: false,
   },
 } satisfies Meta<typeof RhfNumericField>;
 
@@ -18,23 +25,29 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: 'Dette er et numberfelt',
-    name: 'testnumber',
+    description: 'Dette er et nummerfelt',
     forceTwoDecimalDigits: true,
   },
 };
 
 export const MedVerdi: Story = {
+  parameters: { defaultValues: { field: 45.1 } },
   args: {
-    label: 'Dette er et numberfelt der verdi er valgt',
-    name: 'testnumberpre',
+    description: 'Dette er et nummerfelt der verdi er valgt',
   },
 };
 
 export const ReadOnly: Story = {
+  parameters: { defaultValues: { field: 45.1 } },
   args: {
-    label: 'Dette er et numberfelt som er readonly',
-    name: 'testnumberpre',
+    description: 'Dette er et nummerfelt som er readonly',
     readOnly: true,
+  },
+};
+
+export const MedValidering: Story = {
+  args: {
+    forceTwoDecimalDigits: true,
+    validate: [(value: string) => (value ? undefined : 'Skriv inn et tall')],
   },
 };

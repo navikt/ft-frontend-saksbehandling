@@ -38,6 +38,7 @@ export const RhfNumericField = <T extends FieldValues>({
   ...rest
 }: Props<T>) => {
   const [hasFocus, setHasFocus] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
   const {
     formState: { errors },
@@ -56,7 +57,8 @@ export const RhfNumericField = <T extends FieldValues>({
 
   const regex = forceTwoDecimalDigits ? TWO_DECIMALS_REGEXP : DECIMAL_REGEXP;
 
-  const value = field.value !== undefined && field.value !== null ? field.value.toString() : '';
+  const fieldValue = field.value?.toString() ?? '';
+  const value = hasFocus && returnAsNumber && Number.parseFloat(inputValue) === field.value ? inputValue : fieldValue;
   const formattedValue =
     !hasFocus && forceTwoDecimalDigits && value !== '' && !Number.isNaN(value) ? parseFloat(value).toFixed(2) : value;
 
@@ -79,8 +81,10 @@ export const RhfNumericField = <T extends FieldValues>({
         let newValue;
         if (targetValue === '') {
           newValue = null;
+          setInputValue('');
         } else if (regex.test(targetValue)) {
           newValue = targetValue.replace(',', '.');
+          setInputValue(newValue);
         } else {
           newValue = field.value;
         }
@@ -100,7 +104,7 @@ export const RhfNumericField = <T extends FieldValues>({
         setHasFocus(false);
         field.onBlur();
 
-        if (forceTwoDecimalDigits && value.slice(-1) === '.') {
+        if (forceTwoDecimalDigits && !returnAsNumber && value.slice(-1) === '.') {
           field.onChange(value + 0);
         }
       }}

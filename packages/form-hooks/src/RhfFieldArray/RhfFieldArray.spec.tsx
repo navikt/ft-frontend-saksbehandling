@@ -5,9 +5,19 @@ import { describe, expect } from 'vitest';
 
 import * as stories from './RhfFieldArray.stories';
 
-const { MedAnnenType } = composeStories(stories);
+const { Default, MedAnnenType } = composeStories(stories);
 
 describe('RhfFieldArray', () => {
+  it('skal fokusere første datofelt når en periode legges til', async () => {
+    render(<Default />);
+
+    await userEvent.click(screen.getByRole('button', { name: 'Legg til periode' }));
+    expect(screen.getAllByRole('textbox', { name: 'Fra og med' })[1]).toHaveFocus();
+
+    await userEvent.click(screen.getByRole('button', { name: 'Legg til periode' }));
+    expect(screen.getAllByRole('textbox', { name: 'Fra og med' })[2]).toHaveFocus();
+  });
+
   it('skal rendre field array', async () => {
     render(<MedAnnenType />);
 

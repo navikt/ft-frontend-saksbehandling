@@ -51,7 +51,9 @@ export const RhfDatepicker = <T extends FieldValues>({
     formState: { errors },
   } = useFormContext();
 
-  const { field } = useController({
+  const {
+    field: { ref, ...field },
+  } = useController({
     name,
     control,
     rules: {
@@ -123,6 +125,7 @@ export const RhfDatepicker = <T extends FieldValues>({
     <DatePicker {...dpProps}>
       <DatePicker.Input
         {...inputProps}
+        ref={ref}
         hideLabel={hideLabel}
         onChange={onChangeInput}
         value={fieldValue}

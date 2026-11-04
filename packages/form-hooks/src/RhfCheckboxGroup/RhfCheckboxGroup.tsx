@@ -62,6 +62,8 @@ export const RhfCheckboxGroup = <TFieldValues extends FieldValues, TName extends
 
   return (
     <CheckboxGroup
+      // RHF må få et fokusbart input, ikke gruppens fieldset.
+      ref={fieldset => field.ref(fieldset?.querySelector('input[type="checkbox"]:not(:disabled)'))}
       name={name}
       value={field.value !== undefined ? field.value : []}
       onChange={value => {

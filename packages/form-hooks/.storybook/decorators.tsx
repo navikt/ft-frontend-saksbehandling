@@ -1,33 +1,38 @@
-import { useForm, type UseFormProps } from 'react-hook-form';
+import { type DefaultValues, type FieldValues, type SubmitHandler, useForm } from 'react-hook-form';
 
 import { Button, VStack } from '@navikt/ds-react';
-import type { Meta } from '@storybook/react-vite';
+import type { Decorator } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
-import { RhfForm } from './../src/RhfForm';
+import { RhfForm } from '../src/RhfForm';
 
-export const rhfDecorator =
-  (defaultValues: UseFormProps['defaultValues']): Meta['decorators'] =>
-  (Story, context) => {
-    const formMethods = useForm({
-      defaultValues,
-    });
+declare module 'storybook/internal/csf' {
+  interface Parameters {
+    defaultValues?: DefaultValues<FieldValues>;
+    onSubmit?: SubmitHandler<FieldValues>;
+  }
+}
 
-    context.args = {
-      ...context.args,
-      control: formMethods.control,
-    };
+export const rhfDecorator: Decorator = function RhfDecorator(Story, { args, parameters }) {
+  const { defaultValues = {}, onSubmit } = parameters;
+  const formMethods = useForm({ defaultValues });
 
-    return (
-      <RhfForm formMethods={formMethods} onSubmit={action('submit') as (data: unknown) => Promise<unknown>}>
-        <VStack gap="space-16">
-          <Story />
-          <div>
-            <Button size="small" type="submit">
-              Submit
-            </Button>
-          </div>
-        </VStack>
-      </RhfForm>
-    );
-  };
+  return (
+    <RhfForm
+      formMethods={formMethods}
+      onSubmit={async data => {
+        await onSubmit?.(data);
+        action('submit')(data);
+      }}
+    >
+      <VStack gap="space-16">
+        <Story args={{ ...args, control: formMethods.control }} />
+        <div>
+          <Button size="small" type="submit">
+            Submit
+          </Button>
+        </div>
+      </VStack>
+    </RhfForm>
+  );
+};
