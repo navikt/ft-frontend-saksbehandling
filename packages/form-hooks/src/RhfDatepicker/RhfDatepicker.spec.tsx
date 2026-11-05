@@ -46,11 +46,7 @@ describe('RhfDatepicker', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Submit' }));
 
     expect(onSubmit).toHaveBeenCalled();
-    expect(onSubmit.mock.calls[0][0]).toEqual(
-      expect.objectContaining({
-        field: '2025-08-26',
-      }),
-    );
+    expect(onSubmit.mock.calls[0][0]).toEqual({ field: '2025-08-26' });
   });
 
   it('skal ikke krasje og skal vise råverdien når startverdien er en ugyldig dato', async () => {
