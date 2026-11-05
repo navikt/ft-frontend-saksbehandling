@@ -95,8 +95,8 @@ export const useOverstyring = ({
   erOverstyrer,
   harVærtOverstyrt,
   erOverstyringRedigerbar: kontrollertOverstyring,
-  onAktiverOverstyring: onAktiverOverstyring,
-  onAvbrytOverstyring: onAvbrytOverstyring,
+  onAktiverOverstyring,
+  onAvbrytOverstyring,
   isSubmitting = false,
 }: UseOverstyringProps): UseOverstyringResult => {
   const kanOverstyre = erOverstyrer && !readOnly;
@@ -124,31 +124,37 @@ export const useOverstyring = ({
     onAvbrytOverstyring?.();
   };
 
+  let overstyringKnapp: JSX.Element | null = null;
+  if (erOverstyringRedigerbar && !harVærtOverstyrt) {
+    overstyringKnapp = (
+      <Button
+        type="button"
+        variant="tertiary"
+        size="small"
+        icon={<KeyVerticalFillIcon aria-hidden />}
+        onClick={avbrytOverstyring}
+        disabled={isSubmitting}
+      >
+        {intl.formatMessage({ id: 'OverstyringKnapp.Avbryt' })}
+      </Button>
+    );
+  } else if (kanOverstyre && !erOverstyringRedigerbar) {
+    overstyringKnapp = (
+      <Button
+        type="button"
+        variant="tertiary"
+        size="small"
+        icon={<KeyVerticalIcon title={intl.formatMessage({ id: 'OverstyringKnapp.Overstyring' })} />}
+        onClick={aktiverOverstyring}
+        disabled={isSubmitting}
+      />
+    );
+  }
+
   return {
     erOverstyringRedigerbar,
     erOverstyringReadOnly: !erOverstyringRedigerbar,
     visOverstyring: harVærtOverstyrt || ønsketOverstyring,
-    overstyringKnapp:
-      !kanOverstyre || (erOverstyringRedigerbar && harVærtOverstyrt) ? null : erOverstyringRedigerbar ? (
-        <Button
-          type="button"
-          variant="tertiary"
-          size="small"
-          icon={<KeyVerticalFillIcon aria-hidden />}
-          onClick={avbrytOverstyring}
-          disabled={isSubmitting}
-        >
-          {intl.formatMessage({ id: 'OverstyringKnapp.Avbryt' })}
-        </Button>
-      ) : (
-        <Button
-          type="button"
-          variant="tertiary"
-          size="small"
-          icon={<KeyVerticalIcon title={intl.formatMessage({ id: 'OverstyringKnapp.Overstyring' })} />}
-          onClick={aktiverOverstyring}
-          disabled={isSubmitting}
-        />
-      ),
+    overstyringKnapp,
   };
 };

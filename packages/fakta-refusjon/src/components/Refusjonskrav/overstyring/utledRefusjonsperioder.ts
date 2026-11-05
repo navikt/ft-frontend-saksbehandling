@@ -29,19 +29,19 @@ export const utledRefusjonsperioder = (
         ? Number.NaN
         : Number(periode.refusjonsbeløpPrMnd);
     const utfall = refusjonsbeløpPrMnd === 0 ? 'AVSLÅTT' : periode.utfall;
-    const tom = original
-      ? nestePeriode &&
-        isDateWithinInterval(nestePeriode.fom)({
-          fom: periode.fom,
-          tom: TIDENES_ENDE,
-        })
-        ? dayjs(nestePeriode.fom).subtract(1, 'day').format(ISO_DATE_FORMAT)
-        : periode.tom || TIDENES_ENDE
-      : '';
 
     if (!original) {
-      return { ...periode, tom, refusjonsbeløpPrMnd, kilde: opprinneligAndel.kilde, utfall };
+      return { ...periode, tom: '', refusjonsbeløpPrMnd, kilde: opprinneligAndel.kilde, utfall };
     }
+
+    const tom =
+      nestePeriode &&
+      isDateWithinInterval(nestePeriode.fom)({
+        fom: periode.fom,
+        tom: TIDENES_ENDE,
+      })
+        ? dayjs(nestePeriode.fom).subtract(1, 'day').format(ISO_DATE_FORMAT)
+        : periode.tom || TIDENES_ENDE;
 
     if (
       periode.fom === original.fom &&
