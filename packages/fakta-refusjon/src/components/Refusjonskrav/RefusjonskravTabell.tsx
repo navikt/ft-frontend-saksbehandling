@@ -1,19 +1,19 @@
 import type { ReactNode } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
-import { PersonPencilFillIcon } from '@navikt/aksel-icons';
-import { Button, Heading, Table, VStack } from '@navikt/ds-react';
+import { FileTextIcon } from '@navikt/aksel-icons';
+import { Button, Heading, Table, Tag, VStack } from '@navikt/ds-react';
 
 import { BeløpLabel, DateLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
 import type { Saksdokument } from '../../types/dataTypes';
-import type { RefusjonsAndelFormValues } from './formValues';
+import type { RefusjonsAndelTilVisning } from './formValues';
 
 interface Props {
-  rader: RefusjonsAndelFormValues[];
+  rader: RefusjonsAndelTilVisning[];
   dokumenter: Saksdokument[];
   åpneDokument: (journalpostId: string, dokumentId: string) => void;
-  renderRowContent: (andel: RefusjonsAndelFormValues, andelIndex: number) => ReactNode;
+  renderRowContent: (andel: RefusjonsAndelTilVisning, andelIndex: number) => ReactNode;
   åpneRader: Set<number>;
   onOpenChange: (index: number, open: boolean) => void;
 }
@@ -26,7 +26,7 @@ export const RefusjonskravTabell = ({
   åpneRader,
   onOpenChange,
 }: Props) => {
-  const intl = useIntl();
+  const harOverstyrteRader = rader.some(andel => andel.kilde === 'SAKSBEHANDLER');
 
   return (
     <VStack gap="space-20">
@@ -34,7 +34,7 @@ export const RefusjonskravTabell = ({
         <FormattedMessage id="RefusjonskravTabell.Tittel" />
       </Heading>
 
-      <Table>
+      <Table style={{ width: 'fit-content' }}>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>
@@ -44,7 +44,7 @@ export const RefusjonskravTabell = ({
               <FormattedMessage id="RefusjonskravTabell.RefusjonFra" />
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <FormattedMessage id="RefusjonskravTabell.RefusjonsbeløpPrMnd" />
+              <FormattedMessage id="RefusjonskravForm.RefusjonsbeløpPrMnd" />
             </Table.HeaderCell>
             <Table.HeaderCell>
               <FormattedMessage id="RefusjonskravTabell.SendtInn" />
@@ -52,7 +52,7 @@ export const RefusjonskravTabell = ({
             <Table.HeaderCell>
               <FormattedMessage id="RefusjonskravTabell.Inntektsmelding" />
             </Table.HeaderCell>
-            <Table.HeaderCell />
+            {harOverstyrteRader && <Table.HeaderCell />}
             <Table.HeaderCell />
           </Table.Row>
         </Table.Header>
@@ -75,33 +75,27 @@ export const RefusjonskravTabell = ({
                 <Table.DataCell>{arbeidsgiverNavn}</Table.DataCell>
 
                 <Table.DataCell>
-                  <VStack gap="space-8">
-                    {refusjonsperioder.map(krav => (
-                      <div key={`${krav.fom}-${krav.tom}`}>
-                        <PeriodLabel dateStringFom={krav.fom} dateStringTom={krav.tom} />
-                      </div>
-                    ))}
-                  </VStack>
+                  {refusjonsperioder.map(krav => (
+                    <div key={`${krav.fom}-${krav.tom}`}>
+                      <PeriodLabel dateStringFom={krav.fom} dateStringTom={krav.tom} />
+                    </div>
+                  ))}
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  <VStack gap="space-8">
-                    {refusjonsperioder.map(krav => (
-                      <div key={`${krav.fom}-${krav.tom}`}>
-                        <BeløpLabel beløp={krav.refusjonsbeløpPrMnd} kr />
-                      </div>
-                    ))}
-                  </VStack>
+                  {refusjonsperioder.map(krav => (
+                    <div key={`${krav.fom}-${krav.tom}`}>
+                      <BeløpLabel beløp={krav.refusjonsbeløpPrMnd} kr />
+                    </div>
+                  ))}
                 </Table.DataCell>
 
                 <Table.DataCell>
-                  <VStack gap="space-8">
-                    {refusjonsperioder.map(krav => (
-                      <div key={`${krav.fom}-${krav.tom}`}>
-                        <DateLabel dateString={krav.datoForInnsendtEllerEndretIM} />
-                      </div>
-                    ))}
-                  </VStack>
+                  {refusjonsperioder.map(krav => (
+                    <div key={`${krav.fom}-${krav.tom}`}>
+                      <DateLabel dateString={krav.datoForInnsendtEllerEndretIM} />
+                    </div>
+                  ))}
                 </Table.DataCell>
 
                 <Table.DataCell>
@@ -110,10 +104,7 @@ export const RefusjonskravTabell = ({
                       type="button"
                       variant="tertiary"
                       size="small"
-                      aria-label={intl.formatMessage(
-                        { id: 'RefusjonskravTabell.ÅpneInntektsmeldingFra' },
-                        { arbeidsgiver: andel.arbeidsgiverNavn },
-                      )}
+                      icon={<FileTextIcon aria-hidden />}
                       onClick={event => {
                         event.stopPropagation();
                         åpneDokument(dokument.journalpostId, dokument.dokumentId);
@@ -123,15 +114,15 @@ export const RefusjonskravTabell = ({
                     </Button>
                   )}
                 </Table.DataCell>
-                <Table.DataCell>
-                  {andel.kilde === 'SAKSBEHANDLER' && (
-                    <PersonPencilFillIcon
-                      title={intl.formatMessage({ id: 'RefusjonskravTabell.EndretAvSaksbehandler' })}
-                      fontSize="1.5rem"
-                      color="var(--ax-text-warning-decoration)"
-                    />
-                  )}
-                </Table.DataCell>
+                {harOverstyrteRader && (
+                  <Table.DataCell>
+                    {andel.kilde === 'SAKSBEHANDLER' && (
+                      <Tag size="small" variant="moderate" data-color="warning">
+                        <FormattedMessage id="RefusjonskravTabell.Overstyrt" />
+                      </Tag>
+                    )}
+                  </Table.DataCell>
+                )}
               </Table.ExpandableRow>
             );
           })}

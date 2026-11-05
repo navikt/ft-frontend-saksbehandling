@@ -8,7 +8,26 @@ import * as stories from './FaktaRefusjonIndex.stories';
 
 const { SaksbehandlerUtenTidligereOverstyring, Førstegangsoverstyring } = composeStories(stories);
 
+const getTidslinjePerioder = () =>
+  within(screen.getByRole('region', { name: 'Utbetaling' }))
+    .getAllByRole('listitem')
+    .map(periode => within(periode).getAllByRole('button')[0]);
+
 describe('FaktaRefusjonIndex', () => {
+  it.each([
+    { index: 0, periode: '01.01.2025 - 31.03.2025', beløp: /42\s000/ },
+    { index: 1, periode: '01.04.2025 -', beløp: /37\s500/ },
+  ])('viser datoer og månedsbeløp ved hover på tidslinjeperiode $index', async ({ index, periode, beløp }) => {
+    render(<Førstegangsoverstyring />);
+    await userEvent.hover(getTidslinjePerioder()[index]);
+
+    const tooltip = within(await screen.findByRole('dialog', {}, { timeout: 2000 }));
+    expect(tooltip.getByText(periode)).toBeVisible();
+    expect(tooltip.getByText('Refusjonsbeløp per måned:')).toBeVisible();
+    expect(tooltip.getByText(beløp)).toHaveTextContent('kr');
+    expect(tooltip.queryByText(/9999/)).not.toBeInTheDocument();
+  });
+
   it('viser standardpanelet uten overstyringsrolle eller tidligere overstyring', () => {
     render(<SaksbehandlerUtenTidligereOverstyring />);
 
@@ -19,7 +38,7 @@ describe('FaktaRefusjonIndex', () => {
     expect(screen.queryByRole('textbox', { name: 'Begrunnelse' })).not.toBeInTheDocument();
   });
 
-  it('viser Overstyr fra start og åpner redigering først etter klikk', async () => {
+  it('åpner alle rader ved aktivering og lar dem lukkes enkeltvis', async () => {
     render(<Førstegangsoverstyring />);
 
     expect(screen.getByRole('heading', { level: 2, name: 'Fakta om refusjon' })).toBeInTheDocument();
@@ -36,12 +55,22 @@ describe('FaktaRefusjonIndex', () => {
     expect(screen.queryByRole('button', { name: 'Overstyr' })).not.toBeInTheDocument();
     expect(screen.queryByRole('radio')).not.toBeInTheDocument();
     expect(
+      within(screen.getByRole('row', { name: /Brunostfabrikken AS/ })).getByRole('button', { name: 'Vis mindre' }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByRole('button', { name: 'Vis mindre' })).toHaveLength(3);
+    expect(screen.getByRole('textbox', { name: 'Begrunnelse' })).toBeInTheDocument();
+    expect(screen.getAllByRole('textbox', { name: 'Refusjonsbeløp per måned' })).toHaveLength(4);
+    await userEvent.click(
+      within(screen.getByRole('row', { name: /Brunostfabrikken AS/ })).getByRole('button', { name: 'Vis mindre' }),
+    );
+    await userEvent.type(screen.getByRole('textbox', { name: 'Begrunnelse' }), 'Overstyrt');
+    expect(screen.getAllByRole('button', { name: 'Vis mindre' })).toHaveLength(2);
+    expect(
       within(screen.getByRole('row', { name: /Brunostfabrikken AS/ })).getByRole('button', { name: 'Vis mer' }),
     ).toBeInTheDocument();
-    expect(screen.getByRole('textbox', { name: 'Begrunnelse' })).toBeInTheDocument();
-    await userEvent.click(within(screen.getByRole('region', { name: 'Utbetaling' })).getAllByRole('button')[0]);
-    expect(screen.getByRole('button', { name: 'Vis mindre' })).toBeInTheDocument();
-    expect(screen.getAllByRole('textbox', { name: 'Refusjonsbeløp per måned' })).toHaveLength(2);
+    await userEvent.click(getTidslinjePerioder()[0]);
+    expect(screen.getAllByRole('button', { name: 'Vis mindre' })).toHaveLength(3);
+    expect(screen.getAllByRole('textbox', { name: 'Refusjonsbeløp per måned' })).toHaveLength(4);
   });
 
   it('lar førstegangsoverstyring aktiveres, avbrytes og aktiveres på nytt', async () => {
@@ -49,7 +78,11 @@ describe('FaktaRefusjonIndex', () => {
 
     await userEvent.click(screen.getByRole('button', { name: 'Overstyr' }));
     expect(screen.getByRole('button', { name: 'Avbryt overstyring' })).toBeVisible();
+    expect(screen.getAllByRole('button', { name: 'Vis mindre' })).toHaveLength(3);
     expect(screen.queryByRole('button', { name: 'Overstyr' })).not.toBeInTheDocument();
+    await userEvent.click(
+      within(screen.getByRole('row', { name: /Brunostfabrikken AS/ })).getByRole('button', { name: 'Vis mindre' }),
+    );
 
     await userEvent.click(screen.getByRole('button', { name: 'Avbryt overstyring' }));
     expect(screen.getByRole('button', { name: 'Overstyr' })).toBeVisible();
@@ -57,6 +90,7 @@ describe('FaktaRefusjonIndex', () => {
 
     await userEvent.click(screen.getByRole('button', { name: 'Overstyr' }));
     expect(screen.getByRole('button', { name: 'Avbryt overstyring' })).toBeVisible();
+    expect(screen.getAllByRole('button', { name: 'Vis mindre' })).toHaveLength(3);
   });
 
   it('sender førstegangsoverstyring uten aksjonspunkt og mottar utført aksjonspunkt etterpå', async () => {
@@ -66,10 +100,9 @@ describe('FaktaRefusjonIndex', () => {
 
     await userEvent.click(screen.getByRole('button', { name: 'Overstyr' }));
     expect(screen.getByRole('button', { name: 'Avbryt overstyring' })).toBeInTheDocument();
-    await userEvent.click(
-      within(screen.getByRole('row', { name: /Brunostfabrikken AS/ })).getByRole('button', { name: 'Vis mer' }),
+    const innhold = within(
+      within(getÅpentAndelInnhold('Brunostfabrikken AS')).getByRole('region', { name: 'Periode 1' }),
     );
-    const innhold = within(screen.getByRole('region', { name: 'Periode 1' }));
     const beløp = innhold.getByRole('textbox', { name: 'Refusjonsbeløp per måned' });
     await userEvent.clear(beløp);
     await userEvent.type(beløp, '50000');
@@ -85,9 +118,7 @@ describe('FaktaRefusjonIndex', () => {
         refusjonskrav: expect.arrayContaining([
           expect.objectContaining({
             arbeidsgiverIdent: '999999999',
-            perioder: expect.arrayContaining([
-              expect.objectContaining({ refusjonsbeløpPrMnd: 50000, utfall: undefined }),
-            ]),
+            perioder: expect.arrayContaining([expect.objectContaining({ refusjonsbeløpPrMnd: 50000 })]),
           }),
         ]),
       }),
@@ -103,12 +134,22 @@ describe('FaktaRefusjonIndex', () => {
     expect(screen.queryByRole('button', { name: 'Avbryt overstyring' })).not.toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: 'Begrunnelse' })).toHaveValue('Første overstyring');
     expect(
-      within(screen.getByRole('region', { name: 'Periode 1' })).getByRole('textbox', {
+      within(getÅpentAndelInnhold('Brunostfabrikken AS')).getAllByRole('textbox', {
         name: 'Refusjonsbeløp per måned',
-      }),
+      })[0],
     ).toHaveValue('50000');
     await waitFor(() => expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeEnabled());
   });
+
+  const getÅpentAndelInnhold = (arbeidsgiverNavn: string) => {
+    const rad = screen.getByRole('row', { name: new RegExp(arbeidsgiverNavn) });
+    const innholdId = within(rad).getByRole('button', { name: 'Vis mindre' }).getAttribute('aria-controls');
+    const innhold = innholdId ? document.getElementById(innholdId) : null;
+    if (!innhold) {
+      throw new Error(`Fant ikke radinnholdet for ${arbeidsgiverNavn}`);
+    }
+    return innhold;
+  };
 
   it.each([
     { readOnly: false, erOverstyrer: false },
@@ -129,10 +170,10 @@ describe('FaktaRefusjonIndex', () => {
       const ostehøvelRad = screen.getByRole('row', { name: /Ostehøvel Outlet AS/ });
       const nordlysRad = screen.getByRole('row', { name: /Nordlys Teknologi AS/ });
       const brunostKnapp = within(brunostRad).getByRole('button', {
-        name: 'Åpne inntektsmelding fra Brunostfabrikken AS',
+        name: 'Åpne inntektsmelding',
       });
       const ostehøvelKnapp = within(ostehøvelRad).getByRole('button', {
-        name: 'Åpne inntektsmelding fra Ostehøvel Outlet AS',
+        name: 'Åpne inntektsmelding',
       });
       expect(screen.getAllByRole('button', { name: /Åpne inntektsmelding/ })).toHaveLength(2);
       expect(within(nordlysRad).queryByRole('button', { name: /Åpne inntektsmelding/ })).not.toBeInTheDocument();
@@ -166,7 +207,11 @@ describe('FaktaRefusjonIndex', () => {
     await userEvent.type(screen.getByRole('textbox', { name: 'Begrunnelse' }), 'Overstyrt');
     expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeEnabled();
 
-    await userEvent.click(screen.getByRole('button', { name: 'Åpne inntektsmelding fra Brunostfabrikken AS' }));
+    await userEvent.click(
+      within(screen.getByRole('row', { name: /Brunostfabrikken AS/ })).getByRole('button', {
+        name: 'Åpne inntektsmelding',
+      }),
+    );
     expect(åpneDokument).toHaveBeenCalledWith('123456789', '111111111');
     expect(submitCallback).not.toHaveBeenCalled();
     expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeEnabled();

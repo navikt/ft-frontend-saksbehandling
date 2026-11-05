@@ -3,10 +3,11 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { PlusCircleIcon, TrashIcon } from '@navikt/aksel-icons';
 import { Box, Button, ErrorMessage, HStack, VStack } from '@navikt/ds-react';
+import dayjs from 'dayjs';
 
 import { RhfDatepicker, RhfSelect, RhfTextField } from '@navikt/ft-form-hooks';
 import { hasValidDate, hasValidDecimal, maxValueFormatted, minValue, required } from '@navikt/ft-form-validators';
-import { notEmpty, parseCurrencyInput, periodFormat } from '@navikt/ft-utils';
+import { notEmpty, periodFormat, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import type { RefusjonsAndel, UtfallÅrsak } from '../../../types/dataTypes';
 import type { OverstyrRefusjonFormValues } from '../formValues';
@@ -33,10 +34,7 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
   const endredePerioder = utlededePerioder.filter(
     periode =>
       !opprinneligAndel.refusjonsperioder.some(
-        original =>
-          original.fom === periode.fom &&
-          original.tom === periode.tom &&
-          original.refusjonsbeløpPrMnd === periode.refusjonsbeløpPrMnd,
+        original => original.fom === periode.fom && original.refusjonsbeløpPrMnd === periode.refusjonsbeløpPrMnd,
       ),
   );
 
@@ -50,22 +48,30 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
           align="start"
           aria-label={intl.formatMessage({ id: 'RefusjonskravOverstyring.Periode' }, { nummer: index + 1 })}
         >
-          <RhfDatepicker
-            control={control}
-            name={`${name}.${index}.fom`}
-            label={<FormattedMessage id="RefusjonskravOverstyring.Fom" />}
-            validate={[required, hasValidDate]}
-            readOnly={readOnly || index === 0}
-          />
+          <Box width="10rem">
+            <RhfDatepicker
+              control={control}
+              name={`${name}.${index}.fom`}
+              label={<FormattedMessage id="RefusjonskravOverstyring.Fom" />}
+              validate={[required, hasValidDate]}
+              readOnly={readOnly || index === 0}
+              defaultMonth={dayjs(
+                perioder.slice(0, index + 1).findLast(periode => periode.fom && !hasValidDate(periode.fom))?.fom ??
+                  opprinneligAndel.refusjonsperioder[0]?.fom,
+              ).toDate()}
+            />
+          </Box>
+
           <RhfTextField
             control={control}
             name={`${name}.${index}.refusjonsbeløpPrMnd`}
-            label={<FormattedMessage id="RefusjonskravOverstyring.Beløp" />}
-            parse={parseCurrencyInput}
+            label={<FormattedMessage id="RefusjonskravForm.RefusjonsbeløpPrMnd" />}
+            parse={value => value.toString().replaceAll(/\s/g, '').replace(',', '.')}
             validate={[required, hasValidDecimal, minValue(0), maxValueFormatted(178956970)]}
             readOnly={readOnly}
           />
-          {(perioder[index]?.utfallÅrsak || endredePerioder.some(periode => periode.fom === perioder[index]?.fom)) && (
+
+          {endredePerioder.some(periode => periode.fom === perioder[index]?.fom) && (
             <RhfSelect
               control={control}
               name={`${name}.${index}.utfallÅrsak`}
@@ -123,7 +129,7 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
               append({
                 ...notEmpty(opprinneligAndel.refusjonsperioder.at(-1)),
                 fom: '',
-                tom: '',
+                tom: opprinneligAndel.refusjonsperioder.at(-1)?.tom || TIDENES_ENDE,
                 refusjonsbeløpPrMnd: undefined,
               })
             }

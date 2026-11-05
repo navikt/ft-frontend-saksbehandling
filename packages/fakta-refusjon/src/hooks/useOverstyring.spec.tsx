@@ -101,8 +101,8 @@ describe('useOverstyring', () => {
       readOnly: false,
       erOverstyrer: true,
       harVærtOverstyrt: false,
-      aktiverOverstyring,
-      avbrytOverstyring,
+      onAktiverOverstyring: aktiverOverstyring,
+      onAvbrytOverstyring: avbrytOverstyring,
     };
     const { rerender } = render(<TestPanel {...props} erOverstyringRedigerbar={false} />);
 
@@ -141,8 +141,8 @@ describe('useOverstyring', () => {
       readOnly: false,
       erOverstyrer: true,
       harVærtOverstyrt: false,
-      aktiverOverstyring,
-      avbrytOverstyring,
+      onAktiverOverstyring: aktiverOverstyring,
+      onAvbrytOverstyring: avbrytOverstyring,
     };
     const { rerender } = render(<TestPanel {...props} erOverstyringRedigerbar={false} isSubmitting />);
     const overstyr = screen.getByRole('button', { name: 'Overstyr' });

@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 
+import { TIDENES_ENDE } from '@navikt/ft-utils';
+
 import { arbeidsgiverOpplysningerPerId } from '../testdata/arbeidgiverOpplysningerPerId';
 import { dokumenterPåSaken } from '../testdata/dokumenter';
 import { refusjonsandelerForTreArbeidsgivere } from '../testdata/refusjonsandeler';
@@ -9,10 +11,17 @@ import type { AksjonspunktRefusjon, OverstyrRefusjonskravSubmitType } from './ty
 
 import '@navikt/ft-plattform-komponenter/dist/style.css';
 
+const refusjonsandelerMedÅpenSlutt = refusjonsandelerForTreArbeidsgivere.map(andel => ({
+  ...andel,
+  refusjonsperioder: andel.refusjonsperioder.map((periode, index) =>
+    index === andel.refusjonsperioder.length - 1 ? { ...periode, tom: TIDENES_ENDE } : periode,
+  ),
+}));
+
 const meta = {
   component: FaktaRefusjonIndex,
   args: {
-    refusjonsandeler: refusjonsandelerForTreArbeidsgivere,
+    refusjonsandeler: refusjonsandelerMedÅpenSlutt,
     dokumenter: dokumenterPåSaken,
     åpneDokument: action('åpneDokument'),
     arbeidsgiverOpplysningerPerId,
@@ -60,7 +69,7 @@ export const TidligereOverstyring: Story = {
         vurdertTidspunkt: '2026-10-23T16:01:39.853',
       },
     ],
-    refusjonsandeler: refusjonsandelerForTreArbeidsgivere.map(andel => ({ ...andel, kilde: 'SAKSBEHANDLER' })),
+    refusjonsandeler: refusjonsandelerMedÅpenSlutt.map(andel => ({ ...andel, kilde: 'SAKSBEHANDLER' })),
   },
 };
 

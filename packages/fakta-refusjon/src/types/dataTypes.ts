@@ -12,7 +12,7 @@ export type RefusjonsAndel = {
 
 export type Refusjonsperiode = {
   fom: string;
-  tom: string;
+  tom?: string;
   refusjonsbeløpPrMnd: number;
   fristForInnsendingAvRefusjonskrav: string;
   tidligsteMuligeDatoMedRefusjonEtterFrist: string;

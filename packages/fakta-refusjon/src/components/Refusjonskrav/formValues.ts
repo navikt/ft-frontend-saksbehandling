@@ -11,6 +11,10 @@ export type RefusjonsAndelFormValues = Omit<RefusjonsAndel, 'refusjonsperioder'>
   refusjonsperioder: RefusjonPeriode[];
 };
 
+export type RefusjonsAndelTilVisning = Omit<RefusjonsAndelFormValues, 'refusjonsperioder'> & {
+  refusjonsperioder: (Refusjonsperiode & { tom: string; kilde: RefusjonsAndel['kilde'] })[];
+};
+
 type RefusjonPeriode = Omit<Refusjonsperiode, 'refusjonsbeløpPrMnd'> & {
-  refusjonsbeløpPrMnd: number | undefined;
+  refusjonsbeløpPrMnd: number | string | null | undefined;
 };

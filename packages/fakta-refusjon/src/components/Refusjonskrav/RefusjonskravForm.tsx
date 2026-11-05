@@ -4,16 +4,16 @@ import { FormattedMessage } from 'react-intl';
 import { Box, Heading, HStack, VStack } from '@navikt/ds-react';
 
 import { RhfForm, RhfTextarea, SubmitButton } from '@navikt/ft-form-hooks';
-import { hasValidDecimal, maxLength, minLength, minValue, required } from '@navikt/ft-form-validators';
+import { hasValidDate, hasValidDecimal, maxLength, minLength, minValue, required } from '@navikt/ft-form-validators';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
-import { notEmpty, sortPeriodsByFom } from '@navikt/ft-utils';
+import { notEmpty, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { useOverstyring } from '../../hooks/useOverstyring';
 import type { AksjonspunktRefusjon, OverstyrRefusjonskravSubmitType } from '../../types/aksjonspunkt';
 import type { RefusjonsAndel, Saksdokument } from '../../types/dataTypes';
 import { Utbetaling } from '../Utbetaling';
-import type { OverstyrRefusjonFormValues, RefusjonsAndelFormValues } from './formValues';
+import type { OverstyrRefusjonFormValues, RefusjonsAndelFormValues, RefusjonsAndelTilVisning } from './formValues';
 import { erGyldigOppdeling } from './overstyring/erGyldigOppdeling';
 import { RefusjonskravOverstyring } from './overstyring/RefusjonskravOverstyring';
 import { utledRefusjonsperioder } from './overstyring/utledRefusjonsperioder';
@@ -64,6 +64,20 @@ export const RefusjonskravForm = ({
   });
 
   const harGyldigePerioder = erGyldigeAndeler(andeler, refusjonsandeler);
+  const andelerTilVisning: RefusjonsAndelTilVisning[] = andeler.map(andel => ({
+    ...andel,
+    refusjonsperioder: utledRefusjonsperioder(
+      andel.refusjonsperioder,
+      notEmpty(refusjonsandeler.find(original => original.arbeidsgiverIdent === andel.arbeidsgiverIdent)),
+    ).filter(
+      periode =>
+        !required(periode.fom) &&
+        !required(periode.tom) &&
+        !hasValidDate(periode.fom) &&
+        (periode.tom === TIDENES_ENDE || !hasValidDate(periode.tom)) &&
+        periode.fom <= periode.tom,
+    ),
+  }));
 
   const { openRowsIndices, onOpenChange } = useOpenRows();
 
@@ -72,7 +86,10 @@ export const RefusjonskravForm = ({
     erOverstyrer,
     harVærtOverstyrt: !!overstyringsAksjonspunkt,
     erOverstyringRedigerbar: erOverstyring,
-    onAktiverOverstyring: () => formMethods.setValue('erOverstyring', true, { shouldDirty: true }),
+    onAktiverOverstyring: () => {
+      formMethods.setValue('erOverstyring', true, { shouldDirty: true });
+      andeler.forEach((_, index) => onOpenChange(index, true));
+    },
     onAvbrytOverstyring: () => {
       formMethods.reset(buildInitialValues(aksjonspunkt, refusjonsandeler, arbeidsgiverOpplysningerPerId));
     },
@@ -98,7 +115,7 @@ export const RefusjonskravForm = ({
         </HStack>
 
         <Utbetaling
-          refusjonsandeler={andeler}
+          refusjonsandeler={andelerTilVisning}
           onSelectAndel={andelIndex => {
             if (visOverstyring) {
               onOpenChange(andelIndex, true);
@@ -107,7 +124,7 @@ export const RefusjonskravForm = ({
         />
 
         <RefusjonskravTabell
-          rader={andeler}
+          rader={andelerTilVisning}
           dokumenter={dokumenter}
           åpneDokument={åpneDokument}
           åpneRader={openRowsIndices}
@@ -133,8 +150,8 @@ export const RefusjonskravForm = ({
               name="begrunnelse"
               label={<FormattedMessage id="RefusjonskravForm.Begrunnelse" />}
               readOnly={erOverstyringReadOnly}
-              validate={[required, minLength(3), maxLength(1000)]}
-              maxLength={1000}
+              validate={[required, minLength(3), maxLength(3000)]}
+              maxLength={3000}
             />
             <AssessedBy ident={overstyringsAksjonspunkt?.vurdertAv} date={overstyringsAksjonspunkt?.vurdertTidspunkt} />
           </Box>
@@ -166,7 +183,9 @@ const buildInitialValues = (
   refusjonsandeler: refusjonsandeler.map(andel => ({
     ...andel,
     arbeidsgiverNavn: arbeidsgiverOpplysningerPerId[andel.arbeidsgiverIdent]?.navn || andel.arbeidsgiverIdent,
-    refusjonsperioder: andel.refusjonsperioder.sort(sortPeriodsByFom),
+    refusjonsperioder: andel.refusjonsperioder
+      .toSorted(sortPeriodsByFom)
+      .map(periode => ({ ...periode, tom: periode.tom || TIDENES_ENDE })),
   })),
 });
 
