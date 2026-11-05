@@ -1586,7 +1586,7 @@ __metadata:
     eslint-plugin-react-refresh: "npm:0.5.7"
     eslint-plugin-react-you-might-not-need-an-effect: "npm:1.0.2"
     eslint-plugin-simple-import-sort: "npm:14.0.0"
-    eslint-plugin-storybook: "npm:10.6.3"
+    eslint-plugin-storybook: "npm:10.6.5"
     globals: "npm:17.13.0"
     typescript: "npm:6.0.3"
     typescript-eslint: "npm:8.72.0"
@@ -5988,15 +5988,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-storybook@npm:10.6.3":
-  version: 10.6.3
-  resolution: "eslint-plugin-storybook@npm:10.6.3"
+"eslint-plugin-storybook@npm:10.6.5":
+  version: 10.6.5
+  resolution: "eslint-plugin-storybook@npm:10.6.5"
   dependencies:
     "@typescript-eslint/types": "npm:^8.60.0"
     "@typescript-eslint/utils": "npm:^8.60.0"
   peerDependencies:
     eslint: ">=8"
-  checksum: 10/84e0a898165ed2d50ee92d7754e3c91ce7b7b951160adef702c33e97b96cfd29a22553323c408b55a8ffa3365ea3c9f5e97846dbd8ae5e8d8c270fdbe2173c84
+  checksum: 10/866f9b44193093e0d158b4cc8285d53e7b4afaa56176c826c57eb490c72ca4f7c55c6c9680299dd1a092572244471fe9ca997c0a01356dfd3ca948ed75d00004
   languageName: node
   linkType: hard
 
