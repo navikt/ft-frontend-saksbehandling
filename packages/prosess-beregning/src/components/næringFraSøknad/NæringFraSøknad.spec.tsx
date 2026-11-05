@@ -1,7 +1,6 @@
 import { composeStories } from '@storybook/react-vite';
 import { render, screen, within } from '@testing-library/react';
 
-import { formaterRegnskapsfører } from './NæringFraSøknad';
 import * as stories from './NæringFraSøknad.stories';
 
 const { Nyoppstartet, UtenNæringsandel, VarigEndring } = composeStories(stories);
@@ -12,7 +11,7 @@ describe('NæringFraSøknad', () => {
 
     const region = screen.getByRole('region', { name: 'Opplysninger om næring' });
     expect(getDefinition(region, 'Virksomhet')).toHaveTextContent('Jæren landbruk og hønsefarm AS');
-    expect(getDefinition(region, 'Regnskapsfører')).toHaveTextContent('-');
+    expect(within(region).queryByText('Regnskapsfører')).not.toBeInTheDocument();
     expect(getDefinition(region, 'Oppstartsdato')).toHaveTextContent('01.01.2020');
     expect(getDefinition(region, 'Opphørsdato')).toHaveTextContent('-');
     expect(getDefinition(region, 'Oppgitt varig endring')).toHaveTextContent('01.01.2025');
@@ -40,15 +39,6 @@ describe('NæringFraSøknad', () => {
     render(<UtenNæringsandel />);
 
     expect(screen.queryByRole('region', { name: 'Opplysninger om næring' })).not.toBeInTheDocument();
-  });
-
-  describe('formaterRegnskapsfører', () => {
-    it('skal formatere regnskapsfører korrekt', () => {
-      expect(formaterRegnskapsfører('Kari Regnskapsfører', '12345678')).toBe('Kari Regnskapsfører - Tlf: 12345678');
-      expect(formaterRegnskapsfører('Kari Regnskapsfører', '12345678')).toBe('Kari Regnskapsfører - Tlf: 12345678');
-      expect(formaterRegnskapsfører('Kari Regnskapsfører', undefined)).toBe('Kari Regnskapsfører');
-      expect(formaterRegnskapsfører(undefined, undefined)).toBe('-');
-    });
   });
 });
 

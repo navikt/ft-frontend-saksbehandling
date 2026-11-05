@@ -55,12 +55,9 @@ const lagNæring = (varigEndring: boolean, nyoppstartet: boolean): Næring => ({
   endringsdato: '2016-05-01',
   erNyoppstartet: nyoppstartet,
   erVarigEndret: varigEndring,
-  kanRegnskapsførerKontaktes: true,
   oppgittInntekt: 474257,
   oppstartsdato: '2015-11-01',
   orgnr: '555555555',
-  regnskapsførerNavn: 'Regnskapsfører Regn S. Fører',
-  regnskapsførerTlf: '99999999',
   utenlandskvirksomhetsnavn: undefined,
   virksomhetType: 'ANNEN',
 });

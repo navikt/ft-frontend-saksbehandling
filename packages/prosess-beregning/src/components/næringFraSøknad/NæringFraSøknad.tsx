@@ -46,11 +46,6 @@ export const NæringFraSøknad = ({ kodeverkSamling, beregningsgrunnlag, arbeids
         />
 
         <OpplysningsRad
-          label={<FormattedMessage id="NæringFraSøknad.Regnskapsfører" />}
-          value={formaterRegnskapsfører(næring.regnskapsførerNavn, næring.regnskapsførerTlf)}
-        />
-
-        <OpplysningsRad
           label={<FormattedMessage id="NæringFraSøknad.Oppstartsdato" />}
           value={næring.oppstartsdato ? <DateLabel dateString={næring.oppstartsdato} /> : '-'}
         />
@@ -109,9 +104,4 @@ const lagVisningsnavn = ({ orgnr }: Næring, arbeidsgiverOpplysningerPerId: Arbe
   ) : (
     <FormattedMessage id="NæringFraSøknad.UkjentBedriftsnavn" />
   );
-};
-
-export const formaterRegnskapsfører = (regnskapsførerNavn?: string, regnskapsførerTlf?: string) => {
-  const tlf = regnskapsførerTlf ? `Tlf: ${regnskapsførerTlf}` : undefined;
-  return [regnskapsførerNavn, tlf].filter(Boolean).join(' - ') || '-';
 };

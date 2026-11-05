@@ -42,7 +42,6 @@ const beregningsgrunnlag: Beregningsgrunnlag = {
               erNyIArbeidslivet: false,
               erNyoppstartet: true,
               erVarigEndret: false,
-              kanRegnskapsførerKontaktes: false,
               oppgittInntekt: 900000,
               opphørsdato: '9999-12-31',
               oppstartsdato: '2025-01-01',
