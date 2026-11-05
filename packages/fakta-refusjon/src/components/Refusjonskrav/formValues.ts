@@ -1,4 +1,5 @@
-import type { RefusjonsAndel, Refusjonsperiode } from '../../types/dataTypes';
+import type { UtfallÅrsak } from '../../types/aksjonspunkt';
+import type { RefusjonsandelDto, RefusjonsperiodeDto } from '../../types/dataTypes';
 
 export type OverstyrRefusjonFormValues = {
   erOverstyring: boolean;
@@ -6,15 +7,21 @@ export type OverstyrRefusjonFormValues = {
   refusjonsandeler: RefusjonsAndelFormValues[];
 };
 
-export type RefusjonsAndelFormValues = Omit<RefusjonsAndel, 'refusjonsperioder'> & {
+export type RefusjonsAndelFormValues = Omit<RefusjonsandelDto, 'refusjonsperioder'> & {
   arbeidsgiverNavn: string;
   refusjonsperioder: RefusjonPeriode[];
 };
 
 export type RefusjonsAndelTilVisning = Omit<RefusjonsAndelFormValues, 'refusjonsperioder'> & {
-  refusjonsperioder: (Refusjonsperiode & { tom: string; kilde: RefusjonsAndel['kilde'] })[];
+  refusjonsperioder: (Omit<RefusjonPeriode, 'refusjonPrMnd' | 'tom'> & {
+    tom: string;
+    refusjonPrMnd: number;
+    kilde: RefusjonsandelDto['kilde'];
+  })[];
 };
 
-type RefusjonPeriode = Omit<Refusjonsperiode, 'refusjonsbeløpPrMnd'> & {
-  refusjonsbeløpPrMnd: number | string | null | undefined;
+type RefusjonPeriode = Omit<RefusjonsperiodeDto, 'refusjonPrMnd' | 'tom'> & {
+  tom?: string;
+  refusjonPrMnd: number | string | null | undefined;
+  overstyringsÅrsak?: UtfallÅrsak;
 };

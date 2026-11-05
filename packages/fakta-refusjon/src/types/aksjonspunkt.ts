@@ -1,6 +1,6 @@
 import type { AksjonspunktStatus, AksjonspunktTilBekreftelse } from '@navikt/ft-types';
 
-import type { UtfallÅrsak } from './dataTypes';
+export type UtfallÅrsak = 'AVTALT_MED_ARBEIDSGIVER' | 'KONKURS' | 'UTMELDT';
 
 export type AksjonspunktRefusjon = {
   kode: 'OVERSTYR_REFUSJONSKRAV';

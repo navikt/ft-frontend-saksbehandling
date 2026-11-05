@@ -2,12 +2,12 @@ import dayjs from 'dayjs';
 
 import { isDateWithinInterval, ISO_DATE_FORMAT, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
 
-import type { RefusjonsAndel } from '../../../types/dataTypes';
+import type { RefusjonsandelDto } from '../../../types/dataTypes';
 import type { RefusjonsAndelFormValues, RefusjonsAndelTilVisning } from '../formValues';
 
 export const utledRefusjonsperioder = (
   perioder: RefusjonsAndelFormValues['refusjonsperioder'],
-  opprinneligAndel: RefusjonsAndel,
+  opprinneligAndel: RefusjonsandelDto,
 ): RefusjonsAndelTilVisning['refusjonsperioder'] => {
   const opprinneligePerioder = opprinneligAndel.refusjonsperioder
     .toSorted(sortPeriodsByFom)
@@ -22,16 +22,20 @@ export const utledRefusjonsperioder = (
       }),
     );
     const nestePeriode = sortertePerioder[index + 1];
-    const refusjonsbeløpPrMnd =
-      periode.refusjonsbeløpPrMnd === null ||
-      periode.refusjonsbeløpPrMnd === undefined ||
-      periode.refusjonsbeløpPrMnd === ''
+    const refusjonPrMnd =
+      periode.refusjonPrMnd === null || periode.refusjonPrMnd === undefined || periode.refusjonPrMnd === ''
         ? Number.NaN
-        : Number(periode.refusjonsbeløpPrMnd);
-    const utfall = refusjonsbeløpPrMnd === 0 ? 'AVSLÅTT' : periode.utfall;
+        : Number(periode.refusjonPrMnd);
+    const utfall = refusjonPrMnd === 0 ? 'AVSLÅTT' : periode.utfall;
 
     if (!original) {
-      return { ...periode, tom: '', refusjonsbeløpPrMnd, kilde: opprinneligAndel.kilde, utfall };
+      return {
+        ...periode,
+        tom: '',
+        refusjonPrMnd,
+        kilde: opprinneligAndel.kilde,
+        utfall,
+      };
     }
 
     const tom =
@@ -46,8 +50,8 @@ export const utledRefusjonsperioder = (
     if (
       periode.fom === original.fom &&
       tom === original.tom &&
-      refusjonsbeløpPrMnd === original.refusjonsbeløpPrMnd &&
-      periode.utfallÅrsak === original.utfallÅrsak
+      refusjonPrMnd === original.refusjonPrMnd &&
+      !periode.overstyringsÅrsak
     ) {
       return { ...original, kilde: opprinneligAndel.kilde, utfall };
     }
@@ -56,10 +60,10 @@ export const utledRefusjonsperioder = (
       ...original,
       fom: periode.fom,
       tom,
-      refusjonsbeløpPrMnd,
+      refusjonPrMnd,
       kilde: 'SAKSBEHANDLER' as const,
       utfall,
-      utfallÅrsak: periode.utfallÅrsak,
+      overstyringsÅrsak: periode.overstyringsÅrsak,
     };
   });
 };

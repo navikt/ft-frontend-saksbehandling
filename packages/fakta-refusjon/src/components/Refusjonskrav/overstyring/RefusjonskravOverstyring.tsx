@@ -9,14 +9,15 @@ import { RhfDatepicker, RhfSelect, RhfTextField } from '@navikt/ft-form-hooks';
 import { hasValidDate, hasValidDecimal, maxValueFormatted, minValue, required } from '@navikt/ft-form-validators';
 import { notEmpty, periodFormat, TIDENES_ENDE } from '@navikt/ft-utils';
 
-import type { RefusjonsAndel, UtfallÅrsak } from '../../../types/dataTypes';
+import type { UtfallÅrsak } from '../../../types/aksjonspunkt';
+import type { RefusjonsandelDto } from '../../../types/dataTypes';
 import type { OverstyrRefusjonFormValues } from '../formValues';
 import { erGyldigOppdeling } from './erGyldigOppdeling';
 import { utledRefusjonsperioder } from './utledRefusjonsperioder';
 
 interface Props {
   andelIndex: number;
-  opprinneligAndel: RefusjonsAndel;
+  opprinneligAndel: RefusjonsandelDto;
   readOnly: boolean;
 }
 
@@ -34,7 +35,7 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
   const endredePerioder = utlededePerioder.filter(
     periode =>
       !opprinneligAndel.refusjonsperioder.some(
-        original => original.fom === periode.fom && original.refusjonsbeløpPrMnd === periode.refusjonsbeløpPrMnd,
+        original => original.fom === periode.fom && original.refusjonPrMnd === periode.refusjonPrMnd,
       ),
   );
 
@@ -56,7 +57,7 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
               validate={[required, hasValidDate]}
               readOnly={readOnly || index === 0}
               defaultMonth={dayjs(
-                perioder.slice(0, index + 1).findLast(periode => periode.fom && !hasValidDate(periode.fom))?.fom ??
+                perioder.slice(0, index + 1).findLast(p => p.fom && !hasValidDate(p.fom))?.fom ??
                   opprinneligAndel.refusjonsperioder[0]?.fom,
               ).toDate()}
             />
@@ -64,17 +65,17 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
 
           <RhfTextField
             control={control}
-            name={`${name}.${index}.refusjonsbeløpPrMnd`}
+            name={`${name}.${index}.refusjonPrMnd`}
             label={<FormattedMessage id="RefusjonskravForm.RefusjonsbeløpPrMnd" />}
             parse={value => value.toString().replaceAll(/\s/g, '').replace(',', '.')}
             validate={[required, hasValidDecimal, minValue(0), maxValueFormatted(178956970)]}
             readOnly={readOnly}
           />
 
-          {endredePerioder.some(periode => periode.fom === perioder[index]?.fom) && (
+          {endredePerioder.some(p => p.fom === perioder[index]?.fom) && (
             <RhfSelect
               control={control}
-              name={`${name}.${index}.utfallÅrsak`}
+              name={`${name}.${index}.overstyringsÅrsak`}
               label={<FormattedMessage id="RefusjonskravForm.Årsak" />}
               readOnly={readOnly}
               selectValues={[
@@ -130,7 +131,7 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
                 ...notEmpty(opprinneligAndel.refusjonsperioder.at(-1)),
                 fom: '',
                 tom: opprinneligAndel.refusjonsperioder.at(-1)?.tom || TIDENES_ENDE,
-                refusjonsbeløpPrMnd: undefined,
+                refusjonPrMnd: undefined,
               })
             }
           >

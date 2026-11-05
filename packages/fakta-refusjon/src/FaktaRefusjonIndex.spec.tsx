@@ -171,13 +171,14 @@ describe('FaktaRefusjonIndex', () => {
       const ostehøvelRad = screen.getByRole('row', { name: /Ostehøvel Outlet AS/ });
       const nordlysRad = screen.getByRole('row', { name: /Nordlys Teknologi AS/ });
       const brunostKnapp = within(brunostRad).getByRole('button', {
-        name: 'Åpne inntektsmelding',
+        name: 'Inntektsmelding',
       });
       const ostehøvelKnapp = within(ostehøvelRad).getByRole('button', {
-        name: 'Åpne inntektsmelding',
+        name: 'Endret inntektsmelding',
       });
-      expect(screen.getAllByRole('button', { name: /Åpne inntektsmelding/ })).toHaveLength(2);
-      expect(within(nordlysRad).queryByRole('button', { name: /Åpne inntektsmelding/ })).not.toBeInTheDocument();
+      expect(screen.getAllByRole('button', { name: /inntektsmelding/i })).toHaveLength(2);
+      expect(brunostKnapp.querySelector('svg')).toBeInTheDocument();
+      expect(within(nordlysRad).queryByRole('button', { name: /inntektsmelding/i })).not.toBeInTheDocument();
 
       await userEvent.click(brunostKnapp);
       expect(åpneDokument).toHaveBeenNthCalledWith(1, '123456789', '111111111');
@@ -210,7 +211,7 @@ describe('FaktaRefusjonIndex', () => {
 
     await userEvent.click(
       within(screen.getByRole('row', { name: /Brunostfabrikken AS/ })).getByRole('button', {
-        name: 'Åpne inntektsmelding',
+        name: 'Inntektsmelding',
       }),
     );
     expect(åpneDokument).toHaveBeenCalledWith('123456789', '111111111');
@@ -218,15 +219,15 @@ describe('FaktaRefusjonIndex', () => {
     expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeEnabled();
   });
 
-  it.each([{ dokumenter: [] }, { dokumenter: [{ journalpostId: 'ukjent-journalpost', dokumentId: '444444444' }] }])(
-    'viser ingen dokumentknapp uten samsvarende journalpost: $dokumenter',
-    ({ dokumenter }) => {
-      const åpneDokument = vi.fn();
-      render(<Førstegangsoverstyring dokumenter={dokumenter} åpneDokument={åpneDokument} />);
+  it.each([
+    { dokumenter: [] },
+    { dokumenter: [{ journalpostId: 'ukjent-journalpost', dokumentId: '444444444', tittel: 'Inntektsmelding' }] },
+  ])('viser ingen dokumentknapp uten samsvarende journalpost: $dokumenter', ({ dokumenter }) => {
+    const åpneDokument = vi.fn();
+    render(<Førstegangsoverstyring dokumenter={dokumenter} åpneDokument={åpneDokument} />);
 
-      expect(screen.getByRole('row', { name: /Brunostfabrikken AS/ })).toBeInTheDocument();
-      expect(screen.queryByRole('button', { name: /Åpne inntektsmelding/ })).not.toBeInTheDocument();
-      expect(åpneDokument).not.toHaveBeenCalled();
-    },
-  );
+    expect(screen.getByRole('row', { name: /Brunostfabrikken AS/ })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /inntektsmelding/i })).not.toBeInTheDocument();
+    expect(åpneDokument).not.toHaveBeenCalled();
+  });
 });

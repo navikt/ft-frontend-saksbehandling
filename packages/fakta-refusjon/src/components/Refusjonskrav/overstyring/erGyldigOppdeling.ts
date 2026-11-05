@@ -1,9 +1,7 @@
 import { hasValidDate, required } from '@navikt/ft-form-validators';
 import { addDaysToDate, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
 
-import type { Refusjonsperiode } from '../../../types/dataTypes';
-
-type Periode = Pick<Refusjonsperiode, 'fom' | 'tom'>;
+type Periode = { fom: string; tom?: string };
 
 export const erGyldigOppdeling = (perioder: readonly Periode[], opprinneligePerioder: readonly Periode[]): boolean => {
   const tidligsteFom = opprinneligePerioder.toSorted(sortPeriodsByFom)[0]?.fom;

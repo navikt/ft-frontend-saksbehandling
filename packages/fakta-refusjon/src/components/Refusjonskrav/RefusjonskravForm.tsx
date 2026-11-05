@@ -11,19 +11,20 @@ import { notEmpty, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { useOverstyring } from '../../hooks/useOverstyring';
 import type { AksjonspunktRefusjon, OverstyrRefusjonskravSubmitType } from '../../types/aksjonspunkt';
-import type { RefusjonsAndel, Saksdokument } from '../../types/dataTypes';
+import type { RefusjonsandelDto, Saksdokument } from '../../types/dataTypes';
 import { Utbetaling } from '../Utbetaling';
 import type { OverstyrRefusjonFormValues, RefusjonsAndelFormValues, RefusjonsAndelTilVisning } from './formValues';
 import { erGyldigOppdeling } from './overstyring/erGyldigOppdeling';
 import { RefusjonskravOverstyring } from './overstyring/RefusjonskravOverstyring';
 import { utledRefusjonsperioder } from './overstyring/utledRefusjonsperioder';
+import { refusjonsandelNøkkel } from './refusjonsandelNøkkel';
 import { RefusjonskravTabell } from './RefusjonskravTabell';
 import { useOpenRows } from './useOpenRows';
 
 interface Props {
   aksjonspunkt: AksjonspunktRefusjon[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  refusjonsandeler: RefusjonsAndel[];
+  refusjonsandeler: RefusjonsandelDto[];
   dokumenter: Saksdokument[];
   åpneDokument: (journalpostId: string, dokumentId: string) => void;
   readOnly: boolean;
@@ -68,7 +69,7 @@ export const RefusjonskravForm = ({
     ...andel,
     refusjonsperioder: utledRefusjonsperioder(
       andel.refusjonsperioder,
-      notEmpty(refusjonsandeler.find(original => original.arbeidsgiverIdent === andel.arbeidsgiverIdent)),
+      finnOpprinneligAndel(andel, refusjonsandeler),
     ).filter(
       periode =>
         !required(periode.fom) &&
@@ -132,11 +133,9 @@ export const RefusjonskravForm = ({
           renderRowContent={(andel, andelIndex) =>
             visOverstyring ? (
               <RefusjonskravOverstyring
-                key={andel.arbeidsgiverIdent}
+                key={refusjonsandelNøkkel(andel)}
                 andelIndex={andelIndex}
-                opprinneligAndel={notEmpty(
-                  refusjonsandeler.find(original => original.arbeidsgiverIdent === andel.arbeidsgiverIdent),
-                )}
+                opprinneligAndel={finnOpprinneligAndel(andel, refusjonsandeler)}
                 readOnly={erOverstyringReadOnly}
               />
             ) : null
@@ -174,7 +173,7 @@ export const RefusjonskravForm = ({
 
 const buildInitialValues = (
   aksjonspunkt: AksjonspunktRefusjon[],
-  refusjonsandeler: RefusjonsAndel[],
+  refusjonsandeler: RefusjonsandelDto[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   erOverstyring = false,
 ): OverstyrRefusjonFormValues => ({
@@ -189,13 +188,18 @@ const buildInitialValues = (
   })),
 });
 
-const erGyldigeAndeler = (andeler: RefusjonsAndelFormValues[], opprinneligeAndeler: RefusjonsAndel[]) =>
+const finnOpprinneligAndel = (
+  andel: Omit<RefusjonsandelDto, 'refusjonsperioder'>,
+  opprinneligeAndeler: RefusjonsandelDto[],
+) => notEmpty(opprinneligeAndeler.find(original => refusjonsandelNøkkel(original) === refusjonsandelNøkkel(andel)));
+
+const erGyldigeAndeler = (andeler: RefusjonsAndelFormValues[], opprinneligeAndeler: RefusjonsandelDto[]) =>
   andeler.every(andel => {
-    const original = notEmpty(opprinneligeAndeler.find(a => a.arbeidsgiverIdent === andel.arbeidsgiverIdent));
+    const original = finnOpprinneligAndel(andel, opprinneligeAndeler);
     return (
       erGyldigOppdeling(utledRefusjonsperioder(andel.refusjonsperioder, original), original.refusjonsperioder) &&
       andel.refusjonsperioder.every(periode => {
-        const beløp = periode.refusjonsbeløpPrMnd ?? '';
+        const beløp = periode.refusjonPrMnd ?? '';
         return !required(beløp) && !hasValidDecimal(beløp) && !minValue(0)(beløp);
       })
     );
@@ -203,21 +207,20 @@ const erGyldigeAndeler = (andeler: RefusjonsAndelFormValues[], opprinneligeAndel
 
 const transformValues = (
   values: OverstyrRefusjonFormValues,
-  opprinneligeAndeler: RefusjonsAndel[],
+  opprinneligeAndeler: RefusjonsandelDto[],
 ): OverstyrRefusjonskravSubmitType => ({
   '@type': 'OVERSTYR_REFUSJONSKRAV',
   kode: 'OVERSTYR_REFUSJONSKRAV',
   begrunnelse: values.begrunnelse,
   refusjonskrav: values.refusjonsandeler.map(andel => ({
     arbeidsgiverIdent: andel.arbeidsgiverIdent,
-    perioder: utledRefusjonsperioder(
-      andel.refusjonsperioder,
-      notEmpty(opprinneligeAndeler.find(original => original.arbeidsgiverIdent === andel.arbeidsgiverIdent)),
-    ).map(rad => ({
-      fom: rad.fom,
-      tom: rad.tom,
-      refusjonsbeløpPrMnd: rad.refusjonsbeløpPrMnd,
-      utfallÅrsak: rad.utfallÅrsak,
-    })),
+    perioder: utledRefusjonsperioder(andel.refusjonsperioder, finnOpprinneligAndel(andel, opprinneligeAndeler)).map(
+      rad => ({
+        fom: rad.fom,
+        tom: rad.tom,
+        refusjonsbeløpPrMnd: rad.refusjonPrMnd,
+        utfallÅrsak: rad.overstyringsÅrsak,
+      }),
+    ),
   })),
 });

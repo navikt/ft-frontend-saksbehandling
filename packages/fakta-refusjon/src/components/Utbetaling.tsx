@@ -8,6 +8,7 @@ import { BeløpLabel, LabeledValue, PeriodLabel, useTidslinje } from '@navikt/ft
 import { ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import type { RefusjonsAndelTilVisning } from './Refusjonskrav/formValues';
+import { refusjonsandelNøkkel } from './Refusjonskrav/refusjonsandelNøkkel';
 
 interface Props {
   refusjonsandeler: RefusjonsAndelTilVisning[];
@@ -43,7 +44,7 @@ export const Utbetaling = ({ refusjonsandeler, onSelectAndel }: Props) => {
         {refusjonsandeler.map((andel, andelIndex) => (
           <Timeline.Row
             label={andel.arbeidsgiverNavn}
-            key={andel.arbeidsgiverIdent}
+            key={refusjonsandelNøkkel(andel)}
             icon={<Buildings3Icon aria-hidden />}
           >
             {andel.refusjonsperioder.map(p => (
@@ -68,7 +69,7 @@ export const Utbetaling = ({ refusjonsandeler, onSelectAndel }: Props) => {
                   />
                   <LabeledValue
                     label={<FormattedMessage id="RefusjonskravForm.RefusjonsbeløpPrMnd" />}
-                    value={<BeløpLabel beløp={p.refusjonsbeløpPrMnd} kr />}
+                    value={<BeløpLabel beløp={p.refusjonPrMnd} kr />}
                   />
                 </VStack>
               </Timeline.Period>

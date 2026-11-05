@@ -1,25 +1,29 @@
 export type Saksdokument = {
   dokumentId: string;
   journalpostId: string;
+  tittel: string;
 };
 
-export type RefusjonsAndel = {
+export type FordelingGrunnlagDto = {
+  refusjonsandeler: RefusjonsandelDto[];
+};
+
+export type RefusjonsandelDto = {
   arbeidsgiverIdent: string;
   journalpostId?: string;
-  kilde: 'IM' | 'SAKSBEHANDLER';
-  refusjonsperioder: Refusjonsperiode[];
+  kilde: RefusjonKilde;
+  refusjonsperioder: RefusjonsperiodeDto[];
 };
 
-export type Refusjonsperiode = {
+export type RefusjonsperiodeDto = {
   fom: string;
-  tom?: string;
-  refusjonsbeløpPrMnd: number;
-  fristForInnsendingAvRefusjonskrav: string;
-  tidligsteMuligeDatoMedRefusjonEtterFrist: string;
-  datoForInnsendtEllerEndretIM: string;
-  utfall?: 'INNVILGET' | 'AVSLÅTT' | 'REDUSERT';
-  utfallÅrsak?: UtfallÅrsak;
+  tom: string;
+  refusjonPrMnd: number;
+  utfall?: RefusjonUtfall;
+  utfallÅrsak?: RefusjonUtfallÅrsak;
   utfallBegrunnelse?: string;
 };
 
-export type UtfallÅrsak = 'AVTALT_MED_ARBEIDSGIVER' | 'KONKURS' | 'UTMELDT';
+export type RefusjonKilde = 'INNTEKTSMELDING' | 'SAKSBEHANDLER';
+export type RefusjonUtfall = 'INNVILGET' | 'AVSLÅTT' | 'REDUSERT';
+export type RefusjonUtfallÅrsak = 'IKKE_INNENFOR_FRIST' | 'UTMELDT' | 'ALLEREDE_DIREKTE_UTBETALT';

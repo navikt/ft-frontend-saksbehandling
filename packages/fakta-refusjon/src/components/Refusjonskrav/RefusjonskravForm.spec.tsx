@@ -66,14 +66,14 @@ describe('RefusjonskravForm', () => {
     expect(tabell.getAllByRole('row', { name: /Nordlys Teknologi AS/ })).toHaveLength(1);
 
     const celler = within(brunostRad).getAllByRole('cell');
-    expect(celler).toHaveLength(6);
+    expect(celler).toHaveLength(5);
     expect(celler[1]).toHaveTextContent('01.01.2025 - 31.03.2025');
     expect(celler[1]).toHaveTextContent('01.04.2025 - 30.06.2025');
     expect(celler[2].textContent).toMatch(/42\s000.*37\s500/);
-    expect(celler[3].textContent).toMatch(/20.12.2024.*20.03.2025/);
+    expect(tabell.queryByRole('columnheader', { name: 'Sendt inn' })).not.toBeInTheDocument();
     expect(tabell.queryByRole('columnheader', { name: 'Utfall' })).not.toBeInTheDocument();
     expect(tabell.queryByText('Overstyrt')).not.toBeInTheDocument();
-    expect(within(celler[4]).getByRole('button', { name: 'Åpne inntektsmelding' })).toBeInTheDocument();
+    expect(within(celler[3]).getByRole('button', { name: 'Inntektsmelding' })).toBeInTheDocument();
     expect(screen.queryByRole('radio')).not.toBeInTheDocument();
     expect(screen.queryByTitle('Utfall mangler')).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Vis mindre' })).not.toBeInTheDocument();
@@ -92,7 +92,7 @@ describe('RefusjonskravForm', () => {
       ],
     });
     const tabell = within(screen.getByRole('table'));
-    const antallKolonner = erOverstyrt ? 7 : 6;
+    const antallKolonner = erOverstyrt ? 6 : 5;
 
     expect(tabell.getAllByRole('columnheader')).toHaveLength(antallKolonner);
     for (const rad of tabell.getAllByRole('row').slice(1)) {
@@ -149,6 +149,89 @@ describe('RefusjonskravForm', () => {
     },
   );
 
+  it('bruker aktør-id som arbeidsgiverident', async () => {
+    const submitCallback = vi.fn().mockResolvedValue(undefined);
+    renderOverstyring({
+      submitCallback,
+      refusjonsandeler: [
+        {
+          ...refusjonsandelerForTreArbeidsgivere[0],
+          arbeidsgiverIdent: '1234567890123',
+        },
+      ],
+    });
+
+    expect(screen.getByRole('row', { name: /1234567890123/ })).toBeInTheDocument();
+    await userEvent.type(screen.getByRole('textbox', { name: 'Begrunnelse' }), 'Overstyrt');
+    await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
+
+    await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
+    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].arbeidsgiverIdent).toBe('1234567890123');
+  });
+
+  it('skiller andeler for samme arbeidsgiver med ulik kilde', async () => {
+    const andel = refusjonsandelerForTreArbeidsgivere[0];
+    renderOverstyring({
+      refusjonsandeler: [
+        {
+          ...andel,
+          refusjonsperioder: [andel.refusjonsperioder[0]],
+        },
+        {
+          ...andel,
+          kilde: 'SAKSBEHANDLER',
+          refusjonsperioder: [{ ...andel.refusjonsperioder[0], fom: '2025-02-01', tom: '2025-02-28' }],
+        },
+      ],
+    });
+    await userEvent.type(screen.getByRole('textbox', { name: 'Begrunnelse' }), 'Overstyrt');
+    const [førsteRad, andreRad] = screen.getAllByRole('row', { name: /Brunostfabrikken AS/ });
+    const åpneKnapp = within(andreRad).getByRole('button', { name: 'Vis mer' });
+    await userEvent.click(åpneKnapp);
+    const innhold = within(getÅpentAndelInnhold('Brunostfabrikken AS', 1));
+    await userEvent.click(innhold.getByRole('button', { name: 'Legg til periode' }));
+    const dato = innhold.getByRole('textbox', { name: 'Periode fra og med' });
+    await userEvent.type(dato, '15.01.2025');
+    await userEvent.type(innhold.getAllByRole('textbox', { name: 'Refusjonsbeløp per måned' })[1], '0');
+    expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeDisabled();
+    expect(innhold.getByRole('alert')).toHaveTextContent('01.02.2025 - 28.02.2025');
+
+    await userEvent.clear(dato);
+    await userEvent.type(dato, '15.02.2025');
+
+    expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeEnabled();
+    expect(within(førsteRad).getByText('01.01.2025 - 31.03.2025')).toBeInTheDocument();
+    expect(within(andreRad).getByText('01.02.2025 - 14.02.2025')).toBeInTheDocument();
+    expect(within(andreRad).getByText('15.02.2025 - 28.02.2025')).toBeInTheDocument();
+  });
+
+  it.each(['IKKE_INNENFOR_FRIST', 'UTMELDT', 'ALLEREDE_DIREKTE_UTBETALT'] as const)(
+    'bevarer mottatt utfallsårsak %s uten å sende den som en manuell overstyringsårsak',
+    async utfallÅrsak => {
+      const submitCallback = vi.fn().mockResolvedValue(undefined);
+      const setFormData = vi.fn();
+      const andel = refusjonsandelerForTreArbeidsgivere[0];
+      const { unmount } = renderOverstyring({
+        submitCallback,
+        setFormData,
+        refusjonsandeler: [{ ...andel, refusjonsperioder: [{ ...andel.refusjonsperioder[0], utfallÅrsak }] }],
+      });
+      await userEvent.click(screen.getByRole('button', { name: 'Vis mer' }));
+      const innhold = within(getÅpentAndelInnhold('Brunostfabrikken AS'));
+      const beløp = innhold.getByRole('textbox', { name: 'Refusjonsbeløp per måned' });
+      await userEvent.clear(beløp);
+      await userEvent.type(beløp, '50000');
+      expect(innhold.getByRole('combobox', { name: 'Årsak til overstyring' })).toHaveValue('');
+      await userEvent.type(screen.getByRole('textbox', { name: 'Begrunnelse' }), 'Overstyrt');
+      await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
+
+      await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
+      expect(submitCallback.mock.calls[0][0].refusjonskrav[0].perioder[0].utfallÅrsak).toBeUndefined();
+      unmount();
+      expect(setFormData.mock.calls[0][0].refusjonsandeler[0].refusjonsperioder[0].utfallÅrsak).toBe(utfallÅrsak);
+    },
+  );
+
   it.each([
     { readOnly: true, erOverstyrer: true },
     { readOnly: false, erOverstyrer: false },
@@ -162,7 +245,7 @@ describe('RefusjonskravForm', () => {
       refusjonsandeler: [
         {
           ...andel,
-          refusjonsperioder: [{ ...andel.refusjonsperioder[0], utfall: 'AVSLÅTT', utfallÅrsak: 'KONKURS' }],
+          refusjonsperioder: [{ ...andel.refusjonsperioder[0], utfall: 'AVSLÅTT', utfallÅrsak: 'IKKE_INNENFOR_FRIST' }],
         },
       ],
     });
@@ -423,12 +506,17 @@ describe('RefusjonskravForm', () => {
   it('skjuler en forhåndsutfylt årsak når fom og beløp er uendret', async () => {
     const andel = refusjonsandelerForTreArbeidsgivere[0];
     renderOverstyring({
-      refusjonsandeler: [
-        {
-          ...andel,
-          refusjonsperioder: [{ ...andel.refusjonsperioder[0], utfallÅrsak: 'KONKURS' }],
-        },
-      ],
+      formData: {
+        erOverstyring: true,
+        begrunnelse: 'Tidligere overstyrt',
+        refusjonsandeler: [
+          {
+            ...andel,
+            arbeidsgiverNavn: 'Brunostfabrikken AS',
+            refusjonsperioder: [{ ...andel.refusjonsperioder[0], overstyringsÅrsak: 'KONKURS' }],
+          },
+        ],
+      },
     });
     await userEvent.click(screen.getByRole('button', { name: 'Vis mer' }));
     const innhold = within(getÅpentAndelInnhold('Brunostfabrikken AS'));
@@ -498,7 +586,28 @@ describe('RefusjonskravForm', () => {
     const andel = refusjonsandelerForTreArbeidsgivere[0];
     renderOverstyring({
       submitCallback,
-      refusjonsandeler: [{ ...andel, refusjonsperioder: [{ ...andel.refusjonsperioder[0], tom }] }],
+      refusjonsandeler: [
+        {
+          ...andel,
+          refusjonsperioder: [
+            {
+              ...andel.refusjonsperioder[0],
+              tom: TIDENES_ENDE,
+            },
+          ],
+        },
+      ],
+      formData: {
+        erOverstyring: true,
+        begrunnelse: '',
+        refusjonsandeler: [
+          {
+            ...andel,
+            arbeidsgiverNavn: 'Brunostfabrikken AS',
+            refusjonsperioder: [{ ...andel.refusjonsperioder[0], tom }],
+          },
+        ],
+      },
     });
 
     expect(
@@ -800,8 +909,8 @@ const renderForm = (props: Partial<ComponentProps<typeof RefusjonskravForm>> = {
     { wrapper: ({ children }) => <RawIntlProvider value={intl}>{children}</RawIntlProvider> },
   );
 
-const getÅpentAndelInnhold = (arbeidsgiverNavn: string) => {
-  const rad = screen.getByRole('row', { name: new RegExp(arbeidsgiverNavn) });
+const getÅpentAndelInnhold = (arbeidsgiverNavn: string, index = 0) => {
+  const rad = screen.getAllByRole('row', { name: new RegExp(arbeidsgiverNavn) })[index];
   const radKnapp = within(rad).getByRole('button', { name: 'Vis mindre' });
   expect(radKnapp).toHaveAttribute('aria-expanded', 'true');
   const radInnholdId = radKnapp.getAttribute('aria-controls');

@@ -7,7 +7,12 @@ describe('utledRefusjonsperioder', () => {
   it('beholder sluttdatoen når opprinnelige perioder slås sammen', () => {
     const andel = refusjonsandelerForTreArbeidsgivere[0];
     const perioder = utledRefusjonsperioder(
-      [{ ...andel.refusjonsperioder[0], tom: andel.refusjonsperioder[1].tom }],
+      [
+        {
+          ...andel.refusjonsperioder[0],
+          tom: andel.refusjonsperioder[1].tom,
+        },
+      ],
       andel,
     );
 
@@ -60,8 +65,8 @@ describe('utledRefusjonsperioder', () => {
     const original = { ...andel.refusjonsperioder[0], utfall: 'INNVILGET' as const };
     const perioder = utledRefusjonsperioder(
       [
-        { ...original, refusjonsbeløpPrMnd: 50000, utfall: 'AVSLÅTT' },
-        { ...original, fom: '2025-02-01', refusjonsbeløpPrMnd: 0, utfall: undefined },
+        { ...original, refusjonPrMnd: 50000, utfall: 'AVSLÅTT' },
+        { ...original, fom: '2025-02-01', refusjonPrMnd: 0, utfall: undefined },
       ],
       { ...andel, refusjonsperioder: [original] },
     );
@@ -81,11 +86,11 @@ describe('utledRefusjonsperioder', () => {
     const andel = refusjonsandelerForTreArbeidsgivere[0];
     const original = {
       ...andel.refusjonsperioder[0],
-      refusjonsbeløpPrMnd: opprinneligBeløp,
+      refusjonPrMnd: opprinneligBeløp,
       utfall: 'INNVILGET' as const,
     };
 
-    const perioder = utledRefusjonsperioder([{ ...original, refusjonsbeløpPrMnd: beløp }], {
+    const perioder = utledRefusjonsperioder([{ ...original, refusjonPrMnd: beløp }], {
       ...andel,
       refusjonsperioder: [original],
     });
@@ -98,7 +103,7 @@ describe('utledRefusjonsperioder', () => {
     const andel = refusjonsandelerForTreArbeidsgivere[0];
     const original = { ...andel.refusjonsperioder[0], utfall: 'INNVILGET' as const };
 
-    const perioder = utledRefusjonsperioder([{ ...original, refusjonsbeløpPrMnd: beløp }], {
+    const perioder = utledRefusjonsperioder([{ ...original, refusjonPrMnd: beløp }], {
       ...andel,
       refusjonsperioder: [original],
     });

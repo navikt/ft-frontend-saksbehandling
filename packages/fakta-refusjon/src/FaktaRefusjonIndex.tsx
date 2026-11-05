@@ -6,7 +6,7 @@ import { createIntl } from '@navikt/ft-utils';
 import type { OverstyrRefusjonFormValues } from './components/Refusjonskrav/formValues';
 import { RefusjonskravForm } from './components/Refusjonskrav/RefusjonskravForm';
 import type { AksjonspunktRefusjon, OverstyrRefusjonskravSubmitType } from './types/aksjonspunkt';
-import type { RefusjonsAndel, Saksdokument } from './types/dataTypes';
+import type { FordelingGrunnlagDto, Saksdokument } from './types/dataTypes';
 
 import messages from '../i18n/nb_NO.json';
 
@@ -14,7 +14,7 @@ const intl = createIntl(messages);
 
 export interface FaktaRefusjonIndexProps {
   aksjonspunkt: AksjonspunktRefusjon[];
-  refusjonsandeler: RefusjonsAndel[];
+  refusjonsandeler: FordelingGrunnlagDto['refusjonsandeler'];
   dokumenter: Saksdokument[];
   åpneDokument: (journalpostId: string, dokumentId: string) => void;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
