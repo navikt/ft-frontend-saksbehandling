@@ -80,7 +80,7 @@ export const RhfTextField = <T extends FieldValues>({
       label={label}
       error={getError(errors, name)}
       {...field}
-      value={field.value ? format(field.value) : ''}
+      value={field.value || field.value === 0 ? format(field.value) : ''}
       autoComplete={autoComplete}
       type={type}
       onChange={event => {
