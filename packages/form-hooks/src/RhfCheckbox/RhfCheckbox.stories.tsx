@@ -6,9 +6,14 @@ import { RhfCheckbox } from './RhfCheckbox';
 const meta = {
   component: RhfCheckbox,
   tags: ['autodocs'],
-  decorators: rhfDecorator({ testcheckboxpre: true }),
+  decorators: [rhfDecorator],
   args: {
+    name: 'field',
+    label: 'Label',
     control: undefined, // This will be provided by the decorator
+    readOnly: false,
+    disabled: false,
+    hideLabel: false,
   },
 } satisfies Meta<typeof RhfCheckbox>;
 
@@ -18,22 +23,21 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: 'Dette er en checkbox',
-    name: 'testcheckbox',
+    description: 'Dette er en checkbox',
   },
 };
 
 export const MedVerdi: Story = {
+  parameters: { defaultValues: { field: true } },
   args: {
-    label: 'Dette er en checkbox der verdi er valgt',
-    name: 'testcheckboxpre',
+    description: 'Dette er en checkbox der verdi er valgt',
   },
 };
 
 export const ReadOnly: Story = {
+  parameters: { defaultValues: { field: true } },
   args: {
-    label: 'Dette er en checkbox som er readonly',
-    name: 'testcheckboxpre',
+    description: 'Dette er en checkbox som er readonly',
     readOnly: true,
   },
 };

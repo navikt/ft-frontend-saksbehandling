@@ -6,9 +6,15 @@ import { RhfTextField } from './RhfTextField';
 const meta = {
   component: RhfTextField,
   tags: ['autodocs'],
-  decorators: rhfDecorator({ testinputpre: 'Hei hei' }),
+  decorators: [rhfDecorator],
   args: {
+    name: 'field',
+    label: 'Label',
     control: undefined, // This will be provided by the decorator
+    readOnly: false,
+    isEdited: false,
+    disabled: false,
+    hideLabel: false,
     align: undefined,
   },
 } satisfies Meta<typeof RhfTextField>;
@@ -19,27 +25,27 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: 'Dette er et inputfelt',
-    name: 'testinput',
+    description: 'Dette er et inputfelt',
   },
 };
 
 export const MedVerdi: Story = {
+  parameters: { defaultValues: { field: 'Hei hei' } },
   args: {
-    label: 'Dette er et inputfelt der verdi er valgt',
-    name: 'testinputpre',
+    description: 'Dette er et inputfelt der verdi er valgt',
   },
 };
 
 export const ReadOnly: Story = {
+  parameters: MedVerdi.parameters,
   args: {
-    label: 'Dette er et inputfelt som er readonly',
-    name: 'testinputpre',
+    description: 'Dette er et inputfelt som er readonly',
     readOnly: true,
   },
 };
 
 export const Høyrestilt: Story = {
+  parameters: MedVerdi.parameters,
   args: {
     ...MedVerdi.args,
     align: 'right',

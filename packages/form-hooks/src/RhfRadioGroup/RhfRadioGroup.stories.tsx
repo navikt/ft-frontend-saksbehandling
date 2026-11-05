@@ -8,38 +8,54 @@ const meta = {
   component: RhfRadioGroup,
   tags: ['autodocs'],
   args: {
+    legend: 'Legend',
+    name: 'field',
     control: undefined, // This will be provided by the decorator
+    readOnly: false,
+    isEdited: false,
+    disabled: false,
+    hideLegend: false,
+    children: (
+      <>
+        <Radio value="yes">Oppfylt</Radio>
+        <Radio value="no">Ikke oppfylt</Radio>
+        <Radio value="partial">Delvis oppfylt</Radio>
+      </>
+    ),
   },
-  decorators: rhfDecorator({ radiopre: 'no' }),
+  decorators: [rhfDecorator],
 } satisfies Meta<typeof RhfRadioGroup>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const defaultRadios = (
-  <>
-    <Radio value="yes">Oppfylt</Radio>
-    <Radio value="no">Ikke oppfylt</Radio>
-    <Radio value="partial">Delvis oppfylt</Radio>
-  </>
-);
-
 export const Default: Story = {
   args: {
-    name: 'radio',
     description: 'Dette er en beskrivelse',
-    legend: 'Dette er en radiogruppe',
-    children: defaultRadios,
+  },
+};
+
+export const MedValidering: Story = {
+  args: {
+    description: 'Dette er en radiogruppe med validering',
+    validate: [value => (value ? undefined : 'Velg en verdi')],
+    children: (
+      <>
+        <Radio value="deaktivert" disabled>
+          Deaktivert
+        </Radio>
+        <Radio value="verdi">Verdi</Radio>
+      </>
+    ),
   },
 };
 
 export const ReadOnlyMedOverstyrtMarkering: Story = {
+  parameters: { defaultValues: { field: 'no' } },
   args: {
-    name: 'radiopre',
-    legend: 'Dette er en readonly radioknapp med overstyrt markering',
+    description: 'Dette er en readonly radioknapp med overstyrt markering',
     readOnly: true,
     isEdited: true,
-    children: defaultRadios,
   },
 };

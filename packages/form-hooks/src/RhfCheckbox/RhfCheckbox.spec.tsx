@@ -10,9 +10,8 @@ export const { Default } = composeStories(stories);
 describe('RhfCheckbox', () => {
   it('skal sette verdi', async () => {
     await Default.run();
-    expect(screen.getByText('Dette er en checkbox')).toBeInTheDocument();
-    expect(screen.getByLabelText('Dette er en checkbox')).not.toBeChecked();
-    await userEvent.click(screen.getByText('Dette er en checkbox'));
-    expect(await screen.getByLabelText('Dette er en checkbox')).toBeChecked();
+    expect(screen.getByLabelText('Label')).not.toBeChecked();
+    await userEvent.click(screen.getByLabelText('Label'));
+    expect(screen.getByLabelText('Label')).toBeChecked();
   });
 });

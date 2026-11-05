@@ -8,8 +8,12 @@ const meta = {
   component: RhfCheckboxGroup,
   tags: ['autodocs'],
   args: {
+    name: 'field',
+    legend: 'Legend',
     readOnly: false,
     isEdited: false,
+    disabled: false,
+    hideLegend: false,
     control: undefined,
     children: [
       <Checkbox key="verdi1" value="verdi1">
@@ -23,7 +27,7 @@ const meta = {
       </Checkbox>,
     ],
   },
-  decorators: rhfDecorator({ checkboxpanelpre: ['verdi1', 'verdi3'] }),
+  decorators: [rhfDecorator],
 } satisfies Meta<typeof RhfCheckboxGroup>;
 
 export default meta;
@@ -32,38 +36,37 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    legend: 'Dette er en checkboxpanel',
     description: 'Dette er en beskrivelse',
-    name: 'checkboxpanel',
   },
 };
 
 export const MedVerdi: Story = {
+  parameters: { defaultValues: { field: ['verdi1', 'verdi3'] } },
   args: {
-    legend: 'Dette er en checkboxpanel der verdi er valgt',
-    name: 'checkboxpanelpre',
+    description: 'Dette er en checkboxpanel der verdi er valgt',
   },
 };
 
 export const ReadOnlyMedOverstyrtMarkering: Story = {
+  parameters: { defaultValues: { field: ['verdi1', 'verdi3'] } },
   args: {
     readOnly: true,
     isEdited: true,
-    legend: 'Dette er en readonly checkboxpanel med overstyrt markering',
-    name: 'checkboxpanelpre',
+    description: 'Dette er en readonly checkboxpanel med overstyrt markering',
   },
 };
 
 export const MedValidering: Story = {
   args: {
-    validate: [
-      checkedElements => (checkedElements.length < 1 ? 'Du må velge minst ett element' : undefined),
-      checkedElements =>
-        checkedElements.includes('verdi1') && checkedElements.includes('verdi2')
-          ? 'Verdi 1 og 2 kan ikke velges samtidig'
-          : undefined,
+    description: 'Dette er en checkboks med validering',
+    validate: [checkedElements => (checkedElements?.length ? undefined : 'Velg minst  ett element')],
+    children: [
+      <Checkbox key="deaktivert" value="deaktivert" disabled>
+        Deaktivert
+      </Checkbox>,
+      <Checkbox key="verdi" value="verdi">
+        Verdi
+      </Checkbox>,
     ],
-    legend: 'Dette er en checkboks med validering',
-    name: 'checkboxpanelpre',
   },
 };

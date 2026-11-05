@@ -6,9 +6,15 @@ import { RhfSelect } from './RhfSelect';
 const meta = {
   component: RhfSelect,
   tags: ['autodocs'],
-  decorators: rhfDecorator({ testSelectFieldpre: 'value3' }),
+  decorators: [rhfDecorator],
   args: {
+    label: 'Label',
+    name: 'field',
     control: undefined, // This will be provided by the decorator
+    readOnly: false,
+    isEdited: false,
+    disabled: false,
+    hideLabel: false,
     align: undefined,
   },
 } satisfies Meta<typeof RhfSelect>;
@@ -19,9 +25,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: 'Dette er en dropdown',
-    name: 'testSelectField',
-    description: 'Dette er en nærmere beskrivelse',
+    description: 'Dette er en dropdown',
     selectValues: [
       <option value="value1" key="1">
         Test 1
@@ -34,9 +38,9 @@ export const Default: Story = {
 };
 
 export const MedVerdi: Story = {
+  parameters: { defaultValues: { field: 'value3' } },
   args: {
-    label: 'Dette er en dropdown der verdi er valgt',
-    name: 'testSelectFieldpre',
+    description: 'Dette er en dropdown der verdi er valgt',
     selectValues: [
       <option value="value3" key="1">
         Test 3
@@ -49,9 +53,9 @@ export const MedVerdi: Story = {
 };
 
 export const ReadOnly: Story = {
+  parameters: MedVerdi.parameters,
   args: {
-    label: 'Dette er en dropdown som er readonly',
-    name: 'testSelectFieldpre',
+    description: 'Dette er en dropdown som er readonly',
     readOnly: true,
     selectValues: [
       <option value="value3" key="1">
@@ -65,6 +69,7 @@ export const ReadOnly: Story = {
 };
 
 export const Høyrestilt: Story = {
+  parameters: MedVerdi.parameters,
   args: {
     ...MedVerdi.args,
     align: 'right',
@@ -72,9 +77,17 @@ export const Høyrestilt: Story = {
 };
 
 export const Deaktivert: Story = {
+  parameters: MedVerdi.parameters,
   args: {
     ...MedVerdi.args,
-    label: 'Dette er en dropdown som er deaktivert',
+    description: 'Dette er en dropdown som er deaktivert',
     disabled: true,
+  },
+};
+
+export const MedValidering: Story = {
+  args: {
+    ...Default.args,
+    validate: [value => (value ? undefined : 'Velg en verdi')],
   },
 };

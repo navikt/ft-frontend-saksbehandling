@@ -39,7 +39,9 @@ export const RhfSelect = <T extends FieldValues>({
     formState: { errors },
   } = useFormContext();
 
-  const { field } = useController({
+  const {
+    field: { ref, ...field },
+  } = useController({
     name,
     control,
     rules: {
@@ -64,6 +66,7 @@ export const RhfSelect = <T extends FieldValues>({
 
   return (
     <Select
+      ref={ref}
       size={size}
       error={getError(errors, name)}
       label={label}

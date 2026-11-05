@@ -53,6 +53,8 @@ export const RhfRadioGroup = <TFieldValues extends FieldValues, TName extends Fi
 
   return (
     <RadioGroup
+      // RHF må få et fokusbart input, ikke gruppens fieldset.
+      ref={fieldset => field.ref(fieldset?.querySelector('input[type="radio"]:not(:disabled)'))}
       name={name}
       value={field.value !== undefined ? field.value : null}
       legend={

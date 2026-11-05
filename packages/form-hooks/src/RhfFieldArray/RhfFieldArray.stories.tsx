@@ -18,13 +18,16 @@ type StoryFormValues = {
 };
 const meta = {
   component: RhfFieldArray,
-  decorators: rhfDecorator({
-    test: [{ periodeFom: '', periodeTom: '' }],
-    personer: [
-      { fornavn: 'Ola', etternavn: 'Nordmann', adresse: 'Karl Johans Gate 1' },
-      { fornavn: 'Sven', etternavn: 'Svensen', adresse: 'Slottsbacken 1' },
-    ],
-  }),
+  decorators: [rhfDecorator],
+  parameters: {
+    defaultValues: {
+      test: [{ periodeFom: '', periodeTom: '' }],
+      personer: [
+        { fornavn: 'Ola', etternavn: 'Nordmann', adresse: 'Karl Johans Gate 1' },
+        { fornavn: 'Sven', etternavn: 'Svensen', adresse: 'Slottsbacken 1' },
+      ],
+    },
+  },
   args: {
     readOnly: false,
     size: 'small',

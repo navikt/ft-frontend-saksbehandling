@@ -11,8 +11,8 @@ describe('RhfTextarea', () => {
   it('skal sette verdi', async () => {
     await Default.run();
     expect(screen.getByText('Dette er et tekstfelt')).toBeInTheDocument();
-    expect(screen.getByLabelText('Dette er et tekstfelt')).toHaveValue('');
-    await userEvent.type(screen.getByLabelText('Dette er et tekstfelt'), 'Dette er en vurdering');
-    expect(screen.getByLabelText('Dette er et tekstfelt')).toHaveValue('Dette er en vurdering');
+    expect(screen.getByLabelText('Label')).toHaveValue('');
+    await userEvent.type(screen.getByLabelText('Label'), 'Dette er en vurdering');
+    expect(screen.getByLabelText('Label')).toHaveValue('Dette er en vurdering');
   });
 });
