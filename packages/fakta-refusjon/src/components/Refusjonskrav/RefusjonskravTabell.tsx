@@ -34,7 +34,7 @@ export const RefusjonskravTabell = ({
         <FormattedMessage id="RefusjonskravTabell.Tittel" />
       </Heading>
 
-      <Table style={{ width: 'fit-content' }}>
+      <Table>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>

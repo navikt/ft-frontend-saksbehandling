@@ -22,8 +22,9 @@ describe('FaktaRefusjonIndex', () => {
     await userEvent.hover(getTidslinjePerioder()[index]);
 
     const tooltip = within(await screen.findByRole('dialog', {}, { timeout: 2000 }));
+    expect(tooltip.getByText('Periode')).toBeVisible();
     expect(tooltip.getByText(periode)).toBeVisible();
-    expect(tooltip.getByText('Refusjonsbeløp per måned:')).toBeVisible();
+    expect(tooltip.getByText('Refusjonsbeløp per måned')).toBeVisible();
     expect(tooltip.getByText(beløp)).toHaveTextContent('kr');
     expect(tooltip.queryByText(/9999/)).not.toBeInTheDocument();
   });

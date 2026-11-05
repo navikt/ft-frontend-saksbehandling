@@ -4,7 +4,7 @@ import { Buildings3Icon, PersonPencilFillIcon } from '@navikt/aksel-icons';
 import { Box, Heading, HStack, Spacer, Timeline, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
-import { BeløpLabel, PeriodLabel, useTidslinje } from '@navikt/ft-ui-komponenter';
+import { BeløpLabel, LabeledValue, PeriodLabel, useTidslinje } from '@navikt/ft-ui-komponenter';
 import { ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import type { RefusjonsAndelTilVisning } from './Refusjonskrav/formValues';
@@ -62,11 +62,14 @@ export const Utbetaling = ({ refusjonsandeler, onSelectAndel }: Props) => {
                 }
               >
                 <VStack gap="space-8">
-                  <PeriodLabel dateStringFom={p.fom} dateStringTom={p.tom} />
-                  <div>
-                    <FormattedMessage id="RefusjonskravForm.RefusjonsbeløpPrMnd" />:{' '}
-                    <BeløpLabel beløp={p.refusjonsbeløpPrMnd} kr />
-                  </div>
+                  <LabeledValue
+                    label={<FormattedMessage id="Utbetaling.Periode" />}
+                    value={<PeriodLabel dateStringFom={p.fom} dateStringTom={p.tom} />}
+                  />
+                  <LabeledValue
+                    label={<FormattedMessage id="RefusjonskravForm.RefusjonsbeløpPrMnd" />}
+                    value={<BeløpLabel beløp={p.refusjonsbeløpPrMnd} kr />}
+                  />
                 </VStack>
               </Timeline.Period>
             ))}

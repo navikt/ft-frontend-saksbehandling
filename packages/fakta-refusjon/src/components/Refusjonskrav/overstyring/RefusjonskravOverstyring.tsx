@@ -39,7 +39,7 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
   );
 
   return (
-    <VStack gap="space-16" paddingInline="space-16">
+    <VStack gap="space-4" paddingInline="space-16">
       {fields.map((field, index) => (
         <HStack
           as="section"
@@ -48,7 +48,7 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
           align="start"
           aria-label={intl.formatMessage({ id: 'RefusjonskravOverstyring.Periode' }, { nummer: index + 1 })}
         >
-          <Box width="10rem">
+          <Box width="138px">
             <RhfDatepicker
               control={control}
               name={`${name}.${index}.fom`}
