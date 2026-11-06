@@ -15,7 +15,6 @@
     "eslint": "eslint src/**/*.ts* --color",
     "eslint:fix": "eslint --fix src/**/*.ts* --color",
     "prettier:fix": "prettier --write src",
-    "stylelint": "stylelint src/**/*.module.css",
     "tsc": "tsc --pretty",
     "dev": "vite build --watch --mode development",
     "clean": "rm -rf ./dist ./node_modules"
@@ -57,7 +56,6 @@
     "react-dom": "19.3.1",
     "react-hook-form": "7.91.0",
     "react-intl": "12.1.6",
-    "stylelint": "17.16.0",
     "typescript": "6.0.3",
     "vite": "8.3.5",
     "vitest": "5.0.5"
