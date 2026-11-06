@@ -145,7 +145,7 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
               append({
                 ...notEmpty(sisteOriginal),
                 fom: '',
-                tom: sisteOriginal?.tom || TIDENES_ENDE,
+                tom: perioder.toSorted(sortPeriodsByFom).at(-1)?.tom || TIDENES_ENDE,
                 refusjonPrMnd: undefined,
               })
             }

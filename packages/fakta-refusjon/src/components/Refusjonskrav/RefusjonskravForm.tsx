@@ -7,7 +7,7 @@ import { RhfForm, RhfTextarea, SubmitButton } from '@navikt/ft-form-hooks';
 import { hasValidDate, hasValidDecimal, maxLength, minLength, minValue, required } from '@navikt/ft-form-validators';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
-import { notEmpty, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
+import { isEqual, notEmpty, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { useOverstyring } from '../../hooks/useOverstyring';
 import type { AksjonspunktRefusjon, OverstyrRefusjonskravSubmitType } from '../../types/aksjonspunkt';
@@ -194,16 +194,25 @@ const buildInitialValues = (
     formData?.begrunnelse ??
     aksjonspunkt.find(ap => ap.kode === 'OVERSTYR_REFUSJONSKRAV' && ap.status === 'UTFO')?.begrunnelse ??
     '',
-  refusjonsandeler: refusjonsandeler.map(andel => ({
-    ...andel,
-    arbeidsgiverNavn: arbeidsgiverOpplysningerPerId[andel.arbeidsgiverIdent]?.navn || andel.arbeidsgiverIdent,
-    refusjonsperioder:
-      formData?.refusjonsandeler.find(lagret => refusjonsandelNøkkel(lagret) === refusjonsandelNøkkel(andel))
-        ?.refusjonsperioder ??
-      andel.refusjonsperioder
-        .toSorted(sortPeriodsByFom)
-        .map(periode => ({ ...periode, tom: periode.tom || TIDENES_ENDE })),
-  })),
+  opprinneligeRefusjonsandeler: refusjonsandeler,
+  refusjonsandeler: refusjonsandeler.map(andel => {
+    const opprinneligAndel = formData?.opprinneligeRefusjonsandeler?.find(
+      original => refusjonsandelNøkkel(original) === refusjonsandelNøkkel(andel),
+    );
+    const lagretAndel =
+      opprinneligAndel && isEqual(opprinneligAndel, andel)
+        ? formData?.refusjonsandeler.find(lagret => refusjonsandelNøkkel(lagret) === refusjonsandelNøkkel(andel))
+        : undefined;
+    return {
+      ...andel,
+      arbeidsgiverNavn: arbeidsgiverOpplysningerPerId[andel.arbeidsgiverIdent]?.navn || andel.arbeidsgiverIdent,
+      refusjonsperioder:
+        lagretAndel?.refusjonsperioder ??
+        andel.refusjonsperioder
+          .toSorted(sortPeriodsByFom)
+          .map(periode => ({ ...periode, tom: periode.tom || TIDENES_ENDE })),
+    };
+  }),
 });
 
 const finnOpprinneligAndel = (
