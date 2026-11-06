@@ -12,7 +12,7 @@ import { formaterArbeidsgiver, isEqual, notEmpty, sortPeriodsByFom, TIDENES_ENDE
 import { useOverstyring } from '../../hooks/useOverstyring';
 import type { AksjonspunktRefusjon, OverstyrRefusjonskravSubmitType } from '../../types/aksjonspunkt';
 import type { RefusjonsandelDto, Saksdokument } from '../../types/dataTypes';
-import { Utbetaling } from '../Utbetaling';
+import { RefusjonsTidslinje } from '../RefusjonsTidslinje';
 import type { OverstyrRefusjonFormValues, RefusjonsAndelFormValues, RefusjonsAndelTilVisning } from './formValues';
 import { erGyldigOppdeling } from './overstyring/erGyldigOppdeling';
 import { RefusjonskravOverstyring } from './overstyring/RefusjonskravOverstyring';
@@ -34,11 +34,7 @@ interface Props {
   setFormData: (data: OverstyrRefusjonFormValues) => void;
 }
 
-export const RefusjonskravForm = (props: Props) => (
-  <RefusjonskravSkjema key={JSON.stringify(props.refusjonsandeler)} {...props} />
-);
-
-const RefusjonskravSkjema = ({
+export const RefusjonskravForm = ({
   aksjonspunkt,
   arbeidsgiverOpplysningerPerId,
   refusjonsandeler,
@@ -120,7 +116,7 @@ const RefusjonskravSkjema = ({
           {overstyringKnapp}
         </HStack>
 
-        <Utbetaling
+        <RefusjonsTidslinje
           refusjonsandeler={andelerTilVisning}
           onSelectAndel={andelIndex => {
             if (visOverstyring) {
@@ -206,9 +202,9 @@ const buildInitialValues = (
         : undefined;
     return {
       ...andel,
-      arbeidsgiverNavn: arbeidsgiverOpplysninger?.navn
-        ? formaterArbeidsgiver(arbeidsgiverOpplysninger)
-        : andel.arbeidsgiverIdent,
+      arbeidsgiverTittel: arbeidsgiverOpplysninger?.navn
+        ? formaterArbeidsgiver(arbeidsgiverOpplysninger, andel.arbeidsgiverId)
+        : `${andel.arbeidsgiverIdent}${andel.arbeidsgiverId ? `...${andel.arbeidsgiverId.slice(-4)}` : ''}`,
       refusjonsperioder:
         lagretAndel?.refusjonsperioder ??
         andel.refusjonsperioder
@@ -239,10 +235,7 @@ const utledRefusjonskrav = (
   andeler: RefusjonsAndelFormValues[],
   opprinneligeAndeler: RefusjonsandelDto[],
 ): OverstyrRefusjonskravSubmitType['refusjonskrav'] => {
-  const perioderPerArbeidsgiver = new Map<
-    string,
-    OverstyrRefusjonskravSubmitType['refusjonskrav'][number]['perioder']
-  >();
+  const kravPerArbeidsgiver = new Map<string, OverstyrRefusjonskravSubmitType['refusjonskrav'][number]>();
   for (const andel of andeler) {
     const perioder = utledRefusjonsperioder(
       andel.refusjonsperioder,
@@ -253,14 +246,18 @@ const utledRefusjonskrav = (
       refusjonsbeløpPrMnd: rad.refusjonPrMnd,
       utfallÅrsak: rad.overstyringsÅrsak,
     }));
-    perioderPerArbeidsgiver.set(andel.arbeidsgiverIdent, [
-      ...(perioderPerArbeidsgiver.get(andel.arbeidsgiverIdent) ?? []),
-      ...perioder,
-    ]);
+    const arbeidsgiverNøkkel = andel.arbeidsgiverId || andel.arbeidsgiverIdent;
+    const eksisterendeKrav = kravPerArbeidsgiver.get(arbeidsgiverNøkkel);
+    const arbeidsgiverId = andel.arbeidsgiverId || eksisterendeKrav?.arbeidsgiverId;
+    kravPerArbeidsgiver.set(arbeidsgiverNøkkel, {
+      arbeidsgiverIdent: andel.arbeidsgiverIdent,
+      ...(arbeidsgiverId ? { arbeidsgiverId } : {}),
+      perioder: [...(eksisterendeKrav?.perioder ?? []), ...perioder],
+    });
   }
-  return Array.from(perioderPerArbeidsgiver, ([arbeidsgiverIdent, perioder]) => ({
-    arbeidsgiverIdent,
-    perioder: perioder.toSorted(sortPeriodsByFom),
+  return Array.from(kravPerArbeidsgiver.values(), krav => ({
+    ...krav,
+    perioder: krav.perioder.toSorted(sortPeriodsByFom),
   }));
 };
 

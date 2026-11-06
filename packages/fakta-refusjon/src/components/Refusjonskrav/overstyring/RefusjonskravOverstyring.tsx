@@ -48,12 +48,12 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
     const sistePeriode = perioderSortertEtterFom.at(-1);
     const nestSistePeriode = perioderSortertEtterFom.at(-2);
     const sistePeriodesSluttdato = sistePeriode?.tom || TIDENES_ENDE;
-    if (
+    const skalVidereføreSluttdato =
       sistePeriode?.skjemaIndex === periodeIndexSomSkalFjernes &&
       nestSistePeriode &&
       (sistePeriodesSluttdato === TIDENES_ENDE || !hasValidDate(sistePeriodesSluttdato)) &&
-      sistePeriode.fom <= sistePeriodesSluttdato
-    ) {
+      sistePeriode.fom <= sistePeriodesSluttdato;
+    if (skalVidereføreSluttdato) {
       setValue(`${name}.${nestSistePeriode.skjemaIndex}.tom`, sistePeriodesSluttdato, { shouldDirty: true });
     }
     remove(periodeIndexSomSkalFjernes);

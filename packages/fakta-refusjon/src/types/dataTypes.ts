@@ -11,6 +11,7 @@ export type FordelingGrunnlagDto = {
 
 export type RefusjonsandelDto = {
   arbeidsgiverIdent: string;
+  arbeidsgiverId?: string;
   journalpostId?: string;
   kilde: RefusjonKilde;
   refusjonsperioder: RefusjonsperiodeDto[];

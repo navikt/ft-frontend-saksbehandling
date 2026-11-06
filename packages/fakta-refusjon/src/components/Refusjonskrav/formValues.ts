@@ -9,7 +9,7 @@ export type OverstyrRefusjonFormValues = {
 };
 
 export type RefusjonsAndelFormValues = Omit<RefusjonsandelDto, 'refusjonsperioder'> & {
-  arbeidsgiverNavn: string;
+  arbeidsgiverTittel: string;
   refusjonsperioder: RefusjonPeriode[];
 };
 

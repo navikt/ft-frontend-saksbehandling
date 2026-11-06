@@ -44,7 +44,7 @@ describe('RefusjonskravForm', () => {
       refusjonsandeler: [
         {
           ...andel,
-          arbeidsgiverNavn: 'Brunostfabrikken AS (999999999)',
+          arbeidsgiverTittel: 'Brunostfabrikken AS (999999999)',
           refusjonsperioder: [
             andel.refusjonsperioder[0],
             { ...andel.refusjonsperioder[1], utfallBegrunnelse: 'Tidligere vurdert' },
@@ -153,26 +153,110 @@ describe('RefusjonskravForm', () => {
     },
   );
 
-  it('bruker aktør-id som arbeidsgiverident', async () => {
+  it.each([
+    { arbeidsgiverId: undefined, forventetTittel: '1234567890123' },
+    { arbeidsgiverId: 'arbeidsgiver-1', forventetTittel: '1234567890123...er-1' },
+  ])(
+    'bruker aktør-id som arbeidsgiverident med tittelen "$forventetTittel"',
+    async ({ arbeidsgiverId, forventetTittel }) => {
+      const submitCallback = vi.fn().mockResolvedValue(undefined);
+      renderOverstyring({
+        submitCallback,
+        refusjonsandeler: [
+          {
+            ...refusjonsandelerForTreArbeidsgivere[0],
+            arbeidsgiverIdent: '1234567890123',
+            arbeidsgiverId,
+          },
+        ],
+      });
+
+      const aktørRad = screen.getByRole('row', { name: /1234567890123/ });
+      expect(within(aktørRad).getAllByRole('cell')[0].textContent).toBe(forventetTittel);
+      await userEvent.type(screen.getByRole('textbox', { name: 'Begrunnelse' }), 'Overstyrt');
+      await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
+
+      await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
+      expect(submitCallback.mock.calls[0][0].refusjonskrav[0].arbeidsgiverIdent).toBe('1234567890123');
+    },
+  );
+
+  it('beholder arbeidsgiverIdent til visning og sender mottatt arbeidsgiverId', async () => {
     const submitCallback = vi.fn().mockResolvedValue(undefined);
-    renderOverstyring({
-      submitCallback,
-      refusjonsandeler: [
-        {
-          ...refusjonsandelerForTreArbeidsgivere[0],
-          arbeidsgiverIdent: '1234567890123',
-        },
-      ],
-    });
+    const andel = {
+      ...refusjonsandelerForTreArbeidsgivere[0],
+      arbeidsgiverId: 'arbeidsgiver-1',
+      refusjonsperioder: [refusjonsandelerForTreArbeidsgivere[0].refusjonsperioder[0]],
+    };
+    renderOverstyring({ submitCallback, refusjonsandeler: [andel] });
 
-    const aktørRad = screen.getByRole('row', { name: /1234567890123/ });
-    expect(within(aktørRad).getAllByRole('cell')[0].textContent).toBe('1234567890123');
+    const rad = screen.getByRole('row', { name: /Brunostfabrikken AS/ });
+    const arbeidsgiverTittel = 'Brunostfabrikken AS (999999999)...er-1';
+    expect(within(rad).getAllByRole('cell')[0].textContent).toBe(arbeidsgiverTittel);
+    expect(screen.getAllByText(arbeidsgiverTittel)).toHaveLength(2);
     await userEvent.type(screen.getByRole('textbox', { name: 'Begrunnelse' }), 'Overstyrt');
-    await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
+    await submitForm();
 
-    await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
-    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].arbeidsgiverIdent).toBe('1234567890123');
+    expect(submitCallback).toHaveBeenCalledTimes(1);
+    expect(submitCallback.mock.calls[0][0].refusjonskrav[0]).toEqual(
+      expect.objectContaining({
+        arbeidsgiverIdent: andel.arbeidsgiverIdent,
+        arbeidsgiverId: andel.arbeidsgiverId,
+      }),
+    );
   });
+
+  it('skiller krav med samme arbeidsgiverIdent og kilde, men ulike arbeidsgiverId', async () => {
+    const submitCallback = vi.fn().mockResolvedValue(undefined);
+    const andel = refusjonsandelerForTreArbeidsgivere[0];
+    const refusjonsandeler = ['arbeidsgiver-1', 'arbeidsgiver-2'].map(arbeidsgiverId => ({
+      ...andel,
+      arbeidsgiverId,
+      refusjonsperioder: [andel.refusjonsperioder[0]],
+    }));
+    renderOverstyring({ submitCallback, refusjonsandeler });
+
+    expect(screen.getAllByRole('row', { name: /Brunostfabrikken AS/ })).toHaveLength(2);
+    await userEvent.type(screen.getByRole('textbox', { name: 'Begrunnelse' }), 'Overstyrt');
+    await submitForm();
+
+    expect(submitCallback).toHaveBeenCalledTimes(1);
+    expect(submitCallback.mock.calls[0][0].refusjonskrav).toEqual([
+      expect.objectContaining({ arbeidsgiverId: 'arbeidsgiver-1' }),
+      expect.objectContaining({ arbeidsgiverId: 'arbeidsgiver-2' }),
+    ]);
+  });
+
+  it.each([
+    { arbeidsgiverIdent: '999999999', arbeidsgiverId: 'arbeidsgiver-2' },
+    { arbeidsgiverIdent: '888888888', arbeidsgiverId: 'arbeidsgiver-1' },
+  ])(
+    'gjenbruker mellomlagrede beløp for riktig ident og ID: $arbeidsgiverIdent / $arbeidsgiverId',
+    async andreArbeidsgiver => {
+      const andel = refusjonsandelerForTreArbeidsgivere[0];
+      const refusjonsandeler = [
+        { ...andel, arbeidsgiverId: 'arbeidsgiver-1', refusjonsperioder: [andel.refusjonsperioder[0]] },
+        { ...andel, ...andreArbeidsgiver, refusjonsperioder: [andel.refusjonsperioder[0]] },
+      ];
+      renderOverstyring({
+        refusjonsandeler,
+        formData: {
+          erOverstyring: true,
+          begrunnelse: 'Mellomlagret overstyring',
+          opprinneligeRefusjonsandeler: refusjonsandeler,
+          refusjonsandeler: refusjonsandeler.map((original, index) => ({
+            ...original,
+            arbeidsgiverTittel: '',
+            refusjonsperioder: [{ ...original.refusjonsperioder[0], refusjonPrMnd: index === 0 ? 45000 : 46000 }],
+          })),
+        },
+      });
+
+      await userEvent.click(screen.getAllByRole('button', { name: 'Vis mer' })[1]);
+      const innhold = within(screen.getByRole('region', { name: 'Periode 1' }));
+      expect(innhold.getByRole('textbox', { name: 'Refusjonsbeløp per måned' })).toHaveValue('46000');
+    },
+  );
 
   it('skiller andeler for samme arbeidsgiver med ulik kilde', async () => {
     const andel = refusjonsandelerForTreArbeidsgivere[0];
@@ -212,7 +296,7 @@ describe('RefusjonskravForm', () => {
 
   it('samler ikke-overlappende andeler til ett sortert krav per arbeidsgiver', async () => {
     const submitCallback = vi.fn().mockResolvedValue(undefined);
-    const andel = refusjonsandelerForTreArbeidsgivere[0];
+    const andel = { ...refusjonsandelerForTreArbeidsgivere[0], arbeidsgiverId: 'arbeidsgiver-1' };
     renderOverstyring({
       submitCallback,
       refusjonsandeler: [
@@ -233,6 +317,7 @@ describe('RefusjonskravForm', () => {
     expect(submitCallback.mock.calls[0][0].refusjonskrav).toEqual([
       {
         arbeidsgiverIdent: andel.arbeidsgiverIdent,
+        arbeidsgiverId: andel.arbeidsgiverId,
         perioder: [
           expect.objectContaining({ fom: '2025-01-01', tom: '2025-01-31', refusjonsbeløpPrMnd: 42000 }),
           expect.objectContaining({ fom: '2025-02-01', tom: '2025-02-28', refusjonsbeløpPrMnd: 10000 }),
@@ -396,7 +481,7 @@ describe('RefusjonskravForm', () => {
         begrunnelse: 'Mellomlagret overstyring',
         refusjonsandeler: andeler.map((andel, index) => ({
           ...andel,
-          arbeidsgiverNavn: '',
+          arbeidsgiverTittel: '',
           refusjonsperioder: andel.refusjonsperioder.map(periode => ({
             ...periode,
             refusjonPrMnd: index === 0 ? 99999 : 50000,
@@ -446,7 +531,7 @@ describe('RefusjonskravForm', () => {
           opprinneligeRefusjonsandeler: andeler,
           refusjonsandeler: andeler.map((andel, index) => ({
             ...andel,
-            arbeidsgiverNavn: '',
+            arbeidsgiverTittel: '',
             refusjonsperioder: andel.refusjonsperioder.map(periode => ({
               ...periode,
               refusjonPrMnd: index === 0 ? 99999 : 50000,
@@ -499,7 +584,7 @@ describe('RefusjonskravForm', () => {
         refusjonsandeler: [
           {
             ...andel,
-            arbeidsgiverNavn: '',
+            arbeidsgiverTittel: '',
             refusjonsperioder: [{ ...andel.refusjonsperioder[0], refusjonPrMnd: 99999 }],
           },
         ],
@@ -696,7 +781,7 @@ describe('RefusjonskravForm', () => {
         refusjonsandeler: [
           {
             ...andel,
-            arbeidsgiverNavn: 'Brunostfabrikken AS',
+            arbeidsgiverTittel: 'Brunostfabrikken AS',
             refusjonsperioder: [{ ...andel.refusjonsperioder[0], overstyringsÅrsak: 'KONKURS' }],
           },
         ],
@@ -748,7 +833,7 @@ describe('RefusjonskravForm', () => {
         refusjonsandeler: [
           {
             ...andel,
-            arbeidsgiverNavn: 'Brunostfabrikken AS',
+            arbeidsgiverTittel: 'Brunostfabrikken AS',
             refusjonsperioder: [{ ...andel.refusjonsperioder[0], tom }],
           },
         ],
@@ -787,7 +872,7 @@ describe('RefusjonskravForm', () => {
         refusjonsandeler: [
           {
             ...andel,
-            arbeidsgiverNavn: 'Brunostfabrikken AS',
+            arbeidsgiverTittel: 'Brunostfabrikken AS',
             refusjonsperioder: [{ ...andel.refusjonsperioder[0], tom }],
           },
         ],
@@ -873,7 +958,7 @@ describe('RefusjonskravForm', () => {
           refusjonsandeler: [
             {
               ...andel,
-              arbeidsgiverNavn: '',
+              arbeidsgiverTittel: '',
               refusjonsperioder: [{ ...andel.refusjonsperioder[0], refusjonPrMnd }],
             },
           ],
@@ -991,7 +1076,7 @@ describe('RefusjonskravForm', () => {
           refusjonsandeler: [
             {
               ...andel,
-              arbeidsgiverNavn: 'Brunostfabrikken AS',
+              arbeidsgiverTittel: 'Brunostfabrikken AS',
               refusjonsperioder: [{ ...andel.refusjonsperioder[0], utfall }],
             },
           ],
@@ -1199,7 +1284,7 @@ describe('RefusjonskravForm', () => {
         refusjonsandeler: [
           {
             ...andel,
-            arbeidsgiverNavn: 'Brunostfabrikken AS',
+            arbeidsgiverTittel: 'Brunostfabrikken AS',
             refusjonsperioder: [
               andel.refusjonsperioder[0],
               { ...andel.refusjonsperioder[1], fom: '2025-05-01', tom: '2025-08-31' },
@@ -1258,7 +1343,7 @@ describe('RefusjonskravForm', () => {
         refusjonsandeler: [
           {
             ...andel,
-            arbeidsgiverNavn: '',
+            arbeidsgiverTittel: '',
             refusjonsperioder: [{ ...andel.refusjonsperioder[0], tom }],
           },
         ],
@@ -1288,7 +1373,7 @@ describe('RefusjonskravForm', () => {
         refusjonsandeler: [
           {
             ...andel,
-            arbeidsgiverNavn: '',
+            arbeidsgiverTittel: '',
             refusjonsperioder: [
               andel.refusjonsperioder[0],
               { ...andel.refusjonsperioder[1], fom: '2025-05-01', tom: '2025-08-31' },
@@ -1328,14 +1413,14 @@ const renderForm = (props: Partial<ComponentProps<typeof RefusjonskravForm>> = {
     { wrapper: ({ children }) => <RawIntlProvider value={intl}>{children}</RawIntlProvider> },
   );
 
-const getÅpentAndelInnhold = (arbeidsgiverNavn: string, index = 0) => {
-  const rad = screen.getAllByRole('row', { name: new RegExp(arbeidsgiverNavn) })[index];
+const getÅpentAndelInnhold = (arbeidsgiverTittel: string, index = 0) => {
+  const rad = screen.getAllByRole('row', { name: new RegExp(arbeidsgiverTittel) })[index];
   const radKnapp = within(rad).getByRole('button', { name: 'Vis mindre' });
   expect(radKnapp).toHaveAttribute('aria-expanded', 'true');
   const radInnholdId = radKnapp.getAttribute('aria-controls');
   const radInnhold = radInnholdId ? document.getElementById(radInnholdId) : null;
   if (!radInnhold) {
-    throw new Error(`Fant ikke radinnholdet for ${arbeidsgiverNavn}`);
+    throw new Error(`Fant ikke radinnholdet for ${arbeidsgiverTittel}`);
   }
   return radInnhold;
 };

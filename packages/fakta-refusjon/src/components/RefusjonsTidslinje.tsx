@@ -15,7 +15,7 @@ interface Props {
   onSelectAndel: (andelIndex: number) => void;
 }
 
-export const Utbetaling = ({ refusjonsandeler, onSelectAndel }: Props) => {
+export const RefusjonsTidslinje = ({ refusjonsandeler, onSelectAndel }: Props) => {
   const intl = useIntl();
   const perioder = refusjonsandeler.flatMap(andel => andel.refusjonsperioder);
   const { timelineProps, controllerElement } = useTidslinje({
@@ -34,7 +34,7 @@ export const Utbetaling = ({ refusjonsandeler, onSelectAndel }: Props) => {
       <Timeline {...timelineProps}>
         {refusjonsandeler.map((andel, andelIndex) => (
           <Timeline.Row
-            label={andel.arbeidsgiverNavn}
+            label={andel.arbeidsgiverTittel}
             key={refusjonsandelNøkkel(andel)}
             icon={<Buildings3Icon aria-hidden />}
           >
@@ -55,7 +55,7 @@ export const Utbetaling = ({ refusjonsandeler, onSelectAndel }: Props) => {
               >
                 <VStack gap="space-8">
                   <LabeledValue
-                    label={<FormattedMessage id="Utbetaling.Periode" />}
+                    label={<FormattedMessage id="RefusjonsTidslinje.Periode" />}
                     value={<PeriodLabel dateStringFom={p.fom} dateStringTom={p.tom} />}
                   />
                   <LabeledValue
