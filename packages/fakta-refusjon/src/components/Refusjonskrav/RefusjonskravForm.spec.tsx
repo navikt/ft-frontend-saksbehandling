@@ -44,7 +44,7 @@ describe('RefusjonskravForm', () => {
       refusjonsandeler: [
         {
           ...andel,
-          arbeidsgiverNavn: 'Brunostfabrikken AS',
+          arbeidsgiverNavn: 'Brunostfabrikken AS (999999999)',
           refusjonsperioder: [
             andel.refusjonsperioder[0],
             { ...andel.refusjonsperioder[1], utfallBegrunnelse: 'Tidligere vurdert' },
@@ -66,6 +66,8 @@ describe('RefusjonskravForm', () => {
 
     const celler = within(brunostRad).getAllByRole('cell');
     expect(celler).toHaveLength(7);
+    expect(celler[0].textContent).toBe('Brunostfabrikken AS (999999999)');
+    expect(screen.getAllByText('Brunostfabrikken AS (999999999)')).toHaveLength(2);
     expect(celler[1]).toHaveTextContent('01.01.2025 - 31.03.2025');
     expect(celler[1]).toHaveTextContent('01.04.2025 - 30.06.2025');
     expect(celler[2].textContent).toMatch(/42\s000.*37\s500/);
@@ -163,7 +165,8 @@ describe('RefusjonskravForm', () => {
       ],
     });
 
-    expect(screen.getByRole('row', { name: /1234567890123/ })).toBeInTheDocument();
+    const aktørRad = screen.getByRole('row', { name: /1234567890123/ });
+    expect(within(aktørRad).getAllByRole('cell')[0].textContent).toBe('1234567890123');
     await userEvent.type(screen.getByRole('textbox', { name: 'Begrunnelse' }), 'Overstyrt');
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
 

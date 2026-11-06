@@ -7,7 +7,7 @@ import { RhfForm, RhfTextarea, SubmitButton } from '@navikt/ft-form-hooks';
 import { hasValidDate, hasValidDecimal, maxLength, minLength, minValue, required } from '@navikt/ft-form-validators';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
-import { isEqual, notEmpty, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
+import { formaterArbeidsgiver, isEqual, notEmpty, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { useOverstyring } from '../../hooks/useOverstyring';
 import type { AksjonspunktRefusjon, OverstyrRefusjonskravSubmitType } from '../../types/aksjonspunkt';
@@ -196,6 +196,7 @@ const buildInitialValues = (
     '',
   opprinneligeRefusjonsandeler: refusjonsandeler,
   refusjonsandeler: refusjonsandeler.map(andel => {
+    const arbeidsgiverOpplysninger = arbeidsgiverOpplysningerPerId[andel.arbeidsgiverIdent];
     const opprinneligAndel = formData?.opprinneligeRefusjonsandeler?.find(
       original => refusjonsandelNøkkel(original) === refusjonsandelNøkkel(andel),
     );
@@ -205,7 +206,9 @@ const buildInitialValues = (
         : undefined;
     return {
       ...andel,
-      arbeidsgiverNavn: arbeidsgiverOpplysningerPerId[andel.arbeidsgiverIdent]?.navn || andel.arbeidsgiverIdent,
+      arbeidsgiverNavn: arbeidsgiverOpplysninger?.navn
+        ? formaterArbeidsgiver(arbeidsgiverOpplysninger)
+        : andel.arbeidsgiverIdent,
       refusjonsperioder:
         lagretAndel?.refusjonsperioder ??
         andel.refusjonsperioder
