@@ -9,6 +9,7 @@
   "RefusjonskravForm.Årsak.UTMELDT": "Utmeldt",
   "RefusjonskravForm.Årsak.AVTALT_MED_ARBEIDSGIVER": "Avtalt med arbeidsgiver",
   "RefusjonskravForm.RefusjonsbeløpPrMnd": "Refusjonsbeløp per måned",
+  "RefusjonskravForm.OverlappendeKrav": "Refusjonskrav fra ulike kilder overlapper for samme arbeidsgiver. Avklar hvilke perioder som skal gjelde før du sender inn.",
 
   "RefusjonskravOverstyring.Periode": "Periode {nummer}",
   "RefusjonskravOverstyring.Fom": "Periode fra og med",

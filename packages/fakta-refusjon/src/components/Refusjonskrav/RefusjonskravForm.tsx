@@ -1,7 +1,7 @@
 import { useForm, useWatch } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { Box, Heading, HStack, VStack } from '@navikt/ds-react';
+import { Box, ErrorMessage, Heading, HStack, VStack } from '@navikt/ds-react';
 
 import { RhfForm, RhfTextarea, SubmitButton } from '@navikt/ft-form-hooks';
 import { hasValidDate, hasValidDecimal, maxLength, minLength, minValue, required } from '@navikt/ft-form-validators';
@@ -34,7 +34,11 @@ interface Props {
   setFormData: (data: OverstyrRefusjonFormValues) => void;
 }
 
-export const RefusjonskravForm = ({
+export const RefusjonskravForm = (props: Props) => (
+  <RefusjonskravSkjema key={JSON.stringify(props.refusjonsandeler)} {...props} />
+);
+
+const RefusjonskravSkjema = ({
   aksjonspunkt,
   arbeidsgiverOpplysningerPerId,
   refusjonsandeler,
@@ -49,14 +53,13 @@ export const RefusjonskravForm = ({
   const overstyringsAksjonspunkt = aksjonspunkt.find(ap => ap.kode === 'OVERSTYR_REFUSJONSKRAV');
   const formMethods = useForm<OverstyrRefusjonFormValues>({
     mode: 'onChange',
-    defaultValues:
-      formData ??
-      buildInitialValues(
-        aksjonspunkt,
-        refusjonsandeler,
-        arbeidsgiverOpplysningerPerId,
-        erOverstyrer && !readOnly && !!overstyringsAksjonspunkt,
-      ),
+    defaultValues: buildInitialValues(
+      aksjonspunkt,
+      refusjonsandeler,
+      arbeidsgiverOpplysningerPerId,
+      erOverstyrer && !readOnly && !!overstyringsAksjonspunkt,
+      formData,
+    ),
   });
 
   const [andeler, erOverstyring, begrunnelse] = useWatch({
@@ -65,6 +68,7 @@ export const RefusjonskravForm = ({
   });
 
   const harGyldigePerioder = erGyldigeAndeler(andeler, refusjonsandeler);
+  const harOverlappendeKrav = harOverlapp(utledRefusjonskrav(andeler, refusjonsandeler));
   const andelerTilVisning: RefusjonsAndelTilVisning[] = andeler.map(andel => ({
     ...andel,
     refusjonsperioder: utledRefusjonsperioder(
@@ -72,6 +76,7 @@ export const RefusjonskravForm = ({
       finnOpprinneligAndel(andel, refusjonsandeler),
     ).filter(
       periode =>
+        Number.isFinite(periode.refusjonPrMnd) &&
         !required(periode.fom) &&
         !required(periode.tom) &&
         !hasValidDate(periode.fom) &&
@@ -123,6 +128,12 @@ export const RefusjonskravForm = ({
             }
           }}
         />
+
+        {erOverstyringRedigerbar && harOverlappendeKrav && (
+          <ErrorMessage role="alert" size="small" showIcon>
+            <FormattedMessage id="RefusjonskravForm.OverlappendeKrav" />
+          </ErrorMessage>
+        )}
 
         <RefusjonskravTabell
           rader={andelerTilVisning}
@@ -176,15 +187,22 @@ const buildInitialValues = (
   refusjonsandeler: RefusjonsandelDto[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   erOverstyring = false,
+  formData?: OverstyrRefusjonFormValues,
 ): OverstyrRefusjonFormValues => ({
-  erOverstyring,
-  begrunnelse: aksjonspunkt.find(ap => ap.kode === 'OVERSTYR_REFUSJONSKRAV' && ap.status === 'UTFO')?.begrunnelse ?? '',
+  erOverstyring: formData?.erOverstyring ?? erOverstyring,
+  begrunnelse:
+    formData?.begrunnelse ??
+    aksjonspunkt.find(ap => ap.kode === 'OVERSTYR_REFUSJONSKRAV' && ap.status === 'UTFO')?.begrunnelse ??
+    '',
   refusjonsandeler: refusjonsandeler.map(andel => ({
     ...andel,
     arbeidsgiverNavn: arbeidsgiverOpplysningerPerId[andel.arbeidsgiverIdent]?.navn || andel.arbeidsgiverIdent,
-    refusjonsperioder: andel.refusjonsperioder
-      .toSorted(sortPeriodsByFom)
-      .map(periode => ({ ...periode, tom: periode.tom || TIDENES_ENDE })),
+    refusjonsperioder:
+      formData?.refusjonsandeler.find(lagret => refusjonsandelNøkkel(lagret) === refusjonsandelNøkkel(andel))
+        ?.refusjonsperioder ??
+      andel.refusjonsperioder
+        .toSorted(sortPeriodsByFom)
+        .map(periode => ({ ...periode, tom: periode.tom || TIDENES_ENDE })),
   })),
 });
 
@@ -203,6 +221,48 @@ const erGyldigeAndeler = (andeler: RefusjonsAndelFormValues[], opprinneligeAndel
         return !required(beløp) && !hasValidDecimal(beløp) && !minValue(0)(beløp);
       })
     );
+  }) && !harOverlapp(utledRefusjonskrav(andeler, opprinneligeAndeler));
+
+const utledRefusjonskrav = (
+  andeler: RefusjonsAndelFormValues[],
+  opprinneligeAndeler: RefusjonsandelDto[],
+): OverstyrRefusjonskravSubmitType['refusjonskrav'] => {
+  const perioderPerArbeidsgiver = new Map<
+    string,
+    OverstyrRefusjonskravSubmitType['refusjonskrav'][number]['perioder']
+  >();
+  for (const andel of andeler) {
+    const perioder = utledRefusjonsperioder(
+      andel.refusjonsperioder,
+      finnOpprinneligAndel(andel, opprinneligeAndeler),
+    ).map(rad => ({
+      fom: rad.fom,
+      tom: rad.tom,
+      refusjonsbeløpPrMnd: rad.refusjonPrMnd,
+      utfallÅrsak: rad.overstyringsÅrsak,
+    }));
+    perioderPerArbeidsgiver.set(andel.arbeidsgiverIdent, [
+      ...(perioderPerArbeidsgiver.get(andel.arbeidsgiverIdent) ?? []),
+      ...perioder,
+    ]);
+  }
+  return Array.from(perioderPerArbeidsgiver, ([arbeidsgiverIdent, perioder]) => ({
+    arbeidsgiverIdent,
+    perioder: perioder.toSorted(sortPeriodsByFom),
+  }));
+};
+
+const harOverlapp = (krav: OverstyrRefusjonskravSubmitType['refusjonskrav']) =>
+  krav.some(({ perioder }) => {
+    const gyldigePerioder = perioder.filter(
+      periode =>
+        !required(periode.fom) &&
+        !hasValidDate(periode.fom) &&
+        !required(periode.tom) &&
+        (periode.tom === TIDENES_ENDE || !hasValidDate(periode.tom)) &&
+        periode.fom <= periode.tom,
+    );
+    return gyldigePerioder.some((periode, index) => index > 0 && periode.fom <= gyldigePerioder[index - 1].tom);
   });
 
 const transformValues = (
@@ -212,15 +272,5 @@ const transformValues = (
   '@type': 'OVERSTYR_REFUSJONSKRAV',
   kode: 'OVERSTYR_REFUSJONSKRAV',
   begrunnelse: values.begrunnelse,
-  refusjonskrav: values.refusjonsandeler.map(andel => ({
-    arbeidsgiverIdent: andel.arbeidsgiverIdent,
-    perioder: utledRefusjonsperioder(andel.refusjonsperioder, finnOpprinneligAndel(andel, opprinneligeAndeler)).map(
-      rad => ({
-        fom: rad.fom,
-        tom: rad.tom,
-        refusjonsbeløpPrMnd: rad.refusjonPrMnd,
-        utfallÅrsak: rad.overstyringsÅrsak,
-      }),
-    ),
-  })),
+  refusjonskrav: utledRefusjonskrav(values.refusjonsandeler, opprinneligeAndeler),
 });

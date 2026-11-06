@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 
 import { RhfDatepicker, RhfSelect, RhfTextField } from '@navikt/ft-form-hooks';
 import { hasValidDate, hasValidDecimal, maxValueFormatted, minValue, required } from '@navikt/ft-form-validators';
-import { notEmpty, periodFormat, TIDENES_ENDE } from '@navikt/ft-utils';
+import { notEmpty, periodFormat, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import type { UtfallÅrsak } from '../../../types/aksjonspunkt';
 import type { RefusjonsandelDto } from '../../../types/dataTypes';
@@ -23,13 +23,14 @@ interface Props {
 
 export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnly }: Props) => {
   const intl = useIntl();
-  const { control } = useFormContext<OverstyrRefusjonFormValues>();
+  const { control, setValue } = useFormContext<OverstyrRefusjonFormValues>();
   const name = `refusjonsandeler.${andelIndex}.refusjonsperioder` as const;
   const { fields, append, remove } = useFieldArray({
     control,
     name,
   });
   const perioder = useWatch({ control, name });
+  const sisteOriginal = opprinneligAndel.refusjonsperioder.toSorted(sortPeriodsByFom).at(-1);
   const utlededePerioder = utledRefusjonsperioder(perioder, opprinneligAndel);
   const harGyldigOppdeling = erGyldigOppdeling(utlededePerioder, opprinneligAndel.refusjonsperioder);
   const endredePerioder = utlededePerioder.filter(
@@ -39,8 +40,22 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
       ),
   );
 
+  const fjernPeriode = (index: number) => {
+    const sortertePerioder = perioder
+      .map((periode, periodeIndex) => ({ ...periode, index: periodeIndex }))
+      .filter(periode => periode.fom && !hasValidDate(periode.fom))
+      .toSorted(sortPeriodsByFom);
+    const siste = sortertePerioder.at(-1);
+    const forrige = sortertePerioder.at(-2);
+    const tom = siste?.tom || TIDENES_ENDE;
+    if (siste?.index === index && forrige && (tom === TIDENES_ENDE || !hasValidDate(tom)) && siste.fom <= tom) {
+      setValue(`${name}.${forrige.index}.tom`, tom, { shouldDirty: true });
+    }
+    remove(index);
+  };
+
   return (
-    <VStack gap="space-4" paddingInline="space-16">
+    <VStack gap="space-8" paddingInline="space-16">
       {fields.map((field, index) => (
         <HStack
           as="section"
@@ -98,7 +113,7 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
                 variant="tertiary"
                 size="small"
                 icon={<TrashIcon aria-hidden />}
-                onClick={() => remove(index)}
+                onClick={() => fjernPeriode(index)}
                 aria-label={intl.formatMessage({ id: 'RefusjonskravOverstyring.FjernPeriode' }, { nummer: index + 1 })}
               />
             </Box>
@@ -128,9 +143,9 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
             icon={<PlusCircleIcon aria-hidden />}
             onClick={() =>
               append({
-                ...notEmpty(opprinneligAndel.refusjonsperioder.at(-1)),
+                ...notEmpty(sisteOriginal),
                 fom: '',
-                tom: opprinneligAndel.refusjonsperioder.at(-1)?.tom || TIDENES_ENDE,
+                tom: sisteOriginal?.tom || TIDENES_ENDE,
                 refusjonPrMnd: undefined,
               })
             }

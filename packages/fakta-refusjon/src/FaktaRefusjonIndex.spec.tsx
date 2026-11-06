@@ -142,6 +142,48 @@ describe('FaktaRefusjonIndex', () => {
     await waitFor(() => expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeEnabled());
   });
 
+  it('viser oppdatert refusjonsgrunnlag når backend bytter kilde etter innsending', async () => {
+    const submitCallback = vi.fn().mockResolvedValue(undefined);
+    const props = { ...stories.default.args, submitCallback };
+    const { rerender } = render(<FaktaRefusjonIndex {...props} />);
+    await userEvent.click(screen.getByRole('button', { name: 'Overstyr' }));
+    const beløp = within(getÅpentAndelInnhold('Brunostfabrikken AS')).getAllByRole('textbox', {
+      name: 'Refusjonsbeløp per måned',
+    })[0];
+    await userEvent.clear(beløp);
+    await userEvent.type(beløp, '50000');
+    await userEvent.type(screen.getByRole('textbox', { name: 'Begrunnelse' }), 'Første overstyring');
+    await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
+    await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
+
+    rerender(
+      <FaktaRefusjonIndex
+        {...props}
+        aksjonspunkt={[{ kode: 'OVERSTYR_REFUSJONSKRAV', status: 'UTFO', begrunnelse: 'Vurdert av backend' }]}
+        refusjonsandeler={props.refusjonsandeler.map((andel, index) =>
+          index === 0
+            ? {
+                ...andel,
+                kilde: 'SAKSBEHANDLER',
+                refusjonsperioder: andel.refusjonsperioder.map(periode => ({ ...periode, refusjonPrMnd: 51000 })),
+              }
+            : andel,
+        )}
+      />,
+    );
+
+    const rad = within(screen.getByRole('row', { name: /Brunostfabrikken AS/ }));
+    expect(rad.getByText('Overstyrt')).toBeVisible();
+    expect(screen.getByRole('textbox', { name: 'Begrunnelse' })).toHaveValue('Vurdert av backend');
+    expect(screen.queryByRole('button', { name: 'Avbryt overstyring' })).not.toBeInTheDocument();
+    await userEvent.click(rad.getByRole('button', { name: 'Vis mer' }));
+    expect(
+      within(getÅpentAndelInnhold('Brunostfabrikken AS')).getAllByRole('textbox', {
+        name: 'Refusjonsbeløp per måned',
+      })[0],
+    ).toHaveValue('51000');
+  });
+
   const getÅpentAndelInnhold = (arbeidsgiverNavn: string) => {
     const rad = screen.getByRole('row', { name: new RegExp(arbeidsgiverNavn) });
     const innholdId = within(rad).getByRole('button', { name: 'Vis mindre' }).getAttribute('aria-controls');
