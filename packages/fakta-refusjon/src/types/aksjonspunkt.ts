@@ -13,6 +13,7 @@ export type AksjonspunktRefusjon = {
 export type OverstyrRefusjonskravSubmitType = AksjonspunktTilBekreftelse<'OVERSTYR_REFUSJONSKRAV'> & {
   refusjonskrav: {
     arbeidsgiverIdent: string;
+    arbeidsgiverId?: string;
     perioder: {
       fom: string;
       tom: string;

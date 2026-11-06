@@ -228,12 +228,12 @@ describe('FaktaRefusjonIndex', () => {
     ).toHaveValue('51000');
   });
 
-  const getÅpentAndelInnhold = (arbeidsgiverNavn: string) => {
-    const rad = screen.getByRole('row', { name: new RegExp(arbeidsgiverNavn) });
+  const getÅpentAndelInnhold = (arbeidsgiverTittel: string) => {
+    const rad = screen.getByRole('row', { name: new RegExp(arbeidsgiverTittel) });
     const innholdId = within(rad).getByRole('button', { name: 'Vis mindre' }).getAttribute('aria-controls');
     const innhold = innholdId ? document.getElementById(innholdId) : null;
     if (!innhold) {
-      throw new Error(`Fant ikke radinnholdet for ${arbeidsgiverNavn}`);
+      throw new Error(`Fant ikke radinnholdet for ${arbeidsgiverTittel}`);
     }
     return innhold;
   };
