@@ -5,7 +5,7 @@ import { act, fireEvent, render, screen, waitFor, within } from '@testing-librar
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 
-import { createIntl, TIDENES_ENDE } from '@navikt/ft-utils';
+import { createIntl, formaterArbeidsgiver, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { arbeidsgiverOpplysningerPerId } from '../../../testdata/arbeidgiverOpplysningerPerId';
 import { dokumenterPåSaken } from '../../../testdata/dokumenter';
@@ -40,7 +40,6 @@ describe('RefusjonskravForm', () => {
     expect(setFormData).toHaveBeenCalledWith({
       erOverstyring: false,
       begrunnelse: '',
-      opprinneligeRefusjonsandeler: refusjonsandeler,
       refusjonsandeler: [
         {
           ...andel,
@@ -243,10 +242,12 @@ describe('RefusjonskravForm', () => {
         formData: {
           erOverstyring: true,
           begrunnelse: 'Mellomlagret overstyring',
-          opprinneligeRefusjonsandeler: refusjonsandeler,
           refusjonsandeler: refusjonsandeler.map((original, index) => ({
             ...original,
-            arbeidsgiverTittel: '',
+            arbeidsgiverTittel: formaterArbeidsgiver(
+              arbeidsgiverOpplysningerPerId[original.arbeidsgiverIdent],
+              original.arbeidsgiverId,
+            ),
             refusjonsperioder: [{ ...original.refusjonsperioder[0], refusjonPrMnd: index === 0 ? 45000 : 46000 }],
           })),
         },
@@ -453,7 +454,8 @@ describe('RefusjonskravForm', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Vis mindre' }));
     unmount();
 
-    renderOverstyring({ formData: setFormData.mock.calls[0][0] });
+    renderOverstyring({ formData: setFormData.mock.calls[0][0], arbeidsgiverOpplysningerPerId: {} });
+    expect(screen.getAllByText('Brunostfabrikken AS (999999999)')).toHaveLength(2);
     expect(screen.queryByRole('button', { name: 'Overstyr' })).not.toBeInTheDocument();
     expect(screen.getByRole('textbox', { name: 'Begrunnelse' })).toHaveValue('Mellomlagret overstyring');
     expect(screen.queryByRole('button', { name: 'Avbryt overstyring' })).not.toBeInTheDocument();
@@ -470,128 +472,6 @@ describe('RefusjonskravForm', () => {
       })[0],
     ).toHaveValue('UTMELDT');
     await waitFor(() => expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeEnabled());
-  });
-
-  it('forkaster mellomlagrede andeler med gammel kilde og beholder redigering av fortsatt gjeldende andeler', async () => {
-    const andeler = refusjonsandelerForTreArbeidsgivere.slice(0, 2);
-    renderOverstyring({
-      refusjonsandeler: [{ ...andeler[0], kilde: 'SAKSBEHANDLER' }, andeler[1]],
-      formData: {
-        erOverstyring: true,
-        begrunnelse: 'Mellomlagret overstyring',
-        refusjonsandeler: andeler.map((andel, index) => ({
-          ...andel,
-          arbeidsgiverTittel: '',
-          refusjonsperioder: andel.refusjonsperioder.map(periode => ({
-            ...periode,
-            refusjonPrMnd: index === 0 ? 99999 : 50000,
-            overstyringsÅrsak: 'KONKURS',
-          })),
-        })),
-      },
-    });
-
-    await userEvent.click(
-      within(screen.getByRole('row', { name: /Brunostfabrikken AS/ })).getByRole('button', { name: 'Vis mer' }),
-    );
-    const førsteInnhold = within(getÅpentAndelInnhold('Brunostfabrikken AS'));
-    expect(førsteInnhold.getAllByRole('textbox', { name: 'Refusjonsbeløp per måned' })[0]).toHaveValue('42000');
-    expect(førsteInnhold.queryByRole('combobox', { name: 'Årsak til overstyring' })).not.toBeInTheDocument();
-    await userEvent.click(
-      within(screen.getByRole('row', { name: /Ostehøvel Outlet AS/ })).getByRole('button', { name: 'Vis mer' }),
-    );
-    const andreInnhold = within(getÅpentAndelInnhold('Ostehøvel Outlet AS'));
-    expect(andreInnhold.getByRole('textbox', { name: 'Refusjonsbeløp per måned' })).toHaveValue('50000');
-    expect(andreInnhold.getByRole('combobox', { name: 'Årsak til overstyring' })).toHaveValue('KONKURS');
-    expect(screen.getByRole('textbox', { name: 'Begrunnelse' })).toHaveValue('Mellomlagret overstyring');
-  });
-
-  it.each(['beløp', 'dato', 'journalpost'])(
-    'forkaster mellomlagrede perioder ved endret %s og beholder utkastet for uendret andel',
-    async endring => {
-      const andeler = refusjonsandelerForTreArbeidsgivere.slice(0, 2);
-      const oppdatertAndel = {
-        ...andeler[0],
-        journalpostId: endring === 'journalpost' ? 'ny-journalpost' : andeler[0].journalpostId,
-        refusjonsperioder: andeler[0].refusjonsperioder.map((periode, index) => ({
-          ...periode,
-          refusjonPrMnd: endring === 'beløp' ? 51000 : periode.refusjonPrMnd,
-          tom: endring === 'dato' && index === 1 ? '2025-07-31' : periode.tom,
-        })),
-      };
-      const submitCallback = vi.fn().mockResolvedValue(undefined);
-      const setFormData = vi.fn();
-      const { unmount } = renderOverstyring({
-        submitCallback,
-        setFormData,
-        refusjonsandeler: [oppdatertAndel, andeler[1]],
-        formData: {
-          erOverstyring: true,
-          begrunnelse: 'Mellomlagret overstyring',
-          opprinneligeRefusjonsandeler: andeler,
-          refusjonsandeler: andeler.map((andel, index) => ({
-            ...andel,
-            arbeidsgiverTittel: '',
-            refusjonsperioder: andel.refusjonsperioder.map(periode => ({
-              ...periode,
-              refusjonPrMnd: index === 0 ? 99999 : 50000,
-              overstyringsÅrsak: 'KONKURS',
-            })),
-          })),
-        },
-      });
-
-      await userEvent.click(
-        within(screen.getByRole('row', { name: /Brunostfabrikken AS/ })).getByRole('button', { name: 'Vis mer' }),
-      );
-      expect(
-        within(getÅpentAndelInnhold('Brunostfabrikken AS')).getAllByRole('textbox', {
-          name: 'Refusjonsbeløp per måned',
-        })[0],
-      ).toHaveValue(String(oppdatertAndel.refusjonsperioder[0].refusjonPrMnd));
-      await userEvent.click(
-        within(screen.getByRole('row', { name: /Ostehøvel Outlet AS/ })).getByRole('button', { name: 'Vis mer' }),
-      );
-      expect(
-        within(getÅpentAndelInnhold('Ostehøvel Outlet AS')).getByRole('textbox', {
-          name: 'Refusjonsbeløp per måned',
-        }),
-      ).toHaveValue('50000');
-      await waitFor(() => expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeEnabled());
-      await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
-      await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
-      expect(submitCallback.mock.calls[0][0].refusjonskrav[0].perioder).toEqual(
-        oppdatertAndel.refusjonsperioder.map(periode =>
-          expect.objectContaining({
-            fom: periode.fom,
-            tom: periode.tom,
-            refusjonsbeløpPrMnd: periode.refusjonPrMnd,
-          }),
-        ),
-      );
-      unmount();
-      expect(setFormData.mock.calls[0][0].opprinneligeRefusjonsandeler).toEqual([oppdatertAndel, andeler[1]]);
-    },
-  );
-
-  it('forkaster mellomlagrede perioder uten kjent originalgrunnlag', async () => {
-    const andel = refusjonsandelerForTreArbeidsgivere[0];
-    renderOverstyring({
-      formData: {
-        erOverstyring: true,
-        begrunnelse: 'Mellomlagret overstyring',
-        opprinneligeRefusjonsandeler: undefined,
-        refusjonsandeler: [
-          {
-            ...andel,
-            arbeidsgiverTittel: '',
-            refusjonsperioder: [{ ...andel.refusjonsperioder[0], refusjonPrMnd: 99999 }],
-          },
-        ],
-      },
-    });
-    await userEvent.click(screen.getByRole('button', { name: 'Vis mer' }));
-    expect(screen.getByRole('textbox', { name: 'Refusjonsbeløp per måned' })).toHaveValue('42000');
   });
 
   it('avbryter alle endringer og lar overstyring aktiveres på nytt', async () => {
@@ -954,11 +834,10 @@ describe('RefusjonskravForm', () => {
         formData: {
           erOverstyring: true,
           begrunnelse: 'Mellomlagret overstyring',
-          opprinneligeRefusjonsandeler: [andel],
           refusjonsandeler: [
             {
               ...andel,
-              arbeidsgiverTittel: '',
+              arbeidsgiverTittel: formaterArbeidsgiver(arbeidsgiverOpplysningerPerId[andel.arbeidsgiverIdent]),
               refusjonsperioder: [{ ...andel.refusjonsperioder[0], refusjonPrMnd }],
             },
           ],
@@ -1343,7 +1222,7 @@ describe('RefusjonskravForm', () => {
         refusjonsandeler: [
           {
             ...andel,
-            arbeidsgiverTittel: '',
+            arbeidsgiverTittel: formaterArbeidsgiver(arbeidsgiverOpplysningerPerId[andel.arbeidsgiverIdent]),
             refusjonsperioder: [{ ...andel.refusjonsperioder[0], tom }],
           },
         ],
@@ -1373,7 +1252,7 @@ describe('RefusjonskravForm', () => {
         refusjonsandeler: [
           {
             ...andel,
-            arbeidsgiverTittel: '',
+            arbeidsgiverTittel: formaterArbeidsgiver(arbeidsgiverOpplysningerPerId[andel.arbeidsgiverIdent]),
             refusjonsperioder: [
               andel.refusjonsperioder[0],
               { ...andel.refusjonsperioder[1], fom: '2025-05-01', tom: '2025-08-31' },
@@ -1446,7 +1325,6 @@ const renderOverstyring = (props: Partial<ComponentProps<typeof RefusjonskravFor
     aksjonspunkt: [{ kode: 'OVERSTYR_REFUSJONSKRAV', status: 'UTFO' }],
     ...props,
     refusjonsandeler,
-    formData: props.formData ? { opprinneligeRefusjonsandeler: refusjonsandeler, ...props.formData } : undefined,
   });
 };
 

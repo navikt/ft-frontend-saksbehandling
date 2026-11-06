@@ -7,7 +7,7 @@ import { RhfForm, RhfTextarea, SubmitButton } from '@navikt/ft-form-hooks';
 import { hasValidDate, hasValidInteger, maxLength, minLength, minValue, required } from '@navikt/ft-form-validators';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
-import { formaterArbeidsgiver, isEqual, notEmpty, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
+import { formaterArbeidsgiver, notEmpty, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { useOverstyring } from '../../hooks/useOverstyring';
 import type { AksjonspunktRefusjon, OverstyrRefusjonskravSubmitType } from '../../types/aksjonspunkt';
@@ -49,13 +49,14 @@ export const RefusjonskravForm = ({
   const overstyringsAksjonspunkt = aksjonspunkt.find(ap => ap.kode === 'OVERSTYR_REFUSJONSKRAV');
   const formMethods = useForm<OverstyrRefusjonFormValues>({
     mode: 'onChange',
-    defaultValues: buildInitialValues(
-      aksjonspunkt,
-      refusjonsandeler,
-      arbeidsgiverOpplysningerPerId,
-      erOverstyrer && !readOnly && !!overstyringsAksjonspunkt,
-      formData,
-    ),
+    defaultValues:
+      formData ??
+      buildInitialValues(
+        aksjonspunkt,
+        refusjonsandeler,
+        arbeidsgiverOpplysningerPerId,
+        erOverstyrer && !readOnly && !!overstyringsAksjonspunkt,
+      ),
   });
 
   const [andeler, erOverstyring, begrunnelse] = useWatch({
@@ -183,33 +184,19 @@ const buildInitialValues = (
   refusjonsandeler: RefusjonsandelDto[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   erOverstyring = false,
-  formData?: OverstyrRefusjonFormValues,
 ): OverstyrRefusjonFormValues => ({
-  erOverstyring: formData?.erOverstyring ?? erOverstyring,
-  begrunnelse:
-    formData?.begrunnelse ??
-    aksjonspunkt.find(ap => ap.kode === 'OVERSTYR_REFUSJONSKRAV' && ap.status === 'UTFO')?.begrunnelse ??
-    '',
-  opprinneligeRefusjonsandeler: refusjonsandeler,
+  erOverstyring,
+  begrunnelse: aksjonspunkt.find(ap => ap.kode === 'OVERSTYR_REFUSJONSKRAV' && ap.status === 'UTFO')?.begrunnelse ?? '',
   refusjonsandeler: refusjonsandeler.map(andel => {
     const arbeidsgiverOpplysninger = arbeidsgiverOpplysningerPerId[andel.arbeidsgiverIdent];
-    const opprinneligAndel = formData?.opprinneligeRefusjonsandeler?.find(
-      original => refusjonsandelNøkkel(original) === refusjonsandelNøkkel(andel),
-    );
-    const lagretAndel =
-      opprinneligAndel && isEqual(opprinneligAndel, andel)
-        ? formData?.refusjonsandeler.find(lagret => refusjonsandelNøkkel(lagret) === refusjonsandelNøkkel(andel))
-        : undefined;
     return {
       ...andel,
       arbeidsgiverTittel: arbeidsgiverOpplysninger?.navn
         ? formaterArbeidsgiver(arbeidsgiverOpplysninger, andel.arbeidsgiverId)
         : `${andel.arbeidsgiverIdent}${andel.arbeidsgiverId ? `...${andel.arbeidsgiverId.slice(-4)}` : ''}`,
-      refusjonsperioder:
-        lagretAndel?.refusjonsperioder ??
-        andel.refusjonsperioder
-          .toSorted(sortPeriodsByFom)
-          .map(periode => ({ ...periode, tom: periode.tom || TIDENES_ENDE })),
+      refusjonsperioder: andel.refusjonsperioder
+        .toSorted(sortPeriodsByFom)
+        .map(periode => ({ ...periode, tom: periode.tom || TIDENES_ENDE })),
     };
   }),
 });

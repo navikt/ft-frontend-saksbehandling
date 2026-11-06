@@ -4,7 +4,6 @@ import type { RefusjonsandelDto, RefusjonsperiodeDto } from '../../types/dataTyp
 export type OverstyrRefusjonFormValues = {
   erOverstyring: boolean;
   begrunnelse: string;
-  opprinneligeRefusjonsandeler?: RefusjonsandelDto[];
   refusjonsandeler: RefusjonsAndelFormValues[];
 };
 

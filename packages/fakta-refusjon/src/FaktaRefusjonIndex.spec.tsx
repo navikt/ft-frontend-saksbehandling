@@ -186,10 +186,10 @@ describe('FaktaRefusjonIndex', () => {
     await waitFor(() => expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeEnabled());
   });
 
-  it('viser oppdatert refusjonsgrunnlag når backend bytter kilde etter innsending', async () => {
+  it('viser oppdatert refusjonsgrunnlag når panelet åpnes på nytt etter innsending', async () => {
     const submitCallback = vi.fn().mockResolvedValue(undefined);
     const props = { ...stories.default.args, submitCallback };
-    const { rerender } = render(<FaktaRefusjonIndex {...props} />);
+    const { unmount } = render(<FaktaRefusjonIndex {...props} />);
     await userEvent.click(screen.getByRole('button', { name: 'Overstyr' }));
     const beløp = within(getÅpentAndelInnhold('Brunostfabrikken AS')).getAllByRole('textbox', {
       name: 'Refusjonsbeløp per måned',
@@ -200,7 +200,8 @@ describe('FaktaRefusjonIndex', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
 
-    rerender(
+    unmount();
+    render(
       <FaktaRefusjonIndex
         {...props}
         aksjonspunkt={[{ kode: 'OVERSTYR_REFUSJONSKRAV', status: 'UTFO', begrunnelse: 'Vurdert av backend' }]}
