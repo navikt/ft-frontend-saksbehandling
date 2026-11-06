@@ -71,10 +71,7 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
               label={<FormattedMessage id="RefusjonskravOverstyring.Fom" />}
               validate={[required, hasValidDate]}
               readOnly={readOnly || index === 0}
-              defaultMonth={dayjs(
-                perioder.slice(0, index + 1).findLast(p => p.fom && !hasValidDate(p.fom))?.fom ??
-                  opprinneligAndel.refusjonsperioder[0]?.fom,
-              ).toDate()}
+              defaultMonth={finnStandardMåned(perioder, index, opprinneligAndel.refusjonsperioder[0]?.fom)}
             />
           </Box>
 
@@ -157,3 +154,8 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
     </VStack>
   );
 };
+
+const finnStandardMåned = (perioder: { fom: string }[], index: number, opprinneligFom?: string) =>
+  dayjs(
+    perioder.slice(0, index + 1).findLast(periode => periode.fom && !hasValidDate(periode.fom))?.fom ?? opprinneligFom,
+  ).toDate();
