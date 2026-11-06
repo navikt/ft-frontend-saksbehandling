@@ -1,192 +1,273 @@
-import { useFieldArray, useForm, useWatch } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { VStack } from '@navikt/ds-react';
+import { Box, ErrorMessage, Heading, HStack, VStack } from '@navikt/ds-react';
 
 import { RhfForm, RhfTextarea, SubmitButton } from '@navikt/ft-form-hooks';
-import { maxLength, minLength, required } from '@navikt/ft-form-validators';
+import { hasValidDate, hasValidInteger, maxLength, minLength, minValue, required } from '@navikt/ft-form-validators';
+import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
-import { isAksjonspunktOpen, isDateWithinInterval, notEmpty, sortPeriodsByFom } from '@navikt/ft-utils';
+import { formaterArbeidsgiver, notEmpty, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
 
-import type { AksjonspunktRefusjon, AksjonspunktSubmitType } from '../../types/aksjonspunkt';
-import type { RefusjonsAndel } from '../../types/dataTypes';
-import { Utbetaling } from '../Utbetaling';
-import type { AvklarRefusjonsKravFormValues, RefusjonskravFormRad, RefusjonskravVurdering } from './formValues';
-import { RefusjonskravDetaljer } from './RefusjonskravDetaljer';
-import { RefusjonskravRadVurdering } from './RefusjonskravRadVurdering';
+import { useOverstyring } from '../../hooks/useOverstyring';
+import type { AksjonspunktRefusjon, OverstyrRefusjonskravSubmitType } from '../../types/aksjonspunkt';
+import type { RefusjonsandelDto, Saksdokument } from '../../types/dataTypes';
+import { RefusjonsTidslinje } from '../RefusjonsTidslinje';
+import type { OverstyrRefusjonFormValues, RefusjonsAndelFormValues, RefusjonsAndelTilVisning } from './formValues';
+import { erGyldigOppdeling } from './overstyring/erGyldigOppdeling';
+import { RefusjonskravOverstyring } from './overstyring/RefusjonskravOverstyring';
+import { utledRefusjonsperioder } from './overstyring/utledRefusjonsperioder';
+import { refusjonsandelNøkkel } from './refusjonsandelNøkkel';
 import { RefusjonskravTabell } from './RefusjonskravTabell';
-import { useDirtyRows } from './useDirtyRows';
 import { useOpenRows } from './useOpenRows';
 
 interface Props {
   aksjonspunkt: AksjonspunktRefusjon[];
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
-  refusjonsandeler: RefusjonsAndel[];
+  refusjonsandeler: RefusjonsandelDto[];
+  dokumenter: Saksdokument[];
+  åpneDokument: (journalpostId: string, dokumentId: string) => void;
   readOnly: boolean;
-  submitCallback: (aksjonspunktData: AksjonspunktSubmitType) => Promise<void>;
-  formData?: AvklarRefusjonsKravFormValues;
-  setFormData: (data: AvklarRefusjonsKravFormValues) => void;
+  erOverstyrer: boolean;
+  submitCallback: (aksjonspunktData: OverstyrRefusjonskravSubmitType) => Promise<void>;
+  formData?: OverstyrRefusjonFormValues;
+  setFormData: (data: OverstyrRefusjonFormValues) => void;
 }
 
 export const RefusjonskravForm = ({
   aksjonspunkt,
   arbeidsgiverOpplysningerPerId,
   refusjonsandeler,
+  dokumenter,
+  åpneDokument,
   readOnly,
+  erOverstyrer,
   submitCallback,
   formData,
   setFormData,
 }: Props) => {
-  const formMethods = useForm<AvklarRefusjonsKravFormValues>({
+  const overstyringsAksjonspunkt = aksjonspunkt.find(ap => ap.kode === 'OVERSTYR_REFUSJONSKRAV');
+  const formMethods = useForm<OverstyrRefusjonFormValues>({
     mode: 'onChange',
-    defaultValues: formData ?? buildInitialValues(aksjonspunkt, refusjonsandeler, arbeidsgiverOpplysningerPerId),
+    defaultValues:
+      formData ??
+      buildInitialValues(
+        aksjonspunkt,
+        refusjonsandeler,
+        arbeidsgiverOpplysningerPerId,
+        erOverstyrer && !readOnly && !!overstyringsAksjonspunkt,
+      ),
   });
 
-  const { fields } = useFieldArray({
+  const [andeler, erOverstyring, begrunnelse] = useWatch({
     control: formMethods.control,
-    name: 'refusjonskrav',
-  });
-  const refusjonskrav = useWatch({
-    control: formMethods.control,
-    name: 'refusjonskrav',
+    name: ['refusjonsandeler', 'erOverstyring', 'begrunnelse'],
   });
 
-  const rader = fields.map((field, index) => ({
-    ...field,
-    ...refusjonskrav[index],
+  const harGyldigePerioder = erGyldigeAndeler(andeler, refusjonsandeler);
+  const harOverlappendeKrav = harOverlapp(utledRefusjonskrav(andeler, refusjonsandeler));
+  const andelerTilVisning: RefusjonsAndelTilVisning[] = andeler.map(andel => ({
+    ...andel,
+    refusjonsperioder: utledRefusjonsperioder(
+      andel.refusjonsperioder,
+      finnOpprinneligAndel(andel, refusjonsandeler),
+    ).filter(
+      periode =>
+        Number.isFinite(periode.refusjonPrMnd) &&
+        !required(periode.fom) &&
+        !required(periode.tom) &&
+        !hasValidDate(periode.fom) &&
+        (periode.tom === TIDENES_ENDE || !hasValidDate(periode.tom)) &&
+        periode.fom <= periode.tom,
+    ),
   }));
 
-  const erAlleRaderFerdigVurdert = refusjonskrav.every(erRadFerdigVurdert);
-  const { openRowsIndices, onOpenChange, closeRow } = useOpenRows(fields);
-  const { hasDirtyRows, onDirtyChange } = useDirtyRows();
+  const { openRowsIndices, onOpenChange } = useOpenRows();
 
-  const onSave = (index: number, values: RefusjonskravVurdering) => {
-    formMethods.setValue(`refusjonskrav.${index}.kilde`, 'SAKSBEHANDLER', { shouldDirty: true });
-    formMethods.setValue(`refusjonskrav.${index}.utfall`, values.utfall, { shouldDirty: true });
-    formMethods.setValue(
-      `refusjonskrav.${index}.utfallÅrsak`,
-      values.utfall === 'AVSLÅTT' ? values.utfallÅrsak : undefined,
-      { shouldDirty: true },
-    );
-    onDirtyChange(index, false);
-    closeRow(index);
-  };
+  const { erOverstyringRedigerbar, erOverstyringReadOnly, visOverstyring, overstyringKnapp } = useOverstyring({
+    readOnly,
+    erOverstyrer,
+    harVærtOverstyrt: !!overstyringsAksjonspunkt,
+    erOverstyringRedigerbar: erOverstyring,
+    onAktiverOverstyring: () => {
+      formMethods.setValue('erOverstyring', true, { shouldDirty: true });
+      andeler.forEach((_, index) => onOpenChange(index, true));
+    },
+    onAvbrytOverstyring: () => {
+      formMethods.reset(buildInitialValues(aksjonspunkt, refusjonsandeler, arbeidsgiverOpplysningerPerId));
+    },
+    isSubmitting: formMethods.formState.isSubmitting,
+  });
 
   return (
     <RhfForm
       formMethods={formMethods}
       setDataOnUnmount={setFormData}
       onSubmit={values =>
-        !hasDirtyRows &&
-        values.refusjonskrav.every(erRadFerdigVurdert) &&
-        submitCallback(transformValues(values, refusjonsandeler, aksjonspunkt))
+        erOverstyringRedigerbar &&
+        erGyldigeAndeler(values.refusjonsandeler, refusjonsandeler) &&
+        submitCallback(transformValues(values, refusjonsandeler))
       }
     >
       <VStack gap="space-20">
-        <Utbetaling arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId} refusjonsandeler={refusjonsandeler} />
+        <HStack gap="space-16" align="center">
+          <Heading size="small" level="2">
+            <FormattedMessage id="FaktaRefusjonIndex.Tittel" />
+          </Heading>
+          {overstyringKnapp}
+        </HStack>
+
+        <RefusjonsTidslinje
+          refusjonsandeler={andelerTilVisning}
+          onSelectAndel={andelIndex => {
+            if (visOverstyring) {
+              onOpenChange(andelIndex, true);
+            }
+          }}
+        />
+
+        {erOverstyringRedigerbar && harOverlappendeKrav && (
+          <ErrorMessage role="alert" size="small" showIcon>
+            <FormattedMessage id="RefusjonskravForm.OverlappendeKrav" />
+          </ErrorMessage>
+        )}
 
         <RefusjonskravTabell
-          rader={rader}
+          rader={andelerTilVisning}
+          dokumenter={dokumenter}
+          åpneDokument={åpneDokument}
           åpneRader={openRowsIndices}
           onOpenChange={onOpenChange}
-          renderRowContent={(krav, index) =>
-            krav.utfall === undefined || krav.kilde === 'SAKSBEHANDLER' ? (
-              <VStack key={fields[index].id} gap="space-16" paddingInline="space-16">
-                <RefusjonskravDetaljer krav={krav} />
-                <RefusjonskravRadVurdering
-                  index={index}
-                  krav={krav}
-                  readOnly={readOnly}
-                  onSave={onSave}
-                  onDirtyChange={onDirtyChange}
-                />
-              </VStack>
+          renderRowContent={(andel, andelIndex) =>
+            visOverstyring ? (
+              <RefusjonskravOverstyring
+                key={refusjonsandelNøkkel(andel)}
+                andelIndex={andelIndex}
+                opprinneligAndel={finnOpprinneligAndel(andel, refusjonsandeler)}
+                readOnly={erOverstyringReadOnly}
+              />
             ) : null
           }
         />
 
-        <RhfTextarea
-          control={formMethods.control}
-          name="begrunnelse"
-          label={<FormattedMessage id="RefusjonskravForm.Begrunnelse" />}
-          readOnly={readOnly}
-          validate={[required, minLength(3), maxLength(1000)]}
-        />
+        {visOverstyring && (erOverstyringRedigerbar || begrunnelse) && (
+          <Box maxWidth="800px">
+            <RhfTextarea
+              control={formMethods.control}
+              name="begrunnelse"
+              label={<FormattedMessage id="RefusjonskravForm.Begrunnelse" />}
+              readOnly={erOverstyringReadOnly}
+              validate={[required, minLength(3), maxLength(3000)]}
+              maxLength={3000}
+            />
+            <AssessedBy ident={overstyringsAksjonspunkt?.vurdertAv} date={overstyringsAksjonspunkt?.vurdertTidspunkt} />
+          </Box>
+        )}
 
-        <div>
-          <SubmitButton
-            isReadOnly={readOnly}
-            isSubmitting={formMethods.formState.isSubmitting}
-            isSubmittable={formMethods.formState.isValid && erAlleRaderFerdigVurdert && !hasDirtyRows}
-            hasErrors={Object.keys(formMethods.formState.errors).length > 0}
-          />
-        </div>
+        {erOverstyringRedigerbar && (
+          <HStack gap="space-8">
+            <SubmitButton
+              isReadOnly={false}
+              isSubmitting={formMethods.formState.isSubmitting}
+              isSubmittable={formMethods.formState.isValid && harGyldigePerioder}
+              hasErrors={Object.keys(formMethods.formState.errors).length > 0}
+            />
+          </HStack>
+        )}
       </VStack>
     </RhfForm>
   );
 };
 
-const erRadFerdigVurdert = (rad: RefusjonskravFormRad) =>
-  rad.utfall !== undefined && (rad.utfall !== 'AVSLÅTT' || !!rad.utfallÅrsak);
-
 const buildInitialValues = (
   aksjonspunkt: AksjonspunktRefusjon[],
-  refusjonsandeler: RefusjonsAndel[],
+  refusjonsandeler: RefusjonsandelDto[],
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
-): AvklarRefusjonsKravFormValues => ({
-  begrunnelse: aksjonspunkt.find(ap => ap.kode === 'AVKLAR_REFUSJONSKRAV')?.begrunnelse ?? '',
-  refusjonskrav: refusjonsandeler
-    .flatMap<RefusjonskravFormRad>(andel =>
-      andel.refusjonsperioder.map(periode => ({
-        arbeidsgiverIdent: andel.arbeidsgiverIdent,
-        arbeidsgiverNavn: arbeidsgiverOpplysningerPerId[andel.arbeidsgiverIdent]?.navn || andel.arbeidsgiverIdent,
-        kilde: andel.kilde,
-        fom: periode.fom,
-        tom: periode.tom,
-        refusjonsbeløpPrMnd: periode.refusjonsbeløpPrMnd,
-        datoForInnsendtEllerEndretIM: periode.datoForInnsendtEllerEndretIM,
-        fristForInnsendingAvRefusjonskrav: periode.fristForInnsendingAvRefusjonskrav,
-        tidligsteMuligeDatoMedRefusjonEtterFrist: periode.tidligsteMuligeDatoMedRefusjonEtterFrist,
-        utfall: periode.utfall,
-        utfallÅrsak: periode.utfallÅrsak,
-      })),
-    )
-    .sort(sortPeriodsByFom),
+  erOverstyring = false,
+): OverstyrRefusjonFormValues => ({
+  erOverstyring,
+  begrunnelse: aksjonspunkt.find(ap => ap.kode === 'OVERSTYR_REFUSJONSKRAV' && ap.status === 'UTFO')?.begrunnelse ?? '',
+  refusjonsandeler: refusjonsandeler.map(andel => {
+    const arbeidsgiverOpplysninger = arbeidsgiverOpplysningerPerId[andel.arbeidsgiverIdent];
+    const arbeidsforholdIdSuffiks = andel.arbeidsforholdId ? `...${andel.arbeidsforholdId.slice(-4)}` : '';
+    return {
+      ...andel,
+      arbeidsgiverTittel: arbeidsgiverOpplysninger?.navn
+        ? formaterArbeidsgiver(arbeidsgiverOpplysninger, andel.arbeidsforholdId)
+        : `${andel.arbeidsgiverIdent}${arbeidsforholdIdSuffiks}`,
+      refusjonsperioder: andel.refusjonsperioder
+        .toSorted(sortPeriodsByFom)
+        .map(periode => ({ ...periode, tom: periode.tom || TIDENES_ENDE })),
+    };
+  }),
 });
 
-const transformValues = (
-  values: AvklarRefusjonsKravFormValues,
-  originalRefusjonsandeler: RefusjonsAndel[],
-  aksjonspunkt: AksjonspunktRefusjon[],
-): AksjonspunktSubmitType => {
-  const kode = notEmpty(aksjonspunkt.find(isAksjonspunktOpen)).kode;
+const finnOpprinneligAndel = (
+  andel: Omit<RefusjonsandelDto, 'refusjonsperioder'>,
+  opprinneligeAndeler: RefusjonsandelDto[],
+) => notEmpty(opprinneligeAndeler.find(original => refusjonsandelNøkkel(original) === refusjonsandelNøkkel(andel)));
 
-  return {
-    '@type': kode,
-    kode,
-    begrunnelse: values.begrunnelse,
-    refusjonskrav: Map.groupBy(values.refusjonskrav, rad => rad.arbeidsgiverIdent)
-      .entries()
-      .toArray()
-      .map(([arbeidsgiverIdent, rader]) => {
-        const originalAndel = originalRefusjonsandeler.find(andel => andel.arbeidsgiverIdent === arbeidsgiverIdent);
+const erGyldigeAndeler = (andeler: RefusjonsAndelFormValues[], opprinneligeAndeler: RefusjonsandelDto[]) =>
+  andeler.every(andel => {
+    const original = finnOpprinneligAndel(andel, opprinneligeAndeler);
+    return (
+      erGyldigOppdeling(utledRefusjonsperioder(andel.refusjonsperioder, original), original.refusjonsperioder) &&
+      andel.refusjonsperioder.every(periode => {
+        const beløp = periode.refusjonPrMnd ?? '';
+        return !required(beløp) && !hasValidInteger(beløp) && !minValue(0)(beløp);
+      })
+    );
+  }) && !harOverlapp(utledRefusjonskrav(andeler, opprinneligeAndeler));
 
-        return {
-          arbeidsgiverIdent,
-          perioder: rader.map(rad => {
-            const originalPeriode = originalAndel?.refusjonsperioder.find(isDateWithinInterval(rad.fom));
-            const erBeløpetUendret = rad.refusjonsbeløpPrMnd === originalPeriode?.refusjonsbeløpPrMnd;
-
-            return {
-              kilde: rad.kilde,
-              refusjonsbeløpPrMnd: rad.refusjonsbeløpPrMnd,
-              fom: rad.fom,
-              tom: rad.tom,
-              utfall: erBeløpetUendret ? notEmpty(rad.utfall) : 'REDUSERT',
-              utfallÅrsak: rad.utfallÅrsak,
-            };
-          }),
-        };
-      }),
-  };
+const utledRefusjonskrav = (
+  andeler: RefusjonsAndelFormValues[],
+  opprinneligeAndeler: RefusjonsandelDto[],
+): OverstyrRefusjonskravSubmitType['refusjonskrav'] => {
+  const kravPerArbeidsgiver = new Map<string, OverstyrRefusjonskravSubmitType['refusjonskrav'][number]>();
+  for (const andel of andeler) {
+    const perioder = utledRefusjonsperioder(
+      andel.refusjonsperioder,
+      finnOpprinneligAndel(andel, opprinneligeAndeler),
+    ).map(rad => ({
+      fom: rad.fom,
+      tom: rad.tom,
+      refusjonsbeløpPrMnd: rad.refusjonPrMnd,
+      utfallÅrsak: rad.overstyringsÅrsak,
+    }));
+    const arbeidsgiverNøkkel = andel.arbeidsforholdId || andel.arbeidsgiverIdent;
+    const eksisterendeKrav = kravPerArbeidsgiver.get(arbeidsgiverNøkkel);
+    const arbeidsforholdId = andel.arbeidsforholdId || eksisterendeKrav?.arbeidsforholdId;
+    kravPerArbeidsgiver.set(arbeidsgiverNøkkel, {
+      arbeidsgiverIdent: andel.arbeidsgiverIdent,
+      ...(arbeidsforholdId ? { arbeidsforholdId } : {}),
+      perioder: [...(eksisterendeKrav?.perioder ?? []), ...perioder],
+    });
+  }
+  return Array.from(kravPerArbeidsgiver.values(), krav => ({
+    ...krav,
+    perioder: krav.perioder.toSorted(sortPeriodsByFom),
+  }));
 };
+
+const harOverlapp = (krav: OverstyrRefusjonskravSubmitType['refusjonskrav']) =>
+  krav.some(({ perioder }) => {
+    const gyldigePerioder = perioder.filter(
+      periode =>
+        !required(periode.fom) &&
+        !hasValidDate(periode.fom) &&
+        !required(periode.tom) &&
+        (periode.tom === TIDENES_ENDE || !hasValidDate(periode.tom)) &&
+        periode.fom <= periode.tom,
+    );
+    return gyldigePerioder.some((periode, index) => index > 0 && periode.fom <= gyldigePerioder[index - 1].tom);
+  });
+
+const transformValues = (
+  values: OverstyrRefusjonFormValues,
+  opprinneligeAndeler: RefusjonsandelDto[],
+): OverstyrRefusjonskravSubmitType => ({
+  '@type': 'OVERSTYR_REFUSJONSKRAV',
+  kode: 'OVERSTYR_REFUSJONSKRAV',
+  begrunnelse: values.begrunnelse,
+  refusjonskrav: utledRefusjonskrav(values.refusjonsandeler, opprinneligeAndeler),
+});

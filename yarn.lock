@@ -1727,6 +1727,7 @@ __metadata:
     "@navikt/ft-config-vite": "workspace:^"
     "@navikt/ft-form-hooks": "workspace:^"
     "@navikt/ft-form-validators": "workspace:^"
+    "@navikt/ft-plattform-komponenter": "workspace:^"
     "@navikt/ft-types": "workspace:^"
     "@navikt/ft-ui-komponenter": "workspace:^"
     "@navikt/ft-utils": "workspace:^"
@@ -1740,7 +1741,6 @@ __metadata:
     react-dom: "npm:19.3.1"
     react-hook-form: "npm:7.91.0"
     react-intl: "npm:12.1.6"
-    stylelint: "npm:17.16.0"
     typescript: "npm:6.0.3"
     vite: "npm:8.3.5"
     vitest: "npm:5.0.5"
@@ -1750,6 +1750,7 @@ __metadata:
     "@navikt/ds-react": 8.x
     "@navikt/ft-form-hooks": 14.x
     "@navikt/ft-form-validators": 8.x
+    "@navikt/ft-plattform-komponenter": 14.x
     "@navikt/ft-types": 8.x
     "@navikt/ft-ui-komponenter": 10.x
     "@navikt/ft-utils": 8.x

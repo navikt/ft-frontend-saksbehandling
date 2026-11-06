@@ -31,6 +31,31 @@ describe('useTidslinje', () => {
     expect(utledDatoer(result)).toBe('2025-01-01|2026-05-16');
   });
 
+  it('følger endrede perioder frem til brukeren navigerer eller zoomer', () => {
+    const { result, rerender } = renderHook(props => useTidslinje(props), {
+      initialProps: { perioder: [{ fom: '2025-01-01', tom: '2025-03-31' }] },
+    });
+
+    rerender({ perioder: [{ fom: '2025-01-01', tom: '2025-08-31' }] });
+    expect(utledDatoer(result)).toBe('2025-01-01|2025-09-01');
+
+    rerender({ perioder: [{ fom: '2025-01-01', tom: '2025-02-28' }] });
+    expect(utledDatoer(result)).toBe('2025-01-01|2025-03-01');
+  });
+
+  it('bevarer brukerens zoom når periodene endres', async () => {
+    const { result, rerender } = renderHook(props => useTidslinje(props), {
+      initialProps: { perioder: [{ fom: '2025-01-01', tom: '2025-09-01' }] },
+    });
+    render(result.current.controllerElement);
+    await userEvent.click(screen.getByRole('button', { name: 'Zoom inn' }));
+    const zoomedeDatoer = utledDatoer(result);
+
+    rerender({ perioder: [{ fom: '2025-01-01', tom: '2025-12-31' }] });
+
+    expect(utledDatoer(result)).toBe(zoomedeDatoer);
+  });
+
   it('begrenser zoom inn og støtter zoom ut ved månedsslutt', async () => {
     const { result } = renderHook(() => useTidslinje({ perioder: [{ fom: '2025-01-31', tom: '2025-05-31' }] }));
     const view = render(result.current.controllerElement);

@@ -1,120 +1,119 @@
 import type { ReactNode } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
-import { ExclamationmarkTriangleFillIcon, PersonPencilFillIcon } from '@navikt/aksel-icons';
-import { Heading, HStack, Table, VStack } from '@navikt/ds-react';
+import { ArrowForwardIcon } from '@navikt/aksel-icons';
+import { Button, Table, Tag } from '@navikt/ds-react';
 
 import { BeløpLabel, DateLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
-import type { RefusjonskravFormRad } from './formValues';
-
-import styles from './refusjonskravTabell.module.css';
+import type { Saksdokument } from '../../types/dataTypes';
+import type { RefusjonsAndelTilVisning } from './formValues';
+import { refusjonsandelNøkkel } from './refusjonsandelNøkkel';
 
 interface Props {
-  rader: RefusjonskravFormRad[];
-  renderRowContent: (krav: RefusjonskravFormRad, index: number) => ReactNode;
+  rader: RefusjonsAndelTilVisning[];
+  dokumenter: Saksdokument[];
+  åpneDokument: (journalpostId: string, dokumentId: string) => void;
+  renderRowContent: (andel: RefusjonsAndelTilVisning, andelIndex: number) => ReactNode;
   åpneRader: Set<number>;
   onOpenChange: (index: number, open: boolean) => void;
 }
 
-export const RefusjonskravTabell = ({ rader, renderRowContent, åpneRader, onOpenChange }: Props) => {
-  const intl = useIntl();
+export const RefusjonskravTabell = ({
+  rader,
+  dokumenter,
+  åpneDokument,
+  renderRowContent,
+  åpneRader,
+  onOpenChange,
+}: Props) => (
+  <Table>
+    <Table.Header>
+      <Table.Row>
+        <Table.HeaderCell>
+          <FormattedMessage id="RefusjonskravTabell.Arbeidsgiver" />
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+          <FormattedMessage id="RefusjonskravTabell.RefusjonFra" />
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+          <FormattedMessage id="RefusjonskravForm.RefusjonsbeløpPrMnd" />
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+          <FormattedMessage id="RefusjonskravTabell.SendtInn" />
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+          <FormattedMessage id="RefusjonskravTabell.Merknad" />
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+          <FormattedMessage id="RefusjonskravTabell.Inntektsmelding" />
+        </Table.HeaderCell>
+        <Table.HeaderCell />
+      </Table.Row>
+    </Table.Header>
+    <Table.Body>
+      {rader.map((andel, index) => {
+        const { refusjonsperioder, journalpostId, arbeidsgiverTittel } = andel;
+        const content = renderRowContent(andel, index);
+        const dokument = dokumenter.find(d => d.journalpostId === journalpostId);
 
-  return (
-    <VStack gap="space-20">
-      <Heading size="xsmall" level="3">
-        <FormattedMessage id="RefusjonskravTabell.Tittel" />
-      </Heading>
+        return (
+          <Table.ExpandableRow
+            key={refusjonsandelNøkkel(andel)}
+            content={content}
+            togglePlacement="right"
+            open={åpneRader.has(index)}
+            onOpenChange={open => onOpenChange(index, open)}
+            expandOnRowClick
+            expansionDisabled={content == null}
+          >
+            <Table.DataCell>{arbeidsgiverTittel}</Table.DataCell>
 
-      <Table className={styles.tabell}>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>
-              <FormattedMessage id="RefusjonskravTabell.Arbeidsgiver" />
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              <FormattedMessage id="RefusjonskravTabell.RefusjonFra" />
-            </Table.HeaderCell>
-            <Table.HeaderCell align="right">
-              <FormattedMessage id="RefusjonskravTabell.RefusjonsbeløpPrMnd" />
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              <FormattedMessage id="RefusjonskravTabell.SendtInnEndret" />
-            </Table.HeaderCell>
-            <Table.HeaderCell>
-              <FormattedMessage id="RefusjonskravTabell.Utfall" />
-            </Table.HeaderCell>
-            <Table.HeaderCell />
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {rader.map((krav, index) => {
-            const content = renderRowContent(krav, index);
-
-            return (
-              <Table.ExpandableRow
-                key={`${krav.arbeidsgiverIdent}-${krav.fom}-${krav.tom}`}
-                data-til-vurdering={krav.utfall === undefined}
-                content={content}
-                togglePlacement="right"
-                open={åpneRader.has(index)}
-                onOpenChange={open => onOpenChange(index, open)}
-                expandOnRowClick
-                expansionDisabled={content == null}
-              >
-                <Table.DataCell>
-                  <HStack gap="space-8" wrap={false}>
-                    {!krav.utfall && (
-                      <ExclamationmarkTriangleFillIcon
-                        title={intl.formatMessage({ id: 'RefusjonskravTabell.UtfallMangler' })}
-                        color="var(--ax-text-warning-decoration)"
-                        fontSize="1.25rem"
-                      />
-                    )}
-                    {krav.arbeidsgiverNavn}
-                  </HStack>
-                </Table.DataCell>
-
-                <Table.DataCell>
+            <Table.DataCell>
+              {refusjonsperioder.map(krav => (
+                <div key={`${krav.fom}-${krav.tom}`}>
                   <PeriodLabel dateStringFom={krav.fom} dateStringTom={krav.tom} />
-                </Table.DataCell>
+                </div>
+              ))}
+            </Table.DataCell>
 
-                <Table.DataCell align="right">
-                  <BeløpLabel beløp={krav.refusjonsbeløpPrMnd} kr />
-                </Table.DataCell>
+            <Table.DataCell>
+              {refusjonsperioder.map(krav => (
+                <div key={`${krav.fom}-${krav.tom}`}>
+                  <BeløpLabel beløp={krav.refusjonPrMnd} kr />
+                </div>
+              ))}
+            </Table.DataCell>
 
-                <Table.DataCell>
-                  <DateLabel dateString={krav.datoForInnsendtEllerEndretIM} />
-                </Table.DataCell>
+            <Table.DataCell>{dokument?.tidspunkt && <DateLabel dateString={dokument.tidspunkt} />}</Table.DataCell>
 
-                <Table.DataCell>
-                  <HStack gap="space-8" wrap={false}>
-                    {krav.kilde === 'SAKSBEHANDLER' && (
-                      <PersonPencilFillIcon
-                        title={intl.formatMessage({ id: 'RefusjonskravTabell.EndretAvSaksbehandler' })}
-                        fontSize="1.5rem"
-                        color="var(--ax-text-warning-decoration)"
-                      />
-                    )}
-                    {krav.utfall && getUtfallTekst(krav.utfall)}
-                  </HStack>
-                </Table.DataCell>
-              </Table.ExpandableRow>
-            );
-          })}
-        </Table.Body>
-      </Table>
-    </VStack>
-  );
-};
+            <Table.DataCell>
+              {andel.kilde === 'SAKSBEHANDLER' && (
+                <Tag size="small" variant="moderate" data-color="warning">
+                  <FormattedMessage id="RefusjonskravTabell.Overstyrt" />
+                </Tag>
+              )}
+            </Table.DataCell>
 
-const getUtfallTekst = (utfall: NonNullable<RefusjonskravFormRad['utfall']>) => {
-  switch (utfall) {
-    case 'INNVILGET':
-      return <FormattedMessage id="RefusjonskravTabell.Utfall.INNVILGET" />;
-    case 'AVSLÅTT':
-      return <FormattedMessage id="RefusjonskravTabell.Utfall.AVSLÅTT" />;
-    case 'REDUSERT':
-      return <FormattedMessage id="RefusjonskravTabell.Utfall.REDUSERT" />;
-  }
-};
+            <Table.DataCell>
+              {dokument && (
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="small"
+                  icon={<ArrowForwardIcon aria-hidden />}
+                  onClick={event => {
+                    event.stopPropagation();
+                    åpneDokument(dokument.journalpostId, dokument.dokumentId);
+                  }}
+                >
+                  <FormattedMessage id="RefusjonskravTabell.ÅpnePDF" />
+                </Button>
+              )}
+            </Table.DataCell>
+          </Table.ExpandableRow>
+        );
+      })}
+    </Table.Body>
+  </Table>
+);

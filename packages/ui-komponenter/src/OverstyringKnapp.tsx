@@ -12,9 +12,10 @@ const intl = createIntl(messages);
 interface Props {
   onClick?: (overstyrt: boolean) => void;
   erOverstyrt?: boolean;
+  disabled?: boolean;
 }
 
-export const OverstyringKnapp = ({ onClick = () => undefined, erOverstyrt = false }: Props) => {
+export const OverstyringKnapp = ({ onClick = () => undefined, erOverstyrt = false, disabled = false }: Props) => {
   const [lokaltOverstyrt, setLokaltOverstyrt] = useState(false);
   const [forrigeErOverstyrt, setForrigeErOverstyrt] = useState(erOverstyrt);
   if (forrigeErOverstyrt !== erOverstyrt) {
@@ -23,7 +24,7 @@ export const OverstyringKnapp = ({ onClick = () => undefined, erOverstyrt = fals
   }
   const isOverstyrt = erOverstyrt || lokaltOverstyrt;
   const setOverstyrtFn = () => {
-    if (!isOverstyrt) {
+    if (!isOverstyrt && !disabled) {
       setLokaltOverstyrt(true);
       onClick(true);
     }
@@ -36,8 +37,8 @@ export const OverstyringKnapp = ({ onClick = () => undefined, erOverstyrt = fals
       type="button"
       size="small"
       onClick={setOverstyrtFn}
-      aria-disabled={erOverstyrt}
-      disabled={erOverstyrt}
+      aria-disabled={erOverstyrt || disabled}
+      disabled={erOverstyrt || disabled}
       icon={
         isOverstyrt ? (
           <KeyVerticalFillIcon

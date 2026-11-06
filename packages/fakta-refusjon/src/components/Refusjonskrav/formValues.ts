@@ -1,21 +1,27 @@
-import type { UtfallÅrsak } from '../../types/dataTypes';
+import type { UtfallÅrsak } from '../../types/aksjonspunkt';
+import type { RefusjonsandelDto, RefusjonsperiodeDto } from '../../types/dataTypes';
 
-export type AvklarRefusjonsKravFormValues = {
+export type OverstyrRefusjonFormValues = {
+  erOverstyring: boolean;
   begrunnelse: string;
-  refusjonskrav: RefusjonskravFormRad[];
+  refusjonsandeler: RefusjonsAndelFormValues[];
 };
 
-export type RefusjonskravFormRad = {
-  arbeidsgiverIdent: string;
-  arbeidsgiverNavn: string;
-  kilde: string;
-  fom: string;
-  tom: string;
-  refusjonsbeløpPrMnd: number;
-  datoForInnsendtEllerEndretIM: string;
-  fristForInnsendingAvRefusjonskrav: string;
-  tidligsteMuligeDatoMedRefusjonEtterFrist: string;
-  utfall?: 'INNVILGET' | 'AVSLÅTT' | 'REDUSERT';
-  utfallÅrsak?: UtfallÅrsak;
+export type RefusjonsAndelFormValues = Omit<RefusjonsandelDto, 'refusjonsperioder'> & {
+  arbeidsgiverTittel: string;
+  refusjonsperioder: RefusjonPeriode[];
 };
-export type RefusjonskravVurdering = Pick<RefusjonskravFormRad, 'utfall' | 'utfallÅrsak'>;
+
+export type RefusjonsAndelTilVisning = Omit<RefusjonsAndelFormValues, 'refusjonsperioder'> & {
+  refusjonsperioder: (Omit<RefusjonPeriode, 'refusjonPrMnd' | 'tom'> & {
+    tom: string;
+    refusjonPrMnd: number;
+    kilde: RefusjonsandelDto['kilde'];
+  })[];
+};
+
+type RefusjonPeriode = Omit<RefusjonsperiodeDto, 'refusjonPrMnd' | 'tom'> & {
+  tom?: string;
+  refusjonPrMnd: number | string | null | undefined;
+  overstyringsÅrsak?: UtfallÅrsak;
+};

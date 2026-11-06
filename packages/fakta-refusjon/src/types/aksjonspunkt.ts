@@ -1,22 +1,23 @@
 import type { AksjonspunktStatus, AksjonspunktTilBekreftelse } from '@navikt/ft-types';
 
-import type { UtfallÅrsak } from './dataTypes';
+export type UtfallÅrsak = 'AVTALT_MED_ARBEIDSGIVER' | 'KONKURS' | 'UTMELDT';
 
 export type AksjonspunktRefusjon = {
-  kode: 'AVKLAR_REFUSJONSKRAV' | 'OVERSTYR_REFUSJONSKRAV';
+  kode: 'OVERSTYR_REFUSJONSKRAV';
   status: AksjonspunktStatus;
   begrunnelse?: string;
+  vurdertAv?: string;
+  vurdertTidspunkt?: string;
 };
 
-export type AksjonspunktSubmitType = AksjonspunktTilBekreftelse<AksjonspunktRefusjon['kode']> & {
+export type OverstyrRefusjonskravSubmitType = AksjonspunktTilBekreftelse<'OVERSTYR_REFUSJONSKRAV'> & {
   refusjonskrav: {
     arbeidsgiverIdent: string;
+    arbeidsforholdId?: string;
     perioder: {
-      kilde: string;
       fom: string;
       tom: string;
       refusjonsbeløpPrMnd: number;
-      utfall: 'INNVILGET' | 'AVSLÅTT' | 'REDUSERT';
       utfallÅrsak?: UtfallÅrsak;
     }[];
   }[];

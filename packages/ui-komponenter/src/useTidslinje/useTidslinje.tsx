@@ -27,27 +27,29 @@ export const useTidslinje = ({ perioder }: UseTidslinjeProps): UseTidslinjeResul
   const originalFomDato = dayjs(grunnintervall.start);
   const originalTomDato = dayjs(grunnintervall.end);
 
-  const [fomDato, setFomDato] = useState(originalFomDato);
-  const [tomDato, setTomDato] = useState(originalTomDato);
+  const [valgtFomDato, setValgtFomDato] = useState<dayjs.Dayjs>();
+  const [valgtTomDato, setValgtTomDato] = useState<dayjs.Dayjs>();
+  const fomDato = valgtFomDato ?? originalFomDato;
+  const tomDato = valgtTomDato ?? originalTomDato;
 
   const onForrige = () => {
-    setFomDato(fomDato.subtract(1, 'month'));
-    setTomDato(tomDato.subtract(1, 'month'));
+    setValgtFomDato(fomDato.subtract(1, 'month'));
+    setValgtTomDato(tomDato.subtract(1, 'month'));
   };
 
   const onNeste = () => {
-    setFomDato(fomDato.add(1, 'month'));
-    setTomDato(tomDato.add(1, 'month'));
+    setValgtFomDato(fomDato.add(1, 'month'));
+    setValgtTomDato(tomDato.add(1, 'month'));
   };
 
   const onZoomInn = () => {
-    setFomDato(fomDato.add(1, 'month'));
-    setTomDato(tomDato.subtract(1, 'month'));
+    setValgtFomDato(fomDato.add(1, 'month'));
+    setValgtTomDato(tomDato.subtract(1, 'month'));
   };
 
   const onZoomUt = () => {
-    setFomDato(fomDato.subtract(1, 'month'));
-    setTomDato(tomDato.add(1, 'month'));
+    setValgtFomDato(fomDato.subtract(1, 'month'));
+    setValgtTomDato(tomDato.add(1, 'month'));
   };
 
   return {
