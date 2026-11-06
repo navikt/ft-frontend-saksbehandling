@@ -1,8 +1,7 @@
 {
-  "FaktaRefusjonIndex.Tittel": "Fakta om refusjon",
+  "FaktaRefusjonIndex.Tittel": "Refusjonskrav",
   "OverstyringKnapp.Overstyring": "Overstyr",
   "OverstyringKnapp.Avbryt": "Avbryt overstyring",
-  "Utbetaling.Tittel": "Utbetaling",
   "Utbetaling.Periode": "Periode",
   "RefusjonskravForm.Årsak": "Årsak til overstyring",
   "RefusjonskravForm.Årsak.KONKURS": "Konkurs",
@@ -18,10 +17,12 @@
   "RefusjonskravOverstyring.UgyldigOppdeling": "Periodene kan ikke starte før opprinnelig fra-dato og må være uten hull eller overlapp. Opprinnelige perioder: {perioder}.",
 
   "RefusjonskravForm.Begrunnelse": "Begrunnelse",
-  "RefusjonskravTabell.Tittel": "Refusjonskrav",
   "RefusjonskravTabell.Arbeidsgiver": "Arbeidsgiver",
   "RefusjonskravTabell.RefusjonFra": "Refusjon fra",
+  "RefusjonskravTabell.SendtInn": "Sendt inn",
   "RefusjonskravTabell.Inntektsmelding": "Inntektsmelding",
+  "RefusjonskravTabell.Merknad": "Merknad",
+  "RefusjonskravTabell.ÅpnePDF": "Åpne PDF",
   "RefusjonskravTabell.EndretAvSaksbehandler": "Endret av saksbehandler",
   "RefusjonskravTabell.Overstyrt": "Overstyrt"
 }

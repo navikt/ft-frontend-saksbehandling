@@ -9,11 +9,57 @@ import * as stories from './FaktaRefusjonIndex.stories';
 const { SaksbehandlerUtenTidligereOverstyring, Førstegangsoverstyring } = composeStories(stories);
 
 const getTidslinjePerioder = () =>
-  within(screen.getByRole('region', { name: 'Utbetaling' }))
-    .getAllByRole('listitem')
-    .map(periode => within(periode).getAllByRole('button')[0]);
+  screen.getAllByRole('listitem').map(periode => within(periode).getAllByRole('button')[0]);
 
 describe('FaktaRefusjonIndex', () => {
+  it('viser én innsendt-dato fra dokumentet per andel, uavhengig av periodene', () => {
+    render(<Førstegangsoverstyring />);
+
+    const tabell = within(screen.getByRole('table'));
+    expect(tabell.getAllByRole('columnheader').map(kolonne => kolonne.textContent)).toEqual([
+      'Arbeidsgiver',
+      'Refusjon fra',
+      'Refusjonsbeløp per måned',
+      'Sendt inn',
+      'Merknad',
+      'Inntektsmelding',
+      '',
+    ]);
+    const brunostCeller = within(tabell.getByRole('row', { name: /Brunostfabrikken AS/ })).getAllByRole('cell');
+    expect(brunostCeller[3].textContent).toBe('20.12.2024');
+    const ostehøvelCeller = within(tabell.getByRole('row', { name: /Ostehøvel Outlet AS/ })).getAllByRole('cell');
+    expect(ostehøvelCeller[3].textContent).toBe('10.04.2025');
+    const nordlysCeller = within(tabell.getByRole('row', { name: /Nordlys Teknologi AS/ })).getAllByRole('cell');
+    expect(nordlysCeller[3]).toBeEmptyDOMElement();
+  });
+
+  it('viser ingen innsendt-dato når dokumentet mangler tidspunkt', () => {
+    render(
+      <Førstegangsoverstyring
+        dokumenter={[{ journalpostId: '123456789', dokumentId: '111111111', tittel: 'Inntektsmelding' }]}
+      />,
+    );
+
+    const rad = within(screen.getByRole('row', { name: /Brunostfabrikken AS/ }));
+    expect(rad.getAllByRole('cell')[3]).toBeEmptyDOMElement();
+    expect(rad.getByRole('button', { name: 'Åpne PDF' })).toBeInTheDocument();
+  });
+
+  it.each([undefined, ''])('lar inntektsmeldingen åpnes når dokumentet mangler tittel: %s', async tittel => {
+    const åpneDokument = vi.fn();
+    render(
+      <Førstegangsoverstyring
+        dokumenter={[{ journalpostId: '123456789', dokumentId: '111111111', tittel }]}
+        åpneDokument={åpneDokument}
+      />,
+    );
+
+    const rad = within(screen.getByRole('row', { name: /Brunostfabrikken AS/ }));
+    await userEvent.click(rad.getByRole('button', { name: 'Åpne PDF' }));
+
+    expect(åpneDokument).toHaveBeenCalledWith('123456789', '111111111');
+  });
+
   it.each([
     { index: 0, periode: '01.01.2025 - 31.03.2025', beløp: /42\s000/ },
     { index: 1, periode: '01.04.2025 -', beløp: /37\s500/ },
@@ -32,7 +78,7 @@ describe('FaktaRefusjonIndex', () => {
   it('viser standardpanelet uten overstyringsrolle eller tidligere overstyring', () => {
     render(<SaksbehandlerUtenTidligereOverstyring />);
 
-    expect(screen.getByRole('heading', { name: 'Fakta om refusjon' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Refusjonskrav' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Overstyr' })).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Avbryt overstyring' })).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Bekreft og fortsett' })).not.toBeInTheDocument();
@@ -42,10 +88,8 @@ describe('FaktaRefusjonIndex', () => {
   it('åpner alle rader ved aktivering og lar dem lukkes enkeltvis', async () => {
     render(<Førstegangsoverstyring />);
 
-    expect(screen.getByRole('heading', { level: 2, name: 'Fakta om refusjon' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Refusjonskrav' })).toBeInTheDocument();
     expect(screen.queryByText('Vurder refusjonskrav uten registrert utfall')).not.toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 3, name: 'Utbetaling' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 3, name: 'Refusjonskrav' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Overstyr' })).toBeVisible();
     expect(screen.queryByRole('button', { name: 'Bekreft og fortsett' })).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Avbryt overstyring' })).not.toBeInTheDocument();
@@ -213,14 +257,14 @@ describe('FaktaRefusjonIndex', () => {
       const ostehøvelRad = screen.getByRole('row', { name: /Ostehøvel Outlet AS/ });
       const nordlysRad = screen.getByRole('row', { name: /Nordlys Teknologi AS/ });
       const brunostKnapp = within(brunostRad).getByRole('button', {
-        name: 'Inntektsmelding',
+        name: 'Åpne PDF',
       });
       const ostehøvelKnapp = within(ostehøvelRad).getByRole('button', {
-        name: 'Endret inntektsmelding',
+        name: 'Åpne PDF',
       });
-      expect(screen.getAllByRole('button', { name: /inntektsmelding/i })).toHaveLength(2);
+      expect(screen.getAllByRole('button', { name: 'Åpne PDF' })).toHaveLength(2);
       expect(brunostKnapp.querySelector('svg')).toBeInTheDocument();
-      expect(within(nordlysRad).queryByRole('button', { name: /inntektsmelding/i })).not.toBeInTheDocument();
+      expect(within(nordlysRad).queryByRole('button', { name: 'Åpne PDF' })).not.toBeInTheDocument();
 
       await userEvent.click(brunostKnapp);
       expect(åpneDokument).toHaveBeenNthCalledWith(1, '123456789', '111111111');
@@ -253,7 +297,7 @@ describe('FaktaRefusjonIndex', () => {
 
     await userEvent.click(
       within(screen.getByRole('row', { name: /Brunostfabrikken AS/ })).getByRole('button', {
-        name: 'Inntektsmelding',
+        name: 'Åpne PDF',
       }),
     );
     expect(åpneDokument).toHaveBeenCalledWith('123456789', '111111111');
@@ -269,7 +313,10 @@ describe('FaktaRefusjonIndex', () => {
     render(<Førstegangsoverstyring dokumenter={dokumenter} åpneDokument={åpneDokument} />);
 
     expect(screen.getByRole('row', { name: /Brunostfabrikken AS/ })).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: /inntektsmelding/i })).not.toBeInTheDocument();
+    expect(
+      within(screen.getByRole('row', { name: /Brunostfabrikken AS/ })).getAllByRole('cell')[3],
+    ).toBeEmptyDOMElement();
+    expect(screen.queryByRole('button', { name: 'Åpne PDF' })).not.toBeInTheDocument();
     expect(åpneDokument).not.toHaveBeenCalled();
   });
 });

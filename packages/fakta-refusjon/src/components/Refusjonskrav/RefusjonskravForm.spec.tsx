@@ -18,9 +18,7 @@ import messages from '../../../i18n/nb_NO.json';
 const intl = createIntl(messages);
 
 const getTidslinjePerioder = () =>
-  within(screen.getByRole('region', { name: 'Utbetaling' }))
-    .getAllByRole('listitem')
-    .map(periode => within(periode).getAllByRole('button')[0]);
+  screen.getAllByRole('listitem').map(periode => within(periode).getAllByRole('button')[0]);
 
 describe('RefusjonskravForm', () => {
   it('beholder DTO-strukturen i skjemadata og sorterer periodene innenfor hver andel', () => {
@@ -67,14 +65,15 @@ describe('RefusjonskravForm', () => {
     expect(tabell.getAllByRole('row', { name: /Nordlys Teknologi AS/ })).toHaveLength(1);
 
     const celler = within(brunostRad).getAllByRole('cell');
-    expect(celler).toHaveLength(5);
+    expect(celler).toHaveLength(7);
     expect(celler[1]).toHaveTextContent('01.01.2025 - 31.03.2025');
     expect(celler[1]).toHaveTextContent('01.04.2025 - 30.06.2025');
     expect(celler[2].textContent).toMatch(/42\s000.*37\s500/);
-    expect(tabell.queryByRole('columnheader', { name: 'Sendt inn' })).not.toBeInTheDocument();
+    expect(celler[3].textContent).toBe('20.12.2024');
+    expect(tabell.getByRole('columnheader', { name: 'Sendt inn' })).toBeInTheDocument();
     expect(tabell.queryByRole('columnheader', { name: 'Utfall' })).not.toBeInTheDocument();
     expect(tabell.queryByText('Overstyrt')).not.toBeInTheDocument();
-    expect(within(celler[3]).getByRole('button', { name: 'Inntektsmelding' })).toBeInTheDocument();
+    expect(within(celler[5]).getByRole('button', { name: 'Åpne PDF' })).toBeInTheDocument();
     expect(screen.queryByRole('radio')).not.toBeInTheDocument();
     expect(screen.queryByTitle('Utfall mangler')).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Vis mindre' })).not.toBeInTheDocument();
@@ -82,7 +81,7 @@ describe('RefusjonskravForm', () => {
     expect(screen.getByRole('button', { name: 'Overstyr' })).toBeEnabled();
   });
 
-  it.each([false, true])('viser overstyringskolonnen bare når minst én rad er overstyrt: %s', erOverstyrt => {
+  it.each([false, true])('viser merknadskolonnen og markerer overstyrte rader: %s', erOverstyrt => {
     renderForm({
       refusjonsandeler: [
         {
@@ -93,13 +92,15 @@ describe('RefusjonskravForm', () => {
       ],
     });
     const tabell = within(screen.getByRole('table'));
-    const antallKolonner = erOverstyrt ? 6 : 5;
+    const antallKolonner = 7;
 
     expect(tabell.getAllByRole('columnheader')).toHaveLength(antallKolonner);
     for (const rad of tabell.getAllByRole('row').slice(1)) {
       expect(within(rad).getAllByRole('cell')).toHaveLength(antallKolonner);
     }
     expect(tabell.queryAllByText('Overstyrt')).toHaveLength(erOverstyrt ? 1 : 0);
+    const merknad = within(tabell.getAllByRole('row')[1]).getAllByRole('cell')[4];
+    expect(merknad.textContent).toBe(erOverstyrt ? 'Overstyrt' : '');
   });
 
   it.each([
@@ -186,7 +187,7 @@ describe('RefusjonskravForm', () => {
       ],
     });
     await userEvent.type(screen.getByRole('textbox', { name: 'Begrunnelse' }), 'Overstyrt');
-    const [førsteRad, andreRad] = screen.getAllByRole('row', { name: /Brunostfabrikken AS/ });
+    const andreRad = screen.getAllByRole('row', { name: /Brunostfabrikken AS/ })[1];
     const åpneKnapp = within(andreRad).getByRole('button', { name: 'Vis mer' });
     await userEvent.click(åpneKnapp);
     const innhold = within(getÅpentAndelInnhold('Brunostfabrikken AS', 1));
@@ -201,9 +202,9 @@ describe('RefusjonskravForm', () => {
     await userEvent.type(dato, '15.02.2025');
 
     expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeEnabled();
-    expect(within(førsteRad).getByText('01.01.2025 - 31.01.2025')).toBeInTheDocument();
-    expect(within(andreRad).getByText('01.02.2025 - 14.02.2025')).toBeInTheDocument();
-    expect(within(andreRad).getByText('15.02.2025 - 28.02.2025')).toBeInTheDocument();
+    await expectTidslinjePeriode(0, '01.01.2025 - 31.01.2025');
+    await expectTidslinjePeriode(1, '01.02.2025 - 14.02.2025');
+    await expectTidslinjePeriode(2, '15.02.2025 - 28.02.2025');
   });
 
   it('samler ikke-overlappende andeler til ett sortert krav per arbeidsgiver', async () => {
@@ -301,6 +302,7 @@ describe('RefusjonskravForm', () => {
     renderOverstyring({
       ...props,
       submitCallback,
+      aksjonspunkt: [{ kode: 'OVERSTYR_REFUSJONSKRAV', status: 'UTFO', begrunnelse: 'Tidligere overstyrt refusjon' }],
       refusjonsandeler: [
         {
           ...andel,
@@ -318,6 +320,7 @@ describe('RefusjonskravForm', () => {
     expect(within(innhold).queryByRole('button', { name: 'Lagre' })).not.toBeInTheDocument();
     expect(within(innhold).getByText('01.01.2025')).toBeInTheDocument();
     expect(within(innhold).getByText('42000')).toBeInTheDocument();
+    expect(screen.getByText('Tidligere overstyrt refusjon')).toBeInTheDocument();
     expect(within(innhold).queryByText('Årsak til overstyring')).not.toBeInTheDocument();
     expect(within(innhold).queryByText('Konkurs')).not.toBeInTheDocument();
     expect(within(innhold).queryByRole('combobox')).not.toBeInTheDocument();
@@ -528,7 +531,7 @@ describe('RefusjonskravForm', () => {
     expect(screen.queryByRole('button', { name: 'Bekreft og fortsett' })).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Overstyr' })).toBeEnabled();
     expect(getTidslinjePerioder()).toHaveLength(1);
-    expect(screen.getByRole('row', { name: /Brunostfabrikken AS/ })).toHaveTextContent('01.01.2025 - 31.03.2025');
+    await expectTidslinjePeriode(0, '01.01.2025 - 31.03.2025');
     expect(screen.queryByTitle('Endret av saksbehandler')).not.toBeInTheDocument();
     expect(within(screen.getByRole('table')).queryByText('Overstyrt')).not.toBeInTheDocument();
     await userEvent.click(screen.getByRole('button', { name: 'Overstyr' }));
@@ -598,9 +601,8 @@ describe('RefusjonskravForm', () => {
     );
     expect(screen.getByRole('button', { name: 'Vis mindre' })).toBeInTheDocument();
     expect(submitButton).toBeEnabled();
-    const rad = screen.getByRole('row', { name: /Brunostfabrikken AS/ });
-    expect(within(rad).getByText('01.01.2025 - 31.01.2025')).toBeInTheDocument();
-    expect(within(rad).getByText('01.02.2025 - 31.03.2025')).toBeInTheDocument();
+    await expectTidslinjePeriode(0, '01.01.2025 - 31.01.2025');
+    await expectTidslinjePeriode(1, '01.02.2025 - 31.03.2025');
     expect(getTidslinjePerioder()).toHaveLength(2);
     await userEvent.click(submitButton);
 
@@ -645,9 +647,7 @@ describe('RefusjonskravForm', () => {
         .map(felt => (felt as HTMLInputElement).value),
     ).toEqual(['50000', '0']);
     await userEvent.click(within(gjenåpnet).getByRole('button', { name: 'Fjern periode 2' }));
-    expect(within(rad).getByText('01.01.2025 - 31.03.2025')).toBeInTheDocument();
-    expect(within(rad).queryByText('01.01.2025 - 31.01.2025')).not.toBeInTheDocument();
-    expect(within(rad).queryByText('01.02.2025 - 31.03.2025')).not.toBeInTheDocument();
+    await expectTidslinjePeriode(0, '01.01.2025 - 31.03.2025');
     expect(getTidslinjePerioder()).toHaveLength(1);
     await userEvent.click(submitButton);
     await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(2));
@@ -791,9 +791,7 @@ describe('RefusjonskravForm', () => {
       },
     });
 
-    expect(
-      within(screen.getByRole('row', { name: /Brunostfabrikken AS/ })).getByText('01.01.2025 -'),
-    ).toBeInTheDocument();
+    await expectTidslinjePeriode(0, '01.01.2025 -');
     expect(getTidslinjePerioder()).toHaveLength(1);
     await userEvent.type(screen.getByRole('textbox', { name: 'Begrunnelse' }), 'Overstyrt');
     await userEvent.click(screen.getByRole('button', { name: 'Vis mer' }));
@@ -854,7 +852,8 @@ describe('RefusjonskravForm', () => {
       const celler = within(screen.getByRole('row', { name: /Brunostfabrikken AS/ })).getAllByRole('cell');
       expect(celler[1]).toBeEmptyDOMElement();
       expect(celler[2]).toBeEmptyDOMElement();
-      expect(within(screen.getByRole('region', { name: 'Utbetaling' })).queryAllByRole('listitem')).toHaveLength(0);
+      expect(celler[3].textContent).toBe('20.12.2024');
+      expect(screen.queryAllByRole('listitem')).toHaveLength(0);
       expect(beløp).toHaveValue(verdi);
       expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeDisabled();
       await submitForm();
@@ -920,7 +919,7 @@ describe('RefusjonskravForm', () => {
     await userEvent.clear(dato);
     await userEvent.type(dato, '01.02.2025');
     expect(getTidslinjePerioder()).toHaveLength(2);
-    expect(screen.getByRole('row', { name: /Brunostfabrikken AS/ })).toHaveTextContent('01.01.2025 - 31.01.2025');
+    await expectTidslinjePeriode(0, '01.01.2025 - 31.01.2025');
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
   });
@@ -1290,7 +1289,7 @@ const getÅpentAndelInnhold = (arbeidsgiverNavn: string, index = 0) => {
 };
 
 const submitForm = async () => {
-  const form = screen.getByRole('heading', { name: 'Fakta om refusjon' }).closest('form');
+  const form = screen.getByRole('table').closest('form');
   if (!form) {
     throw new Error('Fant ikke refusjonsskjemaet');
   }
@@ -1312,4 +1311,13 @@ const renderOverstyring = (props: Partial<ComponentProps<typeof RefusjonskravFor
     refusjonsandeler,
     formData: props.formData ? { opprinneligeRefusjonsandeler: refusjonsandeler, ...props.formData } : undefined,
   });
+};
+
+const expectTidslinjePeriode = async (index: number, periode: string) => {
+  const tidslinjePeriode = getTidslinjePerioder()[index];
+  await userEvent.hover(tidslinjePeriode);
+  const tooltip = within(await screen.findByRole('dialog', {}, { timeout: 2000 }));
+  expect(tooltip.getByText(periode)).toBeInTheDocument();
+  await userEvent.unhover(tidslinjePeriode);
+  await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
 };

@@ -1,7 +1,7 @@
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Buildings3Icon, PersonPencilFillIcon } from '@navikt/aksel-icons';
-import { Box, Heading, HStack, Spacer, Timeline, VStack } from '@navikt/ds-react';
+import { Box, HStack, Spacer, Timeline, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { BeløpLabel, LabeledValue, PeriodLabel, useTidslinje } from '@navikt/ft-ui-komponenter';
@@ -26,17 +26,8 @@ export const Utbetaling = ({ refusjonsandeler, onSelectAndel }: Props) => {
   });
 
   return (
-    <Box
-      as="section"
-      aria-label={intl.formatMessage({ id: 'Utbetaling.Tittel' })}
-      background="neutral-soft"
-      paddingBlock="space-24"
-      paddingInline="space-20"
-    >
+    <Box as="section" background="neutral-soft" paddingBlock="space-24" paddingInline="space-20">
       <HStack>
-        <Heading size="xsmall" level="3">
-          <FormattedMessage id="Utbetaling.Tittel" />
-        </Heading>
         <Spacer />
         {controllerElement}
       </HStack>

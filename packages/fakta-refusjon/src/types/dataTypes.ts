@@ -1,7 +1,8 @@
 export type Saksdokument = {
   dokumentId: string;
   journalpostId: string;
-  tittel: string;
+  tidspunkt?: string;
+  tittel?: string;
 };
 
 export type FordelingGrunnlagDto = {
