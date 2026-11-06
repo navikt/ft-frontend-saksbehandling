@@ -6,7 +6,7 @@ import { Box, Button, ErrorMessage, HStack, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { RhfDatepicker, RhfSelect, RhfTextField } from '@navikt/ft-form-hooks';
-import { hasValidDate, hasValidDecimal, maxValueFormatted, minValue, required } from '@navikt/ft-form-validators';
+import { hasValidDate, hasValidInteger, maxValueFormatted, minValue, required } from '@navikt/ft-form-validators';
 import { notEmpty, periodFormat, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import type { UtfallÅrsak } from '../../../types/aksjonspunkt';
@@ -40,18 +40,23 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
       ),
   );
 
-  const fjernPeriode = (index: number) => {
-    const sortertePerioder = perioder
-      .map((periode, periodeIndex) => ({ ...periode, index: periodeIndex }))
+  const fjernPeriode = (periodeIndexSomSkalFjernes: number) => {
+    const perioderSortertEtterFom = perioder
+      .map((periode, skjemaIndex) => ({ ...periode, skjemaIndex }))
       .filter(periode => periode.fom && !hasValidDate(periode.fom))
       .toSorted(sortPeriodsByFom);
-    const siste = sortertePerioder.at(-1);
-    const forrige = sortertePerioder.at(-2);
-    const tom = siste?.tom || TIDENES_ENDE;
-    if (siste?.index === index && forrige && (tom === TIDENES_ENDE || !hasValidDate(tom)) && siste.fom <= tom) {
-      setValue(`${name}.${forrige.index}.tom`, tom, { shouldDirty: true });
+    const sistePeriode = perioderSortertEtterFom.at(-1);
+    const nestSistePeriode = perioderSortertEtterFom.at(-2);
+    const sistePeriodesSluttdato = sistePeriode?.tom || TIDENES_ENDE;
+    if (
+      sistePeriode?.skjemaIndex === periodeIndexSomSkalFjernes &&
+      nestSistePeriode &&
+      (sistePeriodesSluttdato === TIDENES_ENDE || !hasValidDate(sistePeriodesSluttdato)) &&
+      sistePeriode.fom <= sistePeriodesSluttdato
+    ) {
+      setValue(`${name}.${nestSistePeriode.skjemaIndex}.tom`, sistePeriodesSluttdato, { shouldDirty: true });
     }
-    remove(index);
+    remove(periodeIndexSomSkalFjernes);
   };
 
   return (
@@ -81,7 +86,7 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
               name={`${name}.${index}.refusjonPrMnd`}
               label={<FormattedMessage id="RefusjonskravForm.RefusjonsbeløpPrMnd" />}
               parse={value => value.toString().replaceAll(/\s/g, '').replace(',', '.')}
-              validate={[required, hasValidDecimal, minValue(0), maxValueFormatted(178956970)]}
+              validate={[required, hasValidInteger, minValue(0), maxValueFormatted(178956970)]}
               readOnly={readOnly}
             />
 

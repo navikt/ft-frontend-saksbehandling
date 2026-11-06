@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { Box, ErrorMessage, Heading, HStack, VStack } from '@navikt/ds-react';
 
 import { RhfForm, RhfTextarea, SubmitButton } from '@navikt/ft-form-hooks';
-import { hasValidDate, hasValidDecimal, maxLength, minLength, minValue, required } from '@navikt/ft-form-validators';
+import { hasValidDate, hasValidInteger, maxLength, minLength, minValue, required } from '@navikt/ft-form-validators';
 import { AssessedBy } from '@navikt/ft-plattform-komponenter';
 import type { ArbeidsgiverOpplysningerPerId } from '@navikt/ft-types';
 import { formaterArbeidsgiver, isEqual, notEmpty, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
@@ -230,7 +230,7 @@ const erGyldigeAndeler = (andeler: RefusjonsAndelFormValues[], opprinneligeAndel
       erGyldigOppdeling(utledRefusjonsperioder(andel.refusjonsperioder, original), original.refusjonsperioder) &&
       andel.refusjonsperioder.every(periode => {
         const beløp = periode.refusjonPrMnd ?? '';
-        return !required(beløp) && !hasValidDecimal(beløp) && !minValue(0)(beløp);
+        return !required(beløp) && !hasValidInteger(beløp) && !minValue(0)(beløp);
       })
     );
   }) && !harOverlapp(utledRefusjonskrav(andeler, opprinneligeAndeler));

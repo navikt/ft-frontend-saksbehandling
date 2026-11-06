@@ -814,7 +814,7 @@ describe('RefusjonskravForm', () => {
     ]);
   });
 
-  it('skiller tomt beløp fra null og sender desimalbeløp direkte fra hovedskjemaet', async () => {
+  it('skiller tomt beløp fra null og sender heltall direkte fra hovedskjemaet', async () => {
     const submitCallback = vi.fn().mockResolvedValue(undefined);
     renderOverstyring({ submitCallback });
     await userEvent.type(screen.getByRole('textbox', { name: 'Begrunnelse' }), 'Overstyrt');
@@ -828,14 +828,63 @@ describe('RefusjonskravForm', () => {
     await submitForm();
     expect(submitCallback).not.toHaveBeenCalled();
     await userEvent.click(screen.getByRole('button', { name: 'Vis mer' }));
-    await userEvent.type(beløp, '37 500,50');
-    expect(beløp).toHaveValue('37500.50');
+    await userEvent.type(beløp, '37 500');
+    expect(beløp).toHaveValue('37500');
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
     expect(submitCallback.mock.calls[0][0].refusjonskrav[0].perioder).toEqual([
-      expect.objectContaining({ refusjonsbeløpPrMnd: 37500.5 }),
+      expect.objectContaining({ refusjonsbeløpPrMnd: 37500 }),
     ]);
   });
+
+  it.each(['37 500,50', '37500.50'])('avviser desimalbeløp "%s"', async verdi => {
+    const submitCallback = vi.fn().mockResolvedValue(undefined);
+    renderOverstyring({ submitCallback });
+    await userEvent.type(screen.getByRole('textbox', { name: 'Begrunnelse' }), 'Overstyrt');
+    await userEvent.click(screen.getByRole('button', { name: 'Vis mer' }));
+    const beløp = within(getÅpentAndelInnhold('Brunostfabrikken AS')).getByRole('textbox', {
+      name: 'Refusjonsbeløp per måned',
+    });
+    await userEvent.clear(beløp);
+    await userEvent.type(beløp, verdi);
+
+    expect(await screen.findByText('Tallet kan ikke ha desimaler')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeDisabled();
+    await userEvent.click(screen.getByRole('button', { name: 'Vis mindre' }));
+    await submitForm();
+    expect(submitCallback).not.toHaveBeenCalled();
+  });
+
+  it.each([37500.5, '37500.50'])(
+    'blokkerer mellomlagrede desimalbeløp "%s" når raden er lukket',
+    async refusjonPrMnd => {
+      const submitCallback = vi.fn().mockResolvedValue(undefined);
+      const andel = {
+        ...refusjonsandelerForTreArbeidsgivere[0],
+        refusjonsperioder: [refusjonsandelerForTreArbeidsgivere[0].refusjonsperioder[0]],
+      };
+      renderOverstyring({
+        submitCallback,
+        refusjonsandeler: [andel],
+        formData: {
+          erOverstyring: true,
+          begrunnelse: 'Mellomlagret overstyring',
+          opprinneligeRefusjonsandeler: [andel],
+          refusjonsandeler: [
+            {
+              ...andel,
+              arbeidsgiverNavn: '',
+              refusjonsperioder: [{ ...andel.refusjonsperioder[0], refusjonPrMnd }],
+            },
+          ],
+        },
+      });
+
+      expect(screen.queryByRole('textbox', { name: 'Refusjonsbeløp per måned' })).not.toBeInTheDocument();
+      await submitForm();
+      expect(submitCallback).not.toHaveBeenCalled();
+    },
+  );
 
   it.each(['', 'ugyldig', '1e309'])(
     'utelater ikke-endelige beløp fra visningen og beholder faktisk null: "%s"',

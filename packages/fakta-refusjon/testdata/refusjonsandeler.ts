@@ -10,7 +10,7 @@ export const refusjonsandelerForTreArbeidsgivere: RefusjonsandelDto[] = [
         fom: '2025-01-01',
         tom: '2025-03-31',
         refusjonPrMnd: 42000,
-        utfall: undefined,
+        utfall: 'INNVILGET',
         utfallÅrsak: undefined,
       },
       {
@@ -44,7 +44,7 @@ export const refusjonsandelerForTreArbeidsgivere: RefusjonsandelDto[] = [
         fom: '2025-03-01',
         tom: '2025-03-31',
         refusjonPrMnd: 28000,
-        utfall: undefined,
+        utfall: 'INNVILGET',
         utfallÅrsak: undefined,
       },
     ],
