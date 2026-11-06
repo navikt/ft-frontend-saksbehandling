@@ -189,11 +189,12 @@ const buildInitialValues = (
   begrunnelse: aksjonspunkt.find(ap => ap.kode === 'OVERSTYR_REFUSJONSKRAV' && ap.status === 'UTFO')?.begrunnelse ?? '',
   refusjonsandeler: refusjonsandeler.map(andel => {
     const arbeidsgiverOpplysninger = arbeidsgiverOpplysningerPerId[andel.arbeidsgiverIdent];
+    const arbeidsforholdIdSuffiks = andel.arbeidsforholdId ? `...${andel.arbeidsforholdId.slice(-4)}` : '';
     return {
       ...andel,
       arbeidsgiverTittel: arbeidsgiverOpplysninger?.navn
         ? formaterArbeidsgiver(arbeidsgiverOpplysninger, andel.arbeidsforholdId)
-        : `${andel.arbeidsgiverIdent}${andel.arbeidsforholdId ? `...${andel.arbeidsforholdId.slice(-4)}` : ''}`,
+        : `${andel.arbeidsgiverIdent}${arbeidsforholdIdSuffiks}`,
       refusjonsperioder: andel.refusjonsperioder
         .toSorted(sortPeriodsByFom)
         .map(periode => ({ ...periode, tom: periode.tom || TIDENES_ENDE })),
