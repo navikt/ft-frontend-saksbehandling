@@ -192,8 +192,8 @@ const buildInitialValues = (
     return {
       ...andel,
       arbeidsgiverTittel: arbeidsgiverOpplysninger?.navn
-        ? formaterArbeidsgiver(arbeidsgiverOpplysninger, andel.arbeidsgiverId)
-        : `${andel.arbeidsgiverIdent}${andel.arbeidsgiverId ? `...${andel.arbeidsgiverId.slice(-4)}` : ''}`,
+        ? formaterArbeidsgiver(arbeidsgiverOpplysninger, andel.arbeidsforholdId)
+        : `${andel.arbeidsgiverIdent}${andel.arbeidsforholdId ? `...${andel.arbeidsforholdId.slice(-4)}` : ''}`,
       refusjonsperioder: andel.refusjonsperioder
         .toSorted(sortPeriodsByFom)
         .map(periode => ({ ...periode, tom: periode.tom || TIDENES_ENDE })),
@@ -233,12 +233,12 @@ const utledRefusjonskrav = (
       refusjonsbeløpPrMnd: rad.refusjonPrMnd,
       utfallÅrsak: rad.overstyringsÅrsak,
     }));
-    const arbeidsgiverNøkkel = andel.arbeidsgiverId || andel.arbeidsgiverIdent;
+    const arbeidsgiverNøkkel = andel.arbeidsforholdId || andel.arbeidsgiverIdent;
     const eksisterendeKrav = kravPerArbeidsgiver.get(arbeidsgiverNøkkel);
-    const arbeidsgiverId = andel.arbeidsgiverId || eksisterendeKrav?.arbeidsgiverId;
+    const arbeidsforholdId = andel.arbeidsforholdId || eksisterendeKrav?.arbeidsforholdId;
     kravPerArbeidsgiver.set(arbeidsgiverNøkkel, {
       arbeidsgiverIdent: andel.arbeidsgiverIdent,
-      ...(arbeidsgiverId ? { arbeidsgiverId } : {}),
+      ...(arbeidsforholdId ? { arbeidsforholdId } : {}),
       perioder: [...(eksisterendeKrav?.perioder ?? []), ...perioder],
     });
   }

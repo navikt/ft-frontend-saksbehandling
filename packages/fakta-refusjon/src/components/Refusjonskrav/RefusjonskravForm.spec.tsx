@@ -153,11 +153,11 @@ describe('RefusjonskravForm', () => {
   );
 
   it.each([
-    { arbeidsgiverId: undefined, forventetTittel: '1234567890123' },
-    { arbeidsgiverId: 'arbeidsgiver-1', forventetTittel: '1234567890123...er-1' },
+    { arbeidsforholdId: undefined, forventetTittel: '1234567890123' },
+    { arbeidsforholdId: 'arbeidsgiver-1', forventetTittel: '1234567890123...er-1' },
   ])(
     'bruker aktør-id som arbeidsgiverident med tittelen "$forventetTittel"',
-    async ({ arbeidsgiverId, forventetTittel }) => {
+    async ({ arbeidsforholdId, forventetTittel }) => {
       const submitCallback = vi.fn().mockResolvedValue(undefined);
       renderOverstyring({
         submitCallback,
@@ -165,7 +165,7 @@ describe('RefusjonskravForm', () => {
           {
             ...refusjonsandelerForTreArbeidsgivere[0],
             arbeidsgiverIdent: '1234567890123',
-            arbeidsgiverId,
+            arbeidsforholdId,
           },
         ],
       });
@@ -180,11 +180,11 @@ describe('RefusjonskravForm', () => {
     },
   );
 
-  it('beholder arbeidsgiverIdent til visning og sender mottatt arbeidsgiverId', async () => {
+  it('beholder arbeidsgiverIdent til visning og sender mottatt arbeidsforholdId', async () => {
     const submitCallback = vi.fn().mockResolvedValue(undefined);
     const andel = {
       ...refusjonsandelerForTreArbeidsgivere[0],
-      arbeidsgiverId: 'arbeidsgiver-1',
+      arbeidsforholdId: 'arbeidsgiver-1',
       refusjonsperioder: [refusjonsandelerForTreArbeidsgivere[0].refusjonsperioder[0]],
     };
     renderOverstyring({ submitCallback, refusjonsandeler: [andel] });
@@ -200,17 +200,17 @@ describe('RefusjonskravForm', () => {
     expect(submitCallback.mock.calls[0][0].refusjonskrav[0]).toEqual(
       expect.objectContaining({
         arbeidsgiverIdent: andel.arbeidsgiverIdent,
-        arbeidsgiverId: andel.arbeidsgiverId,
+        arbeidsforholdId: andel.arbeidsforholdId,
       }),
     );
   });
 
-  it('skiller krav med samme arbeidsgiverIdent og kilde, men ulike arbeidsgiverId', async () => {
+  it('skiller krav med samme arbeidsgiverIdent og kilde, men ulike arbeidsforholdId', async () => {
     const submitCallback = vi.fn().mockResolvedValue(undefined);
     const andel = refusjonsandelerForTreArbeidsgivere[0];
-    const refusjonsandeler = ['arbeidsgiver-1', 'arbeidsgiver-2'].map(arbeidsgiverId => ({
+    const refusjonsandeler = ['arbeidsgiver-1', 'arbeidsgiver-2'].map(arbeidsforholdId => ({
       ...andel,
-      arbeidsgiverId,
+      arbeidsforholdId,
       refusjonsperioder: [andel.refusjonsperioder[0]],
     }));
     renderOverstyring({ submitCallback, refusjonsandeler });
@@ -221,20 +221,20 @@ describe('RefusjonskravForm', () => {
 
     expect(submitCallback).toHaveBeenCalledTimes(1);
     expect(submitCallback.mock.calls[0][0].refusjonskrav).toEqual([
-      expect.objectContaining({ arbeidsgiverId: 'arbeidsgiver-1' }),
-      expect.objectContaining({ arbeidsgiverId: 'arbeidsgiver-2' }),
+      expect.objectContaining({ arbeidsforholdId: 'arbeidsgiver-1' }),
+      expect.objectContaining({ arbeidsforholdId: 'arbeidsgiver-2' }),
     ]);
   });
 
   it.each([
-    { arbeidsgiverIdent: '999999999', arbeidsgiverId: 'arbeidsgiver-2' },
-    { arbeidsgiverIdent: '888888888', arbeidsgiverId: 'arbeidsgiver-1' },
+    { arbeidsgiverIdent: '999999999', arbeidsforholdId: 'arbeidsgiver-2' },
+    { arbeidsgiverIdent: '888888888', arbeidsforholdId: 'arbeidsgiver-1' },
   ])(
-    'gjenbruker mellomlagrede beløp for riktig ident og ID: $arbeidsgiverIdent / $arbeidsgiverId',
+    'gjenbruker mellomlagrede beløp for riktig ident og ID: $arbeidsgiverIdent / $arbeidsforholdId',
     async andreArbeidsgiver => {
       const andel = refusjonsandelerForTreArbeidsgivere[0];
       const refusjonsandeler = [
-        { ...andel, arbeidsgiverId: 'arbeidsgiver-1', refusjonsperioder: [andel.refusjonsperioder[0]] },
+        { ...andel, arbeidsforholdId: 'arbeidsgiver-1', refusjonsperioder: [andel.refusjonsperioder[0]] },
         { ...andel, ...andreArbeidsgiver, refusjonsperioder: [andel.refusjonsperioder[0]] },
       ];
       renderOverstyring({
@@ -246,7 +246,7 @@ describe('RefusjonskravForm', () => {
             ...original,
             arbeidsgiverTittel: formaterArbeidsgiver(
               arbeidsgiverOpplysningerPerId[original.arbeidsgiverIdent],
-              original.arbeidsgiverId,
+              original.arbeidsforholdId,
             ),
             refusjonsperioder: [{ ...original.refusjonsperioder[0], refusjonPrMnd: index === 0 ? 45000 : 46000 }],
           })),
@@ -297,7 +297,7 @@ describe('RefusjonskravForm', () => {
 
   it('samler ikke-overlappende andeler til ett sortert krav per arbeidsgiver', async () => {
     const submitCallback = vi.fn().mockResolvedValue(undefined);
-    const andel = { ...refusjonsandelerForTreArbeidsgivere[0], arbeidsgiverId: 'arbeidsgiver-1' };
+    const andel = { ...refusjonsandelerForTreArbeidsgivere[0], arbeidsforholdId: 'arbeidsgiver-1' };
     renderOverstyring({
       submitCallback,
       refusjonsandeler: [
@@ -318,7 +318,7 @@ describe('RefusjonskravForm', () => {
     expect(submitCallback.mock.calls[0][0].refusjonskrav).toEqual([
       {
         arbeidsgiverIdent: andel.arbeidsgiverIdent,
-        arbeidsgiverId: andel.arbeidsgiverId,
+        arbeidsforholdId: andel.arbeidsforholdId,
         perioder: [
           expect.objectContaining({ fom: '2025-01-01', tom: '2025-01-31', refusjonsbeløpPrMnd: 42000 }),
           expect.objectContaining({ fom: '2025-02-01', tom: '2025-02-28', refusjonsbeløpPrMnd: 10000 }),

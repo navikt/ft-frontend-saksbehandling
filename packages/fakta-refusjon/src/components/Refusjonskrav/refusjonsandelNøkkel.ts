@@ -2,6 +2,6 @@ import type { RefusjonsandelDto } from '../../types/dataTypes';
 
 export const refusjonsandelNøkkel = ({
   arbeidsgiverIdent,
-  arbeidsgiverId,
+  arbeidsforholdId,
   kilde,
-}: Omit<RefusjonsandelDto, 'refusjonsperioder'>) => JSON.stringify([arbeidsgiverIdent, arbeidsgiverId, kilde]);
+}: Omit<RefusjonsandelDto, 'refusjonsperioder'>) => JSON.stringify([arbeidsgiverIdent, arbeidsforholdId, kilde]);
