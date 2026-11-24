@@ -67,6 +67,11 @@ export const RegisterinntekterGraf = ({
             },
             yAxis: {
               type: 'value',
+              splitLine: {
+                lineStyle: {
+                  color: styles.getPropertyValue('--ax-border-neutral-subtle').trim(),
+                },
+              },
               axisLabel: {
                 ...axisLabelStyle,
                 formatter: value => formatCurrencyNoKr(value) || '',
