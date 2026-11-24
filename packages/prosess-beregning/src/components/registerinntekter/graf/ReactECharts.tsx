@@ -59,10 +59,9 @@ export const ReactECharts = ({ option, style, onLegendSelectChanged }: Props) =>
     };
     updateChart();
 
+    const themeElement = element.closest('.light, .dark') ?? document.documentElement;
     const observer = new MutationObserver(updateChart);
-    for (let ancestor = element.parentElement; ancestor; ancestor = ancestor.parentElement) {
-      observer.observe(ancestor, { attributes: true, attributeFilter: ['class', 'style', 'data-color'] });
-    }
+    observer.observe(themeElement, { attributes: true, attributeFilter: ['class'] });
 
     return () => observer.disconnect();
   }, [option]);
