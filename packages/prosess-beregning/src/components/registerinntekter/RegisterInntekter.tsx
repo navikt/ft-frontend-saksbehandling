@@ -56,7 +56,6 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
       <FormattedMessage id="Registerinntekt.Vis8-28" />
     </Checkbox>
   );
-  const tabell = <RegisterinntekterTabell transformerteRegisterinntekter={transformerteRegisterinntekter} />;
 
   return (
     <FaktaBoks
@@ -85,7 +84,9 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
             onLegendefiltreringEndret={setValgteInntektskilder}
           />
         )}
-        {valgtVisning === 'tabell' && tabell}
+        {valgtVisning === 'tabell' && (
+          <RegisterinntekterTabell transformerteRegisterinntekter={transformerteRegisterinntekter} />
+        )}
       </VStack>
       {visModal && (
         <Modal
@@ -112,7 +113,10 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
               )}
               {valgtVisning === 'tabell' && (
                 <Box width="fit-content" maxWidth="100%" overflowX="auto">
-                  {tabell}
+                  <RegisterinntekterTabell
+                    transformerteRegisterinntekter={transformerteRegisterinntekter}
+                    size="medium"
+                  />
                 </Box>
               )}
             </VStack>

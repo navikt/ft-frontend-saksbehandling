@@ -10,24 +10,26 @@ import styles from './registerinntekterTabell.module.css';
 
 interface Props {
   transformerteRegisterinntekter: TransformertRegisterinntekter;
+  size?: 'small' | 'medium';
 }
 export const RegisterinntekterTabell = ({
   transformerteRegisterinntekter: { kilder, grunnlag_8_30, grunnlag_8_28, tabellData, vis_8_28 },
+  size = 'small',
 }: Props) => (
-  <Table size="small" className={styles.table}>
+  <Table size={size} className={styles.table}>
     <Table.Header>
       <Table.Row>
-        <Table.HeaderCell scope="col" textSize="small">
+        <Table.HeaderCell scope="col" textSize={size}>
           <FormattedMessage id="RegisterinntektTabell.Måned" />
         </Table.HeaderCell>
-        <Table.HeaderCell scope="col" textSize="small">
+        <Table.HeaderCell scope="col" textSize={size}>
           <FormattedMessage id="RegisterinntektTabell.Inntektskilde" />
         </Table.HeaderCell>
-        <Table.HeaderCell scope="col" textSize="small" align="right">
+        <Table.HeaderCell scope="col" textSize={size} align="right">
           {formaterParagraf('8-30')}
         </Table.HeaderCell>
         {vis_8_28 && (
-          <Table.HeaderCell scope="col" textSize="small" align="right">
+          <Table.HeaderCell scope="col" textSize={size} align="right">
             {formaterParagraf('8-28')}
           </Table.HeaderCell>
         )}
@@ -38,16 +40,16 @@ export const RegisterinntekterTabell = ({
         {(kilderForRad.length > 0 ? kilderForRad : [undefined]).map((kilde, index) => (
           <Table.Row key={kilde ?? `${formatertPeriode}-tom-rad`} shadeOnHover={false}>
             {index === 0 && (
-              <Table.HeaderCell scope="rowgroup" rowSpan={Math.max(kilderForRad.length, 1)} textSize="small">
+              <Table.HeaderCell scope="rowgroup" rowSpan={Math.max(kilderForRad.length, 1)} textSize={size}>
                 {formatertPeriode}
               </Table.HeaderCell>
             )}
-            <Table.DataCell textSize="small">{kilde}</Table.DataCell>
-            <Table.DataCell align="right" textSize="small">
+            <Table.DataCell textSize={size}>{kilde}</Table.DataCell>
+            <Table.DataCell align="right" textSize={size}>
               {kilde && <BeløpLabel beløp={månedinntekt_8_30[kilde]?.beløp} kr />}
             </Table.DataCell>
             {vis_8_28 && (
-              <Table.DataCell align="right" textSize="small">
+              <Table.DataCell align="right" textSize={size}>
                 {kilde && Object.values(månedinntekt_8_28).length > 0 && (
                   <BeløpLabel beløp={månedinntekt_8_28[kilde]?.beløp} kr />
                 )}
@@ -61,29 +63,29 @@ export const RegisterinntekterTabell = ({
       {kilder.length > 1 &&
         kilder.map((kilde, index) => (
           <Table.Row key={kilde.label}>
-            <Table.HeaderCell scope="row" textSize="small">
+            <Table.HeaderCell scope="row" textSize={size}>
               {index === 0 && <FormattedMessage id="Tabell.Subtotal" />}
             </Table.HeaderCell>
-            <Table.DataCell textSize="small">{kilde.label}</Table.DataCell>
-            <Table.DataCell align="right" textSize="small">
+            <Table.DataCell textSize={size}>{kilde.label}</Table.DataCell>
+            <Table.DataCell align="right" textSize={size}>
               <BeløpLabel beløp={grunnlag_8_30.subtotal.get(kilde.label)} kr />
             </Table.DataCell>
             {vis_8_28 && (
-              <Table.DataCell align="right" textSize="small">
+              <Table.DataCell align="right" textSize={size}>
                 <BeløpLabel beløp={grunnlag_8_28.subtotal.get(kilde.label)} kr />
               </Table.DataCell>
             )}
           </Table.Row>
         ))}
       <Table.Row>
-        <Table.HeaderCell scope="row" colSpan={2} textSize="small">
+        <Table.HeaderCell scope="row" colSpan={2} textSize={size}>
           <FormattedMessage id="Tabell.Total" />
         </Table.HeaderCell>
-        <Table.HeaderCell scope="row" align="right" textSize="small">
+        <Table.HeaderCell scope="row" align="right" textSize={size}>
           <BeløpLabel beløp={grunnlag_8_30.total} kr />
         </Table.HeaderCell>
         {vis_8_28 && (
-          <Table.HeaderCell scope="row" align="right" textSize="small">
+          <Table.HeaderCell scope="row" align="right" textSize={size}>
             <BeløpLabel beløp={grunnlag_8_28.total} kr />
           </Table.HeaderCell>
         )}
