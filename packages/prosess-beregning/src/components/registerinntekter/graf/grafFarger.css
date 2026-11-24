@@ -1,5 +1,5 @@
-:global(:root),
-:global(.light) {
+:root,
+.light {
   --ft-graf-arbeid-1-bakgrunn: #cce1ff;
   --ft-graf-arbeid-1-kant: #3386e0;
   --ft-graf-arbeid-2-bakgrunn: #99c4dd;
@@ -18,7 +18,7 @@
   --ft-graf-ytelse-kant: #2aa758;
 }
 
-:global(.dark) {
+.dark {
   --ft-graf-arbeid-1-bakgrunn: #24508f;
   --ft-graf-arbeid-1-kant: #8ab9ff;
   --ft-graf-arbeid-2-bakgrunn: #3b73c9;

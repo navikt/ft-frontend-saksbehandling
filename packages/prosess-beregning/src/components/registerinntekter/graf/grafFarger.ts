@@ -1,7 +1,7 @@
 import type { InntektsgrunnlagInntekt } from '@navikt/ft-types';
 import { assertUnreachable } from '@navikt/ft-utils';
 
-import './grafFarger.module.css';
+import './grafFarger.css';
 
 type ColorPair = [string, string];
 

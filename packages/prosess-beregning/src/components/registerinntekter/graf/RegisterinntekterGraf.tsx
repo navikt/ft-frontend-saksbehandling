@@ -33,6 +33,7 @@ export const RegisterinntekterGraf = ({
             color: styles.getPropertyValue('--ax-text-neutral').trim(),
             fontSize,
           };
+          const axisLabelStyle = { ...textStyle, textBorderWidth: 0 };
           return {
             textStyle,
             animation: false,
@@ -59,17 +60,15 @@ export const RegisterinntekterGraf = ({
             xAxis: {
               type: 'category',
               axisLabel: {
-                ...textStyle,
+                ...axisLabelStyle,
                 rotate: 45,
-                textBorderWidth: 0,
               },
               data: periodeData,
             },
             yAxis: {
               type: 'value',
               axisLabel: {
-                ...textStyle,
-                textBorderWidth: 0,
+                ...axisLabelStyle,
                 formatter: value => formatCurrencyNoKr(value) || '',
               },
             },
