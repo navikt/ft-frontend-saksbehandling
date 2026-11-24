@@ -10,6 +10,7 @@ import { FaktaRefusjonIndex } from './FaktaRefusjonIndex';
 import type { AksjonspunktRefusjon, OverstyrRefusjonskravSubmitType } from './types/aksjonspunkt';
 
 import '@navikt/ft-plattform-komponenter/dist/style.css';
+import '@navikt/ft-ui-komponenter/dist/style.css';
 
 const refusjonsandelerMedÅpenSlutt = refusjonsandelerForTreArbeidsgivere.map(andel => ({
   ...andel,
