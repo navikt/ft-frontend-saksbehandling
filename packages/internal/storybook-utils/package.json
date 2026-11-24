@@ -7,7 +7,7 @@
   "scripts": {
     "eslint": "eslint {decorators,mocks}/**/*.ts* index.ts --color",
     "eslint:fix": "eslint --fix {decorators,mocks}/**/*.ts* index.ts --color",
-    "prettier:fix": "prettier --write decorators mocks index.ts",
+    "prettier:fix": "prettier --write {decorators,mocks}/**/*.ts* index.ts",
     "tsc": "tsc --pretty",
     "clean": "rm -rf ./dist ./node_modules"
   },
