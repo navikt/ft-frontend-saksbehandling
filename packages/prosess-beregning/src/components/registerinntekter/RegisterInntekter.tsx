@@ -112,10 +112,10 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
                 />
               )}
               {valgtVisning === 'tabell' && (
-                <Box width="fit-content" maxWidth="100%" overflowX="auto">
+                <Box maxWidth="100%" overflowX="auto">
                   <RegisterinntekterTabell
                     transformerteRegisterinntekter={transformerteRegisterinntekter}
-                    size="medium"
+                    textSize="medium"
                   />
                 </Box>
               )}
