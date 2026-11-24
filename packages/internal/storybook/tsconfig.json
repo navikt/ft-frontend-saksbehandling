@@ -1,0 +1,7 @@
+{
+  "extends": "@navikt/ft-config-typescript",
+  "compilerOptions": {
+    "types": ["node", "vite/client"]
+  },
+  "include": [".storybook/**/*"]
+}

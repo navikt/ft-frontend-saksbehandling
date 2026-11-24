@@ -1525,15 +1525,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-config-vite@workspace:packages/internal/config-vite"
   dependencies:
+    "@navikt/ds-css": "npm:8.23.0"
     "@vitejs/plugin-react": "npm:6.3.0"
     "@vitest/browser-playwright": "npm:5.1.0"
+    dayjs: "npm:1.11.23"
     playwright: "npm:1.65.1"
     vite: "npm:8.3.8"
     vitest: "npm:5.1.0"
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-fakta-beregning@workspace:packages/fakta-beregning":
+"@navikt/ft-fakta-beregning@workspace:^, @navikt/ft-fakta-beregning@workspace:packages/fakta-beregning":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-beregning@workspace:packages/fakta-beregning"
   dependencies:
@@ -1583,7 +1585,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-fakta-fordel-beregningsgrunnlag@workspace:packages/fakta-fordel-beregningsgrunnlag":
+"@navikt/ft-fakta-fordel-beregningsgrunnlag@workspace:^, @navikt/ft-fakta-fordel-beregningsgrunnlag@workspace:packages/fakta-fordel-beregningsgrunnlag":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-fordel-beregningsgrunnlag@workspace:packages/fakta-fordel-beregningsgrunnlag"
   dependencies:
@@ -1633,7 +1635,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-fakta-refusjon@workspace:packages/fakta-refusjon":
+"@navikt/ft-fakta-refusjon@workspace:^, @navikt/ft-fakta-refusjon@workspace:packages/fakta-refusjon":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-refusjon@workspace:packages/fakta-refusjon"
   dependencies:
@@ -1678,7 +1680,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-fakta-tilbakekreving-feilutbetaling@workspace:packages/fakta-tilbakekreving-feilutbetaling":
+"@navikt/ft-fakta-tilbakekreving-feilutbetaling@workspace:^, @navikt/ft-fakta-tilbakekreving-feilutbetaling@workspace:packages/fakta-tilbakekreving-feilutbetaling":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-fakta-tilbakekreving-feilutbetaling@workspace:packages/fakta-tilbakekreving-feilutbetaling"
   dependencies:
@@ -1785,15 +1787,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@navikt/ft-frontend-storybook-utils@workspace:packages/internal/storybook-utils"
   dependencies:
-    "@navikt/ds-react": "npm:8.23.0"
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-config-typescript": "workspace:^"
-    "@navikt/ft-form-hooks": "workspace:^"
     "@types/react": "npm:19.3.0"
     eslint: "npm:10.15.0"
     react: "npm:19.3.1"
-    react-dom: "npm:19.3.1"
-    react-hook-form: "npm:7.92.0"
     react-intl: "npm:12.1.7"
     typescript: "npm:6.0.3"
   languageName: unknown
@@ -1880,7 +1878,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-prosess-beregning@workspace:packages/prosess-beregning":
+"@navikt/ft-prosess-beregning@workspace:^, @navikt/ft-prosess-beregning@workspace:packages/prosess-beregning":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-beregning@workspace:packages/prosess-beregning"
   dependencies:
@@ -1930,7 +1928,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-prosess-beregningsgrunnlag@workspace:packages/prosess-beregningsgrunnlag":
+"@navikt/ft-prosess-beregningsgrunnlag@workspace:^, @navikt/ft-prosess-beregningsgrunnlag@workspace:packages/prosess-beregningsgrunnlag":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-beregningsgrunnlag@workspace:packages/prosess-beregningsgrunnlag"
   dependencies:
@@ -1980,7 +1978,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-prosess-tilbakekreving-foreldelse@workspace:packages/prosess-tilbakekreving-foreldelse":
+"@navikt/ft-prosess-tilbakekreving-foreldelse@workspace:^, @navikt/ft-prosess-tilbakekreving-foreldelse@workspace:packages/prosess-tilbakekreving-foreldelse":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-tilbakekreving-foreldelse@workspace:packages/prosess-tilbakekreving-foreldelse"
   dependencies:
@@ -2026,7 +2024,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-prosess-tilbakekreving-vedtak@workspace:packages/prosess-tilbakekreving-vedtak":
+"@navikt/ft-prosess-tilbakekreving-vedtak@workspace:^, @navikt/ft-prosess-tilbakekreving-vedtak@workspace:packages/prosess-tilbakekreving-vedtak":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-tilbakekreving-vedtak@workspace:packages/prosess-tilbakekreving-vedtak"
   dependencies:
@@ -2072,7 +2070,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@navikt/ft-prosess-tilbakekreving@workspace:packages/prosess-tilbakekreving":
+"@navikt/ft-prosess-tilbakekreving@workspace:^, @navikt/ft-prosess-tilbakekreving@workspace:packages/prosess-tilbakekreving":
   version: 0.0.0-use.local
   resolution: "@navikt/ft-prosess-tilbakekreving@workspace:packages/prosess-tilbakekreving"
   dependencies:
@@ -2116,6 +2114,43 @@ __metadata:
     react-dom: 19.x
     react-hook-form: 7.x
     react-intl: 12.x
+  languageName: unknown
+  linkType: soft
+
+"@navikt/ft-storybook@workspace:packages/internal/storybook":
+  version: 0.0.0-use.local
+  resolution: "@navikt/ft-storybook@workspace:packages/internal/storybook"
+  dependencies:
+    "@navikt/ds-css": "npm:8.23.0"
+    "@navikt/ds-react": "npm:8.23.0"
+    "@navikt/ft-config-eslint": "workspace:^"
+    "@navikt/ft-config-typescript": "workspace:^"
+    "@navikt/ft-fakta-beregning": "workspace:^"
+    "@navikt/ft-fakta-fordel-beregningsgrunnlag": "workspace:^"
+    "@navikt/ft-fakta-refusjon": "workspace:^"
+    "@navikt/ft-fakta-tilbakekreving-feilutbetaling": "workspace:^"
+    "@navikt/ft-form-hooks": "workspace:^"
+    "@navikt/ft-plattform-komponenter": "workspace:^"
+    "@navikt/ft-prosess-beregning": "workspace:^"
+    "@navikt/ft-prosess-beregningsgrunnlag": "workspace:^"
+    "@navikt/ft-prosess-tilbakekreving": "workspace:^"
+    "@navikt/ft-prosess-tilbakekreving-foreldelse": "workspace:^"
+    "@navikt/ft-prosess-tilbakekreving-vedtak": "workspace:^"
+    "@navikt/ft-ui-komponenter": "workspace:^"
+    "@storybook/addon-a11y": "npm:10.6.7"
+    "@storybook/addon-docs": "npm:10.6.7"
+    "@storybook/addon-links": "npm:10.6.7"
+    "@storybook/react-vite": "npm:10.6.7"
+    "@types/node": "npm:26.6.6"
+    "@types/react": "npm:19.3.0"
+    dayjs: "npm:1.11.23"
+    eslint: "npm:10.15.0"
+    prettier: "npm:3.10.1"
+    react: "npm:19.3.1"
+    react-dom: "npm:19.3.1"
+    storybook: "npm:10.6.7"
+    typescript: "npm:6.0.3"
+    vite: "npm:8.3.8"
   languageName: unknown
   linkType: soft
 
@@ -6358,19 +6393,14 @@ __metadata:
   resolution: "ft-frontend-saksbehandling@workspace:."
   dependencies:
     "@navikt/aksel-stylelint": "npm:8.23.0"
-    "@navikt/ds-css": "npm:8.23.0"
     "@navikt/ft-config-eslint": "workspace:^"
     "@navikt/ft-frontend-storybook-utils": "workspace:^"
-    "@storybook/addon-a11y": "npm:10.6.7"
-    "@storybook/addon-docs": "npm:10.6.7"
-    "@storybook/addon-links": "npm:10.6.7"
     "@storybook/react-vite": "npm:10.6.7"
     "@testing-library/dom": "npm:10.4.2"
     "@testing-library/jest-dom": "npm:7.0.1"
     "@types/node": "npm:26.6.6"
     "@types/react": "npm:19.3.0"
     "@types/react-dom": "npm:19.3.0"
-    dayjs: "npm:1.11.23"
     eslint: "npm:10.15.0"
     husky: "npm:9.1.7"
     jsdom: "npm:31.0.1"

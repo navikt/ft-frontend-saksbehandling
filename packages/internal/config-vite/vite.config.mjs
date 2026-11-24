@@ -11,7 +11,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export const externalizePeerDependencies = (peerDependencies, bundledDependencies = [], externalPatterns = []) => {
-  const externalDependencies = Object.keys(peerDependencies).filter(dependency => !bundledDependencies.includes(dependency));
+  const externalDependencies = Object.keys(peerDependencies).filter(
+    dependency => !bundledDependencies.includes(dependency),
+  );
   return id =>
     externalDependencies.some(dependency => id === dependency || id.startsWith(`${dependency}/`)) ||
     externalPatterns.some(pattern => pattern.test(id));
@@ -36,7 +38,7 @@ const vitestConfig = defineVitestConfig(() => {
           extends: true,
           test: {
             setupFiles: [
-              path.resolve(__dirname, 'vitest-setup.ts'),
+              path.resolve(__dirname, 'vitest.setup.ts'),
               'vitest-canvas-mock',
               path.resolve(__dirname, 'vitest-canvas-setup.ts'),
             ],
@@ -50,7 +52,7 @@ const vitestConfig = defineVitestConfig(() => {
           extends: true,
           test: {
             name: 'browser',
-            setupFiles: [path.resolve(__dirname, 'vitest-setup.ts')],
+            setupFiles: [path.resolve(__dirname, 'vitest.setup.ts')],
             browser: {
               enabled: true,
               provider: playwright({

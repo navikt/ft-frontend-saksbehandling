@@ -1,0 +1,55 @@
+{
+  "name": "@navikt/ft-storybook",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev --quiet -p 7001",
+    "build:storybook": "storybook build --output-dir ../../../.storybook-static-build",
+    "eslint": "eslint .storybook --color",
+    "eslint:fix": "eslint .storybook --fix --color",
+    "prettier:fix": "prettier --write .storybook package.json tsconfig.json eslint.config.mjs",
+    "tsc": "tsc --pretty"
+  },
+  "devDependencies": {
+    "@navikt/ds-css": "8.23.0",
+    "@navikt/ds-react": "8.23.0",
+    "@navikt/ft-config-eslint": "workspace:^",
+    "@navikt/ft-config-typescript": "workspace:^",
+    "@navikt/ft-fakta-beregning": "workspace:^",
+    "@navikt/ft-fakta-fordel-beregningsgrunnlag": "workspace:^",
+    "@navikt/ft-fakta-refusjon": "workspace:^",
+    "@navikt/ft-fakta-tilbakekreving-feilutbetaling": "workspace:^",
+    "@navikt/ft-form-hooks": "workspace:^",
+    "@navikt/ft-plattform-komponenter": "workspace:^",
+    "@navikt/ft-prosess-beregning": "workspace:^",
+    "@navikt/ft-prosess-beregningsgrunnlag": "workspace:^",
+    "@navikt/ft-prosess-tilbakekreving": "workspace:^",
+    "@navikt/ft-prosess-tilbakekreving-foreldelse": "workspace:^",
+    "@navikt/ft-prosess-tilbakekreving-vedtak": "workspace:^",
+    "@navikt/ft-ui-komponenter": "workspace:^",
+    "@storybook/addon-a11y": "10.6.7",
+    "@storybook/addon-docs": "10.6.7",
+    "@storybook/addon-links": "10.6.7",
+    "@storybook/react-vite": "10.6.7",
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "dayjs": "1.11.23",
+    "eslint": "10.15.0",
+    "prettier": "3.10.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "storybook": "10.6.7",
+    "typescript": "6.0.3",
+    "vite": "8.3.8"
+  },
+  "nx": {
+    "targets": {
+      "tsc": {
+        "dependsOn": [
+          "^build"
+        ]
+      }
+    }
+  }
+}

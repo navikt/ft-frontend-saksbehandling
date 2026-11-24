@@ -4,14 +4,6 @@
     "noEmit": true,
     "skipLibCheck": true
   },
-  "include": [
-    "packages/**/*",
-    "@types/**/*"
-  ],
-  "exclude": [
-    "**/node_modules",
-    "**/dist",
-    "packages/*/src/formatjs.d.ts"
-  ]
+  "include": ["packages/**/*", "@types/**/*"],
+  "exclude": ["**/node_modules", "**/dist", "packages/*/src/formatjs.d.ts"]
 }
-
