@@ -24,71 +24,74 @@ export const RegisterinntekterGraf = ({
   erUtvidet = false,
 }: Props) => {
   const fontSize = erUtvidet ? 16 : 12;
-  const textStyle = {
-    fontFamily: getAkselVariable('--ax-font-family'),
-    color: getAkselVariable('--ax-text-neutral'),
-    fontSize,
-  };
-
   return (
     <>
       <ReactECharts
-        option={{
-          textStyle,
-          animation: false,
-          labelLayout: {
-            hideOverlap: true,
-          },
-          legend: {
-            type: 'scroll',
-            top: 'top',
-            selected: valgteInntektskilder,
+        option={styles => {
+          const textStyle = {
+            fontFamily: styles.getPropertyValue('--ax-font-family').trim(),
+            color: styles.getPropertyValue('--ax-text-neutral').trim(),
+            fontSize,
+          };
+          return {
             textStyle,
-          },
-          aria: {
-            enabled: true,
-            decal: { show: true },
-          },
-          grid: {
-            top: '10%',
-            left: '0%',
-            bottom: '0%',
-            right: '0%',
-            containLabel: true,
-          },
-          xAxis: {
-            type: 'category',
-            axisLabel: {
-              rotate: 45,
-              fontSize,
+            animation: false,
+            labelLayout: {
+              hideOverlap: true,
             },
-            data: periodeData,
-          },
-          yAxis: {
-            type: 'value',
-            axisLabel: {
-              fontSize,
-              formatter: value => formatCurrencyNoKr(value) || '',
+            legend: {
+              type: 'scroll',
+              top: 'top',
+              selected: valgteInntektskilder,
+              textStyle,
             },
-          },
-          tooltip: {
-            axisPointer: { type: 'shadow' },
-            trigger: 'axis',
-            appendTo: erUtvidet ? undefined : 'body',
-            confine: erUtvidet,
-            textStyle: { ...textStyle, fontSize: erUtvidet ? 20 : 18 },
-            backgroundColor: getAkselVariable('--ax-bg-raised'),
-            borderColor: getAkselVariable('--ax-border-neutral-subtleA'),
-            borderRadius: 12,
-            borderWidth: 1,
-            formatter: formatTooltip(vis_8_28),
-          },
-          series: [
-            grunnlag_8_30.inntektskilder.flatMap(createBar(true, erUtvidet)),
-            grunnlag_8_28.inntektskilder.flatMap(createBar(vis_8_28, erUtvidet)),
-            createStackLabel(grunnlag_8_30.inntektskilder, vis_8_28, erUtvidet),
-            createStackLabel(grunnlag_8_28.inntektskilder, vis_8_28, erUtvidet),
-          ].flat(),
+            aria: {
+              enabled: true,
+              decal: { show: true },
+            },
+            grid: {
+              top: '10%',
+              left: '0%',
+              bottom: '0%',
+              right: '0%',
+              containLabel: true,
+            },
+            xAxis: {
+              type: 'category',
+              axisLabel: {
+                ...textStyle,
+                rotate: 45,
+                textBorderWidth: 0,
+              },
+              data: periodeData,
+            },
+            yAxis: {
+              type: 'value',
+              axisLabel: {
+                ...textStyle,
+                textBorderWidth: 0,
+                formatter: value => formatCurrencyNoKr(value) || '',
+              },
+            },
+            tooltip: {
+              axisPointer: { type: 'shadow' },
+              trigger: 'axis',
+              appendTo: erUtvidet ? undefined : 'body',
+              confine: erUtvidet,
+              textStyle: { ...textStyle, fontSize: erUtvidet ? 20 : 18 },
+              backgroundColor: styles.getPropertyValue('--ax-bg-raised').trim(),
+              borderColor: styles.getPropertyValue('--ax-border-neutral-subtleA').trim(),
+              borderRadius: 12,
+              borderWidth: 1,
+              formatter: formatTooltip(vis_8_28),
+            },
+            series: [
+              grunnlag_8_30.inntektskilder.flatMap(createBar(styles, true, erUtvidet)),
+              grunnlag_8_28.inntektskilder.flatMap(createBar(styles, vis_8_28, erUtvidet)),
+              createStackLabel(grunnlag_8_30.inntektskilder, textStyle.color, vis_8_28, erUtvidet),
+              createStackLabel(grunnlag_8_28.inntektskilder, textStyle.color, vis_8_28, erUtvidet),
+            ].flat(),
+          };
         }}
         onLegendSelectChanged={onLegendefiltreringEndret}
         style={{ width: '100%', height: erUtvidet ? 'min(65vh, 700px)' : '300px' }}
@@ -121,6 +124,3 @@ export const RegisterinntekterGraf = ({
     </>
   );
 };
-
-const getAkselVariable = (akselVariable: string) =>
-  getComputedStyle(document.documentElement).getPropertyValue(akselVariable);

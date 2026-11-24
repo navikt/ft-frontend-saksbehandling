@@ -1,0 +1,38 @@
+:global(:root),
+:global(.light) {
+  --ft-graf-arbeid-1-bakgrunn: #cce1ff;
+  --ft-graf-arbeid-1-kant: #3386e0;
+  --ft-graf-arbeid-2-bakgrunn: #99c4dd;
+  --ft-graf-arbeid-2-kant: #3386e0;
+  --ft-graf-arbeid-3-bakgrunn: #a9c5ff;
+  --ft-graf-arbeid-3-kant: #244fa8;
+  --ft-graf-arbeid-4-bakgrunn: #f0f6ff;
+  --ft-graf-arbeid-4-kant: #2f6fdb;
+  --ft-graf-arbeid-5-bakgrunn: #3386e0;
+  --ft-graf-arbeid-5-kant: #005b82;
+  --ft-graf-arbeid-6-bakgrunn: #3d6fd6;
+  --ft-graf-arbeid-6-kant: #172e63;
+  --ft-graf-frilans-bakgrunn: #c0b2d2;
+  --ft-graf-frilans-kant: #8269a2;
+  --ft-graf-ytelse-bakgrunn: #99dead;
+  --ft-graf-ytelse-kant: #2aa758;
+}
+
+:global(.dark) {
+  --ft-graf-arbeid-1-bakgrunn: #24508f;
+  --ft-graf-arbeid-1-kant: #8ab9ff;
+  --ft-graf-arbeid-2-bakgrunn: #3b73c9;
+  --ft-graf-arbeid-2-kant: #a5ccff;
+  --ft-graf-arbeid-3-bakgrunn: #070f1f;
+  --ft-graf-arbeid-3-kant: #4d86e6;
+  --ft-graf-arbeid-4-bakgrunn: #183363;
+  --ft-graf-arbeid-4-kant: #73a8ff;
+  --ft-graf-arbeid-5-bakgrunn: #6fa4ff;
+  --ft-graf-arbeid-5-kant: #d6e4ff;
+  --ft-graf-arbeid-6-bakgrunn: #0e1f3d;
+  --ft-graf-arbeid-6-kant: #5f96f0;
+  --ft-graf-frilans-bakgrunn: #2a2236;
+  --ft-graf-frilans-kant: #b7a6d9;
+  --ft-graf-ytelse-bakgrunn: #0f2e1f;
+  --ft-graf-ytelse-kant: #6fe3a3;
+}
