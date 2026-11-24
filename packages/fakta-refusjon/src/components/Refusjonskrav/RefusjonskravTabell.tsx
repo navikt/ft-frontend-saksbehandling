@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { ArrowForwardIcon } from '@navikt/aksel-icons';
 import { Button, Table, Tag } from '@navikt/ds-react';
 
-import { BeløpLabel, DateLabel, PeriodLabel } from '@navikt/ft-ui-komponenter';
+import { BeløpLabel, DateLabel, NoWrap, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
 import type { Saksdokument } from '../../types/dataTypes';
 import type { RefusjonsAndelTilVisning } from './formValues';
@@ -72,7 +72,9 @@ export const RefusjonskravTabell = ({
             <Table.DataCell>
               {refusjonsperioder.map(krav => (
                 <div key={`${krav.fom}-${krav.tom}`}>
-                  <PeriodLabel dateStringFom={krav.fom} dateStringTom={krav.tom} />
+                  <NoWrap>
+                    <PeriodLabel dateStringFom={krav.fom} dateStringTom={krav.tom} />
+                  </NoWrap>
                 </div>
               ))}
             </Table.DataCell>
