@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BarChartIcon, ExpandIcon, TableIcon } from '@navikt/aksel-icons';
-import { Box, Button, Checkbox, HStack, Modal, Spacer, ToggleGroup, VStack } from '@navikt/ds-react';
+import { Button, Checkbox, HStack, Modal, Spacer, ToggleGroup, VStack } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Inntektsgrunnlag } from '@navikt/ft-types';
 import { FaktaBoks } from '@navikt/ft-ui-komponenter';
@@ -112,12 +112,10 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
                 />
               )}
               {valgtVisning === 'tabell' && (
-                <Box maxWidth="100%" overflowX="auto">
-                  <RegisterinntekterTabell
-                    transformerteRegisterinntekter={transformerteRegisterinntekter}
-                    textSize="medium"
-                  />
-                </Box>
+                <RegisterinntekterTabell
+                  transformerteRegisterinntekter={transformerteRegisterinntekter}
+                  textSize="medium"
+                />
               )}
             </VStack>
           </Modal.Body>
