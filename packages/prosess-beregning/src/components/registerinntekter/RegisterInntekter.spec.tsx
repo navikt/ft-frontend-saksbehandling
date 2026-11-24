@@ -180,7 +180,9 @@ describe('RegisterInntekter', () => {
       await browserUser.click(within(modal).getByRole('radio', { name: 'Tabell' }));
       await document.fonts.ready;
       const tabell = within(modal).getByRole('table');
-      const vanligTabell = within(container).getByRole('table');
+      const vanligTabell = within(container)
+        .getAllByRole('table')
+        .find(element => !modal.contains(element))!;
       const vanligeCeller = vanligTabell.querySelectorAll('th, td');
       tabell.querySelectorAll('th, td').forEach((celle, index) => {
         const stil = getComputedStyle(celle);
