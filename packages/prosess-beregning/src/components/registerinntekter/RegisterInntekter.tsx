@@ -95,7 +95,6 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
           header={{ heading: intl.formatMessage({ id: 'Registerinntekt.Header' }) }}
           width="90vw"
           style={{ maxWidth: 1440 }}
-          portal
         >
           <Modal.Body>
             <VStack gap="space-16">

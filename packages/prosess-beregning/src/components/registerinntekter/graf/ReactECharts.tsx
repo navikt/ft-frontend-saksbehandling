@@ -18,7 +18,7 @@ registerEChartsModules([
 ]);
 
 interface Props {
-  option: EChartsOption;
+  option: (styles: CSSStyleDeclaration) => EChartsOption;
   style?: CSSProperties;
   onLegendSelectChanged?: (selected: Record<string, boolean>) => void;
 }
@@ -49,12 +49,21 @@ export const ReactECharts = ({ option, style, onLegendSelectChanged }: Props) =>
   }, []);
 
   useEffect(() => {
-    if (chartRef.current !== null) {
-      const chart = getInstanceByDom(chartRef.current);
-      if (chart) {
-        chart.setOption(option, { replaceMerge: ['series'] });
-      }
+    const element = chartRef.current;
+    if (!element) {
+      return;
     }
+    const chart = getInstanceByDom(element);
+    const updateChart = () => {
+      chart?.setOption(option(getComputedStyle(element)), { replaceMerge: ['series'] });
+    };
+    updateChart();
+
+    const themeElement = element.closest('.light, .dark') ?? document.documentElement;
+    const observer = new MutationObserver(updateChart);
+    observer.observe(themeElement, { attributes: true, attributeFilter: ['class'] });
+
+    return () => observer.disconnect();
   }, [option]);
 
   useEffect(() => {
