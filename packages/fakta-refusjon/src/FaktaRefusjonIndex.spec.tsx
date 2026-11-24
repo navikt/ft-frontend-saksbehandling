@@ -21,7 +21,6 @@ describe('FaktaRefusjonIndex', () => {
       'Refusjon fra',
       'Refusjonsbeløp per måned',
       'Sendt inn',
-      'Merknad',
       'Inntektsmelding',
       '',
     ]);

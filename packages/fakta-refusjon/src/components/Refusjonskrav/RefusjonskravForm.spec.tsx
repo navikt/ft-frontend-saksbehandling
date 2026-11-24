@@ -64,7 +64,7 @@ describe('RefusjonskravForm', () => {
     expect(tabell.getAllByRole('row', { name: /Nordlys Teknologi AS/ })).toHaveLength(1);
 
     const celler = within(brunostRad).getAllByRole('cell');
-    expect(celler).toHaveLength(7);
+    expect(celler).toHaveLength(6);
     expect(celler[0].textContent).toBe('Brunostfabrikken AS (999999999)');
     expect(screen.getAllByText('Brunostfabrikken AS (999999999)')).toHaveLength(2);
     expect(celler[1]).toHaveTextContent('01.01.2025 - 31.03.2025');
@@ -74,7 +74,7 @@ describe('RefusjonskravForm', () => {
     expect(tabell.getByRole('columnheader', { name: 'Sendt inn' })).toBeInTheDocument();
     expect(tabell.queryByRole('columnheader', { name: 'Utfall' })).not.toBeInTheDocument();
     expect(tabell.queryByText('Overstyrt')).not.toBeInTheDocument();
-    expect(within(celler[5]).getByRole('button', { name: 'Åpne PDF' })).toBeInTheDocument();
+    expect(within(celler[4]).getByRole('button', { name: 'Åpne PDF' })).toBeInTheDocument();
     expect(screen.queryByRole('radio')).not.toBeInTheDocument();
     expect(screen.queryByTitle('Utfall mangler')).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Vis mindre' })).not.toBeInTheDocument();
@@ -82,7 +82,7 @@ describe('RefusjonskravForm', () => {
     expect(screen.getByRole('button', { name: 'Overstyr' })).toBeEnabled();
   });
 
-  it.each([false, true])('viser merknadskolonnen og markerer overstyrte rader: %s', erOverstyrt => {
+  it.each([false, true])('viser merknadskolonnen bare når minst én rad er overstyrt: %s', erOverstyrt => {
     renderForm({
       refusjonsandeler: [
         {
@@ -93,15 +93,21 @@ describe('RefusjonskravForm', () => {
       ],
     });
     const tabell = within(screen.getByRole('table'));
-    const antallKolonner = 7;
+    const antallKolonner = erOverstyrt ? 7 : 6;
 
+    expect(!!tabell.queryByRole('columnheader', { name: 'Merknad' })).toBe(erOverstyrt);
     expect(tabell.getAllByRole('columnheader')).toHaveLength(antallKolonner);
     for (const rad of tabell.getAllByRole('row').slice(1)) {
       expect(within(rad).getAllByRole('cell')).toHaveLength(antallKolonner);
     }
     expect(tabell.queryAllByText('Overstyrt')).toHaveLength(erOverstyrt ? 1 : 0);
-    const merknad = within(tabell.getAllByRole('row')[1]).getAllByRole('cell')[4];
-    expect(merknad.textContent).toBe(erOverstyrt ? 'Overstyrt' : '');
+    const merknader = erOverstyrt
+      ? tabell
+          .getAllByRole('row')
+          .slice(1)
+          .map(rad => within(rad).getAllByRole('cell')[4].textContent)
+      : [];
+    expect(merknader).toEqual(erOverstyrt ? ['Overstyrt', '', ''] : []);
   });
 
   it.each([
