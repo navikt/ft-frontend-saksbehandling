@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { BarChartIcon, ExpandIcon, TableIcon } from '@navikt/aksel-icons';
-import { Box, Button, Checkbox, HStack, Modal, Spacer, ToggleGroup, VStack } from '@navikt/ds-react';
+import { Button, Checkbox, HStack, Modal, Spacer, ToggleGroup, VStack } from '@navikt/ds-react';
 
 import type { ArbeidsgiverOpplysningerPerId, Inntektsgrunnlag } from '@navikt/ft-types';
 import { FaktaBoks } from '@navikt/ft-ui-komponenter';
@@ -56,7 +56,6 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
       <FormattedMessage id="Registerinntekt.Vis8-28" />
     </Checkbox>
   );
-  const tabell = <RegisterinntekterTabell transformerteRegisterinntekter={transformerteRegisterinntekter} />;
 
   return (
     <FaktaBoks
@@ -85,7 +84,9 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
             onLegendefiltreringEndret={setValgteInntektskilder}
           />
         )}
-        {valgtVisning === 'tabell' && tabell}
+        {valgtVisning === 'tabell' && (
+          <RegisterinntekterTabell transformerteRegisterinntekter={transformerteRegisterinntekter} />
+        )}
       </VStack>
       {visModal && (
         <Modal
@@ -111,9 +112,10 @@ export const RegisterInntekter = ({ inntektsgrunnlag, arbeidsgiverOpplysningerPe
                 />
               )}
               {valgtVisning === 'tabell' && (
-                <Box width="fit-content" maxWidth="100%" overflowX="auto">
-                  {tabell}
-                </Box>
+                <RegisterinntekterTabell
+                  transformerteRegisterinntekter={transformerteRegisterinntekter}
+                  textSize="medium"
+                />
               )}
             </VStack>
           </Modal.Body>

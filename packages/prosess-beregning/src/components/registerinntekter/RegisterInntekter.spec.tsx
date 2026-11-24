@@ -180,13 +180,26 @@ describe('RegisterInntekter', () => {
       await browserUser.click(within(modal).getByRole('radio', { name: 'Tabell' }));
       await document.fonts.ready;
       const tabell = within(modal).getByRole('table');
+      const vanligTabell = within(container).getByRole('table');
+      const vanligeCeller = vanligTabell.querySelectorAll('th, td');
+      tabell.querySelectorAll('th, td').forEach((celle, index) => {
+        const stil = getComputedStyle(celle);
+        const vanligStil = getComputedStyle(vanligeCeller[index]);
+        expect(Number.parseFloat(stil.fontSize)).toBeGreaterThan(Number.parseFloat(vanligStil.fontSize));
+        expect(stil.paddingTop).toBe(vanligStil.paddingTop);
+        expect(stil.paddingBottom).toBe(vanligStil.paddingBottom);
+      });
       const tabellbredde = tabell.getBoundingClientRect().width;
       const modalbredde = modal.getBoundingClientRect().width;
 
       await page.viewport(1920, 1000);
       await waitFor(() => {
         expect(modal.getBoundingClientRect().width).toBeGreaterThan(modalbredde);
-        expect(tabell.getBoundingClientRect().width).toBeCloseTo(tabellbredde, 0);
+        expect(tabell.getBoundingClientRect().width).toBeGreaterThan(tabellbredde);
+        expect(tabell.getBoundingClientRect().width).toBeCloseTo(
+          tabell.parentElement!.getBoundingClientRect().width,
+          0,
+        );
       });
 
       const maksimalModalbredde = modal.getBoundingClientRect().width;
