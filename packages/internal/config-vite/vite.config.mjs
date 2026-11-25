@@ -38,7 +38,7 @@ const vitestConfig = defineVitestConfig(() => {
           extends: true,
           test: {
             setupFiles: [
-              path.resolve(__dirname, 'vitest.setup.ts'),
+              path.resolve(__dirname, 'vitest-setup.ts'),
               'vitest-canvas-mock',
               path.resolve(__dirname, 'vitest-canvas-setup.ts'),
             ],
@@ -52,7 +52,7 @@ const vitestConfig = defineVitestConfig(() => {
           extends: true,
           test: {
             name: 'browser',
-            setupFiles: [path.resolve(__dirname, 'vitest.setup.ts')],
+            setupFiles: [path.resolve(__dirname, 'vitest-setup.ts')],
             browser: {
               enabled: true,
               provider: playwright({
