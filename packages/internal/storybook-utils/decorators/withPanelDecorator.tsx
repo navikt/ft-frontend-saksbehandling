@@ -24,9 +24,9 @@ export const withPanelDecorator: DecoratorFunction<ReactRenderer> = function Wit
   const erSideMeny = title.endsWith('/SideMenu');
   const erProsessMeny = title.endsWith('/ProcessMenu');
 
-  const { skalKunneAvmonteres, story, menyKnapp } = usePanelMontering(Story, context);
+  const { story, menyKnapp } = usePanelMontering(Story, context);
 
-  if (!skalKunneAvmonteres || rammeAv || (!erProsess && !erFakta && !erSideMeny && !erProsessMeny)) {
+  if (rammeAv || (!erProsess && !erFakta && !erSideMeny && !erProsessMeny)) {
     return (
       <div style={{ margin: '40px' }}>
         <Story />
@@ -197,7 +197,7 @@ const FaktaOmradeSkjelett = ({
 /**
  * Gir en story som kan avmonteres og monteres igjen, og en menyknapp som styrer det.
  * Kladden (`formData`) holdes i hooken, slik at den overlever at storyen avmonteres.
- * Gjelder bare stories med `setFormData`; ellers er `skalKunneAvmonteres` `false`.
+ * Gjelder bare stories med `setFormData`; ellers vises storyen uten menyknapp.
  */
 const usePanelMontering = (Story: PartialStoryFn<ReactRenderer>, context: StoryContext<ReactRenderer>) => {
   const [erMontert, setErMontert] = useState(true);
@@ -205,11 +205,10 @@ const usePanelMontering = (Story: PartialStoryFn<ReactRenderer>, context: StoryC
   const setFormDataArg = context.args['setFormData'];
 
   if (typeof setFormDataArg !== 'function') {
-    return { skalKunneAvmonteres: false };
+    return { story: <Story />, menyKnapp: undefined };
   }
 
   return {
-    skalKunneAvmonteres: true,
     story: erMontert ? (
       <Story
         args={{
