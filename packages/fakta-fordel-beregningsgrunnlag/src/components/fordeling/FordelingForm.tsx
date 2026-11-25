@@ -110,7 +110,10 @@ const transformValues = (
     .map(field =>
       transformFieldValuesFordelBeregning(field, finnBeregningsgrunnlag(field.periode.fom, beregninsgrunnlagListe)),
     );
-  const begrunnelse = grunnlag.map(gr => gr.begrunnelse).reduce((b1, b2) => (b1 !== null ? `${b1} ${b2}` : b2));
+  const begrunnelse =
+    grunnlag
+      .map(gr => gr.begrunnelse)
+      .reduce<string | null | undefined>((b1, b2) => (b1 !== null ? `${b1} ${b2}` : b2), null) ?? '';
   return {
     begrunnelse,
     grunnlag,
@@ -206,8 +209,9 @@ export const FordelingForm = ({
         formMethods={formMethods}
         onSubmit={values => {
           if (Object.keys(errors).length === 0) {
-            submitCallback(transformValues(values, beregningsgrunnlagListe, vilkårsperioder));
+            return submitCallback(transformValues(values, beregningsgrunnlagListe, vilkårsperioder));
           }
+          return undefined;
         }}
         setDataOnUnmount={setFormData}
       >

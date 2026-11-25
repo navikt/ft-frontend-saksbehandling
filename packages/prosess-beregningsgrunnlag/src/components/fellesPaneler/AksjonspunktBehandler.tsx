@@ -466,7 +466,7 @@ export const AksjonspunktBehandler = ({
   const intl = useIntl();
   const losAvklaringsbehov = (values: BeregningFormValues, lp: LovParagraf) => {
     setSubmitting(true);
-    submitCallback(transformFields(values, lp));
+    return submitCallback(transformFields(values, lp));
   };
 
   const utledSkalValideres = (beregningsgrunnlag: Beregningsgrunnlag) => {

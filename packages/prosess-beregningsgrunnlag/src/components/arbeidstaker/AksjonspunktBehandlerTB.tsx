@@ -282,7 +282,7 @@ const lagBruttoPrPeriodeListe = (
       const fastsattInntekt = formMethods.watch(`${formName}.${fieldIndex}.${inputFieldKey}`);
       return fastsattInntekt === undefined || fastsattInntekt === '' ? 0 : removeSpacesFromNumber(fastsattInntekt);
     });
-    const samletBruttoForPeriode = bruttoPrAndelForPeriode.reduce((a, b) => a + b);
+    const samletBruttoForPeriode = bruttoPrAndelForPeriode.reduce((a, b) => a + b, 0);
     bruttoPrPeriodeList.push({
       brutto: samletBruttoForPeriode,
       periodeFom: relevantPeriode.beregningsgrunnlagPeriodeFom,

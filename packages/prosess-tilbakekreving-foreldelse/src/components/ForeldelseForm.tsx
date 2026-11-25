@@ -269,9 +269,14 @@ export const ForeldelseForm = ({
     });
   };
 
-  const lagrePerioder = () => {
+  const lagrePerioder = async () => {
     setIsSubmitting(true);
-    submitCallback(transformValues(foreldelseresultatAktiviteter));
+    try {
+      await submitCallback(transformValues(foreldelseresultatAktiviteter));
+    } catch (error) {
+      setIsSubmitting(false);
+      throw error;
+    }
   };
 
   const merknaderFraBeslutter = alleMerknaderFraBeslutter[ForeldelseAksjonspunktCodes.VURDER_FORELDELSE];

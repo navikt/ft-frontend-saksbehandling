@@ -102,7 +102,10 @@ const transformValues = (
     .filter(f => vurderesIBehandlingen(vilkårsperioder, f.periode.fom))
     .filter(f => harAvklaringsbehovVurderRefusjon(f.beregningsgrunnlagStp, beregninsgrunnlagListe))
     .map(field => transformFieldValues(field, finnBeregningsgrunnlag(field.periode.fom, beregninsgrunnlagListe)));
-  const begrunnelse = grunnlag.map(gr => gr.begrunnelse).reduce((b1, b2) => (b1 !== null ? `${b1} ${b2}` : b2));
+  const begrunnelse =
+    grunnlag
+      .map(gr => gr.begrunnelse)
+      .reduce<string | null | undefined>((b1, b2) => (b1 !== null ? `${b1} ${b2}` : b2), null) ?? '';
   return {
     begrunnelse,
     grunnlag,
@@ -173,8 +176,9 @@ export const VurderEndringRefusjonForm = ({
         onSubmit={values => {
           if (Object.keys(errors).length === 0) {
             setFormSubmittes(true);
-            submitCallback(transformValues(values, beregningsgrunnlagListe, vilkarperioder));
+            return submitCallback(transformValues(values, beregningsgrunnlagListe, vilkarperioder));
           }
+          return undefined;
         }}
         setDataOnUnmount={setFormData}
       >

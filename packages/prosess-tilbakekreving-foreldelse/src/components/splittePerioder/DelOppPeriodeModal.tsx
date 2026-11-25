@@ -57,7 +57,7 @@ interface Props {
   periodeData: Periode;
   showModal: boolean;
   finnesBelopMed0Verdi: boolean;
-  splitPeriod: (perioder: PerioderData) => void;
+  splitPeriod: (perioder: PerioderData) => Promise<void>;
   cancelEvent: () => void;
 }
 

@@ -140,14 +140,15 @@ export const VurderFaktaBeregningPanel = ({
     });
   };
 
-  const losAvklaringsbehov = (values: VurderFaktaBeregningFormValues): void => {
+  const losAvklaringsbehov = (values: VurderFaktaBeregningFormValues) => {
     if (Object.keys(errors).length === 0) {
       setSubmitDisabled(true);
-      submitCallback(transformValuesVurderFaktaBeregning(values, skalKunneAvbryteOverstyring));
+      return submitCallback(transformValuesVurderFaktaBeregning(values, skalKunneAvbryteOverstyring));
     } else {
       // eslint-disable-next-line no-console
       console.error(errors);
     }
+    return undefined;
   };
 
   if (!(
@@ -158,9 +159,7 @@ export const VurderFaktaBeregningPanel = ({
       <VurderFaktaContext value={aktivtBeregningsgrunnlagIndeks}>
         <RhfForm
           formMethods={formMethods}
-          onSubmit={values => {
-            losAvklaringsbehov(values);
-          }}
+          onSubmit={values => losAvklaringsbehov(values)}
           setDataOnUnmount={setFormData}
         >
           {fields.map((field, index) => {
