@@ -43,6 +43,7 @@
     "@navikt/ft-config-vite": "workspace:^",
     "@navikt/ft-form-hooks": "workspace:^",
     "@navikt/ft-form-validators": "workspace:^",
+    "@navikt/ft-frontend-utils-test": "workspace:^",
     "@navikt/ft-kodeverk": "workspace:^",
     "@navikt/ft-types": "workspace:^",
     "@navikt/ft-ui-komponenter": "workspace:^",
