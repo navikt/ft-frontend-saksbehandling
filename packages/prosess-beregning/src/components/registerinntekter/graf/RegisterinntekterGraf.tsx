@@ -59,6 +59,11 @@ export const RegisterinntekterGraf = ({
             },
             xAxis: {
               type: 'category',
+              axisLine: {
+                lineStyle: {
+                  color: styles.getPropertyValue('--ax-border-neutral-strong').trim(),
+                },
+              },
               axisLabel: {
                 ...axisLabelStyle,
                 rotate: 45,
@@ -67,6 +72,11 @@ export const RegisterinntekterGraf = ({
             },
             yAxis: {
               type: 'value',
+              splitLine: {
+                lineStyle: {
+                  color: styles.getPropertyValue('--ax-border-neutral-subtleA').trim(),
+                },
+              },
               axisLabel: {
                 ...axisLabelStyle,
                 formatter: value => formatCurrencyNoKr(value) || '',
