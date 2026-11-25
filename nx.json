@@ -20,6 +20,10 @@
       "dependsOn": ["build"],
       "cache": true
     },
+    "storybook": {
+      "dependsOn": ["tsc", "^tsc"],
+      "cache": false
+    },
     "build:storybook": {
       "inputs": ["default", "^production"],
       "dependsOn": ["^build"],

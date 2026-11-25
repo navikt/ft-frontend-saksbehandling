@@ -29,7 +29,7 @@
     "lerna-changed": "lerna changed",
     "clean": "lerna run clean",
     "prepare": "husky install",
-    "storybook": "yarn workspace @navikt/ft-storybook storybook",
+    "storybook": "lerna run storybook --scope @navikt/ft-storybook --stream --",
     "transform-to-semver": "node scripts/replace-workspace-deps.js",
     "transform-to-workspace": "node scripts/replace-workspace-deps.js --restore"
   },

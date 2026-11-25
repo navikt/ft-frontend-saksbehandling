@@ -25,8 +25,6 @@ Storybook er en privat workspace-pakke i `packages/internal/storybook`. Preview-
 temadekoratør og simulert app-ramme ligger i denne pakken.
 Testene setter opp språk og Aksel-CSS direkte i `packages/internal/config-vite/vitest-setup.ts`,
 uten å importere Storybook-konfigurasjonen.
-Kjør `yarn workspace @navikt/ft-storybook eslint` og `yarn workspace @navikt/ft-storybook tsc`
-for å sjekke konfigurasjonen. Sjekkene inngår også i `yarn eslint` og `yarn tsc`.
 
 En skal alltid utvikle på branch og lage pull request på GitHub. Denne kan mergest til main når testene har gått grønt.
 
