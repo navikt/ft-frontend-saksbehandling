@@ -31,10 +31,10 @@
     "dayjs": "1.11.23",
     "eslint": "10.15.0",
     "react": "19.3.1",
-    "react-intl": "12.1.7",
+    "react-intl": "12.2.0",
     "typescript": "6.0.3",
     "vite": "8.3.8",
-    "vitest": "5.1.0"
+    "vitest": "5.1.1"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

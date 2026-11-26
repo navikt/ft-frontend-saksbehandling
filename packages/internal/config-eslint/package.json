@@ -6,7 +6,7 @@
   "main": "eslint.config.mjs",
   "private": true,
   "dependencies": {
-    "@eslint-react/eslint-plugin": "5.30.3",
+    "@eslint-react/eslint-plugin": "5.30.5",
     "@eslint/js": "10.0.1",
     "@vitest/eslint-plugin": "1.6.28",
     "eslint": "10.15.0",

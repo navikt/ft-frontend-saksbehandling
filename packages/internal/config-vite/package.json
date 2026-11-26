@@ -8,10 +8,10 @@
   "dependencies": {
     "@navikt/ds-css": "8.23.0",
     "@vitejs/plugin-react": "6.3.0",
-    "@vitest/browser-playwright": "5.1.0",
+    "@vitest/browser-playwright": "5.1.1",
     "dayjs": "1.11.23",
     "playwright": "1.65.1",
     "vite": "8.3.8",
-    "vitest": "5.1.0"
+    "vitest": "5.1.1"
   }
 }
