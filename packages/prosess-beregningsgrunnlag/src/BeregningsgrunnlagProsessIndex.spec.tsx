@@ -1,8 +1,12 @@
 import { composeStories } from '@storybook/react-vite';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { PeriodeÅrsak } from '@navikt/ft-kodeverk';
+import type { BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
+
 import * as stories from './BeregningsgrunnlagProsessIndex.stories';
+import { AksjonspunktBehandlerTidsbegrenset } from './components/arbeidstaker/AksjonspunktBehandlerTB';
 
 const {
   ArbeidstakerMedAvvikAp5038,
@@ -21,6 +25,100 @@ const scrollIntoViewMock = vi.fn();
 globalThis.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
 
 describe('BeregningsgrunnlagProsessIndex', () => {
+  it('sorterer perioder for resultatet uten å endre rekkefølgen på inputlisten', () => {
+    const perioder: BeregningsgrunnlagPeriodeProp[] = [
+      {
+        beregningsgrunnlagPeriodeFom: '2021-02-01',
+        beregningsgrunnlagPeriodeTom: '2021-02-28',
+        periodeAarsaker: [PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET],
+        beregningsgrunnlagPrStatusOgAndel: [],
+      } as BeregningsgrunnlagPeriodeProp,
+      {
+        beregningsgrunnlagPeriodeFom: '2021-01-01',
+        beregningsgrunnlagPeriodeTom: '2021-01-31',
+        periodeAarsaker: [PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET],
+        beregningsgrunnlagPrStatusOgAndel: [],
+      } as BeregningsgrunnlagPeriodeProp,
+    ];
+
+    const resultat = AksjonspunktBehandlerTidsbegrenset.transformValues({}, perioder);
+
+    expect(resultat.map(({ periodeFom }) => periodeFom)).toEqual(['2021-01-01', '2021-02-01']);
+    expect(perioder.map(({ beregningsgrunnlagPeriodeFom }) => beregningsgrunnlagPeriodeFom)).toEqual([
+      '2021-02-01',
+      '2021-01-01',
+    ]);
+  });
+
+  it('redigerer og sender inn inntekten fra første kronologiske periode uten å endre inputlisten', async () => {
+    const lagre = vi.fn();
+    const [grunnlag] = TidsbegrensetArbeidsforholdMedAvvikAp5047.args.beregningsgrunnlagListe ?? [];
+    const kronologiskePerioder = grunnlag.beregningsgrunnlagPeriode.map((periode, indeks) => ({
+      ...periode,
+      beregningsgrunnlagPeriodeFom: indeks === 0 ? '2021-01-01' : '2021-02-01',
+      beregningsgrunnlagPeriodeTom: indeks === 0 ? '2021-01-31' : '2021-02-28',
+      beregningsgrunnlagPrStatusOgAndel: periode.beregningsgrunnlagPrStatusOgAndel?.map(andel => ({
+        ...andel,
+        erTidsbegrensetArbeidsforhold: false,
+        overstyrtPrAar: indeks === 0 ? 100000 : 150000,
+      })),
+    }));
+    const perioder = kronologiskePerioder.toReversed();
+    const opprinneligePerioder = structuredClone(perioder);
+
+    render(
+      <TidsbegrensetArbeidsforholdMedAvvikAp5047
+        submitCallback={lagre}
+        beregningsgrunnlagListe={[{ ...grunnlag, beregningsgrunnlagPeriode: perioder }]}
+      />,
+    );
+
+    const tabell = screen.getByText('Total årsinntekt pr periode').closest('table')!;
+    const [overskriftsrad] = within(tabell).getAllByRole('row');
+    const [, januaroverskrift, februaroverskrift] = within(overskriftsrad).getAllByRole('columnheader');
+    expect(januaroverskrift).toHaveTextContent('01.01.2021');
+    expect(februaroverskrift).toHaveTextContent('01.02.2021');
+
+    const inntektsfelt = within(tabell).getByRole('textbox');
+    expect(inntektsfelt).toHaveAttribute('name', expect.stringContaining('2021-01-01'));
+    expect(inntektsfelt).toHaveValue('100 000');
+    await userEvent.clear(inntektsfelt);
+    await userEvent.type(inntektsfelt, '222 000');
+
+    const sumrad = within(tabell).getByRole('row', { name: /Total årsinntekt pr periode/ });
+    const [, januarsum, februarsum] = within(sumrad).getAllByRole('columnheader');
+    expect(januarsum).toHaveTextContent('222 000');
+    expect(februarsum).toHaveTextContent('100 000');
+
+    const [, begrunnelsefelt] = screen.getAllByRole('textbox');
+    await userEvent.type(begrunnelsefelt, 'Fastsetter årsinntekten for arbeidsforholdet');
+    await userEvent.click(screen.getByText('Bekreft og fortsett'));
+
+    await waitFor(() => expect(lagre).toHaveBeenCalledTimes(1));
+    expect(lagre).toHaveBeenCalledWith([
+      expect.objectContaining({
+        kode: 'FASTSETT_BG_TB_ARB',
+        grunnlag: [
+          expect.objectContaining({
+            fastsatteTidsbegrensedePerioder: [
+              {
+                periodeFom: '2021-01-01',
+                periodeTom: '2021-01-31',
+                fastsatteTidsbegrensedeAndeler: [{ andelsnr: 1, bruttoFastsattInntekt: 222000 }],
+              },
+              {
+                periodeFom: '2021-02-01',
+                periodeTom: '2021-02-28',
+                fastsatteTidsbegrensedeAndeler: [{ andelsnr: 1, bruttoFastsattInntekt: 222000 }],
+              },
+            ],
+          }),
+        ],
+      }),
+    ]);
+    expect(perioder).toEqual(opprinneligePerioder);
+  });
+
   it('skal vise informasjon om arbeidstakerinntekt', async () => {
     render(<ArbeidstakerUtenAvvikFlereArbeidsforholdMedLønnsendring />);
     expect(await screen.findByText('Søker har hatt lønnsendring i løpet av de siste tre månedene')).toBeInTheDocument();
@@ -398,7 +496,7 @@ describe('BeregningsgrunnlagProsessIndex', () => {
 
     render(<AvvikNæringEtterLøstAvvikArbeid5038Og5039 submitCallback={lagre} />);
 
-    expect(await screen.getAllByText('Bekreft og fortsett')).toHaveLength(2);
+    expect(screen.getAllByText('Bekreft og fortsett')).toHaveLength(2);
     const knappATFL = screen.getAllByRole('button', { name: 'Bekreft og fortsett' })[0];
     const knappNæring = screen.getAllByRole('button', { name: 'Bekreft og fortsett' })[1];
 
