@@ -12,14 +12,8 @@
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@testing-library/dom": "10.4.2",
-    "@testing-library/react": "16.3.3",
-    "@testing-library/user-event": "14.6.12",
     "react": "19.3.1",
-    "react-dom": "19.3.1",
-    "react-intl": "12.1.7",
-    "vite": "8.3.8",
-    "vitest": "5.1.0"
+    "react-intl": "12.1.7"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",

@@ -5,15 +5,13 @@ import { fileURLToPath } from 'node:url';
 import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
 import circleDependency from 'vite-plugin-circular-dependency';
 import dts from 'vite-plugin-dts';
-import { configDefaults, defineConfig as defineVitestConfig } from 'vitest/config';
+import { defineConfig as defineVitestConfig } from 'vitest/config';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export const externalizePeerDependencies = (peerDependencies, bundledDependencies = [], externalPatterns = []) => {
-  const externalDependencies = Object.keys(peerDependencies).filter(
-    dependency => !bundledDependencies.includes(dependency),
-  );
+  const externalDependencies = Object.keys(peerDependencies).filter(dependency => !bundledDependencies.includes(dependency));
   return id =>
     externalDependencies.some(dependency => id === dependency || id.startsWith(`${dependency}/`)) ||
     externalPatterns.some(pattern => pattern.test(id));
@@ -52,8 +50,6 @@ const vitestConfig = defineVitestConfig(() => {
           extends: true,
           test: {
             name: 'browser',
-            // Mockbaserte enhetstester kjører i jsdom, uten nettleserens begrensninger på importerte moduler.
-            exclude: [...configDefaults.exclude, '**/*.jsdom.spec.{ts,tsx}'],
             setupFiles: [path.resolve(__dirname, 'vitest-setup.ts')],
             browser: {
               enabled: true,
