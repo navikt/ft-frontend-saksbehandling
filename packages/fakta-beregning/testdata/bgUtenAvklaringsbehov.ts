@@ -1,4 +1,7 @@
+import type { Beregningsgrunnlag } from '@navikt/ft-types';
 import { TIDENES_ENDE } from '@navikt/ft-utils';
+
+import type { Vilkår } from '../src/typer/Vilkår';
 
 const beregningsgrunnlag = {
   beregningsgrunnlagListe: [
@@ -10194,7 +10197,8 @@ const vilkar = {
   ],
 };
 
-export const bgOverstyreUtenAvklaringsbehov = JSON.parse(
-  JSON.stringify(beregningsgrunnlag.beregningsgrunnlagListe.map(v => v.beregningsgrunnlag)),
-);
-export const vilkarOverstyreUtenAvklaringsbehov = JSON.parse(JSON.stringify(vilkar));
+// Testdata bruker eldre DTO-felter og nullverdier som ikke er dekket av dagens typer.
+export const bgOverstyreUtenAvklaringsbehov = structuredClone(
+  beregningsgrunnlag.beregningsgrunnlagListe.map(v => v.beregningsgrunnlag),
+) as unknown as Beregningsgrunnlag[];
+export const vilkarOverstyreUtenAvklaringsbehov = structuredClone(vilkar) as unknown as Vilkår;

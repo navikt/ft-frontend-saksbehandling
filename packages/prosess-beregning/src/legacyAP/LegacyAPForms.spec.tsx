@@ -274,7 +274,7 @@ describe('LegacyAPForms', () => {
       }),
     );
 
-    expect(await screen.getAllByText('Bekreft og fortsett')).toHaveLength(2);
+    expect(screen.getAllByText('Bekreft og fortsett')).toHaveLength(2);
     const knappATFL = aksjonspunktBoks_FASTSETT_BG_AT_FL.getByRole('button', { name: 'Bekreft og fortsett' });
     const knappNæring = aksjonspunktBoks_VURDER_VARIG_ENDRT_NYOPPSTR_NAERNG_SN.getByRole('button', {
       name: 'Bekreft og fortsett',

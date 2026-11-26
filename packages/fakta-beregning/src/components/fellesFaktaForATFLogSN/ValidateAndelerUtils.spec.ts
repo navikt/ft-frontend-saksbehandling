@@ -8,110 +8,24 @@ import messages from '../../../i18n/nb_NO.json';
 const intlMock = getIntlMock(messages);
 
 describe('ValidateAndelerUtils', () => {
-  it('skal returnere 0 for lik andelsinfo og lik inntektskategori', () => {
-    const andeler = [
-      {
-        andelsinfo: 'Andelsinfo1',
-        inntektskategori: 'Inntektskategori1',
-      },
-      {
-        andelsinfo: 'Andelsinfo1',
-        inntektskategori: 'Inntektskategori1',
-      },
-    ];
-    const compare = compareAndeler(andeler[0], andeler[1]);
-    expect(compare).toBe(0);
-  });
-
-  it('skal returnere -1 for lik andelsinfo og ulik inntektskategori', () => {
-    const andeler = [
-      {
-        andelsinfo: 'Andelsinfo1',
-        inntektskategori: 'Inntektskategori1',
-      },
-      {
-        andelsinfo: 'Andelsinfo1',
-        inntektskategori: 'Inntektskategori2',
-      },
-    ];
-    const compare = compareAndeler(andeler[0], andeler[1]);
-    expect(compare).toBe(-1);
-  });
-
-  it('skal returnere 1 for lik andelsinfo og ulik inntektskategori motsatt rekkefølge', () => {
-    const andeler = [
-      {
-        andelsinfo: 'Andelsinfo1',
-        inntektskategori: 'Inntektskategori1',
-      },
-      {
-        andelsinfo: 'Andelsinfo1',
-        inntektskategori: 'Inntektskategori2',
-      },
-    ];
-    const compare = compareAndeler(andeler[1], andeler[0]);
-    expect(compare).toBe(1);
-  });
-
-  it('skal returnere -1 for ulik andelsinfo og lik inntektskategori', () => {
-    const andeler = [
-      {
-        andelsinfo: 'Andelsinfo1',
-        inntektskategori: 'Inntektskategori1',
-      },
-      {
-        andelsinfo: 'Andelsinfo2',
-        inntektskategori: 'Inntektskategori1',
-      },
-    ];
-    const compare = compareAndeler(andeler[0], andeler[1]);
-    expect(compare).toBe(-1);
-  });
-
-  it('skal returnere 1 for ulik andelsinfo og lik inntektskategori motsatt rekkefølge', () => {
-    const andeler = [
-      {
-        andelsinfo: 'Andelsinfo1',
-        inntektskategori: 'Inntektskategori1',
-      },
-      {
-        andelsinfo: 'Andelsinfo2',
-        inntektskategori: 'Inntektskategori1',
-      },
-    ];
-    const compare = compareAndeler(andeler[1], andeler[0]);
-    expect(compare).toBe(1);
-  });
-
-  it('skal returnere -1 for ulik andelsinfo og ulik inntektskategori motsatt rekkefølge', () => {
-    const andeler = [
-      {
-        andelsinfo: 'Andelsinfo1',
-        inntektskategori: 'Inntektskategori1',
-      },
-      {
-        andelsinfo: 'Andelsinfo2',
-        inntektskategori: 'Inntektskategori2',
-      },
-    ];
-    const compare = compareAndeler(andeler[0], andeler[1]);
-    expect(compare).toBe(-1);
-  });
-
-  it('skal returnere 1 for ulik andelsinfo og ulik inntektskategori motsatt rekkefølge', () => {
-    const andeler = [
-      {
-        andelsinfo: 'Andelsinfo1',
-        inntektskategori: 'Inntektskategori1',
-      },
-      {
-        andelsinfo: 'Andelsinfo2',
-        inntektskategori: 'Inntektskategori2',
-      },
-    ];
-    const compare = compareAndeler(andeler[1], andeler[0]);
-    expect(compare).toBe(1);
-  });
+  it.each([
+    [1, 1, 1, 1, 0],
+    [1, 1, 1, 2, -1],
+    [1, 2, 1, 1, 1],
+    [1, 1, 2, 1, -1],
+    [2, 1, 1, 1, 1],
+    [1, 1, 2, 2, -1],
+    [2, 2, 1, 1, 1],
+  ])(
+    'skal sammenligne andelsinfo %i og kategori %i med andelsinfo %i og kategori %i og returnere %i',
+    (info1, kategori1, info2, kategori2, forventet) => {
+      const compare = compareAndeler(
+        { andelsinfo: `Andelsinfo${info1}`, inntektskategori: `Inntektskategori${kategori1}` },
+        { andelsinfo: `Andelsinfo${info2}`, inntektskategori: `Inntektskategori${kategori2}` },
+      );
+      expect(compare).toBe(forventet);
+    },
+  );
 
   it('skal ikkje gi error om det er ingen andeler lagt til av saksbehandler og ingen har lik inntektskategori og andelsnr', () => {
     const andeler: AndelFieldValue[] = [

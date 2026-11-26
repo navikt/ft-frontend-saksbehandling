@@ -143,18 +143,8 @@ describe('Validators', () => {
   });
 
   describe('hasValidDate', () => {
-    it('skal feile når dag i dato er utenfor lovlig område', () => {
-      const result = hasValidDate('2017-10-40');
-      expect(result).toEqual('Dato må skrives slik: dd.mm.åååå');
-    });
-
-    it('skal feile når måned i dato er utenfor lovlig område', () => {
-      const result = hasValidDate('2017-13-20');
-      expect(result).toEqual('Dato må skrives slik: dd.mm.åååå');
-    });
-
-    it('skal feile når dato er på feil format', () => {
-      const result = hasValidDate('10.10.2017');
+    it.each(['2017-10-40', '2017-13-20', '10.10.2017'])('skal feile for ugyldig dato %s', dato => {
+      const result = hasValidDate(dato);
       expect(result).toEqual('Dato må skrives slik: dd.mm.åååå');
     });
 
@@ -463,40 +453,18 @@ describe('Validators', () => {
       expect(result).toBeNull();
     });
 
-    it('skal feile når organisasjonsnummer har mellomrom midt i', () => {
-      const result = hasValidOrgNumber('123456 789');
-      expect(result).toEqual('Ugyldig organisasjonsnummer. Organisasjonsnummer må være 9 siffer.');
-    });
-
-    it('skal feile når organisasjonsnummer har mellomrom spredt utover', () => {
-      const result = hasValidOrgNumber('123 456 789');
-      expect(result).toEqual('Ugyldig organisasjonsnummer. Organisasjonsnummer må være 9 siffer.');
-    });
-
     it('skal ikke feile når organisasjonsnummer er tall', () => {
       const result = hasValidOrgNumber(123456789);
       expect(result).toBeNull();
     });
 
-    it('skal feile når organisasjonsnummer har mindre enn 9 siffer', () => {
-      const result = hasValidOrgNumber('12345678');
-      expect(result).toEqual('Ugyldig organisasjonsnummer. Organisasjonsnummer må være 9 siffer.');
-    });
-
-    it('skal feile når organisasjonsnummer har mer enn 9 siffer', () => {
-      const result = hasValidOrgNumber('1234567890');
-      expect(result).toEqual('Ugyldig organisasjonsnummer. Organisasjonsnummer må være 9 siffer.');
-    });
-
-    it('skal feile når organisasjonsnummer inneholder ikke-numeriske tegn', () => {
-      const result = hasValidOrgNumber('12345678a');
-      expect(result).toEqual('Ugyldig organisasjonsnummer. Organisasjonsnummer må være 9 siffer.');
-    });
-
-    it('skal feile når organisasjonsnummer er tom streng', () => {
-      const result = hasValidOrgNumber('');
-      expect(result).toEqual('Ugyldig organisasjonsnummer. Organisasjonsnummer må være 9 siffer.');
-    });
+    it.each(['123456 789', '123 456 789', '12345678', '1234567890', '12345678a', ''])(
+      'skal feile for ugyldig organisasjonsnummer %s',
+      organisasjonsnummer => {
+        const result = hasValidOrgNumber(organisasjonsnummer);
+        expect(result).toEqual('Ugyldig organisasjonsnummer. Organisasjonsnummer må være 9 siffer.');
+      },
+    );
 
     it('skal feile når organisasjonsnummer er null', () => {
       const result = hasValidOrgNumber(null as unknown as string);

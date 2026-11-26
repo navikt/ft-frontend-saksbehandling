@@ -482,7 +482,7 @@ const lagBG = (
   sammenligningsgrunnlagPrStatus?: SammenligningsgrunlagProp[],
   avklaringsbehov?: BeregningAvklaringsbehov[],
   skjæringstidspunkt: string = STP,
-  saksopplysninger: Saksopplysninger = { lønnsendringSaksopplysning: [], kortvarigeArbeidsforhold: [] },
+  saksopplysninger?: Saksopplysninger,
 ): Beregningsgrunnlag => ({
   avklaringsbehov: avklaringsbehov || [],
   skjaeringstidspunktBeregning: skjæringstidspunkt,
@@ -494,7 +494,7 @@ const lagBG = (
   sammenligningsgrunnlagPrStatus,
   faktaOmBeregning: {
     andelerForFaktaOmBeregning: [],
-    saksopplysninger,
+    saksopplysninger: saksopplysninger ?? { lønnsendringSaksopplysning: [], kortvarigeArbeidsforhold: [] },
   },
   erOverstyrtInntekt: false,
   inntektsgrunnlag,
