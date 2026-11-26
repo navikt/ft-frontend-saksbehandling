@@ -58,7 +58,7 @@ interface Props {
   cancelEvent: () => void;
   showModal: boolean;
   finnesBelopMed0Verdi: boolean;
-  splitPeriod: (perioder: PerioderData) => void;
+  splitPeriod: (perioder: PerioderData) => Promise<void>;
 }
 
 export const DelOppPeriodeModal = ({

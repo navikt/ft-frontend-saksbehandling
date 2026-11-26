@@ -85,24 +85,25 @@ const finnBeregningsgrunnlag = (
 
 const harAvklaringsbehovVurderRefusjon = (
   beregningsgrunnlagStp: string,
-  beregninsgrunnlagListe: Beregningsgrunnlag[],
+  beregningsgrunnlagListe: Beregningsgrunnlag[],
 ): boolean => {
-  return beregninsgrunnlagListe
+  return beregningsgrunnlagListe
     .filter(bg => bg.skjaeringstidspunktBeregning === beregningsgrunnlagStp)
     .some(bg => bg.avklaringsbehov.some(ab => ab.definisjon === 'VURDER_REFUSJONSKRAV'));
 };
 
 const transformValues = (
   values: VurderRefusjonFormValues,
-  beregninsgrunnlagListe: Beregningsgrunnlag[],
+  beregningsgrunnlagListe: Beregningsgrunnlag[],
   vilkårsperioder: Vilkårperiode[],
 ): VurderRefusjonBeregningsgrunnlagAP => {
   const fields = values[FORM_NAME];
   const grunnlag = fields
     .filter(f => vurderesIBehandlingen(vilkårsperioder, f.periode.fom))
-    .filter(f => harAvklaringsbehovVurderRefusjon(f.beregningsgrunnlagStp, beregninsgrunnlagListe))
-    .map(field => transformFieldValues(field, finnBeregningsgrunnlag(field.periode.fom, beregninsgrunnlagListe)));
-  const begrunnelse = grunnlag.map(gr => gr.begrunnelse).reduce((b1, b2) => (b1 !== null ? `${b1} ${b2}` : b2));
+    .filter(f => harAvklaringsbehovVurderRefusjon(f.beregningsgrunnlagStp, beregningsgrunnlagListe))
+    .map(field => transformFieldValues(field, finnBeregningsgrunnlag(field.periode.fom, beregningsgrunnlagListe)));
+
+  const begrunnelse = grunnlag.flatMap(gr => (gr.begrunnelse ? [gr.begrunnelse] : [])).join(' ');
   return {
     begrunnelse,
     grunnlag,
@@ -173,8 +174,9 @@ export const VurderEndringRefusjonForm = ({
         onSubmit={values => {
           if (Object.keys(errors).length === 0) {
             setFormSubmittes(true);
-            submitCallback(transformValues(values, beregningsgrunnlagListe, vilkarperioder));
+            return submitCallback(transformValues(values, beregningsgrunnlagListe, vilkarperioder));
           }
+          return undefined;
         }}
         setDataOnUnmount={setFormData}
       >

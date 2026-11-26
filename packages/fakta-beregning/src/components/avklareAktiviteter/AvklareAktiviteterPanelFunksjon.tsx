@@ -197,11 +197,12 @@ export const AvklareAktiviteterPanel = ({
     return null;
   }
 
-  const losAvklaringsbehov = (values: AvklarAktiviteterFormValues): void => {
+  const losAvklaringsbehov = (values: AvklarAktiviteterFormValues) => {
     if (Object.keys(errors).length === 0) {
       setSubmitDisabled(true);
-      submitCallback(transformValues(values as AvklarAktiviteterFormValues));
+      return submitCallback(transformValues(values as AvklarAktiviteterFormValues));
     }
+    return undefined;
   };
 
   return (

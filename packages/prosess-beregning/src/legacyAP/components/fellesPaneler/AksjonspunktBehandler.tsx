@@ -87,7 +87,7 @@ export const AksjonspunktBehandler = ({
 
   const losAvklaringsbehov = (values: BeregningFormValues) => {
     setSubmitting(true);
-    submitCallback(transformFields(values, formName));
+    return submitCallback(transformFields(values, formName));
   };
   const formMethods = useForm<BeregningFormValues>({
     defaultValues:

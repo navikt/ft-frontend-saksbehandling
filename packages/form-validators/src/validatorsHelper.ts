@@ -42,8 +42,7 @@ export const dateRangesAreSequential = (ranges: string[][]): boolean => {
           ? 1
           : -1,
       )
-      .map(range => (range[0] === range[1] ? [range[0]] : range))
-      .reduce((range1, range2) => range1.concat(range2))
+      .flatMap(range => (range[0] === range[1] ? [range[0]] : range))
       .every(isBeforeTheNextDate);
   }
 
