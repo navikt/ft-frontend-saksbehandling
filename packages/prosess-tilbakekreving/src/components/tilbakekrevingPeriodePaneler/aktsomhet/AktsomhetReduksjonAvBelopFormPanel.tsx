@@ -10,6 +10,7 @@ import { ArrowBox } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import type { Aktsomhet } from '../../../kodeverk/aktsomhet';
+import type { AktsomhetFormName, AktsomhetFormValues } from './AktsomhetFormPanel';
 import { ANDELER, EGENDEFINERT } from './aktsomhetUtils';
 
 import styles from './aktsomhetReduksjonAvBelopFormPanel.module.css';
@@ -34,13 +35,13 @@ const validerAtMindreEnn =
   };
 
 interface Props {
-  name: string;
+  name: AktsomhetFormName;
   harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
   handletUaktsomhetGrad?: Aktsomhet;
   harMerEnnEnYtelse: boolean;
   feilutbetalingBelop: number;
-  andelSomTilbakekreves?: string;
+  andelSomTilbakekreves?: number | string;
 }
 
 export const AktsomhetReduksjonAvBelopFormPanel = ({
@@ -54,9 +55,8 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
 }: Props) => {
   const intl = useIntl();
 
-  // TODO (TOR) Mangler type for useFormContext
-  const context = useFormContext();
-  const tilleggesRenterFelt = `${name}.skalDetTilleggesRenter`;
+  const context = useFormContext<AktsomhetFormValues>();
+  const tilleggesRenterFelt = `${name}.skalDetTilleggesRenter` as const;
   useEffect(() => {
     const value = context.getValues(tilleggesRenterFelt);
     if (value === undefined) {

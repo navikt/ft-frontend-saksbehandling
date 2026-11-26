@@ -1,5 +1,6 @@
 import type { Aktsomhet } from '../../../kodeverk/aktsomhet';
 import type { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
+import type { AktsomhetFormName } from './AktsomhetFormPanel';
 import { AktsomhetGradForsettFormPanel } from './AktsomhetGradForsettFormPanel';
 import { AktsomhetGradUaktsomhetFormPanel } from './AktsomhetGradUaktsomhetFormPanel';
 
@@ -13,8 +14,8 @@ interface Props {
   feilutbetalingBelop: number;
   erTotalBelopUnder4Rettsgebyr: boolean;
   sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[];
-  andelSomTilbakekreves?: string;
-  name: string;
+  andelSomTilbakekreves?: number | string;
+  name: AktsomhetFormName;
 }
 
 export const AktsomhetGradFormPanel = ({

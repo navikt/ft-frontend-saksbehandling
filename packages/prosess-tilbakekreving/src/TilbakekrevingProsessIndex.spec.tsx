@@ -8,6 +8,66 @@ import * as stories from './TilbakekrevingProsessIndex.stories';
 const { Default, MedToPerioder } = composeStories(stories);
 
 describe('TilbakekrevingProsessIndex', () => {
+  it.each([false, true])(
+    'kopierer vurderingen uten å endre originalen når målperioden har flere ytelser: %s',
+    async harFlereYtelser => {
+      let lagretFormData: TilbakekrevingFormData | undefined;
+      const perioder = stories.MedToPerioder.args!.vilkarvurderingsperioder!;
+      const { unmount } = render(
+        <MedToPerioder
+          setFormData={data => {
+            lagretFormData = data;
+          }}
+          vilkarvurderingsperioder={{
+            ...perioder,
+            perioder: perioder.perioder.map((periode, index) => ({
+              ...periode,
+              tom: index === 0 ? '2019-03-31' : periode.tom,
+              ytelser:
+                index === 1 && harFlereYtelser
+                  ? [...periode.ytelser, { aktivitet: 'Frilanser', belop: 100 }]
+                  : periode.ytelser,
+            })),
+          }}
+          vilkarvurdering={{
+            vilkarsVurdertePerioder: [
+              {
+                fom: '2019-01-01',
+                tom: '2019-03-31',
+                vilkarResultat: 'FORSTO_BURDE_FORSTAATT',
+                begrunnelse: 'Mottaker burde forstått at utbetalingen var feil',
+                vilkarResultatInfo: {
+                  begrunnelse: 'Simpel uaktsomhet',
+                  aktsomhet: 'SIMPEL_UAKTSOM',
+                  aktsomhetInfo: {
+                    sarligGrunner: ['ANNET'],
+                    harGrunnerTilReduksjon: true,
+                    andelTilbakekreves: 50,
+                    ileggRenter: false,
+                    tilbakekrevesBelop: 5,
+                    tilbakekrevSelvOmBeloepErUnder4Rettsgebyr: true,
+                    annetBegrunnelse: 'Andre særlige grunner',
+                    sarligGrunnerBegrunnelse: 'Begrunnelse for særlige grunner',
+                  },
+                },
+              },
+            ],
+          }}
+        />,
+      );
+
+      expect(await screen.findByText('01.04.2019 - 01.10.2019')).toBeInTheDocument();
+      await userEvent.selectOptions(screen.getByLabelText('Kopier vilkårsvurdering fra'), '2019-01-01_2019-03-31');
+      unmount();
+
+      const kopiert = lagretFormData?.kladd?.verdier.FORSTO_BURDE_FORSTAATT.SIMPEL_UAKTSOM;
+      expect(kopiert).toHaveProperty('andelSomTilbakekrevesManuell', harFlereYtelser ? null : undefined);
+      expect(kopiert?.andelSomTilbakekreves).toBe(harFlereYtelser ? null : '50');
+      const original = lagretFormData?.perioder.find(periode => periode.fom === '2019-01-01');
+      expect(original?.FORSTO_BURDE_FORSTAATT.SIMPEL_UAKTSOM?.andelSomTilbakekreves).toBe('50');
+    },
+  );
+
   it('skal vurdere perioden som God Tro og så bekrefte', async () => {
     const lagre = vi.fn(() => Promise.resolve());
     render(<Default submitCallback={lagre} />);

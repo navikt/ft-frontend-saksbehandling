@@ -8,6 +8,8 @@ import { required } from '@navikt/ft-form-validators';
 import { decodeHtmlEntity, removeSpacesFromNumber } from '@navikt/ft-utils';
 
 import { type Aktsomhet, AKTSOMHET_REKKEFØLGE } from '../../../kodeverk/aktsomhet';
+import type { SærligGrunn } from '../../../kodeverk/særligGrunn';
+import type { VilkårResultat } from '../../../kodeverk/vilkarResultat';
 import type { MessageId } from '../../../messageIds';
 import type { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
 import type { AktsomhetInfo } from '../../../types/VilkårsvurdertePerioder';
@@ -20,16 +22,16 @@ const forstoBurdeForstattTekster: Record<Aktsomhet, MessageId> = {
   SIMPEL_UAKTSOM: 'AktsomhetFormPanel.AktsomhetTyperLabel.SimpelUaktsom',
 };
 
-interface AktsomhetData {
-  andelSomTilbakekreves: number | string;
-  andelSomTilbakekrevesManuell: number;
-  harGrunnerTilReduksjon: boolean;
-  skalDetTilleggesRenter: boolean;
-  belopSomSkalTilbakekreves: number;
-  annetBegrunnelse: string;
-  sarligGrunnerBegrunnelse: string;
-  tilbakekrevSelvOmBeloepErUnder4Rettsgebyr: boolean;
-}
+type AktsomhetData = {
+  andelSomTilbakekreves?: number | string | null;
+  andelSomTilbakekrevesManuell?: number | string | null;
+  harGrunnerTilReduksjon?: boolean;
+  skalDetTilleggesRenter?: boolean;
+  belopSomSkalTilbakekreves?: number | string | null;
+  annetBegrunnelse?: string;
+  sarligGrunnerBegrunnelse?: string;
+  tilbakekrevSelvOmBeloepErUnder4Rettsgebyr?: boolean;
+} & Partial<Record<SærligGrunn, boolean>>;
 
 type AktomhetMap = {
   FORSETT?: AktsomhetData;
@@ -40,6 +42,10 @@ type AktomhetMap = {
 export type InitialValuesAktsomhetForm = {
   handletUaktsomhetGrad: Aktsomhet;
 } & Pick<AktomhetMap, Aktsomhet>;
+
+type AktsomhetVilkårResultat = Exclude<VilkårResultat, 'GOD_TRO'>;
+export type AktsomhetFormValues = Record<AktsomhetVilkårResultat, InitialValuesAktsomhetForm>;
+export type AktsomhetFormName = `${AktsomhetVilkårResultat}.${Aktsomhet}`;
 
 interface Props {
   readOnly: boolean;
@@ -53,7 +59,7 @@ interface Props {
   erTotalBelopUnder4Rettsgebyr: boolean;
   aktsomhetTyper: KodeverkMedNavnTilbakekreving<'Aktsomhet'>[];
   sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[];
-  andelSomTilbakekreves?: string;
+  andelSomTilbakekreves?: number | string;
   name: 'FORSTO_BURDE_FORSTAATT' | 'FEIL_OPPLYSNINGER' | 'MANGELFULL_OPPLYSNING';
 }
 
@@ -97,7 +103,7 @@ export const AktsomhetFormPanel = ({
           ))}
         </HStack>
       </RhfRadioGroup>
-      {AKTSOMHET_REKKEFØLGE.some(uc => uc === handletUaktsomhetGrad) && (
+      {handletUaktsomhetGrad && AKTSOMHET_REKKEFØLGE.includes(handletUaktsomhetGrad) && (
         <AktsomhetGradFormPanel
           name={`${name}.${handletUaktsomhetGrad}`}
           harGrunnerTilReduksjon={harGrunnerTilReduksjon}
@@ -172,10 +178,7 @@ AktsomhetFormPanel.transformValues = (
   };
 };
 
-const lagAktsomhetData = (
-  aktsomhetInfo: AktsomhetInfo,
-  andelSomTilbakekreves?: string,
-): InitialValuesAktsomhetForm => ({
+const lagAktsomhetData = (aktsomhetInfo: AktsomhetInfo, andelSomTilbakekreves?: string): AktsomhetData => ({
   andelSomTilbakekreves:
     andelSomTilbakekreves === undefined || ANDELER.includes(andelSomTilbakekreves)
       ? andelSomTilbakekreves
@@ -194,7 +197,7 @@ const lagAktsomhetData = (
 });
 
 AktsomhetFormPanel.buildInitalValues = (vilkarResultatInfo: {
-  aktsomhet: string | any;
+  aktsomhet: Aktsomhet | { kode: Aktsomhet };
   aktsomhetInfo?: AktsomhetInfo;
 }) => {
   const { aktsomhet, aktsomhetInfo } = vilkarResultatInfo;
@@ -202,7 +205,7 @@ AktsomhetFormPanel.buildInitalValues = (vilkarResultatInfo: {
     aktsomhetInfo?.andelTilbakekreves !== undefined ? `${aktsomhetInfo.andelTilbakekreves}` : undefined;
   const aktsomhetData = aktsomhetInfo
     ? {
-        [aktsomhet.kode && 'kode' in aktsomhet ? aktsomhet.kode : aktsomhet]: lagAktsomhetData(
+        [typeof aktsomhet === 'object' ? aktsomhet.kode : aktsomhet]: lagAktsomhetData(
           aktsomhetInfo,
           andelSomTilbakekreves,
         ),
@@ -210,7 +213,7 @@ AktsomhetFormPanel.buildInitalValues = (vilkarResultatInfo: {
     : {};
 
   return {
-    handletUaktsomhetGrad: aktsomhet && aktsomhet.kode && 'kode' in aktsomhet ? aktsomhet.kode : aktsomhet,
+    handletUaktsomhetGrad: typeof aktsomhet === 'object' ? aktsomhet.kode : aktsomhet,
     ...aktsomhetData,
   };
 };

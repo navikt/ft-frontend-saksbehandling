@@ -9,6 +9,7 @@ import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
 import type { Aktsomhet } from '../../../kodeverk/aktsomhet';
 import type { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
+import type { AktsomhetFormName, AktsomhetFormValues } from './AktsomhetFormPanel';
 import { AktsomhetSarligeGrunnerFormPanel } from './AktsomhetSarligeGrunnerFormPanel';
 
 import styles from './aktsomhetGradUaktsomhetFormPanel.module.css';
@@ -16,10 +17,9 @@ import styles from './aktsomhetGradUaktsomhetFormPanel.module.css';
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
 
-const SærligGrunnerBegrunnelseDiv = ({ name, readOnly }: { name: string; readOnly: boolean }) => {
+const SærligGrunnerBegrunnelseDiv = ({ name, readOnly }: { name: AktsomhetFormName; readOnly: boolean }) => {
   const intl = useIntl();
-  // TODO (TOR) Manglar type
-  const { control } = useFormContext();
+  const { control } = useFormContext<AktsomhetFormValues>();
 
   return (
     <VStack gap="space-16">
@@ -49,9 +49,9 @@ interface Props {
   feilutbetalingBelop: number;
   erTotalBelopUnder4Rettsgebyr: boolean;
   sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[];
-  andelSomTilbakekreves?: string;
+  andelSomTilbakekreves?: number | string;
   erValgtResultatTypeForstoBurdeForstaatt?: boolean;
-  name: string;
+  name: AktsomhetFormName;
 }
 
 export const AktsomhetGradUaktsomhetFormPanel = ({
@@ -67,8 +67,7 @@ export const AktsomhetGradUaktsomhetFormPanel = ({
   erValgtResultatTypeForstoBurdeForstaatt,
   name,
 }: Props) => {
-  // TODO (TOR) Manglar type
-  const { control, watch } = useFormContext();
+  const { control, watch } = useFormContext<AktsomhetFormValues>();
 
   const erUnder4Rettsgebyg = watch(`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`);
 
