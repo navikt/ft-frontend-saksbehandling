@@ -2,7 +2,11 @@ import { composeStories } from '@storybook/react-vite';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { PeriodeÅrsak } from '@navikt/ft-kodeverk';
+import type { BeregningsgrunnlagPeriodeProp } from '@navikt/ft-types';
+
 import * as stories from './BeregningsgrunnlagProsessIndex.stories';
+import { AksjonspunktBehandlerTidsbegrenset } from './components/arbeidstaker/AksjonspunktBehandlerTB';
 
 const {
   ArbeidstakerMedAvvikAp5038,
@@ -21,6 +25,31 @@ const scrollIntoViewMock = vi.fn();
 globalThis.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
 
 describe('BeregningsgrunnlagProsessIndex', () => {
+  it('sorterer perioder for resultatet uten å endre rekkefølgen på inputlisten', () => {
+    const perioder: BeregningsgrunnlagPeriodeProp[] = [
+      {
+        beregningsgrunnlagPeriodeFom: '2021-02-01',
+        beregningsgrunnlagPeriodeTom: '2021-02-28',
+        periodeAarsaker: [PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET],
+        beregningsgrunnlagPrStatusOgAndel: [],
+      } as BeregningsgrunnlagPeriodeProp,
+      {
+        beregningsgrunnlagPeriodeFom: '2021-01-01',
+        beregningsgrunnlagPeriodeTom: '2021-01-31',
+        periodeAarsaker: [PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET],
+        beregningsgrunnlagPrStatusOgAndel: [],
+      } as BeregningsgrunnlagPeriodeProp,
+    ];
+
+    const resultat = AksjonspunktBehandlerTidsbegrenset.transformValues({}, perioder);
+
+    expect(resultat.map(({ periodeFom }) => periodeFom)).toEqual(['2021-01-01', '2021-02-01']);
+    expect(perioder.map(({ beregningsgrunnlagPeriodeFom }) => beregningsgrunnlagPeriodeFom)).toEqual([
+      '2021-02-01',
+      '2021-01-01',
+    ]);
+  });
+
   it('skal vise informasjon om arbeidstakerinntekt', async () => {
     render(<ArbeidstakerUtenAvvikFlereArbeidsforholdMedLønnsendring />);
     expect(await screen.findByText('Søker har hatt lønnsendring i løpet av de siste tre månedene')).toBeInTheDocument();
@@ -398,7 +427,7 @@ describe('BeregningsgrunnlagProsessIndex', () => {
 
     render(<AvvikNæringEtterLøstAvvikArbeid5038Og5039 submitCallback={lagre} />);
 
-    expect(await screen.getAllByText('Bekreft og fortsett')).toHaveLength(2);
+    expect(screen.getAllByText('Bekreft og fortsett')).toHaveLength(2);
     const knappATFL = screen.getAllByRole('button', { name: 'Bekreft og fortsett' })[0];
     const knappNæring = screen.getAllByRole('button', { name: 'Bekreft og fortsett' })[1];
 

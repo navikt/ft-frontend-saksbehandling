@@ -134,8 +134,11 @@ const initializeMap = (
   return mapMedAndeler;
 };
 
+const sorterPerioder = (allePerioder: BeregningsgrunnlagPeriodeProp[]): BeregningsgrunnlagPeriodeProp[] =>
+  allePerioder.toSorted(sortPeriodsBy('beregningsgrunnlagPeriodeFom'));
+
 const finnFørstePeriode = (allePerioder: BeregningsgrunnlagPeriodeProp[]): BeregningsgrunnlagPeriodeProp =>
-  allePerioder.sort(sortPeriodsBy('beregningsgrunnlagPeriodeFom'))[0];
+  sorterPerioder(allePerioder)[0];
 
 const finnAndelIPeriode = (
   andel: BeregningsgrunnlagAndel,
@@ -368,8 +371,9 @@ AksjonspunktBehandlerTidsbegrenset.transformValues = (
   perioder: BeregningsgrunnlagPeriodeProp[],
 ): TidsbegrensetArbeidsforholdPeriodeResultat[] => {
   const respons: TidsbegrensetArbeidsforholdPeriodeResultat[] = [];
-  const førstePeriode = finnFørstePeriode(perioder);
-  const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(perioder);
+  const sortertePerioder = sorterPerioder(perioder);
+  const førstePeriode = sortertePerioder[0];
+  const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(sortertePerioder);
   relevantePerioder.forEach(relevantPeriode => {
     const arbeidstakerAndeler = findArbeidstakerAndeler(relevantPeriode);
     const fastsatteTidsbegrensedeAndeler = [] as TidsbegrensetArbeidsforholdInntektResultat[];
