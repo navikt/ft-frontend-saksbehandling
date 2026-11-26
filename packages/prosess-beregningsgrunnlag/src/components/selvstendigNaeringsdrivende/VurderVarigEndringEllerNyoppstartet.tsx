@@ -1,4 +1,3 @@
-import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -37,7 +36,6 @@ const inntektFastsettesText = (erVarigEndretArbeidssituasjon?: boolean) =>
   );
 
 type Props = {
-  endretTekst?: React.ReactNode;
   readOnly: boolean;
   erVarigEndring?: boolean;
   erVarigEndretArbeidssituasjon?: boolean;

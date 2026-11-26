@@ -105,7 +105,7 @@ export const TilbakekrevingVedtakForm = ({
 }: Props) => {
   const vedtaksbrevAvsnitt = avsnittsliste;
 
-  const defaultValues = formData || TilbakekrevingEditerVedtaksbrevPanel.buildInitialValues(vedtaksbrevAvsnitt);
+  const defaultValues = formData ?? TilbakekrevingEditerVedtaksbrevPanel.buildInitialValues(vedtaksbrevAvsnitt);
 
   const intl = useIntl();
   const formMethods = useForm<FormValues>({

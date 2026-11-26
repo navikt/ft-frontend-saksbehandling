@@ -113,7 +113,7 @@ function lagLesMer(
 ) {
   const unikeScenario = opplysninger
     .map(o => o.lønnsendringscenario)
-    .filter((it, index, self) => index === self.findIndex(t => t === it));
+    .filter((it, index, self) => index === self.indexOf(it));
   return unikeScenario.map(scenario => (
     <p key={scenario}>
       {finnScenarioTekst(scenario, skjeringstidspunktDato, opplysninger, arbeidsgiverOpplysningerPerId)}

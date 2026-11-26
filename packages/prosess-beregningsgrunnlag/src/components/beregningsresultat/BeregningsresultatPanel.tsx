@@ -17,11 +17,11 @@ import { ProsessBeregningsgrunnlagAvklaringsbehovCode } from '../../types/interf
 import type { Vilkårperiode } from '../../types/Vilkår';
 import { OppsummertGrunnlagPanel } from './OppsummertGrunnlagPanel';
 
-const ÅRSAKER_SOM_KAN_GI_NY_DAGSATS: string[] = [
+const ÅRSAKER_SOM_KAN_GI_NY_DAGSATS = new Set<string>([
   PeriodeÅrsak.ARBEIDSFORHOLD_AVSLUTTET,
   PeriodeÅrsak.NATURALYTELSE_TILKOMMER,
   PeriodeÅrsak.NATURALYTELSE_BORTFALT,
-];
+]);
 
 const andelErIkkeTilkommetEllerLagtTilAvSBH = (andel: BeregningsgrunnlagAndel): boolean =>
   andel.erTilkommetAndel === false && andel.lagtTilAvSaksbehandler === false;
@@ -109,7 +109,7 @@ const lagAndeler = (
   return radListe;
 };
 
-const harÅrsakSomKanGiNyDagsats = (årsaker: string[]) => årsaker.some(k => ÅRSAKER_SOM_KAN_GI_NY_DAGSATS.includes(k));
+const harÅrsakSomKanGiNyDagsats = (årsaker: string[]) => årsaker.some(k => ÅRSAKER_SOM_KAN_GI_NY_DAGSATS.has(k));
 
 const utledTabellData = (beregningsgrunnlag: Beregningsgrunnlag): TabellData[] => {
   // Vi skal alltid vise første periode, deretter kun perioder som er opprettet pga noe som \kan endre dagsatsen i perioden

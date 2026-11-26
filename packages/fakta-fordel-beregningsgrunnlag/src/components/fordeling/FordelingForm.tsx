@@ -42,7 +42,7 @@ const transformFieldValuesFordelBeregning = (
   beregningsgrunnlag: Beregningsgrunnlag,
 ): BeregningsgrunnlagTilBekreftelse<FordelBeregningsgrunnlagPerioderTransformedValues> => {
   if (!hasAvklaringsbehov(FORDEL_BEREGNINGSGRUNNLAG, beregningsgrunnlag.avklaringsbehov)) {
-    throw Error('har ikke aksjonspunkt for fordeling når transform values ble kalt');
+    throw new Error('har ikke aksjonspunkt for fordeling når transform values ble kalt');
   }
   const bgPerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
   return {
@@ -60,7 +60,7 @@ const transformFieldValuesFordelBeregning = (
 const findAvklaringsbehov = (avklaringsbehov: BeregningAvklaringsbehov[]): BeregningAvklaringsbehov => {
   const ak = avklaringsbehov.find(ap => ap.definisjon === FORDEL_BEREGNINGSGRUNNLAG);
   if (!ak) {
-    throw Error(`Fant ikke forventet avklaringsbehov ${FORDEL_BEREGNINGSGRUNNLAG}`);
+    throw new Error(`Fant ikke forventet avklaringsbehov ${FORDEL_BEREGNINGSGRUNNLAG}`);
   }
   return ak;
 };
@@ -94,7 +94,7 @@ const finnBeregningsgrunnlag = (
 ): Beregningsgrunnlag => {
   const matchetndeBG = beregningsgrunnlagListe.find(bg => bg.vilkårsperiodeFom === vilkårsperiodeFom);
   if (!matchetndeBG) {
-    throw Error(`Mangler beregningsgrunnlag for vilkårsperiodeFom ${vilkårsperiodeFom}`);
+    throw new Error(`Mangler beregningsgrunnlag for vilkårsperiodeFom ${vilkårsperiodeFom}`);
   }
   return matchetndeBG;
 };

@@ -132,7 +132,7 @@ export const FeilutbetalingInfoPanel = ({
   const initialValues = buildInitialValues(feilutbetalingFakta);
 
   const formMethods = useForm<FormValues>({
-    defaultValues: formData || initialValues,
+    defaultValues: formData ?? initialValues,
   });
 
   const behandlePerioderSamlet = formMethods.watch('behandlePerioderSamlet');

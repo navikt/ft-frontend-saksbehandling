@@ -60,16 +60,14 @@ export const LonnsendringForm = ({ readOnly }: Props) => {
 };
 
 const buildInitialLonnsendring = (alleATAndeler: BeregningsgrunnlagAndel[]): boolean | undefined => {
-  const harSattLonnsendringTilTrue =
-    alleATAndeler.find(andel => andel.lonnsendringIBeregningsperioden === true) !== undefined;
-  const harSattLonnsendringTilFalse =
-    alleATAndeler.find(andel => andel.lonnsendringIBeregningsperioden === false) !== undefined;
+  const harSattLonnsendringTilTrue = alleATAndeler.some(andel => andel.lonnsendringIBeregningsperioden === true);
+  const harSattLonnsendringTilFalse = alleATAndeler.some(andel => andel.lonnsendringIBeregningsperioden === false);
   return harSattLonnsendringTilTrue || (harSattLonnsendringTilFalse ? false : undefined);
 };
 
 LonnsendringForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag): LønnsendringValues => {
   const initialValues: LønnsendringValues = {};
-  if (!beregningsgrunnlag || !beregningsgrunnlag.beregningsgrunnlagPeriode) {
+  if (!beregningsgrunnlag?.beregningsgrunnlagPeriode) {
     return initialValues;
   }
   const alleAndeler = beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel;

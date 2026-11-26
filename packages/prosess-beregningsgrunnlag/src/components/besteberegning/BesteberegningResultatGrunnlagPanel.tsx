@@ -18,7 +18,7 @@ const finnGjeldendeBeløp = (andel: BeregningsgrunnlagAndel): number => {
 };
 
 const finnKap8Beregning = (periode: BeregningsgrunnlagPeriodeProp): number =>
-  periode && periode.beregningsgrunnlagPrStatusOgAndel
+  periode?.beregningsgrunnlagPrStatusOgAndel
     ? periode.beregningsgrunnlagPrStatusOgAndel.map(andel => finnGjeldendeBeløp(andel)).reduce((i1, i2) => i1 + i2, 0)
     : 0;
 

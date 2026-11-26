@@ -117,12 +117,12 @@ export const AktsomhetFormPanel = ({
 };
 
 const parseIntAndelSomTilbakekreves = (andelSomTilbakekreves: string, harGrunnerTilReduksjon: boolean) => {
-  const parsedValue = parseInt(andelSomTilbakekreves, 10);
+  const parsedValue = Number.parseInt(andelSomTilbakekreves, 10);
   return !harGrunnerTilReduksjon || Number.isNaN(parsedValue) ? {} : { andelTilbakekreves: parsedValue };
 };
 
 const parseFloatAndelSomTilbakekreves = (andelSomTilbakekreves: string, harGrunnerTilReduksjon: boolean) => {
-  const parsedValue = parseFloat(andelSomTilbakekreves);
+  const parsedValue = Number.parseFloat(andelSomTilbakekreves);
   return !harGrunnerTilReduksjon || Number.isNaN(parsedValue) ? {} : { andelTilbakekreves: parsedValue };
 };
 
@@ -199,7 +199,7 @@ AktsomhetFormPanel.buildInitalValues = (vilkarResultatInfo: {
 }) => {
   const { aktsomhet, aktsomhetInfo } = vilkarResultatInfo;
   const andelSomTilbakekreves =
-    aktsomhetInfo && aktsomhetInfo.andelTilbakekreves !== undefined ? `${aktsomhetInfo.andelTilbakekreves}` : undefined;
+    aktsomhetInfo?.andelTilbakekreves !== undefined ? `${aktsomhetInfo.andelTilbakekreves}` : undefined;
   const aktsomhetData = aktsomhetInfo
     ? {
         [aktsomhet.kode && 'kode' in aktsomhet ? aktsomhet.kode : aktsomhet]: lagAktsomhetData(

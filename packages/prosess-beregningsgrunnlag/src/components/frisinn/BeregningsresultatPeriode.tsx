@@ -145,8 +145,8 @@ export const BeregningsresultatPeriode = ({ bgperiode, ytelsegrunnlag, frilansGr
   if (!statuserDetErSøktOm || statuserDetErSøktOm.length < 1) {
     return null;
   }
-  const visningFrilans = frilansGrunnlag >= 0 ? frilansGrunnlag : 0;
-  const visningNæring = næringGrunnlag >= 0 ? næringGrunnlag : 0;
+  const visningFrilans = Math.max(frilansGrunnlag, 0);
+  const visningNæring = Math.max(næringGrunnlag, 0);
   return (
     <VStack gap="space-8">
       <Label size="small">

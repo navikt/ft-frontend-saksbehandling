@@ -182,9 +182,7 @@ const erAndelKunstigArbeidsforhold = (
 
 // Kun Ytelse
 const harKunYtelse = (faktaOmBeregning: FaktaOmBeregning): boolean =>
-  !!faktaOmBeregning.faktaOmBeregningTilfeller &&
-  faktaOmBeregning.faktaOmBeregningTilfeller.find(kode => kode === FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE) !==
-    undefined;
+  !!faktaOmBeregning.faktaOmBeregningTilfeller?.includes(FaktaOmBeregningTilfelle.FASTSETT_BG_KUN_YTELSE);
 
 const skalFastsettInntektForAndel =
   (
@@ -241,11 +239,10 @@ const skalKunneEndreBeregningsgrunnlag =
 
 // Overstyring
 export const erOverstyringAvBeregningsgrunnlag = (values: FaktaOmBeregningAksjonspunktValues): boolean =>
-  !!values && values[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD] === true;
+  values?.[MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD] === true;
 
 const harOverstyringsAP = (avklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
-  avklaringsbehov &&
-  avklaringsbehov.some(ap => ap.definisjon === FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
+  !!avklaringsbehov?.some(ap => ap.definisjon === FaktaBeregningAvklaringsbehovCode.OVERSTYRING_AV_BEREGNINGSGRUNNLAG);
 
 export const erInitialOverstyringAvBeregningsgrunnlag = (beregningsgrunnlag: Beregningsgrunnlag) =>
   beregningsgrunnlag.erOverstyrtInntekt || harOverstyringsAP(beregningsgrunnlag.avklaringsbehov);

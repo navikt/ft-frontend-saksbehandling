@@ -115,7 +115,7 @@ const finnRiktigAndel = (
   const andeler = bgPeriode.beregningsgrunnlagPrStatusOgAndel || [];
   const matchetAndel = andeler.find(a => a.andelsnr === andel.andelsnr);
   if (!matchetAndel) {
-    throw Error(`Finner ikke matchende andel med andelsnr ${andel.andelsnr}`);
+    throw new Error(`Finner ikke matchende andel med andelsnr ${andel.andelsnr}`);
   }
   return matchetAndel;
 };
@@ -129,16 +129,8 @@ const finnBeregningsgrunnlagPrAar = (bgAndel: BeregningsgrunnlagAndel): string |
   if (!bgAndel) {
     return undefined;
   }
-  const bortfaltNaturalytelse =
-    bgAndel.arbeidsforhold?.naturalytelseBortfaltPrÅr === null ||
-    bgAndel.arbeidsforhold?.naturalytelseBortfaltPrÅr === undefined
-      ? 0
-      : bgAndel.arbeidsforhold.naturalytelseBortfaltPrÅr;
-  const tilkommetNaturalytelse =
-    bgAndel.arbeidsforhold?.naturalytelseTilkommetPrÅr === null ||
-    bgAndel.arbeidsforhold?.naturalytelseTilkommetPrÅr === undefined
-      ? 0
-      : bgAndel.arbeidsforhold.naturalytelseTilkommetPrÅr;
+  const bortfaltNaturalytelse = bgAndel.arbeidsforhold?.naturalytelseBortfaltPrÅr ?? 0;
+  const tilkommetNaturalytelse = bgAndel.arbeidsforhold?.naturalytelseTilkommetPrÅr ?? 0;
   if (bgAndel.besteberegningPrAar || bgAndel.besteberegningPrAar === 0) {
     return formatCurrencyNoKr(bgAndel.besteberegningPrAar + bortfaltNaturalytelse - tilkommetNaturalytelse);
   }
@@ -167,7 +159,7 @@ FordelBeregningsgrunnlagPeriodePanel.buildInitialValues = (
   kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): FordelBeregningsgrunnlagAndelValues[] => {
-  if (!periode || !periode.fordelBeregningsgrunnlagAndeler) {
+  if (!periode?.fordelBeregningsgrunnlagAndeler) {
     return [];
   }
   return periode.fordelBeregningsgrunnlagAndeler.map(andel => {

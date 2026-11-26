@@ -42,9 +42,5 @@ export const buildInitialValuesKunstigAndel = (
 
 export const harFieldKunstigArbeidsforhold = (field: InntektTransformed, bg: Beregningsgrunnlag): boolean =>
   bg.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel?.find(
-    andel =>
-      andel.andelsnr === field.andelsnr &&
-      andel.arbeidsforhold &&
-      andel.arbeidsforhold.organisasjonstype &&
-      andel.arbeidsforhold.organisasjonstype === Organisasjonstype.KUNSTIG,
+    andel => andel.andelsnr === field.andelsnr && andel.arbeidsforhold?.organisasjonstype === Organisasjonstype.KUNSTIG,
   ) !== undefined;

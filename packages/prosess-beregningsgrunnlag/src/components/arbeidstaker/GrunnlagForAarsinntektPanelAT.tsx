@@ -58,10 +58,10 @@ const createArbeidinntektRows = (
         </Table.Row>
         <Table.Row>
           <Table.DataCell textSize="small">
-            {andel.arbeidsforhold && andel.arbeidsforhold.stillingsNavn && (
+            {andel.arbeidsforhold?.stillingsNavn && (
               <div>{createArbeidsStillingsNavnOgProsent(andel.arbeidsforhold)}</div>
             )}
-            {andel.arbeidsforhold && andel.arbeidsforhold.startdato && (
+            {andel.arbeidsforhold?.startdato && (
               <div>
                 <PeriodLabel
                   dateStringFom={andel.arbeidsforhold.startdato}

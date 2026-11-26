@@ -3,11 +3,11 @@ export const formaterFritekst = (value: string | number) =>
     .toString()
     .replace(/\p{Dash_Punctuation}/gu, '-')
     .replace(/[\p{Space_Separator}\t]/gu, ' ')
-    .replace(/\u00AD/g, '')
+    .replaceAll('\u00AD', '')
     .replace(/[“”]/g, '"')
     .replace(/[‘’`]/g, "'")
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;');
 
 export const capitalizeFirstLetter = (text: string): string => {
   if (text.length === 0) {

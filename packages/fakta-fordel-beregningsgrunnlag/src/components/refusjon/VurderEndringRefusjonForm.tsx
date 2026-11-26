@@ -78,7 +78,7 @@ const finnBeregningsgrunnlag = (
 ): Beregningsgrunnlag => {
   const matchetndeBG = beregninsgrunnlagListe.find(bg => bg.vilkårsperiodeFom === vilkårsperiodeFom);
   if (!matchetndeBG) {
-    throw Error(`Mangler beregningsgrunnlag for vilkårsperiodeFom ${vilkårsperiodeFom}`);
+    throw new Error(`Mangler beregningsgrunnlag for vilkårsperiodeFom ${vilkårsperiodeFom}`);
   }
   return matchetndeBG;
 };

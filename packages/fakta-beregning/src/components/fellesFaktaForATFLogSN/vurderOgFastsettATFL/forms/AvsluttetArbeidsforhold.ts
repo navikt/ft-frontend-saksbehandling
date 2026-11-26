@@ -11,8 +11,8 @@ export const erAndelUtenReferanseOgGrunnlagHarAndelForSammeArbeidsgiverMedRefera
   if (!arbeidsforholdId && andeler) {
     const antallAndelerISammeVirksomhetMedReferanse = andeler
       .filter(a => a.aktivitetStatus === 'AT')
-      .filter(a => a.arbeidsforhold && a.arbeidsforhold.arbeidsgiverIdent === andel.arbeidsgiverId)
-      .filter(a => a.arbeidsforhold && a.arbeidsforhold.arbeidsforholdId).length;
+      .filter(a => a.arbeidsforhold?.arbeidsgiverIdent === andel.arbeidsgiverId)
+      .filter(a => a.arbeidsforhold?.arbeidsforholdId).length;
     return antallAndelerISammeVirksomhetMedReferanse > 0;
   }
   return false;

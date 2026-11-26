@@ -59,6 +59,7 @@ dayjs.extend(isSameOrAfter);
 dayjs.extend(isSameOrBefore);
 
 type DateType = dayjs.Dayjs | string;
+type OptionalDateType = DateType | undefined;
 
 type InputValue = string | number | boolean;
 
@@ -151,7 +152,7 @@ export const hasValidDate = (text: string = ''): FormValidationResult =>
 
 export const dateBeforeOrEqual =
   (latest: DateType) =>
-  (text: dayjs.Dayjs | string | undefined): FormValidationResult => {
+  (text: OptionalDateType): FormValidationResult => {
     const latestDate = dayjs(latest).endOf('day');
     return isEmpty(text) || dayjs(text).isSameOrBefore(latestDate)
       ? null
@@ -160,7 +161,7 @@ export const dateBeforeOrEqual =
 
 export const dateAfterOrEqual =
   (earliest: DateType) =>
-  (text: dayjs.Dayjs | string | undefined): FormValidationResult => {
+  (text: OptionalDateType): FormValidationResult => {
     const earliestDate = dayjs(earliest).startOf('day');
     return isEmpty(text) || dayjs(text).isSameOrAfter(earliestDate)
       ? null
@@ -170,12 +171,11 @@ export const dateAfterOrEqual =
 export const dateRangesNotOverlapping = (ranges: string[][]): FormValidationResult =>
   dateRangesAreSequential(ranges) ? null : dateRangesOverlappingMessage();
 
-export const dateBeforeToday = (text: dayjs.Dayjs | string | undefined): FormValidationResult =>
-  dateBeforeOrEqual(yesterday())(text);
-export const dateBeforeOrEqualToToday = (text: dayjs.Dayjs | string | undefined): FormValidationResult =>
+export const dateBeforeToday = (text: OptionalDateType): FormValidationResult => dateBeforeOrEqual(yesterday())(text);
+export const dateBeforeOrEqualToToday = (text: OptionalDateType): FormValidationResult =>
   dateBeforeOrEqual(today())(text);
 
-export const dateAfterOrEqualToToday = (text: dayjs.Dayjs | string | undefined): FormValidationResult =>
+export const dateAfterOrEqualToToday = (text: OptionalDateType): FormValidationResult =>
   dateAfterOrEqual(today())(text);
 
 export const hasValidFodselsnummerFormat = (text: string): FormValidationResult =>
@@ -189,7 +189,7 @@ export const harSammeFodselsnummerSomSoker = (fodeslnrSoker: string) => (foedsel
 export const hasValidText = (text: string): FormValidationResult => {
   if (!textRegex.test(text)) {
     const illegalChars = text.replace(textGyldigRegex, '');
-    return invalidTextMessage(illegalChars.replace(/[\t]/g, 'Tabulatortegn'));
+    return invalidTextMessage(illegalChars.replaceAll('\t', 'Tabulatortegn'));
   }
   return null;
 };
@@ -197,7 +197,7 @@ export const hasValidText = (text: string): FormValidationResult => {
 export const hasValidName = (text: string): FormValidationResult => {
   if (!nameRegex.test(text)) {
     const illegalChars = text.replace(nameGyldigRegex, '');
-    return invalidTextMessage(illegalChars.replace(/[\t]/g, 'Tabulatortegn'));
+    return invalidTextMessage(illegalChars.replaceAll('\t', 'Tabulatortegn'));
   }
   return null;
 };

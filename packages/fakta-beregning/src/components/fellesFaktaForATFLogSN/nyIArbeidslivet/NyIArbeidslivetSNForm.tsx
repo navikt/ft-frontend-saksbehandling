@@ -61,7 +61,7 @@ export const NyIArbeidslivetSNForm = ({ readOnly }: Props) => {
 
 NyIArbeidslivetSNForm.buildInitialValues = (beregningsgrunnlag: Beregningsgrunnlag): NyIArbeidslivetValues => {
   const initialValues: NyIArbeidslivetValues = {};
-  if (!beregningsgrunnlag || !beregningsgrunnlag.beregningsgrunnlagPeriode) {
+  if (!beregningsgrunnlag?.beregningsgrunnlagPeriode) {
     return initialValues;
   }
   const alleAndeler = beregningsgrunnlag.beregningsgrunnlagPeriode.map(

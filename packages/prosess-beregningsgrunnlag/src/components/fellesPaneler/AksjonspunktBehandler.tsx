@@ -66,7 +66,7 @@ const gjelderForParagraf = (a: BeregningAvklaringsbehov, lovparagraf: LovParagra
 const harAvklaringsbehovForLovparagraf = (
   avklaringsbehov: BeregningAvklaringsbehov[],
   lovparagraf: LovParagraf,
-): boolean => !!avklaringsbehov.find(a => gjelderForParagraf(a, lovparagraf));
+): boolean => avklaringsbehov.some(a => gjelderForParagraf(a, lovparagraf));
 
 const finnFormName = (lovparagraf: LovParagraf): string => `${defaultFormName}_${lovparagraf}`;
 
@@ -99,7 +99,7 @@ const buildInitialValues = (
   beregningsgrunnlag: BeregningsgrunnlagProp,
   sammenligningsgrunnlag?: SammenligningsgrunlagProp,
 ): AksjonspunktDataValues => {
-  if (!beregningsgrunnlag || !beregningsgrunnlag.beregningsgrunnlagPeriode) {
+  if (!beregningsgrunnlag?.beregningsgrunnlagPeriode) {
     return {};
   }
   const allePerioder = beregningsgrunnlag.beregningsgrunnlagPeriode;
@@ -350,9 +350,7 @@ const grupperPåKode = (
 };
 
 const harAksjonspunkt = (aksjonspunktKode: string, gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[]): boolean =>
-  gjeldendeAvklaringsbehov !== undefined &&
-  gjeldendeAvklaringsbehov !== null &&
-  gjeldendeAvklaringsbehov.some(ap => ap.definisjon === aksjonspunktKode);
+  !!gjeldendeAvklaringsbehov?.some(ap => ap.definisjon === aksjonspunktKode);
 
 const transformValues = (values: BeregningsgrunnlagValues): GruppertAksjonspunktData[] => {
   const { allePerioder } = values;

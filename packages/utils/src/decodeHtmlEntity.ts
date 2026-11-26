@@ -7,7 +7,7 @@ export const decodeHtmlEntity = (str?: string): string | undefined => {
     return str;
   }
   return str.replace(/&#?((?!(60|62);)\w+);/g, (match, dec) => {
-    if (Number.isNaN(parseInt(dec, 10))) {
+    if (Number.isNaN(Number.parseInt(dec, 10))) {
       const chars = {
         quot: 34,
         amp: 38,

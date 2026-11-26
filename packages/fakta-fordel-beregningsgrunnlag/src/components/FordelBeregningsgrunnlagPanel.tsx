@@ -17,10 +17,9 @@ import { VurderEndringRefusjonForm } from './refusjon/VurderEndringRefusjonForm'
 
 const { FORDEL_BEREGNINGSGRUNNLAG, VURDER_REFUSJON_BERGRUNN } = FaktaFordelBeregningAvklaringsbehovCode;
 
-const harFordelInfo = (bg: Beregningsgrunnlag): boolean =>
-  bg && bg.faktaOmFordeling ? !!bg.faktaOmFordeling.fordelBeregningsgrunnlag : false;
+const harFordelInfo = (bg: Beregningsgrunnlag): boolean => !!bg?.faktaOmFordeling?.fordelBeregningsgrunnlag;
 
-const harRefusjonInfo = (bg: Beregningsgrunnlag): boolean => !!(bg && bg.refusjonTilVurdering);
+const harRefusjonInfo = (bg: Beregningsgrunnlag): boolean => !!bg?.refusjonTilVurdering;
 
 const getAvklaringsbehov = (
   avklaringsbehov: BeregningAvklaringsbehov[],

@@ -25,7 +25,7 @@ import {
 import { BeregningForm } from './beregningForm/BeregningForm';
 import { GraderingUtenBGReadOnly } from './gradering/GraderingUtenBGReadOnly';
 
-const beregningAksjonspunkter = [
+const beregningAksjonspunkter: string[] = [
   ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
   ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
   ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
@@ -35,7 +35,7 @@ const beregningAksjonspunkter = [
 ];
 
 const finnAvklaringsbehov = (beregningsgrunnlag: Beregningsgrunnlag) =>
-  beregningsgrunnlag.avklaringsbehov.filter(ab => beregningAksjonspunkter.some(bap => bap === ab.definisjon));
+  beregningsgrunnlag.avklaringsbehov.filter(ab => beregningAksjonspunkter.includes(ab.definisjon));
 
 const getRelevanteStatuser = (statuser: AktivitetStatus[]): RelevanteStatuserProp => ({
   isArbeidstaker: statuser.some(kode => isStatusArbeidstakerOrKombinasjon(kode)),

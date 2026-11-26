@@ -6,7 +6,7 @@ import { TextField, type TextFieldProps } from '@navikt/ds-react';
 import { getError, getValidationRules, type ValidationReturnType } from '../formUtils';
 import { ReadOnlyField } from '../ReadOnlyField/ReadOnlyField';
 
-const TWO_DECIMALS_REGEXP = /^(\d+[,]?(\d{1,2})?)$/;
+const TWO_DECIMALS_REGEXP = /^(\d+,?(\d{1,2})?)$/;
 const DECIMAL_REGEXP = /^(\d{1,20}[,.]?(\d{1,10})?)$/;
 
 type Props<T extends FieldValues> = {
@@ -60,7 +60,9 @@ export const RhfNumericField = <T extends FieldValues>({
   const fieldValue = field.value?.toString() ?? '';
   const value = hasFocus && returnAsNumber && Number.parseFloat(inputValue) === field.value ? inputValue : fieldValue;
   const formattedValue =
-    !hasFocus && forceTwoDecimalDigits && value !== '' && !Number.isNaN(value) ? parseFloat(value).toFixed(2) : value;
+    !hasFocus && forceTwoDecimalDigits && value !== '' && !Number.isNaN(value)
+      ? Number.parseFloat(value).toFixed(2)
+      : value;
 
   return (
     <TextField
@@ -94,7 +96,7 @@ export const RhfNumericField = <T extends FieldValues>({
         }
 
         if (newValue && returnAsNumber) {
-          newValue = parseFloat(newValue);
+          newValue = Number.parseFloat(newValue);
           if (Number.isNaN(newValue)) newValue = null;
         }
 

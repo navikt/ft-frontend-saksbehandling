@@ -11,7 +11,7 @@ import { createVisningsnavnForAktivitetRefusjon } from '../util/visningsnavnHelp
 const utbetalingTil = (utbetalinger: TidligereUtbetalinger[], andelsnavn: string): ReactElement[] =>
   utbetalinger.map(utbetaling => (
     <div key={`${andelsnavn}_(${utbetaling.fom}_(${utbetaling.erTildeltRefusjon})`}>
-      {utbetaling && utbetaling.erTildeltRefusjon ? (
+      {utbetaling?.erTildeltRefusjon ? (
         andelsnavn
       ) : (
         <FormattedMessage id="BeregningInfoPanel.RefusjonBG.Direkteutbetaling" />
@@ -20,13 +20,11 @@ const utbetalingTil = (utbetalinger: TidligereUtbetalinger[], andelsnavn: string
   ));
 
 const perioder = (utbetalinger: TidligereUtbetalinger[]): ReactElement[] =>
-  utbetalinger
-    .filter(u => u)
-    .map(utbetaling => (
-      <div key={`${utbetaling.fom}_(${utbetaling.erTildeltRefusjon})`}>
-        <PeriodLabel dateStringFom={utbetaling.fom} dateStringTom={utbetaling.tom} />
-      </div>
-    ));
+  utbetalinger.filter(Boolean).map(utbetaling => (
+    <div key={`${utbetaling.fom}_(${utbetaling.erTildeltRefusjon})`}>
+      <PeriodLabel dateStringFom={utbetaling.fom} dateStringTom={utbetaling.tom} />
+    </div>
+  ));
 
 interface Props {
   refusjonAndel: RefusjonTilVurderingAndel;

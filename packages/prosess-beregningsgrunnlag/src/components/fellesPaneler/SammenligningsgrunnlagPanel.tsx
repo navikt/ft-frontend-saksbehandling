@@ -15,7 +15,7 @@ type Props = {
 
 export const SammenligningsgrunnlagPanel = ({ beregnetAarsinntekt, sammenligningsgrunnlag, erPGI }: Props) => {
   const { differanseBeregnet, rapportertPrAar, avvikProsent } = sammenligningsgrunnlag;
-  const avvikProsentAvrundet = parseFloat(avvikProsent.toFixed(1));
+  const avvikProsentAvrundet = Number.parseFloat(avvikProsent.toFixed(1));
   const inntektTekst = erPGI
     ? 'SammenligningsgrunnlagPanel.OmregnetAarsinntekt.Naring'
     : 'SammenligningsgrunnlagPanel.OmregnetAarsinntekt';

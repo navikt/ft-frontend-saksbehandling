@@ -37,10 +37,10 @@ import {
   utledArbeidsforholdFieldName,
 } from './vurderMottarYtelseUtils';
 
-const andreFrilansTilfeller: string[] = [
+const andreFrilansTilfeller = new Set<string>([
   FaktaOmBeregningTilfelle.VURDER_NYOPPSTARTET_FL,
   FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON,
-];
+]);
 
 const utledArbeidsforholdUtenIMRadioTekst = (
   arbeidsforhold: BeregningsgrunnlagArbeidsforhold,
@@ -123,7 +123,7 @@ const frilansMedAndreFrilanstilfeller = 'BeregningInfoPanel.VurderMottarYtelse.M
 const frilansUtenAndreFrilanstilfeller = 'BeregningInfoPanel.VurderMottarYtelse.MottarYtelseForFrilans';
 
 const finnFrilansTekstKode = (tilfeller: string[]) => {
-  if (tilfeller.some(tilfelle => andreFrilansTilfeller.includes(tilfelle))) {
+  if (tilfeller.some(tilfelle => andreFrilansTilfeller.has(tilfelle))) {
     return frilansMedAndreFrilanstilfeller;
   }
   return frilansUtenAndreFrilanstilfeller;
@@ -159,11 +159,8 @@ export const VurderMottarYtelseForm = ({
   const vurderMottarYtelse = beregningsgrunnlag.faktaOmBeregning
     ? beregningsgrunnlag.faktaOmBeregning.vurderMottarYtelse
     : undefined;
-  const erFrilans = vurderMottarYtelse && vurderMottarYtelse.erFrilans;
-  const arbeidsforholdUtenIM =
-    vurderMottarYtelse && vurderMottarYtelse.arbeidstakerAndelerUtenIM
-      ? vurderMottarYtelse.arbeidstakerAndelerUtenIM
-      : [];
+  const erFrilans = vurderMottarYtelse?.erFrilans;
+  const arbeidsforholdUtenIM = vurderMottarYtelse?.arbeidstakerAndelerUtenIM ?? [];
 
   return (
     <>
@@ -266,8 +263,7 @@ const transformValuesFrilans = (
   if (inntektVerdier === null) {
     return {};
   }
-  const skalFastsetteInntektFrilans =
-    values.vurderMottarYtelseValues && values.vurderMottarYtelseValues[frilansFieldName];
+  const skalFastsetteInntektFrilans = values.vurderMottarYtelseValues?.[frilansFieldName];
   if (skalFastsetteInntektFrilans) {
     const frilansAndel = beregningsgrunnlag.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel?.find(
       andel => andel.aktivitetStatus === 'FL',

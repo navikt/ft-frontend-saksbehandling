@@ -59,7 +59,7 @@ export const transformValuesVurderFaktaBeregning = (
         harAvklaringsbehovSomKanLøses(OVERSTYRING_AV_BEREGNINGSGRUNNLAG, v.avklaringsbehov || []),
     )
     .map(v => transformFieldValue(v, true))
-    .filter(v => v);
+    .filter(Boolean);
   const avklarGrunnlag = fieldArrayList
     .filter(v => v.erTilVurdering)
     .filter(
@@ -68,7 +68,7 @@ export const transformValuesVurderFaktaBeregning = (
         harAvklaringsbehovSomKanLøses(VURDER_FAKTA_FOR_ATFL_SN, v.avklaringsbehov || []),
     )
     .map(v => transformFieldValue(v, false))
-    .filter(v => v);
+    .filter(Boolean);
 
   const apDataTilSubmit: any[] = [];
 
