@@ -11,8 +11,10 @@ import type { BeregningFaktaOgOverstyringAP } from '../../typer/interface/Beregn
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import type { Vilkår, Vilkårperiode } from '../../typer/Vilkår';
-import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
-import { formNameVurderFaktaBeregning } from '../../utils/BeregningFormUtils';
+import {
+  formNameVurderFaktaBeregning,
+  type VurderFaktaBeregningFormValues,
+} from '../../typer/VurderFaktaBeregningFormValues';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { getBuildInitialValuesFaktaForATFLOgSN } from './faktaForATFLOgSNPanelUtils';
 import { MANUELL_OVERSTYRING_BEREGNINGSGRUNNLAG_FIELD } from './InntektstabellPanel';

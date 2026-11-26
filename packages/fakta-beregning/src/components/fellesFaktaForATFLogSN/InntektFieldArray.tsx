@@ -19,15 +19,7 @@ import type {
 } from '@navikt/ft-types';
 import { removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import type {
-  ArbeidstakerInntektValues,
-  DagpengerinntektValues,
-  FaktaOmBeregningAksjonspunktValues,
-  FrilansinntektValues,
-  KunstigAndelValues,
-  MilitærEllerSivilInntektValues,
-  SelvstendigNæringsdrivendeInntektValues,
-} from '../../typer/FaktaBeregningTypes';
+import type { FaktaOmBeregningAksjonspunktValues } from '../../typer/FaktaBeregningTypes';
 import type { AndelFieldValue, InntektTransformed } from '../../typer/FieldValues';
 import type { KodeverkForPanel, KodeverkMedNavn } from '../../typer/KodeverkForPanel';
 import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
@@ -145,7 +137,6 @@ const validate = (formValues: FaktaOmBeregningAksjonspunktValues, errors: any, i
 interface Props {
   readOnly: boolean;
   skalKunneLeggeTilDagpengerManuelt: boolean;
-  skalHaMilitær?: boolean;
   beregningsgrunnlag: Beregningsgrunnlag;
   kodeverkSamling: KodeverkForPanel;
 }
@@ -307,15 +298,18 @@ export const InntektFieldArray = ({
 };
 
 InntektFieldArray.transformValues = (
-  values: AndelFieldValue[] | undefined,
-  frilansInntektValues: FrilansinntektValues | undefined,
-  arbeidstakerInntektValues: ArbeidstakerInntektValues[] | undefined,
-  dagpengerInntektValues: DagpengerinntektValues | undefined,
-  selvstendigNæringsdrivendeInntektValues: SelvstendigNæringsdrivendeInntektValues | undefined,
-  militærEllerSivilInntektValues: MilitærEllerSivilInntektValues | undefined,
-  kunstigAndelInntektValues: KunstigAndelValues | undefined,
+  formValues: FaktaOmBeregningAksjonspunktValues,
   erOverstyrt: boolean,
 ): InntektTransformed[] => {
+  const {
+    inntektFieldArray: values,
+    frilansInntektValues,
+    arbeidstakerInntektValues,
+    dagpengerInntektValues,
+    selvstendigNæringsdrivendeInntektValues,
+    militærEllerSivilInntektValues,
+    kunstigAndelInntektValues,
+  } = formValues;
   if (!values) return [];
 
   const transformAndel = (fieldValue: AndelFieldValue): InntektTransformed => {

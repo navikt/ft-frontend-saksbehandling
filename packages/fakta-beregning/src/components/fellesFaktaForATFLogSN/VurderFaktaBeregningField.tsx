@@ -11,9 +11,11 @@ import { hasAksjonspunkt } from '@navikt/ft-utils';
 import { FaktaBeregningAvklaringsbehovCode } from '../../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import type { KodeverkForPanel } from '../../typer/KodeverkForPanel';
 import type { Vilkårperiode } from '../../typer/Vilkår';
-import type { VurderFaktaBeregningFormValues } from '../../typer/VurderFaktaBeregningFormValues';
+import {
+  formNameVurderFaktaBeregning,
+  type VurderFaktaBeregningFormValues,
+} from '../../typer/VurderFaktaBeregningFormValues';
 import { isAksjonspunktClosed } from '../../utils/aksjonspunktUtils';
-import { formNameVurderFaktaBeregning } from '../../utils/BeregningFormUtils';
 import { FaktaBegrunnelseTextField } from '../felles/FaktaBegrunnelseTextField';
 import { erOverstyringAvBeregningsgrunnlag } from './BgFaktaUtils';
 import { FaktaForATFLOgSNPanel } from './FaktaForATFLOgSNPanel';

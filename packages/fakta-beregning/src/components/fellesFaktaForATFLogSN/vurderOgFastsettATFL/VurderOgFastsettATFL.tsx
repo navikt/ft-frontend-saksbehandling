@@ -379,16 +379,7 @@ const transformValuesForAksjonspunkt = (
 VurderOgFastsettATFL.transformValues =
   (faktaOmBeregning: FaktaOmBeregning, beregningsgrunnlag: Beregningsgrunnlag) =>
   (values: FaktaOmBeregningAksjonspunktValues): BeregningFaktaTransformedValues => {
-    const inntektVerdier = InntektFieldArray.transformValues(
-      values[INNTEKT_FIELD_ARRAY_NAME],
-      values.frilansInntektValues,
-      values.arbeidstakerInntektValues,
-      values.dagpengerInntektValues,
-      values.selvstendigNæringsdrivendeInntektValues,
-      values.militærEllerSivilInntektValues,
-      values.kunstigAndelInntektValues,
-      !!values.manuellOverstyringRapportertInntekt,
-    );
+    const inntektVerdier = InntektFieldArray.transformValues(values, !!values.manuellOverstyringRapportertInntekt);
     const fastsatteAndelsnr: number[] = [];
     const transformed = transformValuesForAksjonspunkt(
       values,
