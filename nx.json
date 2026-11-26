@@ -6,7 +6,7 @@
   },
   "targetDefaults": {
     "test": {
-      "inputs": ["default", "^production", "{workspaceRoot}/jest-config/jest.config.ts"],
+      "inputs": ["default", "^production", "{workspaceRoot}/packages/internal/storybook-utils/**/*"],
       "dependsOn": ["build"],
       "cache": true
     },
@@ -20,9 +20,15 @@
       "dependsOn": ["build"],
       "cache": true
     },
-    "deploy-storybook": {
-      "inputs": ["default"],
-      "dependsOn": ["build"]
+    "storybook": {
+      "dependsOn": ["tsc", "^tsc"],
+      "cache": false
+    },
+    "build:storybook": {
+      "inputs": ["default", "^production"],
+      "dependsOn": ["^build"],
+      "outputs": ["{workspaceRoot}/.storybook-static-build"],
+      "cache": true
     },
     "build": {
       "inputs": ["prod"],

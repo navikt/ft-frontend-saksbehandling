@@ -1,8 +1,11 @@
-import { setProjectAnnotations } from '@storybook/react-vite';
 import * as matchers from '@testing-library/jest-dom/matchers';
-import { beforeAll, expect } from 'vitest';
+import dayjs from 'dayjs';
+import { expect } from 'vitest';
 
-import * as globalStorybookConfig from '../../../.storybook/preview';
+import 'dayjs/locale/nb.js';
+import '@navikt/ds-css';
+
+dayjs.locale('nb');
 
 // Node 26+ defines localStorage/sessionStorage as native getters on globalThis
 // that return undefined (unless --localstorage-file is provided). Vitest's
@@ -21,8 +24,3 @@ if (jsdomWindow) {
   }
 }
 expect.extend(matchers);
-
-const annotations = setProjectAnnotations(globalStorybookConfig);
-
-// Run Storybook's beforeAll hook
-beforeAll(annotations.beforeAll);

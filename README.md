@@ -17,7 +17,14 @@ Kjør `yarn install` på rot.
 Bygg så alle pakkene ved å kjøre `yarn build`. (Kan også bygges enkeltvis ved å gå inn i pakkene og kjøre samme
 kommando.)
 
-Utviklingsmiljø i Storybook kan kjøres opp ved å kjøre `yarn storybook` i de pakkene som er satt opp med Storybook.
+Start Storybook fra roten med `yarn storybook`. Bygg Storybook med `yarn build:storybook`.
+Byggekommandoen bygger først bibliotekspakkene og legger den ferdige Storybook-appen i `.storybook-static-build`,
+som deploy-workflowen publiserer til GitHub Pages.
+
+Storybook er en privat workspace-pakke i `packages/internal/storybook`. Preview-konfigurasjon, toolbar,
+temadekoratør og simulert app-ramme ligger i denne pakken.
+Testene setter opp språk og Aksel-CSS direkte i `packages/internal/config-vite/vitest-setup.ts`,
+uten å importere Storybook-konfigurasjonen.
 
 En skal alltid utvikle på branch og lage pull request på GitHub. Denne kan mergest til main når testene har gått grønt.
 
@@ -114,7 +121,7 @@ Prosessen er delt i tagging (lokalt) og publisering (gjennom GitHub Actions) for
 - Pusher tags til GitHub
 - Oppdaterer interne `peerDependencies` til gjeldende major (`version`-hooken)
 
-   Test uten commit, tag og push med `yarn tag:dry`, og rydd opp med `git checkout -- .`.
+  Test uten commit, tag og push med `yarn tag:dry`, og rydd opp med `git checkout -- .`.
 
 4. **Verifiser publisering**
 

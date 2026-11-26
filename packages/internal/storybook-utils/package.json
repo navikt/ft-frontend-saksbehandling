@@ -5,24 +5,29 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "eslint": "eslint {decorators,mocks}/**/*.ts* --color",
-    "eslint:fix": "eslint --fix {decorators,mocks}/**/*.ts* --color",
+    "eslint": "eslint {decorators,mocks}/**/*.ts* index.ts --color",
+    "eslint:fix": "eslint --fix {decorators,mocks}/**/*.ts* index.ts --color",
+    "prettier:fix": "prettier --write {decorators,mocks}/**/*.ts* index.ts",
     "tsc": "tsc --pretty",
     "clean": "rm -rf ./dist ./node_modules"
   },
   "dependencies": {
-    "@navikt/ds-react": "8.23.0",
-    "@navikt/ft-form-hooks": "workspace:^",
     "react": "19.3.1",
-    "react-hook-form": "7.92.0",
     "react-intl": "12.1.7"
   },
   "devDependencies": {
     "@navikt/ft-config-eslint": "workspace:^",
     "@navikt/ft-config-typescript": "workspace:^",
+    "@storybook/react-vite": "10.6.7",
     "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
     "eslint": "10.15.0",
     "react-dom": "19.3.1",
-    "typescript": "6.0.3"
+    "storybook": "10.6.7",
+    "typescript": "6.0.3",
+    "vite": "8.3.8"
+  },
+  "exports": {
+    ".": "./index.ts"
   }
 }
