@@ -90,9 +90,9 @@ const buildFieldInitialValuesFordelBeregning = (
 
 const finnBeregningsgrunnlag = (
   vilkårsperiodeFom: string,
-  beregninsgrunnlagListe: Beregningsgrunnlag[],
+  beregningsgrunnlagListe: Beregningsgrunnlag[],
 ): Beregningsgrunnlag => {
-  const matchetndeBG = beregninsgrunnlagListe.find(bg => bg.vilkårsperiodeFom === vilkårsperiodeFom);
+  const matchetndeBG = beregningsgrunnlagListe.find(bg => bg.vilkårsperiodeFom === vilkårsperiodeFom);
   if (!matchetndeBG) {
     throw Error(`Mangler beregningsgrunnlag for vilkårsperiodeFom ${vilkårsperiodeFom}`);
   }
@@ -101,19 +101,16 @@ const finnBeregningsgrunnlag = (
 
 const transformValues = (
   values: FordelBeregningsgrunnlagFormValues,
-  beregninsgrunnlagListe: Beregningsgrunnlag[],
+  beregningsgrunnlagListe: Beregningsgrunnlag[],
   vilkårsperioder: Vilkårperiode[],
 ): FordelBeregningsgrunnlagAP => {
   const fields = values[FORM_NAME];
   const grunnlag = fields
     .filter(f => vurderesIBehandlingen(vilkårsperioder, f.periode.fom))
     .map(field =>
-      transformFieldValuesFordelBeregning(field, finnBeregningsgrunnlag(field.periode.fom, beregninsgrunnlagListe)),
+      transformFieldValuesFordelBeregning(field, finnBeregningsgrunnlag(field.periode.fom, beregningsgrunnlagListe)),
     );
-  const begrunnelse =
-    grunnlag
-      .map(gr => gr.begrunnelse)
-      .reduce<string | null | undefined>((b1, b2) => (b1 !== null ? `${b1} ${b2}` : b2), null) ?? '';
+  const begrunnelse = grunnlag.flatMap(gr => (gr.begrunnelse ? [gr.begrunnelse] : [])).join(' ');
   return {
     begrunnelse,
     grunnlag,
