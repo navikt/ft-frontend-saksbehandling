@@ -239,8 +239,7 @@ export const SammenligningOgFastsettelsePanel = ({
         bg.avklaringsbehov.some(a => mapAvklaringsbehovTilLovparagraf(a) === lovparagraf),
       );
       const harAktivtAvklaringsbehovForLovparagraf =
-        aktivtGrunnlagForLovparagraf &&
-        aktivtGrunnlagForLovparagraf.avklaringsbehov.some(a => mapAvklaringsbehovTilLovparagraf(a) === lovparagraf);
+        aktivtGrunnlagForLovparagraf?.avklaringsbehov.some(a => mapAvklaringsbehovTilLovparagraf(a) === lovparagraf);
       const andelerIFørstePeriode =
         aktivtGrunnlagForLovparagraf?.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel ?? [];
       const formName = finnFormName(lovparagraf);

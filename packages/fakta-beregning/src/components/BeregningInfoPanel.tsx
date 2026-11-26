@@ -15,7 +15,7 @@ import { VurderFaktaBeregningPanel } from './fellesFaktaForATFLogSN/VurderFaktaB
 
 const { OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER } = FaktaBeregningAvklaringsbehovCode;
 
-const relevanteKoder: string[] = [OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER];
+const relevanteKoder = new Set<string>([OVERSTYRING_AV_BEREGNINGSAKTIVITETER, AVKLAR_AKTIVITETER]);
 
 interface Props {
   submitCallback: (aksjonspunktData: SubmitBeregningType[]) => Promise<void>;
@@ -56,7 +56,7 @@ export const BeregningInfoPanel = ({
   skalKunneAvbryteOverstyring,
 }: Props) => {
   const relevanteLøsbareAvklaringsbehov = avklaringsbehov.filter(
-    ap => relevanteKoder.includes(ap.definisjon) && ap.kanLoses,
+    ap => relevanteKoder.has(ap.definisjon) && ap.kanLoses,
   );
   const avklarAktiviteterReadOnly =
     readOnly ||

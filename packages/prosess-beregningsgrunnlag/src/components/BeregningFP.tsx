@@ -25,17 +25,17 @@ import {
 import { BeregningForm } from './beregningForm/BeregningForm';
 import { GraderingUtenBGReadOnly } from './gradering/GraderingUtenBGReadOnly';
 
-const beregningAksjonspunkter: string[] = [
+const beregningAksjonspunkter = new Set<string>([
   ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
   ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
   ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
   ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE,
   ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
-];
+]);
 
 const finnAvklaringsbehov = (beregningsgrunnlag: Beregningsgrunnlag) =>
-  beregningsgrunnlag.avklaringsbehov.filter(ab => beregningAksjonspunkter.includes(ab.definisjon));
+  beregningsgrunnlag.avklaringsbehov.filter(ab => beregningAksjonspunkter.has(ab.definisjon));
 
 const getRelevanteStatuser = (statuser: AktivitetStatus[]): RelevanteStatuserProp => ({
   isArbeidstaker: statuser.some(kode => isStatusArbeidstakerOrKombinasjon(kode)),

@@ -80,7 +80,7 @@ const buildInitialValuesVurderFaktaBeregning = (
   }),
 });
 
-const relevanteKoder: string[] = [VURDER_FAKTA_FOR_ATFL_SN, OVERSTYRING_AV_BEREGNINGSGRUNNLAG];
+const relevanteKoder = new Set<string>([VURDER_FAKTA_FOR_ATFL_SN, OVERSTYRING_AV_BEREGNINGSGRUNNLAG]);
 const erForlengelse = (bg: Beregningsgrunnlag, vilkårsperioder: Vilkårperiode[]) => {
   const vilkårPeriode = vilkårsperioder.find(({ periode }) => periode.fom === bg.vilkårsperiodeFom);
   return vilkårPeriode?.erForlengelse === true;
@@ -164,7 +164,7 @@ export const VurderFaktaBeregningPanel = ({
         >
           {fields.map((field, index) => {
             const harRelevantAksjonspunkt = (avklaringspunkt: BeregningAvklaringsbehov): boolean =>
-              relevanteKoder.includes(avklaringspunkt.definisjon);
+              relevanteKoder.has(avklaringspunkt.definisjon);
 
             const kanLøses = (avklaringspunkt: BeregningAvklaringsbehov): boolean => avklaringspunkt.kanLoses;
 
