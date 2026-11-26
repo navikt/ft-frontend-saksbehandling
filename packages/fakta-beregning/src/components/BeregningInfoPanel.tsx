@@ -3,13 +3,15 @@ import { useState } from 'react';
 import type { ArbeidsgiverOpplysningerPerId, BeregningAvklaringsbehov, Beregningsgrunnlag } from '@navikt/ft-types';
 import { hasAksjonspunkt } from '@navikt/ft-utils';
 
-import { type AvklarAktiviteterFormValues } from '../typer/AvklarAktiviteterFormValues';
+import { type AvklarAktiviteterFormValues, formNameAvklarAktiviteter } from '../typer/AvklarAktiviteterFormValues';
 import { FaktaBeregningAvklaringsbehovCode } from '../typer/interface/FaktaBeregningAvklaringsbehovCode';
 import type { SubmitBeregningType } from '../typer/interface/SubmitBeregningTsType';
 import type { KodeverkForPanel } from '../typer/KodeverkForPanel';
 import type { Vilkår } from '../typer/Vilkår';
-import type { VurderFaktaBeregningFormValues } from '../typer/VurderFaktaBeregningFormValues';
-import { formNameAvklarAktiviteter, formNameVurderFaktaBeregning } from '../utils/BeregningFormUtils';
+import {
+  formNameVurderFaktaBeregning,
+  type VurderFaktaBeregningFormValues,
+} from '../typer/VurderFaktaBeregningFormValues';
 import { AvklareAktiviteterPanel } from './avklareAktiviteter/AvklareAktiviteterPanelFunksjon';
 import { VurderFaktaBeregningPanel } from './fellesFaktaForATFLogSN/VurderFaktaBeregningPanel';
 

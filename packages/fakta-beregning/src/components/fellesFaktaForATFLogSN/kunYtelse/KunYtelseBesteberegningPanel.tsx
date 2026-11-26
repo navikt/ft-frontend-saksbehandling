@@ -12,8 +12,10 @@ import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
 import type { VurderBesteberegningMedKunYtelseValues } from '../../../typer/FaktaBeregningTypes';
 import type { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
-import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
-import { formNameVurderFaktaBeregning } from '../../../utils/BeregningFormUtils';
+import {
+  formNameVurderFaktaBeregning,
+  type VurderFaktaBeregningFormValues,
+} from '../../../typer/VurderFaktaBeregningFormValues';
 import { LINK_TIL_BESTE_BEREGNING_REGNEARK } from '../eksterneLenker';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 import { BrukersAndelFieldArray } from './BrukersAndelFieldArray';

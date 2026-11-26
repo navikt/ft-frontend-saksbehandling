@@ -75,23 +75,23 @@ export type VurderRefusjonValues = {
   [key: string]: boolean | undefined;
 };
 
-export type FrilansinntektValues = {
+type FrilansinntektValues = {
   fastsattBelop: number;
 };
 
-export type KunstigAndelValues = {
+type KunstigAndelValues = {
   fastsattBelop: number;
 };
 
-export type SelvstendigNæringsdrivendeInntektValues = {
+type SelvstendigNæringsdrivendeInntektValues = {
   fastsattBelop: number;
 };
 
-export type MilitærEllerSivilInntektValues = {
+type MilitærEllerSivilInntektValues = {
   fastsattBelop: number;
 };
 
-export type DagpengerinntektValues = {
+type DagpengerinntektValues = {
   fastsattBelop: number;
 };
 

@@ -17,8 +17,10 @@ import { formatCurrencyNoKr, parseCurrencyInput, removeSpacesFromNumber, sortObj
 import type { BrukersAndelValues } from '../../../typer/FaktaBeregningTypes';
 import type { AndelFieldValue } from '../../../typer/FieldValues';
 import type { KodeverkForPanel } from '../../../typer/KodeverkForPanel';
-import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaBeregningFormValues';
-import { formNameVurderFaktaBeregning } from '../../../utils/BeregningFormUtils';
+import {
+  formNameVurderFaktaBeregning,
+  type VurderFaktaBeregningFormValues,
+} from '../../../typer/VurderFaktaBeregningFormValues';
 import { type SortedAndelInfo, validateUlikeAndelerWithGroupingFunction } from '../ValidateAndelerUtils';
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 

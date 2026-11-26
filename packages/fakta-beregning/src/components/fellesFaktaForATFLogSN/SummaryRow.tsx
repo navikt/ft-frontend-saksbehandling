@@ -23,61 +23,6 @@ import {
 } from './BgFaktaUtils';
 import { BeregningsgrunnlagIndexContext } from './VurderFaktaContext';
 
-const summerBeregnet = (
-  fields: AndelFieldValue[],
-  formValues: FaktaOmBeregningAksjonspunktValues,
-  beregningsgrunnlag: Beregningsgrunnlag,
-) => {
-  let sum = 0;
-
-  fields.forEach(field => {
-    let belop;
-    const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);
-
-    if (kanRedigereInntekt) {
-      const erFrilansInntekt = erFrilanser(field);
-      const erArbeidstakerInntekt = erArbeidstaker(field);
-      const erDagpengerInntekt = erDagpenger(field);
-      const erSelvstendigNæringsdrivendeInntekt = erSelvstendigNæringsdrivende(field);
-      const erMilitærEllerSivilInntekt = erMilitaerEllerSivil(field);
-
-      if (field.fastsattBelop && erOverstyringAvBeregningsgrunnlag(formValues)) {
-        belop = field.fastsattBelop;
-      } else if (erFrilansInntekt && formValues?.frilansInntektValues?.fastsattBelop) {
-        belop = formValues.frilansInntektValues.fastsattBelop;
-      } else if (
-        erArbeidstakerInntekt &&
-        field.arbeidsgiverId &&
-        formValues?.arbeidstakerInntektValues?.[
-          getArbeidsgiverIndex(formValues.arbeidstakerInntektValues, field.arbeidsgiverId)
-        ]?.fastsattBelop
-      ) {
-        belop =
-          formValues.arbeidstakerInntektValues[
-            getArbeidsgiverIndex(formValues.arbeidstakerInntektValues, field.arbeidsgiverId)
-          ].fastsattBelop;
-      } else if (erDagpengerInntekt && formValues?.dagpengerInntektValues?.fastsattBelop) {
-        belop = formValues.dagpengerInntektValues.fastsattBelop;
-      } else if (
-        erSelvstendigNæringsdrivendeInntekt &&
-        formValues?.selvstendigNæringsdrivendeInntektValues?.fastsattBelop
-      ) {
-        belop = formValues.selvstendigNæringsdrivendeInntektValues.fastsattBelop;
-      } else if (erMilitærEllerSivilInntekt && formValues?.militærEllerSivilInntektValues?.fastsattBelop) {
-        belop = formValues.militærEllerSivilInntektValues.fastsattBelop;
-      } else if (field.fastsattBelop && !erOverstyringAvBeregningsgrunnlag(formValues)) {
-        belop = 0;
-      } else {
-        belop = field.fastsattBelop;
-      }
-    } else {
-      belop = field.belopReadOnly;
-    }
-    sum += belop ? removeSpacesFromNumber(belop) : 0;
-  });
-  return Number.isNaN(sum) ? undefined : sum;
-};
-
 interface Props {
   skalVisePeriode: boolean;
   skalViseRefusjon: boolean;
@@ -108,4 +53,74 @@ export const SummaryRow = ({ skalVisePeriode, skalViseRefusjon, beregningsgrunnl
       <Table.DataCell />
     </Table.Row>
   );
+};
+
+const summerBeregnet = (
+  fields: AndelFieldValue[],
+  formValues: FaktaOmBeregningAksjonspunktValues,
+  beregningsgrunnlag: Beregningsgrunnlag,
+) => {
+  let sum = 0;
+
+  fields.forEach(field => {
+    let belop;
+    const kanRedigereInntekt = getKanRedigereInntekt(formValues, beregningsgrunnlag)(field);
+
+    if (kanRedigereInntekt) {
+      belop = getEditableBelop(field, formValues);
+    } else {
+      belop = field.belopReadOnly;
+    }
+    sum += belop ? removeSpacesFromNumber(belop) : 0;
+  });
+  return Number.isNaN(sum) ? undefined : sum;
+};
+
+const getEditableBelop = (field: AndelFieldValue, formValues: FaktaOmBeregningAksjonspunktValues) => {
+  if (field.fastsattBelop && erOverstyringAvBeregningsgrunnlag(formValues)) {
+    return field.fastsattBelop;
+  }
+
+  const inntektstypeBelop = getInntektstypeBelop(field, formValues);
+  if (inntektstypeBelop) {
+    return inntektstypeBelop;
+  }
+
+  if (field.fastsattBelop && !erOverstyringAvBeregningsgrunnlag(formValues)) {
+    return 0;
+  }
+
+  return field.fastsattBelop;
+};
+
+const getInntektstypeBelop = (field: AndelFieldValue, formValues: FaktaOmBeregningAksjonspunktValues) => {
+  if (erFrilanser(field) && formValues?.frilansInntektValues?.fastsattBelop) {
+    return formValues.frilansInntektValues.fastsattBelop;
+  }
+
+  if (
+    erArbeidstaker(field) &&
+    field.arbeidsgiverId &&
+    formValues?.arbeidstakerInntektValues?.[
+      getArbeidsgiverIndex(formValues.arbeidstakerInntektValues, field.arbeidsgiverId)
+    ]?.fastsattBelop
+  ) {
+    return formValues.arbeidstakerInntektValues[
+      getArbeidsgiverIndex(formValues.arbeidstakerInntektValues, field.arbeidsgiverId)
+    ].fastsattBelop;
+  }
+
+  if (erDagpenger(field) && formValues?.dagpengerInntektValues?.fastsattBelop) {
+    return formValues.dagpengerInntektValues.fastsattBelop;
+  }
+
+  if (erSelvstendigNæringsdrivende(field) && formValues?.selvstendigNæringsdrivendeInntektValues?.fastsattBelop) {
+    return formValues.selvstendigNæringsdrivendeInntektValues.fastsattBelop;
+  }
+
+  if (erMilitaerEllerSivil(field) && formValues?.militærEllerSivilInntektValues?.fastsattBelop) {
+    return formValues.militærEllerSivilInntektValues.fastsattBelop;
+  }
+
+  return undefined;
 };
