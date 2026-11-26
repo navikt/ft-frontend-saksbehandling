@@ -8,6 +8,7 @@ import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-va
 
 import type { Aktsomhet } from '../../../kodeverk/aktsomhet';
 import type { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
+import type { AktsomhetFormName, AktsomhetFormValues } from './AktsomhetFormPanel';
 import { AktsomhetReduksjonAvBelopFormPanel } from './AktsomhetReduksjonAvBelopFormPanel';
 
 const minLength3 = minLength(3);
@@ -20,9 +21,9 @@ interface Props {
   erSerligGrunnAnnetValgt?: boolean;
   harMerEnnEnYtelse: boolean;
   feilutbetalingBelop: number;
-  andelSomTilbakekreves?: string;
+  andelSomTilbakekreves?: number | string;
   sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[];
-  name: string;
+  name: AktsomhetFormName;
 }
 
 export const AktsomhetSarligeGrunnerFormPanel = ({
@@ -37,8 +38,7 @@ export const AktsomhetSarligeGrunnerFormPanel = ({
   andelSomTilbakekreves,
 }: Props) => {
   const intl = useIntl();
-  // TODO (TOR) Manglar type for useFormContext
-  const { watch, control } = useFormContext();
+  const { watch, control } = useFormContext<AktsomhetFormValues>();
 
   const hasError = !sarligGrunnTyper.some(sgt => !!watch(`${name}.${sgt.kode}`));
   const errorMessage = useCustomValidation(

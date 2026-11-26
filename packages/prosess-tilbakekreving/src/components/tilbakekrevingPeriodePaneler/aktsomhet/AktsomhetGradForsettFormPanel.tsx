@@ -8,16 +8,17 @@ import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
+import type { AktsomhetFormName, AktsomhetFormValues } from './AktsomhetFormPanel';
+
 interface Props {
-  name: string;
+  name: AktsomhetFormName;
   readOnly: boolean;
   erValgtResultatTypeForstoBurdeForstaatt?: boolean;
 }
 
 export const AktsomhetGradForsettFormPanel = ({ name, readOnly, erValgtResultatTypeForstoBurdeForstaatt }: Props) => {
-  // TODO (TOR) Mangler type for useFormContext
-  const context = useFormContext();
-  const tilleggesRenterFelt = `${name}.skalDetTilleggesRenter`;
+  const context = useFormContext<AktsomhetFormValues>();
+  const tilleggesRenterFelt = `${name}.skalDetTilleggesRenter` as const;
   useEffect(() => {
     const value = context.getValues(tilleggesRenterFelt);
     if (value === undefined) {

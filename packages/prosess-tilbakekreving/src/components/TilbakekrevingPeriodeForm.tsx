@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { type ChangeEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -11,7 +11,6 @@ import { usePrevious } from '@navikt/ft-ui-komponenter';
 import { BTag, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, periodeKey } from '@navikt/ft-utils';
 
 import { type Aktsomhet, AKTSOMHET_REKKEFØLGE } from '../kodeverk/aktsomhet';
-import { type SærligGrunn } from '../kodeverk/særligGrunn';
 import { type VilkårResultat } from '../kodeverk/vilkarResultat';
 import type { DataForPeriode } from '../types/DataForPeriode';
 import type { DetaljertFeilutbetalingPeriode } from '../types/DetaljerteFeilutbetalingsperioder';
@@ -70,11 +69,13 @@ export type CustomVilkarsVurdertePeriode = {
   feilutbetaling?: number;
 } & InitialValuesDetailForm;
 
+type PeriodeFormValues = CustomVilkarsVurdertePeriode & { perioderForKopi?: string };
+
 // Mellomlagret, men ikke bekreftet (dvs. ikke trykt "Oppdater" på), skjemadata for perioden som til enhver tid er
 // åpen i detaljpanelet. periodeKey brukes for å vite hvilken periode kladden gjelder for.
 export type PeriodeKladd = {
   periodeKey: string;
-  verdier: Record<string, any>;
+  verdier: PeriodeFormValues;
 };
 
 interface Props {
@@ -107,30 +108,26 @@ export const TilbakekrevingPeriodeForm = ({
 
   const harKladdForPeriode = periode && periodeKladd?.periodeKey === periodeKey(periode);
 
-  // TODO (TOR) Fiks type for form
   // Kladden er ubekreftede endringer. Den settes derfor som verdier - ikke som defaultValues - slik at
   // skjemaet fortsatt regnes som endret ("Oppdater" er aktiv, og kladden overlever et nytt panelbytte).
-  const formMethods = useForm<any>({
+  const formMethods = useForm<PeriodeFormValues>({
     defaultValues: periode,
     values: harKladdForPeriode ? periodeKladd.verdier : undefined,
     resetOptions: { keepDefaultValues: true },
   });
 
-  const valgtVilkarResultatType = formMethods.watch('valgtVilkarResultatType') as VilkårResultat;
-  const handletUaktsomhetsgrad = formMethods.watch(`${valgtVilkarResultatType}.handletUaktsomhetGrad`);
-  const harGrunnerTilReduksjon = formMethods.watch(
-    `${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.harGrunnerTilReduksjon`,
-  );
-  const andelSomTilbakekreves = formMethods.watch(
-    `${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.andelSomTilbakekreves`,
-  );
-  const tilbakekrevSelvOmBeloepErUnder4Rettsgebyr = formMethods.watch(
-    `${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`,
-  );
-  const erSerligGrunnAnnetValgt = formMethods.watch(
-    `${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.${'ANNET' satisfies SærligGrunn}`,
-  );
-  const erBelopetIBehold = formMethods.watch(`${valgtVilkarResultatType}.erBelopetIBehold`);
+  const valgtVilkarResultatType = formMethods.watch('valgtVilkarResultatType');
+  const aktsomhetValues =
+    valgtVilkarResultatType && valgtVilkarResultatType !== 'GOD_TRO'
+      ? formMethods.watch(valgtVilkarResultatType)
+      : undefined;
+  const handletUaktsomhetsgrad = aktsomhetValues?.handletUaktsomhetGrad;
+  const aktsomhetData = handletUaktsomhetsgrad ? aktsomhetValues?.[handletUaktsomhetsgrad] : undefined;
+  const harGrunnerTilReduksjon = aktsomhetData?.harGrunnerTilReduksjon;
+  const andelSomTilbakekreves = aktsomhetData?.andelSomTilbakekreves ?? undefined;
+  const tilbakekrevSelvOmBeloepErUnder4Rettsgebyr = aktsomhetData?.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr;
+  const erSerligGrunnAnnetValgt = aktsomhetData?.ANNET;
+  const erBelopetIBehold = formMethods.watch('GOD_TRO.erBelopetIBehold');
 
   const forrigeVilkarResultatType = usePrevious(valgtVilkarResultatType);
   const forrigeHandletUaktsomhetsgrad = usePrevious(handletUaktsomhetsgrad);
@@ -140,28 +137,36 @@ export const TilbakekrevingPeriodeForm = ({
   const vilkarResultatTyper = kodeverkSamlingFpTilbake['VilkårResultat'];
   const aktsomhetTyper = AKTSOMHET_REKKEFØLGE.map(a => kodeverkSamlingFpTilbake['Aktsomhet'].find(el => el.kode === a));
 
-  const onEndrePeriodeForKopi = (event: any, vurdertePerioder: CustomVilkarsVurdertePeriode[]) => {
+  const onEndrePeriodeForKopi = (
+    event: ChangeEvent<HTMLSelectElement>,
+    vurdertePerioder: CustomVilkarsVurdertePeriode[],
+  ) => {
     const fomTom = event.target.value.split('_');
     const kopierDenne = vurdertePerioder.find(per => per.fom === fomTom[0] && per.tom === fomTom[1]);
     const vilkårResultatType = kopierDenne?.valgtVilkarResultatType;
-    const resultatType = kopierDenne && vilkårResultatType ? kopierDenne[vilkårResultatType] : undefined;
+    if (!kopierDenne || !vilkårResultatType) {
+      return;
+    }
+    const resultatType = kopierDenne[vilkårResultatType];
 
-    const resultatTypeKopi = JSON.parse(JSON.stringify(resultatType));
-    if (vilkårResultatType !== 'GOD_TRO') {
+    const resultatTypeKopi = structuredClone(resultatType);
+    if ('handletUaktsomhetGrad' in resultatTypeKopi) {
       const { handletUaktsomhetGrad } = resultatTypeKopi;
+      const aktsomhetDataKopi = resultatTypeKopi[handletUaktsomhetGrad];
       if (
+        aktsomhetDataKopi &&
         handletUaktsomhetGrad !== ('FORSETT' satisfies Aktsomhet) &&
         periode?.harMerEnnEnYtelse !== kopierDenne?.harMerEnnEnYtelse
       ) {
-        resultatTypeKopi[handletUaktsomhetGrad].andelSomTilbakekreves = null;
-        resultatTypeKopi[handletUaktsomhetGrad].andelSomTilbakekrevesManuell = null;
-        resultatTypeKopi[handletUaktsomhetGrad].belopSomSkalTilbakekreves = null;
+        aktsomhetDataKopi.andelSomTilbakekreves = null;
+        aktsomhetDataKopi.andelSomTilbakekrevesManuell = null;
+        aktsomhetDataKopi.belopSomSkalTilbakekreves = null;
       }
     }
 
     formMethods.setValue('valgtVilkarResultatType', vilkårResultatType, { shouldDirty: true });
-    formMethods.setValue('begrunnelse', kopierDenne?.begrunnelse, { shouldDirty: true });
-    formMethods.setValue('vurderingBegrunnelse', kopierDenne?.vurderingBegrunnelse, { shouldDirty: true });
+    formMethods.setValue('begrunnelse', kopierDenne.begrunnelse, { shouldDirty: true });
+    formMethods.setValue('vurderingBegrunnelse', kopierDenne.vurderingBegrunnelse, { shouldDirty: true });
     if (vilkårResultatType) {
       formMethods.setValue(vilkårResultatType, resultatTypeKopi, { shouldDirty: true });
     }
@@ -174,7 +179,7 @@ export const TilbakekrevingPeriodeForm = ({
     oppdaterPeriode(formMethods.getValues());
   };
 
-  const saveOrToggleModal = (values: any) => {
+  const saveOrToggleModal = (values: PeriodeFormValues) => {
     if (
       antallPerioderMedAksjonspunkt > 1 &&
       data.erTotalBelopUnder4Rettsgebyr &&
@@ -193,7 +198,7 @@ export const TilbakekrevingPeriodeForm = ({
   };
 
   const resetUtaktsomhetsgrad = () => {
-    if (forrigeHandletUaktsomhetsgrad) {
+    if (forrigeHandletUaktsomhetsgrad && valgtVilkarResultatType !== 'GOD_TRO') {
       formMethods.resetField(`${valgtVilkarResultatType}.${forrigeHandletUaktsomhetsgrad}`);
     }
   };

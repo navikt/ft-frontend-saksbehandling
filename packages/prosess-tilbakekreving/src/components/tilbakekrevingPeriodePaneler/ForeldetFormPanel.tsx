@@ -5,8 +5,6 @@ import { Detail, HStack, Radio } from '@navikt/ds-react';
 
 import { RhfRadioGroup, RhfTextarea } from '@navikt/ft-form-hooks';
 
-// TODO (TOR) Er denne i bruk? (Det mangla tekstar her utan at det har blitt rapportert som feil)
-
 type FormValues = {
   periodenErForeldet?: boolean;
   foreldetBegrunnelse?: string;
