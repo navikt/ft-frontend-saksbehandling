@@ -382,9 +382,14 @@ export const TilbakekrevingForm = ({
   );
   const merknaderFraBeslutter = alleMerknaderFraBeslutter[TilbakekrevingAksjonspunktCodes.VURDER_TILBAKEKREVING];
 
-  const lagrePerioder = () => {
+  const lagrePerioder = async () => {
     setIsSubmitting(true);
-    submitCallback(transformValues(vilkårsvurdertePerioder, kodeverkSamlingFpTilbake['SærligGrunn']));
+    try {
+      await submitCallback(transformValues(vilkårsvurdertePerioder, kodeverkSamlingFpTilbake['SærligGrunn']));
+    } catch (error) {
+      setIsSubmitting(false);
+      throw error;
+    }
   };
 
   const perioderFormatertForTidslinje = formaterPerioderForTidslinje(vilkårsvurdertePerioder, dataForDetailForm);

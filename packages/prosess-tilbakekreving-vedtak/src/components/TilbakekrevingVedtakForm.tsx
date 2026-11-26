@@ -72,12 +72,12 @@ const finnPerioderSomIkkeHarVerdiForObligatoriskFelt = (
 
 const fetchPreview =
   (fetchPreviewVedtaksbrev: (data: ForhandsvisData) => Promise<Blob>, uuid: string, formVerdier: FormValues) =>
-  (e: React.KeyboardEvent | React.MouseEvent): void => {
-    fetchPreviewVedtaksbrev({
+  async (e: React.KeyboardEvent | React.MouseEvent): Promise<void> => {
+    e.preventDefault();
+    await fetchPreviewVedtaksbrev({
       uuid,
       ...formatVedtakData(formVerdier),
     });
-    e.preventDefault();
   };
 
 interface Props {

@@ -66,7 +66,7 @@ export const PeriodeController = ({
     setShowDelPeriodeModal(false);
   };
 
-  const splitPeriod = (formValues: PerioderData): void => {
+  const splitPeriod = async (formValues: PerioderData): Promise<void> => {
     setFinnesBelopMed0Verdi(false);
 
     const forstePeriode = {
@@ -87,26 +87,24 @@ export const PeriodeController = ({
       perioder: [forstePeriode, andrePeriode],
     };
 
-    callBeregnBelop(params).then((response: { perioder: { belop: number }[] }) => {
-      const { perioder } = response;
-      const harPeriodeMedBelop0 = perioder.some(p => p.belop === 0);
-      if (harPeriodeMedBelop0) {
-        setFinnesBelopMed0Verdi(true);
-      } else {
-        const forstePeriodeMedBeløp = {
-          fom: forstePeriode.fom,
-          tom: forstePeriode.tom,
-          feilutbetaling: perioder[0].belop,
-        };
-        const andrePeriodeMedBeløp = {
-          fom: andrePeriode.fom,
-          tom: andrePeriode.tom,
-          feilutbetaling: perioder[1].belop,
-        };
-        hideModal();
-        oppdaterSplittedePerioder([forstePeriodeMedBeløp, andrePeriodeMedBeløp]);
-      }
-    });
+    const { perioder } = await callBeregnBelop(params);
+    const harPeriodeMedBelop0 = perioder.some(p => p.belop === 0);
+    if (harPeriodeMedBelop0) {
+      setFinnesBelopMed0Verdi(true);
+    } else {
+      const forstePeriodeMedBeløp = {
+        fom: forstePeriode.fom,
+        tom: forstePeriode.tom,
+        feilutbetaling: perioder[0].belop,
+      };
+      const andrePeriodeMedBeløp = {
+        fom: andrePeriode.fom,
+        tom: andrePeriode.tom,
+        feilutbetaling: perioder[1].belop,
+      };
+      hideModal();
+      oppdaterSplittedePerioder([forstePeriodeMedBeløp, andrePeriodeMedBeløp]);
+    }
   };
 
   return (

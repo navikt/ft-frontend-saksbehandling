@@ -114,6 +114,23 @@ describe('validatorsHelper', () => {
   });
 
   describe('dateRangesAreSequential', () => {
+    it('skal godta en tom periodeliste', () => {
+      expect(dateRangesAreSequential([])).toBe(true);
+    });
+
+    it('skal godta en enkelt dagsperiode', () => {
+      expect(dateRangesAreSequential([['2018-04-01', '2018-04-01']])).toBe(true);
+    });
+
+    it('skal sortere periodene før de valideres', () => {
+      expect(
+        dateRangesAreSequential([
+          ['2018-05-02', '2018-05-31'],
+          ['2018-04-01', '2018-05-01'],
+        ]),
+      ).toBe(true);
+    });
+
     it('Skal sjekke om datoer er etter hverandre', () => {
       const rangesMatch = [
         ['2018-04-01', '2018-05-01'],
