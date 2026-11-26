@@ -169,16 +169,17 @@ const createTableData = (
   kodeverkSamling: KodeverkForPanel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): TidsbegrenseArbeidsforholdTabellData => {
+  const sortertePerioder = sorterPerioder(allePerioder);
   // Vi er ikke interessert i perioder som oppstår grunnet naturalytelse
-  const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(allePerioder);
-  const førstePeriodeFom = allePerioder[0].beregningsgrunnlagPeriodeFom;
-  const arbeidsforholdPeriodeMap = initializeMap(allePerioder[0], kodeverkSamling, arbeidsgiverOpplysningerPerId);
+  const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(sortertePerioder);
+  const førstePeriodeFom = sortertePerioder[0].beregningsgrunnlagPeriodeFom;
+  const arbeidsforholdPeriodeMap = initializeMap(sortertePerioder[0], kodeverkSamling, arbeidsgiverOpplysningerPerId);
 
   relevantePerioder.forEach(periode => {
     const erFørstePeriode = periode.beregningsgrunnlagPeriodeFom === førstePeriodeFom;
     const arbeidstakerAndeler = findArbeidstakerAndeler(periode);
     arbeidstakerAndeler.forEach(andel => {
-      const erTidsbegrensetAndel = erAndelTidsbegrenset(andel, allePerioder);
+      const erTidsbegrensetAndel = erAndelTidsbegrenset(andel, sortertePerioder);
       const mapKey = createArbeidsforholdMapKey(andel.arbeidsforhold);
       const newMapValue = createMapValueObject();
       newMapValue.tabellInnhold =
@@ -277,7 +278,8 @@ const lagBruttoPrPeriodeListe = (
   if (allePerioder.length < 1) {
     return bruttoPrPeriodeList;
   }
-  const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(allePerioder);
+  const sortertePerioder = sorterPerioder(allePerioder);
+  const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(sortertePerioder);
   relevantePerioder.forEach(relevantPeriode => {
     const arbeidstakerAndeler = findArbeidstakerAndeler(relevantPeriode);
     const bruttoPrAndelForPeriode = arbeidstakerAndeler.map(andel => {
@@ -345,14 +347,15 @@ AksjonspunktBehandlerTidsbegrenset.buildInitialValues = (
   allePerioder: BeregningsgrunnlagPeriodeProp[],
 ): TidsbegrenseArbeidsforholdValues => {
   const initialValues = {} as TidsbegrenseArbeidsforholdValues;
-  const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(allePerioder);
-  const førstePeriode = finnFørstePeriode(allePerioder);
+  const sortertePerioder = sorterPerioder(allePerioder);
+  const relevantePerioder = finnPerioderMedAvsluttetArbeidsforhold(sortertePerioder);
+  const førstePeriode = sortertePerioder[0];
   relevantePerioder.forEach(periode => {
     const arbeidstakerAndeler = periode.beregningsgrunnlagPrStatusOgAndel
       ? periode.beregningsgrunnlagPrStatusOgAndel.filter(andel => andel.aktivitetStatus === 'AT')
       : [];
     arbeidstakerAndeler.forEach(andel => {
-      const erTB = erAndelTidsbegrenset(andel, allePerioder);
+      const erTB = erAndelTidsbegrenset(andel, sortertePerioder);
       if (erTB) {
         const overstyrt = formatCurrencyNoKr(andel.overstyrtPrAar);
         initialValues[createInputFieldKey(andel, periode)] = overstyrt || '';
