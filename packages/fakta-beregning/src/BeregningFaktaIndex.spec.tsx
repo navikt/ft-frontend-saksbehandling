@@ -184,7 +184,7 @@ describe('BeregningFaktaIndex', () => {
     expect(screen.getByLabelText('Fastsett månedsinntekt dagpenger')).toBeInTheDocument();
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     const valideringsmeldinger = await screen.findAllByText('Feltet må fylles ut');
-    expect(valideringsmeldinger.length).toBe(3);
+    expect(valideringsmeldinger).toHaveLength(3);
   });
 
   it('skal måtte overstyre inntekt for minst én aktivitet', async () => {
