@@ -23,7 +23,7 @@ type Props = {
 };
 
 const lagAndelNøkkel = (andel: BeregningsgrunnlagAndel): string => {
-  if (!andel.arbeidsforhold || !andel.arbeidsforhold.arbeidsgiverIdent) {
+  if (!andel.arbeidsforhold?.arbeidsgiverIdent) {
     return 'N/A';
   }
   return andel.arbeidsforhold.arbeidsforholdId
@@ -35,7 +35,7 @@ const lagVisningForAndel = (
   andel: BeregningsgrunnlagAndel,
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
 ): string => {
-  if (!andel.arbeidsforhold || !andel.arbeidsforhold.arbeidsgiverIdent) {
+  if (!andel.arbeidsforhold?.arbeidsgiverIdent) {
     return 'Ukjent arbeidsforhold';
   }
   const arbeidsforholdInfo = arbeidsgiverOpplysningerPerId[andel.arbeidsforhold.arbeidsgiverIdent];
@@ -85,8 +85,7 @@ const finnAlleArbeidstakernøkkler = (
 
 const finnBortfaltBeløp = (periode: BeregningsgrunnlagPeriodeProp, nøkkel: string): number => {
   const matchendeAndel = andelslisteEllerTom(periode).find(bgAndel => lagAndelNøkkel(bgAndel) === nøkkel);
-  const bortfalt =
-    matchendeAndel && matchendeAndel.arbeidsforhold ? matchendeAndel.arbeidsforhold.naturalytelseBortfaltPrÅr : 0;
+  const bortfalt = matchendeAndel?.arbeidsforhold ? matchendeAndel.arbeidsforhold.naturalytelseBortfaltPrÅr : 0;
   return bortfalt || 0;
 };
 

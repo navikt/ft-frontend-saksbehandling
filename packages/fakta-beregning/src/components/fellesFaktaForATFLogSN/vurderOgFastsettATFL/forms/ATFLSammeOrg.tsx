@@ -23,12 +23,10 @@ export const transformValuesForATFLISammeOrg = (
   if (tilfeller.includes(FaktaOmBeregningTilfelle.VURDER_AT_OG_FL_I_SAMME_ORGANISASJON) && inntektVerdier) {
     const andelsliste: VurderATFLISammeOrAndelTransformedValues[] = inntektVerdier
       .filter(field => field.andelsnr && !fastsatteAndelsnr.includes(field.andelsnr))
-      .filter(
-        field =>
-          faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe &&
-          faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe
-            .map(({ andelsnr }) => andelsnr)
-            .includes(field.andelsnr),
+      .filter(field =>
+        faktaOmBeregning.arbeidstakerOgFrilanserISammeOrganisasjonListe
+          ?.map(({ andelsnr }) => andelsnr)
+          .includes(field.andelsnr),
       )
       .map(field => ({
         andelsnr: krevVerdi(field.andelsnr),

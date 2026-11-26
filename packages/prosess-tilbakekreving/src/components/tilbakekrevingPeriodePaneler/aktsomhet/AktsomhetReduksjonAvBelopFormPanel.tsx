@@ -19,7 +19,7 @@ const maxValue100 = maxValue(99.99);
 
 const parseCurrencyInput = (input: string | number) => {
   const inputNoSpace = input.toString().replace(/\s/g, '');
-  const parsedValue = parseInt(inputNoSpace, 10);
+  const parsedValue = Number.parseInt(inputNoSpace, 10);
   return Number.isNaN(parsedValue) ? '' : parsedValue;
 };
 
@@ -119,7 +119,7 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
                     readOnly={readOnly}
                     validate={[required, minValue1, maxValue100]}
                     normalizeOnBlur={(value: string | number) =>
-                      Number.isNaN(value) ? value : parseFloat(value.toString()).toFixed(2)
+                      Number.isNaN(value) ? value : Number.parseFloat(value.toString()).toFixed(2)
                     }
                     format={(value: string | number) => value.toString().replace('.', ',')}
                     parse={(value: string | number) => value.toString().replace(',', '.')}

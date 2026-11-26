@@ -19,14 +19,14 @@ import styles from './beregningsgrunnlagProsessIndex.module.css';
 
 import messages from '../i18n/nb_NO.json';
 
-const beregningAksjonspunkter = [
+const beregningAksjonspunkter = new Set<string>([
   ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ELLER_NYOPPSTARTET_NAERING_SELVSTENDIG_NAERINGSDRIVENDE,
   ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS,
   ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BRUTTO_BEREGNINGSGRUNNLAG_SELVSTENDIG_NAERINGSDRIVENDE,
   ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
   ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
   ProsessBeregningsgrunnlagAvklaringsbehovCode.VURDER_VARIG_ENDRET_ARBEIDSSITUASJON,
-];
+]);
 
 const intl = createIntl(messages);
 
@@ -78,16 +78,12 @@ type MenyProp = {
 const erBGTilVurdering = (bgVilkar: Vilkår | null, beregningsgrunnlag: Beregningsgrunnlag) => {
   const vilårsperiodeFom = beregningsgrunnlag.vilkårsperiodeFom;
   const perioderTilVurdering =
-    bgVilkar && bgVilkar.perioder
-      ? bgVilkar.perioder.filter(periode => periode.vurderesIBehandlingen && !periode.erForlengelse)
-      : [];
+    bgVilkar?.perioder?.filter(periode => periode.vurderesIBehandlingen && !periode.erForlengelse) ?? [];
   return perioderTilVurdering.some(vkp => vkp.periode.fom === vilårsperiodeFom);
 };
 
 const harAvklaringsbehovSomkanLøses = (beregningsgrunnlag: Beregningsgrunnlag) =>
-  beregningsgrunnlag.avklaringsbehov.some(
-    ab => beregningAksjonspunkter.some(bap => bap === ab.definisjon) && ab.kanLoses,
-  );
+  beregningsgrunnlag.avklaringsbehov.some(ab => beregningAksjonspunkter.has(ab.definisjon) && ab.kanLoses);
 
 const lagMenyProps = (kronologiskeGrunnlag: Beregningsgrunnlag[], bgVilkår: Vilkår | null): MenyProp[] =>
   kronologiskeGrunnlag.map(gr => ({

@@ -36,8 +36,7 @@ const { FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS, FASTSETT_BEREGNINGSGRU
 const finnAksjonspunktForATFL = (
   gjeldendeAvklaringsbehov: BeregningAvklaringsbehov[],
 ): BeregningAvklaringsbehov | undefined =>
-  gjeldendeAvklaringsbehov &&
-  gjeldendeAvklaringsbehov.find(
+  gjeldendeAvklaringsbehov?.find(
     ap =>
       ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_ARBEIDSTAKER_FRILANS ||
       ap.definisjon === FASTSETT_BEREGNINGSGRUNNLAG_TIDSBEGRENSET_ARBEIDSFORHOLD,
@@ -140,7 +139,7 @@ Beregningsgrunnlag.buildInitialValues = (
 ): ATFLBegrunnelseValues => {
   const aksjonspunktATFL = finnAksjonspunktForATFL(gjeldendeAvklaringsbehov);
   return {
-    ATFLVurdering: aksjonspunktATFL && aksjonspunktATFL.begrunnelse ? aksjonspunktATFL.begrunnelse : '',
+    ATFLVurdering: aksjonspunktATFL?.begrunnelse ? aksjonspunktATFL.begrunnelse : '',
   };
 };
 

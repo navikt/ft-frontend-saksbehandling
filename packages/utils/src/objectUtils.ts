@@ -8,8 +8,7 @@ export const isObjectEmpty = (object: Record<string, any>): boolean => Object.ke
 export const isEqual = (obj1: Record<string, any>, obj2: Record<string, any>): boolean =>
   JSON.stringify(obj1) === JSON.stringify(obj2);
 
-export const isObject = (variable: any): boolean =>
-  variable !== undefined && variable !== null && variable.constructor === Object;
+export const isObject = (variable: any): boolean => variable?.constructor === Object;
 
 export const omit = (object: Record<string, any>, ...keysToOmit: string[]) =>
   Object.keys(object)
@@ -36,7 +35,7 @@ export const omitMany = <T, K extends keyof T>(object: T, keysToOmit: K[]): Omit
 
 type DiffInput = Array<any> | Record<string, any> | (() => any) | string | number | boolean;
 
-const isNullOrUndefined = (obj?: DiffInput | null): boolean => obj === null || typeof obj === 'undefined';
+const isNullOrUndefined = (obj?: DiffInput | null): boolean => obj === null || obj === undefined;
 const isNotNullAndObject = (obj?: DiffInput | null): boolean =>
   obj !== null && typeof obj === 'object' && !!obj.constructor;
 
@@ -63,10 +62,10 @@ export const diff = (a?: DiffInput | null, b?: DiffInput | null): boolean | Reco
   }
 
   const diffObj = () => {
-    if (thing1 instanceof Array) {
-      if (thing2 instanceof Array) {
+    if (Array.isArray(thing1)) {
+      if (Array.isArray(thing2)) {
         const length = Math.max(thing1.length, thing2.length);
-        return [...Array(length).keys()].map(i => diff(thing1[i], thing2[i]));
+        return Array.from({ length }, (_, i) => diff(thing1[i], thing2[i]));
       }
       return true;
     }

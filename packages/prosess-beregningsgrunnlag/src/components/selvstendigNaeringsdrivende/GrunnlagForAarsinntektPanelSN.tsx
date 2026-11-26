@@ -65,7 +65,7 @@ type Props = {
 export const GrunnlagForAarsinntektPanelSN = ({ alleAndeler, inntektsgrunnlag }: Props) => {
   const andel = alleAndeler.find(a => a.aktivitetStatus === 'SN' || a.aktivitetStatus === 'BA');
   const pgiGrunlag = inntektsgrunnlag?.pgiGrunnlag || [];
-  if (!andel || !andel.pgiSnitt || !andel.pgiVerdier) {
+  if (!andel?.pgiSnitt || !andel.pgiVerdier) {
     return null;
   }
   const { pgiVerdier, pgiSnitt } = andel;

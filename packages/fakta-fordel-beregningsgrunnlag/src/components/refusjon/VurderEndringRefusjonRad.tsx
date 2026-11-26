@@ -43,7 +43,6 @@ interface Props {
   erAksjonspunktÅpent: boolean;
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId;
   skjæringstidspunkt: string;
-  formName: string;
   vilkårperiodeFieldIndex: number;
 }
 

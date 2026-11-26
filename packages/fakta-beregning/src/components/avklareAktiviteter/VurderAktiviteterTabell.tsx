@@ -124,14 +124,11 @@ VurderAktiviteterTabell.transformValues = (
     )
     .map(aktivitet => ({
       // Sjekker om ident har 9 tegn, antar da at det er et orgnr
-      oppdragsgiverOrg:
-        aktivitet.arbeidsgiverIdent && aktivitet.arbeidsgiverIdent.length === 9
-          ? aktivitet.arbeidsgiverIdent
-          : undefined,
+      oppdragsgiverOrg: aktivitet.arbeidsgiverIdent?.length === 9 ? aktivitet.arbeidsgiverIdent : undefined,
       arbeidsforholdRef: aktivitet.arbeidsforholdId,
       fom: aktivitet.fom,
       tom:
-        values.aktiviteterValues && values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom != null
+        values.aktiviteterValues?.[lagAktivitetFieldId(aktivitet)].tom != null
           ? values.aktiviteterValues[lagAktivitetFieldId(aktivitet)].tom
           : aktivitet.tom,
       opptjeningAktivitetType: aktivitet.arbeidsforholdType,

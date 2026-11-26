@@ -1,4 +1,3 @@
-import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -27,7 +26,6 @@ const fastsettInntektFieldname = 'bruttoBeregningsgrunnlag';
 const { FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET } = ProsessBeregningsgrunnlagAvklaringsbehovCode;
 
 type Props = {
-  endretTekst?: React.ReactNode;
   readOnly: boolean;
   isAksjonspunktClosed: boolean;
   erNyArbLivet: boolean;
@@ -104,8 +102,7 @@ FastsettSNNyIArbeid.buildInitialValuesNyIArbeidslivet = (
   );
   return {
     [fastsettInntektFieldname]: snAndel ? formatCurrencyNoKr(snAndel.overstyrtPrAar) : undefined,
-    [begrunnelseFieldname]:
-      nyIArbeidslivetAP && nyIArbeidslivetAP.begrunnelse ? nyIArbeidslivetAP.begrunnelse : undefined,
+    [begrunnelseFieldname]: nyIArbeidslivetAP?.begrunnelse ? nyIArbeidslivetAP.begrunnelse : undefined,
   };
 };
 

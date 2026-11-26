@@ -17,7 +17,7 @@ type Props = {
  * oppgitt av saksbehandler og en kort beskrivelse av aksjonspunktet.
  */
 export const GraderingUtenBGReadOnly = ({ avklaringsbehov }: Props) => {
-  if (!avklaringsbehov || !avklaringsbehov.begrunnelse) {
+  if (!avklaringsbehov?.begrunnelse) {
     return null;
   }
   return (

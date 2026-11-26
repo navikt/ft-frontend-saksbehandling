@@ -40,7 +40,7 @@ export const TilbakekrevingEditerVedtaksbrevPanel = ({
     {vedtaksbrevAvsnitt.map(avsnitt => {
       const underavsnitter = avsnitt.underavsnittsliste;
       const periode = `${avsnitt.fom}_${avsnitt.tom}` as const;
-      const harPeriodeSomManglerObligatoriskVerdi = perioderSomIkkeHarUtfyltObligatoriskVerdi.some(p => p === periode);
+      const harPeriodeSomManglerObligatoriskVerdi = perioderSomIkkeHarUtfyltObligatoriskVerdi.includes(periode);
       const visApen = avsnitt.avsnittstype === 'OPPSUMMERING' && fritekstOppsummeringPakrevdMenIkkeUtfylt;
       return (
         <React.Fragment key={avsnitt.avsnittstype + avsnitt.fom}>

@@ -73,7 +73,7 @@ FastsettBgKunYtelse.buildInitialValues = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   kodeverkSamling: KodeverkForPanel,
 ): KunYtelseValues => {
-  if (tilfeller && tilfeller.includes(FASTSETT_BG_KUN_YTELSE)) {
+  if (tilfeller?.includes(FASTSETT_BG_KUN_YTELSE)) {
     return KunYtelsePanel.buildInitialValues(
       kunYtelse,
       faktaOmBeregningAndeler,

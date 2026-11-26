@@ -39,7 +39,7 @@ export const FeilutbetalingFaktaIndex = ({
 }: Props & StandardProsessPanelProps<AvklartFaktaFeilutbetalingAp, FormValues>) => {
   const fAarsak = feilutbetalingAarsak.find(a => a.ytelseType === fagsakYtelseTypeKode);
   if (!fAarsak) {
-    throw Error(`Mangler feilutbetalingsårsak for ytelsetype ${fagsakYtelseTypeKode}`);
+    throw new Error(`Mangler feilutbetalingsårsak for ytelsetype ${fagsakYtelseTypeKode}`);
   }
 
   return (

@@ -46,7 +46,7 @@ export const FaktaGruppe = ({
   withoutBorder = false,
   className = '',
 }: Props) => {
-  const error = !!(merknaderFraBeslutter && merknaderFraBeslutter.notAccepted);
+  const error = !!merknaderFraBeslutter?.notAccepted;
   return (
     <Wrapper withoutBorder={withoutBorder && !error} error={error} className={className}>
       {title && (

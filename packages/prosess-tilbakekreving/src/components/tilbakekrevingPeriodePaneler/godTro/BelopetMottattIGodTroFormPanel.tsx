@@ -14,7 +14,7 @@ const minValue1 = minValue(1);
 
 const parseCurrencyInput = (input: string | number) => {
   const inputNoSpace = input.toString().replace(/\s/g, '');
-  const parsedValue = parseInt(inputNoSpace, 10);
+  const parsedValue = Number.parseInt(inputNoSpace, 10);
   return Number.isNaN(parsedValue) ? '' : parsedValue;
 };
 

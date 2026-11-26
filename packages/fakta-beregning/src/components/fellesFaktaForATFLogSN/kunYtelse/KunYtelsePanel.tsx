@@ -68,7 +68,7 @@ KunYtelsePanel.buildInitialValues = (
   arbeidsgiverOpplysningerPerId: ArbeidsgiverOpplysningerPerId,
   kodeverkSamling: KodeverkForPanel,
 ): KunYtelseValues => {
-  if (!kunYtelse || !kunYtelse.andeler || kunYtelse.andeler.length === 0) {
+  if (!kunYtelse?.andeler || kunYtelse.andeler.length === 0) {
     return {};
   }
   const kunYtelseValues = kunYtelse.andeler.map<BrukersAndelValues>(andel => {

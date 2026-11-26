@@ -3,7 +3,7 @@ export const fodselsnummerPattern = /^\d{11}$/;
 const sum = (fodselsnummer: string, faktors: number[]): number => {
   let s = 0;
   for (let i = 0; i < faktors.length; i += 1) {
-    s += parseInt(fodselsnummer[i], 10) * faktors[i];
+    s += Number.parseInt(fodselsnummer[i], 10) * faktors[i];
   }
   return s;
 };
@@ -23,7 +23,9 @@ export const isValidFodselsnummer = (input: string): boolean => {
   if (checksumTwo === 11) {
     checksumTwo = 0;
   }
-  return checksumOne === parseInt(fodselsnummer[9], 10) && checksumTwo === parseInt(fodselsnummer[10], 10);
+  return (
+    checksumOne === Number.parseInt(fodselsnummer[9], 10) && checksumTwo === Number.parseInt(fodselsnummer[10], 10)
+  );
 };
 
 export const formaterFødselsnummer = (fnr: string) => {

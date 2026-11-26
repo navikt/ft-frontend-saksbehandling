@@ -22,13 +22,12 @@ const harListeAktivitetSomSkalBrukes = (
   mapping: AvklarBeregningAktiviteter,
   values: AvklarAktiviteterValues,
 ): boolean =>
-  !!mapping.aktiviteter &&
-  mapping.aktiviteter.find(aktivitet => {
+  !!mapping.aktiviteter?.some(aktivitet => {
     const fieldId = lagAktivitetFieldId(aktivitet);
     return !!values.aktiviteterValues && !!values.aktiviteterValues[fieldId]
       ? values.aktiviteterValues[fieldId].skalBrukes !== 'false'
       : aktivitet.skalBrukes;
-  }) !== undefined;
+  });
 
 // Sjekk for om saksbehandler har skrevet en ugyldig dato i inputfeltet.
 const finnesUgyldigeDatoer = (values: AvklarAktiviteterValues): boolean =>
@@ -119,14 +118,14 @@ const utledGjeldendeSkjæringstidspunkt = (
   if (values === undefined || listeSomSkalVurderes === undefined) {
     return undefined;
   }
-  for (let k = 0; k < listeSomSkalVurderes.length; k += 1) {
-    const aktiviteter = listeSomSkalVurderes[k].aktiviteter ?? [];
-    for (let i = 0; i < aktiviteter.length; i += 1) {
+  for (const mapping of listeSomSkalVurderes) {
+    const aktiviteter = mapping.aktiviteter ?? [];
+    for (const aktivitet of aktiviteter) {
       const tempaktivitet = values.aktiviteterValues
-        ? values.aktiviteterValues[lagAktivitetFieldId(aktiviteter[i])]
+        ? values.aktiviteterValues[lagAktivitetFieldId(aktivitet)]
         : undefined;
       if (tempaktivitet?.skalBrukes === 'true') {
-        return listeSomSkalVurderes[k].tom;
+        return mapping.tom;
       }
     }
   }
@@ -280,15 +279,13 @@ const utledGjeldendeSkjæringstidspunktVedPreutfylling = (
   if (aktiviteterTomDatoMapping === undefined) {
     return undefined;
   }
-  for (let k = 0; k < aktiviteterTomDatoMapping.length; k += 1) {
-    const aktiviteter = aktiviteterTomDatoMapping[k].aktiviteter ?? [];
-    for (let i = 0; i < aktiviteter.length; i += 1) {
+  for (const mapping of aktiviteterTomDatoMapping) {
+    const aktiviteter = mapping.aktiviteter ?? [];
+    for (const aktivitet of aktiviteter) {
       const skalBrukes =
-        aktiviteter[i].skalBrukes === true ||
-        aktiviteter[i].skalBrukes === null ||
-        aktiviteter[i].skalBrukes === undefined;
+        aktivitet.skalBrukes === true || aktivitet.skalBrukes === null || aktivitet.skalBrukes === undefined;
       if (skalBrukes) {
-        return aktiviteterTomDatoMapping[k].tom;
+        return mapping.tom;
       }
     }
   }

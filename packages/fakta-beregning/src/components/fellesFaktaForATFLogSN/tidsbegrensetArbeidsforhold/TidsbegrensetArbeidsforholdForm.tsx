@@ -23,7 +23,7 @@ import type { VurderFaktaBeregningFormValues } from '../../../typer/VurderFaktaB
 import { BeregningsgrunnlagIndexContext } from '../VurderFaktaContext';
 
 const createArbeidsforholdRadioKey = (andel: KortvarigAndel): string =>
-  andel && andel.arbeidsforhold
+  andel?.arbeidsforhold
     ? `${andel.arbeidsforhold.arbeidsgiverIdent}(${andel.arbeidsforhold.arbeidsforholdId})(${andel.andelsnr})`
     : '';
 

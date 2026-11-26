@@ -159,7 +159,7 @@ export const AvklareAktiviteterField = ({
             <FormattedMessage id="AvklareAktiviteter.OverstyrerAktivitetAdvarsel" />
           </Label>
         )}
-        {avklarAktiviteter && avklarAktiviteter.aktiviteterTomDatoMapping && (
+        {avklarAktiviteter?.aktiviteterTomDatoMapping && (
           <VStack gap="space-16">
             <VurderAktiviteterPanel
               aktiviteterTomDatoMapping={avklarAktiviteter.aktiviteterTomDatoMapping}

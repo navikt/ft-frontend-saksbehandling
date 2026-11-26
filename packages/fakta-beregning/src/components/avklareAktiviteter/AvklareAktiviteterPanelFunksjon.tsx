@@ -56,11 +56,11 @@ const transformValues = (values: AvklarAktiviteterFormValues): SubmitBeregningTy
   const overstyrteGrunnlag = fieldArrayList
     .filter(v => v[MANUELL_OVERSTYRING_FIELD])
     .map(transformFieldValue)
-    .filter(v => v);
+    .filter(Boolean);
   const avklarGrunnlag = fieldArrayList
     .filter(v => !v[MANUELL_OVERSTYRING_FIELD])
     .map(transformFieldValue)
-    .filter(v => v);
+    .filter(Boolean);
 
   const apDataTilSubmit: any[] = [];
 

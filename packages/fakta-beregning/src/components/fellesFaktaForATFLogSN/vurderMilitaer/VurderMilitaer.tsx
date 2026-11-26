@@ -60,7 +60,7 @@ export const VurderMilitaer = ({ readOnly }: Props) => {
 
 VurderMilitaer.buildInitialValues = (faktaOmBeregning: FaktaOmBeregning): VurderMilitærValues => {
   const initialValues: VurderMilitærValues = {};
-  if (!faktaOmBeregning || !faktaOmBeregning.vurderMilitaer) {
+  if (!faktaOmBeregning?.vurderMilitaer) {
     return initialValues;
   }
   initialValues[vurderMilitaerField] = faktaOmBeregning.vurderMilitaer.harMilitaer;

@@ -30,7 +30,7 @@ const finnBGFrilans = (bg: Beregningsgrunnlag, periode: BeregningsgrunnlagPeriod
     inntektstak -= snBrutto;
   }
   const frilansBrutto = finnBruttoForStatusIPeriode('FL', bg, periode);
-  return frilansBrutto > inntektstak ? inntektstak : frilansBrutto;
+  return Math.min(frilansBrutto, inntektstak);
 };
 
 const finnBGNæring = (bg: Beregningsgrunnlag, periode: BeregningsgrunnlagPeriodeProp): number => {
@@ -43,7 +43,7 @@ const finnBGNæring = (bg: Beregningsgrunnlag, periode: BeregningsgrunnlagPeriod
   const flBrutto = finnBruttoForStatusIPeriode('FL', bg, periode);
   inntektstak -= flBrutto;
   const snBrutto = finnBruttoForStatusIPeriode('SN', bg, periode);
-  return snBrutto > inntektstak ? inntektstak : snBrutto;
+  return Math.min(snBrutto, inntektstak);
 };
 
 const overlapperMedFrisinnPeriode = (bgPeriode: BeregningsgrunnlagPeriodeProp, frisinnPerioder: FrisinnPeriode[]) => {

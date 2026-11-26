@@ -212,19 +212,18 @@ export const TilbakekrevingPeriodeForm = ({
     >
       <VStack gap="space-16">
         <VStack gap="space-8">
-          {reduserteBelop &&
-            reduserteBelop.map(belop => (
-              <BodyShort size="small" key={belop.belop}>
-                <FormattedMessage
-                  id={
-                    belop.erTrekk
-                      ? 'TilbakekrevingPeriodeForm.FeilutbetaltBelopTrekk'
-                      : 'TilbakekrevingPeriodeForm.FeilutbetaltBelopEtterbetaling'
-                  }
-                  values={{ belop: formatCurrencyNoKr(belop.belop), b: BTag }}
-                />
-              </BodyShort>
-            ))}
+          {reduserteBelop?.map(belop => (
+            <BodyShort size="small" key={belop.belop}>
+              <FormattedMessage
+                id={
+                  belop.erTrekk
+                    ? 'TilbakekrevingPeriodeForm.FeilutbetaltBelopTrekk'
+                    : 'TilbakekrevingPeriodeForm.FeilutbetaltBelopEtterbetaling'
+                }
+                values={{ belop: formatCurrencyNoKr(belop.belop), b: BTag }}
+              />
+            </BodyShort>
+          ))}
         </VStack>
         <TilbakekrevingAktivitetTabell ytelser={data.ytelser} />
         {!readOnly && !data.erForeldet && vurdertePerioder.length > 0 && (

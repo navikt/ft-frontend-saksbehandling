@@ -27,7 +27,7 @@ import { SkjeringspunktOgStatusPanel } from '../fellesPaneler/SkjeringspunktOgSt
 import { Frisinnpanel } from '../frisinn/Frisinnpanel';
 
 const gjelderBehandlingenBesteberegning = (faktaOmBeregning: FaktaOmBeregning | undefined): boolean =>
-  faktaOmBeregning && faktaOmBeregning.faktaOmBeregningTilfeller
+  faktaOmBeregning?.faktaOmBeregningTilfeller
     ? faktaOmBeregning.faktaOmBeregningTilfeller.includes('FASTSETT_BESTEBEREGNING_FØDENDE_KVINNE')
     : false;
 

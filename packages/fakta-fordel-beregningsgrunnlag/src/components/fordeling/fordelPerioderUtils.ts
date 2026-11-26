@@ -161,7 +161,7 @@ const harPeriodeSomKanKombineresMedForrige = (
   periodeList: FordelBeregningsgrunnlagPeriode[],
   forlengelseperioder?: ForlengelsePeriodeProp[],
 ): boolean => {
-  const forrigeFordelPeriode = periodeList[periodeList.length - 1];
+  const forrigeFordelPeriode = periodeList.at(-1)!;
   const harLikeMangeAndeler =
     fordelPeriode.fordelBeregningsgrunnlagAndeler?.length ===
     forrigeFordelPeriode.fordelBeregningsgrunnlagAndeler?.length;
@@ -249,7 +249,7 @@ const getAndelsnr = (aktivitet: FordelBeregningsgrunnlagAndelValues): number | s
     return aktivitet.andel;
   }
   if (!aktivitet.andelsnr) {
-    throw Error(`Forventer å finne andelsnr for submit på aktivitet ${aktivitet}`);
+    throw new Error(`Forventer å finne andelsnr for submit på aktivitet med status ${aktivitet.aktivitetStatus}`);
   }
   return aktivitet.andelsnr;
 };

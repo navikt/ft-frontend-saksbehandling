@@ -84,7 +84,6 @@ export const VurderEndringRefusjonField = ({
           arbeidsgiverOpplysningerPerId={arbeidsgiverOpplysningerPerId}
           key={lagRadNøkkel(andel)}
           skjæringstidspunkt={beregningsgrunnlag.skjaeringstidspunktBeregning}
-          formName={FORM_NAME}
           vilkårperiodeFieldIndex={vilkårperiodeFieldIndex}
         />
       ))}

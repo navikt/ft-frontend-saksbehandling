@@ -132,13 +132,11 @@ export const finnFrisinnperioderSomSkalVises = (frisinnGrunnlag: FrisinnGrunnlag
     return [];
   }
   if (behandlingÅrsaker && frisinnPerioder.length > 1) {
-    const eropprettetGrunetEndring = behandlingÅrsaker.some(
-      årsak => årsak === BehandlingArsakType.RE_ENDRING_FRA_BRUKER,
-    );
+    const eropprettetGrunetEndring = behandlingÅrsaker.includes(BehandlingArsakType.RE_ENDRING_FRA_BRUKER);
     if (eropprettetGrunetEndring) {
       // Skal kun vise siste søknadsperiode
       const kronologiskePerioder = frisinnPerioder.toSorted(sortPeriodsByFom);
-      const sistePeriode = kronologiskePerioder[kronologiskePerioder.length - 1];
+      const sistePeriode = kronologiskePerioder.at(-1)!;
       const sisteTom = dayjs(sistePeriode.tom);
       if (sisteTom.month() === 3 && sisteTom.year() === 2020) {
         // Spesialbehandling for første søknadsmåned

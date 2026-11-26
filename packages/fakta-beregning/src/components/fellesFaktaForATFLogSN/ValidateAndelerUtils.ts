@@ -37,7 +37,7 @@ const mapAndelToSortedObject = (
   const arbeidsforholdId = 'arbeidsforholdId' in value ? value.arbeidsforholdId : undefined;
   if (nyAndel) {
     if (!Number.isNaN(Number(andel))) {
-      const matchendeAndelFraListe = andelList.filter(andelValue => andelValue.andelsnr === parseFloat(andel));
+      const matchendeAndelFraListe = andelList.filter(andelValue => andelValue.andelsnr === Number.parseFloat(andel));
       if (matchendeAndelFraListe.length > 0) {
         return { andelsinfo: matchendeAndelFraListe[0].andel, inntektskategori };
       }

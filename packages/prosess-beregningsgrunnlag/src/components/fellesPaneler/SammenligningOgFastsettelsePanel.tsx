@@ -173,7 +173,7 @@ const grupperPrLovparagraf = (beregningsgrunnlagListe: Beregningsgrunnlag[]) =>
       ...gruppert,
     };
 
-    const harAvklaringUtenSG = bg.avklaringsbehov.find(
+    const harAvklaringUtenSG = bg.avklaringsbehov.some(
       a =>
         a.definisjon === ProsessBeregningsgrunnlagAvklaringsbehovCode.FASTSETT_BEREGNINGSGRUNNLAG_SN_NY_I_ARBEIDSLIVET,
     );
@@ -235,12 +235,11 @@ export const SammenligningOgFastsettelsePanel = ({
               ) === lovparagraf,
           )
         : undefined;
-      const harAvklaringsbehovForLovparagraf = !!gruppertPrLovparagraf[lovparagraf].find(
-        bg => !!bg.avklaringsbehov.find(a => mapAvklaringsbehovTilLovparagraf(a) === lovparagraf),
+      const harAvklaringsbehovForLovparagraf = gruppertPrLovparagraf[lovparagraf].some(bg =>
+        bg.avklaringsbehov.some(a => mapAvklaringsbehovTilLovparagraf(a) === lovparagraf),
       );
       const harAktivtAvklaringsbehovForLovparagraf =
-        aktivtGrunnlagForLovparagraf &&
-        !!aktivtGrunnlagForLovparagraf.avklaringsbehov.find(a => mapAvklaringsbehovTilLovparagraf(a) === lovparagraf);
+        aktivtGrunnlagForLovparagraf?.avklaringsbehov.some(a => mapAvklaringsbehovTilLovparagraf(a) === lovparagraf);
       const andelerIFørstePeriode =
         aktivtGrunnlagForLovparagraf?.beregningsgrunnlagPeriode[0].beregningsgrunnlagPrStatusOgAndel ?? [];
       const formName = finnFormName(lovparagraf);

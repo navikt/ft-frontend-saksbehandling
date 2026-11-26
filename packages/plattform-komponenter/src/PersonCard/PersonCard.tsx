@@ -94,7 +94,7 @@ export const PersonCard = ({
         </BodyShort>
       )}
       {isChild ? (
-        <>{childAge && <BodyShort>({childAge})</BodyShort>}</>
+        childAge && <BodyShort>({childAge})</BodyShort>
       ) : (
         <>
           <HStack align="center" wrap={false} gap="space-8">
@@ -128,7 +128,7 @@ export const PersonCard = ({
                 </Popover>
               </>
             )}
-            {renderLabelContent && renderLabelContent()}
+            {renderLabelContent?.()}
           </HStack>
         </>
       )}

@@ -11,5 +11,4 @@ export const harFieldLønnsendring = (
   values: FaktaOmBeregningAksjonspunktValues,
 ): boolean =>
   !!values[lonnsendringField] &&
-  !!faktaOmBeregning.arbeidsforholdMedLønnsendringUtenIM &&
-  faktaOmBeregning.arbeidsforholdMedLønnsendringUtenIM.find(andel => andel.andelsnr === field.andelsnr) !== undefined;
+  !!faktaOmBeregning.arbeidsforholdMedLønnsendringUtenIM?.some(andel => andel.andelsnr === field.andelsnr);

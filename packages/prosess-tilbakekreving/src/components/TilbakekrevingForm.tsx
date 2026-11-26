@@ -58,7 +58,7 @@ const emptyFeltverdiOmFinnes = (periode: CustomVilkarsVurdertePeriode) => {
 
   if ('handletUaktsomhetGrad' in valgtVilkarResultatType) {
     const handletUaktsomhetGrad = valgtVilkarResultatType[valgtVilkarResultatType.handletUaktsomhetGrad];
-    if (handletUaktsomhetGrad && handletUaktsomhetGrad.belopSomSkalTilbakekreves) {
+    if (handletUaktsomhetGrad?.belopSomSkalTilbakekreves) {
       return {
         ...periode,
         [periode.valgtVilkarResultatType]: {
@@ -83,7 +83,7 @@ const formaterPerioderForTidslinje = (
     );
     const erBelopetIBehold =
       // @ts-expect-error Fiks
-      per && per[per.valgtVilkarResultatType] ? per[per.valgtVilkarResultatType].erBelopetIBehold : undefined;
+      per?.[per.valgtVilkarResultatType] ? per[per.valgtVilkarResultatType].erBelopetIBehold : undefined;
     const erSplittet = per ? !!per.erSplittet : false;
     return {
       fom: periode.fom,
@@ -420,7 +420,7 @@ export const TilbakekrevingForm = ({
   };
 
   const lukkPeriode = () => {
-    setPeriode(undefined);
+    setPeriode();
   };
 
   // Kladden i detaljpanelet er kun gyldig for perioden den ble laget for. Alt som endrer toppnivå-perioder

@@ -39,9 +39,7 @@ const { VURDER_FAKTA_FOR_ATFL_SN } = FaktaBeregningAvklaringsbehovCode;
 const getKortvarigeArbeidsforhold = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.kortvarigeArbeidsforhold ?? [];
 
-// TODO (TOR) om typane her er korrekt så kan ein ta vekk ?? undefined
-const getKunYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>
-  getFaktaOmBeregning(beregningsgrunnlag)?.kunYtelse ?? undefined;
+const getKunYtelse = (beregningsgrunnlag: Beregningsgrunnlag) => getFaktaOmBeregning(beregningsgrunnlag)?.kunYtelse;
 
 const getVurderMottarYtelse = (beregningsgrunnlag: Beregningsgrunnlag) =>
   getFaktaOmBeregning(beregningsgrunnlag)?.vurderMottarYtelse ?? undefined;

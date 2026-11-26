@@ -210,7 +210,7 @@ export const ForeldelseForm = ({
   };
 
   const lukkPeriode = (): void => {
-    setPeriode(undefined);
+    setPeriode();
   };
 
   // Kladden i detaljpanelet er kun gyldig for perioden den ble laget for. Alt som endrer toppnivå-perioder

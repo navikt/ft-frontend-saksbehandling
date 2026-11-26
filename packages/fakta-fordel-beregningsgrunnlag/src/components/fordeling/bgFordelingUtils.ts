@@ -99,7 +99,7 @@ export const setGenerellAndelsinfo = (
   aktivitetStatus: andel.aktivitetStatus,
   andelsnr: andel.andelsnr,
   nyAndel: false,
-  kilde: andel.kilde == null ? undefined : andel.kilde,
+  kilde: andel.kilde ?? undefined,
   lagtTilAvSaksbehandler: andel.lagtTilAvSaksbehandler === true,
   inntektskategori: finnInntektskategorikode(andel),
   forrigeInntektskategori:
