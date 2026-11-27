@@ -4,9 +4,9 @@
   "OverstyringKnapp.Avbryt": "Avbryt overstyring",
   "RefusjonsTidslinje.Periode": "Periode",
   "RefusjonskravForm.Årsak": "Årsak til overstyring",
-  "RefusjonskravForm.Årsak.KONKURS": "Konkurs",
+  "RefusjonskravForm.Årsak.IKKE_INNENFOR_FRIST": "Ikke innenfor fristen",
   "RefusjonskravForm.Årsak.UTMELDT": "Utmeldt",
-  "RefusjonskravForm.Årsak.AVTALT_MED_ARBEIDSGIVER": "Avtalt med arbeidsgiver",
+  "RefusjonskravForm.Årsak.ALLEREDE_DIREKTE_UTBETALT": "Allerede utbetalt direkte",
   "RefusjonskravForm.RefusjonsbeløpPrMnd": "Refusjonsbeløp per måned",
   "RefusjonskravForm.OverlappendeKrav": "Refusjonskrav fra ulike kilder overlapper for samme arbeidsgiver. Avklar hvilke perioder som skal gjelde før du sender inn.",
 

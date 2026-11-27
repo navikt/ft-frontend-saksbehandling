@@ -141,8 +141,8 @@ describe('RefusjonskravForm', () => {
             refusjonskrav: expect.arrayContaining([
               expect.objectContaining({
                 arbeidsgiverIdent: '999999999',
-                perioder: expect.arrayContaining([
-                  expect.objectContaining({ fom: '2025-01-01', refusjonsbeløpPrMnd: 42000 }),
+                refusjonsperioder: expect.arrayContaining([
+                  expect.objectContaining({ fom: '2025-01-01', refusjonPrMnd: 42000 }),
                 ]),
               }),
             ]),
@@ -295,37 +295,44 @@ describe('RefusjonskravForm', () => {
     await expectTidslinjePeriode(2, '15.02.2025 - 28.02.2025');
   });
 
-  it('samler ikke-overlappende andeler til ett sortert krav per arbeidsgiver', async () => {
-    const submitCallback = vi.fn().mockResolvedValue(undefined);
-    const andel = { ...refusjonsandelerForTreArbeidsgivere[0], arbeidsforholdId: 'arbeidsgiver-1' };
-    renderOverstyring({
-      submitCallback,
-      refusjonsandeler: [
-        {
-          ...andel,
-          kilde: 'SAKSBEHANDLER',
-          refusjonsperioder: [
-            { ...andel.refusjonsperioder[0], fom: '2025-02-01', tom: '2025-02-28', refusjonPrMnd: 10000 },
-          ],
-        },
-        { ...andel, refusjonsperioder: [{ ...andel.refusjonsperioder[0], tom: '2025-01-31' }] },
-      ],
-    });
-    await userEvent.type(screen.getByRole('textbox', { name: 'Begrunnelse' }), 'Overstyrt');
-    await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
-
-    await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
-    expect(submitCallback.mock.calls[0][0].refusjonskrav).toEqual([
-      {
-        arbeidsgiverIdent: andel.arbeidsgiverIdent,
-        arbeidsforholdId: andel.arbeidsforholdId,
-        perioder: [
-          expect.objectContaining({ fom: '2025-01-01', tom: '2025-01-31', refusjonsbeløpPrMnd: 42000 }),
-          expect.objectContaining({ fom: '2025-02-01', tom: '2025-02-28', refusjonsbeløpPrMnd: 10000 }),
+  it.each([undefined, 'arbeidsgiver-1'])(
+    'bevarer kilde i separate krav for samme arbeidsgiver med arbeidsforholdId %s',
+    async arbeidsforholdId => {
+      const submitCallback = vi.fn().mockResolvedValue(undefined);
+      const andel = { ...refusjonsandelerForTreArbeidsgivere[0], arbeidsforholdId };
+      renderOverstyring({
+        submitCallback,
+        refusjonsandeler: [
+          {
+            ...andel,
+            kilde: 'SAKSBEHANDLER',
+            refusjonsperioder: [
+              { ...andel.refusjonsperioder[0], fom: '2025-02-01', tom: '2025-02-28', refusjonPrMnd: 10000 },
+            ],
+          },
+          { ...andel, refusjonsperioder: [{ ...andel.refusjonsperioder[0], tom: '2025-01-31' }] },
         ],
-      },
-    ]);
-  });
+      });
+      await userEvent.type(screen.getByRole('textbox', { name: 'Begrunnelse' }), 'Overstyrt');
+      await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
+
+      await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
+      expect(submitCallback.mock.calls[0][0].refusjonskrav).toEqual([
+        {
+          arbeidsgiverIdent: andel.arbeidsgiverIdent,
+          ...(arbeidsforholdId ? { arbeidsforholdId } : {}),
+          kilde: 'SAKSBEHANDLER',
+          refusjonsperioder: [expect.objectContaining({ fom: '2025-02-01', tom: '2025-02-28', refusjonPrMnd: 10000 })],
+        },
+        {
+          arbeidsgiverIdent: andel.arbeidsgiverIdent,
+          ...(arbeidsforholdId ? { arbeidsforholdId } : {}),
+          kilde: 'INNTEKTSMELDING',
+          refusjonsperioder: [expect.objectContaining({ fom: '2025-01-01', tom: '2025-01-31', refusjonPrMnd: 42000 })],
+        },
+      ]);
+    },
+  );
 
   it.each([
     { fom: '2025-02-01', tom: '2025-02-28' },
@@ -375,7 +382,7 @@ describe('RefusjonskravForm', () => {
       await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
 
       await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
-      expect(submitCallback.mock.calls[0][0].refusjonskrav[0].perioder[0].utfallÅrsak).toBeUndefined();
+      expect(submitCallback.mock.calls[0][0].refusjonskrav[0].refusjonsperioder[0].utfallÅrsak).toBeUndefined();
       unmount();
       expect(setFormData.mock.calls[0][0].refusjonsandeler[0].refusjonsperioder[0].utfallÅrsak).toBe(utfallÅrsak);
     },
@@ -411,7 +418,7 @@ describe('RefusjonskravForm', () => {
     expect(within(innhold).getByText('42000')).toBeInTheDocument();
     expect(screen.getByText('Tidligere overstyrt refusjon')).toBeInTheDocument();
     expect(within(innhold).queryByText('Årsak til overstyring')).not.toBeInTheDocument();
-    expect(within(innhold).queryByText('Konkurs')).not.toBeInTheDocument();
+    expect(within(innhold).queryByText('Ikke innenfor fristen')).not.toBeInTheDocument();
     expect(within(innhold).queryByRole('combobox')).not.toBeInTheDocument();
     await submitForm();
     expect(submitCallback).not.toHaveBeenCalled();
@@ -481,7 +488,10 @@ describe('RefusjonskravForm', () => {
     const innhold = getÅpentAndelInnhold('Brunostfabrikken AS');
     await userEvent.clear(within(innhold).getByRole('textbox', { name: 'Refusjonsbeløp per måned' }));
     await userEvent.type(within(innhold).getByRole('textbox', { name: 'Refusjonsbeløp per måned' }), '50000');
-    await userEvent.selectOptions(within(innhold).getByRole('combobox', { name: 'Årsak til overstyring' }), 'KONKURS');
+    await userEvent.selectOptions(
+      within(innhold).getByRole('combobox', { name: 'Årsak til overstyring' }),
+      'IKKE_INNENFOR_FRIST',
+    );
     await userEvent.click(within(innhold).getByRole('button', { name: 'Legg til periode' }));
     await userEvent.type(within(innhold).getByRole('textbox', { name: 'Periode fra og med' }), '01.02.2025');
     await userEvent.type(within(innhold).getAllByRole('textbox', { name: 'Refusjonsbeløp per måned' })[1], '0');
@@ -554,7 +564,10 @@ describe('RefusjonskravForm', () => {
 
     await userEvent.clear(within(innhold).getByRole('textbox', { name: 'Refusjonsbeløp per måned' }));
     await userEvent.type(within(innhold).getByRole('textbox', { name: 'Refusjonsbeløp per måned' }), '50000');
-    await userEvent.selectOptions(within(innhold).getByRole('combobox', { name: 'Årsak til overstyring' }), 'KONKURS');
+    await userEvent.selectOptions(
+      within(innhold).getByRole('combobox', { name: 'Årsak til overstyring' }),
+      'IKKE_INNENFOR_FRIST',
+    );
     await userEvent.click(within(innhold).getByRole('button', { name: 'Legg til periode' }));
     expect(submitButton).toBeDisabled();
     await submitForm();
@@ -565,7 +578,7 @@ describe('RefusjonskravForm', () => {
       within(within(innhold).getByRole('region', { name: 'Periode 2' })).getByRole('combobox', {
         name: 'Årsak til overstyring',
       }),
-      'AVTALT_MED_ARBEIDSGIVER',
+      'ALLEREDE_DIREKTE_UTBETALT',
     );
     expect(screen.getByRole('button', { name: 'Vis mindre' })).toBeInTheDocument();
     expect(submitButton).toBeEnabled();
@@ -582,18 +595,19 @@ describe('RefusjonskravForm', () => {
         refusjonskrav: [
           {
             arbeidsgiverIdent: '999999999',
-            perioder: [
+            kilde: 'INNTEKTSMELDING',
+            refusjonsperioder: [
               {
                 fom: '2025-01-01',
                 tom: '2025-01-31',
-                refusjonsbeløpPrMnd: 50000,
-                utfallÅrsak: 'KONKURS',
+                refusjonPrMnd: 50000,
+                utfallÅrsak: 'IKKE_INNENFOR_FRIST',
               },
               {
                 fom: '2025-02-01',
                 tom: '2025-03-31',
-                refusjonsbeløpPrMnd: 0,
-                utfallÅrsak: 'AVTALT_MED_ARBEIDSGIVER',
+                refusjonPrMnd: 0,
+                utfallÅrsak: 'ALLEREDE_DIREKTE_UTBETALT',
               },
             ],
           },
@@ -619,8 +633,8 @@ describe('RefusjonskravForm', () => {
     expect(getTidslinjePerioder()).toHaveLength(1);
     await userEvent.click(submitButton);
     await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(2));
-    expect(submitCallback.mock.calls[1][0].refusjonskrav[0].perioder).toEqual([
-      expect.objectContaining({ fom: '2025-01-01', tom: '2025-03-31', refusjonsbeløpPrMnd: 50000 }),
+    expect(submitCallback.mock.calls[1][0].refusjonskrav[0].refusjonsperioder).toEqual([
+      expect.objectContaining({ fom: '2025-01-01', tom: '2025-03-31', refusjonPrMnd: 50000 }),
     ]);
   });
 
@@ -662,7 +676,7 @@ describe('RefusjonskravForm', () => {
           {
             ...andel,
             arbeidsgiverTittel: 'Brunostfabrikken AS',
-            refusjonsperioder: [{ ...andel.refusjonsperioder[0], overstyringsÅrsak: 'KONKURS' }],
+            refusjonsperioder: [{ ...andel.refusjonsperioder[0], overstyringsÅrsak: 'IKKE_INNENFOR_FRIST' }],
           },
         ],
       },
@@ -673,13 +687,13 @@ describe('RefusjonskravForm', () => {
     const beløp = innhold.getByRole('textbox', { name: 'Refusjonsbeløp per måned' });
     await userEvent.clear(beløp);
     await userEvent.type(beløp, '50000');
-    expect(innhold.getByRole('combobox', { name: 'Årsak til overstyring' })).toHaveValue('KONKURS');
+    expect(innhold.getByRole('combobox', { name: 'Årsak til overstyring' })).toHaveValue('IKKE_INNENFOR_FRIST');
   });
 
   it.each([
-    ['Konkurs', 'KONKURS'],
+    ['Ikke innenfor fristen', 'IKKE_INNENFOR_FRIST'],
     ['Utmeldt', 'UTMELDT'],
-    ['Avtalt med arbeidsgiver', 'AVTALT_MED_ARBEIDSGIVER'],
+    ['Allerede utbetalt direkte', 'ALLEREDE_DIREKTE_UTBETALT'],
   ])('bevarer valgt årsak %s når beløpet tilbakestilles og skjuler årsaksfeltet', async (navn, utfallÅrsak) => {
     const submitCallback = vi.fn().mockResolvedValue(undefined);
     renderOverstyring({ submitCallback });
@@ -697,8 +711,8 @@ describe('RefusjonskravForm', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Vis mindre' }));
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
-    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].perioder).toEqual([
-      expect.objectContaining({ refusjonsbeløpPrMnd: 42000, utfallÅrsak }),
+    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].refusjonsperioder).toEqual([
+      expect.objectContaining({ refusjonPrMnd: 42000, utfallÅrsak }),
     ]);
   });
 
@@ -725,7 +739,7 @@ describe('RefusjonskravForm', () => {
     await userEvent.click(submitButton);
 
     await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
-    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].perioder).toEqual([
+    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].refusjonsperioder).toEqual([
       expect.objectContaining({ fom: '2025-01-01', tom }),
     ]);
   });
@@ -773,7 +787,7 @@ describe('RefusjonskravForm', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
 
     await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
-    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].perioder).toEqual([
+    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].refusjonsperioder).toEqual([
       expect.objectContaining({ fom: '2025-01-01', tom: '2025-07-31' }),
       expect.objectContaining({ fom: '2025-08-01', tom: TIDENES_ENDE }),
     ]);
@@ -797,8 +811,8 @@ describe('RefusjonskravForm', () => {
     expect(beløp).toHaveValue('37500');
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
-    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].perioder).toEqual([
-      expect.objectContaining({ refusjonsbeløpPrMnd: 37500 }),
+    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].refusjonsperioder).toEqual([
+      expect.objectContaining({ refusjonPrMnd: 37500 }),
     ]);
   });
 
@@ -884,8 +898,8 @@ describe('RefusjonskravForm', () => {
       await waitFor(() => expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeEnabled());
       await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
       await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
-      expect(submitCallback.mock.calls[0][0].refusjonskrav[0].perioder).toEqual([
-        expect.objectContaining({ refusjonsbeløpPrMnd: 0 }),
+      expect(submitCallback.mock.calls[0][0].refusjonskrav[0].refusjonsperioder).toEqual([
+        expect.objectContaining({ refusjonPrMnd: 0 }),
       ]);
     },
   );
@@ -964,7 +978,7 @@ describe('RefusjonskravForm', () => {
 
       await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
       await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
-      expect(submitCallback.mock.calls[0][0].refusjonskrav[0].perioder[0]).not.toHaveProperty('utfall');
+      expect(submitCallback.mock.calls[0][0].refusjonskrav[0].refusjonsperioder[0]).not.toHaveProperty('utfall');
 
       await userEvent.click(screen.getByRole('button', { name: 'Vis mer' }));
       const beløp = within(getÅpentAndelInnhold('Brunostfabrikken AS')).getByRole('textbox', {
@@ -974,10 +988,10 @@ describe('RefusjonskravForm', () => {
       await userEvent.type(beløp, '500');
       await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
       await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(2));
-      expect(submitCallback.mock.calls[1][0].refusjonskrav[0].perioder).toEqual([
-        expect.objectContaining({ refusjonsbeløpPrMnd: 500 }),
+      expect(submitCallback.mock.calls[1][0].refusjonskrav[0].refusjonsperioder).toEqual([
+        expect.objectContaining({ refusjonPrMnd: 500 }),
       ]);
-      expect(submitCallback.mock.calls[1][0].refusjonskrav[0].perioder[0]).not.toHaveProperty('utfall');
+      expect(submitCallback.mock.calls[1][0].refusjonskrav[0].refusjonsperioder[0]).not.toHaveProperty('utfall');
       unmount();
       expect(setFormData.mock.calls[0][0].refusjonsandeler[0].refusjonsperioder[0].utfall).toBe(utfall);
     },
@@ -1102,21 +1116,22 @@ describe('RefusjonskravForm', () => {
           refusjonskrav: [
             {
               arbeidsgiverIdent: '999999999',
-              perioder: [
+              kilde: 'INNTEKTSMELDING',
+              refusjonsperioder: [
                 expect.objectContaining({
                   fom: '2025-01-01',
                   tom: '2025-01-31',
-                  refusjonsbeløpPrMnd: 30000,
+                  refusjonPrMnd: 30000,
                 }),
                 expect.objectContaining({
                   fom: '2025-02-01',
                   tom: '2025-04-30',
-                  refusjonsbeløpPrMnd: 40000,
+                  refusjonPrMnd: 40000,
                 }),
                 expect.objectContaining({
                   fom: '2025-05-01',
                   tom: '2025-06-30',
-                  refusjonsbeløpPrMnd: 37500,
+                  refusjonPrMnd: 37500,
                 }),
               ],
             },
@@ -1146,8 +1161,8 @@ describe('RefusjonskravForm', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
 
     await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
-    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].perioder).toEqual([
-      expect.objectContaining({ fom: '2025-01-01', tom, refusjonsbeløpPrMnd: 42000 }),
+    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].refusjonsperioder).toEqual([
+      expect.objectContaining({ fom: '2025-01-01', tom, refusjonPrMnd: 42000 }),
     ]);
   });
 
@@ -1180,7 +1195,7 @@ describe('RefusjonskravForm', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
 
     await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
-    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].perioder).toEqual([
+    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].refusjonsperioder).toEqual([
       expect.objectContaining({ fom: '2025-01-01', tom: '2025-01-31' }),
       expect.objectContaining({ fom: '2025-02-01', tom: '2025-08-31' }),
     ]);
@@ -1200,8 +1215,8 @@ describe('RefusjonskravForm', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
 
     await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
-    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].perioder.at(-1)).toEqual(
-      expect.objectContaining({ fom: '2025-05-01', tom: '2025-06-30', refusjonsbeløpPrMnd: 10000 }),
+    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].refusjonsperioder.at(-1)).toEqual(
+      expect.objectContaining({ fom: '2025-05-01', tom: '2025-06-30', refusjonPrMnd: 10000 }),
     );
     expect(refusjonsandeler[0].refusjonsperioder[0].fom).toBe('2025-04-01');
   });
@@ -1235,8 +1250,8 @@ describe('RefusjonskravForm', () => {
     await waitFor(() => expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeEnabled());
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
-    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].perioder.at(-1)).toEqual(
-      expect.objectContaining({ tom: tom || TIDENES_ENDE, refusjonsbeløpPrMnd: 30000 }),
+    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].refusjonsperioder.at(-1)).toEqual(
+      expect.objectContaining({ tom: tom || TIDENES_ENDE, refusjonPrMnd: 30000 }),
     );
   });
 
@@ -1269,7 +1284,7 @@ describe('RefusjonskravForm', () => {
     await waitFor(() => expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeEnabled());
     await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
     await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
-    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].perioder.at(-1)).toEqual(
+    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].refusjonsperioder.at(-1)).toEqual(
       expect.objectContaining({ fom: '2025-07-01', tom: '2025-08-31' }),
     );
   });
