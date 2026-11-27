@@ -1,14 +1,12 @@
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
-import { BodyShort, HStack, Radio, VStack } from '@navikt/ds-react';
+import { HStack, InlineMessage, Radio, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup, RhfTextField } from '@navikt/ft-form-hooks';
 import { minValue, required } from '@navikt/ft-form-validators';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr, removeSpacesFromNumber } from '@navikt/ft-utils';
-
-import styles from './belopetMottattIGodTroFormPanel.module.css';
 
 const minValue1 = minValue(1);
 
@@ -34,14 +32,14 @@ export interface InitialValuesGodTroForm {
 interface Props {
   name: 'GOD_TRO';
   readOnly: boolean;
-  erBelopetIBehold?: boolean;
   feilutbetalingBelop: number;
 }
 
-export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehold, feilutbetalingBelop }: Props) => {
+export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, feilutbetalingBelop }: Props) => {
   const intl = useIntl();
 
-  const { control } = useFormContext<{ GOD_TRO: InitialValuesGodTroForm }>();
+  const { control, watch } = useFormContext<{ GOD_TRO: InitialValuesGodTroForm }>();
+  const erBelopetIBehold = watch('GOD_TRO.erBelopetIBehold');
 
   return (
     <VStack gap="space-12">
@@ -61,30 +59,30 @@ export const BelopetMottattIGodTroFormPanel = ({ name, readOnly, erBelopetIBehol
           </Radio>
         </HStack>
       </RhfRadioGroup>
-      <div className={styles.arrowbox}>
-        {erBelopetIBehold === true && (
-          <ArrowBox alignOffset={25}>
-            <RhfTextField
-              name={`${name}.tilbakekrevdBelop`}
-              control={control}
-              label={<FormattedMessage id="BelopetMottattIGodTroFormPanel.AngiBelop" />}
-              validate={[required, minValue1, validerAtMindreEnn(intl, feilutbetalingBelop)]}
-              readOnly={readOnly}
-              className={styles.tilbakekrevdBelopInput}
-              // @ts-expect-error Fiks
-              format={formatCurrencyNoKr}
-              parse={parseCurrencyInput}
-            />
-          </ArrowBox>
-        )}
-        {erBelopetIBehold === false && (
-          <ArrowBox alignOffset={90}>
-            <BodyShort size="small">
-              <FormattedMessage id="BelopetMottattIGodTroFormPanel.IngenTilbakekreving" />
-            </BodyShort>
-          </ArrowBox>
-        )}
-      </div>
+
+      {erBelopetIBehold === true && (
+        <ArrowBox alignOffset={25}>
+          <RhfTextField
+            name={`${name}.tilbakekrevdBelop`}
+            control={control}
+            label={<FormattedMessage id="BelopetMottattIGodTroFormPanel.AngiBelop" />}
+            validate={[required, minValue1, validerAtMindreEnn(intl, feilutbetalingBelop)]}
+            readOnly={readOnly}
+            htmlSize={12}
+            // @ts-expect-error Fiks
+            format={formatCurrencyNoKr}
+            parse={parseCurrencyInput}
+          />
+        </ArrowBox>
+      )}
+
+      {erBelopetIBehold === false && (
+        <ArrowBox alignOffset={90}>
+          <InlineMessage status="info" size="small">
+            <FormattedMessage id="BelopetMottattIGodTroFormPanel.IngenTilbakekreving" />
+          </InlineMessage>
+        </ArrowBox>
+      )}
     </VStack>
   );
 };

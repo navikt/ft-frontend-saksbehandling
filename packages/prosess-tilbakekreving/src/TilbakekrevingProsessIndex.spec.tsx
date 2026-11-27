@@ -8,6 +8,66 @@ import * as stories from './TilbakekrevingProsessIndex.stories';
 const { Default, MedToPerioder } = composeStories(stories);
 
 describe('TilbakekrevingProsessIndex', () => {
+  it.each([false, true])(
+    'kopierer vurderingen uten å endre originalen når målperioden har flere ytelser: %s',
+    async harFlereYtelser => {
+      let lagretFormData: TilbakekrevingFormData | undefined;
+      const perioder = stories.MedToPerioder.args!.vilkarvurderingsperioder!;
+      const { unmount } = render(
+        <MedToPerioder
+          setFormData={data => {
+            lagretFormData = data;
+          }}
+          vilkarvurderingsperioder={{
+            ...perioder,
+            perioder: perioder.perioder.map((periode, index) => ({
+              ...periode,
+              tom: index === 0 ? '2019-03-31' : periode.tom,
+              ytelser:
+                index === 1 && harFlereYtelser
+                  ? [...periode.ytelser, { aktivitet: 'Frilanser', belop: 100 }]
+                  : periode.ytelser,
+            })),
+          }}
+          vilkarvurdering={{
+            vilkarsVurdertePerioder: [
+              {
+                fom: '2019-01-01',
+                tom: '2019-03-31',
+                vilkarResultat: 'FORSTO_BURDE_FORSTAATT',
+                begrunnelse: 'Mottaker burde forstått at utbetalingen var feil',
+                vilkarResultatInfo: {
+                  begrunnelse: 'Simpel uaktsomhet',
+                  aktsomhet: 'SIMPEL_UAKTSOM',
+                  aktsomhetInfo: {
+                    sarligGrunner: ['ANNET'],
+                    harGrunnerTilReduksjon: true,
+                    andelTilbakekreves: 50,
+                    ileggRenter: false,
+                    tilbakekrevesBelop: 5,
+                    tilbakekrevSelvOmBeloepErUnder4Rettsgebyr: true,
+                    annetBegrunnelse: 'Andre særlige grunner',
+                    sarligGrunnerBegrunnelse: 'Begrunnelse for særlige grunner',
+                  },
+                },
+              },
+            ],
+          }}
+        />,
+      );
+
+      expect(await screen.findByText('01.04.2019 - 01.10.2019')).toBeInTheDocument();
+      await userEvent.selectOptions(screen.getByLabelText('Kopier vilkårsvurdering fra'), '2019-01-01_2019-03-31');
+      unmount();
+
+      const kopiert = lagretFormData?.kladd?.verdier.FORSTO_BURDE_FORSTAATT.SIMPEL_UAKTSOM;
+      expect(kopiert).toHaveProperty('andelSomTilbakekrevesManuell', harFlereYtelser ? null : undefined);
+      expect(kopiert?.andelSomTilbakekreves).toBe(harFlereYtelser ? null : '50');
+      const original = lagretFormData?.perioder.find(periode => periode.fom === '2019-01-01');
+      expect(original?.FORSTO_BURDE_FORSTAATT.SIMPEL_UAKTSOM?.andelSomTilbakekreves).toBe('50');
+    },
+  );
+
   it('skal vurdere perioden som God Tro og så bekrefte', async () => {
     const lagre = vi.fn(() => Promise.resolve());
     render(<Default submitCallback={lagre} />);
@@ -18,7 +78,7 @@ describe('TilbakekrevingProsessIndex', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('Detaljer for valgt periode')).toBeInTheDocument();
     expect(screen.getByText('01.01.2019 - 01.04.2019')).toBeInTheDocument();
-    expect(screen.getByText('13 uker')).toBeInTheDocument();
+    expect(screen.getByText('(13 uker)')).toBeInTheDocument();
     expect(screen.getByText('Feilutbetaling:')).toBeInTheDocument();
     expect(screen.getByText('10')).toBeInTheDocument();
     expect(screen.getByText('§ 14-2 Medlemskap')).toBeInTheDocument();
@@ -98,7 +158,7 @@ describe('TilbakekrevingProsessIndex', () => {
     );
     await userEvent.click(screen.getByText('Forsett'));
     expect(await screen.findByText('Andel som skal tilbakekreves')).toBeInTheDocument();
-    expect(screen.getByText('100 %')).toBeInTheDocument();
+    expect(screen.getByText('100%')).toBeInTheDocument();
     expect(screen.getByText('Det legges til 10 % renter')).toBeInTheDocument();
 
     // Velg så 'Forsto eller burde forstått'
@@ -329,7 +389,7 @@ describe('TilbakekrevingProsessIndex', () => {
     // Trykk på første periode
     await userEvent.click(screen.getAllByRole('button')[0]);
 
-    expect(await screen.findByText('13 uker')).toBeInTheDocument();
+    expect(await screen.findByText('(13 uker)')).toBeInTheDocument();
     const nestePeriodeKnapp = screen.getByText('Neste');
     await userEvent.click(nestePeriodeKnapp);
 

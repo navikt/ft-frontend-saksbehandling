@@ -1,12 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
-import { Alert, BodyShort, Button, Heading, Label, Modal, VStack } from '@navikt/ds-react';
+import { Alert, Button, Heading, Modal, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { RhfDatepicker, RhfForm } from '@navikt/ft-form-hooks';
 import { dateAfterOrEqual, dateBeforeOrEqual, hasValidDate, required } from '@navikt/ft-form-validators';
-import { DDMMYYYY_DATE_FORMAT, ISO_DATE_FORMAT } from '@navikt/ft-utils';
+import { LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
+import { ISO_DATE_FORMAT } from '@navikt/ft-utils';
 
 import styles from './delOppPeriodeModal.module.css';
 
@@ -89,16 +90,12 @@ export const DelOppPeriodeModal = ({
         </Modal.Header>
         <Modal.Body>
           <VStack gap="space-16">
-            <div>
-              <Label size="small">
-                <FormattedMessage id="DelOppPeriodeModalImpl.Periode" />
-              </Label>
-              <BodyShort size="small">
-                {`${dayjs(periodeData.fom.toString()).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(
-                  periodeData.tom.toString(),
-                ).format(DDMMYYYY_DATE_FORMAT)}`}
-              </BodyShort>
-            </div>
+            <LabeledValue
+              size="small"
+              label={<FormattedMessage id="DelOppPeriodeModalImpl.Periode" />}
+              value={<PeriodLabel dateStringFom={periodeData.fom} dateStringTom={periodeData.tom} />}
+            />
+
             <RhfDatepicker
               name="forstePeriodeTomDato"
               control={formMethods.control}

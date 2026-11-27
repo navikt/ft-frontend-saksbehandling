@@ -1,25 +1,21 @@
-import { useState } from 'react';
+import { type ChangeEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Button, Heading, HStack, Radio, VStack } from '@navikt/ds-react';
-import dayjs from 'dayjs';
+import { BodyShort, Box, Button, Heading, HStack, Radio, VStack } from '@navikt/ds-react';
 
 import { RhfForm, RhfRadioGroup, RhfSelect, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
-import { usePrevious } from '@navikt/ft-ui-komponenter';
-import { BTag, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr, periodeKey } from '@navikt/ft-utils';
+import { PeriodLabel, usePrevious } from '@navikt/ft-ui-komponenter';
+import { BTag, formatCurrencyNoKr, periodeKey } from '@navikt/ft-utils';
 
-import { type Aktsomhet, AKTSOMHET_REKKEFØLGE } from '../kodeverk/aktsomhet';
-import { type SærligGrunn } from '../kodeverk/særligGrunn';
+import { type Aktsomhet } from '../kodeverk/aktsomhet';
 import { type VilkårResultat } from '../kodeverk/vilkarResultat';
-import type { DataForPeriode } from '../types/DataForPeriode';
-import type { DetaljertFeilutbetalingPeriode } from '../types/DetaljerteFeilutbetalingsperioder';
-import type { KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
-import {
-  AktsomhetFormPanel,
-  type InitialValuesAktsomhetForm,
-} from './tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetFormPanel';
+import type { DataForPeriode } from '../types/dataForPeriode';
+import type { DetaljertFeilutbetalingPeriode } from '../types/detaljerteFeilutbetalingsperioder';
+import type { KodeverkTilbakeForPanel } from '../types/kodeverkTilbakeForPanel';
+import { AktsomhetFormPanel } from './tilbakekrevingPeriodePaneler/aktsomhet/AktsomhetFormPanel';
+import type { InitialValuesAktsomhetForm } from './tilbakekrevingPeriodePaneler/aktsomhet/aktsomhetFormTypes';
 import { ForeldetFormPanel } from './tilbakekrevingPeriodePaneler/ForeldetFormPanel';
 import {
   BelopetMottattIGodTroFormPanel,
@@ -27,8 +23,6 @@ import {
 } from './tilbakekrevingPeriodePaneler/godTro/BelopetMottattIGodTroFormPanel';
 import { TilbakekrevingAktivitetTabell } from './tilbakekrevingPeriodePaneler/TilbakekrevingAktivitetTabell';
 import { TotalbelopetUnder4RettsgebyrModal } from './TotalbelopetUnder4RettsgebyrModal';
-
-import styles from './tilbakekrevingPeriodeForm.module.css';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
@@ -70,11 +64,13 @@ export type CustomVilkarsVurdertePeriode = {
   feilutbetaling?: number;
 } & InitialValuesDetailForm;
 
+type PeriodeFormValues = CustomVilkarsVurdertePeriode & { perioderForKopi?: string };
+
 // Mellomlagret, men ikke bekreftet (dvs. ikke trykt "Oppdater" på), skjemadata for perioden som til enhver tid er
 // åpen i detaljpanelet. periodeKey brukes for å vite hvilken periode kladden gjelder for.
 export type PeriodeKladd = {
   periodeKey: string;
-  verdier: Record<string, any>;
+  verdier: PeriodeFormValues;
 };
 
 interface Props {
@@ -102,66 +98,63 @@ export const TilbakekrevingPeriodeForm = ({
   kodeverkSamlingFpTilbake,
   antallPerioderMedAksjonspunkt,
 }: Props) => {
-  const intl = useIntl();
   const [showModal, setShowModal] = useState(false);
 
   const harKladdForPeriode = periode && periodeKladd?.periodeKey === periodeKey(periode);
 
-  // TODO (TOR) Fiks type for form
   // Kladden er ubekreftede endringer. Den settes derfor som verdier - ikke som defaultValues - slik at
   // skjemaet fortsatt regnes som endret ("Oppdater" er aktiv, og kladden overlever et nytt panelbytte).
-  const formMethods = useForm<any>({
+  const formMethods = useForm<PeriodeFormValues>({
     defaultValues: periode,
     values: harKladdForPeriode ? periodeKladd.verdier : undefined,
     resetOptions: { keepDefaultValues: true },
   });
 
-  const valgtVilkarResultatType = formMethods.watch('valgtVilkarResultatType') as VilkårResultat;
-  const handletUaktsomhetsgrad = formMethods.watch(`${valgtVilkarResultatType}.handletUaktsomhetGrad`);
-  const harGrunnerTilReduksjon = formMethods.watch(
-    `${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.harGrunnerTilReduksjon`,
-  );
-  const andelSomTilbakekreves = formMethods.watch(
-    `${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.andelSomTilbakekreves`,
-  );
-  const tilbakekrevSelvOmBeloepErUnder4Rettsgebyr = formMethods.watch(
-    `${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`,
-  );
-  const erSerligGrunnAnnetValgt = formMethods.watch(
-    `${valgtVilkarResultatType}.${handletUaktsomhetsgrad}.${'ANNET' satisfies SærligGrunn}`,
-  );
-  const erBelopetIBehold = formMethods.watch(`${valgtVilkarResultatType}.erBelopetIBehold`);
+  const valgtVilkarResultatType = formMethods.watch('valgtVilkarResultatType');
+  const aktsomhetValues =
+    valgtVilkarResultatType && valgtVilkarResultatType !== 'GOD_TRO'
+      ? formMethods.watch(valgtVilkarResultatType)
+      : undefined;
+  const handletUaktsomhetsgrad = aktsomhetValues?.handletUaktsomhetGrad;
+  const aktsomhetData = handletUaktsomhetsgrad ? aktsomhetValues?.[handletUaktsomhetsgrad] : undefined;
+  const tilbakekrevSelvOmBeloepErUnder4Rettsgebyr = aktsomhetData?.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr;
 
   const forrigeVilkarResultatType = usePrevious(valgtVilkarResultatType);
   const forrigeHandletUaktsomhetsgrad = usePrevious(handletUaktsomhetsgrad);
 
   const reduserteBelop = data.redusertBeloper;
-  const sarligGrunnTyper = kodeverkSamlingFpTilbake['SærligGrunn'];
   const vilkarResultatTyper = kodeverkSamlingFpTilbake['VilkårResultat'];
-  const aktsomhetTyper = AKTSOMHET_REKKEFØLGE.map(a => kodeverkSamlingFpTilbake['Aktsomhet'].find(el => el.kode === a));
 
-  const onEndrePeriodeForKopi = (event: any, vurdertePerioder: CustomVilkarsVurdertePeriode[]) => {
+  const onEndrePeriodeForKopi = (
+    event: ChangeEvent<HTMLSelectElement>,
+    vurdertePerioder: CustomVilkarsVurdertePeriode[],
+  ) => {
     const fomTom = event.target.value.split('_');
     const kopierDenne = vurdertePerioder.find(per => per.fom === fomTom[0] && per.tom === fomTom[1]);
     const vilkårResultatType = kopierDenne?.valgtVilkarResultatType;
-    const resultatType = kopierDenne && vilkårResultatType ? kopierDenne[vilkårResultatType] : undefined;
+    if (!kopierDenne || !vilkårResultatType) {
+      return;
+    }
+    const resultatType = kopierDenne[vilkårResultatType];
 
-    const resultatTypeKopi = JSON.parse(JSON.stringify(resultatType));
-    if (vilkårResultatType !== 'GOD_TRO') {
+    const resultatTypeKopi = structuredClone(resultatType);
+    if ('handletUaktsomhetGrad' in resultatTypeKopi) {
       const { handletUaktsomhetGrad } = resultatTypeKopi;
+      const aktsomhetDataKopi = resultatTypeKopi[handletUaktsomhetGrad];
       if (
+        aktsomhetDataKopi &&
         handletUaktsomhetGrad !== ('FORSETT' satisfies Aktsomhet) &&
         periode?.harMerEnnEnYtelse !== kopierDenne?.harMerEnnEnYtelse
       ) {
-        resultatTypeKopi[handletUaktsomhetGrad].andelSomTilbakekreves = null;
-        resultatTypeKopi[handletUaktsomhetGrad].andelSomTilbakekrevesManuell = null;
-        resultatTypeKopi[handletUaktsomhetGrad].belopSomSkalTilbakekreves = null;
+        aktsomhetDataKopi.andelSomTilbakekreves = null;
+        aktsomhetDataKopi.andelSomTilbakekrevesManuell = null;
+        aktsomhetDataKopi.belopSomSkalTilbakekreves = null;
       }
     }
 
     formMethods.setValue('valgtVilkarResultatType', vilkårResultatType, { shouldDirty: true });
-    formMethods.setValue('begrunnelse', kopierDenne?.begrunnelse, { shouldDirty: true });
-    formMethods.setValue('vurderingBegrunnelse', kopierDenne?.vurderingBegrunnelse, { shouldDirty: true });
+    formMethods.setValue('begrunnelse', kopierDenne.begrunnelse, { shouldDirty: true });
+    formMethods.setValue('vurderingBegrunnelse', kopierDenne.vurderingBegrunnelse, { shouldDirty: true });
     if (vilkårResultatType) {
       formMethods.setValue(vilkårResultatType, resultatTypeKopi, { shouldDirty: true });
     }
@@ -174,7 +167,7 @@ export const TilbakekrevingPeriodeForm = ({
     oppdaterPeriode(formMethods.getValues());
   };
 
-  const saveOrToggleModal = (values: any) => {
+  const saveOrToggleModal = (values: PeriodeFormValues) => {
     if (
       antallPerioderMedAksjonspunkt > 1 &&
       data.erTotalBelopUnder4Rettsgebyr &&
@@ -193,7 +186,7 @@ export const TilbakekrevingPeriodeForm = ({
   };
 
   const resetUtaktsomhetsgrad = () => {
-    if (forrigeHandletUaktsomhetsgrad) {
+    if (forrigeHandletUaktsomhetsgrad && valgtVilkarResultatType !== 'GOD_TRO') {
       formMethods.resetField(`${valgtVilkarResultatType}.${forrigeHandletUaktsomhetsgrad}`);
     }
   };
@@ -211,59 +204,58 @@ export const TilbakekrevingPeriodeForm = ({
       }}
     >
       <VStack gap="space-16">
-        <VStack gap="space-8">
-          {reduserteBelop?.map(belop => (
-            <BodyShort size="small" key={belop.belop}>
-              <FormattedMessage
-                id={
-                  belop.erTrekk
-                    ? 'TilbakekrevingPeriodeForm.FeilutbetaltBelopTrekk'
-                    : 'TilbakekrevingPeriodeForm.FeilutbetaltBelopEtterbetaling'
-                }
-                values={{ belop: formatCurrencyNoKr(belop.belop), b: BTag }}
-              />
-            </BodyShort>
-          ))}
-        </VStack>
+        {reduserteBelop && reduserteBelop.length > 0 && (
+          <VStack gap="space-8">
+            {reduserteBelop.map(belop => (
+              <BodyShort size="small" key={belop.belop}>
+                <FormattedMessage
+                  id={
+                    belop.erTrekk
+                      ? 'TilbakekrevingPeriodeForm.FeilutbetaltBelopTrekk'
+                      : 'TilbakekrevingPeriodeForm.FeilutbetaltBelopEtterbetaling'
+                  }
+                  values={{ belop: formatCurrencyNoKr(belop.belop), b: BTag }}
+                />
+              </BodyShort>
+            ))}
+          </VStack>
+        )}
+
         <TilbakekrevingAktivitetTabell ytelser={data.ytelser} />
+
         {!readOnly && !data.erForeldet && vurdertePerioder.length > 0 && (
           <RhfSelect
             name="perioderForKopi"
             control={formMethods.control}
-            selectValues={vurdertePerioder.map(per => {
-              const perId = periodeKey(per);
-              const perValue = `${dayjs(per.fom).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(per.tom).format(
-                DDMMYYYY_DATE_FORMAT,
-              )}`;
-              return (
-                <option key={perId} value={perId}>
-                  {perValue}
-                </option>
-              );
-            })}
+            selectValues={vurdertePerioder.map(per => (
+              <option key={periodeKey(per)} value={periodeKey(per)}>
+                <PeriodLabel dateStringFom={per.fom} dateStringTom={per.tom} />
+              </option>
+            ))}
             onChange={event => onEndrePeriodeForKopi(event, vurdertePerioder)}
-            className={styles.selectWidth}
             label={<FormattedMessage id="TilbakekrevingPeriodeForm.KopierVilkårsvurdering" />}
           />
         )}
-        <HStack gap="space-16" wrap>
-          <div className={styles.leftColumn}>
+        <HStack gap="space-32">
+          <Box maxWidth="600px">
             {data.erForeldet && <ForeldetFormPanel />}
+
             {!data.erForeldet && (
               <VStack gap="space-8">
                 <Heading size="small" level="3">
                   <FormattedMessage id="TilbakekrevingPeriodeForm.VilkarForTilbakekreving" />
                 </Heading>
+
                 <RhfTextarea
                   name="begrunnelse"
                   control={formMethods.control}
-                  label={intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.Vurdering' })}
+                  label={<FormattedMessage id="TilbakekrevingPeriodeForm.Vurdering" />}
                   validate={[required, minLength3, maxLength1500, hasValidText]}
                   maxLength={1500}
                   readOnly={readOnly}
-                  className={styles.explanationTextarea}
-                  description={intl.formatMessage({ id: 'TilbakekrevingPeriodeForm.Vurdering.Hjelpetekst' })}
+                  description={<FormattedMessage id="TilbakekrevingPeriodeForm.Vurdering.Hjelpetekst" />}
                 />
+
                 <RhfRadioGroup
                   name="valgtVilkarResultatType"
                   control={formMethods.control}
@@ -273,17 +265,17 @@ export const TilbakekrevingPeriodeForm = ({
                   onChange={resetVilkarresultatType}
                 >
                   {vilkarResultatTyper.map(vrt => (
-                    <Radio key={vrt.kode as unknown as string} value={vrt.kode} size="small">
+                    <Radio key={vrt.kode} value={vrt.kode} size="small">
                       {vrt.navn}
                     </Radio>
                   ))}
                 </RhfRadioGroup>
               </VStack>
             )}
-          </div>
-          <div className={styles.rightColumn}>
+          </Box>
+          <Box maxWidth="600px" width="100%">
             {valgtVilkarResultatType && (
-              <VStack gap="space-8">
+              <VStack gap="space-12">
                 <Heading size="small" level="3">
                   <FormattedMessage
                     id={
@@ -293,49 +285,46 @@ export const TilbakekrevingPeriodeForm = ({
                     }
                   />
                 </Heading>
+
                 <RhfTextarea
                   name="vurderingBegrunnelse"
                   control={formMethods.control}
-                  label={intl.formatMessage({
-                    id:
-                      valgtVilkarResultatType === 'GOD_TRO'
-                        ? 'TilbakekrevingPeriodeForm.VurderingMottattIGodTro'
-                        : 'TilbakekrevingPeriodeForm.VurderingAktsomhet',
-                  })}
+                  label={
+                    valgtVilkarResultatType === 'GOD_TRO' ? (
+                      <FormattedMessage id="TilbakekrevingPeriodeForm.VurderingMottattIGodTro" />
+                    ) : (
+                      <FormattedMessage id="TilbakekrevingPeriodeForm.VurderingAktsomhet" />
+                    )
+                  }
                   validate={[required, minLength3, maxLength1500, hasValidText]}
                   maxLength={1500}
                   readOnly={readOnly}
                 />
+
                 {valgtVilkarResultatType === 'GOD_TRO' && (
                   <BelopetMottattIGodTroFormPanel
                     name={valgtVilkarResultatType}
                     readOnly={readOnly}
-                    erBelopetIBehold={erBelopetIBehold}
                     feilutbetalingBelop={data.feilutbetaling}
                   />
                 )}
+
                 {valgtVilkarResultatType !== 'GOD_TRO' && (
                   <AktsomhetFormPanel
                     key={valgtVilkarResultatType}
                     name={valgtVilkarResultatType}
-                    harGrunnerTilReduksjon={harGrunnerTilReduksjon}
                     readOnly={readOnly}
-                    handletUaktsomhetGrad={handletUaktsomhetsgrad}
+                    kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
                     resetFields={resetUtaktsomhetsgrad}
-                    erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
                     erValgtResultatTypeForstoBurdeForstaatt={valgtVilkarResultatType === 'FORSTO_BURDE_FORSTAATT'}
-                    // @ts-expect-error Fiks
-                    aktsomhetTyper={aktsomhetTyper}
-                    sarligGrunnTyper={sarligGrunnTyper}
                     antallYtelser={data.ytelser.length}
                     feilutbetalingBelop={data.feilutbetaling}
                     erTotalBelopUnder4Rettsgebyr={data.erTotalBelopUnder4Rettsgebyr}
-                    andelSomTilbakekreves={andelSomTilbakekreves}
                   />
                 )}
               </VStack>
             )}
-          </div>
+          </Box>
         </HStack>
         <HStack gap="space-16">
           <Button size="small" variant="primary" disabled={!formMethods.formState.isDirty || readOnly}>

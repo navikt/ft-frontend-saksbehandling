@@ -12,18 +12,18 @@ import { decodeHtmlEntity, omitOne, periodeKey, sortPeriodsByFom } from '@navikt
 
 import type { VilkårResultat } from '../kodeverk/vilkarResultat';
 import { TilbakekrevingAksjonspunktCodes } from '../TilbakekrevingAksjonspunktCodes';
-import type { DataForPeriode } from '../types/DataForPeriode';
+import type { DataForPeriode } from '../types/dataForPeriode';
 import type {
   DetaljerteFeilutbetalingsperioder,
   DetaljertFeilutbetalingPeriode,
-} from '../types/DetaljerteFeilutbetalingsperioder';
-import type { FeilutbetalingPerioderWrapper } from '../types/FeilutbetalingPerioder';
+} from '../types/detaljerteFeilutbetalingsperioder';
+import type { FeilutbetalingPerioderWrapper } from '../types/feilutbetalingPerioder';
 import type { KodeverkMedNavn } from '../types/kodeverkMedNavn';
-import type { KodeverkMedNavnTilbakekreving, KodeverkTilbakeForPanel } from '../types/KodeverkTilbakeForPanel';
-import type { RelasjonsRolleType } from '../types/RelasjonsRolleType';
-import type { TidslinjePeriode } from '../types/TidslinjePeriode';
-import type { VilkårsvurderingAp } from '../types/VilkårsvurderingAp';
-import type { VilkårsvurdertePerioderWrapper, VilkårsvurdertPeriode } from '../types/VilkårsvurdertePerioder';
+import type { KodeverkMedNavnTilbakekreving, KodeverkTilbakeForPanel } from '../types/kodeverkTilbakeForPanel';
+import type { RelasjonsRolleType } from '../types/relasjonsRolleType';
+import type { TidslinjePeriode } from '../types/tidslinjePeriode';
+import type { VilkårsvurderingAp } from '../types/vilkårsvurderingAp';
+import type { VilkårsvurdertePerioderWrapper, VilkårsvurdertPeriode } from '../types/vilkårsvurdertePerioder';
 import { type BeregnBeløpParams, PeriodeController, type SplittetPeriode } from './splittePerioder/PeriodeController';
 import { PeriodeInformasjon } from './splittePerioder/PeriodeInformasjon';
 import {
@@ -138,11 +138,13 @@ const slaSammenOriginaleOgLagredePeriode = (
 
   const originaleUrortePerioder = perioder
     .filter((periode: DetaljertFeilutbetalingPeriode) => erIkkeLagret(periode, lagredePerioder))
-    .map((periode: DetaljertFeilutbetalingPeriode): CustomPeriode => ({
-      ...periode,
-      harMerEnnEnYtelse: periode.ytelser.length > 1,
-      erTotalBelopUnder4Rettsgebyr,
-    }));
+    .map(
+      (periode: DetaljertFeilutbetalingPeriode): CustomPeriode => ({
+        ...periode,
+        harMerEnnEnYtelse: periode.ytelser.length > 1,
+        erTotalBelopUnder4Rettsgebyr,
+      }),
+    );
 
   return {
     perioder: originaleUrortePerioder.concat(lagredePerioder),
@@ -514,15 +516,9 @@ export const TilbakekrevingForm = ({
                       beregnBelop={beregnBelop}
                       lukkPeriode={lukkPeriode}
                     />
-                    <PeriodeInformasjon
-                      feilutbetaling={valgtData.feilutbetaling}
-                      fom={valgtData.fom}
-                      tom={valgtData.tom}
-                      arsakHendelseNavn={
-                        kodeverkSamlingFpTilbake['HendelseType'].find(ht => ht.kode === valgtData.årsak?.hendelseType)
-                          ?.navn
-                      }
-                    />
+
+                    <PeriodeInformasjon periode={valgtData} kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake} />
+
                     <TilbakekrevingPeriodeForm
                       key={valgtPeriodeFormatertForTidslinje?.id}
                       periode={valgtPeriode}

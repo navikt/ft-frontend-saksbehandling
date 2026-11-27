@@ -5,13 +5,13 @@ import { createIntl } from '@navikt/ft-utils';
 
 import { type BeregnBeløpParams } from './components/splittePerioder/PeriodeController';
 import { TilbakekrevingForm, type TilbakekrevingFormData } from './components/TilbakekrevingForm';
-import type { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
-import type { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
+import type { DetaljerteFeilutbetalingsperioder } from './types/detaljerteFeilutbetalingsperioder';
+import type { FeilutbetalingPerioderWrapper } from './types/feilutbetalingPerioder';
 import type { KodeverkMedNavn } from './types/kodeverkMedNavn';
-import type { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
-import type { RelasjonsRolleType } from './types/RelasjonsRolleType';
-import type { VilkårsvurderingAp } from './types/VilkårsvurderingAp';
-import type { VilkårsvurdertePerioderWrapper } from './types/VilkårsvurdertePerioder';
+import type { KodeverkTilbakeForPanel } from './types/kodeverkTilbakeForPanel';
+import type { RelasjonsRolleType } from './types/relasjonsRolleType';
+import type { VilkårsvurderingAp } from './types/vilkårsvurderingAp';
+import type { VilkårsvurdertePerioderWrapper } from './types/vilkårsvurdertePerioder';
 
 import messages from '../i18n/nb_NO.json';
 
