@@ -2,16 +2,19 @@ import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { PlusCircleIcon, TrashIcon } from '@navikt/aksel-icons';
-import { Box, Button, ErrorMessage, HStack, VStack } from '@navikt/ds-react';
+import { BodyShort, Box, Button, ErrorMessage, HStack, Tag, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { RhfDatepicker, RhfSelect, RhfTextField } from '@navikt/ft-form-hooks';
 import { hasValidDate, hasValidInteger, maxValueFormatted, minValue, required } from '@navikt/ft-form-validators';
-import { notEmpty, periodFormat, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
+import { DateLabel, LabeledValue } from '@navikt/ft-ui-komponenter';
+import { ISO_DATE_FORMAT, notEmpty, periodFormat, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
 
 import type { UtfallÅrsak } from '../../../types/aksjonspunkt';
 import type { RefusjonsandelDto } from '../../../types/dataTypes';
+import { erAvslåttEtterFrist } from '../erAvslåttEtterFrist';
 import type { OverstyrRefusjonFormValues } from '../formValues';
+import { erGyldigeLåstePerioder } from './erGyldigeLåstePerioder';
 import { erGyldigOppdeling } from './erGyldigOppdeling';
 import { utledRefusjonsperioder } from './utledRefusjonsperioder';
 
@@ -30,9 +33,21 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
     name,
   });
   const perioder = useWatch({ control, name });
-  const sisteOriginal = opprinneligAndel.refusjonsperioder.toSorted(sortPeriodsByFom).at(-1);
+  const opprinneligePerioder = opprinneligAndel.refusjonsperioder.toSorted(sortPeriodsByFom);
+  const låstePerioder = opprinneligePerioder.filter(erAvslåttEtterFrist);
+  const låsteStartdatoer = new Set([
+    opprinneligePerioder[0]?.fom,
+    ...låstePerioder.flatMap(periode => [
+      periode.fom,
+      dayjs(periode.tom || TIDENES_ENDE)
+        .add(1, 'day')
+        .format(ISO_DATE_FORMAT),
+    ]),
+  ]);
+  const sisteOverstyrbareOriginal = opprinneligePerioder.findLast(periode => !erAvslåttEtterFrist(periode));
   const utlededePerioder = utledRefusjonsperioder(perioder, opprinneligAndel);
   const harGyldigOppdeling = erGyldigOppdeling(utlededePerioder, opprinneligAndel.refusjonsperioder);
+  const harGyldigeLåstePerioder = erGyldigeLåstePerioder(perioder, opprinneligAndel);
   const endredePerioder = utlededePerioder.filter(
     periode =>
       !opprinneligAndel.refusjonsperioder.some(
@@ -62,70 +77,110 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
   return (
     <Box asChild background="neutral-soft" borderRadius="8" padding="space-16">
       <VStack gap="space-8">
-        {fields.map((field, index) => (
-          <HStack
-            as="section"
-            key={field.id}
-            gap="space-16"
-            align="start"
-            aria-label={intl.formatMessage({ id: 'RefusjonskravOverstyring.Periode' }, { nummer: index + 1 })}
-          >
-            <Box width="138px">
-              <RhfDatepicker
-                control={control}
-                name={`${name}.${index}.fom`}
-                label={<FormattedMessage id="RefusjonskravOverstyring.Fom" />}
-                validate={[required, hasValidDate]}
-                readOnly={readOnly || index === 0}
-                defaultMonth={finnStandardMåned(perioder, index, opprinneligAndel.refusjonsperioder[0]?.fom)}
-              />
-            </Box>
+        {fields.map((field, index) => {
+          const låstPeriode = låstePerioder.find(periode => periode.fom === perioder[index]?.fom);
+          const erStartdatoLåst = index === 0 || låsteStartdatoer.has(perioder[index]?.fom);
 
-            <RhfTextField
-              control={control}
-              name={`${name}.${index}.refusjonPrMnd`}
-              label={<FormattedMessage id="RefusjonskravForm.RefusjonsbeløpPrMnd" />}
-              parse={value => value.toString().replaceAll(/\s/g, '').replace(',', '.')}
-              validate={[required, hasValidInteger, minValue(0), maxValueFormatted(178956970)]}
-              readOnly={readOnly}
-            />
+          return (
+            <VStack
+              as="section"
+              key={field.id}
+              gap="space-8"
+              aria-label={intl.formatMessage({ id: 'RefusjonskravOverstyring.Periode' }, { nummer: index + 1 })}
+            >
+              <HStack gap="space-16" align="start">
+                <Box width="138px">
+                  <RhfDatepicker
+                    control={control}
+                    name={`${name}.${index}.fom`}
+                    label={<FormattedMessage id="RefusjonskravOverstyring.Fom" />}
+                    validate={[required, hasValidDate]}
+                    readOnly={readOnly || erStartdatoLåst}
+                    defaultMonth={finnStandardMåned(perioder, index, opprinneligePerioder[0]?.fom)}
+                  />
+                </Box>
 
-            {endredePerioder.some(p => p.fom === perioder[index]?.fom) && (
-              <RhfSelect
-                control={control}
-                name={`${name}.${index}.overstyringsÅrsak`}
-                label={<FormattedMessage id="RefusjonskravForm.Årsak" />}
-                readOnly={readOnly}
-                selectValues={[
-                  <option key="KONKURS" value={'KONKURS' satisfies UtfallÅrsak}>
-                    <FormattedMessage id="RefusjonskravForm.Årsak.KONKURS" />
-                  </option>,
-                  <option key="UTMELDT" value={'UTMELDT' satisfies UtfallÅrsak}>
-                    <FormattedMessage id="RefusjonskravForm.Årsak.UTMELDT" />
-                  </option>,
-                  <option key="AVTALT_MED_ARBEIDSGIVER" value={'AVTALT_MED_ARBEIDSGIVER' satisfies UtfallÅrsak}>
-                    <FormattedMessage id="RefusjonskravForm.Årsak.AVTALT_MED_ARBEIDSGIVER" />
-                  </option>,
-                ]}
-              />
-            )}
-            {!readOnly && index > 0 && (
-              <Box asChild marginBlock="space-28 space-0">
-                <Button
-                  type="button"
-                  variant="tertiary"
-                  size="small"
-                  icon={<TrashIcon aria-hidden />}
-                  onClick={() => fjernPeriode(index)}
-                  aria-label={intl.formatMessage(
-                    { id: 'RefusjonskravOverstyring.FjernPeriode' },
-                    { nummer: index + 1 },
-                  )}
+                {låstPeriode && (
+                  <Box width="138px">
+                    <LabeledValue
+                      label={<FormattedMessage id="RefusjonskravOverstyring.Tom" />}
+                      value={
+                        låstPeriode.tom && låstPeriode.tom !== TIDENES_ENDE ? (
+                          <DateLabel dateString={låstPeriode.tom} />
+                        ) : (
+                          <FormattedMessage id="RefusjonskravOverstyring.Løpende" />
+                        )
+                      }
+                    />
+                  </Box>
+                )}
+
+                <RhfTextField
+                  control={control}
+                  name={`${name}.${index}.refusjonPrMnd`}
+                  label={<FormattedMessage id="RefusjonskravForm.RefusjonsbeløpPrMnd" />}
+                  parse={value => value.toString().replaceAll(/\s/g, '').replace(',', '.')}
+                  validate={[required, hasValidInteger, minValue(0), maxValueFormatted(178956970)]}
+                  readOnly={readOnly || !!låstPeriode}
                 />
-              </Box>
-            )}
-          </HStack>
-        ))}
+
+                {låstPeriode ? (
+                  <Box asChild marginBlock="space-28 space-0">
+                    <Tag size="small" variant="moderate" data-color="danger">
+                      <FormattedMessage id="RefusjonskravOverstyring.AvslåttPeriode" />
+                    </Tag>
+                  </Box>
+                ) : (
+                  endredePerioder.some(p => p.fom === perioder[index]?.fom) && (
+                    <RhfSelect
+                      control={control}
+                      name={`${name}.${index}.overstyringsÅrsak`}
+                      label={<FormattedMessage id="RefusjonskravForm.Årsak" />}
+                      readOnly={readOnly}
+                      selectValues={[
+                        <option key="KONKURS" value={'KONKURS' satisfies UtfallÅrsak}>
+                          <FormattedMessage id="RefusjonskravForm.Årsak.KONKURS" />
+                        </option>,
+                        <option key="UTMELDT" value={'UTMELDT' satisfies UtfallÅrsak}>
+                          <FormattedMessage id="RefusjonskravForm.Årsak.UTMELDT" />
+                        </option>,
+                        <option key="AVTALT_MED_ARBEIDSGIVER" value={'AVTALT_MED_ARBEIDSGIVER' satisfies UtfallÅrsak}>
+                          <FormattedMessage id="RefusjonskravForm.Årsak.AVTALT_MED_ARBEIDSGIVER" />
+                        </option>,
+                      ]}
+                    />
+                  )
+                )}
+                {!readOnly && !erStartdatoLåst && (
+                  <Box asChild marginBlock="space-28 space-0">
+                    <Button
+                      type="button"
+                      variant="tertiary"
+                      size="small"
+                      icon={<TrashIcon aria-hidden />}
+                      onClick={() => fjernPeriode(index)}
+                      aria-label={intl.formatMessage(
+                        { id: 'RefusjonskravOverstyring.FjernPeriode' },
+                        { nummer: index + 1 },
+                      )}
+                    />
+                  </Box>
+                )}
+              </HStack>
+              {låstPeriode && (
+                <BodyShort size="small">
+                  <FormattedMessage id="RefusjonskravOverstyring.AvslåttEtterFrist" />
+                </BodyShort>
+              )}
+            </VStack>
+          );
+        })}
+
+        {!readOnly && !harGyldigeLåstePerioder && (
+          <ErrorMessage role="alert" size="small">
+            <FormattedMessage id="RefusjonskravOverstyring.EndretLåstPeriode" />
+          </ErrorMessage>
+        )}
 
         {!readOnly && !harGyldigOppdeling && (
           <ErrorMessage role="alert" size="small">
@@ -140,7 +195,7 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
           </ErrorMessage>
         )}
 
-        {!readOnly && (
+        {!readOnly && sisteOverstyrbareOriginal && (
           <div>
             <Button
               type="button"
@@ -149,7 +204,7 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
               icon={<PlusCircleIcon aria-hidden />}
               onClick={() =>
                 append({
-                  ...notEmpty(sisteOriginal),
+                  ...notEmpty(sisteOverstyrbareOriginal),
                   fom: '',
                   tom: perioder.toSorted(sortPeriodsByFom).at(-1)?.tom || TIDENES_ENDE,
                   refusjonPrMnd: undefined,

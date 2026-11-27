@@ -1,12 +1,13 @@
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Buildings3Icon, PersonPencilFillIcon } from '@navikt/aksel-icons';
-import { Box, HStack, Spacer, Timeline, VStack } from '@navikt/ds-react';
+import { BodyShort, Box, HStack, Spacer, Timeline, VStack } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 
 import { BeløpLabel, LabeledValue, PeriodLabel, useTidslinje } from '@navikt/ft-ui-komponenter';
 import { ISO_DATE_FORMAT, TIDENES_ENDE } from '@navikt/ft-utils';
 
+import { erAvslåttEtterFrist } from './Refusjonskrav/erAvslåttEtterFrist';
 import type { RefusjonsAndelTilVisning } from './Refusjonskrav/formValues';
 import { refusjonsandelNøkkel } from './Refusjonskrav/refusjonsandelNøkkel';
 
@@ -62,6 +63,11 @@ export const RefusjonsTidslinje = ({ refusjonsandeler, onSelectAndel }: Props) =
                     label={<FormattedMessage id="RefusjonskravForm.RefusjonsbeløpPrMnd" />}
                     value={<BeløpLabel beløp={p.refusjonPrMnd} kr />}
                   />
+                  {erAvslåttEtterFrist(p) && (
+                    <BodyShort size="small">
+                      <FormattedMessage id="RefusjonsTidslinje.AvslåttEtterFrist" />
+                    </BodyShort>
+                  )}
                 </VStack>
               </Timeline.Period>
             ))}

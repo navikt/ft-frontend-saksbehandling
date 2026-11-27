@@ -9,8 +9,9 @@ import { createIntl, formaterArbeidsgiver, TIDENES_ENDE } from '@navikt/ft-utils
 
 import { arbeidsgiverOpplysningerPerId } from '../../../testdata/arbeidgiverOpplysningerPerId';
 import { dokumenterPåSaken } from '../../../testdata/dokumenter';
-import { refusjonsandelerForTreArbeidsgivere } from '../../../testdata/refusjonsandeler';
+import { refusjonsandelerForTreArbeidsgivere, refusjonsandelMedFristAvslag } from '../../../testdata/refusjonsandeler';
 import type { AksjonspunktRefusjon } from '../../types/aksjonspunkt';
+import type { RefusjonsAndelFormValues } from './formValues';
 import { RefusjonskravForm } from './RefusjonskravForm';
 
 import messages from '../../../i18n/nb_NO.json';
@@ -102,6 +103,145 @@ describe('RefusjonskravForm', () => {
     expect(tabell.queryAllByText('Overstyrt')).toHaveLength(erOverstyrt ? 1 : 0);
     const merknad = within(tabell.getAllByRole('row')[1]).getAllByRole('cell')[4];
     expect(merknad.textContent).toBe(erOverstyrt ? 'Overstyrt' : '');
+  });
+
+  it.each([
+    { readOnly: false, erOverstyrer: true },
+    { readOnly: false, erOverstyrer: false },
+    { readOnly: true, erOverstyrer: true },
+  ])('viser fristavslag og låste detaljer før overstyring: $readOnly / $erOverstyrer', async props => {
+    renderForm({ ...props, refusjonsandeler: [refusjonsandelMedFristAvslag] });
+
+    const rad = within(screen.getByRole('row', { name: /Brunostfabrikken AS/ }));
+    expect(rad.getByText('Etter frist')).toBeVisible();
+    await userEvent.click(rad.getByRole('button', { name: 'Vis mer' }));
+    const periode = within(
+      within(getÅpentAndelInnhold('Brunostfabrikken AS')).getByRole('region', { name: 'Periode 1' }),
+    );
+    expect(periode.getByText('Avslått periode')).toBeVisible();
+    expect(periode.getByText('01.01.2025')).toBeVisible();
+    expect(periode.getByText('31.03.2025')).toBeVisible();
+    expect(
+      periode.getByText('Perioden kan ikke overstyres fordi refusjonskravet ble sendt inn etter fristen.'),
+    ).toBeVisible();
+    expect(periode.queryByRole('textbox')).not.toBeInTheDocument();
+    expect(periode.queryByRole('combobox')).not.toBeInTheDocument();
+
+    await userEvent.hover(getTidslinjePerioder()[0]);
+    expect(
+      within(await screen.findByRole('dialog', {}, { timeout: 2000 })).getByText(
+        'Refusjonskravet er avslått fordi det ble sendt inn etter fristen. Pengene utbetales direkte til bruker.',
+      ),
+    ).toBeVisible();
+  });
+
+  it('låser fristavslag og første innvilgede startdato, men lar innvilgede perioder endres og deles', async () => {
+    const submitCallback = vi.fn().mockResolvedValue(undefined);
+    renderForm({ refusjonsandeler: [refusjonsandelMedFristAvslag], submitCallback });
+    await userEvent.click(screen.getByRole('button', { name: 'Overstyr' }));
+
+    const innhold = within(getÅpentAndelInnhold('Brunostfabrikken AS'));
+    expect(within(innhold.getByRole('region', { name: 'Periode 1' })).queryByRole('textbox')).not.toBeInTheDocument();
+    const innvilget = within(innhold.getByRole('region', { name: 'Periode 2' }));
+    expect(innvilget.getByText('01.04.2025')).toBeVisible();
+    expect(innvilget.queryByRole('textbox', { name: 'Periode fra og med' })).not.toBeInTheDocument();
+    expect(innhold.queryByRole('button', { name: /Fjern periode/ })).not.toBeInTheDocument();
+    const beløp = innvilget.getByRole('textbox', { name: 'Refusjonsbeløp per måned' });
+    await userEvent.clear(beløp);
+    await userEvent.type(beløp, '35000');
+
+    await userEvent.click(innhold.getByRole('button', { name: 'Legg til periode' }));
+    const nyPeriode = within(innhold.getByRole('region', { name: 'Periode 3' }));
+    await userEvent.type(nyPeriode.getByRole('textbox', { name: 'Periode fra og med' }), '01.05.2025');
+    await userEvent.type(nyPeriode.getByRole('textbox', { name: 'Refusjonsbeløp per måned' }), '10000');
+    expect(nyPeriode.getByRole('button', { name: 'Fjern periode 3' })).toBeEnabled();
+    await userEvent.type(screen.getByRole('textbox', { name: 'Begrunnelse' }), 'Endret innvilget refusjon');
+    await userEvent.click(screen.getByRole('button', { name: 'Bekreft og fortsett' }));
+
+    await waitFor(() => expect(submitCallback).toHaveBeenCalledTimes(1));
+    expect(submitCallback.mock.calls[0][0].refusjonskrav[0].perioder).toEqual([
+      { fom: '2025-01-01', tom: '2025-03-31', refusjonsbeløpPrMnd: 0, utfallÅrsak: undefined },
+      { fom: '2025-04-01', tom: '2025-04-30', refusjonsbeløpPrMnd: 35000, utfallÅrsak: undefined },
+      { fom: '2025-05-01', tom: '2025-06-30', refusjonsbeløpPrMnd: 10000, utfallÅrsak: undefined },
+    ]);
+  });
+
+  it('lar ikke flere fristavslåtte perioder slettes eller nye perioder legges til når hele kravet er avslått', async () => {
+    renderForm({
+      refusjonsandeler: [
+        {
+          ...refusjonsandelMedFristAvslag,
+          refusjonsperioder: refusjonsandelMedFristAvslag.refusjonsperioder.map(periode => ({
+            ...periode,
+            utfall: 'AVSLÅTT',
+            utfallÅrsak: 'IKKE_INNENFOR_FRIST',
+          })),
+        },
+      ],
+    });
+    await userEvent.click(screen.getByRole('button', { name: 'Overstyr' }));
+
+    const innhold = within(getÅpentAndelInnhold('Brunostfabrikken AS'));
+    expect(innhold.getAllByText('Avslått periode')).toHaveLength(2);
+    expect(innhold.queryByRole('textbox')).not.toBeInTheDocument();
+    expect(innhold.queryByRole('combobox')).not.toBeInTheDocument();
+    expect(innhold.queryByRole('button', { name: /Fjern periode|Legg til periode/ })).not.toBeInTheDocument();
+  });
+
+  it.each([
+    {
+      endring: 'endret beløp',
+      endre: perioder => [{ ...perioder[0], refusjonPrMnd: 1000 }, perioder[1]],
+    },
+    {
+      endring: 'flyttet avslått startdato',
+      endre: perioder => [{ ...perioder[0], fom: '2025-02-01' }, perioder[1]],
+    },
+    {
+      endring: 'flyttet første innvilgede startdato bakover',
+      endre: perioder => [perioder[0], { ...perioder[1], fom: '2025-03-01' }],
+    },
+    {
+      endring: 'flyttet første innvilgede startdato fremover',
+      endre: perioder => [perioder[0], { ...perioder[1], fom: '2025-05-01' }],
+    },
+    { endring: 'slettet avslått periode', endre: perioder => [perioder[1]] },
+    { endring: 'slettet første innvilgede periode', endre: perioder => [perioder[0]] },
+    {
+      endring: 'delt avslått periode',
+      endre: perioder => [perioder[0], { ...perioder[0], fom: '2025-02-01' }, perioder[1]],
+    },
+    {
+      endring: 'lagt til årsak på avslått periode',
+      endre: perioder => [{ ...perioder[0], overstyringsÅrsak: 'KONKURS' }, perioder[1]],
+    },
+  ] satisfies {
+    endring: string;
+    endre: (perioder: RefusjonsAndelFormValues['refusjonsperioder']) => RefusjonsAndelFormValues['refusjonsperioder'];
+  }[])('stopper $endring fra mellomlagrede skjemadata, også ved direkte innsending', async ({ endre }) => {
+    const submitCallback = vi.fn().mockResolvedValue(undefined);
+    renderForm({
+      refusjonsandeler: [refusjonsandelMedFristAvslag],
+      submitCallback,
+      formData: {
+        erOverstyring: true,
+        begrunnelse: 'Endret refusjon',
+        refusjonsandeler: [
+          {
+            ...refusjonsandelMedFristAvslag,
+            arbeidsgiverTittel: 'Brunostfabrikken AS',
+            refusjonsperioder: endre(refusjonsandelMedFristAvslag.refusjonsperioder),
+          },
+        ],
+      },
+    });
+    await userEvent.click(screen.getByRole('button', { name: 'Vis mer' }));
+    expect(within(getÅpentAndelInnhold('Brunostfabrikken AS')).getByRole('alert')).toHaveTextContent(
+      'Perioder som er avslått fordi refusjonskravet ble sendt inn etter fristen, kan ikke endres, deles opp eller slettes.',
+    );
+    expect(screen.getByRole('button', { name: 'Bekreft og fortsett' })).toBeDisabled();
+    await submitForm();
+    expect(submitCallback).not.toHaveBeenCalled();
   });
 
   it.each([

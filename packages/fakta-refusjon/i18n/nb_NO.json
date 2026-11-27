@@ -3,6 +3,7 @@
   "OverstyringKnapp.Overstyring": "Overstyr",
   "OverstyringKnapp.Avbryt": "Avbryt overstyring",
   "RefusjonsTidslinje.Periode": "Periode",
+  "RefusjonsTidslinje.AvslåttEtterFrist": "Refusjonskravet er avslått fordi det ble sendt inn etter fristen. Pengene utbetales direkte til bruker.",
   "RefusjonskravForm.Årsak": "Årsak til overstyring",
   "RefusjonskravForm.Årsak.KONKURS": "Konkurs",
   "RefusjonskravForm.Årsak.UTMELDT": "Utmeldt",
@@ -12,6 +13,11 @@
 
   "RefusjonskravOverstyring.Periode": "Periode {nummer}",
   "RefusjonskravOverstyring.Fom": "Periode fra og med",
+  "RefusjonskravOverstyring.Tom": "Periode til og med",
+  "RefusjonskravOverstyring.Løpende": "Løpende",
+  "RefusjonskravOverstyring.AvslåttPeriode": "Avslått periode",
+  "RefusjonskravOverstyring.AvslåttEtterFrist": "Perioden kan ikke overstyres fordi refusjonskravet ble sendt inn etter fristen.",
+  "RefusjonskravOverstyring.EndretLåstPeriode": "Perioder som er avslått fordi refusjonskravet ble sendt inn etter fristen, kan ikke endres, deles opp eller slettes.",
   "RefusjonskravOverstyring.LeggTilPeriode": "Legg til periode",
   "RefusjonskravOverstyring.FjernPeriode": "Fjern periode {nummer}",
   "RefusjonskravOverstyring.UgyldigOppdeling": "Periodene kan ikke starte før opprinnelig fra-dato og må være uten hull eller overlapp. Opprinnelige perioder: {perioder}.",
@@ -24,5 +30,6 @@
   "RefusjonskravTabell.Merknad": "Merknad",
   "RefusjonskravTabell.ÅpnePDF": "Åpne PDF",
   "RefusjonskravTabell.EndretAvSaksbehandler": "Endret av saksbehandler",
-  "RefusjonskravTabell.Overstyrt": "Overstyrt"
+  "RefusjonskravTabell.Overstyrt": "Overstyrt",
+  "RefusjonskravTabell.EtterFrist": "Etter frist"
 }

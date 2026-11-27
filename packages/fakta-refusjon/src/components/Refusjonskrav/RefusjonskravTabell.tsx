@@ -2,11 +2,12 @@ import type { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { ArrowForwardIcon } from '@navikt/aksel-icons';
-import { Button, Table, Tag } from '@navikt/ds-react';
+import { Button, Table, Tag, VStack } from '@navikt/ds-react';
 
 import { BeløpLabel, DateLabel, NoWrap, PeriodLabel } from '@navikt/ft-ui-komponenter';
 
 import type { Saksdokument } from '../../types/dataTypes';
+import { erAvslåttEtterFrist } from './erAvslåttEtterFrist';
 import type { RefusjonsAndelTilVisning } from './formValues';
 import { refusjonsandelNøkkel } from './refusjonsandelNøkkel';
 
@@ -90,11 +91,18 @@ export const RefusjonskravTabell = ({
             <Table.DataCell>{dokument?.tidspunkt && <DateLabel dateString={dokument.tidspunkt} />}</Table.DataCell>
 
             <Table.DataCell>
-              {andel.kilde === 'SAKSBEHANDLER' && (
-                <Tag size="small" variant="moderate" data-color="warning">
-                  <FormattedMessage id="RefusjonskravTabell.Overstyrt" />
-                </Tag>
-              )}
+              <VStack gap="space-8" align="start">
+                {andel.kilde === 'SAKSBEHANDLER' && (
+                  <Tag size="small" variant="moderate" data-color="warning">
+                    <FormattedMessage id="RefusjonskravTabell.Overstyrt" />
+                  </Tag>
+                )}
+                {refusjonsperioder.some(erAvslåttEtterFrist) && (
+                  <Tag size="small" variant="moderate" data-color="danger">
+                    <FormattedMessage id="RefusjonskravTabell.EtterFrist" />
+                  </Tag>
+                )}
+              </VStack>
             </Table.DataCell>
 
             <Table.DataCell>

@@ -5,7 +5,7 @@ import { TIDENES_ENDE } from '@navikt/ft-utils';
 
 import { arbeidsgiverOpplysningerPerId } from '../testdata/arbeidgiverOpplysningerPerId';
 import { dokumenterPåSaken } from '../testdata/dokumenter';
-import { refusjonsandelerForTreArbeidsgivere } from '../testdata/refusjonsandeler';
+import { refusjonsandelerForTreArbeidsgivere, refusjonsandelMedFristAvslag } from '../testdata/refusjonsandeler';
 import { FaktaRefusjonIndex } from './FaktaRefusjonIndex';
 import type { AksjonspunktRefusjon, OverstyrRefusjonskravSubmitType } from './types/aksjonspunkt';
 
@@ -57,6 +57,25 @@ export const Førstegangsoverstyring: Story = {
 
 export const Lesemodus: Story = {
   args: { readOnly: true },
+};
+
+export const FristAvslått: Story = {
+  args: {
+    refusjonsandeler: [
+      {
+        ...refusjonsandelMedFristAvslag,
+        refusjonsperioder: refusjonsandelMedFristAvslag.refusjonsperioder.map((periode, index) =>
+          index === refusjonsandelMedFristAvslag.refusjonsperioder.length - 1
+            ? { ...periode, tom: TIDENES_ENDE }
+            : periode,
+        ),
+      },
+    ],
+    dokumenter: dokumenterPåSaken.map(dokument => ({
+      ...dokument,
+      tidspunkt: '2025-10-08T10:00:00',
+    })),
+  },
 };
 
 export const TidligereOverstyring: Story = {
