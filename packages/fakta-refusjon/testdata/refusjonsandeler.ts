@@ -50,3 +50,16 @@ export const refusjonsandelerForTreArbeidsgivere: RefusjonsandelDto[] = [
     ],
   },
 ];
+
+export const refusjonsandelMedFristAvslag: RefusjonsandelDto = {
+  ...refusjonsandelerForTreArbeidsgivere[0],
+  refusjonsperioder: [
+    {
+      ...refusjonsandelerForTreArbeidsgivere[0].refusjonsperioder[0],
+      refusjonPrMnd: 0,
+      utfall: 'AVSLÅTT',
+      utfallÅrsak: 'IKKE_INNENFOR_FRIST',
+    },
+    refusjonsandelerForTreArbeidsgivere[0].refusjonsperioder[1],
+  ],
+};

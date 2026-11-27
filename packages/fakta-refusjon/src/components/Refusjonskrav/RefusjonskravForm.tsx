@@ -13,7 +13,9 @@ import { useOverstyring } from '../../hooks/useOverstyring';
 import type { AksjonspunktRefusjon, OverstyrRefusjonskravSubmitType } from '../../types/aksjonspunkt';
 import type { RefusjonsandelDto, Saksdokument } from '../../types/dataTypes';
 import { RefusjonsTidslinje } from '../RefusjonsTidslinje';
+import { erAvslåttEtterFrist } from './erAvslåttEtterFrist';
 import type { OverstyrRefusjonFormValues, RefusjonsAndelFormValues, RefusjonsAndelTilVisning } from './formValues';
+import { erGyldigeLåstePerioder } from './overstyring/erGyldigeLåstePerioder';
 import { erGyldigOppdeling } from './overstyring/erGyldigOppdeling';
 import { RefusjonskravOverstyring } from './overstyring/RefusjonskravOverstyring';
 import { utledRefusjonsperioder } from './overstyring/utledRefusjonsperioder';
@@ -120,7 +122,7 @@ export const RefusjonskravForm = ({
         <RefusjonsTidslinje
           refusjonsandeler={andelerTilVisning}
           onSelectAndel={andelIndex => {
-            if (visOverstyring) {
+            if (visOverstyring || refusjonsandeler[andelIndex].refusjonsperioder.some(erAvslåttEtterFrist)) {
               onOpenChange(andelIndex, true);
             }
           }}
@@ -139,7 +141,8 @@ export const RefusjonskravForm = ({
           åpneRader={openRowsIndices}
           onOpenChange={onOpenChange}
           renderRowContent={(andel, andelIndex) =>
-            visOverstyring ? (
+            visOverstyring ||
+            finnOpprinneligAndel(andel, refusjonsandeler).refusjonsperioder.some(erAvslåttEtterFrist) ? (
               <RefusjonskravOverstyring
                 key={refusjonsandelNøkkel(andel)}
                 andelIndex={andelIndex}
@@ -212,6 +215,7 @@ const erGyldigeAndeler = (andeler: RefusjonsAndelFormValues[], opprinneligeAndel
     const original = finnOpprinneligAndel(andel, opprinneligeAndeler);
     return (
       erGyldigOppdeling(utledRefusjonsperioder(andel.refusjonsperioder, original), original.refusjonsperioder) &&
+      erGyldigeLåstePerioder(andel.refusjonsperioder, original) &&
       andel.refusjonsperioder.every(periode => {
         const beløp = periode.refusjonPrMnd ?? '';
         return !required(beløp) && !hasValidInteger(beløp) && !minValue(0)(beløp);
