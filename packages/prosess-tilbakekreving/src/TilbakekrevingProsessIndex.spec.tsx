@@ -78,7 +78,7 @@ describe('TilbakekrevingProsessIndex', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('Detaljer for valgt periode')).toBeInTheDocument();
     expect(screen.getByText('01.01.2019 - 01.04.2019')).toBeInTheDocument();
-    expect(screen.getByText('13 uker')).toBeInTheDocument();
+    expect(screen.getByText('(13 uker)')).toBeInTheDocument();
     expect(screen.getByText('Feilutbetaling:')).toBeInTheDocument();
     expect(screen.getByText('10')).toBeInTheDocument();
     expect(screen.getByText('§ 14-2 Medlemskap')).toBeInTheDocument();
@@ -389,7 +389,7 @@ describe('TilbakekrevingProsessIndex', () => {
     // Trykk på første periode
     await userEvent.click(screen.getAllByRole('button')[0]);
 
-    expect(await screen.findByText('13 uker')).toBeInTheDocument();
+    expect(await screen.findByText('(13 uker)')).toBeInTheDocument();
     const nestePeriodeKnapp = screen.getByText('Neste');
     await userEvent.click(nestePeriodeKnapp);
 
