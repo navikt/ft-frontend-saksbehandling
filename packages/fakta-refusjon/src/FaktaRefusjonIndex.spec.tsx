@@ -163,7 +163,7 @@ describe('FaktaRefusjonIndex', () => {
         refusjonskrav: expect.arrayContaining([
           expect.objectContaining({
             arbeidsgiverIdent: '999999999',
-            perioder: expect.arrayContaining([expect.objectContaining({ refusjonsbeløpPrMnd: 50000 })]),
+            refusjonsperioder: expect.arrayContaining([expect.objectContaining({ refusjonPrMnd: 50000 })]),
           }),
         ]),
       }),

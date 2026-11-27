@@ -9,8 +9,7 @@ import { RhfDatepicker, RhfSelect, RhfTextField } from '@navikt/ft-form-hooks';
 import { hasValidDate, hasValidInteger, maxValueFormatted, minValue, required } from '@navikt/ft-form-validators';
 import { notEmpty, periodFormat, sortPeriodsByFom, TIDENES_ENDE } from '@navikt/ft-utils';
 
-import type { UtfallÅrsak } from '../../../types/aksjonspunkt';
-import type { RefusjonsandelDto } from '../../../types/dataTypes';
+import type { RefusjonsandelDto, RefusjonUtfallÅrsak } from '../../../types/dataTypes';
 import type { OverstyrRefusjonFormValues } from '../formValues';
 import { erGyldigOppdeling } from './erGyldigOppdeling';
 import { utledRefusjonsperioder } from './utledRefusjonsperioder';
@@ -97,14 +96,17 @@ export const RefusjonskravOverstyring = ({ andelIndex, opprinneligAndel, readOnl
                 label={<FormattedMessage id="RefusjonskravForm.Årsak" />}
                 readOnly={readOnly}
                 selectValues={[
-                  <option key="KONKURS" value={'KONKURS' satisfies UtfallÅrsak}>
-                    <FormattedMessage id="RefusjonskravForm.Årsak.KONKURS" />
+                  <option key="IKKE_INNENFOR_FRIST" value={'IKKE_INNENFOR_FRIST' satisfies RefusjonUtfallÅrsak}>
+                    <FormattedMessage id="RefusjonskravForm.Årsak.IKKE_INNENFOR_FRIST" />
                   </option>,
-                  <option key="UTMELDT" value={'UTMELDT' satisfies UtfallÅrsak}>
+                  <option key="UTMELDT" value={'UTMELDT' satisfies RefusjonUtfallÅrsak}>
                     <FormattedMessage id="RefusjonskravForm.Årsak.UTMELDT" />
                   </option>,
-                  <option key="AVTALT_MED_ARBEIDSGIVER" value={'AVTALT_MED_ARBEIDSGIVER' satisfies UtfallÅrsak}>
-                    <FormattedMessage id="RefusjonskravForm.Årsak.AVTALT_MED_ARBEIDSGIVER" />
+                  <option
+                    key="ALLEREDE_DIREKTE_UTBETALT"
+                    value={'ALLEREDE_DIREKTE_UTBETALT' satisfies RefusjonUtfallÅrsak}
+                  >
+                    <FormattedMessage id="RefusjonskravForm.Årsak.ALLEREDE_DIREKTE_UTBETALT" />
                   </option>,
                 ]}
               />

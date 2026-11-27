@@ -1,5 +1,4 @@
-import type { UtfallÅrsak } from '../../types/aksjonspunkt';
-import type { RefusjonsandelDto, RefusjonsperiodeDto } from '../../types/dataTypes';
+import type { RefusjonsandelDto, RefusjonsperiodeDto, RefusjonUtfallÅrsak } from '../../types/dataTypes';
 
 export type OverstyrRefusjonFormValues = {
   erOverstyring: boolean;
@@ -23,5 +22,5 @@ export type RefusjonsAndelTilVisning = Omit<RefusjonsAndelFormValues, 'refusjons
 type RefusjonPeriode = Omit<RefusjonsperiodeDto, 'refusjonPrMnd' | 'tom'> & {
   tom?: string;
   refusjonPrMnd: number | string | null | undefined;
-  overstyringsÅrsak?: UtfallÅrsak;
+  overstyringsÅrsak?: RefusjonUtfallÅrsak;
 };

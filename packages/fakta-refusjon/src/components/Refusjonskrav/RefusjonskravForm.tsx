@@ -223,7 +223,7 @@ const utledRefusjonskrav = (
   andeler: RefusjonsAndelFormValues[],
   opprinneligeAndeler: RefusjonsandelDto[],
 ): OverstyrRefusjonskravSubmitType['refusjonskrav'] => {
-  const kravPerArbeidsgiver = new Map<string, OverstyrRefusjonskravSubmitType['refusjonskrav'][number]>();
+  const kravPerAndel = new Map<string, OverstyrRefusjonskravSubmitType['refusjonskrav'][number]>();
   for (const andel of andeler) {
     const perioder = utledRefusjonsperioder(
       andel.refusjonsperioder,
@@ -231,36 +231,50 @@ const utledRefusjonskrav = (
     ).map(rad => ({
       fom: rad.fom,
       tom: rad.tom,
-      refusjonsbeløpPrMnd: rad.refusjonPrMnd,
+      refusjonPrMnd: rad.refusjonPrMnd,
       utfallÅrsak: rad.overstyringsÅrsak,
     }));
-    const arbeidsgiverNøkkel = andel.arbeidsforholdId || andel.arbeidsgiverIdent;
-    const eksisterendeKrav = kravPerArbeidsgiver.get(arbeidsgiverNøkkel);
-    const arbeidsforholdId = andel.arbeidsforholdId || eksisterendeKrav?.arbeidsforholdId;
-    kravPerArbeidsgiver.set(arbeidsgiverNøkkel, {
+    const andelNøkkel = refusjonsandelNøkkel(andel);
+    const eksisterendeKrav = kravPerAndel.get(andelNøkkel);
+    kravPerAndel.set(andelNøkkel, {
       arbeidsgiverIdent: andel.arbeidsgiverIdent,
-      ...(arbeidsforholdId ? { arbeidsforholdId } : {}),
-      perioder: [...(eksisterendeKrav?.perioder ?? []), ...perioder],
+      ...(andel.arbeidsforholdId ? { arbeidsforholdId: andel.arbeidsforholdId } : {}),
+      kilde: andel.kilde,
+      refusjonsperioder: [...(eksisterendeKrav?.refusjonsperioder ?? []), ...perioder],
     });
   }
-  return Array.from(kravPerArbeidsgiver.values(), krav => ({
+  return Array.from(kravPerAndel.values(), krav => ({
     ...krav,
-    perioder: krav.perioder.toSorted(sortPeriodsByFom),
+    refusjonsperioder: krav.refusjonsperioder.toSorted(sortPeriodsByFom),
   }));
 };
 
-const harOverlapp = (krav: OverstyrRefusjonskravSubmitType['refusjonskrav']) =>
-  krav.some(({ perioder }) => {
-    const gyldigePerioder = perioder.filter(
-      periode =>
-        !required(periode.fom) &&
-        !hasValidDate(periode.fom) &&
-        !required(periode.tom) &&
-        (periode.tom === TIDENES_ENDE || !hasValidDate(periode.tom)) &&
-        periode.fom <= periode.tom,
-    );
+const harOverlapp = (krav: OverstyrRefusjonskravSubmitType['refusjonskrav']) => {
+  const perioderPerArbeidsforhold = new Map<
+    string,
+    OverstyrRefusjonskravSubmitType['refusjonskrav'][number]['refusjonsperioder']
+  >();
+  for (const andel of krav) {
+    const nøkkel = JSON.stringify([andel.arbeidsgiverIdent, andel.arbeidsforholdId || undefined]);
+    perioderPerArbeidsforhold.set(nøkkel, [
+      ...(perioderPerArbeidsforhold.get(nøkkel) ?? []),
+      ...andel.refusjonsperioder,
+    ]);
+  }
+  return Array.from(perioderPerArbeidsforhold.values()).some(perioder => {
+    const gyldigePerioder = perioder
+      .filter(
+        periode =>
+          !required(periode.fom) &&
+          !hasValidDate(periode.fom) &&
+          !required(periode.tom) &&
+          (periode.tom === TIDENES_ENDE || !hasValidDate(periode.tom)) &&
+          periode.fom <= periode.tom,
+      )
+      .toSorted(sortPeriodsByFom);
     return gyldigePerioder.some((periode, index) => index > 0 && periode.fom <= gyldigePerioder[index - 1].tom);
   });
+};
 
 const transformValues = (
   values: OverstyrRefusjonFormValues,

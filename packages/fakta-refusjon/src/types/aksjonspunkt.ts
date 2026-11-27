@@ -1,6 +1,6 @@
 import type { AksjonspunktStatus, AksjonspunktTilBekreftelse } from '@navikt/ft-types';
 
-export type UtfallÅrsak = 'AVTALT_MED_ARBEIDSGIVER' | 'KONKURS' | 'UTMELDT';
+import type { RefusjonKilde, RefusjonUtfallÅrsak } from './dataTypes';
 
 export type AksjonspunktRefusjon = {
   kode: 'OVERSTYR_REFUSJONSKRAV';
@@ -14,11 +14,12 @@ export type OverstyrRefusjonskravSubmitType = AksjonspunktTilBekreftelse<'OVERST
   refusjonskrav: {
     arbeidsgiverIdent: string;
     arbeidsforholdId?: string;
-    perioder: {
+    kilde: RefusjonKilde;
+    refusjonsperioder: {
       fom: string;
       tom: string;
-      refusjonsbeløpPrMnd: number;
-      utfallÅrsak?: UtfallÅrsak;
+      refusjonPrMnd: number;
+      utfallÅrsak?: RefusjonUtfallÅrsak;
     }[];
   }[];
   begrunnelse: string;
