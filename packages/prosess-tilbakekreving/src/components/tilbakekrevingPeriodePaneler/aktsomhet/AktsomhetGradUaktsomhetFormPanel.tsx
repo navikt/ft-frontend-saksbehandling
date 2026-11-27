@@ -15,7 +15,7 @@ import { AktsomhetSarligeGrunnerFormPanel } from './AktsomhetSarligeGrunnerFormP
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
 
-interface Props {
+interface SærligGrunnerBegrunnelseProps {
   name: Extract<
     AktsomhetFormName,
     | 'FORSTO_BURDE_FORSTAATT.GROVT_UAKTSOM'
@@ -28,7 +28,7 @@ interface Props {
   readOnly: boolean;
 }
 
-const SærligGrunnerBegrunnelseDiv = ({ name, readOnly }: Props) => {
+const SærligGrunnerBegrunnelseDiv = ({ name, readOnly }: SærligGrunnerBegrunnelseProps) => {
   const { control } = useFormContext<AktsomhetFormValues>();
 
   return (
