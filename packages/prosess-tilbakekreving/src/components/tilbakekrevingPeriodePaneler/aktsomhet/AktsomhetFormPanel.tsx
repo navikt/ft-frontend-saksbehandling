@@ -89,7 +89,6 @@ export const AktsomhetFormPanel = ({
           harMerEnnEnYtelse={antallYtelser > 1}
           feilutbetalingBelop={feilutbetalingBelop}
           erTotalBelopUnder4Rettsgebyr={erTotalBelopUnder4Rettsgebyr}
-          erValgtResultatTypeForstoBurdeForstaatt={erValgtResultatTypeForstoBurdeForstaatt}
         />
       )}
     </VStack>

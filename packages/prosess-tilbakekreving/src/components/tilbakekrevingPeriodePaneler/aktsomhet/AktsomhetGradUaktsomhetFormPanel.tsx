@@ -56,7 +56,6 @@ interface Props {
   feilutbetalingBelop: number;
   erTotalBelopUnder4Rettsgebyr: boolean;
   kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
-  erValgtResultatTypeForstoBurdeForstaatt?: boolean;
   name: Extract<
     AktsomhetFormName,
     | 'FORSTO_BURDE_FORSTAATT.GROVT_UAKTSOM'
