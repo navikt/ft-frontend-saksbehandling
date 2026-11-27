@@ -6,11 +6,11 @@ import { ForeldelseVurderingType } from '@navikt/ft-kodeverk';
 
 import type { TilbakekrevingFormData } from './components/TilbakekrevingForm';
 import { TilbakekrevingProsessIndex } from './TilbakekrevingProsessIndex';
-import type { DetaljerteFeilutbetalingsperioder } from './types/DetaljerteFeilutbetalingsperioder';
-import type { FeilutbetalingPerioderWrapper } from './types/FeilutbetalingPerioder';
-import type { KodeverkTilbakeForPanel } from './types/KodeverkTilbakeForPanel';
-import type { VilkårsvurderingAp } from './types/VilkårsvurderingAp';
-import type { VilkårsvurdertPeriode } from './types/VilkårsvurdertePerioder';
+import type { DetaljerteFeilutbetalingsperioder } from './types/detaljerteFeilutbetalingsperioder';
+import type { FeilutbetalingPerioderWrapper } from './types/feilutbetalingPerioder';
+import type { KodeverkTilbakeForPanel } from './types/kodeverkTilbakeForPanel';
+import type { VilkårsvurderingAp } from './types/vilkårsvurderingAp';
+import type { VilkårsvurdertPeriode } from './types/vilkårsvurdertePerioder';
 
 import messages from '../i18n/nb_NO.json';
 

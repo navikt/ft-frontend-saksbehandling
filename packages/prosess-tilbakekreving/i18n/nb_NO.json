@@ -39,7 +39,7 @@
   "PeriodeController.LukkPeriode": "Lukk periode",
 
   "AktsomhetReduksjonAvBelopFormPanel.AngiAndelSomTilbakekreves": "Angi andel som skal tilbakekreves",
-  "AktsomhetReduksjonAvBelopFormPanel.andelSomTilbakekreves": "Andel som skal tilbakekreves",
+  "AktsomhetReduksjonAvBelopFormPanel.AndelSomTilbakekreves": "Andel som skal tilbakekreves",
   "AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter": "Skal det tillegges renter?",
   "AktsomhetReduksjonAvBelopFormPanel.BelopSomSkalTilbakekreves": "Beløp som skal tilbakekreves",
   "AktsomhetReduksjonAvBelopFormPanel.AngiBelopSomSkalTilbakekreves": "Angi beløp som skal tilbakekreves",
@@ -65,7 +65,7 @@
   "PeriodeController.DelOppPerioden": "Del opp perioden",
   "PeriodeController.ForrigePeriode": "Forrige periode",
   "PeriodeController.NestePeriode": "Neste periode",
-  "PeriodeInformasjon.Feilutbetaling": "Feilutbetaling",
+  "PeriodeInformasjon.Feilutbetaling": "Feilutbetaling:",
 
   "DelOppPeriodeModalImpl.Periode": "Periode",
   "DelOppPeriodeModalImpl.AngiTomDato": "Angi t.o.m. dato for første periode",

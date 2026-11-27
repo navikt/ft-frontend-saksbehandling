@@ -1,48 +1,45 @@
 import { FormattedMessage } from 'react-intl';
 
 import { BodyShort, HStack, Label, VStack } from '@navikt/ds-react';
-import dayjs from 'dayjs';
 
-import { calcDaysAndWeeks, DDMMYYYY_DATE_FORMAT, formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel, LabeledValue, PeriodLabel } from '@navikt/ft-ui-komponenter';
+import { calcDaysAndWeeks } from '@navikt/ft-utils';
+
+import type { DataForPeriode } from '../../types/dataForPeriode';
+import type { KodeverkTilbakeForPanel } from '../../types/kodeverkTilbakeForPanel';
 
 import styles from './periodeInformasjon.module.css';
 
 interface Props {
-  fom: string;
-  tom: string;
-  feilutbetaling: number;
-  arsakHendelseNavn?: string;
+  periode: DataForPeriode;
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
 }
 
-/**
- * PeriodeInformasjon
- *
- * Tilbakekreving periode oppsummering
- *
- * Presentationskomponent
- */
-export const PeriodeInformasjon = ({ fom, tom, feilutbetaling, arsakHendelseNavn }: Props) => {
+export const PeriodeInformasjon = ({
+  periode: { fom, tom, feilutbetaling, årsak },
+  kodeverkSamlingFpTilbake,
+}: Props) => {
   const daysAndWeeks = calcDaysAndWeeks(fom, tom);
+  const årsakHendelseNavn = kodeverkSamlingFpTilbake['HendelseType'].find(ht => ht.kode === årsak.hendelseType)?.navn;
+
   return (
     <VStack gap="space-8" className={styles.infoSummary}>
-      <HStack justify="space-between">
-        <Label size="small">
-          {`${dayjs(fom).format(DDMMYYYY_DATE_FORMAT)} - ${dayjs(tom).format(DDMMYYYY_DATE_FORMAT)}`}
+      <HStack gap="space-8">
+        <Label as="span" size="small">
+          <PeriodLabel dateStringFom={fom} dateStringTom={tom} />
         </Label>
-        <BodyShort size="small">{daysAndWeeks.formattedString}</BodyShort>
-      </HStack>
-      <HStack gap="space-16">
-        <BodyShort size="small" className={styles.resultName}>
-          <FormattedMessage id="PeriodeInformasjon.Feilutbetaling" />:
-          <span className={feilutbetaling ? styles.redNumber : styles.positivNumber}>
-            {formatCurrencyNoKr(feilutbetaling)}
-          </span>
+        <BodyShort as="span" size="small">
+          ({daysAndWeeks.formattedString})
         </BodyShort>
-        {arsakHendelseNavn && (
-          <BodyShort size="small" className={styles.resultName}>
-            {arsakHendelseNavn}
-          </BodyShort>
-        )}
+      </HStack>
+      <HStack gap="space-32">
+        <LabeledValue
+          size="small"
+          horizontal
+          label={<FormattedMessage id="PeriodeInformasjon.Feilutbetaling" />}
+          value={<BeløpLabel rød={feilutbetaling > 0} beløp={feilutbetaling} kr />}
+        />
+        {årsakHendelseNavn && <BodyShort size="small">{årsakHendelseNavn}</BodyShort>}
       </HStack>
     </VStack>
   );

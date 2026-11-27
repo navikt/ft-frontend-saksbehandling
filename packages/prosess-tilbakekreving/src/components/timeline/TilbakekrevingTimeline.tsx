@@ -19,10 +19,8 @@ import dayjs from 'dayjs';
 import { sortPeriodsByFom } from '@navikt/ft-utils';
 
 import type { KodeverkMedNavn } from '../../types/kodeverkMedNavn';
-import type { RelasjonsRolleType } from '../../types/RelasjonsRolleType';
-import type { TidslinjePeriode } from '../../types/TidslinjePeriode';
-
-import styles from './tilbakekrevingTimeline.module.css';
+import type { RelasjonsRolleType } from '../../types/relasjonsRolleType';
+import type { TidslinjePeriode } from '../../types/tidslinjePeriode';
 
 type Periode = {
   id: number;
@@ -145,10 +143,9 @@ export const TilbakekrevingTimeline = ({
           ))}
         </Timeline.Row>
       </Timeline>
-      <HStack justify="end">
+      <HStack justify="end" gap="space-4">
         <Button
           data-color="neutral"
-          className={styles.margin}
           size="small"
           icon={<PlusIcon aria-hidden />}
           onClick={zoomIn}
@@ -158,7 +155,6 @@ export const TilbakekrevingTimeline = ({
         />
         <Button
           data-color="neutral"
-          className={styles.margin}
           size="small"
           icon={<MinusIcon aria-hidden />}
           onClick={zoomOut}
@@ -168,7 +164,6 @@ export const TilbakekrevingTimeline = ({
         />
         <Button
           data-color="neutral"
-          className={styles.margin}
           size="small"
           icon={<ArrowLeftIcon aria-hidden />}
           onClick={goBackward}
@@ -178,7 +173,6 @@ export const TilbakekrevingTimeline = ({
         />
         <Button
           data-color="neutral"
-          className={styles.margin}
           size="small"
           icon={<ArrowRightIcon aria-hidden />}
           onClick={goForward}

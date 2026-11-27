@@ -1,82 +1,90 @@
 import { useFormContext } from 'react-hook-form';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
-import { HStack, Label, Radio, VStack } from '@navikt/ds-react';
+import { Heading, HStack, InlineMessage, Radio, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup, RhfTextarea } from '@navikt/ft-form-hooks';
 import { hasValidText, maxLength, minLength, required } from '@navikt/ft-form-validators';
 import { ArrowBox } from '@navikt/ft-ui-komponenter';
 
 import type { Aktsomhet } from '../../../kodeverk/aktsomhet';
-import type { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
-import type { AktsomhetFormName, AktsomhetFormValues } from './AktsomhetFormPanel';
+import type { KodeverkTilbakeForPanel } from '../../../types/kodeverkTilbakeForPanel';
+import type { AktsomhetFormName, AktsomhetFormValues } from './aktsomhetFormTypes';
 import { AktsomhetSarligeGrunnerFormPanel } from './AktsomhetSarligeGrunnerFormPanel';
-
-import styles from './aktsomhetGradUaktsomhetFormPanel.module.css';
 
 const minLength3 = minLength(3);
 const maxLength1500 = maxLength(1500);
 
-const SærligGrunnerBegrunnelseDiv = ({ name, readOnly }: { name: AktsomhetFormName; readOnly: boolean }) => {
-  const intl = useIntl();
+interface Props {
+  name: Extract<
+    AktsomhetFormName,
+    | 'FORSTO_BURDE_FORSTAATT.GROVT_UAKTSOM'
+    | 'FORSTO_BURDE_FORSTAATT.SIMPEL_UAKTSOM'
+    | 'FEIL_OPPLYSNINGER.GROVT_UAKTSOM'
+    | 'FEIL_OPPLYSNINGER.SIMPEL_UAKTSOM'
+    | 'MANGELFULL_OPPLYSNING.GROVT_UAKTSOM'
+    | 'MANGELFULL_OPPLYSNING.SIMPEL_UAKTSOM'
+  >;
+  readOnly: boolean;
+}
+
+const SærligGrunnerBegrunnelseDiv = ({ name, readOnly }: Props) => {
   const { control } = useFormContext<AktsomhetFormValues>();
 
   return (
     <VStack gap="space-16">
-      <Label size="small">
+      <Heading size="xsmall" level="4">
         <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.SærligGrunner" />
-      </Label>
+      </Heading>
       <RhfTextarea
         name={`${name}.sarligGrunnerBegrunnelse`}
         control={control}
-        label={intl.formatMessage({ id: 'AktsomhetGradUaktsomhetFormPanel.VurderSærligGrunner' })}
+        label={<FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.VurderSærligGrunner" />}
         validate={[required, minLength3, maxLength1500, hasValidText]}
         maxLength={1500}
         readOnly={readOnly}
-        className={styles.explanationTextarea}
-        description={intl.formatMessage({ id: 'AktsomhetGradUaktsomhetFormPanel.VurderSærligGrunner.Hjelpetekst' })}
+        description={<FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.VurderSærligGrunner.Hjelpetekst" />}
       />
     </VStack>
   );
 };
 
 interface Props {
-  harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
-  handletUaktsomhetGrad?: Aktsomhet;
-  erSerligGrunnAnnetValgt?: boolean;
+  handletUaktsomhetGrad: Extract<Aktsomhet, 'SIMPEL_UAKTSOM' | 'GROVT_UAKTSOM'>;
   harMerEnnEnYtelse: boolean;
   feilutbetalingBelop: number;
   erTotalBelopUnder4Rettsgebyr: boolean;
-  sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[];
-  andelSomTilbakekreves?: number | string;
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   erValgtResultatTypeForstoBurdeForstaatt?: boolean;
-  name: AktsomhetFormName;
+  name: Extract<
+    AktsomhetFormName,
+    | 'FORSTO_BURDE_FORSTAATT.GROVT_UAKTSOM'
+    | 'FORSTO_BURDE_FORSTAATT.SIMPEL_UAKTSOM'
+    | 'FEIL_OPPLYSNINGER.GROVT_UAKTSOM'
+    | 'FEIL_OPPLYSNINGER.SIMPEL_UAKTSOM'
+    | 'MANGELFULL_OPPLYSNING.GROVT_UAKTSOM'
+    | 'MANGELFULL_OPPLYSNING.SIMPEL_UAKTSOM'
+  >;
 }
 
 export const AktsomhetGradUaktsomhetFormPanel = ({
-  harGrunnerTilReduksjon,
   readOnly,
   handletUaktsomhetGrad,
-  erSerligGrunnAnnetValgt,
-  sarligGrunnTyper,
+  kodeverkSamlingFpTilbake,
   harMerEnnEnYtelse,
   feilutbetalingBelop,
   erTotalBelopUnder4Rettsgebyr,
-  andelSomTilbakekreves,
-  erValgtResultatTypeForstoBurdeForstaatt,
   name,
 }: Props) => {
   const { control, watch } = useFormContext<AktsomhetFormValues>();
 
-  const erUnder4Rettsgebyg = watch(`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`);
-
-  const grovUaktsomOffset = erValgtResultatTypeForstoBurdeForstaatt ? 180 : 200;
+  const erUnder4Rettsgebyr = watch(`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`);
   return (
-    <ArrowBox alignOffset={handletUaktsomhetGrad === 'GROVT_UAKTSOM' ? grovUaktsomOffset : 20}>
-      <div className={styles.panelWidth}>
+    <ArrowBox alignOffset={handletUaktsomhetGrad === 'GROVT_UAKTSOM' ? 180 : 20}>
+      <VStack gap="space-12">
         {handletUaktsomhetGrad === 'SIMPEL_UAKTSOM' && erTotalBelopUnder4Rettsgebyr && (
-          <VStack gap="space-12">
+          <>
             <RhfRadioGroup
               name={`${name}.tilbakekrevSelvOmBeloepErUnder4Rettsgebyr`}
               control={control}
@@ -93,46 +101,44 @@ export const AktsomhetGradUaktsomhetFormPanel = ({
                 </Radio>
               </HStack>
             </RhfRadioGroup>
-            {erUnder4Rettsgebyg && (
+
+            {erUnder4Rettsgebyr === true && (
               <>
                 <SærligGrunnerBegrunnelseDiv name={name} readOnly={readOnly} />
                 <AktsomhetSarligeGrunnerFormPanel
                   name={name}
-                  harGrunnerTilReduksjon={harGrunnerTilReduksjon}
-                  erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
-                  sarligGrunnTyper={sarligGrunnTyper}
+                  kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
                   harMerEnnEnYtelse={harMerEnnEnYtelse}
                   feilutbetalingBelop={feilutbetalingBelop}
                   readOnly={readOnly}
                   handletUaktsomhetGrad={handletUaktsomhetGrad}
-                  andelSomTilbakekreves={andelSomTilbakekreves}
                 />
               </>
             )}
-            {erUnder4Rettsgebyg === false && (
+
+            {erUnder4Rettsgebyr === false && (
               <ArrowBox alignOffset={55}>
-                <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.AllePerioderBehandlesLikt" />
+                <InlineMessage status="info" size="small">
+                  <FormattedMessage id="AktsomhetGradUaktsomhetFormPanel.AllePerioderBehandlesLikt" />
+                </InlineMessage>
               </ArrowBox>
             )}
-          </VStack>
+          </>
         )}
-        {(handletUaktsomhetGrad !== 'SIMPEL_UAKTSOM' || !erTotalBelopUnder4Rettsgebyr) && (
+        {!(handletUaktsomhetGrad === 'SIMPEL_UAKTSOM' && erTotalBelopUnder4Rettsgebyr) && (
           <>
             <SærligGrunnerBegrunnelseDiv name={name} readOnly={readOnly} />
             <AktsomhetSarligeGrunnerFormPanel
               name={name}
-              harGrunnerTilReduksjon={harGrunnerTilReduksjon}
-              erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
-              sarligGrunnTyper={sarligGrunnTyper}
+              kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
               harMerEnnEnYtelse={harMerEnnEnYtelse}
               feilutbetalingBelop={feilutbetalingBelop}
               readOnly={readOnly}
               handletUaktsomhetGrad={handletUaktsomhetGrad}
-              andelSomTilbakekreves={andelSomTilbakekreves}
             />
           </>
         )}
-      </div>
+      </VStack>
     </ArrowBox>
   );
 };

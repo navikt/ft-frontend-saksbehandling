@@ -3,17 +3,4 @@
   height: auto;
   max-width: 500px;
   padding: 10px 20px 10px;
-  top: 0;
-}
-.positivNumber {
-  font-weight: bold;
-  margin-left: 8px;
-}
-.redNumber {
-  color: var(--ax-text-logo);
-  font-weight: bold;
-  margin-left: 8px;
-}
-.resultName {
-  width: 170px;
 }

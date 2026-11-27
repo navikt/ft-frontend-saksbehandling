@@ -1,8 +1,8 @@
 import { FormattedMessage } from 'react-intl';
 
-import { BodyShort, Table } from '@navikt/ds-react';
+import { Table } from '@navikt/ds-react';
 
-import { formatCurrencyNoKr } from '@navikt/ft-utils';
+import { BeløpLabel } from '@navikt/ft-ui-komponenter';
 
 import styles from './tilbakekrevingAktivitetTabell.module.css';
 
@@ -17,31 +17,28 @@ export const TilbakekrevingAktivitetTabell = ({ ytelser }: Props) => {
   if (ytelser.length === 0) {
     return null;
   }
+
   return (
-    <Table className={styles.feilutbetalingTable}>
+    <Table className={styles.feilutbetalingTable} size="small">
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell scope="col">
+          <Table.HeaderCell scope="col" textSize="small">
             <FormattedMessage id="TilbakekrevingAktivitetTabell.Aktivitet" />
           </Table.HeaderCell>
-          <Table.HeaderCell scope="col">
+          <Table.HeaderCell scope="col" textSize="small">
             <FormattedMessage id="TilbakekrevingAktivitetTabell.FeilutbetaltBelop" />
           </Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {ytelser.map(y => {
-          return (
-            <Table.Row key={y.aktivitet + y.belop}>
-              <Table.DataCell>
-                <BodyShort size="small">{y.aktivitet}</BodyShort>
-              </Table.DataCell>
-              <Table.DataCell>
-                <BodyShort size="small">{formatCurrencyNoKr(y.belop)}</BodyShort>
-              </Table.DataCell>
-            </Table.Row>
-          );
-        })}
+        {ytelser.map(y => (
+          <Table.Row key={y.aktivitet + y.belop}>
+            <Table.DataCell textSize="small">{y.aktivitet}</Table.DataCell>
+            <Table.DataCell textSize="small">
+              <BeløpLabel beløp={y.belop} />
+            </Table.DataCell>
+          </Table.Row>
+        ))}
       </Table.Body>
     </Table>
   );

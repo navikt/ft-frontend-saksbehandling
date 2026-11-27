@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage, type IntlShape, useIntl } from 'react-intl';
 
-import { BodyShort, Detail, HStack, Label, Radio, VStack } from '@navikt/ds-react';
+import { BodyShort, HStack, Radio, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup, RhfSelect, RhfTextField } from '@navikt/ft-form-hooks';
 import { maxValue, minValue, required } from '@navikt/ft-form-validators';
-import { ArrowBox } from '@navikt/ft-ui-komponenter';
+import { ArrowBox, LabeledValue } from '@navikt/ft-ui-komponenter';
 import { formatCurrencyNoKr } from '@navikt/ft-utils';
 
 import type { Aktsomhet } from '../../../kodeverk/aktsomhet';
-import type { AktsomhetFormName, AktsomhetFormValues } from './AktsomhetFormPanel';
+import type { AktsomhetFormName, AktsomhetFormValues } from './aktsomhetFormTypes';
 import { ANDELER, EGENDEFINERT } from './aktsomhetUtils';
 
 import styles from './aktsomhetReduksjonAvBelopFormPanel.module.css';
@@ -36,26 +36,24 @@ const validerAtMindreEnn =
 
 interface Props {
   name: AktsomhetFormName;
-  harGrunnerTilReduksjon?: boolean;
   readOnly: boolean;
   handletUaktsomhetGrad?: Aktsomhet;
   harMerEnnEnYtelse: boolean;
   feilutbetalingBelop: number;
-  andelSomTilbakekreves?: number | string;
 }
 
 export const AktsomhetReduksjonAvBelopFormPanel = ({
   name,
-  harGrunnerTilReduksjon,
   readOnly,
   handletUaktsomhetGrad,
   harMerEnnEnYtelse,
   feilutbetalingBelop,
-  andelSomTilbakekreves,
 }: Props) => {
   const intl = useIntl();
 
   const context = useFormContext<AktsomhetFormValues>();
+  const harGrunnerTilReduksjon = useWatch({ control: context.control, name: `${name}.harGrunnerTilReduksjon` });
+  const andelSomTilbakekreves = useWatch({ control: context.control, name: `${name}.andelSomTilbakekreves` });
   const tilleggesRenterFelt = `${name}.skalDetTilleggesRenter` as const;
   useEffect(() => {
     const value = context.getValues(tilleggesRenterFelt);
@@ -82,53 +80,44 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
           </Radio>
         </HStack>
       </RhfRadioGroup>
+
       {harGrunnerTilReduksjon && (
         <ArrowBox alignOffset={24}>
-          <HStack gap="space-16">
+          <VStack gap="space-12">
             {!harMerEnnEnYtelse && andelSomTilbakekreves !== EGENDEFINERT && (
-              <>
-                <Label size="small">
-                  <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.AngiAndelSomTilbakekreves" />
-                </Label>
-                <HStack gap="space-8">
-                  <RhfSelect
-                    name={`${name}.andelSomTilbakekreves`}
-                    control={context.control}
-                    label=""
-                    validate={[required]}
-                    selectValues={ANDELER.map(andel => (
-                      <option key={andel} value={andel}>
-                        {andel}
-                      </option>
-                    ))}
-                  />
-                  <div className={styles.suffix}>%</div>
-                </HStack>
-              </>
+              <HStack gap="space-8">
+                <RhfSelect
+                  name={`${name}.andelSomTilbakekreves`}
+                  control={context.control}
+                  label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.AngiAndelSomTilbakekreves" />}
+                  validate={[required]}
+                  selectValues={ANDELER.map(andel => (
+                    <option key={andel} value={andel}>
+                      {andel}
+                    </option>
+                  ))}
+                />
+                <BodyShort as="span" className={styles.suffix}>
+                  %
+                </BodyShort>
+              </HStack>
             )}
             {!harMerEnnEnYtelse && andelSomTilbakekreves === EGENDEFINERT && (
-              <>
-                <Label size="small">
-                  <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.AngiAndelSomTilbakekreves" />
-                </Label>
-                <HStack gap="space-16">
-                  <RhfTextField
-                    name={`${name}.andelSomTilbakekrevesManuell`}
-                    control={context.control}
-                    className={styles.inputFelt}
-                    readOnly={readOnly}
-                    validate={[required, minValue1, maxValue100]}
-                    normalizeOnBlur={(value: string | number) =>
-                      Number.isNaN(value) ? value : Number.parseFloat(value.toString()).toFixed(2)
-                    }
-                    format={(value: string | number) => value.toString().replace('.', ',')}
-                    parse={(value: string | number) => value.toString().replace(',', '.')}
-                  />
-                  <div className={handletUaktsomhetGrad === 'GROVT_UAKTSOM' ? styles.suffixGrovText : styles.suffix}>
-                    %
-                  </div>
-                </HStack>
-              </>
+              <HStack gap="space-16">
+                <RhfTextField
+                  name={`${name}.andelSomTilbakekrevesManuell`}
+                  control={context.control}
+                  label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.AngiAndelSomTilbakekreves" />}
+                  readOnly={readOnly}
+                  validate={[required, minValue1, maxValue100]}
+                  normalizeOnBlur={(value: string | number) =>
+                    Number.isNaN(value) ? value : Number.parseFloat(value.toString()).toFixed(2)
+                  }
+                  format={(value: string | number) => value.toString().replace('.', ',')}
+                  parse={(value: string | number) => value.toString().replace(',', '.')}
+                />
+                <div className={styles.suffix}>%</div>
+              </HStack>
             )}
             {harMerEnnEnYtelse && (
               <RhfTextField
@@ -143,33 +132,32 @@ export const AktsomhetReduksjonAvBelopFormPanel = ({
               />
             )}
             {handletUaktsomhetGrad === 'GROVT_UAKTSOM' && (
-              <div>
-                <Detail>
-                  <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />
-                </Detail>
-                <BodyShort size="small" className={styles.labelPadding}>
-                  <FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />
-                </BodyShort>
-              </div>
+              <LabeledValue
+                size="small"
+                label={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.SkalTilleggesRenter" />}
+                value={<FormattedMessage id="AktsomhetReduksjonAvBelopFormPanel.Nei" />}
+              />
             )}
-          </HStack>
+          </VStack>
         </ArrowBox>
       )}
       {harGrunnerTilReduksjon === false && (
         <ArrowBox alignOffset={90}>
-          <Detail>
-            <FormattedMessage
-              id={
-                harMerEnnEnYtelse
-                  ? 'AktsomhetReduksjonAvBelopFormPanel.BelopSomSkalTilbakekreves'
-                  : 'AktsomhetReduksjonAvBelopFormPanel.andelSomTilbakekreves'
-              }
-            />
-          </Detail>
-          <VStack gap="space-16">
-            <BodyShort size="small" className={styles.labelPadding}>
-              {harMerEnnEnYtelse ? formatCurrencyNoKr(feilutbetalingBelop) : '100%'}
-            </BodyShort>
+          <VStack gap="space-12">
+            {harMerEnnEnYtelse ? (
+              <LabeledValue
+                size="small"
+                label={<FormattedMessage id={'AktsomhetReduksjonAvBelopFormPanel.BelopSomSkalTilbakekreves'} />}
+                value={formatCurrencyNoKr(feilutbetalingBelop) ?? '-'}
+              />
+            ) : (
+              <LabeledValue
+                size="small"
+                label={<FormattedMessage id={'AktsomhetReduksjonAvBelopFormPanel.AndelSomTilbakekreves'} />}
+                value="100%"
+              />
+            )}
+
             {handletUaktsomhetGrad === 'GROVT_UAKTSOM' && (
               <RhfRadioGroup
                 name={tilleggesRenterFelt}

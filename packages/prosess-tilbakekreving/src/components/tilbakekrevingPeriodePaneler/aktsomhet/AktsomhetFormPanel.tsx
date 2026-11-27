@@ -1,4 +1,4 @@
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
 import { HStack, Radio, VStack } from '@navikt/ds-react';
@@ -7,13 +7,13 @@ import { RhfRadioGroup } from '@navikt/ft-form-hooks';
 import { required } from '@navikt/ft-form-validators';
 import { decodeHtmlEntity, removeSpacesFromNumber } from '@navikt/ft-utils';
 
-import { type Aktsomhet, AKTSOMHET_REKKEFØLGE } from '../../../kodeverk/aktsomhet';
-import type { SærligGrunn } from '../../../kodeverk/særligGrunn';
-import type { VilkårResultat } from '../../../kodeverk/vilkarResultat';
+import { type Aktsomhet } from '../../../kodeverk/aktsomhet';
 import type { MessageId } from '../../../messageIds';
-import type { KodeverkMedNavnTilbakekreving } from '../../../types/KodeverkTilbakeForPanel';
-import type { AktsomhetInfo } from '../../../types/VilkårsvurdertePerioder';
-import { AktsomhetGradFormPanel } from './AktsomhetGradFormPanel';
+import type { KodeverkMedNavnTilbakekreving, KodeverkTilbakeForPanel } from '../../../types/kodeverkTilbakeForPanel';
+import type { AktsomhetInfo } from '../../../types/vilkårsvurdertePerioder';
+import type { AktsomhetFormValues, AktsomhetsFelter, InitialValuesAktsomhetForm } from './aktsomhetFormTypes';
+import { AktsomhetGradForsettFormPanel } from './AktsomhetGradForsettFormPanel';
+import { AktsomhetGradUaktsomhetFormPanel } from './AktsomhetGradUaktsomhetFormPanel';
 import { ANDELER, EGENDEFINERT } from './aktsomhetUtils';
 
 const forstoBurdeForstattTekster: Record<Aktsomhet, MessageId> = {
@@ -22,65 +22,33 @@ const forstoBurdeForstattTekster: Record<Aktsomhet, MessageId> = {
   SIMPEL_UAKTSOM: 'AktsomhetFormPanel.AktsomhetTyperLabel.SimpelUaktsom',
 };
 
-type AktsomhetData = {
-  andelSomTilbakekreves?: number | string | null;
-  andelSomTilbakekrevesManuell?: number | string | null;
-  harGrunnerTilReduksjon?: boolean;
-  skalDetTilleggesRenter?: boolean;
-  belopSomSkalTilbakekreves?: number | string | null;
-  annetBegrunnelse?: string;
-  sarligGrunnerBegrunnelse?: string;
-  tilbakekrevSelvOmBeloepErUnder4Rettsgebyr?: boolean;
-} & Partial<Record<SærligGrunn, boolean>>;
-
-type AktomhetMap = {
-  FORSETT?: AktsomhetData;
-  GROVT_UAKTSOM?: AktsomhetData;
-  SIMPEL_UAKTSOM?: AktsomhetData;
-};
-
-export type InitialValuesAktsomhetForm = {
-  handletUaktsomhetGrad: Aktsomhet;
-} & Pick<AktomhetMap, Aktsomhet>;
-
-type AktsomhetVilkårResultat = Exclude<VilkårResultat, 'GOD_TRO'>;
-export type AktsomhetFormValues = Record<AktsomhetVilkårResultat, InitialValuesAktsomhetForm>;
-export type AktsomhetFormName = `${AktsomhetVilkårResultat}.${Aktsomhet}`;
-
 interface Props {
   readOnly: boolean;
   resetFields: () => void;
-  harGrunnerTilReduksjon?: boolean;
-  erSerligGrunnAnnetValgt?: boolean;
   erValgtResultatTypeForstoBurdeForstaatt?: boolean;
-  handletUaktsomhetGrad?: Aktsomhet;
+  kodeverkSamlingFpTilbake: KodeverkTilbakeForPanel;
   antallYtelser: number;
   feilutbetalingBelop: number;
   erTotalBelopUnder4Rettsgebyr: boolean;
-  aktsomhetTyper: KodeverkMedNavnTilbakekreving<'Aktsomhet'>[];
-  sarligGrunnTyper: KodeverkMedNavnTilbakekreving<'SærligGrunn'>[];
-  andelSomTilbakekreves?: number | string;
   name: 'FORSTO_BURDE_FORSTAATT' | 'FEIL_OPPLYSNINGER' | 'MANGELFULL_OPPLYSNING';
 }
 
 export const AktsomhetFormPanel = ({
   readOnly,
   resetFields,
-  handletUaktsomhetGrad,
-  harGrunnerTilReduksjon,
-  erSerligGrunnAnnetValgt = false,
   erValgtResultatTypeForstoBurdeForstaatt = false,
-  aktsomhetTyper,
-  sarligGrunnTyper,
+  kodeverkSamlingFpTilbake,
   antallYtelser,
   feilutbetalingBelop,
   erTotalBelopUnder4Rettsgebyr,
-  andelSomTilbakekreves,
   name,
 }: Props) => {
-  const { control } = useFormContext<{
-    [key in 'FORSTO_BURDE_FORSTAATT' | 'FEIL_OPPLYSNINGER' | 'MANGELFULL_OPPLYSNING']: InitialValuesAktsomhetForm;
-  }>();
+  const { control } = useFormContext<AktsomhetFormValues>();
+
+  const handletUaktsomhetGrad = useWatch({ control, name: `${name}.handletUaktsomhetGrad` });
+
+  const aktsomhetTyper = kodeverkSamlingFpTilbake['Aktsomhet'].toSorted((a, b) => b.navn.localeCompare(a.navn));
+
   return (
     <VStack gap="space-12">
       <RhfRadioGroup
@@ -103,19 +71,25 @@ export const AktsomhetFormPanel = ({
           ))}
         </HStack>
       </RhfRadioGroup>
-      {handletUaktsomhetGrad && AKTSOMHET_REKKEFØLGE.includes(handletUaktsomhetGrad) && (
-        <AktsomhetGradFormPanel
+
+      {handletUaktsomhetGrad === 'FORSETT' && (
+        <AktsomhetGradForsettFormPanel
           name={`${name}.${handletUaktsomhetGrad}`}
-          harGrunnerTilReduksjon={harGrunnerTilReduksjon}
+          readOnly={readOnly}
+          erValgtResultatTypeForstoBurdeForstaatt={erValgtResultatTypeForstoBurdeForstaatt}
+        />
+      )}
+
+      {(handletUaktsomhetGrad === 'SIMPEL_UAKTSOM' || handletUaktsomhetGrad === 'GROVT_UAKTSOM') && (
+        <AktsomhetGradUaktsomhetFormPanel
+          name={`${name}.${handletUaktsomhetGrad}`}
           readOnly={readOnly}
           handletUaktsomhetGrad={handletUaktsomhetGrad}
-          erSerligGrunnAnnetValgt={erSerligGrunnAnnetValgt}
-          erValgtResultatTypeForstoBurdeForstaatt={erValgtResultatTypeForstoBurdeForstaatt}
-          sarligGrunnTyper={sarligGrunnTyper}
+          kodeverkSamlingFpTilbake={kodeverkSamlingFpTilbake}
           harMerEnnEnYtelse={antallYtelser > 1}
           feilutbetalingBelop={feilutbetalingBelop}
           erTotalBelopUnder4Rettsgebyr={erTotalBelopUnder4Rettsgebyr}
-          andelSomTilbakekreves={andelSomTilbakekreves}
+          erValgtResultatTypeForstoBurdeForstaatt={erValgtResultatTypeForstoBurdeForstaatt}
         />
       )}
     </VStack>
@@ -178,7 +152,7 @@ AktsomhetFormPanel.transformValues = (
   };
 };
 
-const lagAktsomhetData = (aktsomhetInfo: AktsomhetInfo, andelSomTilbakekreves?: string): AktsomhetData => ({
+const lagAktsomhetData = (aktsomhetInfo: AktsomhetInfo, andelSomTilbakekreves?: string): AktsomhetsFelter => ({
   andelSomTilbakekreves:
     andelSomTilbakekreves === undefined || ANDELER.includes(andelSomTilbakekreves)
       ? andelSomTilbakekreves

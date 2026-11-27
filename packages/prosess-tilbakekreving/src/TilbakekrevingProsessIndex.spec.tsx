@@ -158,7 +158,7 @@ describe('TilbakekrevingProsessIndex', () => {
     );
     await userEvent.click(screen.getByText('Forsett'));
     expect(await screen.findByText('Andel som skal tilbakekreves')).toBeInTheDocument();
-    expect(screen.getByText('100 %')).toBeInTheDocument();
+    expect(screen.getByText('100%')).toBeInTheDocument();
     expect(screen.getByText('Det legges til 10 % renter')).toBeInTheDocument();
 
     // Velg så 'Forsto eller burde forstått'

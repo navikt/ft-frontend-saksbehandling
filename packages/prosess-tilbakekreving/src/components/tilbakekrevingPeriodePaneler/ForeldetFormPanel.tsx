@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
-import { Detail, HStack, Radio } from '@navikt/ds-react';
+import { Radio, VStack } from '@navikt/ds-react';
 
 import { RhfRadioGroup, RhfTextarea } from '@navikt/ft-form-hooks';
 
@@ -13,7 +13,7 @@ type FormValues = {
 export const ForeldetFormPanel = () => {
   const { control } = useFormContext<FormValues>();
   return (
-    <HStack gap="space-16">
+    <VStack gap="space-16">
       <RhfTextarea
         name="foreldetBegrunnelse"
         control={control}
@@ -23,16 +23,12 @@ export const ForeldetFormPanel = () => {
       <RhfRadioGroup
         name="periodenErForeldet"
         control={control}
-        legend={
-          <Detail>
-            <FormattedMessage id="ForeldetFormPanel.VurderOmPeriodenErForeldet" />
-          </Detail>
-        }
+        legend={<FormattedMessage id="ForeldetFormPanel.VurderOmPeriodenErForeldet" />}
       >
         <Radio value="true" size="small">
           <FormattedMessage id="ForeldetFormPanel.PeriodenErForeldet" />
         </Radio>
       </RhfRadioGroup>
-    </HStack>
+    </VStack>
   );
 };
